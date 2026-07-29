@@ -58,7 +58,7 @@ misleading "Timed out waiting for build to start".
 The token needs no access to the calling repository — the sticky PR comment is
 posted with that workflow's own `GITHUB_TOKEN`.
 
-### Two things that will silently break a preview
+### Three things that will silently break a preview
 
 **`.gitignore` files in your build output.** Publishing happens via `git add`,
 which honors any `.gitignore` inside the payload. A stray one will drop those
@@ -73,8 +73,44 @@ find <build output> -name .gitignore -print -delete
 built for `/` will request its assets from the domain root and 404. Build with a
 relative base (for Vite, `base: './'`).
 
+**A missing `.nojekyll` at the branch root.** This site is served by a *legacy*
+(branch-based) Pages build, which runs Jekyll — and Jekyll silently drops every
+file and directory whose name begins with an underscore. Modern bundlers emit
+exactly such names: Vite produces `assets/__vite-browser-external-*.js`, for
+instance. The build succeeds, the deploy succeeds, and the site 404s on those
+chunks at runtime, which surfaces as a bare `Failed to fetch dynamically
+imported module` — or, for a PWA, a `bad-precaching-response` from Workbox.
+`.nojekyll` on `gh-pages` turns the Jekyll step off and publishes the branch
+verbatim. It is committed on `main` so recreating the branch carries it.
+
 ## Housekeeping
 
 Preview builds can be large, and `gh-pages` retains history, so the branch grows
 even after previews are deleted. GitHub Pages caps a site at 1 GB. If it gets
 close, delete and recreate the branch — no preview here is worth preserving.
+
+Recreate it **from `main`**, never as an empty branch, so the root files come
+with it:
+
+```bash
+git switch main && git pull
+git push origin --delete gh-pages
+git push origin main:gh-pages
+```
+
+`main` holds exactly what the branch root needs:
+
+| File | Why |
+| --- | --- |
+| `.nojekyll` | stops the Jekyll build from dropping `_`-prefixed asset files |
+| `index.html` | the landing page — with Jekyll off, `README.md` is no longer rendered into one, so without it `/pages-preview/` itself 404s |
+| `README.md` | these notes; harmless to serve |
+
+Recreating the branch deletes every published preview. They come back as each
+pull request is pushed to again, or immediately by re-running the preview
+workflow on the pull requests you care about:
+
+```bash
+gh run list --workflow "PR preview" --branch <pr-branch> --limit 1
+gh run rerun <run-id>
+```

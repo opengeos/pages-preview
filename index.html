@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>opengeos pull-request previews</title>
+    <!-- Static, because .nojekyll turns off the Jekyll build that would
+         otherwise render README.md into this page. Keep it dependency-free:
+         nothing here should load from another origin. -->
+    <style>
+      :root {
+        color-scheme: light dark;
+        --fg: #111827;
+        --muted: #4b5563;
+        --bg: #ffffff;
+        --border: #e5e7eb;
+        --code-bg: #f3f4f6;
+        --warn-fg: #92400e;
+        --warn-bg: #fffbeb;
+        --warn-border: #fcd34d;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --fg: #e5e7eb;
+          --muted: #9ca3af;
+          --bg: #0b0f19;
+          --border: #1f2937;
+          --code-bg: #111827;
+          --warn-fg: #fcd34d;
+          --warn-bg: #1c1917;
+          --warn-border: #78350f;
+        }
+      }
+      body {
+        margin: 0 auto;
+        padding: 3rem 1.25rem 4rem;
+        max-width: 46rem;
+        background: var(--bg);
+        color: var(--fg);
+        font: 16px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif;
+      }
+      h1 {
+        margin: 0 0 0.25rem;
+        font-size: 1.6rem;
+      }
+      p.lede {
+        margin: 0 0 2rem;
+        color: var(--muted);
+      }
+      code,
+      pre {
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 0.9em;
+      }
+      pre {
+        overflow-x: auto;
+        padding: 0.85rem 1rem;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: var(--code-bg);
+      }
+      .warn {
+        margin: 2rem 0;
+        padding: 0.85rem 1rem;
+        border: 1px solid var(--warn-border);
+        border-radius: 8px;
+        background: var(--warn-bg);
+        color: var(--warn-fg);
+      }
+      .warn strong {
+        display: block;
+        margin-bottom: 0.25rem;
+      }
+      footer {
+        margin-top: 2.5rem;
+        padding-top: 1.25rem;
+        border-top: 1px solid var(--border);
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+      a {
+        color: inherit;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>opengeos pull-request previews</h1>
+    <p class="lede">
+      Machine-generated preview builds for open pull requests across
+      <code>opengeos</code> repositories. Nothing here is production.
+    </p>
+
+    <p>Each preview lives at a path built from the repository name and PR number:</p>
+    <pre>https://opengeos.org/pages-preview/&lt;repo-name&gt;/pr-&lt;number&gt;/</pre>
+    <p>
+      There is no index of live previews — open one from the preview link posted
+      on its pull request. Previews are rebuilt on every push and removed when
+      the pull request closes.
+    </p>
+
+    <div class="warn">
+      <strong>Previews run unreviewed code</strong>
+      A preview is built from a contributor's branch and runs in your browser
+      with no review gate. Open one only for a pull request you are reviewing,
+      and prefer a throwaway browser profile.
+    </div>
+
+    <footer>
+      Setup, deploy-token, and housekeeping notes live in the
+      <a href="https://github.com/opengeos/pages-preview">repository README</a>.
+    </footer>
+  </body>
+</html>
