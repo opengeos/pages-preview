@@ -2425,8 +2425,10 @@ outside <code>docs/</code> with a full GitHub URL.</p>
 repository.</strong> Binaries are never really deleted from Git history, so every one
 of them permanently enlarges the clone for everyone, including CI.</p>
 <p>Put them in <a href="https://github.com/opengeos/geolibre-assets">opengeos/geolibre-assets</a>
-instead. Anything on that repository's <code>main</code> branch is published at the
-matching path under <a href="https://assets.geolibre.app">https://assets.geolibre.app</a> within about a minute:</p>
+instead. It is a plain static host, so any file type works. Anything pushed to
+that repository's <code>main</code> branch is published by GitHub Pages at the matching
+path under its one hostname, <a href="https://assets.geolibre.app">https://assets.geolibre.app</a>, usually within a
+minute:</p>
 <table>
 <thead>
 <tr>
@@ -2449,20 +2451,28 @@ matching path under <a href="https://assets.geolibre.app">https://assets.geolibr
 </tr>
 </tbody>
 </table>
-<p>Then reference the absolute URL from your Markdown:</p>
+<p>Then reference the published URL from your Markdown:</p>
 <div class="highlight"><pre><span></span><code>![<span class="nt">Raster style panel</span>](<span class="na">https://assets.geolibre.app/images/raster-style-panel.webp</span>)
 </code></pre></div>
+<p>This is the one exception to the "link to files outside <code>docs/</code> with a full
+GitHub URL" rule above: an asset in <code>geolibre-assets</code> is referenced by its
+published <code>assets.geolibre.app</code> URL, never by a GitHub blob or raw URL.</p>
 <p>A few things worth knowing:</p>
 <ul>
 <li>Use <code>images/</code> for stills, <code>demos/</code> for animations and screen recordings,
   <code>data/</code> for sample datasets, and <code>styles/</code> or <code>fonts/</code> for map resources.</li>
 <li>Prefer <strong>WebP</strong> or AVIF for stills, and PMTiles or GeoParquet for data. The
   screenshots on this site are WebP.</li>
+<li>Keep individual files under 100 MB, GitHub's hard limit.</li>
 <li>Published paths are effectively permanent. Renaming or deleting a file breaks
   every page already pointing at it, so pick the name once.</li>
 <li>Assets are served with permissive CORS, so the app can fetch them
   cross-origin.</li>
 </ul>
+<p>Some existing pages point at other GeoLibre-operated hosts, mainly
+<code>data.geolibre.app</code> and <code>files.opengeos.org</code>. Those URLs keep working and do not
+need rewriting; <code>geolibre-assets</code> is simply the one you can open a pull request
+against, so send new assets there.</p>
 <p>The only images that belong in this repository are the handful of site chrome
 files under <code>docs/assets/</code> (the logo and favicon referenced from <code>mkdocs.yml</code>).</p>
 <h2 id="plugins-and-extensions">Plugins and extensions<a class="headerlink" href="#plugins-and-extensions" title="Permanent link">&para;</a></h2>
