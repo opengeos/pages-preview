@@ -1,0 +1,2808 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A lightweight, cloud-native GIS platform for visualizing, exploring, and analyzing geospatial data across desktop and web environments, with a responsive layout for mobile screens.">
+      
+      
+      
+        <link rel="canonical" href="https://geolibre.app/python/">
+      
+      
+        <link rel="prev" href="../i18n/">
+      
+      
+        <link rel="next" href="../mcp/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/geolibre-icon.png">
+      <meta name="generator" content="zensical-0.0.53">
+    
+    
+      
+        <title>Python package (Jupyter) - GeoLibre</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.20815dad.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#python-package-jupyter" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="GeoLibre" class="md-header__button md-logo" aria-label="GeoLibre" data-md-component="logo">
+      
+  <img src="../assets/geolibre-icon.png" alt="GeoLibre">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            GeoLibre
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Python package (Jupyter)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/opengeos/GeoLibre" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    opengeos/GeoLibre
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="GeoLibre" class="md-nav__button md-logo" aria-label="GeoLibre" data-md-component="logo">
+      
+  <img src="../assets/geolibre-icon.png" alt="GeoLibre">
+
+    </a>
+    GeoLibre
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/opengeos/GeoLibre" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    opengeos/GeoLibre
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Getting Started
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Features
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Comparison
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Demos
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../downloads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Downloads
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sponsor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sponsor
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Launch GeoLibre Web
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  User Guide
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  User Guide
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/interface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Interface Overview
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/projects/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Projects
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/adding-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Adding Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/layers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Managing Layers
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/styling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Styling Layers
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/attribute-table/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Attribute Table
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/map-controls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Map Controls & Tools
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Processing Tools
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/segmentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  AI Segmentation
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/sql-workspace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SQL Workspace
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/python-console/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Python Console
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/ai-assistant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  AI Assistant
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/data-integrations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Data Integrations
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Plugins & Marketplace
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/settings/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Settings & Preferences
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/storymaps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Story Maps
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/embedding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Embedding & Sharing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Troubleshooting
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tutorials
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Tutorials
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Overview
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/first-map/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Your First Map
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/cloud-native-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Cloud-Native Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/vector-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Vector Analysis
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/terrain-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Terrain Analysis
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/spatial-sql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Spatial SQL
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/sharing-embedding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sharing & Embedding
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/supported-formats-en/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Format Reference
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/supported-formats-zh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Format Reference (中文)
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/source-code-deep-dive-en/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Source Code Deep Dive
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/source-code-deep-dive-zh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Source Code Deep Dive (中文)
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Reference
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Reference
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Architecture
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../android/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Android
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  iOS
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mac-app-store/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Mac App Store
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project-format/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project Format
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Plugin API
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../collaboration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Collaboration
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ui-profiles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  UI Profiles
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../i18n/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Internationalization
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Python Package
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Python Package
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#install" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Install
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quickstart" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Quickstart
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#two-way-sync" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Two-way sync
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#map-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Map options
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interactive-scripting" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Interactive scripting
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        API reference
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="API reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#interactive-queries-events-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Interactive queries, events &amp; processing
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-view-projects" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Data, view &amp; projects
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        How it works
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mcp-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        MCP server
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#building-from-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Building from source
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  MCP Server
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Notebook Panel
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Roadmap
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Contributing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../citation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  How to Cite
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../acknowledgements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Acknowledgements
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../privacy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Privacy Policy
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../terms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Terms of Service
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#install" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Install
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quickstart" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Quickstart
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#two-way-sync" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Two-way sync
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#map-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Map options
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interactive-scripting" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Interactive scripting
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        API reference
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="API reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#interactive-queries-events-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Interactive queries, events &amp; processing
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-view-projects" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Data, view &amp; projects
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        How it works
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mcp-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        MCP server
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#building-from-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Building from source
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+  
+
+
+<h1 id="python-package-jupyter">Python package (Jupyter)<a class="headerlink" href="#python-package-jupyter" title="Permanent link">&para;</a></h1>
+<p><a href="https://pypi.python.org/pypi/geolibre"><img alt="image" src="https://img.shields.io/pypi/v/geolibre.svg" /></a>
+<a href="https://colab.research.google.com/github/opengeos/GeoLibre/blob/main/python/examples/getting-started.ipynb"><img alt="image" src="https://colab.research.google.com/assets/colab-badge.svg" /></a>
+<a href="https://anaconda.org/conda-forge/geolibre"><img alt="image" src="https://img.shields.io/conda/vn/conda-forge/geolibre.svg" /></a>
+<a href="https://github.com/conda-forge/geolibre-feedstock"><img alt="Conda Recipe" src="https://img.shields.io/badge/recipe-geolibre-green.svg" /></a></p>
+<p>GeoLibre ships a Python package, <strong><code>geolibre</code></strong>, that embeds the full GeoLibre
+app inside a Jupyter notebook cell as an <a href="https://anywidget.dev">anywidget</a>,
+with a <a href="https://leafmap.org">leafmap</a>-style API.</p>
+<p>The widget loads the complete GeoLibre app (menus, panels, processing tools) in
+an iframe. State syncs both ways through a single <code>.geolibre.json</code> project, so
+data you add from Python appears in the UI, and edits you make in the UI
+(panning, zooming, adding layers) are readable back from Python.</p>
+<h2 id="install">Install<a class="headerlink" href="#install" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>geolibre
+</code></pre></div>
+<p>Or with conda from <a href="https://anaconda.org/conda-forge/geolibre">conda-forge</a>:</p>
+<div class="highlight"><pre><span></span><code>conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>geolibre
+</code></pre></div>
+<p>Optional extras for <code>add_geojson()</code> from a GeoDataFrame and for reading <strong>local</strong>
+vector files with <code>add_vector()</code> / <code>add_geoparquet()</code> / <code>add_flatgeobuf()</code> /
+<code>add_shp()</code> / <code>add_kml()</code> / <code>add_gpkg()</code> (remote URLs for those formats need no
+extras):</p>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;geolibre[all]&quot;</span><span class="w">   </span><span class="c1"># adds GeoPandas and Shapely</span>
+</code></pre></div>
+<p>The optional <code>[all]</code> extra is pip-only. If you installed via conda, add it with
+<code>pip install "geolibre[all]"</code> inside the same environment.</p>
+<h2 id="quickstart">Quickstart<a class="headerlink" href="#quickstart" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">geolibre</span><span class="w"> </span><span class="kn">import</span> <span class="n">Map</span>
+
+<span class="n">m</span> <span class="o">=</span> <span class="n">Map</span><span class="p">(</span><span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="n">zoom</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">add_geojson</span><span class="p">(</span><span class="s2">&quot;https://example.com/data.geojson&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Data&quot;</span><span class="p">)</span>
+<span class="n">m</span>
+</code></pre></div>
+<p>The full GeoLibre UI renders in the cell. Add more data and drive the view:</p>
+<div class="highlight"><pre><span></span><code><span class="n">m</span><span class="o">.</span><span class="n">add_tile_layer</span><span class="p">(</span>
+    <span class="s2">&quot;https://tile.openstreetmap.org/</span><span class="si">{z}</span><span class="s2">/</span><span class="si">{x}</span><span class="s2">/</span><span class="si">{y}</span><span class="s2">.png&quot;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;OpenStreetMap&quot;</span><span class="p">,</span>
+    <span class="n">attribution</span><span class="o">=</span><span class="s2">&quot;(c) OpenStreetMap contributors&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">add_cog</span><span class="p">(</span><span class="s2">&quot;https://example.com/dem.tif&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;DEM&quot;</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s2">&quot;terrain&quot;</span><span class="p">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">add_basemap</span><span class="p">(</span><span class="s2">&quot;dark&quot;</span><span class="p">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">set_center</span><span class="p">(</span><span class="o">-</span><span class="mi">120</span><span class="p">,</span> <span class="mi">47</span><span class="p">,</span> <span class="n">zoom</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+</code></pre></div>
+<p><code>add_raster</code> / <code>add_cog</code> also accept a <strong>local</strong> GeoTIFF path on the kernel host:
+the file is served by the bundled localhost server so the app can read it. This
+only works where the <strong>browser can reach the kernel's localhost</strong> (local Jupyter,
+VS Code); on remote/browser-separated setups (Colab, JupyterHub, remote servers)
+the localhost route is unreachable, so pass a hosted URL there. The served URL is
+also session-scoped, so a project saved with a local raster will not restore it
+when reopened later — pass a hosted URL for durable projects.</p>
+<p>Add markers and data-driven symbology without precomputing styles:</p>
+<div class="highlight"><pre><span></span><code><span class="n">m</span><span class="o">.</span><span class="n">add_marker</span><span class="p">(</span><span class="o">-</span><span class="mf">122.4</span><span class="p">,</span> <span class="mf">37.8</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;San Francisco&quot;</span><span class="p">})</span>
+<span class="n">m</span><span class="o">.</span><span class="n">add_marker_cluster</span><span class="p">([(</span><span class="o">-</span><span class="mf">122.4</span><span class="p">,</span> <span class="mf">37.8</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mf">122.3</span><span class="p">,</span> <span class="mf">37.9</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mf">122.5</span><span class="p">,</span> <span class="mf">37.7</span><span class="p">)])</span>
+<span class="n">m</span><span class="o">.</span><span class="n">add_heatmap</span><span class="p">([(</span><span class="o">-</span><span class="mf">122.4</span><span class="p">,</span> <span class="mf">37.8</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mf">122.3</span><span class="p">,</span> <span class="mf">37.9</span><span class="p">)],</span> <span class="n">radius</span><span class="o">=</span><span class="mi">35</span><span class="p">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">add_csv</span><span class="p">(</span><span class="s2">&quot;cities.csv&quot;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;longitude&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;latitude&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Cities&quot;</span><span class="p">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">add_choropleth</span><span class="p">(</span>
+    <span class="s2">&quot;https://example.com/counties.geojson&quot;</span><span class="p">,</span>
+    <span class="n">column</span><span class="o">=</span><span class="s2">&quot;population&quot;</span><span class="p">,</span>
+    <span class="n">colormap</span><span class="o">=</span><span class="s2">&quot;blues&quot;</span><span class="p">,</span>
+    <span class="n">scheme</span><span class="o">=</span><span class="s2">&quot;quantile&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Add a legend, a colorbar, and a swipe (split-map) comparison:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># A built-in land-cover legend, or your own {label: color} dict.</span>
+<span class="n">m</span><span class="o">.</span><span class="n">add_legend</span><span class="p">(</span><span class="n">builtin</span><span class="o">=</span><span class="s2">&quot;nlcd&quot;</span><span class="p">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">add_legend</span><span class="p">(</span><span class="n">legend_dict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Water&quot;</span><span class="p">:</span> <span class="s2">&quot;#0000ff&quot;</span><span class="p">,</span> <span class="s2">&quot;Land&quot;</span><span class="p">:</span> <span class="s2">&quot;#00ff00&quot;</span><span class="p">})</span>
+
+<span class="c1"># A colorbar for a continuous raster.</span>
+<span class="n">m</span><span class="o">.</span><span class="n">add_colorbar</span><span class="p">(</span><span class="n">colormap</span><span class="o">=</span><span class="s2">&quot;terrain&quot;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">4000</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Elevation&quot;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s2">&quot;m&quot;</span><span class="p">)</span>
+
+<span class="c1"># Compare two layers (or a layer against the basemap) with a swipe slider.</span>
+<span class="n">before</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">add_cog</span><span class="p">(</span><span class="s2">&quot;https://example.com/before.tif&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Before&quot;</span><span class="p">)</span>
+<span class="n">after</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">add_cog</span><span class="p">(</span><span class="s2">&quot;https://example.com/after.tif&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;After&quot;</span><span class="p">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">split_map</span><span class="p">(</span><span class="n">before</span><span class="p">,</span> <span class="n">after</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="two-way-sync">Two-way sync<a class="headerlink" href="#two-way-sync" title="Permanent link">&para;</a></h2>
+<p>Because the project syncs both ways, you can pan or zoom the map in the UI and
+then read the live state back from Python:</p>
+<div class="highlight"><pre><span></span><code><span class="n">proj</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">to_project</span><span class="p">()</span>
+<span class="n">proj</span><span class="p">[</span><span class="s2">&quot;mapView&quot;</span><span class="p">][</span><span class="s2">&quot;center&quot;</span><span class="p">]</span>              <span class="c1"># reflects the live UI view</span>
+<span class="p">[</span><span class="n">layer</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">proj</span><span class="p">[</span><span class="s2">&quot;layers&quot;</span><span class="p">]]</span>
+</code></pre></div>
+<p>Save and reload projects, fully interchangeable with the desktop and web apps:</p>
+<div class="highlight"><pre><span></span><code><span class="n">m</span><span class="o">.</span><span class="n">save_project</span><span class="p">(</span><span class="s2">&quot;my-map.geolibre.json&quot;</span><span class="p">)</span>
+
+<span class="n">m2</span> <span class="o">=</span> <span class="n">Map</span><span class="p">()</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">load_project</span><span class="p">(</span><span class="s2">&quot;my-map.geolibre.json&quot;</span><span class="p">)</span>
+<span class="n">m2</span>
+</code></pre></div>
+<p><code>to_project()</code>, <code>save_project()</code>, and <code>to_html()</code> redact credentials — API keys,
+tokens, authenticated request headers, environment variables, geocoder keys, and
+credential URL parameters — so anything you serialize, commit, or share is safe
+by default. Pass <code>keep_credentials=True</code> to <code>to_project()</code> or <code>save_project()</code>
+for a trusted local file that must keep working without re-entering them:</p>
+<div class="highlight"><pre><span></span><code><span class="n">m</span><span class="o">.</span><span class="n">save_project</span><span class="p">(</span><span class="s2">&quot;private.geolibre.json&quot;</span><span class="p">,</span> <span class="n">keep_credentials</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+<p>The <code>project</code> trait itself is unredacted, so live two-way sync with the widget
+keeps authenticated layers rendering.</p>
+<h2 id="map-options">Map options<a class="headerlink" href="#map-options" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="n">Map</span><span class="p">(</span>
+    <span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span>   <span class="c1"># [lng, lat]</span>
+    <span class="n">zoom</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+    <span class="n">basemap</span><span class="o">=</span><span class="s2">&quot;dark&quot;</span><span class="p">,</span>      <span class="c1"># a basemap name or a MapLibre style URL</span>
+    <span class="n">height</span><span class="o">=</span><span class="s2">&quot;800px&quot;</span><span class="p">,</span>
+    <span class="n">layout</span><span class="o">=</span><span class="s2">&quot;embed&quot;</span><span class="p">,</span>      <span class="c1"># &quot;embed&quot; (compact UI), &quot;full&quot; (desktop UI), or &quot;maponly&quot;</span>
+    <span class="n">theme</span><span class="o">=</span><span class="s2">&quot;light&quot;</span><span class="p">,</span>       <span class="c1"># &quot;light&quot; or &quot;dark&quot;</span>
+<span class="p">)</span>
+</code></pre></div>
+<h2 id="interactive-scripting">Interactive scripting<a class="headerlink" href="#interactive-scripting" title="Permanent link">&para;</a></h2>
+<p>Beyond adding data, the widget can <strong>query the live app and react to it</strong> — the
+same surface as the in-app <a href="../user-guide/python-console/">Python Console</a>. These
+calls round-trip to the running map, so the map must be displayed first (show
+<code>m</code> in a cell), then run the queries in a later cell.</p>
+<div class="highlight"><pre><span></span><code><span class="n">m</span><span class="o">.</span><span class="n">get_center</span><span class="p">()</span>                 <span class="c1"># live [lng, lat], reflecting UI pans/zooms</span>
+<span class="n">m</span><span class="o">.</span><span class="n">get_bounds</span><span class="p">()</span>                 <span class="c1"># [west, south, east, north]</span>
+<span class="n">m</span><span class="o">.</span><span class="n">fly_to</span><span class="p">(</span><span class="o">-</span><span class="mf">122.4</span><span class="p">,</span> <span class="mf">37.8</span><span class="p">,</span> <span class="n">zoom</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">identify</span><span class="p">(</span><span class="o">-</span><span class="mf">122.4</span><span class="p">,</span> <span class="mf">37.8</span><span class="p">)</span>       <span class="c1"># features at a point, like clicking the map</span>
+
+<span class="c1"># Layer objects: read and mutate layers, read their features</span>
+<span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
+    <span class="n">layer</span><span class="o">.</span><span class="n">opacity</span> <span class="o">=</span> <span class="mf">0.6</span>
+<span class="n">features</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_features</span><span class="p">()</span>   <span class="c1"># list of GeoJSON Feature objects</span>
+
+<span class="c1"># Run a processing algorithm; result layers are added to the map</span>
+<span class="n">m</span><span class="o">.</span><span class="n">list_algorithms</span><span class="p">()</span>
+<span class="n">m</span><span class="o">.</span><span class="n">run_algorithm</span><span class="p">(</span><span class="s2">&quot;buffer&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;layer&quot;</span><span class="p">:</span> <span class="n">layer_id</span><span class="p">,</span> <span class="s2">&quot;distance&quot;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">})</span>
+
+<span class="c1"># Read back what the user selected or drew on the map</span>
+<span class="n">m</span><span class="o">.</span><span class="n">get_selected_features</span><span class="p">()</span>      <span class="c1"># the clicked feature(s) as Feature objects</span>
+<span class="n">m</span><span class="o">.</span><span class="n">get_drawn_features</span><span class="p">()</span>         <span class="c1"># features sketched with the Geo Editor</span>
+<span class="n">m</span><span class="o">.</span><span class="n">user_rois</span>                    <span class="c1"># the drawn ROIs as a GeoJSON FeatureCollection</span>
+<span class="n">m</span><span class="o">.</span><span class="n">get_drawn_features</span><span class="p">(</span><span class="n">as_gdf</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>   <span class="c1"># the same, as a GeoDataFrame (needs GeoPandas)</span>
+
+<span class="n">png</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">to_image</span><span class="p">()</span>             <span class="c1"># PNG bytes (or m.to_image(&quot;map.png&quot;))</span>
+<span class="n">m</span><span class="o">.</span><span class="n">to_html</span><span class="p">(</span><span class="s2">&quot;map.html&quot;</span><span class="p">)</span>          <span class="c1"># standalone HTML embedding the live project</span>
+</code></pre></div>
+<p>React to user interaction with event callbacks:</p>
+<div class="highlight"><pre><span></span><code><span class="n">m</span><span class="o">.</span><span class="n">on_click</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;clicked&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">[</span><span class="s2">&quot;lngLat&quot;</span><span class="p">]))</span>
+<span class="n">m</span><span class="o">.</span><span class="n">on_selection_change</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;selected&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">))</span>
+<span class="n">m</span><span class="o">.</span><span class="n">on_layer_change</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;layers&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">[</span><span class="s2">&quot;layerIds&quot;</span><span class="p">]))</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Blocking queries</p>
+<p>Interactive queries block the kernel until the app replies (via
+<code>jupyter_ui_poll</code>, installed automatically). Pass <code>timeout=</code> for slow calls,
+e.g. <code>m.run_algorithm(..., timeout=300)</code>.</p>
+</div>
+<h2 id="api-reference">API reference<a class="headerlink" href="#api-reference" title="Permanent link">&para;</a></h2>
+<h3 id="interactive-queries-events-processing">Interactive queries, events &amp; processing<a class="headerlink" href="#interactive-queries-events-processing" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>get_view()</code> / <code>get_center()</code> / <code>get_bounds()</code></td>
+<td>Read the live camera / center / viewport bounds.</td>
+</tr>
+<tr>
+<td><code>fly_to(lng, lat, zoom=, bearing=, pitch=, duration=)</code></td>
+<td>Animate the camera.</td>
+</tr>
+<tr>
+<td><code>fit_bounds([w, s, e, n])</code></td>
+<td>Fit the camera to a bounding box.</td>
+</tr>
+<tr>
+<td><code>zoom_to_bounds([w, s, e, n])</code> / <code>zoom_to_layer(layer)</code></td>
+<td>Leafmap-style view helpers; layers may be addressed by id, name, or handle.</td>
+</tr>
+<tr>
+<td><code>identify(lng, lat, layer_id=None)</code></td>
+<td>Query rendered features at a point.</td>
+</tr>
+<tr>
+<td><code>get_features(layer_id)</code></td>
+<td>A layer's features as <code>Feature</code> objects.</td>
+</tr>
+<tr>
+<td><code>get_selected_features(as_gdf=False)</code></td>
+<td>The feature(s) selected in the app, as <code>Feature</code> objects (or a GeoDataFrame).</td>
+</tr>
+<tr>
+<td><code>get_drawn_features(as_gdf=False)</code> / <code>user_rois</code></td>
+<td>Features drawn with the Geo Editor; <code>user_rois</code> returns them as a FeatureCollection.</td>
+</tr>
+<tr>
+<td><code>layers</code> / <code>get_layer(id)</code></td>
+<td><code>Layer</code> handles (read state; set <code>name</code>/<code>visible</code>/<code>opacity</code>, <code>set_style</code>, <code>get_features</code>, <code>zoom_to</code>, <code>remove</code>).</td>
+</tr>
+<tr>
+<td><code>layer_names</code> / <code>find_layer(name)</code> / <code>find_layer_index(name)</code></td>
+<td>Inspect layers by display name.</td>
+</tr>
+<tr>
+<td><code>set_layer_visibility(layer, visible)</code> / <code>set_layer_opacity(layer, opacity)</code></td>
+<td>Change a layer by id, name, or handle.</td>
+</tr>
+<tr>
+<td><code>list_algorithms()</code></td>
+<td>Available processing algorithms (<code>id</code>, <code>parameters</code>, …).</td>
+</tr>
+<tr>
+<td><code>run_algorithm(id, parameters=None, timeout=)</code></td>
+<td>Run an algorithm; returns <code>{logs, resultLayerIds}</code>.</td>
+</tr>
+<tr>
+<td><code>to_image(path=None, timeout=)</code></td>
+<td>Capture the map as PNG bytes, or write to <code>path</code>.</td>
+</tr>
+<tr>
+<td><code>to_html(path=None, title=, width=, height=, app_url=)</code></td>
+<td>Export a standalone HTML page that embeds the current project (credentials redacted); returns the HTML or writes to <code>path</code>.</td>
+</tr>
+<tr>
+<td><code>on(event, cb)</code> / <code>on_click</code> / <code>on_selection_change</code> / <code>on_layer_change</code></td>
+<td>Register event callbacks; returns an unsubscribe function.</td>
+</tr>
+<tr>
+<td><code>request(method, params=None, timeout=)</code></td>
+<td>Low-level command primitive behind the methods above.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="data-view-projects">Data, view &amp; projects<a class="headerlink" href="#data-view-projects" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Map(center, zoom, basemap=, height=, layout=, theme=)</code></td>
+<td>Create a map.</td>
+</tr>
+<tr>
+<td><code>add_geojson(data, name=, **style)</code></td>
+<td>Add GeoJSON from a dict, file path, URL, JSON string, or GeoDataFrame.</td>
+</tr>
+<tr>
+<td><code>add_gdf(gdf, name=, column=None, **style)</code></td>
+<td>Add a GeoDataFrame, optionally as a choropleth.</td>
+</tr>
+<tr>
+<td><code>add_csv(data, x="longitude", y="latitude", name=, **style)</code> / <code>add_xy_data(...)</code></td>
+<td>Add points from a CSV path, URL, text, DataFrame, or row mappings.</td>
+</tr>
+<tr>
+<td><code>add_marker(lng, lat, name=, properties=, **style)</code></td>
+<td>Add a single point marker (shown as a circle; <code>properties</code> appear on click).</td>
+</tr>
+<tr>
+<td><code>add_markers(points, name=, **style)</code></td>
+<td>Add point markers from <code>(lng, lat)</code> pairs, <code>{lng/lon/x, lat/y, …}</code> dicts, GeoJSON, or a GeoDataFrame.</td>
+</tr>
+<tr>
+<td><code>add_circle_markers(points, name=, radius=, **style)</code></td>
+<td>Add circle markers with an explicit <code>radius</code>.</td>
+</tr>
+<tr>
+<td><code>add_marker_cluster(points, name=, cluster_radius=, cluster_max_zoom=, **style)</code></td>
+<td>Add clustered point markers.</td>
+</tr>
+<tr>
+<td><code>add_heatmap(points, name=, radius=, intensity=, **style)</code></td>
+<td>Add point data using the density heatmap renderer.</td>
+</tr>
+<tr>
+<td><code>add_choropleth(data, column, name=, class_count=, colormap=, scheme=, **style)</code></td>
+<td>Add a GeoJSON layer with graduated symbology computed from a numeric <code>column</code>.</td>
+</tr>
+<tr>
+<td><code>add_data(data, column=None, name=, **kwargs)</code></td>
+<td>Add data; a choropleth when <code>column</code> is given, else a plain GeoJSON layer (leafmap parity).</td>
+</tr>
+<tr>
+<td><code>add_vector(data, name=, render_mode=, data_format=, source_layer=, **style)</code></td>
+<td>Add a vector dataset from a URL (GeoParquet, FlatGeobuf, zipped Shapefile, GeoJSON, …) or a local file (read via GeoPandas and inlined).</td>
+</tr>
+<tr>
+<td><code>add_geoparquet(data, name=, **style)</code></td>
+<td>Add a GeoParquet dataset (URL or local file).</td>
+</tr>
+<tr>
+<td><code>add_flatgeobuf(data, name=, **style)</code></td>
+<td>Add a FlatGeobuf dataset (URL or local file).</td>
+</tr>
+<tr>
+<td><code>add_shp(data, name=, **style)</code></td>
+<td>Add a Shapefile (zipped URL or local <code>.shp</code>).</td>
+</tr>
+<tr>
+<td><code>add_kml(data, name=, **style)</code> / <code>add_gpkg(data, name=, layer=None, **style)</code></td>
+<td>Add KML/KMZ or GeoPackage data.</td>
+</tr>
+<tr>
+<td><code>add_vector_tiles(url, name=, source_layers=, source_layer=, **style)</code></td>
+<td>Add a vector tile layer from a TileJSON endpoint.</td>
+</tr>
+<tr>
+<td><code>add_pmtiles(url, name=, tile_type=, source_layers=, **style)</code></td>
+<td>Add a PMTiles archive (vector or raster).</td>
+</tr>
+<tr>
+<td><code>add_tile_layer(url, name=, tile_size=, attribution=)</code></td>
+<td>Add a raster XYZ tile layer.</td>
+</tr>
+<tr>
+<td><code>add_wms(endpoint, layers, name=, styles=, image_format=, transparent=, tile_size=, **style)</code></td>
+<td>Add a WMS layer (GetMap, tiled raster).</td>
+</tr>
+<tr>
+<td><code>add_wmts(url, name=, tile_size=, **style)</code></td>
+<td>Add a WMTS layer from a tile URL template.</td>
+</tr>
+<tr>
+<td><code>add_wfs(endpoint, type_name, name=, version=, output_format=, srs_name=, max_features=, **style)</code></td>
+<td>Add a WFS layer (GetFeature GeoJSON, fetched and inlined).</td>
+</tr>
+<tr>
+<td><code>add_cog(url, name=, bands=, colormap=, rescale=, **style)</code></td>
+<td>Add a Cloud Optimized GeoTIFF (URL or a kernel-side local GeoTIFF path).</td>
+</tr>
+<tr>
+<td><code>add_raster(url, name=, bands=, colormap=, rescale=, **style)</code></td>
+<td>Add a raster (COG/GeoTIFF), URL or local path; alias of <code>add_cog</code>.</td>
+</tr>
+<tr>
+<td><code>add_3d_tiles(url, name=, altitude_offset=, request_headers=, **style)</code></td>
+<td>Add a 3D Tiles <code>tileset.json</code>.</td>
+</tr>
+<tr>
+<td><code>add_video(urls, coordinates, name=, **style)</code></td>
+<td>Add a georeferenced video (four <code>[lng, lat]</code> corners).</td>
+</tr>
+<tr>
+<td><code>add_basemap(basemap)</code></td>
+<td>Set the background basemap.</td>
+</tr>
+<tr>
+<td><code>split_map(left_layers=None, right_layers=None, orientation=, position=, control_position=)</code></td>
+<td>Add a swipe (split-map) comparison slider between two layer sets.</td>
+</tr>
+<tr>
+<td><code>add_legend(title=None, legend_dict=, labels=, colors=, builtin=, position=, shape=)</code></td>
+<td>Add a legend from a <code>{label: color}</code> dict, parallel <code>labels</code>/<code>colors</code>, or a <code>builtin</code> preset (<code>"nlcd"</code>, <code>"esa_worldcover"</code>).</td>
+</tr>
+<tr>
+<td><code>add_colorbar(colormap=, vmin=, vmax=, label=, units=, colors=, orientation=, position=)</code></td>
+<td>Add a colorbar for a continuous raster, from a named colormap or custom <code>colors</code>.</td>
+</tr>
+<tr>
+<td><code>add_colormap(colormap, vmin=, vmax=, label=, **kwargs)</code></td>
+<td>Add a colorbar from a named colormap (leafmap-style alias of <code>add_colorbar</code>).</td>
+</tr>
+<tr>
+<td><code>set_center(lng, lat, zoom=None)</code></td>
+<td>Center (and optionally zoom) the map.</td>
+</tr>
+<tr>
+<td><code>set_center_zoom(lng, lat, zoom=None)</code></td>
+<td>Alias of <code>set_center</code> (leafmap compatibility).</td>
+</tr>
+<tr>
+<td><code>set_zoom(zoom)</code> / <code>set_bearing(bearing)</code> / <code>set_pitch(pitch)</code> / <code>fit_project_bounds(bounds)</code></td>
+<td>Persist camera changes without requiring the widget to be displayed.</td>
+</tr>
+<tr>
+<td><code>center</code> / <code>zoom</code> / <code>bearing</code> / <code>pitch</code> / <code>basemap</code> / <code>name</code></td>
+<td>Read persisted project and camera state; <code>name</code> is writable.</td>
+</tr>
+<tr>
+<td><code>rename_layer(layer, name)</code> / <code>move_layer(layer, index)</code> / <code>duplicate_layer(layer, name=)</code> / <code>show_layer(layer)</code> / <code>hide_layer(layer)</code></td>
+<td>Manage layers by id, name, or <code>Layer</code> handle.</td>
+</tr>
+<tr>
+<td><code>layer_properties(layer)</code> / <code>column_values(layer, column)</code> / <code>describe()</code></td>
+<td>Inspect inlined data and summarize a project without a browser round trip.</td>
+</tr>
+<tr>
+<td><code>remove_layer(layer_id)</code> / <code>clear_layers()</code></td>
+<td>Remove one layer by id, name, or handle, or remove all layers.</td>
+</tr>
+<tr>
+<td><code>to_project(keep_credentials=False)</code></td>
+<td>Return the current project as a dict, credentials redacted unless <code>keep_credentials=True</code>.</td>
+</tr>
+<tr>
+<td><code>load_project(src)</code></td>
+<td>Replace the project from a dict, JSON string, or <code>.geolibre.json</code> path.</td>
+</tr>
+<tr>
+<td><code>save_project(path, keep_credentials=False)</code></td>
+<td>Write the current project to a <code>.geolibre.json</code> file, credentials redacted unless <code>keep_credentials=True</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>Style keyword arguments (for example <code>fillColor</code>, <code>strokeColor</code>, <code>strokeWidth</code>,
+<code>circleRadius</code>) map to the GeoLibre <a href="../project-format/">layer style fields</a>.</p>
+<h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
+<p>The wheel bundles the GeoLibre web build. At import time the package starts a
+small localhost static server that serves the bundled app; the widget renders
+that app in an iframe and exchanges the project over <code>window.postMessage</code>.
+Adding data from Python rewrites the synced project and pushes it into the app;
+UI edits flow back the same way.</p>
+<div class="admonition note">
+<p class="admonition-title">Environment support</p>
+<p>The interactive widget works in <strong>local Jupyter, VS Code, Google Colab, and
+JupyterHub / remote servers</strong>:</p>
+<ul>
+<li><strong>Local Jupyter / VS Code</strong> - the app is served directly from localhost.</li>
+<li><strong>Google Colab</strong> - routes through Colab's built-in port proxy
+  (<code>google.colab.kernel.proxyPort</code>) automatically.</li>
+<li><strong>JupyterHub</strong> (including managed/shared hubs, detected at runtime via
+  <code>JUPYTERHUB_SERVICE_PREFIX</code>) - the front-end probes two same-origin routes
+  and uses whichever is live, so a host needs only <strong>one</strong> of them:<ul>
+<li>the Jupyter Server extension bundled with <code>geolibre</code>, mounted at
+  <code>{base_url}geolibre/app/</code> on the notebook server's own origin. It is
+  enabled automatically on <code>pip install geolibre</code> and needs no
+  <code>jupyter-server-proxy</code> and no extra port, so it works on locked-down
+  hubs that block raw-port proxying -- but it only registers after the
+  Jupyter server restarts, since it loads from a startup config drop-in.</li>
+<li><code>jupyter-server-proxy</code> at <code>{base_url}proxy/{port}/</code>, which reaches the
+  kernel's localhost bundle in the <strong>running</strong> server with no restart,
+  wherever <code>jupyter-server-proxy</code> is installed.</li>
+</ul>
+</li>
+<li><strong>Other remote servers</strong> (Binder, remote JupyterLab over SSH/network) -
+  pass <code>Map(server_proxy=True)</code> to use that same dual-route remote path.</li>
+</ul>
+<p>Set <code>Map(server_proxy=False)</code> to force the direct localhost path. If the app
+fails to load on a hub, either install <code>jupyter-server-proxy</code>, or confirm the
+extension is enabled with <code>jupyter server extension list</code> (look for
+<code>geolibre</code>; run <code>jupyter server extension enable geolibre</code> if absent) and
+<strong>restart</strong> the Jupyter server so the extension loads.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">URL fetching</p>
+<p><code>add_geojson(url)</code>, <code>add_csv(url)</code> / <code>add_xy_data(url)</code>, and <code>add_wfs()</code>
+fetch the URL from the <strong>kernel</strong>, following redirects, so a notebook can
+reach any host the kernel can. Every hop is checked, and a URL that resolves
+to a non-public address (private, loopback, or link-local — including cloud
+metadata endpoints such as <code>169.254.169.254</code>) is refused; responses are
+capped at 50 MB. Tile and service layers are fetched by the <strong>browser</strong>
+instead, so those can still point at a local server. Do not load untrusted
+<code>.geolibre.json</code> projects or URLs on a shared/multi-tenant kernel.</p>
+</div>
+<h2 id="mcp-server">MCP server<a class="headerlink" href="#mcp-server" title="Permanent link">&para;</a></h2>
+<p>The same package ships an <a href="https://modelcontextprotocol.io">MCP</a> server that
+authors <code>.geolibre.json</code> projects from an AI client, with no notebook and no
+running app involved:</p>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;geolibre[mcp]&quot;</span>
+geolibre-mcp<span class="w"> </span>--root<span class="w"> </span>~/maps
+</code></pre></div>
+<p>It builds projects through the same builders this package uses, so anything it
+writes opens in the widget (and in the desktop and web apps) unchanged. See
+<a href="../mcp/">MCP server</a> for the tool list and client configuration.</p>
+<h2 id="building-from-source">Building from source<a class="headerlink" href="#building-from-source" title="Permanent link">&para;</a></h2>
+<p>The package lives in <a href="https://github.com/opengeos/GeoLibre/tree/main/python"><code>python/</code></a>.
+The bundled app is produced from the monorepo with:</p>
+<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>run<span class="w"> </span>build:embed<span class="w">      </span><span class="c1"># builds the app and stages it into the wheel</span>
+python<span class="w"> </span>-m<span class="w"> </span>build<span class="w">          </span><span class="c1"># builds the wheel</span>
+python<span class="w"> </span>-m<span class="w"> </span>twine<span class="w"> </span>upload<span class="w"> </span>dist/*<span class="w">  </span><span class="c1"># upload to PyPI</span>
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>python<span class="w">    </span><span class="c1"># editable install for development</span>
+</code></pre></div>
+<p>Changes to the Python code are picked up on kernel restart. Changes to the app
+(TypeScript) require re-running <code>npm run build:embed</code> and restarting the kernel.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/opengeos/GeoLibre" target="_blank" rel="noopener" title="GeoLibre on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/sponsors/giswqs" target="_blank" rel="noopener" title="Sponsor GeoLibre on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="m241 87.1 15 20.7 15-20.7C296 52.5 336.2 32 378.9 32 452.4 32 512 91.6 512 165.1v2.6c0 112.2-139.9 242.5-212.9 298.2-12.4 9.4-27.6 14.1-43.1 14.1s-30.8-4.6-43.1-14.1C139.9 410.2 0 279.9 0 167.7v-2.6C0 91.6 59.6 32 133.1 32 175.8 32 216 52.5 241 87.1"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://buymeacoffee.com/giswqs" target="_blank" rel="noopener" title="Buy the maintainer a coffee" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M152-16c-13.3 0-24 10.7-24 24 0 38.9 23.4 59.4 39.1 73.1l1.1 1C184.5 96.4 192 103.9 192 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C183.5 31.7 176 24.1 176 8c0-13.3-10.7-24-24-24M96 192c-17.7 0-32 14.3-32 32v192c0 53 43 96 96 96h192c41.8 0 77.4-26.7 90.5-64h5.5c70.7 0 128-57.3 128-128s-57.3-128-128-128zm352 192V256c35.3 0 64 28.7 64 64s-28.7 64-64 64M288 8c0-13.3-10.7-24-24-24S240-5.3 240 8c0 38.9 23.4 59.4 39.1 73.1l1.1 1C296.5 96.4 304 103.9 304 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C295.5 31.7 288 24.1 288 8"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","navigation.sections","navigation.top","search.highlight","search.share","search.suggest","toc.follow"],"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.69c251d7.min.js"></script>
+      
+    
+  </body>
+</html>

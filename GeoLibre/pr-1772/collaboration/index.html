@@ -1,0 +1,2834 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A lightweight, cloud-native GIS platform for visualizing, exploring, and analyzing geospatial data across desktop and web environments, with a responsive layout for mobile screens.">
+      
+      
+      
+        <link rel="canonical" href="https://geolibre.app/collaboration/">
+      
+      
+        <link rel="prev" href="../plugin-api/">
+      
+      
+        <link rel="next" href="../ui-profiles/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/geolibre-icon.png">
+      <meta name="generator" content="zensical-0.0.53">
+    
+    
+      
+        <title>Real-time collaboration (live-synced sessions) - GeoLibre</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.20815dad.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#real-time-collaboration-live-synced-sessions" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="GeoLibre" class="md-header__button md-logo" aria-label="GeoLibre" data-md-component="logo">
+      
+  <img src="../assets/geolibre-icon.png" alt="GeoLibre">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            GeoLibre
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Real-time collaboration (live-synced sessions)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/opengeos/GeoLibre" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    opengeos/GeoLibre
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="GeoLibre" class="md-nav__button md-logo" aria-label="GeoLibre" data-md-component="logo">
+      
+  <img src="../assets/geolibre-icon.png" alt="GeoLibre">
+
+    </a>
+    GeoLibre
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/opengeos/GeoLibre" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    opengeos/GeoLibre
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Getting Started
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Features
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Comparison
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Demos
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../downloads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Downloads
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sponsor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sponsor
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Launch GeoLibre Web
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  User Guide
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  User Guide
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/interface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Interface Overview
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/projects/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Projects
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/adding-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Adding Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/layers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Managing Layers
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/styling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Styling Layers
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/attribute-table/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Attribute Table
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/map-controls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Map Controls & Tools
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Processing Tools
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/segmentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  AI Segmentation
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/sql-workspace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SQL Workspace
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/python-console/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Python Console
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/ai-assistant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  AI Assistant
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/data-integrations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Data Integrations
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Plugins & Marketplace
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/settings/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Settings & Preferences
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/storymaps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Story Maps
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/embedding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Embedding & Sharing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Troubleshooting
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tutorials
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Tutorials
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Overview
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/first-map/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Your First Map
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/cloud-native-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Cloud-Native Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/vector-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Vector Analysis
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/terrain-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Terrain Analysis
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/spatial-sql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Spatial SQL
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/sharing-embedding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sharing & Embedding
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/supported-formats-en/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Format Reference
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/supported-formats-zh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Format Reference (中文)
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/source-code-deep-dive-en/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Source Code Deep Dive
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/source-code-deep-dive-zh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Source Code Deep Dive (中文)
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Reference
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Reference
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Architecture
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../android/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Android
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  iOS
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mac-app-store/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Mac App Store
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project-format/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project Format
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Plugin API
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Collaboration
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Collaboration
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-syncs" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        What syncs
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Architecture
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-a-durable-object-relay-and-not-crdtwebrtc" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Why a Durable Object relay (and not CRDT/WebRTC)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sync-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Sync protocol
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sync protocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#echo-feedback-loop-prevention" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Echo / feedback-loop prevention
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#undo-interaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Undo interaction
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#durable-object-workerscollab" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Durable Object (<code>workers/collab</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Frontend
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#identity-permissions-mvp" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Identity &amp; permissions (MVP)
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chat-754" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Chat (#754)
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feature-flag" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Feature flag
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploying-the-relay-collabgeolibreapp" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Deploying the relay (<code>collab.geolibre.app</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limitations-v2" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Limitations / v2
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Testing
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Testing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#testing-the-full-feature-locally" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Testing the full feature locally
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ui-profiles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  UI Profiles
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../i18n/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Internationalization
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Python Package
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  MCP Server
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Notebook Panel
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Roadmap
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Contributing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../citation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  How to Cite
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../acknowledgements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Acknowledgements
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../privacy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Privacy Policy
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../terms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Terms of Service
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-syncs" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        What syncs
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Architecture
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-a-durable-object-relay-and-not-crdtwebrtc" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Why a Durable Object relay (and not CRDT/WebRTC)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sync-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Sync protocol
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sync protocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#echo-feedback-loop-prevention" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Echo / feedback-loop prevention
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#undo-interaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Undo interaction
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#durable-object-workerscollab" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Durable Object (<code>workers/collab</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Frontend
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#identity-permissions-mvp" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Identity &amp; permissions (MVP)
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chat-754" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Chat (#754)
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feature-flag" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Feature flag
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploying-the-relay-collabgeolibreapp" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Deploying the relay (<code>collab.geolibre.app</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limitations-v2" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Limitations / v2
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Testing
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Testing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#testing-the-full-feature-locally" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Testing the full feature locally
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+  
+
+
+<h1 id="real-time-collaboration-live-synced-sessions">Real-time collaboration (live-synced sessions)<a class="headerlink" href="#real-time-collaboration-live-synced-sessions" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>Status: <strong>experimental MVP</strong> (issue <a href="https://github.com/opengeos/GeoLibre/issues/307">#307</a>).
+Disabled unless <code>VITE_GEOLIBRE_COLLAB_URL</code> is configured.</p>
+</blockquote>
+<p>GeoLibre's project sharing is otherwise snapshot-based (upload to
+share.geolibre.app). This feature adds a <strong>live</strong> mode: several people open the
+same session and see each other's layer/style/view edits in real time, with
+presence cursors and viewport indicators. It targets classrooms, workshops, and
+small teams.</p>
+<h2 id="what-syncs">What syncs<a class="headerlink" href="#what-syncs" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Project state</strong> — layers, layer groups, styles, basemap, and the map view
+  (camera). Broadcast as whole-project snapshots.</li>
+<li><strong>Presence</strong> — each participant's live cursor position and viewport rectangle,
+  plus a name + color. Presence is ephemeral and never persisted.</li>
+<li><strong>Chat</strong> — short text messages with an optional attached map coordinate (#754).
+  Bounded recent history is relayed to late joiners; never written to a project.</li>
+<li><strong>Permissions</strong> — the host's per-participant view-only / can-edit overrides
+  (#754), broadcast on the participant list as <code>editOverride</code>.</li>
+</ul>
+<h2 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code> Desktop/Web app A                Cloudflare Worker                Desktop/Web app B
+ ┌────────────────┐   wss     ┌──────────────────────────┐  wss   ┌────────────────┐
+ │ useCollaboration│ ───────► │  CollabSession (Durable   │ ◄───── │ useCollaboration│
+ │  (Zustand store)│ ◄─────── │  Object): holds latest    │ ─────► │  (Zustand store)│
+ └────────────────┘  snapshot │  snapshot + presence map, │ snapshot└────────────────┘
+                     /presence │  fans out to all peers    │ /presence
+                               └──────────────────────────┘
+</code></pre></div>
+<p>There is <strong>one centralized relay</strong> (a Cloudflare Durable Object), not a P2P
+mesh. The DO holds the latest project snapshot so a late joiner is bootstrapped
+immediately, and fans every message out to the other connected sockets.</p>
+<h3 id="why-a-durable-object-relay-and-not-crdtwebrtc">Why a Durable Object relay (and not CRDT/WebRTC)<a class="headerlink" href="#why-a-durable-object-relay-and-not-crdtwebrtc" title="Permanent link">&para;</a></h3>
+<p>The MVP deliberately picks the simplest thing that works:</p>
+<ul>
+<li>The store is already the single source of truth, and
+  <code>serializeProject</code>/<code>parseProject</code> already produce a validated, normalized wire
+  format. <code>useEmbedBridge</code> already broadcasts exactly this over <code>postMessage</code>.
+  The collaboration adapter is that same pattern over a WebSocket.</li>
+<li>A <strong>whole-snapshot, last-write-wins</strong> model is trivially consistent: the last
+  snapshot the relay sees wins, full stop. Mutation-level merging would need
+  per-field clocks; a CRDT (Yjs/Automerge) would add a sizeable client bundle
+  and a second source of truth alongside Zustand.</li>
+<li>The relay builds directly on the existing <code>workers/viewer</code> Cloudflare setup.</li>
+</ul>
+<p>CRDT / per-action mutation transport is the documented <strong>v2</strong> path (see
+Limitations).</p>
+<h2 id="sync-protocol">Sync protocol<a class="headerlink" href="#sync-protocol" title="Permanent link">&para;</a></h2>
+<p>All frames are JSON. <code>CollabMessage</code> is a discriminated union on <code>type</code>. See
+<code>apps/geolibre-desktop/src/lib/collab-protocol.ts</code> for the authoritative types
+(shared by client and worker).</p>
+<p>Client → server:</p>
+<table>
+<thead>
+<tr>
+<th>type</th>
+<th>payload</th>
+<th>notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>join</code></td>
+<td><code>displayName, color, hostToken?</code></td>
+<td>first frame after connect; the relay assigns the <code>clientId</code> (returned in <code>welcome</code>)</td>
+</tr>
+<tr>
+<td><code>snapshot</code></td>
+<td><code>project, rev</code></td>
+<td>a debounced project push; co-editors only</td>
+</tr>
+<tr>
+<td><code>presence</code></td>
+<td><code>cursor?, view?</code></td>
+<td>throttled cursor / viewport</td>
+</tr>
+<tr>
+<td><code>set-mode</code></td>
+<td><code>mode</code></td>
+<td>host only</td>
+</tr>
+<tr>
+<td><code>set-participant-mode</code></td>
+<td><code>clientId, canEdit</code></td>
+<td>host only; pin one guest to can-edit / view-only (#754)</td>
+</tr>
+<tr>
+<td><code>chat</code></td>
+<td><code>text, coordinate?</code></td>
+<td>a chat message, with an optional attached map coordinate (#754)</td>
+</tr>
+</tbody>
+</table>
+<p>Server → client:</p>
+<table>
+<thead>
+<tr>
+<th>type</th>
+<th>payload</th>
+<th>notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>welcome</code></td>
+<td><code>clientId, role, mode, participants[], snapshot \| null, presence, chat[], rev</code></td>
+<td>sent once on join; the late-joiner bootstrap</td>
+</tr>
+<tr>
+<td><code>snapshot</code></td>
+<td><code>project, origin, rev</code></td>
+<td>fan-out of a peer's snapshot</td>
+</tr>
+<tr>
+<td><code>presence</code></td>
+<td><code>clientId, cursor?, view?</code></td>
+<td>fan-out of a peer's presence</td>
+</tr>
+<tr>
+<td><code>participants</code></td>
+<td><code>participants[]</code></td>
+<td>on join / leave / role / permission change; each carries <code>editOverride</code></td>
+</tr>
+<tr>
+<td><code>mode</code></td>
+<td><code>mode</code></td>
+<td>host changed the session mode</td>
+</tr>
+<tr>
+<td><code>chat</code></td>
+<td><code>message</code></td>
+<td>fan-out of a chat message (echoed to the sender, so order is server-authoritative) (#754)</td>
+</tr>
+<tr>
+<td><code>error</code></td>
+<td><code>code, message</code></td>
+<td>e.g. <code>forbidden</code>, <code>too-large</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="echo-feedback-loop-prevention">Echo / feedback-loop prevention<a class="headerlink" href="#echo-feedback-loop-prevention" title="Permanent link">&para;</a></h3>
+<p>The adapter caches <code>lastAppliedContent</code> (the serialized project string). Before
+applying an inbound snapshot it sets <code>lastAppliedContent</code> to the
+post-normalization string, then applies via <code>loadProject</code>. The store
+subscription that <code>loadProject</code> triggers re-serializes to an identical string and
+is suppressed, so a remote apply is never re-broadcast — the exact trick
+<code>useEmbedBridge</code> uses with <code>lastPostedContent</code>. Frames whose <code>origin</code> is our own
+<code>clientId</code> are also ignored defensively (the relay already excludes the sender).</p>
+<h3 id="undo-interaction">Undo interaction<a class="headerlink" href="#undo-interaction" title="Permanent link">&para;</a></h3>
+<p>Remote snapshots are applied through <code>loadProject</code>, which ends with
+<code>clearHistory()</code>. This keeps remote edits out of the local undo stack — but it
+also means <strong>a collaborator's edit clears your undo history</strong>. That is an
+accepted MVP limitation; a coalesced-history option is a v2 item.</p>
+<h2 id="durable-object-workerscollab">Durable Object (<code>workers/collab</code>)<a class="headerlink" href="#durable-object-workerscollab" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>POST /sessions</code> — host creates a session: generates a short base32 code, mints
+  a host token, stores <code>{ mode, hostToken }</code>, returns <code>{ sessionId, hostToken,
+  mode }</code> to the host only.</li>
+<li><code>GET /sessions/:id/ws</code> — WebSocket upgrade, routed to
+  <code>env.COLLAB_SESSION.get(idFromName(id))</code>.</li>
+</ul>
+<p><code>CollabSession</code> uses the <strong>WebSocket Hibernation API</strong> so idle sessions evict
+from memory while keeping sockets open. Per-socket participant metadata is kept
+via <code>ws.serializeAttachment()</code> (survives hibernation). Durable storage holds the
+<code>latestSnapshot</code>, a monotonic <code>rev</code>, the <code>mode</code>, the <code>hostToken</code>, and a bounded
+<code>chat</code> log; presence and per-participant permission overrides are kept on the
+in-memory / per-socket attachment. Server-side enforcement: a <code>snapshot</code> from a
+guest who cannot edit (session <code>view-only</code>, or a host-set per-participant
+view-only override) is dropped with an <code>error: forbidden</code>; <code>set-mode</code> and
+<code>set-participant-mode</code> require the host token. Oversized snapshots (&gt; 10 MB by
+default) are rejected with <code>error: too-large</code>; the cap sits under Cloudflare's
+32 MiB ceiling on a received WebSocket message. Hosted snapshots are stored in
+chunks across rows of a SQLite table, because a Durable Object caps both a
+key/value entry and a single SQLite string at 2 MB — well under what portable
+GeoJSON from local files and external plugins needs. An empty session is
+reclaimed after a TTL via a storage alarm, which drops the chunks with the rest
+of the database.</p>
+<h2 id="frontend">Frontend<a class="headerlink" href="#frontend" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>lib/collab-protocol.ts</code> — shared message types.</li>
+<li><code>lib/collab-client.ts</code> — WebSocket transport, <code>resolveCollabBaseUrl()</code> (wss/loopback
+  validation, returns <code>null</code> when unset), exponential-backoff reconnect.</li>
+<li><code>hooks/useCollaboration.ts</code> — orchestration: subscribes to the store
+  (debounced, deduped snapshot push for co-editors), reads <code>map</code> <code>mousemove</code>
+  (throttled) and <code>moveend</code> for presence, routes inbound frames, and exposes
+  start/join/leave/set-mode actions. Inert no-op when <code>resolveCollabBaseUrl()</code> is
+  <code>null</code>.</li>
+<li><code>lib/build-project-snapshot.ts</code> — the shared <code>buildProjectSnapshot()</code> lifted
+  from <code>useEmbedBridge</code> so the bridge and the adapter share one definition.</li>
+<li>Store: an ephemeral <code>collaboration</code> slice (<code>packages/core</code>), excluded from the
+  project file (never read by <code>projectFromStore</code>) and from undo history (never
+  added to <code>partialize</code>).</li>
+<li><code>components/layout/RemoteCursorsOverlay.tsx</code> — renders remote cursors as
+  MapLibre Markers and viewport rectangles as a dedicated GeoJSON line layer.</li>
+<li><code>components/layout/CollaborateDialog.tsx</code> + a flag-gated <code>TopToolbar</code> entry.</li>
+<li><code>components/layout/CollaborationStatusBadge.tsx</code> — the persistent on-canvas
+  badge that hosts the participant roster (with the host's per-participant
+  permission toggles) and the chat drawer (#754). <code>useCollaboration</code> is owned by
+  <code>DesktopShell</code> and passed to both the dialog and this badge, so they share one
+  socket. <code>participantCanEdit()</code> (in <code>lib/collab-protocol.ts</code>) is the shared
+  effective-permission helper used by the relay-mirrored client UI.</li>
+</ul>
+<h2 id="identity-permissions-mvp">Identity &amp; permissions (MVP)<a class="headerlink" href="#identity-permissions-mvp" title="Permanent link">&para;</a></h2>
+<p>Anonymous. The host starts a session and shares a code/link; joiners pick a
+display name and a color. The host chooses the session <strong>mode</strong>:</p>
+<ul>
+<li><strong>view-only</strong> — guests can watch and see presence, but their snapshot pushes
+  are rejected server-side.</li>
+<li><strong>co-edit</strong> — anyone with the link can edit.</li>
+</ul>
+<p><strong>Per-participant overrides (#754).</strong> Beyond the session-wide mode, the host can
+pin an individual guest with <code>set-participant-mode { clientId, canEdit }</code>. The
+relay records the override on that socket's attachment (so it survives a
+hibernation wake) and re-broadcasts the participant list with an <code>editOverride</code>
+field (<code>true</code> / <code>false</code>, or <code>null</code> to follow the session mode). Effective edit
+permission, computed identically on the client and the relay, is: the host
+always edits; otherwise the override wins; otherwise the session mode applies. A
+guest pinned to view-only has their <code>snapshot</code> pushes rejected with
+<code>error: forbidden</code>, exactly like the session-wide view-only path. Overrides are
+keyed to the per-socket <code>clientId</code>, so a guest who reconnects reverts to the
+session default (acceptable for the ephemeral MVP). The host roster surfaces a
+per-guest toggle; other participants see each guest's current permission read-only.</p>
+<p>The host token (returned only to the creator) gates <code>set-mode</code> and
+<code>set-participant-mode</code>, so a guest can't escalate the session or another guest.
+Codes are unguessable and sessions auto-expire. The relay assigns each
+participant's <code>clientId</code> server-side (the client-supplied value is ignored) so
+one participant can't claim another's identity, and it validates the <code>color</code> to
+a hex value before storing/broadcasting it.</p>
+<h2 id="chat-754">Chat (#754)<a class="headerlink" href="#chat-754" title="Permanent link">&para;</a></h2>
+<p>A lightweight, in-session text channel. A <code>chat { text, coordinate? }</code> frame is
+validated server-side (non-empty, trimmed, capped at 2000 chars; the coordinate
+runs through the same finite-number sanitizer as presence) and fanned out to
+<strong>every</strong> participant including the sender, so the relay's ordering is the single
+source of truth (clients render from the echo rather than optimistically). Each
+message carries a server-assigned <code>id</code> and <code>ts</code>. The relay keeps a bounded,
+persisted history (last 50 messages) so a late joiner (or a post-hibernation
+welcome) sees the recent conversation via the <code>welcome.chat[]</code> bootstrap. Chat
+is open to everyone in the session, including view-only guests; only project
+edits are gated. A message can attach the sender's current map center as a
+clickable coordinate that recenters the recipient's map. Chat lives on the
+on-canvas status badge so it is reachable while working on the map; it is
+ephemeral and never written to a project file.</p>
+<blockquote>
+<p><strong>Operator note:</strong> <code>POST /sessions</code> is unauthenticated and currently responds
+with <code>Access-Control-Allow-Origin: *</code>, so any page can create sessions. This is
+acceptable for the experimental MVP but should be restricted to the app's own
+origin(s) before a wider rollout to avoid capacity abuse.</p>
+</blockquote>
+<h2 id="feature-flag">Feature flag<a class="headerlink" href="#feature-flag" title="Permanent link">&para;</a></h2>
+<p>Set <code>VITE_GEOLIBRE_COLLAB_URL</code> to the relay base (e.g.
+<code>wss://collab.geolibre.app</code>, or <code>ws://127.0.0.1:8787</code> for <code>wrangler dev</code>). When
+unset, the hook is inert and all collaboration UI is hidden, so production builds
+ship the feature dark. The Tauri CSP <code>connect-src</code> must list the wss host (the
+existing <code>https:</code> directive does <strong>not</strong> authorize <code>wss:</code>).</p>
+<p>In the Docker image the same setting is available at <strong>container runtime</strong> as
+<code>-e GEOLIBRE_COLLAB_URL=…</code>: the entrypoint validates it, writes it into
+<code>geolibre-runtime-config.js</code>, and <code>resolveCollabBaseUrl()</code> prefers that over the
+build-time variable — so a prebuilt image can be pointed at a self-hosted relay
+without a rebuild. A value that is not <code>wss://</code> (or <code>ws://</code> on loopback) fails the
+container boot rather than silently leaving collaboration dark. The entrypoint also
+substitutes the relay's origin into the nginx CSP's <code>connect-src</code>
+(<code>__GEOLIBRE_COLLAB_CONNECT_SRC__</code> in <code>docker/nginx.conf</code>), since that directive
+has no bare <code>wss:</code> — so unlike the desktop build below, the web/Docker path needs
+no manual CSP edit. See
+<a href="../getting-started/#self-hosted-sharing-and-collaboration-servers">Run with Docker</a>.</p>
+<blockquote>
+<p><strong>Self-hosting note:</strong> the desktop CSP pins <code>wss://collab.geolibre.app</code> (plus
+<code>ws://localhost</code>/<code>127.0.0.1</code> for dev). Pointing the desktop build at a
+different relay means updating <code>connect-src</code> in
+<code>apps/geolibre-desktop/src-tauri/tauri.conf.json</code> and rebuilding — the CSP and
+the <code>VITE_GEOLIBRE_COLLAB_URL</code> flag are independent knobs. The web build
+inherits the page's CSP instead, so it only needs the env var.</p>
+</blockquote>
+<h2 id="deploying-the-relay-collabgeolibreapp">Deploying the relay (<code>collab.geolibre.app</code>)<a class="headerlink" href="#deploying-the-relay-collabgeolibreapp" title="Permanent link">&para;</a></h2>
+<p>Two hosts implement the same protocol and import the same permission/validation
+core:</p>
+<ul>
+<li><code>workers/collab</code> is the Cloudflare Durable Object used by the hosted service.</li>
+<li><code>workers/collab-node</code> is the self-hostable Node/SQLite relay. It is included
+  as <code>geolibre-collab</code> in the root <code>docker-compose.yml</code>; its persistent database
+  is mounted at <code>/data/collab.sqlite</code>. Configure <code>COLLAB_MAX_SNAPSHOT_BYTES</code>
+  (default 10,000,000) and <code>COLLAB_IDLE_TTL_MS</code> (default two hours) when needed.</li>
+</ul>
+<p>Both relay implementations accept <code>COLLAB_MAX_SNAPSHOT_BYTES</code> as a positive
+integer number of bytes. For the Cloudflare relay, set it as a Worker variable,
+for example:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[vars]</span>
+<span class="n">COLLAB_MAX_SNAPSHOT_BYTES</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;10000000&quot;</span>
+</code></pre></div>
+<p>The configured value must remain below the deployment platform's WebSocket
+message-size limit.</p>
+<p>The hosted relay deploys to Cloudflare Workers the same way as <code>workers/viewer</code>:</p>
+<ul>
+<li><strong>CI:</strong> <code>.github/workflows/deploy-collab.yml</code> deploys on any push to <code>main</code>
+  that touches <code>workers/collab/**</code> (or via manual <code>workflow_dispatch</code>). It reuses
+  the existing <code>CLOUDFLARE_API_TOKEN</code> / <code>CLOUDFLARE_ACCOUNT_ID</code> repo secrets — the
+  token needs the <strong>Workers Scripts Write</strong> permission (Cloudflare's "Edit
+  Cloudflare Workers" template includes it). Deploying the Durable Object is part
+  of the same script upload, so no separate Durable Objects permission is needed.</li>
+<li><strong>Manual:</strong> <code>cd workers/collab &amp;&amp; npx wrangler deploy</code>.</li>
+</ul>
+<p><code>wrangler.toml</code> already declares the <code>collab.geolibre.app</code> custom-domain route and
+the SQLite Durable Object migration, so the first deploy provisions DNS, TLS, and
+the DO class automatically — no manual Cloudflare dashboard steps. SQLite-backed
+Durable Objects are available on the free Workers plan.</p>
+<p>Once the relay is live, point the app at it by setting
+<code>VITE_GEOLIBRE_COLLAB_URL=wss://collab.geolibre.app</code> in the web/Pages build
+environment. Until that env var is set, the feature stays dark.</p>
+<h2 id="limitations-v2">Limitations / v2<a class="headerlink" href="#limitations-v2" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Last-write-wins</strong>: simultaneous co-edits race; the last debounced snapshot
+  wins and the slower edit is overwritten. Presence helps users avoid colliding.</li>
+<li><strong>Payload size</strong>: layers can embed <code>FeatureCollection</code>s. <code>projectFromStore</code>
+  already strips redundant <code>geojson</code> for URL-backed layers, but a large
+  in-memory/local-file layer can exceed the ~1 MiB frame cap and is rejected with
+  a clear error (share via URL instead). v2: diff / chunked layer sync.</li>
+<li><strong>Undo</strong>: a remote apply clears local undo (see above).</li>
+<li>v2 directions: per-action mutation or CRDT transport, coalesced remote-apply
+  history, richer permission/identity (tie to share.geolibre.app accounts).</li>
+</ul>
+<h2 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h2>
+<p>Automated:</p>
+<ul>
+<li><code>npm run test:worker</code> typechecks both relays and runs the Node relay's socket
+  integration suite.</li>
+<li><code>npm run test:frontend</code> runs <code>tests/collab-protocol.test.ts</code> (protocol
+  round-trip including the <code>set-participant-mode</code> / <code>chat</code> frames,
+  <code>resolveCollabBaseUrl</code> validation, echo-suppression logic, and the
+  <code>participantCanEdit</code> effective-permission helper), plus the shared relay
+  conformance suite.</li>
+</ul>
+<h3 id="testing-the-full-feature-locally">Testing the full feature locally<a class="headerlink" href="#testing-the-full-feature-locally" title="Permanent link">&para;</a></h3>
+<p>Collaboration is dark until <code>VITE_GEOLIBRE_COLLAB_URL</code> points at a running
+relay, so local testing has two parts: run the relay, then run the app against
+it.</p>
+<ol>
+<li><strong>Start a relay</strong> in one terminal. For the Cloudflare implementation:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>workers/collab<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>npx<span class="w"> </span>wrangler<span class="w"> </span>dev<span class="w"> </span>--port<span class="w"> </span><span class="m">8787</span><span class="w"> </span>--local
+<span class="c1"># → Ready on http://localhost:8787</span>
+</code></pre></div>
+<p>Or run the self-hostable Node implementation:</p>
+<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>run<span class="w"> </span>build<span class="w"> </span>-w<span class="w"> </span>geolibre-collab-node
+npm<span class="w"> </span>start<span class="w"> </span>-w<span class="w"> </span>geolibre-collab-node
+</code></pre></div>
+<ol>
+<li><strong>Start the app pointing at that relay</strong> in another terminal:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="nv">VITE_GEOLIBRE_COLLAB_URL</span><span class="o">=</span>ws://127.0.0.1:8787<span class="w"> </span>npm<span class="w"> </span>run<span class="w"> </span>dev
+<span class="c1"># → http://localhost:5173</span>
+</code></pre></div>
+<p>Or put <code>VITE_GEOLIBRE_COLLAB_URL=ws://127.0.0.1:8787</code> in
+   <code>apps/geolibre-desktop/.env.local</code> so you don't repeat it. With the variable
+   unset the Collaborate menu item stays hidden — that is the feature flag
+   working. (For the desktop shell use <code>npm run tauri:dev</code> with the same
+   variable; the Tauri CSP already allows <code>ws://127.0.0.1:*</code> / <code>ws://localhost:*</code>.)</p>
+<ol>
+<li>
+<p><strong>Open two independent windows</strong> at <code>http://localhost:5173</code> — a normal window
+   plus an incognito window works well so they don't share state.</p>
+</li>
+<li>
+<p><strong>Drive a session:</strong></p>
+</li>
+<li>Window A: <strong>Project → Collaborate…</strong>, enter a name, pick a color, <strong>Start
+     session</strong> (choose <em>Anyone can edit</em>). Copy the session code or the share
+     link.</li>
+<li>Window B: open the share link directly (the Collaborate dialog auto-opens
+     with the code prefilled — just enter a name and <strong>Join</strong>), or open
+     <strong>Project → Collaborate…</strong> and paste the code.</li>
+<li>Verify: B immediately sees A's existing layers; adding/removing a layer,
+     changing a style, or panning in A reflects in B within ~300 ms; each window
+     shows the other's live <strong>cursor</strong> and a dashed <strong>viewport rectangle</strong>;
+     toggling A (the host) to <em>view-only</em> blocks B's edits.</li>
+<li>Verify Parts 3 &amp; 4 (#754) via the on-canvas status badge (bottom-left,
+     click to expand): A (the host) can flip B between <strong>Can edit</strong> and
+     <strong>View-only</strong> per-participant in the roster, and either window can send a
+     <strong>chat</strong> message (optionally attaching the current map center, which the
+     other side can click to recenter).</li>
+</ol>
+<p><strong>Relay-only smoke test (no UI):</strong> with <code>wrangler dev</code> running, <code>POST</code> to
+<code>http://127.0.0.1:8787/sessions</code> to mint a code, then open a WebSocket to
+<code>ws://127.0.0.1:8787/sessions/&lt;code&gt;/ws</code> and exchange <code>join</code> / <code>snapshot</code> /
+<code>presence</code> frames — the quickest way to confirm the relay independent of the
+front end.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/opengeos/GeoLibre" target="_blank" rel="noopener" title="GeoLibre on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/sponsors/giswqs" target="_blank" rel="noopener" title="Sponsor GeoLibre on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="m241 87.1 15 20.7 15-20.7C296 52.5 336.2 32 378.9 32 452.4 32 512 91.6 512 165.1v2.6c0 112.2-139.9 242.5-212.9 298.2-12.4 9.4-27.6 14.1-43.1 14.1s-30.8-4.6-43.1-14.1C139.9 410.2 0 279.9 0 167.7v-2.6C0 91.6 59.6 32 133.1 32 175.8 32 216 52.5 241 87.1"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://buymeacoffee.com/giswqs" target="_blank" rel="noopener" title="Buy the maintainer a coffee" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M152-16c-13.3 0-24 10.7-24 24 0 38.9 23.4 59.4 39.1 73.1l1.1 1C184.5 96.4 192 103.9 192 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C183.5 31.7 176 24.1 176 8c0-13.3-10.7-24-24-24M96 192c-17.7 0-32 14.3-32 32v192c0 53 43 96 96 96h192c41.8 0 77.4-26.7 90.5-64h5.5c70.7 0 128-57.3 128-128s-57.3-128-128-128zm352 192V256c35.3 0 64 28.7 64 64s-28.7 64-64 64M288 8c0-13.3-10.7-24-24-24S240-5.3 240 8c0 38.9 23.4 59.4 39.1 73.1l1.1 1C296.5 96.4 304 103.9 304 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C295.5 31.7 288 24.1 288 8"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","navigation.sections","navigation.top","search.highlight","search.share","search.suggest","toc.follow"],"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.69c251d7.min.js"></script>
+      
+    
+  </body>
+</html>
