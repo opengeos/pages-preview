@@ -3062,7 +3062,7 @@ geoparquet, duckdb-query, deckgl-viz, video, image
 <li><strong>Need to get real work done</strong> — Download the desktop version from GitHub Releases, or via Microsoft Store / Homebrew / winget; a two-minute process</li>
 <li><strong>Python users</strong> — <code>pip install geolibre</code>; for GeoPandas support, <code>pip install "geolibre[all]"</code>; requires Python 3.10+</li>
 <li><strong>Intranet / offline environments</strong> — <code>VITE_PYODIDE_INDEX_URL</code> and <code>VITE_DUCKDB_SPATIAL_EXTENSION_PATH</code> can point Pyodide and the DuckDB spatial extension to internal mirrors, <strong>no rebuild required</strong>; an official Docker image is also available at <code>ghcr.io/opengeos/geolibre:latest</code></li>
-<li><strong>Secondary development</strong> — npm workspaces monorepo; main application in <code>apps/geolibre-desktop</code>; MIT licensed</li>
+<li><strong>Secondary development</strong> — npm workspaces monorepo, so use <strong>npm</strong> (the repo tracks <code>package-lock.json</code>) on <strong>Node 22+</strong>; main application in <code>apps/geolibre-desktop</code>; MIT licensed</li>
 </ol>
 <p>Final takeaway: for data preview and exploration, highly recommended; for production deployment, wait a bit longer — at least until the version iteration cadence stabilizes.</p>
 

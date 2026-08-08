@@ -3053,7 +3053,7 @@
 <blockquote>
 <p><strong>最容易踩的认知误区：</strong> 以为装了 duckdb-wasm 就有空间能力。没有。<code>ST_Read</code>、<code>ST_Transform</code>、<code>ST_AsWKB</code> 这些全在 spatial 扩展里，它是运行时从 CDN 拉下来再加载的第二份 WASM。</p>
 </blockquote>
-<p>而 spatial 扩展的 <code>ST_Read</code> 背后，是 <strong>GDAL 的一个子集</strong>。这句话的含义是：在浏览器里发一条 SQL，就能读 GDAL 支持的那些矢量格式。</p>
+<p>而 spatial 扩展的 <code>ST_Read</code> 背后，是 <strong>GDAL 的一个子集</strong>。这句话的含义是：在浏览器里发一条 SQL，就能读这个子集覆盖的那些矢量格式。注意它用的是扩展自带的 GDAL，不是机器上装的那份，所以具体能读哪些取决于当前加载的构建——用 <code>SELECT * FROM ST_Drivers()</code> 可以列出来。</p>
 <h3 id="22-geolibre">2.2 GeoLibre 拿它干了什么<a class="headerlink" href="#22-geolibre" title="Permanent link">&para;</a></h3>
 <p>源码中 DuckDB 的调用点归类如下：</p>
 <table>
@@ -3126,7 +3126,7 @@
 <span class="p">}</span>
 </code></pre></div>
 <p><strong>手动列 bundle 而不是用默认 CDN 解析，是为了让 Vite 把 wasm 和 worker 打成带哈希的本地产物</strong>——这样才能被 Service Worker 的 CacheFirst 安全缓存（见第五节）。</p>
-<p><strong>第二，扩展加载必须做成「全局只跑一次」。</strong> <code>INSTALL spatial</code> 会走网络，<code>LOAD</code> 有状态，并发调用会互相打架。GeoLibre 的做法很值得借鉴：</p>
+<p><strong>第二，扩展加载必须做成「按实例只跑一次」。</strong> <code>INSTALL spatial</code> 会走网络，<code>LOAD</code> 有状态，并发调用会互相打架。GeoLibre 的做法很值得借鉴：</p>
 <div class="highlight"><pre><span></span><code><span class="c1">// 按实例记忆化：共享库和 SQL 工作区各有自己的 DB，各记各的</span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">spatialExtensionByDb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">WeakMap</span><span class="o">&lt;</span><span class="nx">duckdb</span><span class="p">.</span><span class="nx">AsyncDuckDB</span><span class="p">,</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;&gt;</span><span class="p">();</span>
 
@@ -3417,7 +3417,7 @@
 <blockquote>
 <p>SYNC: RESTORABLE_VECTOR_EXTENSIONS in src-tauri/src/lib.rs must list the same extensions, or a format added here would be rejected by the Rust restore guard on every project reopen (<strong>the bug this PR fixes</strong>). Grep "SYNC:" to find the partner list.</p>
 </blockquote>
-<p>注意括号里那句「the bug this PR fixes」——他们真的踩过：在 TS 里加了新格式，Rust 侧的守卫没加，于是每次重开工程都被拒。</p>
+<p>注意括号里那句「the bug this PR fixes」——它指的是当初加上这条注释的那个 PR，对后来的读者已经没什么指向性了，但它记录的故障是真的：在 TS 里加了新格式，Rust 侧的守卫没加，于是每次重开工程都被拒。</p>
 <blockquote>
 <p><strong>启发：能合并成一份就合并；合并不了（跨语言、跨进程、跨仓库）就用一个统一的可 grep 标记把它们钉在一起，并在注释里写清楚「不同步会出什么事」。</strong> 这比「大家注意保持一致」有用得多。</p>
 </blockquote>
@@ -3455,7 +3455,7 @@
 </tr>
 </tbody>
 </table>
-<p><strong>所以这些 CDN 引擎的准确表述是：首次使用需要网络，之后离线可用。</strong></p>
+<p><strong>所以这些 CDN 引擎的准确表述是：在 Web PWA 里，首次「成功」取回需要网络——CacheFirst 只有在真的存下了一份响应之后才会走缓存——此后才离线可用。</strong> 桌面端根本不注册 Service Worker，这条对它不成立，见下面的要点。</p>
 <p>那为什么不直接全打包进来？往下看这几个细节就明白了。</p>
 <p>几个特别实在的细节：</p>
 <ul>
@@ -3520,8 +3520,8 @@
 <p><strong>收益三，缓存变得几乎免费。</strong></p>
 <p>云原生格式是<strong>静态文件</strong>，所以它天然吃得下整条现成的 HTTP 缓存链路：<strong>CDN 边缘缓存、浏览器缓存、Service Worker、<code>ETag</code> / 不可变 URL</strong>，一条都不用自己实现。</p>
 <p>对比一下动态瓦片服务：切片缓存要自己建、失效策略要自己写、缓存命中率要自己盯。<strong>而 Range 请求命中的是同一个不可变文件的同一段字节，CDN 层面就是一次普通的缓存命中。这篇第五节那套 Workbox 三层缓存策略，之所以能生效，前提就是资源是静态且带内容哈希的。</strong></p>
-<p><strong>收益四，并发和扩容问题消失了。</strong></p>
-<p>瓦片服务的容量瓶颈在服务端 CPU：同时来 100 个用户就是 100 份渲染开销。<strong>静态存储 + CDN 的扩容曲线是另一回事</strong>——对象存储不关心并发多少，多来的量只体现在流量费上，而且边缘缓存会把绝大部分请求截在离用户最近的节点。</p>
+<p><strong>收益四，并发瓶颈从你的服务器上挪走了。</strong></p>
+<p>瓦片服务的容量瓶颈在服务端 CPU：同时来 100 个用户就是 100 份渲染开销。<strong>静态存储 + CDN 的扩容曲线是另一回事</strong>——没有按用户计的渲染要扩，多来的量主要体现在流量费上，而且边缘缓存会把绝大部分请求截在离用户最近的节点。但容量规划并不会因此消失：缓存未命中仍会打到源站，对象存储也有自己的按前缀请求速率上限和出网流量账单。</p>
 <p>这条对做政务大屏、公共服务门户这类「平时没人、开会时全省一起看」的场景特别关键：这种流量形状用瓦片服务扛，要么长期为峰值付费，要么峰值时挂掉。</p>
 <p><strong>收益五，链路短了一整段，运维成本跟着塌下来。</strong></p>
 <p><strong>没有发布流程，没有服务进程，没有数据库连接池，没有要打补丁的中间件。</strong>数据更新就是覆盖一个文件。GeoLibre 整套「浏览器里直读远程 GeoParquet / COG / PMTiles」的能力就是这条路走通的证明，它接的那些在线目录（STAC、Source Cooperative、Overture Maps、Planetary Computer）全是这个模式。</p>
@@ -3591,7 +3591,7 @@
 <p>这条链路上有三个做法值得借鉴：<strong>服务端取数据再补 CORS 头</strong>（避免浏览器直接发起跨域请求）、<strong>结果放边缘缓存</strong>（重复请求不回源）、<strong>严格白名单绝不做开放代理</strong>（源码原话是「keyed to a tight allowlist so it is never an open proxy」）。第三条是安全底线：能转发任意 URL 的公开代理，容易被恶意利用，后果需要自行承担。</p>
 <p>还有个细节值得记：Source Cooperative 的未知 API 路径不返回 404，而是落到页面兜底路由，<strong>返回 HTML、状态码 200</strong>。所以源码每次读取都校验解析后的结构。<strong><code>response.ok</code> 只说明网络层没出错，不代表拿到的是想要的东西。</strong></p>
 <h3 id="64-cog-tif">6.4 「转成 COG」不是把后缀改成 <code>.tif</code><a class="headerlink" href="#64-cog-tif" title="Permanent link">&para;</a></h3>
-<p>COG 能被 range 直读，靠的是<strong>文件内部有瓦片切分和金字塔（overviews）</strong>。一个条带式 GeoTIFF 就算叫 <code>.tif</code>，客户端也没法只取其中一小块。</p>
+<p>COG 能被 range 直读，靠的是<strong>文件内部有瓦片切分和金字塔（overviews）</strong>。条带式 GeoTIFF 严格说也能 range 读——条带的偏移和字节数就写在头里——但一个条带横跨整幅影像的宽度，取一小块地图范围要连带拉回远超所需的字节，而且没有 overviews 就没有可供缩小时使用的粗级别。后缀叫不叫 <code>.tif</code> 都改变不了这一点，况且 GeoLibre 的客户端读取器直接要求文件内部有瓦片。</p>
 <p>GeoLibre 的处理值得借鉴：面板<strong>先用一个 Range 请求把文件头读回来</strong>，判断有没有内部瓦片；没有就提示走客户端转换（gdal3.js 那条路）再加载。<strong>用几 KB 的头部换一个明确判断，而不是让用户等一次必然很慢的加载。</strong></p>
 <p>三个栅格引擎的取舍源码里也写清楚了：<code>cog-tiler-wasm</code>（默认，浏览器 WASM，<strong>代价是只能用内置色带</strong>，自定义分级失效）、<code>maplibre-gl-raster</code>（GPU，符号化完整）、<code>titiler</code>（服务端）。<strong>默认值选的是最稳的那个，不是功能最全的。</strong></p>
 <h3 id="65">6.5 数据不是云原生格式怎么办：把索引外置<a class="headerlink" href="#65" title="Permanent link">&para;</a></h3>
