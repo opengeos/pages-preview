@@ -97,16 +97,16 @@
         <loc>https://geolibre.app/tutorials/sharing-embedding/</loc>
       </url>
       <url>
-        <loc>https://geolibre.app/tutorials/supported-formats-zh/</loc>
-      </url>
-      <url>
         <loc>https://geolibre.app/tutorials/supported-formats-en/</loc>
       </url>
       <url>
-        <loc>https://geolibre.app/tutorials/source-code-deep-dive-zh/</loc>
+        <loc>https://geolibre.app/tutorials/supported-formats-zh/</loc>
       </url>
       <url>
         <loc>https://geolibre.app/tutorials/source-code-deep-dive-en/</loc>
+      </url>
+      <url>
+        <loc>https://geolibre.app/tutorials/source-code-deep-dive-zh/</loc>
       </url>
       <url>
         <loc>https://geolibre.app/architecture/</loc>

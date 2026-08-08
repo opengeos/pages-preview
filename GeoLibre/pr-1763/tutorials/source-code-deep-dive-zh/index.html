@@ -13,10 +13,10 @@
         <link rel="canonical" href="https://geolibre.app/tutorials/source-code-deep-dive-zh/">
       
       
-        <link rel="prev" href="../supported-formats-en/">
+        <link rel="prev" href="../source-code-deep-dive-en/">
       
       
-        <link rel="next" href="../source-code-deep-dive-en/">
+        <link rel="next" href="../../architecture/">
       
       
         
@@ -1230,14 +1230,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../supported-formats-zh/" class="md-nav__link">
+      <a href="../supported-formats-en/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-  Comprehensive Format Reference (Chinese)
+  Format Reference
 
     
   </span>
@@ -1257,14 +1257,41 @@
   
   
     <li class="md-nav__item">
-      <a href="../supported-formats-en/" class="md-nav__link">
+      <a href="../supported-formats-zh/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-  Comprehensive Format Reference (English)
+  Format Reference (中文)
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../source-code-deep-dive-en/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Source Code Deep Dive
 
     
   </span>
@@ -1300,7 +1327,7 @@
   <span class="md-ellipsis">
     
   
-  Deep Dive — Architecture & Source Code Analysis (Chinese)
+  Source Code Deep Dive (中文)
 
     
   </span>
@@ -1317,7 +1344,7 @@
   <span class="md-ellipsis">
     
   
-  Deep Dive — Architecture & Source Code Analysis (Chinese)
+  Source Code Deep Dive (中文)
 
     
   </span>
@@ -1767,33 +1794,6 @@
   
 </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../source-code-deep-dive-en/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  Deep Dive — Architecture & Source Code Analysis (English)
-
-    
-  </span>
-  
-  
-
-      </a>
     </li>
   
 
@@ -2835,7 +2835,7 @@
 <p><strong>本文使用简体中文撰写。</strong></p>
 </blockquote>
 <h2 id="_1">前言<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>本文对照 GeoLibre 仓库源码逐层拆解项目架构，梳理项目依赖选型、DuckDB-WASM 空间计算内核、前端性能优化策略、状态管理设计、离线缓存三层策略与云原生地理数据整套方案，文中标注全部对应源码文件路径，所有技术方案均可直接复用至 WebGIS 项目。）</p>
+<p>本文对照 GeoLibre 仓库源码逐层拆解项目架构，梳理项目依赖选型、DuckDB-WASM 空间计算内核、前端性能优化策略、状态管理设计、离线缓存三层策略与云原生地理数据整套方案，文中标注全部对应源码文件路径，所有技术方案均可直接复用至 WebGIS 项目。</p>
 <h2 id="_2">一、它的工具箱：值得单独拿出来看的开源库<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>仓库是 npm workspaces 单体仓库，7 个包 + 桌面应用。依赖按用途归类如下，以下标注的为值得重点关注的库。</p>
 <h3 id="11">1.1 格式解析：轻量优先，重武器备用<a class="headerlink" href="#11" title="Permanent link">&para;</a></h3>
@@ -2912,7 +2912,7 @@
 </tbody>
 </table>
 <p><strong>这里最值得借鉴的是「按格式选最轻的路径」。</strong> 源码里 <code>packages/plugins/package.json</code> 有 60 多个依赖，但没有一个「大一统读取层」——每种格式各走各的最短路。</p>
-<p><img alt="支持格式" src="../../assets/add-data-formats.png" /></p>
+<p><img alt="支持格式" src="https://assets.geolibre.app/images/add-data-formats.webp" /></p>
 <p>KML 那条尤其能说明取舍。<code>docs/architecture.md:61</code> 写得很直白：KML 由<strong>自研解析器</strong>读取，为的是<strong>保留内嵌符号化</strong>，输出 simplestyle-spec 属性（<code>fill</code>、<code>stroke</code>、<code>stroke-width</code>），这样带样式的 KML 在 GeoLibre 里和在 Google Earth 里长得一样；解析器读不了的才退回 DuckDB Spatial，<strong>代价是丢掉样式</strong>。</p>
 <blockquote>
 <p><strong>关键启发：</strong> 通用库为了统一数据模型，一定会丢掉格式特有的信息。而那些信息往往正是用户最在意的部分。</p>
@@ -3007,7 +3007,7 @@
 </tr>
 </tbody>
 </table>
-<p><img alt="3D Tiles、矢量、glTF、高斯泼溅混排在同一个图层列表" src="../../assets/3dtiles.png" /></p>
+<p><img alt="3D Tiles、矢量、glTF、高斯泼溅混排在同一个图层列表" src="https://assets.geolibre.app/images/3dtiles.webp" /></p>
 <p><strong><code>maplibre-gl-*</code> 这一串是很多人不知道的：3D Tiles、COPC 点云、高斯泼溅，全都能在 MapLibre 画布里加载，不需要引入 Cesium。</strong> 如果项目只是「想看看 3D Tiles」，这条路比上一整套三维引擎轻得多。</p>
 <h3 id="_3">借鉴要点<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <ul>
@@ -3020,7 +3020,7 @@
 <h2 id="duckdb-wasm-spatial">二、DuckDB-WASM Spatial：一个库同时当格式驱动和计算引擎<a class="headerlink" href="#duckdb-wasm-spatial" title="Permanent link">&para;</a></h2>
 <p>这一节是这篇的重点。<strong>如果只看一件事，看这个。</strong></p>
 <p>先把 WebAssembly 这件事一句话说完：GeoLibre 仓库里带 <code>wasm</code> 的标识符有 315 处命中，<strong>数据库、语言运行时、原生工具链、编解码、机器学习</strong>五类能力全部由 WASM 引擎承担——DuckDB、sql.js（SQLite）、PGlite + PostGIS、CereusDB（SedonaDB）、Pyodide、<code>geolibre-wasm</code>（Whitebox 的 WASI 构建）、gdal3.js、<code>cog-tiler-wasm</code>、h5wasm、onnxruntime-web。<strong>原生语言连起来看就明白了：C、C++、Rust。WASM 在这里不是给 JS 加速，是把 GIS 领域几十年积累的原生生态整体搬进浏览器。</strong></p>
-<p><img alt="数据处理菜单：背后是一排 WASM 引擎" src="../../assets/processing-tools-menu.png" /></p>
+<p><img alt="数据处理菜单：背后是一排 WASM 引擎" src="https://assets.geolibre.app/images/processing-tools-menu.webp" /></p>
 <p>这十来个引擎里，<strong>有一个值得当下就该去试的</strong>：<code>@duckdb/duckdb-wasm</code> 加上它的 spatial 扩展。原因很简单——其他引擎解决的是「某一类活儿」，而它同时是<strong>格式驱动</strong>和<strong>计算引擎</strong>，一个库就能把「读数据」和「算数据」两件事一起接管。</p>
 <h3 id="21">2.1 先把三层关系讲清楚<a class="headerlink" href="#21" title="Permanent link">&para;</a></h3>
 <p>这三个名字经常被混着说，其实是套娃：</p>
@@ -3105,7 +3105,7 @@
 <blockquote>
 <p><strong>关键洞察：</strong> 注意最后一行。这是一个很容易被低估的设计：地图上的图层同时是 SQL 里的表，用户可以对着两个图层写 <code>JOIN</code>、写 <code>ST_Intersects</code>，结果再直接变成新图层。<strong>「地图」和「数据库」在这里是同一份东西的两个视图。</strong></p>
 </blockquote>
-<p><img alt="矢量数据处理" src="../../assets/vector-data-demo.gif" /></p>
+<p><img alt="矢量数据处理" src="https://assets.geolibre.app/demos/vector-data-demo.gif" /></p>
 <p>SQL 工作区里还有三处「帮用户把话说全」的改写，做 SQL 控制台的可以直接照这个思路来：</p>
 <ul>
 <li><strong><code>FROM</code> / <code>JOIN</code> 后面裸写一个 URL 或本地路径就行</strong>，源码会按扩展名自动套上对应 reader（<code>read_parquet</code>、<code>read_csv_auto</code>、<code>ST_Read</code>……），用户不用记哪种格式配哪个函数</li>
@@ -3288,7 +3288,7 @@
 <li>通过自定义协议 <code>geolibre-gjvt</code> 喂给 MapLibre</li>
 <li><code>TILE_EXTENT = 4096</code>，<code>TILE_MAX_ZOOM = 16</code>（超过就让 MapLibre over-zoom）</li>
 </ul>
-<p><img alt="大数据量矢量加载" src="../../assets/vector-data-demo.gif" /></p>
+<p><img alt="大数据量矢量加载" src="https://assets.geolibre.app/demos/vector-data-demo.gif" /></p>
 <p>两个细节值得单独说。</p>
 <p><strong>第一，瓦片索引放模块级 Map，不进 store。</strong> 源码注释是这么写的：</p>
 <blockquote>
@@ -3390,7 +3390,7 @@
 <h2 id="_4">四、状态管理：三个可直接复用的小模式<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <p>这节讲的是纯 Web 工程，跟 GIS 关系不大，但迁移成本最低。</p>
 <p><code>@geolibre/core</code> 的依赖只有四个：<code>zustand</code>、<code>zundo</code>、<code>uuid</code>、<code>@maplibre/maplibre-gl-style-spec</code>。<strong>注意它不依赖 <code>maplibre-gl</code> 本体</strong>（那个 style-spec 包只是用来求值样式表达式的），所以状态层和渲染层是真的分开的。</p>
-<p><img alt="图层面板：所有参数改的都是 store" src="../../assets/raster-style-panel.png" /></p>
+<p><img alt="图层面板：所有参数改的都是 store" src="https://assets.geolibre.app/images/raster-style-panel.webp" /></p>
 <p><strong>模式一，常量数组当单一来源。</strong> <code>packages/core/src/types.ts:62</code> 那 20 个图层类型：</p>
 <div class="highlight"><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">LAYER_TYPES</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
 <span class="w">  </span><span class="s2">&quot;geojson&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;raster&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;wms&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;wmts&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;xyz&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;vector-tiles&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;arcgis&quot;</span><span class="p">,</span>
@@ -3482,11 +3482,11 @@
 <p>传统链路：<strong>数据入库 → GeoServer / ArcGIS Server 发布 → 切瓦片 → 前端请求服务</strong>。需要维护一台服务器、一套发布流程、一份切片缓存，还要为它做监控、备份和扩容。</p>
 <p>云原生链路：<strong>数据转成 COG / GeoParquet / PMTiles / FlatGeobuf → 放到任何能响应 Range 请求的静态存储 → 前端按需取字节区间</strong>。服务器这一环整个消失了，剩下的只是对象存储的流量费。</p>
 <blockquote>
-<p><strong>关键词是 HTTP Range。</strong> 这些格式的共同点不是「压缩得更好」，而是<strong>把索引写进了文件自己的头部</strong>——客户端先读几 KB 头部，算出自己要的是哪几段字节，再发一个 <code>Range</code> 请求取回来。所以静态存储就够了，不需要任何「服务」。</p>
+<p><strong>关键词是 HTTP Range。</strong> 这些格式的共同点不是「压缩得更好」，而是<strong>每个文件都把自己的布局元数据带在身上——头部或尾部、瓦片目录、R 树索引、金字塔概视、行组统计</strong>——客户端先读几 KB 这样的元数据，算出自己要的是哪几段字节，再发一个 <code>Range</code> 请求取回来。所以静态存储就够了，不需要任何「服务」。</p>
 </blockquote>
 <h3 id="61">6.1 它到底好在哪：五条实打实的收益<a class="headerlink" href="#61" title="Permanent link">&para;</a></h3>
 <p><strong>收益一，下载量按「要看什么」收敛，而不是按「文件有多大」。</strong></p>
-<p>这是最根本的一条。传统格式（GeoJSON、Shapefile、条带式 GeoTIFF）<strong>没有内部索引，客户端只能整份拿</strong>。云原生格式把索引写进文件头，于是有了三个维度的裁剪：</p>
+<p>这是最根本的一条。传统格式（GeoJSON、Shapefile、条带式 GeoTIFF）<strong>没法按字节区间局部读取——即便有索引也在旁挂的独立文件里，客户端仍然只能把数据整份拿下来</strong>。云原生格式把索引放进数据文件自身，于是有了三个维度的裁剪：</p>
 <table>
 <thead>
 <tr>
@@ -3528,7 +3528,7 @@
 <p><strong>但也得说清代价，这四条是真的：</strong></p>
 <ul>
 <li><strong>小数据反而更慢。</strong> 读头部、读索引、再取数据，是好几个网络往返；几百 KB 的 GeoJSON 一次请求就完事了，套云原生格式并不划算。<strong>阈值大概在「一次请求下不完」的量级。</strong></li>
-<li><strong>Range 请求数量会明显变多。</strong> 必须有 HTTP/2 或 HTTP/3，否则连接开销会把优势吃掉。</li>
+<li><strong>Range 请求数量会明显变多。</strong> HTTP/1.1 同样支持 <code>Range</code>，但在这个请求量级下强烈建议用 HTTP/2 或 HTTP/3，否则连接开销会把优势吃掉。</li>
 <li><strong>服务端必须支持 <code>Range</code> 和 CORS</strong>（还要 <code>Access-Control-Expose-Headers</code>），这一点比预想中更容易出问题，下一小节专门讲。</li>
 <li><strong>算力从服务端挪到了客户端。</strong> 原来服务器干的解码、过滤、拼接，现在在用户的浏览器里跑，受 ~4 GiB 内存和单线程约束（见第二节 2.5）。<strong>不是「变快了」，是「换了个地方算」——只有当那个地方算得更划算时才成立。</strong></li>
 </ul>
@@ -3633,7 +3633,7 @@
 <li>把 CDN / 资源地址全部改成运行时可配置</li>
 </ol>
 <h3 id="_9">这个迭代能做的<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
-<ol>
+<ol start="4">
 <li>给大数据量图层定一个明确阈值，过线换客户端切片（<code>@maplibre/geojson-vt</code> + <code>@maplibre/vt-pbf</code>）</li>
 <li>给所有异步管线接 <code>AbortController</code>，包括非网络的长循环</li>
 <li>检查撤销栈有没有内存预算、有没有永远保留最新快照；检查虚拟列表的排序是不是走完整数据模型</li>
@@ -3641,7 +3641,7 @@
 <li>把跨语言/跨进程的重复常量用统一的 <code>SYNC:</code> 标记钉起来</li>
 </ol>
 <h3 id="_10">值得立项评估的<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
-<ol>
+<ol start="9">
 <li>把 DuckDB-WASM Spatial <strong>从「读格式的工具」升级成「查询层」</strong>：让图层同时是 SQL 表，用户能对着两个图层写 <code>JOIN</code> 和 <code>ST_Intersects</code></li>
 <li>把算子层去框架化，让浏览器和服务端跑同一份代码，从此不用再对账</li>
 <li>把静态数据线换成云原生格式，先从 PMTiles 开始；顺手确认存储支持 <code>Range</code> 和 CORS，并想清楚哪些元数据必须走代理</li>

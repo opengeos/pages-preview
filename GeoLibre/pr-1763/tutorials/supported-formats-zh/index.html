@@ -13,10 +13,10 @@
         <link rel="canonical" href="https://geolibre.app/tutorials/supported-formats-zh/">
       
       
-        <link rel="prev" href="../sharing-embedding/">
+        <link rel="prev" href="../supported-formats-en/">
       
       
-        <link rel="next" href="../supported-formats-en/">
+        <link rel="next" href="../source-code-deep-dive-en/">
       
       
         
@@ -1227,6 +1227,33 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../supported-formats-en/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Format Reference
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -1246,7 +1273,7 @@
   <span class="md-ellipsis">
     
   
-  Comprehensive Format Reference (Chinese)
+  Format Reference (中文)
 
     
   </span>
@@ -1263,7 +1290,7 @@
   <span class="md-ellipsis">
     
   
-  Comprehensive Format Reference (Chinese)
+  Format Reference (中文)
 
     
   </span>
@@ -1508,14 +1535,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../supported-formats-en/" class="md-nav__link">
+      <a href="../source-code-deep-dive-en/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-  Comprehensive Format Reference (English)
+  Source Code Deep Dive
 
     
   </span>
@@ -1542,34 +1569,7 @@
   <span class="md-ellipsis">
     
   
-  Deep Dive — Architecture & Source Code Analysis (Chinese)
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../source-code-deep-dive-en/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  Deep Dive — Architecture & Source Code Analysis (English)
+  Source Code Deep Dive (中文)
 
     
   </span>
@@ -2401,7 +2401,7 @@
 <p><strong>本文使用简体中文撰写。</strong></p>
 </blockquote>
 <h2 id="_1">前言<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>本文完整梳理 GeoLibre 内置支持的全部地理空间数据格式，区分矢量、栅格、云原生地理格式，同时说明每种格式对应的解析依赖、读取优先级与适用场景，可供 WebGIS 开发人员快速查阅。）</p>
+<p>本文完整梳理 GeoLibre 内置支持的全部地理空间数据格式，区分矢量、栅格、云原生地理格式，同时说明每种格式对应的解析依赖、读取优先级与适用场景，可供 WebGIS 开发人员快速查阅。</p>
 <h2 id="_2">一、运行形态与平台说明<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>列格式之前先说清楚「在哪儿跑」，因为后面很多格式有平台差异。</p>
 <table>
@@ -2436,7 +2436,7 @@
 </tbody>
 </table>
 <blockquote>
-<p><strong>没有账号，没有服务器，没有费用。</strong> 数据默认不出本机。</p>
+<p><strong>核心应用没有账号、没有服务器、没有费用。</strong> 本地文件就地读取、不出本机，应用加载完成后本地流程也能离线继续用。例外的是那些可选的远程能力：在线目录（STAC、Source Cooperative、Overture、Planetary Computer）、从 CDN 下载底图与瓦片，以及 Earth Engine、需要鉴权的 ArcGIS 服务等，都需要联网，部分还需要各自的凭据或 OAuth 登录。</p>
 </blockquote>
 <hr />
 <h2 id="_3">二、矢量数据格式支持<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
@@ -2554,7 +2554,7 @@ csv, tsv, kml, kmz, gml, gpx, dxf, tab, shp, zip
 </tr>
 <tr>
 <td><strong>地理标记照片</strong></td>
-<td><code>.jpg</code> <code>.png</code> <code>.tif</code> <code>.png</code> <code>.heic</code> <code>.heif</code></td>
+<td><code>.jpg</code> <code>.jpeg</code> <code>.png</code> <code>.tif</code> <code>.tiff</code> <code>.webp</code> <code>.heic</code> <code>.heif</code></td>
 <td>exifr</td>
 <td><strong>读 EXIF GPS 直接生成点图层</strong>，无人机照片很实用</td>
 </tr>
@@ -2566,8 +2566,8 @@ csv, tsv, kml, kmz, gml, gpx, dxf, tab, shp, zip
 <p>KML 的 <code>&lt;Model&gt;</code> 这条值得关注：它会把内嵌的 COLLADA <code>.dae</code> 用 three.js 加载再导出成 GLB 加载到地图中。为了这一个边缘场景引入了 three.js。</p>
 </div>
 <p>加载完之后不是「能看见就完事」——符号化、分级配色、图例都是跟着走的：</p>
-<p><img alt="一个工程里叠了地铁站点、地铁线路、曼哈顿建筑高度三个矢量图层，右侧图例按建成年代自动分级" src="../../assets/vector-layers-legend.png" /></p>
-<p><img alt="同一份数据拖时间轴：按建成年代逐年过滤建筑，矢量图层是带时间维度的" src="../../assets/vector-data-demo.gif" /></p>
+<p><img alt="一个工程里叠了地铁站点、地铁线路、曼哈顿建筑高度三个矢量图层，右侧图例按建成年代自动分级" src="https://assets.geolibre.app/images/vector-layers-legend.webp" /></p>
+<p><img alt="同一份数据拖时间轴：按建成年代逐年过滤建筑，矢量图层是带时间维度的" src="https://assets.geolibre.app/demos/vector-data-demo.gif" /></p>
 <hr />
 <h2 id="_4">三、栅格与影像<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <p>栅格这块比矢量窄，但覆盖了云原生那条主线。</p>
@@ -2625,7 +2625,7 @@ csv, tsv, kml, kmz, gml, gpx, dxf, tab, shp, zip
 </tr>
 </tbody>
 </table>
-<p><img alt="Google 影像底图与栅格样式面板" src="../../assets/raster-style-panel.png" /></p>
+<p><img alt="Google 影像底图与栅格样式面板" src="https://assets.geolibre.app/images/raster-style-panel.webp" /></p>
 <p><em>注意这个不对等：<code>.img</code>、<code>.vrt</code>、<code>.asc</code>、<code>.jp2</code>、<code>.hgt</code> 这些只在<strong>转换工具</strong>里认，不能直接当图层拖进去。直接拖只认 GeoTIFF。</em></p>
 <hr />
 <h2 id="lidar">四、点云与 LiDAR<a class="headerlink" href="#lidar" title="Permanent link">&para;</a></h2>
@@ -2707,7 +2707,7 @@ csv, tsv, kml, kmz, gml, gpx, dxf, tab, shp, zip
 </tr>
 </tbody>
 </table>
-<p><img alt="3D Tiles 加载面板：左侧图层列表里 3D-TILES、矢量、XYZ、glTF 模型、高斯泼溅混排" src="../../assets/3dtiles.png" /></p>
+<p><img alt="3D Tiles 加载面板：左侧图层列表里 3D-TILES、矢量、XYZ、glTF 模型、高斯泼溅混排" src="https://assets.geolibre.app/images/3dtiles.webp" /></p>
 <p>上面这张图挺能说明问题：<strong>左侧图层面板里 3D Tiles、矢量、XYZ、glTF 模型、高斯泼溅是叠在同一个列表里的</strong>，右边直接就是渲染结果。「加载 3D Tiles 要起服务器写页面」这件事在这儿就是<strong>粘贴一个 URL</strong>。</p>
 <p><em>没找到的：<code>.obj</code> 完全不支持（零命中）。<code>.b3dm</code>/<code>.pnts</code>/<code>.cmpt</code> 这些 3D Tiles 内部格式在仓库里也搜不到——它们被上游加载器透明处理了，不用你操心。高斯泼溅的扩展名清单同样在上游包里。</em></p>
 <hr />
@@ -2776,7 +2776,7 @@ geoparquet, duckdb-query, deckgl-viz, video, image
 </tr>
 </tbody>
 </table>
-<p><img alt="OpenFreeMap 3D 底图与绘制工具" src="../../assets/drawing-tools.png" /></p>
+<p><img alt="OpenFreeMap 3D 底图与绘制工具" src="https://assets.geolibre.app/images/drawing-tools.webp" /></p>
 <hr />
 <h2 id="_6">七、云原生格式与数据目录<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <p>这一节是 GeoLibre 和传统桌面 GIS 拉开距离的地方。</p>
@@ -2818,9 +2818,9 @@ geoparquet, duckdb-query, deckgl-viz, video, image
 <li><strong>气象与延时</strong> —— RainViewer 实时雷达、NASA GIBS、EOX 无云年度底图</li>
 </ul>
 <p><strong>行星数据</strong>（这是一个超出预期的设计）：<strong>月球、火星来自 OpenPlanetaryMap，水星、金星、伽利略卫星、土卫六、冥王星、卡戎来自 USGS Astrogeology</strong>。关键细节是<strong>每个工程独立的椭球体参数</strong>，所以距离和面积量算跟你测的那颗星球是对得上的。</p>
-<p><img alt="月球：底图来自 OpenPlanetaryMap，比例尺是 300 km" src="../../assets/moon-map.png" /></p>
-<p><img alt="火星：同一套界面，换个工程就是另一颗星球" src="../../assets/mars.png" /></p>
-<p><img alt="冥王星：这张来自 USGS Astrogeology，那块「心形」的 Sputnik Planitia 清晰可见" src="../../assets/pluto.png" /></p>
+<p><img alt="月球：底图来自 OpenPlanetaryMap，比例尺是 300 km" src="https://assets.geolibre.app/images/moon-map.webp" /></p>
+<p><img alt="火星：同一套界面，换个工程就是另一颗星球" src="https://assets.geolibre.app/images/mars.webp" /></p>
+<p><img alt="冥王星：这张来自 USGS Astrogeology，那块「心形」的 Sputnik Planitia 清晰可见" src="https://assets.geolibre.app/images/pluto.webp" /></p>
 <blockquote>
 <p><strong>编者注：</strong> 最初以为这只是表面文章，但每个工程独立的椭球体参数这个细节改变了这一看法——项目对坐标系的处理是严谨的，不是简单地贴图了事。</p>
 </blockquote>
@@ -2959,11 +2959,11 @@ geoparquet, duckdb-query, deckgl-viz, video, image
 </tr>
 <tr>
 <td><strong>Mac App Store 版本</strong></td>
-<td>隐藏 PostgreSQL 和 GDB 数据源、隐藏 AI 分割；所有转换退回浏览器运行时；Shapefile companion 文件要手动多选</td>
+<td>不带 Python sidecar：隐藏 PostgreSQL 和 GDB 数据源、隐藏 AI 分割；Whitebox、转换、栅格、矢量工具全部退回浏览器/WASM 引擎；Shapefile companion 文件要手动多选</td>
 </tr>
 <tr>
 <td><strong>安卓 / 移动端</strong></td>
-<td>隐藏 Whitebox、栅格工具、转换工具、AI 分割、PostgreSQL</td>
+<td>隐藏栅格工具、转换工具、AI 分割、PostgreSQL——这些都依赖 sidecar。Whitebox 工具箱走 WASM，依然可用</td>
 </tr>
 <tr>
 <td><strong>浏览器端</strong></td>
@@ -2983,10 +2983,10 @@ geoparquet, duckdb-query, deckgl-viz, video, image
 <li><strong>deck.gl</strong> 不占独立视图，是<strong>交织进 MapLibre 画布内</strong>的 overlay，负责 COG、3D Tiles、I3S、带 Z 值的矢量、可视化图层。这里有个硬约束：所有交织生产者必须共用<strong>同一个</strong> overlay 实例，否则后来的会把前面的图层清掉（作者实际遇到过这个问题）</li>
 <li><strong>Cesium</strong> 是分屏里的一个视图模式，不是替换。它只支持 GeoJSON、3D Tiles 和影像类图层，其它类型在面板里标「仅 2D」</li>
 </ul>
-<p><img alt="Cesium 视图模式下的三维球，左边还是那套图层面板" src="../../assets/earth-cesium-globe.png" /></p>
+<p><img alt="Cesium 视图模式下的三维球，左边还是那套图层面板" src="https://assets.geolibre.app/images/earth-cesium-globe.webp" /></p>
 <p>一个值得注意的细节：<strong>Cesium 的相机同步不是按 zoom 级别对齐的，而是按地面分辨率（米/像素）</strong>，所以不同高度的分屏面板能保持同样的屏幕比例尺。</p>
 <p><strong>计算引擎有五套</strong>，都挂在同一套 UI 下：DuckDB-WASM Spatial（主力，跑在独立 Worker 里）、PGlite + PostGIS、Apache Sedona（sidecar 或浏览器 WASM 版）、Pyodide（浏览器里跑 GeoPandas/Shapely）、Whitebox WASM（700+ 工具）。</p>
-<p><img alt="&quot;处理&quot;菜单展开的样子：Whitebox、转换、水文、LiDAR、网络、投影、栅格、遥感、地形、矢量，右边是按字母排的工具清单" src="../../assets/processing-tools-menu.png" /></p>
+<p><img alt="&quot;处理&quot;菜单展开的样子：Whitebox、转换、水文、LiDAR、网络、投影、栅格、遥感、地形、矢量，右边是按字母排的工具清单" src="https://assets.geolibre.app/images/processing-tools-menu.webp" /></p>
 <p><strong>一个很聪明的做法：矢量算子的 Python 实现是一个「无框架」模块，sidecar 和浏览器 Pyodide 执行的是同一份代码</strong>，所以两条路径结果完全一致，不会出现「本地算和服务器算不一样」。</p>
 <hr />
 <h2 id="_12">十二、性能：几个真实的数字<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
@@ -3061,7 +3061,7 @@ geoparquet, duckdb-query, deckgl-viz, video, image
 <ol>
 <li><strong>只想看看</strong> —— 直接开 <code>web.geolibre.app</code>，不用装不用注册</li>
 <li><strong>要真干活</strong> —— GitHub Releases 下桌面版，或走微软商店 / Homebrew / winget，两分钟的事</li>
-<li><strong>Python 用户</strong> —— <code>pip install geolibre</code>，要 GeoPandas 支持就 <code>pip install geolibre[all]</code>，需要 Python 3.10+</li>
+<li><strong>Python 用户</strong> —— <code>pip install geolibre</code>，要 GeoPandas 支持就 <code>pip install "geolibre[all]"</code>，需要 Python 3.10+</li>
 <li><strong>内网 / 离线环境</strong> —— <code>VITE_PYODIDE_INDEX_URL</code> 和 <code>VITE_DUCKDB_SPATIAL_EXTENSION_PATH</code> 可以把 Pyodide 和 DuckDB 空间扩展指到内部镜像，<strong>不用重新构建</strong>；官方也有 Docker 镜像 <code>ghcr.io/opengeos/geolibre:latest</code></li>
 <li><strong>二次开发</strong> —— npm workspaces 单体仓库，主应用在 <code>apps/geolibre-desktop</code>，MIT 许可</li>
 </ol>

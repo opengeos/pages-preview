@@ -13,10 +13,10 @@
         <link rel="canonical" href="https://geolibre.app/tutorials/source-code-deep-dive-en/">
       
       
-        <link rel="prev" href="../source-code-deep-dive-zh/">
+        <link rel="prev" href="../supported-formats-zh/">
       
       
-        <link rel="next" href="../../architecture/">
+        <link rel="next" href="../source-code-deep-dive-zh/">
       
       
         
@@ -1230,33 +1230,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../supported-formats-zh/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  Comprehensive Format Reference (Chinese)
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../supported-formats-en/" class="md-nav__link">
         
   
@@ -1264,7 +1237,7 @@
   <span class="md-ellipsis">
     
   
-  Comprehensive Format Reference (English)
+  Format Reference
 
     
   </span>
@@ -1284,14 +1257,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../source-code-deep-dive-zh/" class="md-nav__link">
+      <a href="../supported-formats-zh/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-  Deep Dive — Architecture & Source Code Analysis (Chinese)
+  Format Reference (中文)
 
     
   </span>
@@ -1327,7 +1300,7 @@
   <span class="md-ellipsis">
     
   
-  Deep Dive — Architecture & Source Code Analysis (English)
+  Source Code Deep Dive
 
     
   </span>
@@ -1344,7 +1317,7 @@
   <span class="md-ellipsis">
     
   
-  Deep Dive — Architecture & Source Code Analysis (English)
+  Source Code Deep Dive
 
     
   </span>
@@ -1794,6 +1767,33 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../source-code-deep-dive-zh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Source Code Deep Dive (中文)
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -2911,7 +2911,7 @@
 </tbody>
 </table>
 <p><strong>The key takeaway here is "choose the lightest path for each format."</strong> The source file <code>packages/plugins/package.json</code> has over 60 dependencies, yet there is no monolithic "unified read layer" — each format takes its own shortest path.</p>
-<p><img alt="Supported formats" src="../../assets/add-data-formats.png" /></p>
+<p><img alt="Supported formats" src="https://assets.geolibre.app/images/add-data-formats.webp" /></p>
 <p>The KML case is particularly illustrative. <code>docs/architecture.md:61</code> states it clearly: KML is handled by a <strong>custom-built parser</strong> to <strong>preserve embedded styling</strong>, outputting simplestyle-spec properties (<code>fill</code>, <code>stroke</code>, <code>stroke-width</code>) so that styled KML looks the same in GeoLibre as it does in Google Earth. Only when the custom parser fails does it fall back to DuckDB Spatial, <strong>at the cost of losing style information</strong>.</p>
 <blockquote>
 <p><strong>Key insight</strong>: General-purpose libraries inevitably discard format-specific information when unifying data models. And that information is often exactly what users care about most.</p>
@@ -3006,7 +3006,7 @@
 </tr>
 </tbody>
 </table>
-<p><img alt="3D Tiles, vectors, glTF, and Gaussian splats intermixed in a single layer list" src="../../assets/3dtiles.png" /></p>
+<p><img alt="3D Tiles, vectors, glTF, and Gaussian splats intermixed in a single layer list" src="https://assets.geolibre.app/images/3dtiles.webp" /></p>
 <p><strong>Many developers don't realize this about the <code>maplibre-gl-*</code> family: 3D Tiles, COPC point clouds, and Gaussian splats can all be loaded directly within the MapLibre canvas — no Cesium required.</strong> If your project just needs "a quick look at some 3D Tiles," this path is far lighter than pulling in an entire 3D engine.</p>
 <h3 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">&para;</a></h3>
 <ul>
@@ -3019,7 +3019,7 @@
 <h2 id="2-duckdb-wasm-spatial-one-library-as-both-format-driver-and-compute-engine">2. DuckDB-WASM Spatial: One Library as Both Format Driver and Compute Engine<a class="headerlink" href="#2-duckdb-wasm-spatial-one-library-as-both-format-driver-and-compute-engine" title="Permanent link">&para;</a></h2>
 <p>This section is the core of this article. <strong>If you only read one thing, read this.</strong></p>
 <p>First, let's cover WebAssembly in one sentence: the GeoLibre repository has 315 hits for the <code>wasm</code> identifier. <strong>Database, language runtime, native toolchain, codec, and machine learning</strong> — all five capability categories are powered by WASM engines: DuckDB, sql.js (SQLite), PGlite + PostGIS, CereusDB (SedonaDB), Pyodide, <code>geolibre-wasm</code> (a WASI build of Whitebox), gdal3.js, <code>cog-tiler-wasm</code>, h5wasm, onnxruntime-web. <strong>When you trace the native languages, the picture becomes clear: C, C++, Rust. WASM here is not about accelerating JavaScript — it's about bringing decades of accumulated native GIS ecosystem into the browser wholesale.</strong></p>
-<p><img alt="Processing menu: a row of WASM engines behind it" src="../../assets/processing-tools-menu.png" /></p>
+<p><img alt="Processing menu: a row of WASM engines behind it" src="https://assets.geolibre.app/images/processing-tools-menu.webp" /></p>
 <p>Among these dozen or so engines, <strong>one stands out as worth trying right now</strong>: <code>@duckdb/duckdb-wasm</code> plus its spatial extension. The reason is simple — other engines solve "a particular category of work," but this one is simultaneously a <strong>format driver</strong> and a <strong>compute engine</strong>. One library can take over both "read data" and "compute on data."</p>
 <h3 id="21-clarifying-the-three-layer-relationship-first">2.1 Clarifying the Three-Layer Relationship First<a class="headerlink" href="#21-clarifying-the-three-layer-relationship-first" title="Permanent link">&para;</a></h3>
 <p>These three names are often conflated. They are nested:</p>
@@ -3104,7 +3104,7 @@
 <blockquote>
 <p><strong>Key insight</strong>: Pay attention to the last row. This is an easily underestimated design choice: layers on the map are simultaneously tables in SQL. Users can write <code>JOIN</code> and <code>ST_Intersects</code> across two layers, and the result becomes a new layer directly. <strong>"Map" and "database" are two views of the same thing.</strong></p>
 </blockquote>
-<p><img alt="Vector data processing" src="../../assets/vector-data-demo.gif" /></p>
+<p><img alt="Vector data processing" src="https://assets.geolibre.app/demos/vector-data-demo.gif" /></p>
 <p>The SQL Workspace also features three "help the user say what they mean" rewrites. If you're building a SQL console, you can follow this approach directly:</p>
 <ul>
 <li><strong>Bare URLs or local paths after <code>FROM</code> / <code>JOIN</code> just work</strong> — the source code automatically wraps them with the appropriate reader (<code>read_parquet</code>, <code>read_csv_auto</code>, <code>ST_Read</code>, etc.) based on the file extension. Users don't need to memorize which format maps to which function.</li>
@@ -3289,7 +3289,7 @@
 <li>Fed to MapLibre via a custom protocol <code>geolibre-gjvt</code></li>
 <li><code>TILE_EXTENT = 4096</code>, <code>TILE_MAX_ZOOM = 16</code> (beyond this, let MapLibre over-zoom)</li>
 </ul>
-<p><img alt="Large vector data loading" src="../../assets/vector-data-demo.gif" /></p>
+<p><img alt="Large vector data loading" src="https://assets.geolibre.app/demos/vector-data-demo.gif" /></p>
 <p>Two details worth highlighting individually.</p>
 <p><strong>First, tile indexes live in a module-level Map, not in the store.</strong> The source comment puts it this way:</p>
 <blockquote>
@@ -3391,7 +3391,7 @@
 <h2 id="4-state-management-three-directly-reusable-patterns">4. State Management: Three Directly Reusable Patterns<a class="headerlink" href="#4-state-management-three-directly-reusable-patterns" title="Permanent link">&para;</a></h2>
 <p>This section is pure web engineering, less GIS-specific, but has the lowest migration cost.</p>
 <p><code>@geolibre/core</code> has only four dependencies: <code>zustand</code>, <code>zundo</code>, <code>uuid</code>, <code>@maplibre/maplibre-gl-style-spec</code>. <strong>Note that it does not depend on <code>maplibre-gl</code> itself</strong> (the style-spec package is only used to evaluate style expressions), so the state layer and the rendering layer are genuinely separated.</p>
-<p><img alt="Layer panel: all parameters modify the store" src="../../assets/raster-style-panel.png" /></p>
+<p><img alt="Layer panel: all parameters modify the store" src="https://assets.geolibre.app/images/raster-style-panel.webp" /></p>
 <p><strong>Pattern 1: Constant array as single source of truth.</strong> The 20 layer types at <code>packages/core/src/types.ts:62</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">LAYER_TYPES</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
 <span class="w">  </span><span class="s2">&quot;geojson&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;raster&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;wms&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;wmts&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;xyz&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;vector-tiles&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;arcgis&quot;</span><span class="p">,</span>
@@ -3483,11 +3483,11 @@
 <p>Traditional pipeline: <strong>Data → ingest into database → publish via GeoServer / ArcGIS Server → generate tiles → frontend requests services</strong>. Requires maintaining a server, a publishing workflow, a tile cache, plus monitoring, backup, and scaling for all of it.</p>
 <p>Cloud-native pipeline: <strong>Data → convert to COG / GeoParquet / PMTiles / FlatGeobuf → drop onto any static storage that responds to Range requests → frontend fetches byte ranges on demand</strong>. The server tier disappears entirely; what remains is just object storage traffic costs.</p>
 <blockquote>
-<p><strong>The key phrase is HTTP Range.</strong> What these formats share is not "better compression," but <strong>the index is written into the file's own header</strong> — the client reads a few KB of header, calculates which byte ranges it needs, and issues a <code>Range</code> request to fetch them. Static storage is sufficient; no "service" is required.</p>
+<p><strong>The key phrase is HTTP Range.</strong> What these formats share is not "better compression," but that <strong>each file carries its own layout metadata — a header or footer, tile directory, R-tree index, overviews, row-group statistics</strong> — the client reads a few KB of that metadata, calculates which byte ranges it needs, and issues a <code>Range</code> request to fetch them. Static storage is sufficient; no "service" is required.</p>
 </blockquote>
 <h3 id="61-what-makes-this-good-five-concrete-benefits">6.1 What Makes This Good: Five Concrete Benefits<a class="headerlink" href="#61-what-makes-this-good-five-concrete-benefits" title="Permanent link">&para;</a></h3>
 <p><strong>Benefit 1: Download volume converges on "what you need to see," not "how large the file is."</strong></p>
-<p>This is the most fundamental shift. Traditional formats (GeoJSON, Shapefile, striped GeoTIFF) <strong>have no internal index; the client must fetch the entire file</strong>. Cloud-native formats put the index in the file header, enabling pruning across three dimensions:</p>
+<p>This is the most fundamental shift. Traditional formats (GeoJSON, Shapefile, striped GeoTIFF) <strong>offer no useful partial-range access — even when an index exists it sits in a sidecar file, so the client still has to fetch all of the data</strong>. Cloud-native formats keep that index inside the data file itself, enabling pruning across three dimensions:</p>
 <table>
 <thead>
 <tr>
@@ -3529,7 +3529,7 @@
 <p><strong>But the trade-offs are real — these four points are genuine:</strong></p>
 <ul>
 <li><strong>Small data is actually slower.</strong> Reading the header, reading the index, then fetching the data — that's several network round-trips. A few hundred KB of GeoJSON is one request and done; wrapping it in a cloud-native format is counterproductive. <strong>The threshold is roughly "too large for a single request."</strong></li>
-<li><strong>Range request count increases significantly.</strong> HTTP/2 or HTTP/3 is mandatory; otherwise connection overhead will consume the benefits.</li>
+<li><strong>Range request count increases significantly.</strong> HTTP/1.1 handles <code>Range</code> fine, but HTTP/2 or HTTP/3 is strongly recommended at this request volume; otherwise connection overhead will eat into the benefits.</li>
 <li><strong>The server must support <code>Range</code> and CORS</strong> (plus <code>Access-Control-Expose-Headers</code>) — this trips people up more often than expected; the next sub-section covers it in detail.</li>
 <li><strong>Computation moves from server to client.</strong> The decoding, filtering, and stitching that servers used to do now runs in the user's browser, subject to the ~4 GiB memory and single-thread constraints (see Section 2.5). <strong>It's not "got faster" — it's "moved where the computation happens" — and it's only a win when the new location computes more cost-effectively.</strong></li>
 </ul>
@@ -3634,7 +3634,7 @@
 <li>Make all CDN / resource URLs runtime-configurable</li>
 </ol>
 <h3 id="achievable-this-iteration">Achievable This Iteration<a class="headerlink" href="#achievable-this-iteration" title="Permanent link">&para;</a></h3>
-<ol>
+<ol start="4">
 <li>Set a clear threshold for large-data layers; switch to client-side tiling above the line (<code>@maplibre/geojson-vt</code> + <code>@maplibre/vt-pbf</code>)</li>
 <li>Wire <code>AbortController</code> into all async pipelines, including non-network long loops</li>
 <li>Check whether your undo stack has a memory budget and whether the newest snapshot is always retained; check whether virtual list sorting operates on the full data model</li>
@@ -3642,7 +3642,7 @@
 <li>Pin cross-language / cross-process duplicate constants with a unified <code>SYNC:</code> marker</li>
 </ol>
 <h3 id="worth-evaluating-as-a-project">Worth Evaluating as a Project<a class="headerlink" href="#worth-evaluating-as-a-project" title="Permanent link">&para;</a></h3>
-<ol>
+<ol start="9">
 <li>Upgrade DuckDB-WASM Spatial <strong>from "format reader" to "query layer"</strong>: let layers simultaneously be SQL tables, so users can write <code>JOIN</code> and <code>ST_Intersects</code> across two layers</li>
 <li>De-framework the computation layer so the browser and server run the same code — never reconcile results again</li>
 <li>Move static data pipelines to cloud-native formats, starting with PMTiles; confirm storage supports <code>Range</code> and CORS, and clarify which metadata must go through a proxy</li>

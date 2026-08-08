@@ -13,10 +13,10 @@
         <link rel="canonical" href="https://geolibre.app/tutorials/supported-formats-en/">
       
       
-        <link rel="prev" href="../supported-formats-zh/">
+        <link rel="prev" href="../sharing-embedding/">
       
       
-        <link rel="next" href="../source-code-deep-dive-zh/">
+        <link rel="next" href="../supported-formats-zh/">
       
       
         
@@ -1227,33 +1227,6 @@
                 
   
   
-  
-  
-    <li class="md-nav__item">
-      <a href="../supported-formats-zh/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  Comprehensive Format Reference (Chinese)
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
     
   
   
@@ -1273,7 +1246,7 @@
   <span class="md-ellipsis">
     
   
-  Comprehensive Format Reference (English)
+  Format Reference
 
     
   </span>
@@ -1290,7 +1263,7 @@
   <span class="md-ellipsis">
     
   
-  Comprehensive Format Reference (English)
+  Format Reference
 
     
   </span>
@@ -1535,14 +1508,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../source-code-deep-dive-zh/" class="md-nav__link">
+      <a href="../supported-formats-zh/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-  Deep Dive — Architecture & Source Code Analysis (Chinese)
+  Format Reference (中文)
 
     
   </span>
@@ -1569,7 +1542,34 @@
   <span class="md-ellipsis">
     
   
-  Deep Dive — Architecture & Source Code Analysis (English)
+  Source Code Deep Dive
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../source-code-deep-dive-zh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Source Code Deep Dive (中文)
 
     
   </span>
@@ -2435,7 +2435,7 @@
 </tbody>
 </table>
 <blockquote>
-<p><strong>No accounts, no servers, no fees.</strong> Data stays on your machine by default.</p>
+<p><strong>No accounts, no servers, no fees for the core application.</strong> Local files are read in place and stay on your machine, and once the app has loaded, local workflows keep working offline. The optional remote pieces are the exception: online catalogs (STAC, Source Cooperative, Overture, Planetary Computer), basemap and tile downloads from a CDN, and services such as Earth Engine or an authenticated ArcGIS endpoint all need network access, and some need their own credentials or OAuth sign-in.</p>
 </blockquote>
 <hr />
 <h2 id="2-vector-data-format-support">2. Vector Data Format Support<a class="headerlink" href="#2-vector-data-format-support" title="Permanent link">&para;</a></h2>
@@ -2553,7 +2553,7 @@ csv, tsv, kml, kmz, gml, gpx, dxf, tab, shp, zip
 </tr>
 <tr>
 <td><strong>Geotagged photos</strong></td>
-<td><code>.jpg</code> <code>.png</code> <code>.tif</code> <code>.png</code> <code>.heic</code> <code>.heif</code></td>
+<td><code>.jpg</code> <code>.jpeg</code> <code>.png</code> <code>.tif</code> <code>.tiff</code> <code>.webp</code> <code>.heic</code> <code>.heif</code></td>
 <td>exifr</td>
 <td><strong>Reads EXIF GPS data to directly generate a point layer</strong> — very practical for UAV/drone photos</td>
 </tr>
@@ -2565,8 +2565,8 @@ csv, tsv, kml, kmz, gml, gpx, dxf, tab, shp, zip
 <p>The KML <code>&lt;Model&gt;</code> handling is worth noting: it loads embedded COLLADA <code>.dae</code> files with three.js, then exports them as GLB into the map. The project pulled in three.js just for this one edge case.</p>
 </div>
 <p>After loading, it's not just "can you see it" — symbology, graduated coloring, and legends all come along:</p>
-<p><img alt="A project with three vector layers stacked — subway stations, subway lines, and Manhattan building heights — with a legend auto-graduated by construction year" src="../../assets/vector-layers-legend.png" /></p>
-<p><img alt="The same data on a timeline: buildings filtered year-by-year by construction date; vector layers carry a temporal dimension" src="../../assets/vector-data-demo.gif" /></p>
+<p><img alt="A project with three vector layers stacked — subway stations, subway lines, and Manhattan building heights — with a legend auto-graduated by construction year" src="https://assets.geolibre.app/images/vector-layers-legend.webp" /></p>
+<p><img alt="The same data on a timeline: buildings filtered year-by-year by construction date; vector layers carry a temporal dimension" src="https://assets.geolibre.app/demos/vector-data-demo.gif" /></p>
 <hr />
 <h2 id="3-raster-imagery">3. Raster &amp; Imagery<a class="headerlink" href="#3-raster-imagery" title="Permanent link">&para;</a></h2>
 <p>The raster side is narrower than vector but covers the cloud-native mainline.</p>
@@ -2624,7 +2624,7 @@ csv, tsv, kml, kmz, gml, gpx, dxf, tab, shp, zip
 </tr>
 </tbody>
 </table>
-<p><img alt="Google imagery basemap with raster style panel" src="../../assets/raster-style-panel.png" /></p>
+<p><img alt="Google imagery basemap with raster style panel" src="https://assets.geolibre.app/images/raster-style-panel.webp" /></p>
 <p><em>Note the asymmetry: <code>.img</code>, <code>.vrt</code>, <code>.asc</code>, <code>.jp2</code>, <code>.hgt</code> are only recognized in <strong>conversion tools</strong> — they cannot be directly dragged in as layers. Drag-and-drop only works for GeoTIFF.</em></p>
 <hr />
 <h2 id="4-point-clouds-lidar">4. Point Clouds &amp; LiDAR<a class="headerlink" href="#4-point-clouds-lidar" title="Permanent link">&para;</a></h2>
@@ -2706,7 +2706,7 @@ csv, tsv, kml, kmz, gml, gpx, dxf, tab, shp, zip
 </tr>
 </tbody>
 </table>
-<p><img alt="3D Tiles loading panel: 3D-TILES, vectors, XYZ, glTF models, and Gaussian splats intermixed in the layer list on the left" src="../../assets/3dtiles.png" /></p>
+<p><img alt="3D Tiles loading panel: 3D-TILES, vectors, XYZ, glTF models, and Gaussian splats intermixed in the layer list on the left" src="https://assets.geolibre.app/images/3dtiles.webp" /></p>
 <p>This screenshot is quite telling: <strong>in the layer panel on the left, 3D Tiles, vectors, XYZ, glTF models, and Gaussian splats are all stacked in the same list</strong> — and the rendering result is right there on the right. "Loading 3D Tiles requires setting up a server and writing a page" becomes <strong>paste a URL</strong> here.</p>
 <p><em>What's absent: <code>.obj</code> is completely unsupported (zero hits). <code>.b3dm</code>/<code>.pnts</code>/<code>.cmpt</code> — these 3D Tiles internal formats also have zero hits in the repo; they're transparently handled by upstream loaders, so you don't need to worry about them. The Gaussian splat extension list is likewise in upstream packages.</em></p>
 <hr />
@@ -2775,7 +2775,7 @@ geoparquet, duckdb-query, deckgl-viz, video, image
 </tr>
 </tbody>
 </table>
-<p><img alt="OpenFreeMap 3D basemap with drawing tools" src="../../assets/drawing-tools.png" /></p>
+<p><img alt="OpenFreeMap 3D basemap with drawing tools" src="https://assets.geolibre.app/images/drawing-tools.webp" /></p>
 <hr />
 <h2 id="7-cloud-native-formats-data-catalogs">7. Cloud-Native Formats &amp; Data Catalogs<a class="headerlink" href="#7-cloud-native-formats-data-catalogs" title="Permanent link">&para;</a></h2>
 <p>This section is where GeoLibre pulls ahead of traditional desktop GIS.</p>
@@ -2817,9 +2817,9 @@ geoparquet, duckdb-query, deckgl-viz, video, image
 <li><strong>Weather &amp; time-lapse</strong> — RainViewer real-time radar, NASA GIBS, EOX cloudless annual basemap</li>
 </ul>
 <p><strong>Planetary data</strong> (this exceeds expectations): <strong>the Moon and Mars come from OpenPlanetaryMap; Mercury, Venus, Galilean moons, Titan, Pluto, and Charon come from USGS Astrogeology</strong>. The key detail is <strong>per-project ellipsoid parameters</strong>, so distance and area measurements are accurate for the celestial body you're measuring on.</p>
-<p><img alt="Moon: basemap from OpenPlanetaryMap, scale bar at 300 km" src="../../assets/moon-map.png" /></p>
-<p><img alt="Mars: same interface, different project — a different planet" src="../../assets/mars.png" /></p>
-<p><img alt="Pluto: from USGS Astrogeology; the heart-shaped Sputnik Planitia is clearly visible" src="../../assets/pluto.png" /></p>
+<p><img alt="Moon: basemap from OpenPlanetaryMap, scale bar at 300 km" src="https://assets.geolibre.app/images/moon-map.webp" /></p>
+<p><img alt="Mars: same interface, different project — a different planet" src="https://assets.geolibre.app/images/mars.webp" /></p>
+<p><img alt="Pluto: from USGS Astrogeology; the heart-shaped Sputnik Planitia is clearly visible" src="https://assets.geolibre.app/images/pluto.webp" /></p>
 <blockquote>
 <p><strong>Editor's note</strong>: Initially this seemed like a surface-level feature. The per-project ellipsoid parameters changed that impression — the project treats coordinate systems seriously, not as a mere basemap overlay.</p>
 </blockquote>
@@ -2958,11 +2958,11 @@ geoparquet, duckdb-query, deckgl-viz, video, image
 </tr>
 <tr>
 <td><strong>Mac App Store build</strong></td>
-<td>Hides PostgreSQL and GDB data sources, hides AI segmentation; all conversions fall back to browser runtime; Shapefile companion files must be manually multi-selected</td>
+<td>No Python sidecar: hides PostgreSQL and GDB data sources, hides AI segmentation; Whitebox, conversion, raster, and vector tools all fall back to their browser/WASM engines; Shapefile companion files must be manually multi-selected</td>
 </tr>
 <tr>
 <td><strong>Android / Mobile</strong></td>
-<td>Hides Whitebox, raster tools, conversion tools, AI segmentation, PostgreSQL</td>
+<td>Hides raster tools, conversion tools, AI segmentation, PostgreSQL — all sidecar-backed. The Whitebox toolbox is WASM-backed and stays available</td>
 </tr>
 <tr>
 <td><strong>Browser</strong></td>
@@ -2982,10 +2982,10 @@ geoparquet, duckdb-query, deckgl-viz, video, image
 <li><strong>deck.gl</strong> does not occupy a separate view — it is an overlay <strong>interleaved within the MapLibre canvas</strong>, responsible for COG, 3D Tiles, I3S, Z-enabled vectors, and visualization layers. There's a hard constraint: all interleaving producers must share the <strong>same</strong> overlay instance, or later ones will wipe out earlier layers (the author encountered this firsthand)</li>
 <li><strong>Cesium</strong> is a view mode within split-screen, not a replacement. It only supports GeoJSON, 3D Tiles, and imagery layers; other types are labeled "2D only" in the panel</li>
 </ul>
-<p><img alt="Cesium view mode showing the 3D globe; the same layer panel is on the left" src="../../assets/earth-cesium-globe.png" /></p>
+<p><img alt="Cesium view mode showing the 3D globe; the same layer panel is on the left" src="https://assets.geolibre.app/images/earth-cesium-globe.webp" /></p>
 <p>A noteworthy detail: <strong>Cesium's camera sync is not aligned by zoom level, but by ground resolution (meters/pixel)</strong>, so split-screen panels at different heights maintain the same on-screen scale.</p>
 <p><strong>Five compute engines</strong>, all under the same UI: DuckDB-WASM Spatial (the workhorse, running in a dedicated Worker), PGlite + PostGIS, Apache Sedona (sidecar or browser WASM version), Pyodide (running GeoPandas/Shapely in the browser), Whitebox WASM (700+ tools).</p>
-<p><img alt="&quot;Processing&quot; menu expanded: Whitebox, Conversion, Hydrology, LiDAR, Network, Projection, Raster, Remote Sensing, Terrain, Vector — with an alphabetical tool list on the right" src="../../assets/processing-tools-menu.png" /></p>
+<p><img alt="&quot;Processing&quot; menu expanded: Whitebox, Conversion, Hydrology, LiDAR, Network, Projection, Raster, Remote Sensing, Terrain, Vector — with an alphabetical tool list on the right" src="https://assets.geolibre.app/images/processing-tools-menu.webp" /></p>
 <p><strong>A clever approach: the Python implementation of vector operators is a "framework-free" module; the sidecar and the browser Pyodide execute the exact same code</strong>, so results from both paths are completely consistent — no "local computation doesn't match server computation" discrepancies.</p>
 <hr />
 <h2 id="12-performance-some-real-numbers">12. Performance: Some Real Numbers<a class="headerlink" href="#12-performance-some-real-numbers" title="Permanent link">&para;</a></h2>
@@ -3060,7 +3060,7 @@ geoparquet, duckdb-query, deckgl-viz, video, image
 <ol>
 <li><strong>Just want to take a look</strong> — Open <code>web.geolibre.app</code> directly; no installation, no registration</li>
 <li><strong>Need to get real work done</strong> — Download the desktop version from GitHub Releases, or via Microsoft Store / Homebrew / winget; a two-minute process</li>
-<li><strong>Python users</strong> — <code>pip install geolibre</code>; for GeoPandas support, <code>pip install geolibre[all]</code>; requires Python 3.10+</li>
+<li><strong>Python users</strong> — <code>pip install geolibre</code>; for GeoPandas support, <code>pip install "geolibre[all]"</code>; requires Python 3.10+</li>
 <li><strong>Intranet / offline environments</strong> — <code>VITE_PYODIDE_INDEX_URL</code> and <code>VITE_DUCKDB_SPATIAL_EXTENSION_PATH</code> can point Pyodide and the DuckDB spatial extension to internal mirrors, <strong>no rebuild required</strong>; an official Docker image is also available at <code>ghcr.io/opengeos/geolibre:latest</code></li>
 <li><strong>Secondary development</strong> — npm workspaces monorepo; main application in <code>apps/geolibre-desktop</code>; MIT licensed</li>
 </ol>
