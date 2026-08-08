@@ -1,0 +1,3200 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A lightweight, cloud-native GIS platform for visualizing, exploring, and analyzing geospatial data across desktop and web environments, with a responsive layout for mobile screens.">
+      
+      
+      
+        <link rel="canonical" href="https://geolibre.app/getting-started/">
+      
+      
+        <link rel="prev" href="./..">
+      
+      
+        <link rel="next" href="../features/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/geolibre-icon.png">
+      <meta name="generator" content="zensical-0.0.53">
+    
+    
+      
+        <title>Getting Started - GeoLibre</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.20815dad.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#getting-started" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="GeoLibre" class="md-header__button md-logo" aria-label="GeoLibre" data-md-component="logo">
+      
+  <img src="../assets/geolibre-icon.png" alt="GeoLibre">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            GeoLibre
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Getting Started
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/opengeos/GeoLibre" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    opengeos/GeoLibre
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="GeoLibre" class="md-nav__button md-logo" aria-label="GeoLibre" data-md-component="logo">
+      
+  <img src="../assets/geolibre-icon.png" alt="GeoLibre">
+
+    </a>
+    GeoLibre
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/opengeos/GeoLibre" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    opengeos/GeoLibre
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Getting Started
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Getting Started
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#use-geolibre" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Use GeoLibre
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Use GeoLibre">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#on-the-web" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        On the web
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#on-the-desktop" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        On the desktop
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#in-jupyter" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        In Jupyter
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#in-r" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        In R
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#on-android" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        On Android
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#video-tutorials" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Video tutorials
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-from-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Run from source
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Run from source">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Prerequisites
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Install
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Update
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-the-browser-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Run the browser UI
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-with-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Run with Docker
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Run with Docker">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bundled-conversion-sidecar" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Bundled conversion sidecar
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#password-protection-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Password protection (optional)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#subpath-and-onboarding-build-arguments" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Subpath and onboarding build arguments
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#driving-an-embedded-map-from-a-host-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Driving an embedded map from a host page
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#self-hosted-sharing-and-collaboration-servers" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Self-hosted sharing and collaboration servers
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-the-desktop-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Run the desktop app
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Build
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-imagery-credentials" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Optional imagery credentials
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-basemap-credentials" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Optional basemap credentials
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-traffic-overlays" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Optional traffic overlays
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-amazon-location-styles" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Optional Amazon Location styles
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-protomaps-and-stadia-maps-basemaps" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Optional Protomaps and Stadia Maps basemaps
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-3d-globe-credentials-cesium-ion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Optional 3D globe credentials (Cesium Ion)
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-runtime-mirrors-offline-and-air-gapped" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Optional runtime mirrors (offline and air-gapped)
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-python-sidecar" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Optional Python sidecar
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Optional Python sidecar">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#optional-extras" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Optional extras
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Features
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Comparison
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Demos
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../downloads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Downloads
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sponsor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sponsor
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Launch GeoLibre Web
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  User Guide
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  User Guide
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/interface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Interface Overview
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/projects/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Projects
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/adding-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Adding Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/layers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Managing Layers
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/styling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Styling Layers
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/attribute-table/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Attribute Table
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/map-controls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Map Controls & Tools
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Processing Tools
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/segmentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  AI Segmentation
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/sql-workspace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SQL Workspace
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/python-console/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Python Console
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/ai-assistant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  AI Assistant
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/data-integrations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Data Integrations
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Plugins & Marketplace
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/settings/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Settings & Preferences
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/storymaps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Story Maps
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/embedding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Embedding & Sharing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Troubleshooting
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tutorials
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Tutorials
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Overview
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/first-map/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Your First Map
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/cloud-native-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Cloud-Native Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/vector-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Vector Analysis
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/terrain-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Terrain Analysis
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/spatial-sql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Spatial SQL
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/sharing-embedding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sharing & Embedding
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/supported-formats-en/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Format Reference
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/supported-formats-zh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Format Reference (中文)
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/source-code-deep-dive-en/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Source Code Deep Dive
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/source-code-deep-dive-zh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Source Code Deep Dive (中文)
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Reference
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Reference
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Architecture
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../android/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Android
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  iOS
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mac-app-store/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Mac App Store
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project-format/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project Format
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Plugin API
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../collaboration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Collaboration
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ui-profiles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  UI Profiles
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../i18n/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Internationalization
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Python Package
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../r/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  R Package
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  MCP Server
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Notebook Panel
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Roadmap
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Contributing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../citation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  How to Cite
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../acknowledgements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Acknowledgements
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../privacy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Privacy Policy
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../terms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Terms of Service
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#use-geolibre" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Use GeoLibre
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Use GeoLibre">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#on-the-web" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        On the web
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#on-the-desktop" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        On the desktop
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#in-jupyter" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        In Jupyter
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#in-r" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        In R
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#on-android" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        On Android
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#video-tutorials" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Video tutorials
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-from-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Run from source
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Run from source">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Prerequisites
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Install
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Update
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-the-browser-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Run the browser UI
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-with-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Run with Docker
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Run with Docker">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bundled-conversion-sidecar" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Bundled conversion sidecar
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#password-protection-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Password protection (optional)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#subpath-and-onboarding-build-arguments" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Subpath and onboarding build arguments
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#driving-an-embedded-map-from-a-host-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Driving an embedded map from a host page
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#self-hosted-sharing-and-collaboration-servers" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Self-hosted sharing and collaboration servers
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-the-desktop-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Run the desktop app
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Build
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-imagery-credentials" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Optional imagery credentials
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-basemap-credentials" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Optional basemap credentials
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-traffic-overlays" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Optional traffic overlays
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-amazon-location-styles" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Optional Amazon Location styles
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-protomaps-and-stadia-maps-basemaps" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Optional Protomaps and Stadia Maps basemaps
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-3d-globe-credentials-cesium-ion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Optional 3D globe credentials (Cesium Ion)
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-runtime-mirrors-offline-and-air-gapped" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Optional runtime mirrors (offline and air-gapped)
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-python-sidecar" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Optional Python sidecar
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Optional Python sidecar">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#optional-extras" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Optional extras
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+  
+
+
+<h1 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h1>
+<p><a href="https://web.geolibre.app/"><img alt="Launch GeoLibre Web" src="https://img.shields.io/badge/Launch-GeoLibre%20Web-green.svg" /></a>
+<a href="https://share.geolibre.app"><img alt="GeoLibre shared project" src="https://img.shields.io/badge/GeoLibre-share-green.svg" /></a>
+<a href="https://plugins.geolibre.app"><img alt="GeoLibre plugins" src="https://img.shields.io/badge/GeoLibre-plugins-green.svg" /></a>
+<a href="https://pypi.python.org/pypi/geolibre"><img alt="image" src="https://img.shields.io/pypi/v/geolibre.svg" /></a>
+<a href="https://colab.research.google.com/github/opengeos/GeoLibre/blob/main/python/examples/getting-started.ipynb"><img alt="image" src="https://colab.research.google.com/assets/colab-badge.svg" /></a>
+<a href="https://anaconda.org/conda-forge/geolibre"><img alt="image" src="https://img.shields.io/conda/vn/conda-forge/geolibre.svg" /></a>
+<a href="https://github.com/conda-forge/geolibre-feedstock"><img alt="Conda Recipe" src="https://img.shields.io/badge/recipe-geolibre-green.svg" /></a>
+<a href="https://apps.microsoft.com/detail/9nwt67rv531x"><img alt="Microsoft Store" src="https://img.shields.io/badge/Microsoft%20Store-GeoLibre-0078D4?logo=windows" /></a>
+<a href="https://apps.apple.com/app/geolibre-desktop/id6796848769"><img alt="Mac App Store" src="https://img.shields.io/badge/Mac%20App%20Store-GeoLibre-000000?logo=apple&amp;logoColor=white" /></a>
+<a href="https://play.google.com/store/apps/details?id=org.geolibre.app"><img alt="Google Play" src="https://img.shields.io/badge/Google%20Play-GeoLibre-01875F?logo=googleplay&amp;logoColor=white" /></a>
+<a href="https://aur.archlinux.org/packages/geolibre-bin"><img alt="AUR version" src="https://img.shields.io/aur/version/geolibre-bin?logo=archlinux&amp;label=AUR" /></a>
+<a href="https://flatpark.org/apps/app.geolibre.GeoLibre/"><img alt="FlatPark" src="https://img.shields.io/badge/FlatPark-GeoLibre-4A90D9?logo=flatpak" /></a>
+<a href="https://opensource.org/licenses/MIT"><img alt="image" src="https://img.shields.io/badge/License-MIT-yellow.svg" /></a>
+<a href="https://doi.org/10.5281/zenodo.20785400"><img alt="DOI" src="https://zenodo.org/badge/DOI/10.5281/zenodo.20785400.svg" /></a></p>
+<p>GeoLibre is a free and open-source, lightweight, cloud-native GIS platform for visualizing, exploring, and analyzing geospatial data. It runs everywhere you do, in the web browser, on the desktop, on mobile, and inside Jupyter notebooks, all while keeping your data local and private.</p>
+<p>This page helps you start using GeoLibre. If you want to contribute to GeoLibre or run it from source, jump to <a href="#run-from-source">Run from source</a> below or read the <a href="../contributing/">Contributing</a> guide.</p>
+<h2 id="use-geolibre">Use GeoLibre<a class="headerlink" href="#use-geolibre" title="Permanent link">&para;</a></h2>
+<p>Pick whichever fits how you work. The same app ships in every form, so projects and <code>.geolibre.json</code> files move between them.</p>
+<h3 id="on-the-web">On the web<a class="headerlink" href="#on-the-web" title="Permanent link">&para;</a></h3>
+<p>GeoLibre Web is the full app running in your browser, with nothing to install. It keeps your data local and private, processing everything client-side in your browser session.</p>
+<p><a class="md-button md-button--primary" href="https://web.geolibre.app/">Launch GeoLibre Web</a></p>
+<p>You can load browser-selected vector data supported by DuckDB-WASM Spatial, drag GeoTIFF/COG rasters onto the map, add URL-based services and datasets (XYZ, WMS, GeoJSON, vector tiles, COG, ArcGIS, FlatGeobuf, PMTiles, Zarr, LiDAR, and Gaussian splats), style layers, and test plugins. Desktop-only file dialogs, local MBTiles, local raster file reads, and project save/open need the desktop app.</p>
+<h3 id="on-the-desktop">On the desktop<a class="headerlink" href="#on-the-desktop" title="Permanent link">&para;</a></h3>
+<p>The desktop app adds local filesystem dialogs, local MBTiles, local raster file reads, and project save/open. Installers are available for Windows, macOS, and Linux, including the Microsoft Store, the Mac App Store, Homebrew, winget, the AUR, COPR, and Flatpak.</p>
+<p><a class="md-button md-button--primary" href="../downloads/">Download the desktop app</a></p>
+<p>On macOS, prefer the Homebrew or DMG build: the <a href="https://apps.apple.com/app/geolibre-desktop/id6796848769">Mac App Store</a> build is sandboxed, so it drops the Python sidecar engines, Add Data → PostgreSQL/PostGIS via martin, the local Jupyter server, Earth Engine sign-in, and external plugin installs. See <a href="../downloads/#what-the-store-build-leaves-out">what the Store build leaves out</a>.</p>
+<h3 id="in-jupyter">In Jupyter<a class="headerlink" href="#in-jupyter" title="Permanent link">&para;</a></h3>
+<p>The <a href="../python/"><code>geolibre</code></a> Python package embeds the full GeoLibre app in a Jupyter notebook and drives the map through an expanded leafmap-style API that syncs both ways, so UI edits read back from Python.</p>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>geolibre
+</code></pre></div>
+<p>Or install it from conda-forge:</p>
+<div class="highlight"><pre><span></span><code>conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>geolibre
+</code></pre></div>
+<p>See the <a href="../python/">Python Package</a> reference to get started.</p>
+<h3 id="in-r">In R<a class="headerlink" href="#in-r" title="Permanent link">&para;</a></h3>
+<p>The <a href="../r/"><code>geolibre</code></a> R package embeds GeoLibre as an interactive HTML widget
+in RStudio, Quarto, R Markdown, and Shiny. Install the development release from
+GitHub:</p>
+<div class="highlight"><pre><span></span><code><span class="nf">install.packages</span><span class="p">(</span><span class="s">&quot;pak&quot;</span><span class="p">)</span>
+<span class="n">pak</span><span class="o">::</span><span class="nf">pak</span><span class="p">(</span><span class="s">&quot;opengeos/geolibre-r&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p><a class="md-button md-button--primary" href="../r/">Read the R package guide</a>
+<a class="md-button" href="https://r.geolibre.app/articles/interactive-map.html">Try the interactive example</a></p>
+<h3 id="on-android">On Android<a class="headerlink" href="#on-android" title="Permanent link">&para;</a></h3>
+<p>GeoLibre ships as a native Android app built from the same codebase, with a responsive touch layout for phones. Install it from Google Play and it updates automatically:</p>
+<p><a class="md-button md-button--primary" href="https://play.google.com/store/apps/details?id=org.geolibre.app">Get GeoLibre on Google Play</a></p>
+<p>Signed APKs are also attached to each <a href="https://github.com/opengeos/GeoLibre/releases">GitHub release</a> if you prefer to sideload. See <a href="../android/">Android</a> for what runs on mobile, sideloading instructions, and build details.</p>
+<h2 id="video-tutorials">Video tutorials<a class="headerlink" href="#video-tutorials" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://youtu.be/87Cm0QagtxI">GeoLibre 1.0: A Free, Open-Source Cloud-Native GIS That Runs Anywhere (Browser, Desktop &amp; Jupyter)</a></li>
+<li><a href="https://youtu.be/W32bIQO_nG8">Geoprocessing in the Browser: 700+ Free GIS Tools in GeoLibre, Zero Install</a></li>
+</ul>
+<h2 id="run-from-source">Run from source<a class="headerlink" href="#run-from-source" title="Permanent link">&para;</a></h2>
+<p>This section is for contributors and developers who want to clone GeoLibre and run it locally. Most users do not need it. For the full development workflow, project layout, and quality gate, see the <a href="../contributing/">Contributing</a> guide. GeoLibre is an npm workspaces monorepo: the main app lives in <code>apps/geolibre-desktop</code> and is built with Tauri, React, TypeScript, and MapLibre GL JS.</p>
+<h3 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Node.js 22 or newer</li>
+<li>Rust toolchain for desktop builds</li>
+<li>Linux desktop build dependencies from the Tauri v2 prerequisites</li>
+</ul>
+<h3 id="install">Install<a class="headerlink" href="#install" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/opengeos/GeoLibre.git
+<span class="nb">cd</span><span class="w"> </span>GeoLibre
+npm<span class="w"> </span>install
+</code></pre></div>
+<p>Bun users can run <code>bun install</code>. The root <code>trustedDependencies</code> list allows the known install scripts for <code>core-js</code>, <code>@google/genai</code>, and <code>protobufjs</code>.</p>
+<h3 id="update">Update<a class="headerlink" href="#update" title="Permanent link">&para;</a></h3>
+<p>To update an existing source checkout to the latest version, pull the changes, reinstall dependencies (in case <code>package.json</code> changed), and rebuild:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/path/to/GeoLibre<span class="w">   </span><span class="c1"># your GeoLibre checkout</span>
+git<span class="w"> </span>pull<span class="w"> </span>origin<span class="w"> </span>main
+npm<span class="w"> </span>install<span class="w">            </span><span class="c1"># or: bun install</span>
+</code></pre></div>
+<p>If you run a production build, rebuild afterwards with <code>npm run build</code> (web) or <code>npm run tauri:build</code> (desktop). If you work from the dev servers (<code>npm run dev</code> or <code>npm run tauri:dev</code>), the <code>git pull</code> and <code>npm install</code> above are enough — just restart the dev server to pick up the changes.</p>
+<h3 id="run-the-browser-ui">Run the browser UI<a class="headerlink" href="#run-the-browser-ui" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>run<span class="w"> </span>dev
+</code></pre></div>
+<p>Open <code>http://localhost:5173</code>. The map and browser vector import support local vector files that DuckDB-WASM Spatial can read, with direct handling for GeoJSON, zipped Shapefiles, and KMZ archives. Use Add Vector Layer or drag files onto the app; GeoTIFF/COG rasters can also be dragged onto the map to add them as raster layers. The browser UI can also add URL-based services and datasets such as XYZ, WMS, GeoJSON URLs, vector tiles, COG rasters, ArcGIS services, FlatGeobuf, PMTiles, Zarr, LiDAR, and Gaussian splats.</p>
+<p>Desktop filesystem dialogs, local MBTiles, local raster file reads, project save/open, and other filesystem operations require Tauri.</p>
+<h3 id="run-with-docker">Run with Docker<a class="headerlink" href="#run-with-docker" title="Permanent link">&para;</a></h3>
+<p>The repository includes a Dockerfile for the browser version of GeoLibre. It builds the Vite app and serves the production files with nginx:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>geolibre<span class="w"> </span>.
+docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span>:80<span class="w"> </span>geolibre
+</code></pre></div>
+<p>Open <code>http://localhost:8080</code>. The containerized browser UI supports web-capable workflows, but desktop filesystem dialogs, local MBTiles, local raster file reads, project save/open, and other Tauri-only features require the desktop app.</p>
+<p>The published image is available from GitHub Container Registry:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>pull<span class="w"> </span>ghcr.io/opengeos/geolibre:latest
+docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span>:80<span class="w"> </span>ghcr.io/opengeos/geolibre:latest
+</code></pre></div>
+<h4 id="bundled-conversion-sidecar">Bundled conversion sidecar<a class="headerlink" href="#bundled-conversion-sidecar" title="Permanent link">&para;</a></h4>
+<p>The image also bundles the Python sidecar (uvicorn) and reverse-proxies it at
+<code>/sidecar</code>, so the browser reaches it same-origin with no CORS or separate
+process to manage. <code>/conversion/status</code> is reachable at
+<code>http://localhost:8080/sidecar/conversion/status</code>.</p>
+<p>The browser build does <strong>not</strong> need the sidecar for the <strong>Conversion</strong> tools or
+the <strong>Whitebox</strong> toolbox — both run client-side on DuckDB-WASM and
+<code>geolibre-wasm</code>. What the bundled sidecar adds is:</p>
+<ul>
+<li><strong>Raster tools</strong> (rasterio), which have a client-side fallback for the core
+  tools but reach the full set through the sidecar.</li>
+<li>The optional <strong>GeoPandas engine</strong> for the Vector tools, which otherwise run
+  client-side on Turf.js or Pyodide.</li>
+</ul>
+<p>Sidecar jobs read and write <strong>paths on the sidecar's own filesystem</strong> — a
+browser cannot hand the container an absolute host path — and those reads and
+writes are confined to <code>GEOLIBRE_CONVERSION_ROOTS</code> (default <code>/data</code> in the
+image). Mount your files there:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span>:80<span class="w"> </span>-v<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">/data:/data&quot;</span><span class="w"> </span>ghcr.io/opengeos/geolibre:latest
+</code></pre></div>
+<p>The sidecar's PostGIS endpoints are gated the same way: they refuse every
+destination until <code>GEOLIBRE_POSTGIS_HOSTS</code> lists the allowed databases, so that
+a caller reaching the image cannot aim them at hosts only the container can
+reach. Pass <code>-e GEOLIBRE_POSTGIS_HOSTS='db.internal:5432'</code> (or <code>*</code> to accept any
+connection string) to enable them. The desktop app is not affected: its sidecar
+is loopback-bound and started for a single user, so it defaults to unrestricted.</p>
+<p><code>freestiler</code> and <code>whitebox-workflows</code> publish no linux/arm64 wheels, so they are
+installed on <strong>amd64 only</strong>; on arm64 the sidecar reports those tools
+unavailable. This does not affect the browser's own PMTiles and Whitebox
+engines, which are WebAssembly and run on any architecture.</p>
+<p>Set <code>GEOLIBRE_DISABLE_SIDECAR=1</code> to run nginx only (web-only behavior):</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span>:80<span class="w"> </span>-e<span class="w"> </span><span class="nv">GEOLIBRE_DISABLE_SIDECAR</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>ghcr.io/opengeos/geolibre:latest
+</code></pre></div>
+<h4 id="password-protection-optional">Password protection (optional)<a class="headerlink" href="#password-protection-optional" title="Permanent link">&para;</a></h4>
+<p>To require a username and password, set <code>GEOLIBRE_AUTH_USER</code> and
+<code>GEOLIBRE_AUTH_PASSWORD</code>; nginx then protects the app and the <code>/sidecar</code> API
+with HTTP Basic Auth (a single shared credential). Pair it with a
+TLS-terminating reverse proxy outside trusted networks:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span>:80<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">GEOLIBRE_AUTH_USER</span><span class="o">=</span>admin<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">GEOLIBRE_AUTH_PASSWORD</span><span class="o">=</span><span class="s1">&#39;change-me&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>ghcr.io/opengeos/geolibre:latest
+</code></pre></div>
+<p>To let authenticated users access the managed AI proxy without exposing its
+server token, route AI requests through the same nginx instance:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">GEOLIBRE_AI_PROXY_TOKEN</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>openssl<span class="w"> </span>rand<span class="w"> </span>-hex<span class="w"> </span><span class="m">32</span><span class="k">)</span><span class="s2">&quot;</span>
+<span class="nb">cd</span><span class="w"> </span>workers/ai-proxy
+<span class="nb">printf</span><span class="w"> </span><span class="s1">&#39;%s&#39;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$GEOLIBRE_AI_PROXY_TOKEN</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span>
+<span class="w">  </span>npx<span class="w"> </span>wrangler<span class="w"> </span>secret<span class="w"> </span>put<span class="w"> </span>GEOLIBRE_AI_PROXY_TOKEN
+<span class="nb">cd</span><span class="w"> </span>../..
+
+docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span>:80<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">GEOLIBRE_AUTH_USER</span><span class="o">=</span>admin<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">GEOLIBRE_AUTH_PASSWORD</span><span class="o">=</span><span class="s1">&#39;change-me&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">GEOLIBRE_AI_URL</span><span class="o">=</span>/ai<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">GEOLIBRE_AI_MODEL</span><span class="o">=</span>openai/gpt-5.5<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">GEOLIBRE_AI_PROXY_URL</span><span class="o">=</span>https://ai.geolibre.app<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">GEOLIBRE_AI_PROXY_TOKEN</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$GEOLIBRE_AI_PROXY_TOKEN</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>ghcr.io/opengeos/geolibre:latest
+</code></pre></div>
+<p>The proxy token must match the <code>GEOLIBRE_AI_PROXY_TOKEN</code> Worker secret. nginx
+injects it server-side and it never appears in frontend configuration. Direct
+inference calls to <code>ai.geolibre.app</code> without the token return <code>401</code>. If
+<code>GEOLIBRE_AI_URL</code> is unset, the image leaves the managed proxy disabled. Use
+HTTPS and prefer an <code>--env-file</code> or secrets manager.</p>
+<p>Enabling the proxy does not by itself restrict who may use it: whoever can
+reach <code>/ai</code> on the container spends against your Cloudflare account. Set
+<code>GEOLIBRE_AUTH_USER</code>/<code>GEOLIBRE_AUTH_PASSWORD</code> as above, or put your own
+authentication in front, before exposing an AI-enabled instance. If a TLS proxy
+fronts the container, list its address in <code>GEOLIBRE_TRUSTED_PROXIES</code> (a
+comma-separated list of IPs or CIDRs) so per-client rate limiting sees the real
+client rather than counting every user as the proxy.</p>
+<p>The browser prompts for the credentials on first visit. <code>/healthz</code> stays
+unauthenticated so the container health check keeps working. When the variables
+are unset (the default), no authentication is applied.</p>
+<p>As with any Docker env var, a password passed with <code>-e</code> lands in your shell
+history and is readable on the host via <code>docker inspect</code>. Beyond quick local
+testing, prefer <code>--env-file</code> with a permission-restricted file, or a secrets
+manager.</p>
+<p>Basic Auth is a single shared credential, not per-user accounts, and sends
+credentials with every request. For multi-user or SSO needs, put an auth proxy
+such as <code>oauth2-proxy</code> or Authelia in front of the unmodified image instead.
+Also see the note in
+<a href="https://github.com/opengeos/GeoLibre/blob/main/docker/nginx.conf"><code>docker/nginx.conf</code></a>
+about dropping the <code>localhost</code> CSP allowances before exposing the image
+publicly.</p>
+<h4 id="subpath-and-onboarding-build-arguments">Subpath and onboarding build arguments<a class="headerlink" href="#subpath-and-onboarding-build-arguments" title="Permanent link">&para;</a></h4>
+<p>For deployments under a URL subpath, pass the app base at build time:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>build<span class="w"> </span>--build-arg<span class="w"> </span><span class="nv">GEOLIBRE_APP_BASE</span><span class="o">=</span>/geolibre/<span class="w"> </span>-t<span class="w"> </span>geolibre<span class="w"> </span>.
+</code></pre></div>
+<p>The container always serves the app from its root path. The build argument only sets the URL prefix that the app expects, so subpath deployments also require a reverse proxy in front of the container that strips the prefix before forwarding requests (for example, nginx <code>proxy_pass http://geolibre/;</code> with a trailing slash).</p>
+<p>To skip the first-launch welcome wizard for every visitor (kiosk or embedded
+deployments), bake <code>VITE_WELCOME_DISABLED=1</code> into the build:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>build<span class="w"> </span>--build-arg<span class="w"> </span><span class="nv">VITE_WELCOME_DISABLED</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>-t<span class="w"> </span>geolibre<span class="w"> </span>.
+</code></pre></div>
+<p>Individual links can also opt out at runtime with <code>?welcome=0</code>. See
+<a href="../user-guide/embedding/#url-parameters">Embedding &amp; Sharing</a>.</p>
+<h4 id="driving-an-embedded-map-from-a-host-page">Driving an embedded map from a host page<a class="headerlink" href="#driving-an-embedded-map-from-a-host-page" title="Permanent link">&para;</a></h4>
+<p>To let a page that frames the app talk to the live map over <code>postMessage</code> (fly to
+a record, highlight a feature, open a processing tool, and receive selection,
+view, and tool events), list the origins you trust:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span>:80<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">GEOLIBRE_EMBED_ORIGINS</span><span class="o">=</span><span class="s2">&quot;https://portal.example.com&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>ghcr.io/opengeos/geolibre:latest
+</code></pre></div>
+<p>Unset (the default) the API stays off, so a public deployment can never be driven
+by whoever frames it. See
+<a href="../user-guide/embedding/#talking-to-the-map-at-runtime">Talking to the map at runtime</a>
+for the message reference and a host-page example.</p>
+<h4 id="self-hosted-sharing-and-collaboration-servers">Self-hosted sharing and collaboration servers<a class="headerlink" href="#self-hosted-sharing-and-collaboration-servers" title="Permanent link">&para;</a></h4>
+<p>Project <strong>Share</strong> and the <strong>Project Gallery</strong> talk to <code>share.geolibre.app</code> by
+default. Point them at your own server instead, or turn the feature off:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span>:80<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">GEOLIBRE_SHARE_URL</span><span class="o">=</span>https://maps.example.org<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">GEOLIBRE_COLLAB_URL</span><span class="o">=</span>wss://collab.example.org<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>ghcr.io/opengeos/geolibre:latest
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GEOLIBRE_SHARE_URL</code></td>
+<td>Base URL of the project sharing server. Unset uses <code>share.geolibre.app</code>. Set it to <code>off</code> to remove Share and the Project Gallery from the UI entirely.</td>
+</tr>
+<tr>
+<td><code>GEOLIBRE_COLLAB_URL</code></td>
+<td>Base URL of the <a href="../collaboration/">collaboration</a> relay. Unset leaves live collaboration disabled.</td>
+</tr>
+</tbody>
+</table>
+<p>Both are read at container startup, so a prebuilt image can be repointed by
+restarting it with different values — no rebuild. (The equivalent build
+arguments, <code>VITE_GEOLIBRE_SHARE_URL</code> and <code>VITE_GEOLIBRE_COLLAB_URL</code>, exist for
+baking a default into your own image.)</p>
+<p>When <code>GEOLIBRE_COLLAB_URL</code> is set, the entrypoint also adds that relay's origin to
+the container's <code>Content-Security-Policy</code> <code>connect-src</code>, so the browser is allowed
+to open the WebSocket. (The directive has a bare <code>https:</code>, which covers any share
+server, but no bare <code>wss:</code>.) No manual edit of <code>docker/nginx.conf</code> is needed.</p>
+<p>Both must use TLS — <code>https://</code> for the share server, <code>wss://</code> for the relay —
+because the app sends your API token to the share server with every request.
+Plaintext is accepted only on <code>localhost</code> / <code>127.0.0.1</code> for local development, so
+put a self-hosted server behind a reverse proxy that terminates TLS. A value that
+does not satisfy this <strong>fails the container boot</strong> with an error naming the
+variable, rather than starting up and quietly using the public hosted service
+with your users' projects.</p>
+<p>GeoLibre includes reference implementations of both services. From the
+repository root, start the web app, projects server, Node collaboration relay,
+and Postgres together:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">POSTGRES_PASSWORD</span><span class="o">=</span>choose-a-password<span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>--build
+</code></pre></div>
+<p><code>POSTGRES_PASSWORD</code> is required, not defaulted: that account owns all project
+metadata, and a password committed to this repository would be identical on
+every deployment. Compose stops with an error naming the variable if it is
+unset. Set it in your shell, an <code>.env</code> file next to <code>docker-compose.yml</code>, or
+your orchestrator's secret store.</p>
+<p>Postgres only applies this password when it initializes its data directory, so
+changing it later does <strong>not</strong> change the password on an existing volume: the
+projects server then fails authentication against a database that still expects
+the old one. To rotate it, either <code>ALTER USER</code> inside the running database or
+recreate the volume.</p>
+<p>Open <code>http://localhost:8080</code>. The projects API is exposed at
+<code>http://localhost:8000</code> and the relay at <code>ws://localhost:8787</code>; the web
+container's runtime configuration is populated with those browser-reachable
+URLs. For a real deployment, set <code>GEOLIBRE_SHARE_URL</code>,
+<code>GEOLIBRE_COLLAB_URL</code>, <code>GEOLIBRE_VIEWER_URL</code>, and
+<code>GEOLIBRE_CORS_ORIGINS</code> to the public TLS origins before starting Compose.</p>
+<p>Behind a reverse proxy, only the web container should be reachable from outside
+the host. The Compose file publishes the projects server on <code>8000</code> and the relay
+on <code>8787</code> for local use, and pointing the browser URLs at your proxy does not
+stop anyone connecting to those listeners directly. Bind them to loopback (or
+drop the mappings entirely and let the proxy reach them over the Compose
+network) with an override file:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># docker-compose.override.yml</span>
+<span class="nt">services</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">geolibre-server</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;127.0.0.1:8000:8000&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">geolibre-collab</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;127.0.0.1:8787:8787&quot;</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+<p>The password is substituted into a connection URL verbatim, so two characters
+need care:</p>
+<ul>
+<li><code>@</code> splits the URL early. <code>p@ssw0rd</code> is read as password <code>p</code> against host
+  <code>ssw0rd@postgres</code>, and the projects server restarts in a loop on a psycopg
+  error that never mentions the password.</li>
+<li><code>%</code> starts a percent-escape. <code>we%20ird</code> is silently decoded to <code>we ird</code>, so
+  the server authenticates with a password you never set and simply gets
+  rejected.</li>
+</ul>
+<p>Either avoid both characters or percent-encode the value in the URL (<code>%40</code> for
+<code>@</code>, <code>%25</code> for <code>%</code>) while leaving <code>POSTGRES_PASSWORD</code> itself as the literal
+password Postgres should expect.</p>
+<p>The projects API can also run as one small SQLite-backed container, without
+Postgres:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>geolibre-server<span class="w"> </span>backend/geolibre_server_api
+docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-p<span class="w"> </span><span class="m">8000</span>:8000<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span>geolibre-server-data:/data<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">GEOLIBRE_PUBLIC_URL</span><span class="o">=</span>http://localhost:8000<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">GEOLIBRE_VIEWER_URL</span><span class="o">=</span>http://localhost:8080<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>geolibre-server
+</code></pre></div>
+<p>Its Docker image defaults to a SQLite database and filesystem objects under
+<code>/data</code>. See the complete <a href="../server-api/">server API contract</a> and the
+service's
+<a href="https://github.com/opengeos/GeoLibre/tree/main/backend/geolibre_server_api"><code>README</code></a>
+for Postgres and S3-compatible storage configuration.</p>
+<h3 id="run-the-desktop-app">Run the desktop app<a class="headerlink" href="#run-the-desktop-app" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>run<span class="w"> </span>tauri:dev
+</code></pre></div>
+<h3 id="build">Build<a class="headerlink" href="#build" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>run<span class="w"> </span>build
+npm<span class="w"> </span>run<span class="w"> </span>tauri:build
+</code></pre></div>
+<p>The default desktop build keeps the Linux binary small and uses DuckDB-WASM for
+DuckDB-backed browser features. To build a larger desktop binary with the native
+<code>duckdb-rs</code> vector loader enabled, run:</p>
+<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>run<span class="w"> </span>tauri:build:native-duckdb
+</code></pre></div>
+<p>Where to find the output:</p>
+<ul>
+<li><strong>Web build</strong> — static files in <code>apps/geolibre-desktop/dist/</code>. Serve this directory with any static web server (or the Docker image above).</li>
+<li><strong>Desktop installers</strong> — <code>apps/geolibre-desktop/src-tauri/target/release/bundle/</code>, with per-platform subfolders: <code>deb/</code>, <code>rpm/</code>, and <code>appimage/</code> on Linux; <code>msi/</code> and <code>nsis/</code> on Windows; <code>dmg/</code> and <code>macos/</code> on macOS. The unbundled executable is in <code>apps/geolibre-desktop/src-tauri/target/release/</code>. On Linux, <code>npm run tauri:build</code> builds <code>deb</code> and <code>rpm</code> by default; passing <code>--bundles</code> replaces that default selection rather than adding to it, so list every format you want, for example <code>npm run tauri:build -- --bundles deb,rpm,appimage</code> for all three.</li>
+</ul>
+<h2 id="optional-imagery-credentials">Optional imagery credentials<a class="headerlink" href="#optional-imagery-credentials" title="Permanent link">&para;</a></h2>
+<p>The Street View plugin can use Google Street View and Mapillary imagery. The 3D Tiles panel can also load Google Photorealistic 3D Tiles with the same Google Maps key. Create <code>apps/geolibre-desktop/.env.local</code> and set one or both provider credentials:</p>
+<div class="highlight"><pre><span></span><code>VITE_GOOGLE_MAPS_API_KEY=your_google_maps_api_key
+VITE_MAPILLARY_ACCESS_TOKEN=your_mapillary_access_token
+</code></pre></div>
+<p>For Google Street View, enable the Maps Embed API for the key in Google Cloud. For Google Photorealistic 3D Tiles, enable the Map Tiles API. For local shell testing, <code>GOOGLE_MAPS_API_KEY</code> is also accepted by the desktop Vite build. For Mapillary, create an app in the Mapillary developer dashboard and use its client access token.</p>
+<p>Restart <code>npm run dev</code> or <code>npm run tauri:dev</code> after changing environment variables.</p>
+<h2 id="optional-basemap-credentials">Optional basemap credentials<a class="headerlink" href="#optional-basemap-credentials" title="Permanent link">&para;</a></h2>
+<p>The <strong>New map</strong> dialog offers <a href="https://protomaps.com">Protomaps</a> basemaps (Light, Dark, White, Grayscale, Black) when a Protomaps API key is configured. Without a key these options are hidden, and you can still use the OpenFreeMap basemaps or a custom style URL.</p>
+<p>Use your own key — create one in the <a href="https://protomaps.com">Protomaps dashboard</a>. Set it one of two ways:</p>
+<ul>
+<li><strong>For your own deployment</strong> — bake it into the build with the <code>VITE_PROTOMAPS_API_KEY</code> environment variable, for example in <code>apps/geolibre-desktop/.env.local</code>:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>VITE_PROTOMAPS_API_KEY=your_protomaps_api_key
+</code></pre></div>
+<p>In CI/CD, pass it as a build-time environment variable (the GitHub Pages workflow reads it from the <code>VITE_PROTOMAPS_API_KEY</code> repository secret). The resulting style URL is <code>https://api.protomaps.com/styles/v5/&lt;flavor&gt;/en.json?key=&lt;your_key&gt;</code>.</p>
+<ul>
+<li><strong>At runtime, no rebuild</strong> — add an environment variable named <code>VITE_PROTOMAPS_API_KEY</code> in <strong>Settings → Environment Variables</strong>. The Protomaps basemaps appear as soon as the key is enabled. See <a href="../user-guide/settings/#environment-variables">Settings</a>.</li>
+</ul>
+<h2 id="optional-traffic-overlays">Optional traffic overlays<a class="headerlink" href="#optional-traffic-overlays" title="Permanent link">&para;</a></h2>
+<p>The <strong>Basemaps</strong> control includes a <strong>Traffic</strong> category with real-time traffic overlays that stack on top of any basemap (enable the panel's add/multiple toggle). Each provider authenticates with your own API key, set in <strong>Settings → Environment Variables</strong> (or baked into <code>apps/geolibre-desktop/.env.local</code>):</p>
+<div class="highlight"><pre><span></span><code>VITE_GOOGLE_MAPS_API_KEY=your_google_maps_api_key   # Google Traffic (Map Tiles API)
+VITE_TOMTOM_API_KEY=your_tomtom_api_key             # TomTom Traffic Flow
+VITE_HERE_API_KEY=your_here_api_key                 # HERE Traffic Flow
+</code></pre></div>
+<p>Google Traffic and Google Photorealistic 3D Tiles reuse the same <code>VITE_GOOGLE_MAPS_API_KEY</code> as Street View; enable the <strong>Map Tiles API</strong> for that key in Google Cloud. A newly entered key takes effect immediately, without reopening the project. Until a provider's key is set, its overlay reports a missing-key error instead of loading tiles.</p>
+<h2 id="optional-amazon-location-styles">Optional Amazon Location styles<a class="headerlink" href="#optional-amazon-location-styles" title="Permanent link">&para;</a></h2>
+<p>The <strong>Amazon Location</strong> entries in the Basemaps control are <em>style basemaps</em> (they replace the whole map style, unlike the traffic overlays above). They authenticate with your own Amazon Location API key, set in <strong>Settings → Environment Variables</strong> (or baked into <code>apps/geolibre-desktop/.env.local</code>):</p>
+<div class="highlight"><pre><span></span><code>VITE_AMAZON_LOCATION_API_KEY=your_amazon_location_api_key   # Amazon Location styles
+VITE_AMAZON_LOCATION_AWS_REGION=us-east-1                   # optional; omit to use the control&#39;s built-in default region
+</code></pre></div>
+<h2 id="optional-protomaps-and-stadia-maps-basemaps">Optional Protomaps and Stadia Maps basemaps<a class="headerlink" href="#optional-protomaps-and-stadia-maps-basemaps" title="Permanent link">&para;</a></h2>
+<p>The Basemaps control also carries <strong>Protomaps</strong> and <strong>Stadia Maps</strong> (including Stadia x Stamen) style basemaps. Both authenticate with your own key:</p>
+<div class="highlight"><pre><span></span><code>VITE_PROTOMAPS_API_KEY=your_protomaps_api_key   # same key as the New map dialog&#39;s Protomaps basemaps
+VITE_STADIA_API_KEY=your_stadia_api_key         # https://client.stadiamaps.com
+</code></pre></div>
+<p>Protomaps reuses the key described in <a href="#optional-basemap-credentials">Optional basemap credentials</a> above — set it once and both places pick it up. Until each key is set, the panel shows a "Get a … API key" prompt in place of the basemap rather than loading tiles.</p>
+<p>Keys set via <strong>Settings → Environment Variables</strong>, or typed directly into the panel's <strong>API keys</strong> view (the key button in the panel header), apply at runtime without reopening the project. A key baked into <code>apps/geolibre-desktop/.env.local</code> is read at build time and needs a dev server restart. When <code>VITE_AMAZON_LOCATION_API_KEY</code> is set in the environment it takes precedence over a key typed in the panel; removing it from the environment clears it on the next page reload.</p>
+<h2 id="optional-3d-globe-credentials-cesium-ion">Optional 3D globe credentials (Cesium Ion)<a class="headerlink" href="#optional-3d-globe-credentials-cesium-ion" title="Permanent link">&para;</a></h2>
+<p>The optional <strong>Cesium 3D-globe view</strong> — a split-pane globe rendered with <a href="https://cesium.com/platform/cesiumjs/">CesiumJS</a> alongside the 2D MapLibre map — needs a <a href="https://ion.cesium.com/">Cesium Ion</a> access token for its world imagery and terrain. Create a free Ion account, copy your default access token, and set it at build time:</p>
+<div class="highlight"><pre><span></span><code>CESIUM_TOKEN=your_cesium_ion_access_token
+</code></pre></div>
+<p><code>CESIUM_TOKEN</code> (or the <code>VITE_</code>-prefixed <code>VITE_CESIUM_TOKEN</code>) is read by <code>vite.config.ts</code> and baked into the build. You can <strong>also set it at runtime</strong> — with no rebuild — in the Settings dialog's <strong>Environment Variables</strong> section, which has a dedicated masked <strong>Cesium Ion token</strong> field. That token is stored locally on the device (in browser storage on the web build), <strong>not</strong> in the shared project file, and overrides the build-time value; it is how a web user brings their own Ion token. (A free-form <code>VITE_CESIUM_TOKEN</code> variable in the same section still works and takes precedence, as an override.) Without a token from any source, the 3D-globe toggle is hidden entirely (the 2D map is unaffected). Ion access tokens are designed to ship in client bundles. See <a href="../architecture/#3d-globe-view-cesiumjs">Architecture</a> for how the globe integrates.</p>
+<h2 id="optional-runtime-mirrors-offline-and-air-gapped">Optional runtime mirrors (offline and air-gapped)<a class="headerlink" href="#optional-runtime-mirrors-offline-and-air-gapped" title="Permanent link">&para;</a></h2>
+<p>The <strong>Python (Pyodide)</strong> vector engine loads its runtime from the public jsDelivr CDN by default. To self-host it for offline or production use, point it at a mirrored copy of the Pyodide distribution:</p>
+<div class="highlight"><pre><span></span><code>VITE_PYODIDE_INDEX_URL=https://your-host/pyodide/v0.27.7/full/
+</code></pre></div>
+<p>Similarly, the DuckDB Spatial extension is installed from DuckDB's remote extension repository by default. To load it from a mirror instead (so <code>INSTALL spatial</code> is skipped and the extension is loaded directly), set the full path or URL to the extension file:</p>
+<div class="highlight"><pre><span></span><code>VITE_DUCKDB_SPATIAL_EXTENSION_PATH=https://your-host/duckdb/spatial.duckdb_extension.wasm
+</code></pre></div>
+<p>Both variables can also be set at runtime through the Settings dialog's environment variables (no rebuild required), so air-gapped or corporate deployments can point Pyodide and the DuckDB Spatial extension at internal mirrors without rebuilding.</p>
+<h2 id="optional-python-sidecar">Optional Python sidecar<a class="headerlink" href="#optional-python-sidecar" title="Permanent link">&para;</a></h2>
+<p>The optional FastAPI sidecar is reserved for heavier processing workflows and is not required for the desktop UI.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>backend/geolibre_server
+python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
+<span class="nb">source</span><span class="w"> </span>.venv/bin/activate
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+uvicorn<span class="w"> </span>geolibre_server.app.main:app<span class="w"> </span>--host<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>--port<span class="w"> </span><span class="m">8765</span>
+</code></pre></div>
+<p>The sidecar self-bootstraps a managed runtime on first use; set
+<code>GEOLIBRE_CONVERSION_PYTHON=$(which python)</code> to reuse the current environment
+instead. See the
+<a href="https://github.com/opengeos/GeoLibre/blob/main/backend/geolibre_server/README.md">sidecar README</a>
+for details.</p>
+<h3 id="optional-extras">Optional extras<a class="headerlink" href="#optional-extras" title="Permanent link">&para;</a></h3>
+<p>The base install is deliberately small. Each group of tools has its own extra;
+install only the ones you need, then run <code>geolibre-server</code> (or the <code>uvicorn</code>
+command above). These continue from <code>backend/geolibre_server</code>, the directory the
+snippet above changes into:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Conversion tools (DuckDB, rio-cogeo, freestiler)</span>
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[conversion]&quot;</span>
+
+<span class="c1"># Vector tools — GeoPandas engine (GeoPandas, Shapely)</span>
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[vector]&quot;</span>
+
+<span class="c1"># Raster tools (rasterio, numpy, contourpy)</span>
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[raster]&quot;</span>
+
+<span class="c1"># AI Segmentation proxy (an HTTP client only; models live in samgeo-api)</span>
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[ml]&quot;</span>
+</code></pre></div>
+<p>From the repository root instead, use the full path — for example
+<code>pip install -e "backend/geolibre_server[conversion]"</code>.</p>
+<p>To use the sidecar from the <strong>web</strong> build, start it and serve the app from
+<code>localhost:5173</code> — CORS is restricted to that origin and the Tauri origins.
+Where a tool has a browser engine (all Vector tools, and the GeoParquet/CSV
+conversions), the dialog falls back to it automatically when the sidecar or its
+extra is unavailable. See <a href="../user-guide/processing/">Processing Tools</a> for what
+each engine does, and <a href="../user-guide/segmentation/">AI Segmentation</a> for the
+separate <code>samgeo-api</code> model server.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/opengeos/GeoLibre" target="_blank" rel="noopener" title="GeoLibre on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/sponsors/giswqs" target="_blank" rel="noopener" title="Sponsor GeoLibre on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="m241 87.1 15 20.7 15-20.7C296 52.5 336.2 32 378.9 32 452.4 32 512 91.6 512 165.1v2.6c0 112.2-139.9 242.5-212.9 298.2-12.4 9.4-27.6 14.1-43.1 14.1s-30.8-4.6-43.1-14.1C139.9 410.2 0 279.9 0 167.7v-2.6C0 91.6 59.6 32 133.1 32 175.8 32 216 52.5 241 87.1"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://buymeacoffee.com/giswqs" target="_blank" rel="noopener" title="Buy the maintainer a coffee" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M152-16c-13.3 0-24 10.7-24 24 0 38.9 23.4 59.4 39.1 73.1l1.1 1C184.5 96.4 192 103.9 192 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C183.5 31.7 176 24.1 176 8c0-13.3-10.7-24-24-24M96 192c-17.7 0-32 14.3-32 32v192c0 53 43 96 96 96h192c41.8 0 77.4-26.7 90.5-64h5.5c70.7 0 128-57.3 128-128s-57.3-128-128-128zm352 192V256c35.3 0 64 28.7 64 64s-28.7 64-64 64M288 8c0-13.3-10.7-24-24-24S240-5.3 240 8c0 38.9 23.4 59.4 39.1 73.1l1.1 1C296.5 96.4 304 103.9 304 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C295.5 31.7 288 24.1 288 8"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","navigation.sections","navigation.top","search.highlight","search.share","search.suggest","toc.follow"],"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.69c251d7.min.js"></script>
+      
+    
+  </body>
+</html>
