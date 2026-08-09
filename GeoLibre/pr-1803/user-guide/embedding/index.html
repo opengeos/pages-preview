@@ -2501,7 +2501,7 @@ toolbar in a smaller space, or <code>maponly</code> for a pure map.</p>
 <p>A public DEM COG can be tested directly:</p>
 <div class="highlight"><pre><span></span><code>https://web.geolibre.app/?data=https://data.source.coop/giswqs/opengeos/dem.tif
 </code></pre></div>
-<p>A plain <code>https://…</code> URL can be passed as-is, as above: <code>:</code> and <code>/</code> are legal in a query value and need no escaping. Encode the nested data and style URLs with <code>encodeURIComponent</code> only when they contain a character that would be read as GeoLibre's own query syntax — <code>&amp;</code>, <code>=</code>, <code>+</code>, <code>%</code>, or <code>#</code>. Remote servers must permit browser cross-origin requests (CORS). COG, GeoParquet, and PMTiles servers should also support HTTP byte-range requests.</p>
+<p>A plain <code>https://…</code> URL can be passed as-is, as above: <code>:</code> and <code>/</code> are legal in a query value and need no escaping. Encode the nested data and style URLs with <code>encodeURIComponent</code> only when they contain a character that would be read as GeoLibre's own query syntax — <code>&amp;</code>, <code>+</code>, <code>%</code>, or <code>#</code>. A bare <code>=</code> inside the value is fine, since only the first <code>=</code> in each <code>&amp;</code>-delimited pair separates the name from the value. Remote servers must permit browser cross-origin requests (CORS). COG, GeoParquet, and PMTiles servers should also support HTTP byte-range requests.</p>
 <p>For a COG, <code>style</code> may point to a raster style JSON object. Supported fields are <code>mode</code> (<code>single</code>, <code>rgb</code>, or <code>index</code>), 1-based <code>bands</code>, <code>rescale</code> ranges, <code>colormap</code>, <code>reversed</code>, <code>nodata</code>, <code>opacity</code>, <code>gamma</code>, <code>stretch</code> (<code>linear</code>, <code>log</code>, or <code>sqrt</code>), and the normalized-difference <code>index</code> preset. For example:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">&quot;mode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;single&quot;</span><span class="p">,</span>
@@ -2545,11 +2545,11 @@ interactive map. Copy one of these and swap in your own URL:</p>
 map opens — <code>&amp;style=</code> for symbology, <code>&amp;theme=dark</code>, or <code>&amp;maponly</code> for a
 chrome-free view.</p>
 <p>One caveat specific to badges: a badge lives in a <code>README.md</code> that GitHub, PyPI,
-and docs sites all render, and each of those rewrites links differently. Keep
-the target URL <strong>absolute</strong>, and remember that if your data URL carries its own
-query string it needs the percent-encoding described above — inside a Markdown
-link an unencoded <code>&amp;</code> will also end the link at that character in some
-renderers.</p>
+and docs sites all render, and each of those rewrites relative links
+differently, so keep the target URL <strong>absolute</strong>. The encoding rule above
+applies unchanged — a data URL carrying its own query string still needs
+<code>encodeURIComponent</code>, because the <code>&amp;</code> is read as GeoLibre's own separator well
+before the browser ever sees it.</p>
 <h2 id="talking-to-the-map-at-runtime">Talking to the map at runtime<a class="headerlink" href="#talking-to-the-map-at-runtime" title="Permanent link">&para;</a></h2>
 <p>URL parameters configure the app once, at load. To keep talking to a <strong>live</strong>
 embed (fly to the record the user just clicked in your app, highlight it, open a
