@@ -2326,7 +2326,7 @@
 <h1 id="embedding-sharing">Embedding &amp; Sharing<a class="headerlink" href="#embedding-sharing" title="Permanent link">&para;</a></h1>
 <p>GeoLibre's browser build can be embedded in any web page and configured through URL query parameters. This is how you turn a shared project into a live, focused map for a website, a report, or a dashboard.</p>
 <h2 id="open-remote-data">Open remote data<a class="headerlink" href="#open-remote-data" title="Permanent link">&para;</a></h2>
-<p>Use <code>data</code> to open a public GeoJSON file, Cloud-Optimized GeoTIFF (COG), or ZIP archive containing one or more <code>.geojson</code>/<code>.json</code> FeatureCollections. Each GeoJSON file in a ZIP becomes a separate layer. An optional <code>style</code> URL applies Mapbox/MapLibre style JSON to the imported vector layer(s):</p>
+<p>Use <code>data</code> to open public GeoJSON, GeoParquet, PMTiles, Cloud-Optimized GeoTIFF (COG), or a ZIP archive containing one or more <code>.geojson</code>/<code>.json</code> FeatureCollections. Each GeoJSON file in a ZIP becomes a separate layer. An optional <code>style</code> URL applies Mapbox/MapLibre style JSON to vector data:</p>
 <div class="highlight"><pre><span></span><code>https://web.geolibre.app/?data=https%3A%2F%2Fassets.geolibre.app%2Fdata%2Fplaces.geojson&amp;style=https%3A%2F%2Fassets.geolibre.app%2Fdata%2Fsample.style.json
 </code></pre></div>
 <p><code>data</code> may also point to a REST API endpoint that returns either a GeoJSON <code>FeatureCollection</code> or a ZIP containing multiple GeoJSON files. ZIP API responses are recognized from their <code>Content-Type</code>/<code>Content-Disposition</code> headers or their ZIP file signature, so the endpoint does not need a <code>.zip</code> suffix. For example:</p>
@@ -2336,10 +2336,16 @@
 <p>A hosted ZIP with per-file styles can be tested directly:</p>
 <div class="highlight"><pre><span></span><code>https://web.geolibre.app/?data=https%3A%2F%2Fassets.geolibre.app%2Fdata%2Fmultiple-layers.zip&amp;style=https%3A%2F%2Fassets.geolibre.app%2Fdata%2Fmultiple-layers.style.json
 </code></pre></div>
+<p>GeoParquet is loaded through GeoLibre's DuckDB-backed vector reader. PMTiles is streamed with HTTP range requests and may contain either vector or raster tiles. These real vector examples also apply the hosted sample style:</p>
+<div class="highlight"><pre><span></span><code>https://web.geolibre.app/?data=https%3A%2F%2Fdata.source.coop%2Fgiswqs%2Fopengeos%2Fbuilding_count_h3.parquet&amp;style=https%3A%2F%2Fassets.geolibre.app%2Fdata%2Fsample.style.json
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>https://web.geolibre.app/?data=https%3A%2F%2Fdata.source.coop%2Fgiswqs%2Fopengeos%2Fbuilding_count_h3.pmtiles&amp;style=https%3A%2F%2Fassets.geolibre.app%2Fdata%2Fsample.style.json
+</code></pre></div>
+<p>For a vector PMTiles archive, the style is applied to the layer after the archive's source layers are discovered. A raster PMTiles archive can be loaded with <code>data</code>, but it does not accept a MapLibre vector style through <code>style</code>.</p>
 <p>A public DEM COG can be tested directly:</p>
 <div class="highlight"><pre><span></span><code>https://web.geolibre.app/?data=https%3A%2F%2Fdata.source.coop%2Fgiswqs%2Fopengeos%2Fdem.tif
 </code></pre></div>
-<p>Encode the nested data and style URLs with <code>encodeURIComponent</code>, especially when they contain their own query parameters. Remote servers must permit browser cross-origin requests (CORS). COG servers should also support HTTP byte-range requests.</p>
+<p>Encode the nested data and style URLs with <code>encodeURIComponent</code>, especially when they contain their own query parameters. Remote servers must permit browser cross-origin requests (CORS). COG, GeoParquet, and PMTiles servers should also support HTTP byte-range requests.</p>
 <p>For a COG, <code>style</code> may point to a raster style JSON object. Supported fields are <code>mode</code> (<code>single</code>, <code>rgb</code>, or <code>index</code>), 1-based <code>bands</code>, <code>rescale</code> ranges, <code>colormap</code>, <code>reversed</code>, <code>nodata</code>, <code>opacity</code>, <code>gamma</code>, <code>stretch</code> (<code>linear</code>, <code>log</code>, or <code>sqrt</code>), and the normalized-difference <code>index</code> preset. For example:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">&quot;mode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;single&quot;</span><span class="p">,</span>
@@ -2385,7 +2391,7 @@
 <tr>
 <td><code>data</code></td>
 <td><code>data=https://assets.geolibre.app/data/places.geojson</code></td>
-<td>Loads public GeoJSON, a COG, or a ZIP/REST response containing multiple GeoJSON files.</td>
+<td>Loads public GeoJSON, GeoParquet, PMTiles, a COG, or a ZIP/REST response containing multiple GeoJSON files.</td>
 </tr>
 <tr>
 <td><code>style</code></td>
