@@ -1047,6 +1047,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Open remote data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#an-open-in-geolibre-badge" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        An "Open in GeoLibre" badge
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2209,6 +2226,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Open remote data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#an-open-in-geolibre-badge" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        An "Open in GeoLibre" badge
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2487,6 +2521,35 @@ toolbar in a smaller space, or <code>maponly</code> for a pure map.</p>
 <p>For a ZIP containing files of the same geometry type, assign different styles by setting each Mapbox style layer's <code>source</code> to the corresponding filename stem. For example, <code>source: "parks"</code> targets <code>parks.geojson</code>, while <code>source: "counties"</code> targets <code>counties.geojson</code>. Style layers without a <code>source</code> are shared by every imported file. GeoLibre validates all filename/style matches before adding any ZIP layers.</p>
 <p>You do not need to author that JSON by hand. Open the vector layer's <strong>Layer actions → Styles → Export GeoLibre URL style</strong> menu. The downloaded <code>.geolibre.style.json</code> contains only symbology—not feature data—and its render-layer <code>source</code> is already set to the original GeoJSON filename stem. Host the file on a CORS-enabled server and pass its URL as <code>style</code> alongside the corresponding <code>data</code> URL. For a multi-file ZIP, export each layer's GeoLibre URL style and combine their <code>layers</code> and <code>sources</code> into one style document; layers without <code>source</code> can be used for rules shared by every ZIP member.</p>
 <p>The same file can be applied interactively to an existing vector layer through <strong>Layer actions → Styles → Import style (GeoLibre URL / Mapbox GL / SLD / QML)…</strong>. Interactive import ignores the file's query-param <code>source</code> binding and applies its supported symbology to the layer you selected, so the data filename does not need to match.</p>
+<h3 id="an-open-in-geolibre-badge">An "Open in GeoLibre" badge<a class="headerlink" href="#an-open-in-geolibre-badge" title="Permanent link">&para;</a></h3>
+<p>If you publish a dataset — in a repository README, a data catalog, a paper's
+supplementary material — an <strong>Open in GeoLibre</strong> badge turns it into a one-click
+interactive map. Copy one of these and swap in your own URL:</p>
+<p><a href="https://web.geolibre.app/?data=https://assets.geolibre.app/data/places.geojson"><img alt="Open in GeoLibre" src="https://img.shields.io/badge/Open%20in-GeoLibre-green.svg" /></a></p>
+<div class="highlight"><pre><span></span><code>[<span class="nt">![Open in GeoLibre</span>](<span class="na">https://img.shields.io/badge/Open%20in-GeoLibre-green.svg</span>)](https://web.geolibre.app/?data=https://assets.geolibre.app/data/places.geojson)
+</code></pre></div>
+<p>The same badge can open a shared project instead of a single file, using <code>url</code>:</p>
+<div class="highlight"><pre><span></span><code>[<span class="nt">![Open in GeoLibre</span>](<span class="na">https://img.shields.io/badge/Open%20in-GeoLibre-green.svg</span>)](https://web.geolibre.app/?url=https://share.geolibre.app/you/project.geolibre.json)
+</code></pre></div>
+<p>In reStructuredText:</p>
+<div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">image</span><span class="p">::</span> https://img.shields.io/badge/Open%20in-GeoLibre-green.svg
+   <span class="nc">:target:</span> https://web.geolibre.app/?data=https://assets.geolibre.app/data/places.geojson
+   <span class="nc">:alt:</span> Open in GeoLibre
+</code></pre></div>
+<p>In HTML:</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://web.geolibre.app/?data=https://assets.geolibre.app/data/places.geojson&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://img.shields.io/badge/Open%20in-GeoLibre-green.svg&quot;</span> <span class="na">alt</span><span class="o">=</span><span class="s">&quot;Open in GeoLibre&quot;</span> <span class="p">/&gt;</span>
+<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>Add any of the <a href="#url-parameters">URL parameters</a> to the link to control how the
+map opens — <code>&amp;style=</code> for symbology, <code>&amp;theme=dark</code>, or <code>&amp;maponly</code> for a
+chrome-free view.</p>
+<p>One caveat specific to badges: a badge lives in a <code>README.md</code> that GitHub, PyPI,
+and docs sites all render, and each of those rewrites links differently. Keep
+the target URL <strong>absolute</strong>, and remember that if your data URL carries its own
+query string it needs the percent-encoding described above — inside a Markdown
+link an unencoded <code>&amp;</code> will also end the link at that character in some
+renderers.</p>
 <h2 id="talking-to-the-map-at-runtime">Talking to the map at runtime<a class="headerlink" href="#talking-to-the-map-at-runtime" title="Permanent link">&para;</a></h2>
 <p>URL parameters configure the app once, at load. To keep talking to a <strong>live</strong>
 embed (fly to the record the user just clicked in your app, highlight it, open a
