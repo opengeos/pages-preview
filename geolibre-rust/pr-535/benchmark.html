@@ -127,7 +127,7 @@
         vector_to_binary,
         vector_to_arrow_ipc,
         vector_info,
-      } from "./geolibre_wasm.js?v=7fc32eb650220e96e31d1ae4c4eca0d39c45b0bd";
+      } from "./geolibre_wasm.js?v=5a0c46988e54422c814f2165cd32b35b30505282";
 
       const $ = (id) => document.getElementById(id);
       const fmtMs = (ms) => (ms >= 1000 ? `${(ms / 1000).toFixed(2)} s` : `${ms.toFixed(1)} ms`);
@@ -142,7 +142,7 @@
         // Offline: still time the IPC bytes, just skip the JS-side parse.
       }
 
-      await init({ module_or_path: "./geolibre_wasm_bg.wasm?v=7fc32eb650220e96e31d1ae4c4eca0d39c45b0bd" });
+      await init({ module_or_path: "./geolibre_wasm_bg.wasm?v=5a0c46988e54422c814f2165cd32b35b30505282" });
       $("run").disabled = false;
       $("run").textContent = "Run benchmark";
 
