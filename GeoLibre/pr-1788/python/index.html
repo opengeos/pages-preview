@@ -2722,12 +2722,18 @@ loads directly. Local GeoJSON, CSV, and vector files that GeoLibre reads in
 Python and inlines into the project continue to work. The <code>_app_url</code> attribute
 is currently an internal compatibility workaround rather than a public
 constructor option.</p>
+<p><strong>Privacy:</strong> The widget sends its synchronized project, including any inlined
+local data, to the origin in <code>_app_url</code> through <code>window.postMessage</code>. Use only a
+trusted app URL, or host the GeoLibre app yourself, when working with sensitive
+data.</p>
 <h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
 <p>The wheel bundles the GeoLibre web build. At import time the package starts a
 small localhost static server that serves the bundled app; the widget renders
 that app in an iframe and exchanges the project over <code>window.postMessage</code>.
 Adding data from Python rewrites the synced project and pushes it into the app;
 UI edits flow back the same way.</p>
+<!-- markdownlint-disable MD046 -->
+
 <div class="admonition note">
 <p class="admonition-title">Environment support</p>
 <p>The interactive widget works in <strong>local Jupyter, VS Code, Google Colab,
@@ -2762,6 +2768,8 @@ extension is enabled with <code>jupyter server extension list</code> (look for
 <code>geolibre</code>; run <code>jupyter server extension enable geolibre</code> if absent) and
 <strong>restart</strong> the Jupyter server so the extension loads.</p>
 </div>
+<!-- markdownlint-enable MD046 -->
+
 <div class="admonition warning">
 <p class="admonition-title">URL fetching</p>
 <p><code>add_geojson(url)</code>, <code>add_csv(url)</code> / <code>add_xy_data(url)</code>, and <code>add_wfs()</code>
