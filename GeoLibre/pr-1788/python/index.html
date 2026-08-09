@@ -2704,7 +2704,7 @@ displaying it:</p>
 <span class="n">m</span> <span class="o">=</span> <span class="n">Map</span><span class="p">(</span><span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="n">zoom</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 <span class="n">m</span><span class="o">.</span><span class="n">_app_url</span> <span class="o">=</span> <span class="s2">&quot;https://web.geolibre.app/&quot;</span>
 <span class="n">m</span><span class="o">.</span><span class="n">add_basemap</span><span class="p">(</span><span class="s2">&quot;dark&quot;</span><span class="p">)</span>
-<span class="n">m</span><span class="o">.</span><span class="n">add_geojson</span><span class="p">(</span>
+<span class="n">m</span><span class="o">.</span><span class="n">add_vector</span><span class="p">(</span>
     <span class="s2">&quot;https://data.source.coop/giswqs/opengeos/world_cities.geojson&quot;</span><span class="p">,</span>
     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;World cities&quot;</span><span class="p">,</span>
 <span class="p">)</span>
@@ -2713,6 +2713,9 @@ displaying it:</p>
 <p>This uses the same project-sync bridge as the regular widget; only the app's
 location changes. Set <code>_app_url</code> before returning <code>m</code> from the cell so the
 iframe uses the hosted URL on its first render.</p>
+<p>The example uses <code>add_vector()</code> so the hosted browser app fetches the remote
+GeoJSON directly. <code>add_geojson(url)</code> instead downloads and inlines the file in
+Python, which can fail when a data host rejects Python's HTTP client.</p>
 <p>Because the hosted app cannot access files exposed by the kernel's temporary
 localhost server, use hosted URLs for rasters and other sources the browser
 loads directly. Local GeoJSON, CSV, and vector files that GeoLibre reads in
