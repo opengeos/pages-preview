@@ -1,0 +1,1 @@
+import{Zs as e}from"./maplibre-B_8gVX0B.js";var r;(function(o){o.load=function(){return e(()=>import("./webdggrid-CmLa6mcz.js").then(t=>t.Webdggrid.load()),[],import.meta.url)}})(r||(r={}));export{r as Webdggrid};
