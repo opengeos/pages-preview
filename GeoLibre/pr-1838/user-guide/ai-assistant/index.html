@@ -2344,11 +2344,15 @@ both the Worker token and Tavily key out of frontend configuration.</p>
 <td>Pin a specific model id, overriding the default and the picker.</td>
 </tr>
 <tr>
-<td><code>TAVILY_API_KEY</code></td>
-<td>Enable reliable <a href="#what-it-can-do">web search</a> with local provider configuration. For managed Docker, configure this as a <code>geolibre-ai-proxy</code> Worker secret, not a container variable.</td>
+<td><code>TAVILY_API_KEY</code> (desktop only)</td>
+<td>Enable direct <a href="#what-it-can-do">web search</a> when the desktop app reads local provider configuration from the operating system environment.</td>
 </tr>
 </tbody>
 </table>
+<p>Managed Docker uses a separate server-side mechanism for NASA OPERA news
+search. Store a secret with the same <code>TAVILY_API_KEY</code> name on the
+<code>geolibre-ai-proxy</code> Cloudflare Worker. Do not pass it with <code>docker run -e</code>; the
+container does not read it.</p>
 <p>When more than one provider key is configured, a <strong>provider</strong> dropdown appears in
 the panel header; a <strong>model</strong> dropdown lets you switch models for the selected
 provider. Your choice is remembered across sessions.</p>
