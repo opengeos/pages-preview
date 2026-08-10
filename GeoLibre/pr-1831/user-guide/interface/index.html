@@ -2475,10 +2475,10 @@
 <h3 id="elevation-readout">Elevation readout<a class="headerlink" href="#elevation-readout" title="Permanent link">&para;</a></h3>
 <p><strong>Controls → Elevation</strong> turns on the <strong>Elev</strong> readout. It is <strong>off by default</strong>, and it resolves the height under the pointer from one of two sources:</p>
 <ul>
-<li><strong>With 3D terrain enabled</strong> the height is read straight from the terrain the map has already loaded. This is instant, tracks the cursor live, and sends nothing off your device.</li>
-<li><strong>Without 3D terrain</strong> GeoLibre falls back to the public <a href="https://open-meteo.com/">Open-Meteo</a> elevation API, and only after the pointer has been still for half a second. Results are cached per roughly 11 m cell, and the lookup runs only on Earth — never on a planetary basemap.</li>
+<li><strong>From the map's own 3D terrain</strong>, whenever a usable sample is available there. This is instant, tracks the cursor live, and sends nothing off your device.</li>
+<li><strong>From the public <a href="https://open-meteo.com/">Open-Meteo</a> elevation API</strong> when terrain returns no value for that point — because 3D terrain is off, but also when it is on and the terrain has no sample to give. The lookup waits until the pointer has been still for half a second, caches results per roughly 11 m cell, and runs only on Earth, never on a planetary basemap.</li>
 </ul>
-<p>Because the fallback sends the coordinates under your pointer to a third-party service, GeoLibre asks for consent the first time you enable the readout. Decline and the readout still works over 3D terrain, but never reaches the network. While a lookup is in flight the readout is blank rather than showing the previous point's height.</p>
+<p>Because that fallback sends the coordinates under your pointer to a third-party service, GeoLibre asks for consent the first time you enable the readout. <strong>Declining is what guarantees the readout never reaches the network</strong> — turning 3D terrain on makes the remote lookup rare, but does not by itself rule it out. Decline and the readout still works wherever terrain can answer. While a lookup is in flight the readout is blank rather than showing the previous point's height.</p>
 <div class="admonition tip">
 <p class="admonition-title">Reading elevation along a line</p>
 <p>For a profile rather than a single point, use the Elevation Profile plugin, or the <a href="../map-controls/#component-tools">Measure tool</a>, which reports terrain-aware 3D distances.</p>

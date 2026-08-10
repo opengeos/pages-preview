@@ -2858,8 +2858,8 @@ the public internet:</p>
 </tr>
 <tr>
 <td>Pointer elevation readout</td>
-<td>Public Open-Meteo elevation API, and only when 3D terrain is off</td>
-<td>Leave the readout off (it is off by default), or keep 3D terrain enabled so the height is read from tiles the map already has. GeoLibre asks for consent before the first remote lookup.</td>
+<td>Public Open-Meteo elevation API, whenever 3D terrain has no sample for the point</td>
+<td>Leave the readout off (it is off by default), or decline the consent prompt GeoLibre shows before the first remote lookup — that is the gate the resolver checks. Enabling 3D terrain makes the remote call rare but does not rule it out, since a point terrain cannot answer still falls through.</td>
 </tr>
 <tr>
 <td>Python (Pyodide) vector engine</td>
