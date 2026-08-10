@@ -2594,6 +2594,7 @@ kepler.gl, see the <a href="../comparison/">Comparison</a>.</p>
 <h2 id="projects-and-sharing">Projects and sharing<a class="headerlink" href="#projects-and-sharing" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Project menu to create, open, save, and Save As <code>.geolibre.json</code> projects, export a project to a single standalone interactive HTML file that runs offline with no server, and a project gallery for browsing and opening shared projects with one click</li>
+<li>Share-readiness check in the Share dialog: before the upload, every data source the project references is classified and probed anonymously from the browser, and the ones a recipient could not load are listed with a plain-language reason and a fix, covering credential-gated services, hosts with no cross-origin headers, expired or moved links, and local or private-network sources. It informs rather than blocks. See <a href="../user-guide/projects/#share-readiness-check">Projects</a></li>
 <li>Autosave with a browsable project history. See <a href="../user-guide/projects/#project-history-and-crash-recovery">Projects</a><ul>
 <li>Snapshots are written to local device storage a few seconds after each change settles, and listed newest first with their layer count and zoom</li>
 <li>Restoring a snapshot is an undoable step</li>
