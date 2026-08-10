@@ -2940,8 +2940,10 @@ application for the deployment domain and pass its publishable key:</p>
 <span class="w">  </span>-e<span class="w"> </span><span class="nv">GEOLIBRE_CLERK_PUBLISHABLE_KEY</span><span class="o">=</span><span class="s1">&#39;pk_live_...&#39;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>ghcr.io/opengeos/geolibre:latest
 </code></pre></div>
-<p>When the variable is unset, Clerk is not loaded and GeoLibre behaves exactly as
-before. The gate applies only to the hosted web application; the separately built
+<p>Clerk is not loaded and GeoLibre behaves exactly as before when neither this
+variable nor the build-time <code>VITE_GEOLIBRE_CLERK_PUBLISHABLE_KEY</code> is set; the
+runtime variable wins when both are.
+The gate applies only to the hosted web application; the separately built
 Tauri, mobile, and embedded/Jupyter builds remain available offline. It is a
 property of the build, not of the request, so framing the gated deployment or
 loading it with <code>?embed=1</code> still requires sign-in. Control who may register or
