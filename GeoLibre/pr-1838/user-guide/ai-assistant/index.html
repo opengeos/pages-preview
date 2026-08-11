@@ -2323,9 +2323,12 @@ server-only token receive <code>401 Unauthorized</code>.</p>
 <p>If <code>GEOLIBRE_AI_URL</code> is unset, the Docker entrypoint leaves the managed proxy
 disabled and does not inject any AI proxy URL into the application.</p>
 <p>For news search in the NASA OPERA disaster workflow, add <code>TAVILY_API_KEY</code> as a
-secret on the <code>geolibre-ai-proxy</code> Worker. Do not pass that key to the Docker
-container. The browser uses the same authenticated <code>/ai</code> route, and nginx keeps
-both the Worker token and Tavily key out of frontend configuration.</p>
+secret on the <code>geolibre-ai-proxy</code> Worker. Do not pass that key to the container
+with <code>docker run -e</code>: the container never reads it. The browser uses the same
+authenticated <code>/ai</code> route, and nginx keeps both the Worker token and Tavily key
+out of frontend configuration. The desktop app reads a variable of the same name
+for <a href="#reading-keys-from-your-system-environment-desktop">its own web search</a>,
+which is a separate client-side mechanism unrelated to this one.</p>
 <p>Optional variables:</p>
 <table>
 <thead>
@@ -2343,16 +2346,8 @@ both the Worker token and Tavily key out of frontend configuration.</p>
 <td><code>GEOLIBRE_ASSISTANT_MODEL</code></td>
 <td>Pin a specific model id, overriding the default and the picker.</td>
 </tr>
-<tr>
-<td><code>TAVILY_API_KEY</code> (desktop only)</td>
-<td>Enable direct <a href="#what-it-can-do">web search</a> when the desktop app reads local provider configuration from the operating system environment.</td>
-</tr>
 </tbody>
 </table>
-<p>Managed Docker uses a separate server-side mechanism for NASA OPERA news
-search. Store a secret with the same <code>TAVILY_API_KEY</code> name on the
-<code>geolibre-ai-proxy</code> Cloudflare Worker. Do not pass it with <code>docker run -e</code>; the
-container does not read it.</p>
 <p>When more than one provider key is configured, a <strong>provider</strong> dropdown appears in
 the panel header; a <strong>model</strong> dropdown lets you switch models for the selected
 provider. Your choice is remembered across sessions.</p>
