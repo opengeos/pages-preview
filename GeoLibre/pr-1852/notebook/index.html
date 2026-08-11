@@ -2277,9 +2277,10 @@ npm<span class="w"> </span>run<span class="w"> </span>build:jupyterlite
 </ul>
 <p>Both <strong>skip with a warning</strong> when <code>jupyter lite</code> is not installed, so a Node-only
 build still succeeds. Be aware of what that produces: the panel does <em>not</em> show a
-"not built" message. Its iframe asks for <code>/jupyterlite/lab/index.html</code>, and both
-nginx (<code>try_files $uri /index.html</code>) and Tauri's asset resolver answer an unknown
-path with <code>index.html</code>, so the panel renders <strong>a second copy of GeoLibre</strong>
+"not built" message. Its iframe asks for <code>/jupyterlite/lab/index.html</code>, and
+anything that answers an unknown path with <code>index.html</code> — Tauri's asset
+resolver, or a static host with an SPA fallback such as
+<code>try_files $uri /index.html</code> — hands the panel <strong>a second copy of GeoLibre</strong>
 instead (GeoLibre#1851, GeoLibre#1658). Install the deps above and rebuild.</p>
 <p>Two builds therefore treat a missing CLI as fatal rather than skippable, because
 they serve the site and cannot degrade: the Mac App Store build, and any build
@@ -2287,8 +2288,17 @@ that sets <code>GEOLIBRE_JUPYTERLITE_REQUIRED=1</code> (the Docker image does). 
 (Tauri) dev and build paths skip it entirely (they use the real JupyterLab
 server), so the static site never bloats the installer.</p>
 <p>The Docker image builds and serves the site, and gives <code>/jupyterlite/</code> its own
-CSP: JupyterLab bootstraps from an inline <code>&lt;script&gt;</code>, which the app's policy
-forbids, so under the app policy the site loads its HTML and then never boots.</p>
+block in <code>docker/nginx.conf</code>:</p>
+<ul>
+<li>Its own CSP — JupyterLab bootstraps from an inline <code>&lt;script&gt;</code>, which the app's
+  policy forbids, so under the app policy the site loads its HTML and then never
+  boots.</li>
+<li>No SPA fallback (<code>try_files $uri $uri/ =404</code>), so in this image the failure
+  above surfaces as a plain <strong>404</strong> rather than as the duplicated app. The
+  duplicate remains what Tauri and SPA-fallback hosts produce.</li>
+<li>The long-lived immutable cache policy for the content-hashed assets, which the
+  prefix match would otherwise take away from them.</li>
+</ul>
 <p>Build config lives in <code>apps/geolibre-desktop/jupyterlite/</code> (a
 <code>jupyter_lite_config.json</code>, the build <code>requirements.txt</code>, and a starter
 <code>files/Welcome.ipynb</code>). The generated directory is excluded from the PWA
