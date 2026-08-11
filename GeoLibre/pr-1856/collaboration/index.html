@@ -2707,12 +2707,14 @@ ephemeral and never written to a project file.</p>
 <blockquote>
 <p><strong>Operator note:</strong> <code>POST /sessions</code> validates the request <code>Origin</code> (or
 <code>Referer</code>) against <code>ALLOWED_ORIGINS</code> via <code>isAllowedOrigin</code> (defaults to the
-app's own domains plus <code>localhost</code> for development) and enforces a per-IP
-<code>checkRateLimit</code> (10 requests / 60 s). <code>Access-Control-Allow-Origin: *</code> is
+app's own domains plus <code>localhost</code> for development) as browser-origin filtering
+and defense-in-depth (not authentication or a general server-side access gate)
+and enforces a per-IP <code>checkRateLimit</code> (10 requests / 60 s). <code>Access-Control-Allow-Origin: *</code> is
 still sent on responses so non-browser clients (e.g. Tauri) are not blocked by
-CORS; the origin allowlist is the server-side gate. Configure
-<code>ALLOWED_ORIGINS</code> (comma-separated list) to restrict which pages may create
-sessions in production.</p>
+CORS; non-browser clients may omit these headers and remain supported, unless a
+verifiable credential requirement is added. Configure <code>ALLOWED_ORIGINS</code>
+(comma-separated list) to restrict which browser origins may create sessions in
+production.</p>
 </blockquote>
 <h2 id="feature-flag">Feature flag<a class="headerlink" href="#feature-flag" title="Permanent link">&para;</a></h2>
 <p>Set <code>VITE_GEOLIBRE_COLLAB_URL</code> to the relay base (e.g.
