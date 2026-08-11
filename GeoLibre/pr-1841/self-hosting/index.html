@@ -2593,6 +2593,11 @@ time and strip the prefix in your proxy:</p>
 <td>Unset keeps the app public and does not load Clerk. A key requires individual users to sign in before the web interface renders; protect server APIs separately.</td>
 </tr>
 <tr>
+<td><code>GEOLIBRE_CLERK_WAITLIST</code></td>
+<td>unset, or <code>1</code> alongside a Clerk key</td>
+<td>Adds Clerk's waitlist form to the sign-in screen, so visitors can request access and you approve each one from the Clerk Dashboard. Leave unset for an invite-only ("restricted") instance, where nothing would act on a request.</td>
+</tr>
+<tr>
 <td><code>GEOLIBRE_CONVERSION_ROOTS</code></td>
 <td><code>/data</code> (the image default)</td>
 <td>Confines every sidecar read and write to the mounted directory.</td>

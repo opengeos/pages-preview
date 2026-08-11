@@ -504,6 +504,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Clerk sign-in gate (optional)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#approving-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Approving users
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -2556,6 +2573,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Clerk sign-in gate (optional)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#approving-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Approving users
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -2949,6 +2983,30 @@ property of the build, not of the request, so framing the gated deployment or
 loading it with <code>?embed=1</code> still requires sign-in. Control who may register or
 sign in through the Clerk Dashboard. Configure TLS and the deployment domain in
 Clerk before using a production key.</p>
+<h5 id="approving-users">Approving users<a class="headerlink" href="#approving-users" title="Permanent link">&para;</a></h5>
+<p>Who may sign in is decided in the Clerk Dashboard, not by GeoLibre:</p>
+<ul>
+<li><strong>Restrictions → Restricted</strong> turns off self-service sign-up. You add people
+  by invitation, through an enterprise connection, or by creating the user
+  manually. This needs no extra configuration here.</li>
+<li><strong>Waitlist</strong> lets visitors request access, which you approve one at a time
+  (<strong>Waitlist</strong> page → the menu next to a person → <strong>Invite</strong>, or <strong>Revoke</strong> to
+  decline). Enable the matching screen in GeoLibre so the sign-in card offers a
+  "Join the waitlist" link instead of a dead end:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span>:80<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">GEOLIBRE_CLERK_PUBLISHABLE_KEY</span><span class="o">=</span><span class="s1">&#39;pk_live_...&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">GEOLIBRE_CLERK_WAITLIST</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>ghcr.io/opengeos/geolibre:latest
+</code></pre></div>
+<p>The waitlist form lives at the <code>#/waitlist</code> fragment of the same page, so
+  moving between it and the sign-in card never reloads the app. It is off
+  unless you set this variable, because on a restricted instance the form would
+  collect requests that cannot be approved. Set the Clerk instance's sign-up
+  mode to <strong>Waitlist</strong> as well — the variable adds the screen, the Dashboard
+  decides whether Clerk accepts submissions to it. Setting it without
+  <code>GEOLIBRE_CLERK_PUBLISHABLE_KEY</code> is an error rather than a silently public
+  app.</p>
 <p>This client-side gate controls access to the GeoLibre interface but is not a
 server authorization boundary by itself. Keep <code>/sidecar</code>, <code>/ai</code>, and any other
 sensitive upstream service behind nginx authentication, Cloudflare Access, or a
