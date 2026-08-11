@@ -3095,12 +3095,19 @@ are compiled without it), and it is a property of the build rather than the
 request, so <code>?embed=1</code> cannot switch it off. The build-time equivalents are
 <code>VITE_GEOLIBRE_AUTH0_DOMAIN</code> and <code>VITE_GEOLIBRE_AUTH0_CLIENT_ID</code>; the runtime
 variables win when both are present.</p>
-<p>In the Auth0 application's settings, add the deployment URL <strong>with its trailing
-slash</strong> to all three of <strong>Allowed Callback URLs</strong>, <strong>Allowed Logout URLs</strong>, and
-<strong>Allowed Web Origins</strong> — for example <code>https://gis.example.com/</code>, or
-<code>https://gis.example.com/geolibre/</code> for a <a href="#subpath-and-onboarding-build-arguments">subpath
-deployment</a>. Auth0 matches those
-exactly, and a missing entry surfaces as a callback error instead of a login.</p>
+<p>In the Auth0 application's settings, these three fields do not take the same
+value:</p>
+<ul>
+<li><strong>Allowed Callback URLs</strong> and <strong>Allowed Logout URLs</strong> take the deployment URL
+  <strong>with its trailing slash</strong> — <code>https://gis.example.com/</code>, or
+  <code>https://gis.example.com/geolibre/</code> for a <a href="#subpath-and-onboarding-build-arguments">subpath
+  deployment</a>. Auth0 matches these
+  exactly, and a missing entry surfaces as a callback error instead of a login.</li>
+<li><strong>Allowed Web Origins</strong> takes the <strong>origin only</strong> — no trailing slash and no
+  path, so <code>https://gis.example.com</code> even for a subpath deployment. A path here
+  is not matched and breaks the silent-authentication request that restores an
+  existing session.</li>
+</ul>
 <p>Auth0 has no embedded sign-in card, so GeoLibre uses <strong>Universal Login</strong>: the
 visitor clicks <em>Sign in</em>, is redirected to your tenant's hosted login page, and
 is returned to the app. The URL they arrived on is carried through the round
