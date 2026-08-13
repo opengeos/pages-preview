@@ -2893,10 +2893,10 @@ The Whitebox geoprocessing toolbox runs on WebAssembly and stays available. See
 iPhone and iPad, built from the same codebase as the desktop, web, and Android
 builds:</p>
 <p><a class="md-button md-button--primary" href="https://apps.apple.com/app/geolibre/id6796039674">Get GeoLibre on the App Store</a></p>
-<p>There is no sideload path on iOS: Apple requires apps to be installed through the
-App Store (or TestFlight for beta builds), so unlike Android there are no <code>.ipa</code>
-files attached to GitHub releases. To run an unreleased build, build it yourself
-on a Mac (see <a href="../ios/">iOS</a>).</p>
+<p>GeoLibre does not publish a sideloadable <code>.ipa</code> for end users, so unlike Android
+there are no iOS files attached to GitHub releases: the App Store listing, and
+TestFlight for beta builds, are how it is distributed. To run an unreleased
+build, build it yourself on a Mac (see <a href="../ios/">iOS</a>).</p>
 <p>The tools that are hidden on Android are hidden on iOS too, for the same reason:
 the Raster, Conversion, and AI Segmentation toolboxes and the PostgreSQL data
 source all need a local desktop process, and the iOS sandbox forbids spawning

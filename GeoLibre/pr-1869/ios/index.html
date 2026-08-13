@@ -2326,10 +2326,11 @@ demand (same as the desktop and Android builds).</p>
 <a href="https://apps.apple.com/app/geolibre/id6796039674">App Store</a> for iPhone and
 iPad. The Store build is signed and updates automatically:</p>
 <p><a class="md-button md-button--primary" href="https://apps.apple.com/app/geolibre/id6796039674">Get GeoLibre on the App Store</a></p>
-<p>There is no sideload path on iOS, since Apple installs apps only through the App
-Store or TestFlight, so no <code>.ipa</code> is attached to GitHub releases the way Android
-APKs are. The rest of this page is for developers building the app themselves,
-which has to happen on a Mac (iOS cannot be cross-compiled from Linux).</p>
+<p>GeoLibre does not publish a sideloadable <code>.ipa</code> for end users, so no iOS build is
+attached to GitHub releases the way the Android APKs are; the App Store listing,
+and TestFlight for beta builds, are how it is distributed. The rest of this page
+is for developers building the app themselves, which has to happen on a Mac (iOS
+cannot be cross-compiled from Linux).</p>
 <p>The signing and archiving pipeline behind that listing runs two ways, and either
 produces a submittable <code>.ipa</code> — bundle id <code>org.geolibre.app</code>, signed by <em>Apple
 Distribution</em>, <code>get-task-allow=false</code>, an embedded App Store provisioning
@@ -2611,10 +2612,11 @@ registered devices, <code>debugging</code> for development).</p>
 <h2 id="publishing-to-the-app-store">Publishing to the App Store<a class="headerlink" href="#publishing-to-the-app-store" title="Permanent link">&para;</a></h2>
 <p>GeoLibre is <strong>live on the
 <a href="https://apps.apple.com/app/geolibre/id6796039674">App Store</a></strong>, so the one-time
-onboarding below (steps 1, 4, 5, 6, 7) is done and only needs revisiting when
-something it declares changes. Each subsequent release repeats step 3: upload a
-build, then submit it for review. The build side is covered by the CI workflow;
-the rest is App Store Connect.</p>
+onboarding below is finished; each step it covers is marked <em>(Done.)</em> and only
+needs revisiting when something it declares changes. Every subsequent release
+repeats step 3, upload a build and submit it for review, under the standing
+constraint in step 2. The build side is covered by the CI workflow; the rest is
+App Store Connect.</p>
 <ol>
 <li><strong>App record.</strong> <em>(Done.)</em> In App Store Connect, create a new app with the
    bundle id <code>org.geolibre.app</code> (register the app id in the Developer portal
@@ -2649,17 +2651,19 @@ the rest is App Store Connect.</p>
    shape for that reason.</p>
 <p>Uploading by hand (no CI) means setting the build number yourself if the
    marketing version has been uploaded before.
-4. <strong>Store listing:</strong> icon (already generated under <code>src-tauri/icons/ios</code>),
-   screenshots for the required device sizes (6.7" and 6.5" iPhone, plus 12.9"
-   iPad — a GIS workspace is genuinely iPad-appropriate), description, keywords.
-5. <strong>Privacy.</strong> Fill the <strong>App Privacy</strong> questionnaire honestly — declare each
-   network destination (geocoding, the AI assistant, basemap/tile fetches, Google
-   OAuth for Earth Engine) and that location is used <em>when in use</em> and not
-   collected by a backend. Point the privacy policy URL at the published
-   <a href="../privacy/">privacy policy</a>.
-6. <strong>Age rating</strong> questionnaire and category: GeoLibre is listed under
+4. <strong>Store listing.</strong> <em>(Done.)</em> Icon (already generated under
+   <code>src-tauri/icons/ios</code>), screenshots for the required device sizes (6.7" and
+   6.5" iPhone, plus 12.9" iPad — a GIS workspace is genuinely
+   iPad-appropriate), description, keywords.
+5. <strong>Privacy.</strong> <em>(Done.)</em> Fill the <strong>App Privacy</strong> questionnaire honestly —
+   declare each network destination (geocoding, the AI assistant, basemap/tile
+   fetches, Google OAuth for Earth Engine) and that location is used <em>when in
+   use</em> and not collected by a backend. Point the privacy policy URL at the
+   published <a href="../privacy/">privacy policy</a>.
+6. <strong>Age rating and category.</strong> <em>(Done.)</em> GeoLibre is listed under
    <strong>Productivity</strong>.
-7. <strong>Export compliance.</strong> Already declared in <code>src-tauri/Info.ios.plist</code>:</p>
+7. <strong>Export compliance.</strong> <em>(Done.)</em> Already declared in
+   <code>src-tauri/Info.ios.plist</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">&lt;key&gt;</span>ITSAppUsesNonExemptEncryption<span class="nt">&lt;/key&gt;</span>
 <span class="nt">&lt;false/&gt;</span>
 </code></pre></div>
