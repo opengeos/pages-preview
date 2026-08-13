@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../assets/geolibre-icon.png">
-      <meta name="generator" content="zensical-0.0.53">
+      <meta name="generator" content="zensical-0.0.54">
     
     
       
@@ -3466,7 +3466,7 @@ DuckDB-backed browser features. To build a larger desktop binary with the native
 <tr>
 <td><code>GEOLIBRE_NO_EXTERNAL_CDN</code></td>
 <td>unset</td>
-<td>Set <code>1</code> to strip <strong>all GeoLibre-controlled</strong> external CDN references from the build. Forces all <code>*_CDN=0</code> flags (so PGlite, CereusDB and DuckDB-WASM are bundled rather than fetched) and disables features that embed CDN URLs (storymap HTML export, built-in detection models, ONNX WASM, 3D Tiles decoders, GDAL export). Pyodide is not hard-disabled: the flag drops only its default index URL, so point <code>VITE_PYODIDE_INDEX_URL</code> at an approved mirror to keep it working. Some third-party packages keep their own internal CDN URLs, which this flag cannot remove — see <a href="../architecture/">architecture.md</a>. Intended for enterprise deployments that cannot reference untrusted CDNs.</td>
+<td>Set <code>1</code> to strip <strong>all GeoLibre-controlled</strong> external CDN references from the build. Forces all <code>*_CDN=0</code> flags (so PGlite, CereusDB and DuckDB-WASM are bundled rather than fetched) and disables features that embed CDN URLs (storymap HTML export, built-in detection models, ONNX WASM, 3D Tiles decoders, GDAL export). Pyodide is not hard-disabled: the flag drops only its default index URL, so point <code>VITE_PYODIDE_INDEX_URL</code> at an approved mirror to keep it working. Some third-party packages keep their own internal CDN URLs, which this flag cannot remove — see <a href="../architecture/">architecture.md</a>. Mutually exclusive with <code>npm run lite:build</code> (and so with Cloudflare Pages/Workers hosting), which needs <code>GEOLIBRE_DUCKDB_WASM_CDN=1</code> to stay under the 25 MiB per-file cap; the build rejects that combination outright. Intended for enterprise deployments that cannot reference untrusted CDNs.</td>
 </tr>
 <tr>
 <td><code>GEOLIBRE_STORE_BUILD</code></td>
@@ -3710,7 +3710,7 @@ separate <code>samgeo-api</code> model server.</p>
       <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","navigation.sections","navigation.top","search.highlight","search.share","search.suggest","toc.follow"],"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
     
     
-      <script src="../assets/javascripts/bundle.69c251d7.min.js"></script>
+      <script src="../assets/javascripts/bundle.e886cdf1.min.js"></script>
       
     
   </body>
