@@ -2599,6 +2599,7 @@ recommended typed client and handles origin checks and request correlation:</p>
 <span class="p">});</span>
 <span class="k">await</span><span class="w"> </span><span class="nx">map</span><span class="p">.</span><span class="nx">setView</span><span class="p">({</span><span class="w"> </span><span class="nx">center</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="o">-</span><span class="mf">95.7</span><span class="p">,</span><span class="w"> </span><span class="mf">37.1</span><span class="p">],</span><span class="w"> </span><span class="nx">zoom</span><span class="o">:</span><span class="w"> </span><span class="kt">5</span><span class="w"> </span><span class="p">});</span>
 <span class="k">await</span><span class="w"> </span><span class="nx">map</span><span class="p">.</span><span class="nx">setLayerVisibility</span><span class="p">(</span><span class="s2">&quot;roads&quot;</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">added</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">map</span><span class="p">.</span><span class="nx">addData</span><span class="p">(</span><span class="s2">&quot;https://assets.geolibre.app/data/places.geojson&quot;</span><span class="p">);</span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">layers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">map</span><span class="p">.</span><span class="nx">listLayers</span><span class="p">();</span>
 <span class="nx">map</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;selectionChanged&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">({</span><span class="w"> </span><span class="nx">featureIds</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">featureIds</span><span class="p">));</span>
 </code></pre></div>
@@ -2698,6 +2699,11 @@ other frame or origin is ignored. Pass the <em>app's</em> origin, not your own.<
 <td>Takes a project-format layer specification.</td>
 </tr>
 <tr>
+<td><code>addData(url, options?)</code></td>
+<td>the new layer <code>id</code>s</td>
+<td>Loads remote data like <code>?data=</code>; options are <code>{ styleUrl, fit }</code>.</td>
+</tr>
+<tr>
 <td><code>exportImage()</code></td>
 <td>a PNG <code>data:</code> URL</td>
 <td>The map as currently rendered.</td>
@@ -2790,6 +2796,11 @@ them out of the other <code>postMessage</code> traffic on your page.</p>
 <td>Adds a project-format layer specification at runtime.</td>
 </tr>
 <tr>
+<td><code>addData</code></td>
+<td><code>{ url, styleUrl?, fit? }</code></td>
+<td>Loads GeoJSON/API, ZIP, GeoParquet, PMTiles, or COG data without reloading the iframe.</td>
+</tr>
+<tr>
 <td><code>exportImage</code></td>
 <td><code>{}</code></td>
 <td>Returns the rendered map as a PNG data URL in <code>result</code>.</td>
@@ -2809,6 +2820,11 @@ or a non-empty <code>tiles</code>, or — for the two layer types drawn from inl
 <code>ack</code> rather than reporting success and rendering nothing. <code>addLayer</code> also
 refuses <code>javascript:</code>, <code>vbscript:</code>, <code>data:</code>, <code>file:</code>, and <code>blob:</code> URLs on a
 source; a custom map protocol such as <code>pmtiles://</code> is fine.</p>
+<p><code>addData</code> uses the same format detection, CORS requirements, safety limits, and
+optional Mapbox/MapLibre style import as the <a href="#open-remote-data"><code>data</code> URL parameter</a>.
+It fits the newly loaded data by default; pass <code>fit: false</code> to preserve the
+current camera. Its acknowledgement returns every created layer id, including
+all layers extracted from a ZIP archive.</p>
 <p>Add a <code>requestId</code> to any message and the app answers with an <code>ack</code> (below)
 reporting whether it worked.</p>
 <h3 id="geolibre-to-host">GeoLibre to host<a class="headerlink" href="#geolibre-to-host" title="Permanent link">&para;</a></h3>

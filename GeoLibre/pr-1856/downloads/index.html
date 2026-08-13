@@ -705,6 +705,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#ios-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        iOS installation
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#build-from-source" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2588,6 +2599,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#ios-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        iOS installation
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#build-from-source" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2865,6 +2887,29 @@ Android will not upgrade one into the other. Uninstall the existing copy
 Segmentation toolboxes, and the PostgreSQL data source — are hidden on Android.
 The Whitebox geoprocessing toolbox runs on WebAssembly and stays available. See
 <a href="../android/">Android</a> for the full list and for build instructions.</p>
+<h2 id="ios-installation">iOS installation<a class="headerlink" href="#ios-installation" title="Permanent link">&para;</a></h2>
+<p>GeoLibre is on the
+<a href="https://apps.apple.com/app/geolibre/id6796039674">App Store</a> as a native app for
+iPhone and iPad, built from the same codebase as the desktop, web, and Android
+builds:</p>
+<p><a class="md-button md-button--primary" href="https://apps.apple.com/app/geolibre/id6796039674">Get GeoLibre on the App Store</a></p>
+<p>GeoLibre does not publish a sideloadable <code>.ipa</code> for end users, so unlike Android
+there are no iOS files attached to GitHub releases: the App Store listing, and
+TestFlight for beta builds, are how it is distributed. To run an unreleased
+build, build it yourself on a Mac (see <a href="../ios/">iOS</a>).</p>
+<p>The tools that are hidden on Android are hidden on iOS too, for the same reason:
+the Raster, Conversion, and AI Segmentation toolboxes and the PostgreSQL data
+source all need a local desktop process, and the iOS sandbox forbids spawning
+one. The Whitebox geoprocessing toolbox runs on WebAssembly and stays available.
+See <a href="../ios/">iOS</a> for the full list.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The App Store listing above is the iPhone and iPad app
+(<code>org.geolibre.app</code>). The <a href="#mac-app-store">Mac App Store</a> listing is a
+separate record for the sandboxed macOS <strong>desktop</strong> build
+(<code>org.geolibre.desktop</code>); the two are different apps with different feature
+sets.</p>
+</div>
 <h2 id="build-from-source">Build from source<a class="headerlink" href="#build-from-source" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/opengeos/GeoLibre.git
 <span class="nb">cd</span><span class="w"> </span>GeoLibre
