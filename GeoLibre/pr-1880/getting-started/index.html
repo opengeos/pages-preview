@@ -622,6 +622,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#build-time-flags" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Build-time flags
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2780,6 +2791,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#build-time-flags" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Build-time flags
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3411,6 +3433,61 @@ DuckDB-backed browser features. To build a larger desktop binary with the native
 <li><strong>Web build</strong> — static files in <code>apps/geolibre-desktop/dist/</code>. Serve this directory with any static web server (or the Docker image above).</li>
 <li><strong>Desktop installers</strong> — <code>apps/geolibre-desktop/src-tauri/target/release/bundle/</code>, with per-platform subfolders: <code>deb/</code>, <code>rpm/</code>, and <code>appimage/</code> on Linux; <code>msi/</code> and <code>nsis/</code> on Windows; <code>dmg/</code> and <code>macos/</code> on macOS. The unbundled executable is in <code>apps/geolibre-desktop/src-tauri/target/release/</code>. On Linux, <code>npm run tauri:build</code> builds <code>deb</code> and <code>rpm</code> by default; passing <code>--bundles</code> replaces that default selection rather than adding to it, so list every format you want, for example <code>npm run tauri:build -- --bundles deb,rpm,appimage</code> for all three.</li>
 </ul>
+<h3 id="build-time-flags">Build-time flags<a class="headerlink" href="#build-time-flags" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Default</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GEOLIBRE_PGLITE_CDN</code></td>
+<td><code>1</code> (CDN)</td>
+<td>Set <code>0</code> to bundle PGlite/PostGIS into the build (~22 MB) instead of loading from jsDelivr.</td>
+</tr>
+<tr>
+<td><code>GEOLIBRE_CEREUS_CDN</code></td>
+<td><code>1</code> (CDN)</td>
+<td>Set <code>0</code> to bundle CereusDB WASM (~40 MB) instead of loading from jsDelivr.</td>
+</tr>
+<tr>
+<td><code>GEOLIBRE_GDAL_CDN</code></td>
+<td><code>1</code> (CDN)</td>
+<td>Set <code>0</code> to disable GDAL export (the ~40 MB WASM/data are not bundled, just unavailable).</td>
+</tr>
+<tr>
+<td><code>GEOLIBRE_DUCKDB_WASM_CDN</code></td>
+<td><code>0</code> (bundled)</td>
+<td>Set <code>1</code> to move DuckDB-WASM to jsDelivr (required for Cloudflare Pages' 25 MiB per-file limit).</td>
+</tr>
+<tr>
+<td><code>GEOLIBRE_NO_EXTERNAL_CDN</code></td>
+<td>unset</td>
+<td>Set <code>1</code> to strip <strong>all</strong> external CDN references from the build. Forces all <code>*_CDN=0</code> flags and disables features that embed CDN URLs (storymap HTML export, built-in detection models, ONNX WASM, 3D Tiles decoders, Pyodide). Intended for enterprise deployments that cannot reference untrusted CDNs.</td>
+</tr>
+<tr>
+<td><code>GEOLIBRE_STORE_BUILD</code></td>
+<td>unset</td>
+<td>Set <code>1</code> for Microsoft Store MSIX builds (removes in-app updater).</td>
+</tr>
+<tr>
+<td><code>GEOLIBRE_MAS_BUILD</code></td>
+<td>unset</td>
+<td>Set <code>1</code> for Mac App Store builds (removes sidecar/server features).</td>
+</tr>
+<tr>
+<td><code>GEOLIBRE_EMBED</code></td>
+<td>unset</td>
+<td>Set <code>1</code> for the Jupyter embed wheel build.</td>
+</tr>
+</tbody>
+</table>
+<p>Example — build with no external CDN dependencies:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">GEOLIBRE_NO_EXTERNAL_CDN</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>npx<span class="w"> </span>vite<span class="w"> </span>build
+</code></pre></div>
 <h2 id="optional-imagery-credentials">Optional imagery credentials<a class="headerlink" href="#optional-imagery-credentials" title="Permanent link">&para;</a></h2>
 <p>The Street View plugin can use Google Street View and Mapillary imagery. The 3D Tiles panel can also load Google Photorealistic 3D Tiles with the same Google Maps key. Create <code>apps/geolibre-desktop/.env.local</code> and set one or both provider credentials:</p>
 <div class="highlight"><pre><span></span><code>VITE_GOOGLE_MAPS_API_KEY=your_google_maps_api_key

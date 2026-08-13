@@ -2623,6 +2623,11 @@ time and strip the prefix in your proxy:</p>
 <td>Off by default, so a framed deployment cannot be driven by whoever frames it.</td>
 </tr>
 <tr>
+<td><code>GEOLIBRE_NO_EXTERNAL_CDN</code> (build arg)</td>
+<td><code>1</code> for restricted deployments</td>
+<td>Strips all references to external CDNs (<code>unpkg.com</code>, <code>cdn.jsdelivr.net</code>) from the build output. Features that depend on CDN-hosted resources (storymap HTML export, built-in object detection models, ONNX WASM, 3D Tiles decoders, Pyodide, PGlite, CereusDB, gdal3.js) are disabled or degraded. Also forces <code>GEOLIBRE_PGLITE_CDN=0</code>, <code>GEOLIBRE_CEREUS_CDN=0</code>, <code>GEOLIBRE_GDAL_CDN=0</code>, and <code>GEOLIBRE_DUCKDB_WASM_CDN=0</code>. Intended for deployments that cannot reference untrusted external CDNs (e.g. enterprise environments with strict CSP requirements).</td>
+</tr>
+<tr>
 <td><code>VITE_WELCOME_DISABLED=1</code> (build arg)</td>
 <td>optional</td>
 <td>Skips the first-launch wizard for every visitor.</td>
