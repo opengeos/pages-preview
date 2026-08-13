@@ -97,16 +97,26 @@ def _to_feature_collection(gdf: Any) -> dict:
 def _estimate_metric_crs(gdf: Any) -> Any:
     """Estimate a local metric (UTM) CRS, guarding against antimeridian crossings.
 
-    When a layer crosses the antimeridian (longitude span > 180\xB0), standard
-    UTM zone estimation calculates the centroid near 0\xB0 longitude (the wrong
-    hemisphere), leading to severe projection distortion. We detect this and
-    raise a descriptive ValueError.
+    \`\`estimate_utm_crs\`\` picks a zone from the mean of the layer's
+    \`\`total_bounds\`\` longitudes, so a layer spanning the antimeridian (features
+    at, say, +179\xB0 and -179\xB0) centers near 0\xB0 longitude \u2014 the opposite side of
+    the planet \u2014 and metric results come out severely distorted.
+
+    The >180\xB0 span is a heuristic, and deliberately measured layer-wide to match
+    the granularity of what it guards: a layer already split into individually
+    non-crossing features still yields the same wrong zone, so a per-geometry
+    test would wave it through. The cost of that choice is that a single feature
+    genuinely spanning over 180\xB0 of longitude without touching the dateline is
+    rejected as well.
     """
     minx, _, maxx, _ = gdf.total_bounds
-    if (maxx - minx) > 180.0:
+    span = maxx - minx
+    if span > 180.0:
         raise ValueError(
-            "Input layer crosses the antimeridian (longitude span > 180\xB0). "
-            "Please split or reproject features before metric operations."
+            f"Input layer crosses the antimeridian (longitude span > 180\xB0, "
+            f"got {span:.1f}\xB0). Split the features into separate layers per "
+            "hemisphere, or reproject to an explicit projected CRS, before "
+            "running metric operations."
         )
     return gdf.estimate_utm_crs()
 
