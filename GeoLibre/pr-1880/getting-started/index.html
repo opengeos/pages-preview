@@ -3466,7 +3466,7 @@ DuckDB-backed browser features. To build a larger desktop binary with the native
 <tr>
 <td><code>GEOLIBRE_NO_EXTERNAL_CDN</code></td>
 <td>unset</td>
-<td>Set <code>1</code> to strip <strong>all GeoLibre-controlled</strong> external CDN references from the build. Forces all <code>*_CDN=0</code> flags (so PGlite, CereusDB and DuckDB-WASM are bundled rather than fetched) and disables features that embed CDN URLs (storymap HTML export, built-in detection models, ONNX WASM, 3D Tiles decoders, Pyodide, GDAL export). Some third-party packages keep their own internal CDN URLs, which this flag cannot remove — see <a href="../architecture/">architecture.md</a>. Intended for enterprise deployments that cannot reference untrusted CDNs.</td>
+<td>Set <code>1</code> to strip <strong>all GeoLibre-controlled</strong> external CDN references from the build. Forces all <code>*_CDN=0</code> flags (so PGlite, CereusDB and DuckDB-WASM are bundled rather than fetched) and disables features that embed CDN URLs (storymap HTML export, built-in detection models, ONNX WASM, 3D Tiles decoders, GDAL export). Pyodide is not hard-disabled: the flag drops only its default index URL, so point <code>VITE_PYODIDE_INDEX_URL</code> at an approved mirror to keep it working. Some third-party packages keep their own internal CDN URLs, which this flag cannot remove — see <a href="../architecture/">architecture.md</a>. Intended for enterprise deployments that cannot reference untrusted CDNs.</td>
 </tr>
 <tr>
 <td><code>GEOLIBRE_STORE_BUILD</code></td>
