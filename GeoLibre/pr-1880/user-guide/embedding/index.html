@@ -2426,8 +2426,8 @@
 </tr>
 <tr>
 <td><code>toolbar</code></td>
-<td><code>toolbar=icons</code></td>
-<td>Icon-only toolbar buttons without the full compact layout. <code>icon</code> and <code>icon-only</code> are aliases.</td>
+<td><code>toolbar=none</code></td>
+<td>Hides the top toolbar while keeping panels and the status bar. Use <code>icons</code> for icon-only buttons; <code>icon</code> and <code>icon-only</code> are aliases. <code>hidden</code>, <code>hide</code>, and <code>off</code> are aliases for <code>none</code>.</td>
 </tr>
 <tr>
 <td><code>panels</code></td>
@@ -2501,7 +2501,8 @@ the <a href="../processing/">Whitebox toolbox</a>.</p>
   <span class="na">allow</span><span class="o">=</span><span class="s">&quot;fullscreen; geolocation&quot;</span>
 <span class="p">&gt;&lt;/</span><span class="nt">iframe</span><span class="p">&gt;</span>
 </code></pre></div>
-<p>Use <code>layout=viewer</code> for a read-only map with layer toggles, search/identify, and
+<p>Use <code>toolbar=none</code> to hide the top toolbar while retaining the configured side
+panels and status bar. Use <code>layout=viewer</code> for a read-only map with layer toggles, search/identify, and
 basemap switching. Its layer list mirrors the authoring Layers panel, folders
 and all, so group names carry over. The Controls menu is part of the viewer
 chrome, minus the two entries that write to the project (Field Collection and
