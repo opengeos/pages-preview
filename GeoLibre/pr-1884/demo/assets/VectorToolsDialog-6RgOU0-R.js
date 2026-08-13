@@ -114,9 +114,9 @@ def _estimate_metric_crs(gdf: Any) -> Any:
     if span > 180.0:
         raise ValueError(
             f"Input layer crosses the antimeridian (longitude span > 180\xB0, "
-            f"got {span:.1f}\xB0). Split the features into separate layers per "
-            "hemisphere, or reproject to an explicit projected CRS, before "
-            "running metric operations."
+            f"got {span:.1f}\xB0). Split the geometry at the dateline into "
+            "per-hemisphere layers, or reproject to an explicit projected CRS, "
+            "before running metric operations."
         )
     return gdf.estimate_utm_crs()
 
