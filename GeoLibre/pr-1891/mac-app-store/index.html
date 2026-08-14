@@ -2391,8 +2391,9 @@ otherwise-good release does not go red.</p>
    (the numeric listing identifier App Store Connect labels "Apple ID" on the App
    Information page), so later releases start at step 2.</li>
 <li>Download the <code>.pkg</code> — from the <code>geolibre-mas-pkg</code> artifact of the release's
-   workflow run, or from the release's own <code>..._universal_mas.pkg</code> asset once the
-   artifact has expired — and upload it with the <strong>Transporter</strong> app (or
+   workflow run, or from the release's own
+   <code>GeoLibre.Desktop_&lt;version&gt;_universal_mas.pkg</code> asset once the artifact has
+   expired — and upload it with the <strong>Transporter</strong> app (or
    <code>xcrun altool --upload-app -f &lt;pkg&gt; -t macos</code>).</li>
 <li>Fill in screenshots, description, and the privacy questionnaire
    (see <code>docs/privacy.md</code>; the app makes no tracking calls).</li>
