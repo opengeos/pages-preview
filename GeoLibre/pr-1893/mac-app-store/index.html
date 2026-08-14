@@ -2321,10 +2321,23 @@ native code at runtime).</p>
 bundle should show <code>com.apple.security.app-sandbox</code>, and must <strong>not</strong> show
 <code>com.apple.security.network.server</code>.</p>
 <h2 id="ci-the-mas-storeyml-workflow">CI: the <code>mas-store.yml</code> workflow<a class="headerlink" href="#ci-the-mas-storeyml-workflow" title="Permanent link">&para;</a></h2>
-<p><code>workflow_dispatch</code> only, mirroring <code>msix-store.yml</code>: it builds the universal
-sandboxed app, signs it, verifies the sandbox entitlement, produces the signed
-<code>.pkg</code>, and uploads it as the <code>geolibre-mas-pkg</code> artifact. It does not touch
-GitHub releases and does not upload to App Store Connect.</p>
+<p>Runs on each <strong>published GitHub release</strong> (matching <code>release.yml</code>, <code>android.yml</code>
+and <code>ios.yml</code>) and on demand via the "Run workflow" button: it builds the
+universal sandboxed app, signs it, verifies the sandbox entitlement, produces the
+signed <code>.pkg</code>, and uploads it as the <code>geolibre-mas-pkg</code> artifact. On a release
+run it also attaches that <code>.pkg</code> to the release, so the exact submitted bytes for
+a tag remain available after the CI artifact's retention window. It never uploads
+to App Store Connect — that step stays manual (see <em>Submitting</em> below).</p>
+<blockquote>
+<p>A MAS-signed <code>.pkg</code> can only be installed through the App Store; downloading it
+from the releases page gets you a package that will not install. It is attached
+as a submission archive, not as a macOS download. Point users at the App Store
+listing, the Homebrew cask, or the Developer ID <code>.dmg</code> from <code>release.yml</code>.</p>
+</blockquote>
+<p>A missing-secrets run is handled by the <code>secrets-gate</code> job: on a
+<code>workflow_dispatch</code> it is a hard error (you asked for a <code>.pkg</code> and cannot get
+one), while on a release it logs a warning and skips the macOS job so an
+otherwise-good release does not go red.</p>
 <p>Required repository secrets:</p>
 <table>
 <thead>
@@ -2377,8 +2390,11 @@ GitHub releases and does not upload to App Store Connect.</p>
    apps). This is already done for GeoLibre Desktop, App Store ID <code>6796848769</code>
    (the numeric listing identifier App Store Connect labels "Apple ID" on the App
    Information page), so later releases start at step 2.</li>
-<li>Download the <code>geolibre-mas-pkg</code> artifact and upload the <code>.pkg</code> with the
-   <strong>Transporter</strong> app (or <code>xcrun altool --upload-app -f &lt;pkg&gt; -t macos</code>).</li>
+<li>Download the <code>.pkg</code> — from the <code>geolibre-mas-pkg</code> artifact of the release's
+   workflow run, or from the release's own
+   <code>GeoLibre.Desktop_&lt;version&gt;_universal_mas.pkg</code> asset once the artifact has
+   expired — and upload it with the <strong>Transporter</strong> app (or
+   <code>xcrun altool --upload-app -f &lt;pkg&gt; -t macos</code>).</li>
 <li>Fill in screenshots, description, and the privacy questionnaire
    (see <code>docs/privacy.md</code>; the app makes no tracking calls).</li>
 <li>In the review notes, mention that processing engines run client-side as

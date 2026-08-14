@@ -2466,7 +2466,11 @@ which is this same walkthrough with <code>arm64</code> swapped for <code>x86_64<
 <h2 id="continuous-integration">Continuous integration<a class="headerlink" href="#continuous-integration" title="Permanent link">&para;</a></h2>
 <p><code>.github/workflows/android.yml</code> builds <strong>signed</strong>, per-ABI release APKs on each
 published GitHub release (and on demand via the "Run workflow" button) and
-uploads them as the <code>geolibre-android-release-apks</code> artifact. It signs with your release keystore when these repository secrets are
+uploads them as the <code>geolibre-android-release-apks</code> artifact. On a published
+release the APKs are <strong>also attached to that release</strong> as downloadable assets —
+but only when they carry a real release signature; debug-signed APKs stay a CI
+artifact and the run logs a warning saying so. It signs with your release
+keystore when these repository secrets are
 set, and otherwise falls back to a throwaway debug key so the artifact is still
 installable for testing:</p>
 <ul>
@@ -2478,8 +2482,14 @@ installable for testing:</p>
 <p>It also builds a universal <strong>AAB</strong> and uploads it as the separate
 <code>geolibre-android-play-aab</code> artifact — but <em>only</em> on runs that have the real
 release keystore, since Play rejects a debug-signed bundle. Without the keystore
-the AAB build is skipped entirely rather than built and discarded. The AAB is
-not attached to the GitHub Release (an <code>.aab</code> is not user-installable).</p>
+the AAB build is skipped entirely rather than built and discarded. On a published
+release the <code>geolibre-android.aab</code> is attached to the release alongside the APKs,
+so the exact bundle submitted for a tag stays recoverable after the CI artifact
+expires.</p>
+<blockquote>
+<p>Sideloading? Take an <strong><code>.apk</code></strong>. The <code>.aab</code> is the Google Play upload format
+and cannot be installed on a device.</p>
+</blockquote>
 <h2 id="install-test">Install / test<a class="headerlink" href="#install-test" title="Permanent link">&para;</a></h2>
 <h3 id="on-a-phone">On a phone<a class="headerlink" href="#on-a-phone" title="Permanent link">&para;</a></h3>
 <ol>
@@ -2525,7 +2535,8 @@ is one-time Play Console onboarding.</p>
    the actual app signing key and re-signs each bundle. The repository's
    <code>ANDROID_KEYSTORE_*</code> secrets are that upload key — keep the keystore backed
    up, since losing it requires a Play support reset.</li>
-<li><strong>Upload the AAB</strong> from the <code>geolibre-android-play-aab</code> CI artifact. The
+<li><strong>Upload the AAB</strong> from the <code>geolibre-android-play-aab</code> CI artifact, or from
+   the release's <code>geolibre-android.aab</code> asset once that artifact has expired. The
    <code>versionCode</code> is derived from the version in <code>tauri.conf.json</code> and must
    increase on every upload.</li>
 <li><strong>Store listing assets:</strong> 512×512 icon, a <strong>1024×500 feature graphic</strong>, and

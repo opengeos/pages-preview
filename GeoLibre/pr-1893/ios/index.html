@@ -2326,11 +2326,13 @@ demand (same as the desktop and Android builds).</p>
 <a href="https://apps.apple.com/app/geolibre/id6796039674">App Store</a> for iPhone and
 iPad. The Store build is signed and updates automatically:</p>
 <p><a class="md-button md-button--primary" href="https://apps.apple.com/app/geolibre/id6796039674">Get GeoLibre on the App Store</a></p>
-<p>GeoLibre does not publish a sideloadable <code>.ipa</code> for end users, so no iOS build is
-attached to GitHub releases the way the Android APKs are; the App Store listing,
-and TestFlight for beta builds, are how it is distributed. The rest of this page
-is for developers building the app themselves, which has to happen on a Mac (iOS
-cannot be cross-compiled from Linux).</p>
+<p>GeoLibre does not publish a sideloadable <code>.ipa</code> for end users; the App Store
+listing, and TestFlight for beta builds, are how it is distributed. Each release
+<em>does</em> carry a <code>GeoLibre_&lt;version&gt;_ios_app-store.ipa</code> asset, but unlike the
+Android APKs that is the App Store <strong>submission</strong> package — archived next to the
+tag so a submission stays reproducible — and it cannot be installed on a device.
+The rest of this page is for developers building the app themselves, which has to
+happen on a Mac (iOS cannot be cross-compiled from Linux).</p>
 <p>The signing and archiving pipeline behind that listing runs two ways, and either
 produces a submittable <code>.ipa</code> — bundle id <code>org.geolibre.app</code>, signed by <em>Apple
 Distribution</em>, <code>get-task-allow=false</code>, an embedded App Store provisioning
@@ -2543,7 +2545,9 @@ not free to choose — see the Xcode floor below.</p>
 <li><strong>With Apple signing secrets set</strong>, it imports the identity into a throwaway
   keychain, archives <strong>unsigned</strong>, exports a signed <code>.ipa</code> under manual signing,
   verifies the bundle id, the signature, the build number shape and the
-  <code>MinimumOSVersion</code>, and uploads it as the <code>geolibre-ios-ipa</code> artifact:</li>
+  <code>MinimumOSVersion</code>, and uploads it as the <code>geolibre-ios-ipa</code> artifact — plus,
+  on a published release, as the <code>GeoLibre_&lt;version&gt;_ios_app-store.ipa</code> release
+  asset, which outlives the artifact's 14-day retention:</li>
 <li><code>APPLE_IOS_CERTIFICATE_BASE64</code> — <code>base64 -i dist.p12</code></li>
 <li><code>APPLE_IOS_CERTIFICATE_PASSWORD</code></li>
 <li><code>APPLE_IOS_PROVISIONING_PROFILE_BASE64</code> — <code>base64 -i profile.mobileprovision</code></li>
@@ -2551,7 +2555,9 @@ not free to choose — see the Xcode floor below.</p>
     secrets; the Team ID is account-wide.</li>
 <li><strong>Without them</strong>, it falls back to a no-signing <strong>compile check</strong>
   (<code>cargo build --lib --target aarch64-apple-ios</code>) so CI still catches iOS build
-  breakage; it just can't produce an installable <code>.ipa</code>.</li>
+  breakage; it just can't produce an installable <code>.ipa</code>. A release run in that
+  state attaches nothing and logs a warning saying which secrets were missing,
+  rather than failing the release.</li>
 </ul>
 <h3 id="reusing-the-macoshomebrew-signing-secrets">Reusing the macOS/Homebrew signing secrets?<a class="headerlink" href="#reusing-the-macoshomebrew-signing-secrets" title="Permanent link">&para;</a></h3>
 <p>Only the <strong>Team ID</strong>. The repo's release workflow already signs and notarizes the
@@ -2627,9 +2633,10 @@ App Store Connect.</p>
    handling — not a wrapper that loads a remote URL. Keep it that way: ship the
    web assets in the binary (the default here), don't point the webview at
    <code>geolibre.app</code>.</li>
-<li><strong>Upload</strong> the <code>.ipa</code> from the <code>geolibre-ios-ipa</code> CI artifact (or via
-   Transporter / Xcode Organizer) to a TestFlight build, then submit that build
-   for App Store review.</li>
+<li><strong>Upload</strong> the <code>.ipa</code> (via Transporter or Xcode Organizer) to a TestFlight
+   build, then submit that build for App Store review. Take it from the
+   <code>geolibre-ios-ipa</code> CI artifact, or — for an older tag whose artifact has
+   expired — from that release's <code>GeoLibre_&lt;version&gt;_ios_app-store.ipa</code> asset.</li>
 </ol>
 <p><strong>Build numbers.</strong> App Store Connect consumes a <code>CFBundleVersion</code>
    permanently per marketing version, and each upload must also sort above the
