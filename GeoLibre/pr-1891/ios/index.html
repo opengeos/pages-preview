@@ -2633,10 +2633,10 @@ App Store Connect.</p>
    handling — not a wrapper that loads a remote URL. Keep it that way: ship the
    web assets in the binary (the default here), don't point the webview at
    <code>geolibre.app</code>.</li>
-<li><strong>Upload</strong> the <code>.ipa</code> from the <code>geolibre-ios-ipa</code> CI artifact — or, for an
-   older tag whose artifact has expired, the <code>GeoLibre_&lt;version&gt;_ios_app-store.ipa</code>
-   release asset — (or via Transporter / Xcode Organizer) to a TestFlight build,
-   then submit that build for App Store review.</li>
+<li><strong>Upload</strong> the <code>.ipa</code> (via Transporter or Xcode Organizer) to a TestFlight
+   build, then submit that build for App Store review. Take it from the
+   <code>geolibre-ios-ipa</code> CI artifact, or — for an older tag whose artifact has
+   expired — from that release's <code>GeoLibre_&lt;version&gt;_ios_app-store.ipa</code> asset.</li>
 </ol>
 <p><strong>Build numbers.</strong> App Store Connect consumes a <code>CFBundleVersion</code>
    permanently per marketing version, and each upload must also sort above the
