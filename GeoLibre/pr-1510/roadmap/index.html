@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../assets/geolibre-icon.png">
-      <meta name="generator" content="zensical-0.0.53">
+      <meta name="generator" content="zensical-0.0.54">
     
     
       
@@ -2107,10 +2107,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#v25-qgis-and-arcgis-pro-project-import-discrete-global-grids-hyperspectral-cubes-and-a-self-hostable-server-current" class="md-nav__link">
+  <a href="#v25-qgis-and-arcgis-pro-project-import-discrete-global-grids-hyperspectral-cubes-and-a-self-hostable-server" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        v2.5: QGIS and ArcGIS Pro project import, discrete global grids, hyperspectral cubes, and a self-hostable server (current)
+        v2.5: QGIS and ArcGIS Pro project import, discrete global grids, hyperspectral cubes, and a self-hostable server
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v26-data-and-style-deep-links-an-mcp-server-for-ai-clients-cog-backed-terrain-and-a-design-system-of-its-own-current" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        v2.6: Data and style deep links, an MCP server for AI clients, COG-backed terrain, and a design system of its own (current)
       </span>
     </span>
   </a>
@@ -2689,10 +2700,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#v25-qgis-and-arcgis-pro-project-import-discrete-global-grids-hyperspectral-cubes-and-a-self-hostable-server-current" class="md-nav__link">
+  <a href="#v25-qgis-and-arcgis-pro-project-import-discrete-global-grids-hyperspectral-cubes-and-a-self-hostable-server" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        v2.5: QGIS and ArcGIS Pro project import, discrete global grids, hyperspectral cubes, and a self-hostable server (current)
+        v2.5: QGIS and ArcGIS Pro project import, discrete global grids, hyperspectral cubes, and a self-hostable server
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v26-data-and-style-deep-links-an-mcp-server-for-ai-clients-cog-backed-terrain-and-a-design-system-of-its-own-current" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        v2.6: Data and style deep links, an MCP server for AI clients, COG-backed terrain, and a design system of its own (current)
       </span>
     </span>
   </a>
@@ -3217,7 +3239,7 @@
 <li>[x] Linux <strong>AppImage releases now carry update information and a <code>.zsync</code></strong>, so AppImageUpdate, AppImageLauncher, AppManager, and AM can update the app and transfer only the blocks that changed instead of the whole download</li>
 <li>[x] All 15 non-English locales are back at 100% coverage, Georgian included</li>
 </ul>
-<h2 id="v25-qgis-and-arcgis-pro-project-import-discrete-global-grids-hyperspectral-cubes-and-a-self-hostable-server-current">v2.5: QGIS and ArcGIS Pro project import, discrete global grids, hyperspectral cubes, and a self-hostable server (current)<a class="headerlink" href="#v25-qgis-and-arcgis-pro-project-import-discrete-global-grids-hyperspectral-cubes-and-a-self-hostable-server-current" title="Permanent link">&para;</a></h2>
+<h2 id="v25-qgis-and-arcgis-pro-project-import-discrete-global-grids-hyperspectral-cubes-and-a-self-hostable-server">v2.5: QGIS and ArcGIS Pro project import, discrete global grids, hyperspectral cubes, and a self-hostable server<a class="headerlink" href="#v25-qgis-and-arcgis-pro-project-import-discrete-global-grids-hyperspectral-cubes-and-a-self-hostable-server" title="Permanent link">&para;</a></h2>
 <ul>
 <li>[x] <strong>QGIS project import</strong>: open a <code>.qgs</code> or <code>.qgz</code> and get its layers, nested groups, group visibility, layer order, styling, and saved map view rebuilt in GeoLibre, with a per-layer report of anything that had to be skipped rather than an all-or-nothing failure. See <a href="../user-guide/projects/#importing-a-qgis-project">Projects</a></li>
 <li>[x] <strong>ArcGIS Pro project import</strong>: <code>.aprx</code> and <code>.mapx</code> files are read straight from their CIM JSON without ArcPy, restoring the first 2D map's extent, local vector and GeoTIFF layers, nested groups, visibility, simple symbols, field labels, vector-tile portal items, and cached map services. See <a href="../user-guide/projects/#importing-an-arcgis-pro-project">Projects</a></li>
@@ -3243,9 +3265,33 @@
 <li>[x] <strong>GPS Tracking reads an external NMEA receiver</strong> over Web Serial or Web Bluetooth, with a baud-rate picker and a live sentence and fix counter, alongside the device's own geolocation. See <a href="../user-guide/map-controls/#gps-tracking">GPS tracking</a></li>
 <li>[x] The Processing dialog stops asking users to translate on their behalf: distance parameters on WGS84 vector layers get a <strong>metric unit picker</strong> that converts to the degrees the tool actually reads, EPSG parameters get a <strong>searchable CRS catalog</strong> grouped into Geographic and Projected, and Download OSM Vector's four boundary numbers become one <strong>Area of interest</strong> control with Use map extent and Draw on map</li>
 <li>[x] <strong>GeoLibre Desktop is on the <a href="https://apps.apple.com/app/geolibre-desktop/id6796848769">Mac App Store</a></strong>, a sandboxed build of the same app that installs and updates through the Store. See <a href="../downloads/#mac-app-store">Downloads</a></li>
+<li>[x] <strong>GeoLibre is on the <a href="https://apps.apple.com/app/geolibre/id6796039674">App Store</a></strong> as a native iPhone and iPad app, built from the same codebase via Tauri v2 mobile and approved by App Store review, so iOS users install and update it in one tap. See <a href="../ios/">iOS</a></li>
 <li>[x] The <code>geolibre</code> Python package gains <strong>leafmap-parity helpers</strong>: local raster, marker and cluster, and choropleth layers, <code>split_map</code>, <code>add_legend</code>, and <code>add_colorbar</code>, typed read-back of selected and drawn features, and <code>to_html</code> export. See <a href="../python/">Python package</a></li>
 <li>[x] <strong>Thai</strong> joins the shipped locales, bringing the catalogs to 16 languages besides English</li>
 <li>[x] Vector export honors the fields you hid in the attribute table, plugins can read a pixel off a native Zarr layer with <code>queryZarrLayer</code>, layers move into a group as a whole selection, and the print extent can be drawn by touch</li>
+</ul>
+<h2 id="v26-data-and-style-deep-links-an-mcp-server-for-ai-clients-cog-backed-terrain-and-a-design-system-of-its-own-current">v2.6: Data and style deep links, an MCP server for AI clients, COG-backed terrain, and a design system of its own (current)<a class="headerlink" href="#v26-data-and-style-deep-links-an-mcp-server-for-ai-clients-cog-backed-terrain-and-a-design-system-of-its-own-current" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[x] <strong>Deep links can carry the data itself</strong>: <code>?data=</code> opens a hosted GeoJSON, GeoParquet, COG, PMTiles, a REST endpoint returning a FeatureCollection, or a ZIP of GeoJSON files without publishing a project file first, <code>?style=</code> applies vector or raster symbology beside it, and a compact GeoLibre style export makes that style file easy to produce from a layer already on the map. See <a href="../user-guide/embedding/">Embedding &amp; Sharing</a></li>
+<li>[x] <strong>ArcGIS MapServer and ImageServer join Add Data</strong>: the two service types that serve rendered images load as ordinary raster layers, so opacity, the Style panel's brightness, contrast and saturation controls, reordering, and project save and reload all work on them, drawing tiles from the service's own fused cache where it was built on the standard Web Mercator scheme and from <code>/export</code> or <code>/exportImage</code> otherwise. Sublayers are browsed and picked from the service's own list rather than typed in as ids, and an ImageServer rendering rule is one field away</li>
+<li>[x] <strong>A Cloud Optimized GeoTIFF can drive 3D terrain</strong>: terrain was locked to the global AWS Terrarium tiles, so higher-resolution local elevation could not shape the hillshade. Terrain settings now accept a single-band EPSG:3857 or EPSG:4326 COG over HTTP or from a local file, read in ranges and encoded to Terrarium tiles through a custom MapLibre protocol</li>
+<li>[x] <strong>Regional basemaps, starting with China</strong>: GeoLibre's defaults are hosted outside mainland China with no presence inside it, so from there the picker offered nothing that loads. A collapsed <strong>Regional</strong> section in both the New Project and Change Basemap panels adds five keyless Chinese basemaps (高德地图, 高德卫星, 高德混合, 腾讯地图, 腾讯深色), with the same providers plus Tianditu in the Basemaps control plugin, and the section is driven by a table in core so a second region is an entry rather than another dialog change</li>
+<li>[x] <strong>The basemap you picked is the one you come back to</strong>: an empty startup workspace seeds from your last selected basemap, while a project's own basemap stays authoritative and planetary bodies keep their ellipsoid behavior</li>
+<li>[x] <strong>Collaboration snapshots are portable</strong>: a guest could join a session and see an empty map, because snapshots kept local file references and control-managed vector data the collaborator cannot read. Shared layers now embed their features, a host seeds the first snapshot instead of waiting to make an edit, guests arrive at the host's viewport, and the session Copy button yields a joinable URL. See <a href="../collaboration/">Collaboration</a></li>
+<li>[x] <strong>Map comments become navigable</strong>: clicking a pin on the map reveals, highlights, and scrolls to its card, the panel ships collapsed on the Style rail so it is discoverable, <code>C</code> places a new comment from the command palette, and comments are saved with the project. See <a href="../user-guide/map-controls/#review-comments">Review comments</a></li>
+<li>[x] <strong>An MCP server for authoring projects</strong>, <code>geolibre-mcp</code>: a headless stdio server that lets an AI client write real <code>.geolibre.json</code> files with no browser and no running app, composing them from the same builders the Python package already uses, so anything it writes opens unchanged in the desktop app, the web app, and the Jupyter widget. Every read and write is confined to the roots given by <code>--root</code> or <code>GEOLIBRE_MCP_ROOTS</code>. See <a href="../mcp/">MCP server</a></li>
+<li>[x] <strong>The Python package manages layers and moves the camera without a browser round trip</strong>: reorder, duplicate, rename, and remove layers, read attribute values, and frame the map as plain project mutations on <code>Map</code> and <code>Layer</code>, with the authoring helpers exported for scripts that never display a widget, and credentials swept out of anything a notebook cell might print back. See <a href="../python/">Python package</a></li>
+<li>[x] <strong>Whitebox tools run from the Jupyter widget</strong>: <code>list_whitebox_tools</code> and <code>run_whitebox_tool</code> reach the bundled WASM catalog over the same channel the camera and the client-side algorithms already use, resolving <code>Layer</code> handles to layer ids and adding both vector and raster outputs back to the map, so terrain and raster work no longer means leaving the notebook for the UI</li>
+<li>[x] <strong>Topological polygon digitizing</strong>, so a polygon drawn against its neighbor shares that edge instead of leaving a sliver or an overlap behind</li>
+<li>[x] <strong>Print Layout gains an intersecting page filter</strong>, so an attribute-table block can list every feature the page touches rather than only the ones that fall wholly inside it, correct across the antimeridian and for a view panned several world copies from home</li>
+<li>[x] <strong>Story map PDF handouts get clickable location markers</strong>: each chapter page carries a pin drawn with its tip on the chapter camera's centre coordinate and a PDF link that opens that coordinate in Google Maps, taking the story's marker color, so a reader of the printed handout can navigate to the place</li>
+<li>[x] <strong>A design system of the app's own, in place of stock shadcn</strong>: self-hosted IBM Plex Sans and IBM Plex Mono so the interface reads the same everywhere instead of Segoe UI on Windows, Roboto on Linux, and SF on macOS; a real dark-mode elevation ladder where panels, dialogs, and menus had all shared one near-identical color; theme-aware shadows that were effectively invisible in dark mode; and a single map-glass treatment for chrome floating over the map, replacing eleven drifted copies of it</li>
+<li>[x] <strong>Embeds can lead with the map</strong>: a <code>panels=collapsed</code> layout keeps the Layers and Style icon rails reachable while starting both panels collapsed, and the top toolbar can be hidden outright for a focused viewer, giving a middle ground between panels open and panels gone. See <a href="../user-guide/embedding/">Embedding &amp; Sharing</a></li>
+<li>[x] <strong>An optional Clerk access gate</strong> for hosted deployments that need individual sign-in, with an optional waitlist screen, loaded on demand and kept out of the default PWA precache. The gate is decided by the build target rather than by a client-controlled query parameter, and public, native, and embedded builds are unchanged. See <a href="../getting-started/">Getting started</a></li>
+<li>[x] <strong>A no-external-CDN build</strong> for deployments that cannot load from untrusted third-party hosts: <code>GEOLIBRE_NO_EXTERNAL_CDN=1</code> strips the GeoLibre-controlled CDN references, vendors the PGlite and CereusDB engines into the build rather than dropping them, and makes the few features that genuinely need a remote host say so up front instead of failing at the end of a run. See <a href="../self-hosting/">Self-hosting</a></li>
+<li>[x] <strong>External plugins can query layers read-only</strong>, reading the features a layer holds through the host rather than re-fetching and re-parsing the source themselves. See <a href="../plugin-api/">Plugin API</a></li>
+<li>[x] <strong>Persian and Vietnamese join the shipped locales</strong>, bringing the catalogs to 18 languages besides English, with Persian set in Vazirmatn and only that font's arabic subset shipped, so no other locale pays for it</li>
+<li>[x] Selecting a layer no longer pops the Style panel open over the map; it expands from an explicit <strong>Open Style panel</strong> item in the layer's menu instead</li>
 </ul>
 <h2 id="plugin-marketplace-and-registry-design">Plugin marketplace and registry (design)<a class="headerlink" href="#plugin-marketplace-and-registry-design" title="Permanent link">&para;</a></h2>
 <p>This captures the design for the <code>v1.0</code> "Plugin marketplace / registry" item. It
@@ -3432,7 +3478,7 @@ build, works in both:</p>
       <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","navigation.sections","navigation.top","search.highlight","search.share","search.suggest","toc.follow"],"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
     
     
-      <script src="../assets/javascripts/bundle.69c251d7.min.js"></script>
+      <script src="../assets/javascripts/bundle.e886cdf1.min.js"></script>
       
     
   </body>

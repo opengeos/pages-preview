@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../assets/geolibre-icon.png">
-      <meta name="generator" content="zensical-0.0.53">
+      <meta name="generator" content="zensical-0.0.54">
     
     
       
@@ -1751,6 +1751,34 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Identity &amp; permissions (MVP)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#signed-in-identity-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Signed-in identity (optional)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#moderation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Moderation
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2314,6 +2342,34 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Identity &amp; permissions (MVP)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#signed-in-identity-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Signed-in identity (optional)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#moderation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Moderation
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2470,7 +2526,7 @@ Limitations).</p>
 <tbody>
 <tr>
 <td><code>join</code></td>
-<td><code>displayName, color, hostToken?</code></td>
+<td><code>displayName, color, hostToken?, inviteToken?, identityToken?</code></td>
 <td>first frame after connect; the relay assigns the <code>clientId</code> (returned in <code>welcome</code>)</td>
 </tr>
 <tr>
@@ -2491,7 +2547,37 @@ Limitations).</p>
 <tr>
 <td><code>set-participant-mode</code></td>
 <td><code>clientId, canEdit</code></td>
-<td>host only; pin one guest to can-edit / view-only (#754)</td>
+<td>host only; pin one guest to can-edit / view-only (#754; persisted per participant key, so it survives a reconnect only for identity/invite joins — see <em>Moderation</em>)</td>
+</tr>
+<tr>
+<td><code>mint-invite</code></td>
+<td><code>role, maxUses?</code></td>
+<td>host only; mint a co-edit or view-only invite link</td>
+</tr>
+<tr>
+<td><code>revoke-invite</code></td>
+<td><code>token</code></td>
+<td>host only; invalidate an active invite link</td>
+</tr>
+<tr>
+<td><code>set-session-config</code></td>
+<td><code>requireIdentity</code></td>
+<td>host only; mandate signed-in identity to join</td>
+</tr>
+<tr>
+<td><code>set-layer-locks</code></td>
+<td><code>lockedLayerIds</code></td>
+<td>host only; mark specific layer IDs read-only</td>
+</tr>
+<tr>
+<td><code>kick-participant</code></td>
+<td><code>clientId, reason?</code></td>
+<td>host only; disconnect a participant</td>
+</tr>
+<tr>
+<td><code>block-participant</code></td>
+<td><code>clientId, reason?</code></td>
+<td>host only; disconnect and bar that participant key from rejoining (see the caveat under <em>Moderation</em>)</td>
 </tr>
 <tr>
 <td><code>chat</code></td>
@@ -2512,7 +2598,7 @@ Limitations).</p>
 <tbody>
 <tr>
 <td><code>welcome</code></td>
-<td><code>clientId, role, mode, participants[], snapshot \| null, presence, chat[], rev</code></td>
+<td><code>clientId, role, mode, participants[], snapshot \| null, presence, chat[], rev, requireIdentity, identitySupported, lockedLayerIds, invites[]</code></td>
 <td>sent once on join; the late-joiner bootstrap</td>
 </tr>
 <tr>
@@ -2528,12 +2614,37 @@ Limitations).</p>
 <tr>
 <td><code>participants</code></td>
 <td><code>participants[]</code></td>
-<td>on join / leave / role / permission change; each carries <code>editOverride</code></td>
+<td>on join / leave / role / permission change; each carries <code>editOverride</code> and <code>identity</code></td>
 </tr>
 <tr>
 <td><code>mode</code></td>
 <td><code>mode</code></td>
 <td>host changed the session mode</td>
+</tr>
+<tr>
+<td><code>invite-created</code></td>
+<td><code>invite</code></td>
+<td>fan-out of a new invite link created by host</td>
+</tr>
+<tr>
+<td><code>invite-revoked</code></td>
+<td><code>token</code></td>
+<td>fan-out when host revokes an invite link</td>
+</tr>
+<tr>
+<td><code>session-config</code></td>
+<td><code>requireIdentity</code></td>
+<td>broadcast when session identity policy changes</td>
+</tr>
+<tr>
+<td><code>layer-locks</code></td>
+<td><code>lockedLayerIds</code></td>
+<td>broadcast when host locks/unlocks layer IDs</td>
+</tr>
+<tr>
+<td><code>kicked</code></td>
+<td><code>reason</code></td>
+<td>sent to a participant who was kicked or blocked by the host</td>
 </tr>
 <tr>
 <td><code>chat</code></td>
@@ -2543,7 +2654,7 @@ Limitations).</p>
 <tr>
 <td><code>error</code></td>
 <td><code>code, message</code></td>
-<td>e.g. <code>forbidden</code>, <code>too-large</code></td>
+<td>e.g. <code>forbidden</code>, <code>too-large</code>, <code>identity-required</code>, <code>identity-unavailable</code>, <code>layer-locked</code></td>
 </tr>
 </tbody>
 </table>
@@ -2625,16 +2736,57 @@ field (<code>true</code> / <code>false</code>, or <code>null</code> to follow th
 permission, computed identically on the client and the relay, is: the host
 always edits; otherwise the override wins; otherwise the session mode applies. A
 guest pinned to view-only has their <code>snapshot</code> pushes rejected with
-<code>error: forbidden</code>, exactly like the session-wide view-only path. Overrides are
-keyed to the per-socket <code>clientId</code>, so a guest who reconnects reverts to the
-session default (acceptable for the ephemeral MVP). The host roster surfaces a
-per-guest toggle; other participants see each guest's current permission read-only.</p>
+<code>error: forbidden</code>, exactly like the session-wide view-only path. An override is
+also persisted against the guest's <strong>participant key</strong>, so it is reapplied when
+they rejoin — but only for identity- and invite-based joins, for the same reason
+a block is (see <em>Moderation</em> below): an anonymous guest arrives with a fresh
+<code>clientId</code> and therefore a fresh key, so their override reverts to the session
+default on reconnect. The host roster surfaces a per-guest toggle; other
+participants see each guest's current permission read-only.</p>
 <p>The host token (returned only to the creator) gates <code>set-mode</code> and
 <code>set-participant-mode</code>, so a guest can't escalate the session or another guest.
 Codes are unguessable and sessions auto-expire. The relay assigns each
 participant's <code>clientId</code> server-side (the client-supplied value is ignored) so
 one participant can't claim another's identity, and it validates the <code>color</code> to
 a hex value before storing/broadcasting it.</p>
+<h3 id="signed-in-identity-optional">Signed-in identity (optional)<a class="headerlink" href="#signed-in-identity-optional" title="Permanent link">&para;</a></h3>
+<p>A joiner may present an <code>identityToken</code>. It is <strong>not</strong> self-reported JSON: the
+relay verifies an HMAC-SHA256 signature over the token's payload segment before
+it will populate <code>participant.identity</code>, so a client cannot mint an account,
+impersonate another user, or wear the roster's verified badge. The format is</p>
+<div class="highlight"><pre><span></span><code>&lt;base64url(payloadJSON)&gt;.&lt;base64url(hmacSha256(base64url(payloadJSON)))&gt;
+</code></pre></div>
+<p>with payload claims <code>{ userId, username, provider?, exp? }</code>. <code>verifyIdentityToken</code>
+in <code>@geolibre/collab-core</code> is the single implementation both relays call, and
+<code>signIdentityToken</code> alongside it mints one.</p>
+<p>Identity is <strong>off unless a deployment opts in</strong> by setting the signing secret
+shared with its issuer — <code>COLLAB_IDENTITY_SECRET</code> (a Worker secret for
+<code>workers/collab</code>, an environment variable for <code>workers/collab-node</code>). With no
+secret configured:</p>
+<ul>
+<li>every <code>identityToken</code> verifies to null, so all joiners are anonymous;</li>
+<li><code>requireIdentity</code> cannot be turned on — <code>POST /sessions</code> answers <code>400</code> and
+  <code>set-session-config</code> answers <code>error: identity-unavailable</code>, rather than arming
+  a gate that would reject every guest including the host's own collaborators;</li>
+<li><code>GET /health</code> and every <code>welcome</code> report <code>identitySupported: false</code>, which is
+  how the Collaborate dialog decides to hide the "require a signed-in account"
+  option entirely.</li>
+</ul>
+<p>GeoLibre itself ships no sign-in flow yet, so the stock deployment leaves the
+secret unset and the whole identity path dormant. The protocol and relay support
+are in place for a deployment that fronts the relay with its own issuer.</p>
+<h3 id="moderation">Moderation<a class="headerlink" href="#moderation" title="Permanent link">&para;</a></h3>
+<p><code>kick-participant</code> disconnects a participant. <code>block-participant</code> also records
+their <strong>participant key</strong> so the relay refuses the next join. That key is
+<code>user:&lt;userId&gt;</code> for a verified identity, <code>invite:&lt;token&gt;</code> for an invite-based
+join, and otherwise <code>anon:&lt;clientId&gt;</code> — where <code>clientId</code> is minted fresh on
+every join.</p>
+<p>The same key backs a persisted per-participant override, so both carry the same
+caveat: a block is durable only for identity- and invite-based joins. <strong>An anonymous
+guest can rejoin simply by reconnecting</strong>, since they arrive with a new
+<code>clientId</code> and therefore a new key. Blocking is a moderation convenience, not a
+security boundary; a session that needs an enforceable ban has to require an
+invite or a signed-in identity.</p>
 <h2 id="chat-754">Chat (#754)<a class="headerlink" href="#chat-754" title="Permanent link">&para;</a></h2>
 <p>A lightweight, in-session text channel. A <code>chat { text, coordinate? }</code> frame is
 validated server-side (non-empty, trimmed, capped at 2000 chars; the coordinate
@@ -2650,10 +2802,16 @@ clickable coordinate that recenters the recipient's map. Chat lives on the
 on-canvas status badge so it is reachable while working on the map; it is
 ephemeral and never written to a project file.</p>
 <blockquote>
-<p><strong>Operator note:</strong> <code>POST /sessions</code> is unauthenticated and currently responds
-with <code>Access-Control-Allow-Origin: *</code>, so any page can create sessions. This is
-acceptable for the experimental MVP but should be restricted to the app's own
-origin(s) before a wider rollout to avoid capacity abuse.</p>
+<p><strong>Operator note:</strong> <code>POST /sessions</code> validates the request <code>Origin</code> (or
+<code>Referer</code>) against <code>ALLOWED_ORIGINS</code> via <code>isAllowedOrigin</code> (defaults to the
+app's own domains plus <code>localhost</code> for development) as browser-origin filtering
+and defense-in-depth (not authentication or a general server-side access gate)
+and enforces a per-IP <code>checkRateLimit</code> (10 requests / 60 s). <code>Access-Control-Allow-Origin: *</code> is
+still sent on responses so non-browser clients (e.g. Tauri) are not blocked by
+CORS; non-browser clients may omit these headers and remain supported, unless a
+verifiable credential requirement is added. Configure <code>ALLOWED_ORIGINS</code>
+(comma-separated list) to restrict which browser origins may create sessions in
+production.</p>
 </blockquote>
 <h2 id="feature-flag">Feature flag<a class="headerlink" href="#feature-flag" title="Permanent link">&para;</a></h2>
 <p>Set <code>VITE_GEOLIBRE_COLLAB_URL</code> to the relay base (e.g.
@@ -2881,7 +3039,7 @@ front end.</p>
       <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","navigation.sections","navigation.top","search.highlight","search.share","search.suggest","toc.follow"],"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
     
     
-      <script src="../assets/javascripts/bundle.69c251d7.min.js"></script>
+      <script src="../assets/javascripts/bundle.e886cdf1.min.js"></script>
       
     
   </body>

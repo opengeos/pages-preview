@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../assets/geolibre-icon.png">
-      <meta name="generator" content="zensical-0.0.53">
+      <meta name="generator" content="zensical-0.0.54">
     
     
       
@@ -1688,6 +1688,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#read-only-layer-and-feature-queries" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Read-only layer and feature queries
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#raster-and-tile-layers" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2311,6 +2322,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#read-only-layer-and-feature-queries" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Read-only layer and feature queries
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#raster-and-tile-layers" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2474,7 +2496,7 @@
 
 <h1 id="geolibre-plugin-api">GeoLibre Plugin API<a class="headerlink" href="#geolibre-plugin-api" title="Permanent link">&para;</a></h1>
 <h2 id="interface">Interface<a class="headerlink" href="#interface" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="kr">type</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">FeatureCollection</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;geojson&quot;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="kr">type</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Feature</span><span class="p">,</span><span class="w"> </span><span class="nx">FeatureCollection</span><span class="p">,</span><span class="w"> </span><span class="nx">Geometry</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;geojson&quot;</span><span class="p">;</span>
 <span class="k">import</span><span class="w"> </span><span class="kr">type</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">IControl</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;maplibre-gl&quot;</span><span class="p">;</span>
 
 <span class="k">export</span><span class="w"> </span><span class="kr">type</span><span class="w"> </span><span class="nx">GeoLibreMapControlPosition</span><span class="w"> </span><span class="o">=</span>
@@ -2526,6 +2548,19 @@
 <span class="w">  </span><span class="nx">mapbox</span><span class="o">:</span><span class="w"> </span><span class="kt">typeof</span><span class="w"> </span><span class="k">import</span><span class="p">(</span><span class="s2">&quot;@deck.gl/mapbox&quot;</span><span class="p">);</span>
 <span class="p">}</span>
 
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">GeoLibreLayerSummary</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">visible</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">opacity</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">GeoLibreSelection</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">layerId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">features</span><span class="o">:</span><span class="w"> </span><span class="kt">Feature</span><span class="o">&lt;</span><span class="nx">Geometry</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="o">&gt;</span><span class="p">[];</span>
+<span class="p">}</span>
+
 <span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">GeoLibreAppAPI</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="nx">setBasemap</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">styleUrl</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
 <span class="w">  </span><span class="nx">addGeoJsonLayer</span><span class="o">:</span><span class="w"> </span><span class="p">(</span>
@@ -2533,6 +2568,14 @@
 <span class="w">    </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="kt">FeatureCollection</span><span class="p">,</span>
 <span class="w">    </span><span class="nx">sourcePath?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span>
 <span class="w">  </span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">listLayers</span><span class="o">?:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">GeoLibreLayerSummary</span><span class="p">[];</span>
+<span class="w">  </span><span class="nx">getLayerFeatures</span><span class="o">?:</span><span class="w"> </span><span class="p">(</span><span class="nx">layerId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">Feature</span><span class="o">&lt;</span><span class="nx">Geometry</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="o">&gt;</span><span class="p">[];</span>
+<span class="w">  </span><span class="nx">getSelectedFeatures</span><span class="o">?:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">Feature</span><span class="o">&lt;</span><span class="nx">Geometry</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="o">&gt;</span><span class="p">[];</span>
+<span class="w">  </span><span class="nx">getSelectedLayerId</span><span class="o">?:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">getDrawnFeatures</span><span class="o">?:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">Feature</span><span class="o">&lt;</span><span class="nx">Geometry</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="o">&gt;</span><span class="p">[];</span>
+<span class="w">  </span><span class="nx">onSelectionChange</span><span class="o">?:</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="nx">callback</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">selection</span><span class="o">:</span><span class="w"> </span><span class="kt">GeoLibreSelection</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">,</span>
+<span class="w">  </span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
 <span class="w">  </span><span class="c1">// Native raster/tile layers (see &quot;Raster and tile layers&quot; below). Each</span>
 <span class="w">  </span><span class="c1">// returns the new layer&#39;s id and the layer appears in the Layers panel and</span>
 <span class="w">  </span><span class="c1">// persists with the project, like addGeoJsonLayer does for vector data.</span>
@@ -2888,6 +2931,39 @@ change. If you also touched pages under <code>docs/</code>, build the site — C
 <div class="highlight"><pre><span></span><code>https://web.geolibre.app/?url=https://example.com/project.geolibre.json&amp;exampleGeoJson=https://example.com/data.geojson
 </code></pre></div>
 <p>A URL parameter activates only an already-registered (installed) plugin that owns it; it never loads a plugin from the URL. For external plugins, include the plugin manifest URL in the project <code>plugins</code> state (so the plugin is registered) before relying on its URL handler — the matching parameter then activates and dispatches it even if it is not in the active set.</p>
+<h2 id="read-only-layer-and-feature-queries">Read-only layer and feature queries<a class="headerlink" href="#read-only-layer-and-feature-queries" title="Permanent link">&para;</a></h2>
+<p>External plugins can inspect the current layer list, a layer's GeoJSON features,
+the current feature selection, and features in GeoEditor's Sketches layers. The
+methods are optional so the same plugin remains compatible with older hosts.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">layers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">app</span><span class="p">.</span><span class="nx">listLayers</span><span class="o">?</span><span class="p">.()</span><span class="w"> </span><span class="o">??</span><span class="w"> </span><span class="p">[];</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">selectedLayerId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">app</span><span class="p">.</span><span class="nx">getSelectedLayerId</span><span class="o">?</span><span class="p">.()</span><span class="w"> </span><span class="o">??</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">selectedFeatures</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">app</span><span class="p">.</span><span class="nx">getSelectedFeatures</span><span class="o">?</span><span class="p">.()</span><span class="w"> </span><span class="o">??</span><span class="w"> </span><span class="p">[];</span>
+
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">selectedLayerId</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">app</span><span class="p">.</span><span class="nx">getLayerFeatures</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">layerFeatures</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">app</span><span class="p">.</span><span class="nx">getLayerFeatures</span><span class="p">(</span><span class="nx">selectedLayerId</span><span class="p">);</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">layers</span><span class="p">,</span><span class="w"> </span><span class="nx">layerFeatures</span><span class="p">,</span><span class="w"> </span><span class="nx">selectedFeatures</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">drawnFeatures</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">app</span><span class="p">.</span><span class="nx">getDrawnFeatures</span><span class="o">?</span><span class="p">.()</span><span class="w"> </span><span class="o">??</span><span class="w"> </span><span class="p">[];</span>
+</code></pre></div>
+<p><code>getSelectedFeatures</code> returns every selected feature in the selected layer, not
+only the most recently selected feature. Features without a GeoJSON <code>id</code> are
+matched using their zero-based array index converted to a string. An empty
+selection returns an empty array. <code>getLayerFeatures</code> throws when the layer id is
+unknown and returns an empty array for a layer that has no GeoJSON features.</p>
+<p>Selection subscriptions fire after the selected layer or selected feature-id
+array changes. Keep and call the returned unsubscribe function during plugin
+deactivation:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">unsubscribe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">app</span><span class="p">.</span><span class="nx">onSelectionChange</span><span class="o">?</span><span class="p">.(({</span><span class="w"> </span><span class="nx">layerId</span><span class="p">,</span><span class="w"> </span><span class="nx">features</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">layerId</span><span class="p">,</span><span class="w"> </span><span class="nx">features</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="c1">// In deactivate or another cleanup path:</span>
+<span class="nx">unsubscribe</span><span class="o">?</span><span class="p">.();</span>
+</code></pre></div>
+<p>These methods are a read-only query surface: calling them does not change the
+GeoLibre store. Plugins must also treat returned GeoJSON features as read-only
+and use host APIs such as <code>addGeoJsonLayer</code> when they need to add data.</p>
 <h2 id="raster-and-tile-layers">Raster and tile layers<a class="headerlink" href="#raster-and-tile-layers" title="Permanent link">&para;</a></h2>
 <p><code>addGeoJsonLayer</code> registers vector data as a native layer. For raster and tile data there are three matching helpers — <code>addTileLayer</code> (XYZ), <code>addWmtsLayer</code> (WMTS), and <code>addWmsLayer</code> (WMS). Each returns the new layer's id, and the layer appears in the Layers panel with full opacity, reorder, and styling support and persists with the project, so a plugin no longer has to call <code>getMap().addSource()/addLayer()</code> directly (which leaves the layer invisible to GeoLibre's layer store).</p>
 <div class="highlight"><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">GeoLibreTileLayerOptions</span><span class="w"> </span><span class="p">{</span>
@@ -3359,7 +3435,7 @@ need them.</p>
       <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","navigation.sections","navigation.top","search.highlight","search.share","search.suggest","toc.follow"],"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
     
     
-      <script src="../assets/javascripts/bundle.69c251d7.min.js"></script>
+      <script src="../assets/javascripts/bundle.e886cdf1.min.js"></script>
       
     
   </body>
