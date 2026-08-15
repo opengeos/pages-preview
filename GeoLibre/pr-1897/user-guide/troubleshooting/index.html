@@ -579,6 +579,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../chrome-extension/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Chrome Extension
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../layers/" class="md-nav__link">
         
   
@@ -1031,6 +1058,17 @@
     <span class="md-ellipsis">
       <span class="md-typeset">
         Plugins do not appear to activate
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-processing-menu-shows-the-same-category-twice" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The Processing menu shows the same category twice
       </span>
     </span>
   </a>
@@ -2078,6 +2116,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#the-processing-menu-shows-the-same-category-twice" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The Processing menu shows the same category twice
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#desktop-only-features-in-the-browser" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2128,6 +2177,8 @@
 <p>A fresh page load against the latest build resolves the large majority of "the app looks broken after updating" reports.</p>
 <h2 id="plugins-do-not-appear-to-activate">Plugins do not appear to activate<a class="headerlink" href="#plugins-do-not-appear-to-activate" title="Permanent link">&para;</a></h2>
 <p>If a plugin's <strong>Activate</strong> action seems to do nothing, first rule out the stale-cache cause above with a hard refresh or a private window. Once you are on the latest build, an active plugin shows a checkmark next to its entry in the <strong>Plugins</strong> menu, and map controls (when the plugin provides one) appear at the configured corner of the map.</p>
+<h2 id="the-processing-menu-shows-the-same-category-twice">The Processing menu shows the same category twice<a class="headerlink" href="#the-processing-menu-shows-the-same-category-twice" title="Permanent link">&para;</a></h2>
+<p><code>Processing → Vector</code> and <code>Processing → GeoLibre Toolbox → Vector</code> are different things, and so are the two <code>Conversion</code>, <code>Network</code>, and <code>Raster</code> entries. The Processing menu carries two independent toolboxes: the Whitebox Toolbox, whose nine category submenus sit at the top of the menu, and the GeoLibre Toolbox, which holds GeoLibre's own built-in tools. Neither list is a subset of the other. <a href="../processing/#two-toolboxes-in-one-menu">Two toolboxes in one menu</a> explains which is which and when to use each.</p>
 <h2 id="desktop-only-features-in-the-browser">Desktop-only features in the browser<a class="headerlink" href="#desktop-only-features-in-the-browser" title="Permanent link">&para;</a></h2>
 <p>Some capabilities require the desktop app and are unavailable in the browser build: local filesystem dialogs, local MBTiles, local raster file reads, and project save/open. If one of these is missing, you are likely running GeoLibre Web rather than the desktop app. See <a href="../../getting-started/">Getting Started</a> for how the web, desktop, and Jupyter builds differ.</p>
 

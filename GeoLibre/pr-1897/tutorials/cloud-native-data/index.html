@@ -577,6 +577,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../user-guide/chrome-extension/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Chrome Extension
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../user-guide/layers/" class="md-nav__link">
         
   
@@ -2179,14 +2206,14 @@
 <p>You can also drag a local GeoTIFF or COG onto the map to add it as a raster layer. See <a href="../../user-guide/adding-data/#drag-and-drop">Adding Data</a>.</p>
 </div>
 <h2 id="convert-local-data-to-cloud-native">Convert local data to cloud-native<a class="headerlink" href="#convert-local-data-to-cloud-native" title="Permanent link">&para;</a></h2>
-<p>Use <strong>Processing → Conversion</strong> to write cloud-native files. See <a href="../../user-guide/processing/#conversion">Processing Tools</a>.</p>
+<p>Use <strong>Processing → GeoLibre Toolbox → Conversion</strong> to write cloud-native files. See <a href="../../user-guide/processing/#conversion">Processing Tools</a>.</p>
 <ul>
 <li><strong>Vector to GeoParquet</strong> and <strong>CSV to GeoParquet</strong> run in the browser with DuckDB-WASM.</li>
 <li><strong>Vector to FlatGeobuf</strong>, <strong>Vector to PMTiles</strong>, and <strong>Raster to COG</strong> run on the Python sidecar (desktop app).</li>
 </ul>
 <p>For example, to publish a local GeoJSON as GeoParquet:</p>
 <ol>
-<li>Open <strong>Processing → Conversion → Vector to GeoParquet</strong>.</li>
+<li>Open <strong>Processing → GeoLibre Toolbox → Conversion → Vector to GeoParquet</strong>.</li>
 <li>Choose the input file and an output path.</li>
 <li>Run the conversion, then add the resulting GeoParquet back to the map to verify it.</li>
 </ol>

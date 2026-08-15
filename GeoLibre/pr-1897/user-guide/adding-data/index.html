@@ -16,7 +16,7 @@
         <link rel="prev" href="../projects/">
       
       
-        <link rel="next" href="../layers/">
+        <link rel="next" href="../chrome-extension/">
       
       
         
@@ -736,6 +736,33 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chrome-extension/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Chrome Extension
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -2286,6 +2313,7 @@
 
 <h1 id="adding-data">Adding Data<a class="headerlink" href="#adding-data" title="Permanent link">&para;</a></h1>
 <p>The <strong>Add Data</strong> menu is the main way to bring layers into GeoLibre. It groups sources into Files, Web services, Cloud formats, 3D layers, and Databases. You can also drag files straight onto the map.</p>
+<p>To collect supported dataset links from a catalog or other webpage and open several at once, use the <a href="../chrome-extension/">GeoLibre Chrome extension</a>.</p>
 <p><img alt="Add Data menu" src="https://data.geolibre.app/images/geolibre-add-data-menu.webp" /></p>
 <h2 id="files">Files<a class="headerlink" href="#files" title="Permanent link">&para;</a></h2>
 <table>
@@ -2332,8 +2360,8 @@ parse cost. This happens automatically; nothing is asked of you.</p>
 <strong>100,000 features</strong>, GeoLibre asks before converting every one to GeoJSON
 in memory, because that is where memory rather than file size becomes the
 limit — a small GeoParquet can hold millions of rows.</p>
-<p>For very large data, converting first still pays: <strong>Processing → Conversion
-→ Vector to PMTiles</strong> writes a tiled format the map loads one tile at a
+<p>For very large data, converting first still pays: <strong>Processing → GeoLibre
+Toolbox → Conversion → Vector to PMTiles</strong> writes a tiled format the map loads one tile at a
 time instead of reading the whole file. Converting to <strong>GeoParquet</strong>
 instead gives a compact columnar format that reads far faster than text,
 though it is not tiled. GeoJSON is the most expensive option at any size —
