@@ -2522,6 +2522,13 @@ toolbar in a smaller space, or <code>maponly</code> for a pure map.</p>
 <p>Use <code>data</code> to open public GeoJSON, GeoParquet, PMTiles, Cloud-Optimized GeoTIFF (COG), or a ZIP archive containing one or more <code>.geojson</code>/<code>.json</code> FeatureCollections. Each GeoJSON file in a ZIP becomes a separate layer. An optional <code>style</code> URL applies Mapbox/MapLibre style JSON to vector data:</p>
 <div class="highlight"><pre><span></span><code>https://web.geolibre.app/?data=https://assets.geolibre.app/data/places.geojson&amp;style=https://assets.geolibre.app/data/sample.style.json
 </code></pre></div>
+<p>Repeat <code>data</code> to load multiple independent datasets on the same map. Repeat
+<code>style</code> in the same order to style each dataset; use an empty <code>style=</code> as a
+placeholder when an earlier dataset should use its default style:</p>
+<div class="highlight"><pre><span></span><code>https://web.geolibre.app/?data=https://example.com/roads.geojson&amp;data=https://example.com/dem.tif&amp;style=&amp;style=https://example.com/dem.style.json
+</code></pre></div>
+<p>GeoLibre loads every entry and fits the map once to their combined stored
+extents. A style applies only to the <code>data</code> value at the same position.</p>
 <p><code>data</code> may also point to a REST API endpoint that returns either a GeoJSON <code>FeatureCollection</code> or a ZIP containing multiple GeoJSON files. ZIP API responses are recognized from their <code>Content-Type</code>/<code>Content-Disposition</code> headers or their ZIP file signature, so the endpoint does not need a <code>.zip</code> suffix. An endpoint that takes its own query parameters is the case that does need percent-encoding, so its <code>&amp;</code> separators are not read as GeoLibre's own:</p>
 <div class="highlight"><pre><span></span><code>https://web.geolibre.app/?data=https%3A%2F%2Fapi.example.com%2Ffeatures%3Fcategory%3Dparks%26limit%3D100
 </code></pre></div>
