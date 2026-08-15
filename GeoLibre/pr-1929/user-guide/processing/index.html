@@ -2504,7 +2504,7 @@
 ├─ Planetary Computer
 └─ Earth Engine
 </code></pre></div>
-<p>Everything above the first separator belongs to the <strong>Whitebox Toolbox</strong>; everything under <strong>GeoLibre Toolbox</strong> is GeoLibre's own. Because both toolboxes cover vector, raster, conversion, and network work, several category names appear twice. They are not duplicates, and they do not open the same thing:</p>
+<p>The block between the first and second separators belongs to the <strong>Whitebox Toolbox</strong>; everything under <strong>GeoLibre Toolbox</strong> is GeoLibre's own. Because both toolboxes cover vector, raster, conversion, and network work, several category names appear twice. They are not duplicates, and they do not open the same thing:</p>
 <table>
 <thead>
 <tr>
@@ -2556,7 +2556,7 @@
 <p>A few individual <strong>tool</strong> names collide the same way. <code>Processing → Conversion → GeoLibre (WASM) → Vector to PMTiles</code> is a WASM catalog tool that opens the Whitebox Toolbox dialog; <code>Processing → GeoLibre Toolbox → Conversion → Vector to PMTiles</code> is the Conversion dialog documented <a href="#conversion">below</a>, with its own file pickers and zoom, compression, and layer-name options. <code>Raster to PMTiles</code> appears in both places too. When a step in these docs or a tutorial names a Conversion tool, it means the GeoLibre Toolbox one.</p>
 <div class="admonition tip">
 <p class="admonition-title">Which one should I use?</p>
-<p>Start with <strong>GeoLibre Toolbox</strong> for everyday work on layers already on the map: fewer tools, guided dialogs, a choice of engine, and the result is added to the map styled and ready. Reach for the <strong>Whitebox Toolbox</strong> when you need something the GeoLibre Toolbox does not have, which is most terrain, hydrology, remote sensing, and LiDAR analysis, or a specific named tool from the full catalog.</p>
+<p>Start with <strong>GeoLibre Toolbox</strong> for everyday work on layers already on the map: fewer tools, guided dialogs, and a choice of engine. The analysis tools add their result to the map as a new layer; the Conversion tools write a file instead. Reach for the <strong>Whitebox Toolbox</strong> when you need something the GeoLibre Toolbox does not have, which is most terrain, hydrology, remote sensing, and LiDAR analysis, or a specific named tool from the full catalog.</p>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">The dialog's Source filter is a third, narrower thing</p>
