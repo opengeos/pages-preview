@@ -2139,11 +2139,11 @@
 <h2 id="install-the-extension">Install the extension<a class="headerlink" href="#install-the-extension" title="Permanent link">&para;</a></h2>
 <p>Until the extension is available from the Chrome Web Store, install the packaged release manually:</p>
 <ol>
-<li>Download <a href="https://github.com/opengeos/GeoLibre/releases/download/v2.6.0/geolibre-chrome-0.1.0.zip"><code>geolibre-chrome-0.1.0.zip</code></a> from the <a href="https://github.com/opengeos/GeoLibre/releases/tag/v2.6.0">GeoLibre v2.6.0 release</a>.</li>
+<li>Open the <a href="https://github.com/opengeos/GeoLibre/releases/latest">latest GeoLibre release</a> and download the ZIP asset whose name starts with <code>geolibre-chrome-</code>.</li>
 <li>Extract the ZIP archive to a folder you intend to keep. Chrome loads the extension from this folder, so do not delete it after installation.</li>
 <li>Open <code>chrome://extensions</code> in Chrome.</li>
 <li>Turn on <strong>Developer mode</strong>.</li>
-<li>Select <strong>Load unpacked</strong> and choose the extracted <code>geolibre-chrome-0.1.0</code> folder.</li>
+<li>Select <strong>Load unpacked</strong> and choose the extracted <code>geolibre-chrome-&lt;version&gt;</code> folder.</li>
 <li>Pin <strong>Open data in GeoLibre</strong> to the Chrome toolbar for convenient access.</li>
 </ol>
 <p>To update a manually installed copy, download and extract the newer release asset, then select the extension's <strong>Reload</strong> button on <code>chrome://extensions</code>. If you extract it to a different folder, remove the old copy and load the new folder instead.</p>
@@ -2157,7 +2157,7 @@
 </ol>
 <p>The extension recognizes GeoJSON and spatial JSON, GeoParquet and Parquet, PMTiles, GeoTIFF and Cloud-Optimized GeoTIFF, ZIP archives containing GeoJSON, JSON-LD download metadata, and existing GeoLibre data links. On Source Cooperative repository pages, it also reads the embedded inventory so datasets outside the currently visible list can be selected.</p>
 <h2 id="access-and-privacy">Access and privacy<a class="headerlink" href="#access-and-privacy" title="Permanent link">&para;</a></h2>
-<p>GeoLibre fetches selected links directly, so the source server must allow cross-origin requests (CORS). Links that depend on a website login, browser session, or temporary <code>blob:</code> URL might not load in GeoLibre.</p>
+<p>GeoLibre fetches selected links directly, so the source server must allow cross-origin requests (CORS). Complete HTTP(S) URLs, including signed query parameters, are forwarded to GeoLibre. Cookies and other browser-session credentials are not forwarded, so cookie-bound or session-authenticated links might fail. Temporary <code>blob:</code> URLs cannot be transferred.</p>
 <p>The extension requests access only to the active tab when you open it. It does not store browsing history, send analytics, or run continuously in the background.</p>
 
 
