@@ -2332,8 +2332,8 @@ parse cost. This happens automatically; nothing is asked of you.</p>
 <strong>100,000 features</strong>, GeoLibre asks before converting every one to GeoJSON
 in memory, because that is where memory rather than file size becomes the
 limit — a small GeoParquet can hold millions of rows.</p>
-<p>For very large data, converting first still pays: <strong>Processing → Conversion
-→ Vector to PMTiles</strong> writes a tiled format the map loads one tile at a
+<p>For very large data, converting first still pays: <strong>Processing → GeoLibre
+Toolbox → Conversion → Vector to PMTiles</strong> writes a tiled format the map loads one tile at a
 time instead of reading the whole file. Converting to <strong>GeoParquet</strong>
 instead gives a compact columnar format that reads far faster than text,
 though it is not tiled. GeoJSON is the most expensive option at any size —

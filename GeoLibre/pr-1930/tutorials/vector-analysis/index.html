@@ -2173,12 +2173,12 @@
 
 
 <h1 id="vector-analysis">Vector Analysis<a class="headerlink" href="#vector-analysis" title="Permanent link">&para;</a></h1>
-<p>This tutorial runs a small vector workflow: buffer a layer, overlay it with another, and export the result. It uses the <a href="../../user-guide/processing/#vector">Vector tools</a> under <strong>Processing → Vector</strong>.</p>
+<p>This tutorial runs a small vector workflow: buffer a layer, overlay it with another, and export the result. It uses the <a href="../../user-guide/processing/#vector">Vector tools</a> under <strong>Processing → GeoLibre Toolbox → Vector</strong>.</p>
 <h2 id="1-load-input-data">1. Load input data<a class="headerlink" href="#1-load-input-data" title="Permanent link">&para;</a></h2>
 <p>Add at least one vector layer (see <a href="../../user-guide/adding-data/">Adding Data</a>). For an overlay you will need two layers, for example a set of points or lines and a polygon layer to clip against.</p>
 <h2 id="2-buffer-a-layer">2. Buffer a layer<a class="headerlink" href="#2-buffer-a-layer" title="Permanent link">&para;</a></h2>
 <ol>
-<li>Open <strong>Processing → Vector → Buffer</strong>.</li>
+<li>Open <strong>Processing → GeoLibre Toolbox → Vector → Buffer</strong>.</li>
 <li>Set <strong>Input layer</strong> to your layer.</li>
 <li>Set the <strong>Distance</strong> and <strong>Units</strong> (kilometers, meters, or miles).</li>
 <li>Choose an <strong>Engine</strong>:</li>
@@ -2200,11 +2200,11 @@
 <li><strong>Spatial join</strong> attaches a join layer's attributes to each input feature based on a spatial relationship (intersects, within, or contains) — for example, tagging each point with the polygon that contains it. Works with any geometry type.</li>
 <li><strong>Attribute join</strong> attaches a join table's attributes to each input feature where a key field matches — no geometry involved (for example, joining census statistics to boundary polygons by a shared FIPS code). It is one-to-one (the first matching join row wins); pick the key field on each side, optionally list which fields to bring over, and choose an inner or left join.</li>
 </ul>
-<p>Open the tool from <strong>Processing → Vector</strong>, pick the input and overlay layers, and <strong>Run</strong>.</p>
+<p>Open the tool from <strong>Processing → GeoLibre Toolbox → Vector</strong>, pick the input and overlay layers, and <strong>Run</strong>.</p>
 <h2 id="4-inspect-and-refine">4. Inspect and refine<a class="headerlink" href="#4-inspect-and-refine" title="Permanent link">&para;</a></h2>
 <p>Open the <a href="../../user-guide/attribute-table/">Attribute table</a> on the result layer to check the output, and adjust its <a href="../../user-guide/styling/">style</a> so it stands out from the inputs.</p>
 <h2 id="5-export-the-result">5. Export the result<a class="headerlink" href="#5-export-the-result" title="Permanent link">&para;</a></h2>
-<p>To save the output as a cloud-native file, use <strong>Processing → Conversion</strong> (for example <strong>Vector to GeoParquet</strong> or <strong>Vector to FlatGeobuf</strong>). See <a href="../cloud-native-data/">Cloud-Native Data</a>. You can also export records from the <a href="../../user-guide/attribute-table/">Attribute table</a> or the <a href="../../user-guide/sql-workspace/">SQL Workspace</a>.</p>
+<p>To save the output as a cloud-native file, use <strong>Processing → GeoLibre Toolbox → Conversion</strong> (for example <strong>Vector to GeoParquet</strong> or <strong>Vector to FlatGeobuf</strong>). See <a href="../cloud-native-data/">Cloud-Native Data</a>. You can also export records from the <a href="../../user-guide/attribute-table/">Attribute table</a> or the <a href="../../user-guide/sql-workspace/">SQL Workspace</a>.</p>
 <h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Do the same kind of analysis in SQL with <a href="../spatial-sql/">Spatial SQL</a>.</li>
