@@ -2349,7 +2349,7 @@
 <h2 id="project-name-and-file">Project name and file<a class="headerlink" href="#project-name-and-file" title="Permanent link">&para;</a></h2>
 <p>The project name is edited in place on the right of the toolbar, and it is saved into the <code>.geolibre.json</code> file. To also see the file path the project was opened from or last saved to, turn on <strong>Show project info</strong> under <a href="#layout">Layout</a>. See <a href="../projects/">Projects</a> for the rest of the project lifecycle and <a href="../../project-format/">Project Format</a> for what the file contains.</p>
 <h2 id="startup">Startup<a class="headerlink" href="#startup" title="Permanent link">&para;</a></h2>
-<p><strong>Settings → Startup</strong> chooses the workspace the desktop app opens with:</p>
+<p><strong>Settings → Startup</strong> chooses how GeoLibre opens a new session. The installed desktop app also offers project restoration modes:</p>
 <table>
 <thead>
 <tr>
@@ -2372,10 +2372,11 @@
 </tr>
 </tbody>
 </table>
+<p><strong>Enable 3D globe by default</strong> controls the projection of the new, untitled workspace shown when no project is provided. Turn it off to start that workspace in Mercator. A restored project or project link always uses the projection saved in that project instead.</p>
 <p>If the startup project has been moved or deleted, GeoLibre opens the default workspace instead, says so in a banner, and drops the missing file from the recent-projects list.</p>
 <div class="admonition note">
-<p class="admonition-title">Desktop only</p>
-<p>This section appears only in the installed desktop app. The browser build has no persistent local file to reopen.</p>
+<p class="admonition-title">Project restoration is desktop only</p>
+<p>The browser build includes the empty-workspace projection option, but has no persistent local file to reopen, so the three project modes appear only in the installed desktop app.</p>
 </div>
 <p>Two deliberate limits are worth knowing:</p>
 <ul>
