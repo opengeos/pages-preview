@@ -2482,7 +2482,14 @@ bound to a missing or non-attribute layer are shown as empty.</p>
 <span class="w">  </span><span class="p">},</span>
 <span class="w">  </span><span class="nt">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
 <span class="w">  </span><span class="nt">&quot;geojson&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;FeatureCollection&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;features&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w"> </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;sourcePath&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/path/to/file.geojson&quot;</span>
+<span class="w">  </span><span class="nt">&quot;sourcePath&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/path/to/file.geojson&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;editorTracking&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;createdByField&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;created_by&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;createdAtField&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;created_at&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;editedByField&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;edited_by&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;editedAtField&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;edited_at&quot;</span>
+<span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>For WFS GetFeature and GeoJSON URL layers, <code>metadata.refresh</code> can persist an
