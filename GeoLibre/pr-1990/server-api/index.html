@@ -2499,8 +2499,8 @@ grant a publisher, member, or viewer access to somebody else's private project.<
   accepted, and revoked invitations. Issuance and listing are administrator
   only. The creation response alone includes the opaque <code>token</code>.</li>
 <li><code>DELETE /api/organizations/{id}/invitations/{invitationId}</code> changes a pending
-  invitation to <code>revoked</code>; administrator only.
-  <code>POST /api/organizations/invitations/{token}/accept</code> requires sign-in, verifies
+  invitation to <code>revoked</code>; administrator only.</li>
+<li><code>POST /api/organizations/invitations/{token}/accept</code> requires sign-in, verifies
   the account's username or email, adds the member with the invited role, and
   changes the invitation to <code>accepted</code>.</li>
 <li><code>GET /api/organizations/{id}/projects</code> returns the organization gallery. A
@@ -2667,7 +2667,7 @@ the status code.</p>
 The existing <code>GET /api/projects/{id}/versions/{version}</code> route continues to
 return the immutable project document itself.</p>
 <h3 id="patch-apiprojectsid"><code>PATCH /api/projects/{id}</code><a class="headerlink" href="#patch-apiprojectsid" title="Permanent link">&para;</a></h3>
-<p>Requires ownership. Accepted fields are <code>title</code>, <code>description</code>, <code>visibility</code>,
+<p>Requires ownership, or organization administrator / active organization creator access for organization-owned projects. Accepted fields are <code>title</code>, <code>description</code>, <code>visibility</code>,
 <code>tags</code>, <code>organizationId</code>, and <code>groupIds</code>. Response: <code>{"project": &lt;project&gt;}</code>.</p>
 <h3 id="put-apiprojectsidcontent"><code>PUT /api/projects/{id}/content</code><a class="headerlink" href="#put-apiprojectsidcontent" title="Permanent link">&para;</a></h3>
 <p>Requires ownership or write access via a shared-update group. Creates a new
