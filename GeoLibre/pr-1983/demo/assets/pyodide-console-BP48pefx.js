@@ -1,4 +1,4 @@
-import{n as h}from"./scriptingApi-uIzbHP01.js";import{n as g,t as b}from"./pyodide-config-Z9rKBWEx.js";var j=`"""GeoLibre in-app Python console API.
+import{n as h}from"./scriptingApi-C0qjPhiz.js";import{n as g,t as b}from"./pyodide-config-Z9rKBWEx.js";var j=`"""GeoLibre in-app Python console API.
 
 This module is loaded into a main-thread Pyodide runtime by the Python Console
 panel. It defines \`\`geolibre\`\` \u2014 a synchronous facade that drives the *running*
