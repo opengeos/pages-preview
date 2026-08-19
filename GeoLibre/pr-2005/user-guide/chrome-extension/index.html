@@ -2201,7 +2201,7 @@
 <p>The extension recognizes GeoJSON and spatial JSON, GeoParquet and Parquet, PMTiles, GeoTIFF and Cloud-Optimized GeoTIFF, ZIP archives containing GeoJSON, JSON-LD download metadata, and existing GeoLibre data links. On Source Cooperative repository pages, it also reads the embedded inventory so datasets outside the currently visible list can be selected.</p>
 <h2 id="access-and-privacy">Access and privacy<a class="headerlink" href="#access-and-privacy" title="Permanent link">&para;</a></h2>
 <p>GeoLibre fetches selected links directly, so the source server must allow cross-origin requests (CORS). Complete HTTP(S) URLs, including signed query parameters, are forwarded to GeoLibre. Cookies and other browser-session credentials are not forwarded, so cookie-bound or session-authenticated links might fail. Temporary <code>blob:</code> URLs cannot be transferred.</p>
-<p>The extension requests access only to the active tab when you open it. It does not store browsing history, send analytics, or run continuously in the background.</p>
+<p>The extension requests access only to the active tab, and only from the moment you click its icon. It holds no standing permission to any website, stores nothing, sends no analytics, and runs nothing in the background. Map services are recognized by reading back the addresses of the requests the page has already made, which the page records for itself, rather than by watching your browsing.</p>
 
 
 
