@@ -4666,6 +4666,7 @@ async function extractCogSubset(source, opts) {
 const worker = self;
 worker.addEventListener("message", async (event) => {
 	const { tool, args, input } = event.data;
+	worker.postMessage({ ok: "ack" });
 	try {
 		const result = await runTool(tool, {
 			args,
