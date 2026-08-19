@@ -2,11 +2,11 @@
   "content": [
     {
       "content": null,
-      "created": "2026-08-19T23:12:34.222708Z",
+      "created": "2026-08-19T23:27:32.002151Z",
       "format": null,
       "hash": null,
       "hash_algorithm": null,
-      "last_modified": "2026-08-19T23:12:31.273001Z",
+      "last_modified": "2026-08-19T23:27:28.416810Z",
       "mimetype": null,
       "name": "Welcome.ipynb",
       "path": "Welcome.ipynb",
@@ -16,11 +16,11 @@
     },
     {
       "content": null,
-      "created": "2026-08-19T23:12:34.222953Z",
+      "created": "2026-08-19T23:27:32.002504Z",
       "format": null,
       "hash": null,
       "hash_algorithm": null,
-      "last_modified": "2026-08-19T23:12:31.272926Z",
+      "last_modified": "2026-08-19T23:27:28.416662Z",
       "mimetype": "text/x-python",
       "name": "geolibre.py",
       "path": "geolibre.py",
@@ -29,11 +29,11 @@
       "writable": true
     }
   ],
-  "created": "2026-08-19T23:12:34.222953Z",
+  "created": "2026-08-19T23:27:32.002504Z",
   "format": "json",
   "hash": null,
   "hash_algorithm": null,
-  "last_modified": "2026-08-19T23:12:34.222953Z",
+  "last_modified": "2026-08-19T23:27:32.002504Z",
   "mimetype": null,
   "name": "",
   "path": "",
