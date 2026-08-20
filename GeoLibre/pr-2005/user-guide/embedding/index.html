@@ -2482,6 +2482,11 @@
 <td>Sets the initial color theme, overriding the OS preference. Accepts <code>dark</code> or <code>light</code>; the in-app toggle still works afterward.</td>
 </tr>
 <tr>
+<td><code>settingsUrl</code></td>
+<td><code>settingsUrl=https://example.com/desktop-settings.json</code></td>
+<td>Loads shared presentation settings before the first render. Supports <code>language</code>, <code>layout</code>, accent <code>theme</code>, and <code>uiProfile</code>. The override lasts for this page only and does not replace locally saved settings. <code>settingUrl</code> is accepted as an alias.</td>
+</tr>
+<tr>
 <td><code>tool</code></td>
 <td><code>tool=adaptive_filter</code></td>
 <td>Opens the Processing (Whitebox toolbox) dialog on a specific tool by its id. Unknown ids open the dialog without preselecting a tool.</td>
@@ -2500,6 +2505,18 @@ URL. See <a href="../../self-hosting/">Self-Hosting &amp; Private Data</a>.</p>
 <p>Parameters combine. For a narrow, chrome-free, dark embed of a shared project:</p>
 <div class="highlight"><pre><span></span><code>https://web.geolibre.app/?url=https://share.geolibre.app/you/project.geolibre.json&amp;maponly&amp;theme=dark
 </code></pre></div>
+<p>The settings document must be public or same-origin, return valid JSON, and
+allow cross-origin browser requests when hosted elsewhere. Its supported fields
+use the same shape as their counterparts in the <code>geolibre.desktopSettings</code>
+local-storage value. Credential-bearing fields, plugin sources, local startup
+paths, and update settings are ignored. Missing or invalid fields are replaced
+with GeoLibre defaults. If the document fails to load within ten seconds,
+GeoLibre starts with the visitor's local settings. The <code>locale</code> and <code>lang</code> URL
+parameters take precedence over a shared <code>language</code>. Other embed parameters,
+including <code>theme</code>, <code>layout</code>, and <code>maponly</code>, independently control the initial
+light/dark mode and chrome rather than the desktop accent and panel preferences.</p>
+<p>Encode the settings URL with <code>encodeURIComponent</code> when it contains <code>&amp;</code>, <code>+</code>,
+<code>%</code>, or <code>#</code>, just as for a nested <code>data</code> URL.</p>
 <h3 id="deep-linking-a-processing-tool">Deep-linking a Processing tool<a class="headerlink" href="#deep-linking-a-processing-tool" title="Permanent link">&para;</a></h3>
 <p><code>tool=&lt;id&gt;</code> opens the Processing (Whitebox toolbox) dialog preselected to a tool.
 Any <strong>additional</strong> query parameters pre-fill that tool's form, using the tool's
