@@ -2833,9 +2833,11 @@ ephemeral and never written to a project file.</p>
 <code>Referer</code>) against <code>ALLOWED_ORIGINS</code> via <code>isAllowedOrigin</code> (defaults to the
 hosted origins (<code>geolibre.app</code>, <code>web.geolibre.app</code>, its legacy
 <code>viewer.geolibre.app</code> alias, <code>studio.geolibre.app</code>, and
-<code>collab.geolibre.app</code>), the project-owned Cloudflare/GitHub Pages preview
-origins, loopback hosts (<code>localhost</code> and <code>127.0.0.1</code>), and
-<code>tauri://localhost</code>) as browser-origin filtering
+<code>collab.geolibre.app</code>), single-label HTTPS deployment hosts under
+<code>*.geolibre-preview.pages.dev</code>, loopback hosts (<code>localhost</code> and
+<code>127.0.0.1</code>), and <code>tauri://localhost</code>). Nested or custom-port preview hosts
+and look-alike domains are rejected; the shared <code>opengeos.org</code> GitHub Pages
+preview origin is deliberately not trusted) as browser-origin filtering
 and defense-in-depth (not authentication or a general server-side access gate)
 and enforces a per-IP <code>checkRateLimit</code> (10 requests / 60 s). <code>Access-Control-Allow-Origin: *</code> is
 still sent on responses so non-browser clients (e.g. Tauri) are not blocked by
