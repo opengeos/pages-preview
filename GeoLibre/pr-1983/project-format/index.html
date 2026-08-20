@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../assets/geolibre-icon.png">
-      <meta name="generator" content="zensical-0.0.55">
+      <meta name="generator" content="zensical-0.0.56">
     
     
       
@@ -1649,6 +1649,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#print-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Print layout
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#story-map" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2182,6 +2193,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#print-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Print layout
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#story-map" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2328,6 +2350,11 @@
 <td>Optional Print Layout legend customizations (title, grouping, ordering, per-item rename/hide)</td>
 </tr>
 <tr>
+<td><code>printLayout</code></td>
+<td>object</td>
+<td>Optional Print Layout composer settings (title, page size, orientation, blocks, atlas); omitted when default</td>
+</tr>
+<tr>
 <td><code>storymap</code></td>
 <td>object</td>
 <td>Optional scroll-driven story map (chapters and presentation settings); omitted when there are no chapters</td>
@@ -2402,6 +2429,44 @@ survive layer additions and removals.</p>
 </ul>
 <p>Projects without a <code>legend</code> section open with the default legend (auto-generated
 from the layers, titled "Legend").</p>
+<h2 id="print-layout">Print layout<a class="headerlink" href="#print-layout" title="Permanent link">&para;</a></h2>
+<p>The Print Layout composer (Project -&gt; Print Layout) belongs to the project, so
+the page it composes reopens as it was saved. The section is written only once
+a setting differs from the defaults, so a project that never opened the composer
+carries no <code>printLayout</code> key.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dentists by region"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"subtitle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2026"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"paperSize"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a3"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"orientation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"portrait"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"pageMargin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"normal"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"showLegend"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"showScaleBar"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"showNorthArrow"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"showDataTable"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"tableLayerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"layer-a"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"tableColumns"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"name"</span><span class="p">,</span><span class="w"> </span><span class="s2">"count"</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">"atlasEnabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>Title block: <code>title</code>, <code>subtitle</code>, <code>titlePlacement</code>, <code>titleAlign</code>. A blank
+  <code>title</code> follows the project name rather than freezing a copy of it.</li>
+<li>Page: <code>paperSize</code> (<code>a4</code>, <code>a3</code>, <code>letter</code>, <code>legal</code>, <code>tabloid</code>, <code>fullhd</code>, <code>hd</code>,
+  <code>uhd4k</code>, <code>square</code>, <code>custom</code>), <code>orientation</code>, <code>customWidth</code> / <code>customHeight</code> /
+  <code>customUnit</code> for <code>custom</code>, <code>pageMargin</code>, and the page/map frame colours.</li>
+<li>Elements: the <code>show*</code> toggles for legend, scale bar, north arrow, footer,
+  date, attribution, colorbar, custom legend and info block, with their
+  per-element settings.</li>
+<li>Data blocks: <code>tableLayerId</code> / <code>chartLayerId</code> name a project layer; a block
+  whose layer is missing from the project opens cleared rather than blank.</li>
+<li>Atlas: <code>atlasEnabled</code> plus the coverage layer, extent mode, sorting, filter
+  and filename pattern for the map series.</li>
+</ul>
+<p>Unknown or malformed values fall back to the default for that field, so a
+hand-edited file never leaves the composer in an unusable state. Per-session
+state (the captured map image, the current atlas page, the dialog's panel
+widths) is deliberately not stored.</p>
 <h2 id="story-map">Story map<a class="headerlink" href="#story-map" title="Permanent link">&para;</a></h2>
 <p>A story map turns the project into a scroll-driven narrative. Each chapter
 captures a camera view plus text, and can fade project layers in or out on

@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../assets/geolibre-icon.png">
-      <meta name="generator" content="zensical-0.0.55">
+      <meta name="generator" content="zensical-0.0.56">
     
     
       
@@ -3048,6 +3048,7 @@ and use host APIs such as <code>addGeoJsonLayer</code> when they need to add dat
 <span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nx">colormap</span><span class="o">:</span><span class="w"> </span><span class="s2">"terrain"</span><span class="p">,</span><span class="w"> </span><span class="nx">nodata</span><span class="o">:</span><span class="w"> </span><span class="o">-</span><span class="mf">9999</span><span class="w"> </span><span class="p">},</span>
 <span class="p">);</span>
 </code></pre></div>
+<p><code>options.engine</code> picks the renderer (<code>"maplibre-gl-raster"</code> for the GPU/deck.gl path, <code>"cog-tiler-wasm"</code> for the WebAssembly tiler, <code>"titiler"</code> for a TiTiler server). Unlike the other options it is <strong>not per layer</strong>: the raster control holds one engine for every raster it manages, so naming one re-renders the rasters already on the map. Pass <code>"auto"</code> to leave whatever the control is on alone; omit it and the GPU renderer is used. The GPU renderer requires a Mercator projection, so a plugin that expects to work on the globe should ask for <code>"cog-tiler-wasm"</code>.</p>
 <p><code>addTileLayer</code>/<code>addWmtsLayer</code>/<code>addWmsLayer</code> expect <strong>pre-rendered tiles</strong> (e.g. a COG already served through a tiler such as titiler as an XYZ endpoint). <code>addCogLayer</code> is different: it loads the <strong>GeoTIFF itself</strong> and renders it client-side, exposing band selection, rescale, colormap, and nodata in the raster panel. It is async (it fetches the file's header), so it returns a <code>Promise&lt;string&gt;</code> and rejects if the COG cannot be read.</p>
 <p>The helpers are typed optional for forward-compatibility with host variants, so call them with optional chaining (<code>app.addTileLayer?.(...)</code>).</p>
 <blockquote>

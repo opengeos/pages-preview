@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../assets/geolibre-icon.png">
-      <meta name="generator" content="zensical-0.0.55">
+      <meta name="generator" content="zensical-0.0.56">
     
     
       
@@ -645,6 +645,23 @@
       </span>
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Install the extension">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#install-the-packaged-release-manually" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Install the packaged release manually
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2091,6 +2108,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Install the extension">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#install-the-packaged-release-manually" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Install the packaged release manually
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2137,7 +2171,16 @@
 <p>The <strong>Open data in GeoLibre</strong> Chrome extension finds supported geospatial data links on the current webpage and opens the datasets you select together on one GeoLibre map.</p>
 <p><img alt="Select webpage datasets with the GeoLibre Chrome extension" src="https://assets.geolibre.app/images/geolibre-chrome.webp" /></p>
 <h2 id="install-the-extension">Install the extension<a class="headerlink" href="#install-the-extension" title="Permanent link">&para;</a></h2>
-<p>Until the extension is available from the Chrome Web Store, install the packaged release manually:</p>
+<p>The extension is published on the Chrome Web Store, so it installs in one click and updates automatically:</p>
+<p><a class="md-button md-button--primary" href="https://chromewebstore.google.com/detail/open-data-in-geolibre/joinecgbfoldanidcoakpjgkbaceaooj">Get Open data in GeoLibre from the Chrome Web Store</a></p>
+<ol>
+<li>Open the <a href="https://chromewebstore.google.com/detail/open-data-in-geolibre/joinecgbfoldanidcoakpjgkbaceaooj">Chrome Web Store listing</a>.</li>
+<li>Select <strong>Add to Chrome</strong>, then confirm.</li>
+<li>Pin <strong>Open data in GeoLibre</strong> to the Chrome toolbar for convenient access.</li>
+</ol>
+<p>It works in any Chromium-based browser that can install from the Chrome Web Store, including Chrome, Edge, Brave, Vivaldi, Opera, and Arc.</p>
+<h3 id="install-the-packaged-release-manually">Install the packaged release manually<a class="headerlink" href="#install-the-packaged-release-manually" title="Permanent link">&para;</a></h3>
+<p>Prefer not to install from the Store, or want to run a build that is newer than the reviewed listing? Load the packaged release as an unpacked extension:</p>
 <ol>
 <li>Open the <a href="https://github.com/opengeos/GeoLibre/releases/latest">latest GeoLibre release</a> and download the ZIP asset whose name starts with <code>geolibre-chrome-</code>.</li>
 <li>Extract the ZIP archive to a folder you intend to keep. Chrome loads the extension from this folder, so do not delete it after installation.</li>
@@ -2146,7 +2189,7 @@
 <li>Select <strong>Load unpacked</strong> and choose the extracted <code>geolibre-chrome-&lt;version&gt;</code> folder.</li>
 <li>Pin <strong>Open data in GeoLibre</strong> to the Chrome toolbar for convenient access.</li>
 </ol>
-<p>To update a manually installed copy, download and extract the newer release asset, then select the extension's <strong>Reload</strong> button on <code>chrome://extensions</code>. If you extract it to a different folder, remove the old copy and load the new folder instead.</p>
+<p>A manually installed copy does not update itself. To update it, download and extract the newer release asset, then select the extension's <strong>Reload</strong> button on <code>chrome://extensions</code>. If you extract it to a different folder, remove the old copy and load the new folder instead.</p>
 <h2 id="open-datasets-from-a-webpage">Open datasets from a webpage<a class="headerlink" href="#open-datasets-from-a-webpage" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Visit a webpage or data catalog containing geospatial file links.</li>
@@ -2158,7 +2201,7 @@
 <p>The extension recognizes GeoJSON and spatial JSON, GeoParquet and Parquet, PMTiles, GeoTIFF and Cloud-Optimized GeoTIFF, ZIP archives containing GeoJSON, JSON-LD download metadata, and existing GeoLibre data links. On Source Cooperative repository pages, it also reads the embedded inventory so datasets outside the currently visible list can be selected.</p>
 <h2 id="access-and-privacy">Access and privacy<a class="headerlink" href="#access-and-privacy" title="Permanent link">&para;</a></h2>
 <p>GeoLibre fetches selected links directly, so the source server must allow cross-origin requests (CORS). Complete HTTP(S) URLs, including signed query parameters, are forwarded to GeoLibre. Cookies and other browser-session credentials are not forwarded, so cookie-bound or session-authenticated links might fail. Temporary <code>blob:</code> URLs cannot be transferred.</p>
-<p>The extension requests access only to the active tab when you open it. It does not store browsing history, send analytics, or run continuously in the background.</p>
+<p>The extension requests access only to the active tab, and only from the moment you click its icon. It holds no standing permission to any website, stores nothing, sends no analytics, and runs nothing in the background. Map services are recognized by reading back the addresses of the requests the page has already made, which the page records for itself, rather than by watching your browsing.</p>
 
 
 

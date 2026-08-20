@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../assets/geolibre-icon.png">
-      <meta name="generator" content="zensical-0.0.55">
+      <meta name="generator" content="zensical-0.0.56">
     
     
       
@@ -2342,7 +2342,7 @@ server-only token receive <code>401 Unauthorized</code>.</p>
 <span class="w">  </span>-e<span class="w"> </span><span class="nv">GEOLIBRE_AUTH_USER</span><span class="o">=</span>admin<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-e<span class="w"> </span><span class="nv">GEOLIBRE_AUTH_PASSWORD</span><span class="o">=</span><span class="s1">'change-me'</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-e<span class="w"> </span><span class="nv">GEOLIBRE_AI_URL</span><span class="o">=</span>/ai<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-e<span class="w"> </span><span class="nv">GEOLIBRE_AI_MODEL</span><span class="o">=</span>openai/gpt-5.5<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">GEOLIBRE_AI_MODEL</span><span class="o">=</span>openai/gpt-5.6-luna<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-e<span class="w"> </span><span class="nv">GEOLIBRE_AI_PROXY_URL</span><span class="o">=</span>https://ai.geolibre.app<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-e<span class="w"> </span><span class="nv">GEOLIBRE_AI_PROXY_TOKEN</span><span class="o">=</span><span class="s2">"</span><span class="nv">$GEOLIBRE_AI_PROXY_TOKEN</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>ghcr.io/opengeos/geolibre:latest
@@ -2451,7 +2451,8 @@ system environment; there, enter keys in <strong>Settings → Environment Variab
 next app launch.</p>
 </div>
 <h2 id="using-it">Using it<a class="headerlink" href="#using-it" title="Permanent link">&para;</a></h2>
-<p>Type a request and press <strong>Ctrl/Cmd + Enter</strong> (or click <strong>Send</strong>). The
+<p>Type a request and press <strong>Enter</strong> (or click <strong>Send</strong>); <strong>Shift + Enter</strong>
+inserts a newline, and <strong>Ctrl/Cmd + Enter</strong> still sends. The
 assistant streams its reply, runs tools as needed, and reports what it did. While
 it is working, <strong>Send</strong> becomes <strong>Stop</strong> — click it to cancel. <strong>Clear</strong> (the
 eraser icon) starts a fresh conversation.</p>
