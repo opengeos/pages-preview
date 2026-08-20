@@ -2459,6 +2459,14 @@ subtrees of <code>en.json</code> are rewritten; the other locales are never touc
 <p>Whitebox tools are <strong>not</strong> covered: their ~800 names and descriptions come from
 the bundled WASM binary, so the host has no keys for them and renders them
 verbatim (<code>modelProviderCatalog</code> returns <code>null</code> for that provider).</p>
+<p>The Model Builder palette is the one place that mixes the two, and its group
+headings need care: <code>groupModelTools</code> keys groups on the raw label, so a heading
+has no provider of its own, and the WASM catalog ships a <code>terrain</code> category
+(lowercase) that slugs onto the raster registry's <code>Terrain</code>. Translating both
+would render two identically-labelled headings. <code>translateModelToolGroup</code> gates
+on the group's tools instead — a heading is translated only when at least one of
+its tools comes from an owned catalog. Use it for palette headings rather than
+<code>translateToolGroup</code> directly.</p>
 <h2 id="plugin-facing-surfaces">Plugin-facing surfaces<a class="headerlink" href="#plugin-facing-surfaces" title="Permanent link">&para;</a></h2>
 <p>Plugin display names resolve through <code>toolbar.plugin.&lt;pluginId&gt;</code>, and every
 surface that shows one (the Plugins menu, the command palette, Settings →
