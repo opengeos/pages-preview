@@ -1820,6 +1820,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#following-the-app-language" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Following the app language
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#floating-panels" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2454,6 +2465,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#following-the-app-language" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Following the app language
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#floating-panels" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2683,6 +2705,14 @@
 <span class="w">  </span><span class="nx">getActiveRightPanel</span><span class="o">?:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
 <span class="w">  </span><span class="nx">setActiveRightPanelDock</span><span class="o">?:</span><span class="w"> </span><span class="p">(</span><span class="nx">dock</span><span class="o">:</span><span class="w"> </span><span class="kt">GeoLibreRightPanelDock</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
 <span class="w">  </span><span class="nx">getActiveRightPanelDock</span><span class="o">?:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">GeoLibreRightPanelDock</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+<span class="w">  </span><span class="c1">// Localization (see "Following the app language" below).</span>
+<span class="w">  </span><span class="nx">getLocale</span><span class="o">?:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">onLocaleChange</span><span class="o">?:</span><span class="w"> </span><span class="p">(</span><span class="nx">listener</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">locale</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">translate</span><span class="o">?:</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="nx">key</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">defaultValue</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">params?</span><span class="o">:</span><span class="w"> </span><span class="kt">Record</span><span class="o">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kt">number</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">  </span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
 <span class="w">  </span><span class="c1">// Top toolbar menus (see "Toolbar menus" below).</span>
 <span class="w">  </span><span class="nx">registerToolbarMenu</span><span class="o">?:</span><span class="w"> </span><span class="p">(</span><span class="nx">menu</span><span class="o">:</span><span class="w"> </span><span class="kt">GeoLibreToolbarMenu</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
 <span class="w">  </span><span class="nx">unregisterToolbarMenu</span><span class="o">?:</span><span class="w"> </span><span class="p">(</span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
@@ -3284,6 +3314,41 @@ and use host APIs such as <code>addGeoJsonLayer</code> when they need to add dat
 </code></pre></div>
 <p>Each item is an <strong>action</strong> (<code>onSelect</code>, the default when <code>type</code> is omitted), a <strong>submenu</strong> (nested <code>items</code>), or a <strong>separator</strong>. Items typically open a right panel or a floating panel, but <code>onSelect</code> can run anything. Re-registering the same <code>id</code> replaces the menu, so you can rebuild it as your plugin's state changes.</p>
 <p>Menus from <strong>external plugins</strong> (loaded from a zip, a manifest URL, or a bundled drop-in) render at the end of the banner, after the Help menu, so third-party menus sit together past the built-in menus. Menus from built-in plugins render beside the built-in menus. The host decides placement from the menu's owning plugin, so you do not need to do anything special.</p>
+<p>Every <code>label</code> (the menu button's, a submenu trigger's, an action's) accepts a <strong>getter function</strong> as well as a plain string, the same way panel titles do:</p>
+<div class="highlight"><pre><span></span><code><span class="nx">app</span><span class="p">.</span><span class="nx">registerToolbarMenu</span><span class="o">?</span><span class="p">.({</span>
+<span class="w">  </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="s2">"my-plugin-menu"</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">label</span><span class="o">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">app</span><span class="p">.</span><span class="nx">translate</span><span class="o">?</span><span class="p">.(</span><span class="s2">"plugin.my-plugin.menu"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Workbench"</span><span class="p">)</span><span class="w"> </span><span class="o">??</span><span class="w"> </span><span class="s2">"Workbench"</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">items</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="s2">"open"</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">label</span><span class="o">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">app</span><span class="p">.</span><span class="nx">translate</span><span class="o">?</span><span class="p">.(</span><span class="s2">"plugin.my-plugin.open"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Open workbench"</span><span class="p">)</span><span class="w"> </span><span class="o">??</span><span class="w"> </span><span class="s2">"Open workbench"</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">onSelect</span><span class="o">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">app</span><span class="p">.</span><span class="nx">openRightPanel</span><span class="o">?</span><span class="p">.(</span><span class="s2">"my-workbench"</span><span class="p">),</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>The host re-reads every label each time it renders the menu tree, and it re-renders on a language change, so a getter follows the app language without your plugin re-registering its menu. A plain string is frozen at registration time. A getter that throws or returns nothing usable degrades to the item's id path and warns once, so a broken label cannot make the menu disappear.</p>
+<h2 id="following-the-app-language">Following the app language<a class="headerlink" href="#following-the-app-language" title="Permanent link">&para;</a></h2>
+<p>The GeoLibre UI is translated with react-i18next, but a plugin renders its panels as plain DOM and cannot use the host's React hooks. Three methods bridge that gap:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// The active catalog code ("en", "zh", "pt-BR", ...).</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">locale</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">app</span><span class="p">.</span><span class="nx">getLocale</span><span class="o">?</span><span class="p">.()</span><span class="w"> </span><span class="o">??</span><span class="w"> </span><span class="s2">"en"</span><span class="p">;</span>
+
+<span class="c1">// Resolve a key, falling back to your own English text when no catalog has it.</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">app</span><span class="p">.</span><span class="nx">translate</span><span class="o">?</span><span class="p">.(</span><span class="s2">"plugin.my-plugin.title"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Workbench"</span><span class="p">)</span><span class="w"> </span><span class="o">??</span><span class="w"> </span><span class="s2">"Workbench"</span><span class="p">;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">app</span><span class="p">.</span><span class="nx">translate</span><span class="o">?</span><span class="p">.(</span><span class="s2">"plugin.my-plugin.count"</span><span class="p">,</span><span class="w"> </span><span class="s2">"{{n}} features"</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">n</span><span class="o">:</span><span class="w"> </span><span class="kt">3</span><span class="w"> </span><span class="p">});</span>
+
+<span class="c1">// Re-render when the user switches language. Returns an unsubscribe function —</span>
+<span class="c1">// call it from `deactivate`, or the listener keeps re-rendering DOM you no</span>
+<span class="c1">// longer own.</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">stop</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">app</span><span class="p">.</span><span class="nx">onLocaleChange</span><span class="o">?</span><span class="p">.((</span><span class="nx">next</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">renderPanel</span><span class="p">(</span><span class="nx">container</span><span class="p">,</span><span class="w"> </span><span class="nx">next</span><span class="p">));</span>
+</code></pre></div>
+<p>Conventions:</p>
+<ul>
+<li><strong>Always pass your own English text as <code>defaultValue</code>.</strong> GeoLibre's catalogs do not ship your plugin's strings, so the fallback is what makes your UI read correctly today; translations are an upgrade, not a prerequisite.</li>
+<li><strong>Namespace your keys by plugin id</strong> (<code>plugin.&lt;your-id&gt;.&lt;something&gt;</code>) so they cannot collide with the host's own keys.</li>
+<li>These methods are typed optional like the rest of the API, so call them with optional chaining and keep a literal fallback.</li>
+<li>Panel titles and toolbar labels take getters precisely so they can call <code>app.translate?.()</code> and stay current; use those rather than re-registering on every language change.</li>
+</ul>
 <h2 id="floating-panels">Floating panels<a class="headerlink" href="#floating-panels" title="Permanent link">&para;</a></h2>
 <p>A floating panel is a draggable, closeable card the host overlays on the map's top-left corner. Unlike a dockable right panel (one active panel docked at a fixed position), several floating panels can be open at once and they do not shrink the map. The render contract is the same plain-DOM <code>render(container)</code> as right panels.</p>
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">unregister</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">app</span><span class="p">.</span><span class="nx">registerFloatingPanel</span><span class="o">?</span><span class="p">.({</span>

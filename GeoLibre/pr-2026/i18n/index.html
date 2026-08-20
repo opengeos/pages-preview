@@ -1796,6 +1796,28 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#processing-tool-metadata" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Processing tool metadata
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#plugin-facing-surfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Plugin-facing surfaces
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#known-limitations" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2205,6 +2227,28 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#processing-tool-metadata" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Processing tool metadata
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#plugin-facing-surfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Plugin-facing surfaces
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#known-limitations" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2389,6 +2433,53 @@ plus its base subtag in <code>RTL_LANGUAGES</code> if it isn't already listed.</
 locale via <code>Intl</code> APIs (e.g. <code>new Intl.NumberFormat(undefined, …)</code> /
 <code>Intl.DateTimeFormat</code>) rather than hard-coded formatting, so values render in the
 user's regional conventions.</p>
+<h2 id="processing-tool-metadata">Processing tool metadata<a class="headerlink" href="#processing-tool-metadata" title="Permanent link">&para;</a></h2>
+<p>Tool names, descriptions, group labels, parameter labels/help text and select
+option labels live in <code>@geolibre/processing</code>, a package with no i18n access.
+The Processing dialogs (Vector / Network / Spatial statistics / Raster / Batch
+tools, and the Model Builder palette) render them through
+<code>apps/geolibre-desktop/src/lib/processing-tool-i18n.ts</code>, which resolves
+<code>processing.toolMeta.&lt;catalog&gt;.&lt;toolId&gt;.…</code> and falls back to the registry's own
+string. The catalog name (<code>vector</code> | <code>network</code> | <code>statistics</code> | <code>raster</code>) is part
+of every key because tool ids repeat across registries — <code>reproject</code> is both a
+vector tool and a raster tool. Grouping labels share one namespace,
+<code>processing.toolGroup.&lt;slug&gt;</code>, because the same label ("Analysis") appears in
+more than one registry.</p>
+<p>Because the fallback is the registry string itself, <strong>English is correct with no
+catalog entries at all</strong>. <code>en.json</code> carries them anyway, as the baseline
+translators work from: <code>tests/i18n-catalogs.test.ts</code> rejects a key in another
+locale that has no English counterpart, so a string missing from <code>en.json</code> cannot
+be translated anywhere. That baseline is generated:</p>
+<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>run<span class="w"> </span>i18n:tools<span class="w">          </span><span class="c1"># regenerate the en.json baseline from the registries</span>
+npm<span class="w"> </span>run<span class="w"> </span>i18n:tools:check<span class="w">    </span><span class="c1"># fail if it is out of date (runs in `npm run ci`)</span>
+</code></pre></div>
+<p>Re-run it after adding or renaming a tool, a parameter or a select option, and
+commit the result. Only the <code>processing.toolMeta</code> and <code>processing.toolGroup</code>
+subtrees of <code>en.json</code> are rewritten; the other locales are never touched.</p>
+<p>Whitebox tools are <strong>not</strong> covered: their ~800 names and descriptions come from
+the bundled WASM binary, so the host has no keys for them and renders them
+verbatim (<code>modelProviderCatalog</code> returns <code>null</code> for that provider).</p>
+<p>The Model Builder palette is the one place that mixes the two, and its group
+headings need care: <code>groupModelTools</code> keys groups on the raw label, so a heading
+has no provider of its own, and the WASM catalog ships a <code>terrain</code> category
+(lowercase) that slugs onto the raster registry's <code>Terrain</code>. Translating both
+would render two identically-labelled headings. <code>translateModelToolGroup</code> gates
+on the group's tools instead — a heading is translated only when at least one of
+its tools comes from an owned catalog. Use it for palette headings rather than
+<code>translateToolGroup</code> directly.</p>
+<h2 id="plugin-facing-surfaces">Plugin-facing surfaces<a class="headerlink" href="#plugin-facing-surfaces" title="Permanent link">&para;</a></h2>
+<p>Plugin display names resolve through <code>toolbar.plugin.&lt;pluginId&gt;</code>, and every
+surface that shows one (the Plugins menu, the command palette, Settings →
+Interface, Manage Plugins) goes through <code>lib/plugin-display-name.ts</code>, so a plugin
+cannot read translated in one menu and English in the next. A plugin with no
+catalog entry falls back to its registered name, which is right for the
+brand/proper-noun plugins (Mapillary, NASA Earthdata, …) and for externally
+installed plugins the host cannot know at build time.</p>
+<p>A plugin's <strong>own</strong> UI is plain DOM and cannot use <code>useTranslation</code>. The app API
+gives it <code>getLocale()</code>, <code>onLocaleChange(listener)</code> and
+<code>translate(key, defaultValue, params)</code> instead, and toolbar menu labels and panel
+titles accept getter functions so they can call <code>translate</code> and be re-read after
+a language change. See <code>docs/plugin-api.md</code> ("Following the app language").</p>
 <h2 id="known-limitations">Known limitations<a class="headerlink" href="#known-limitations" title="Permanent link">&para;</a></h2>
 <p>Some plugins wrap <strong>third-party MapLibre controls</strong> that render their own UI
 (e.g. the Esri Wayback plugin's <code>maplibre-gl-esri-wayback</code> control, with labels

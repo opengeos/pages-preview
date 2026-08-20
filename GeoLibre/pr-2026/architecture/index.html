@@ -1533,6 +1533,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="DuckDB-WASM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#apache-iceberg" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Apache Iceberg
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2240,6 +2257,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="DuckDB-WASM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#apache-iceberg" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Apache Iceberg
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2420,8 +2454,13 @@
 <span class="k">LOAD</span><span class="w"> </span><span class="n">spatial</span><span class="p">;</span>
 </code></pre></div>
 <p>GeoParquet is read with DuckDB's Parquet reader after loading Spatial. Other local vector formats are passed to Spatial <code>ST_Read</code> when the WebAssembly extension can load the GDAL-backed reader. Zipped Shapefiles are parsed with <code>shpjs</code> first, then DuckDB Spatial is tried if that parser cannot read the file. KML files (and the KML inside unzipped KMZ archives) are read by an in-house parser that preserves embedded symbology, emitting <a href="https://github.com/mapbox/simplestyle-spec">simplestyle-spec</a> properties (<code>fill</code>, <code>stroke</code>, <code>stroke-width</code>, and so on) so styled KML renders the way it does in Google Earth; KML the parser cannot handle falls back to the DuckDB Spatial reader, which loads the geometry without the styling. A vector layer whose features carry simplestyle properties is rendered per-feature: paint expressions read the per-feature color/width and fall back to the flat layer style.</p>
+<h3 id="apache-iceberg">Apache Iceberg<a class="headerlink" href="#apache-iceberg" title="Permanent link">&para;</a></h3>
+<p>Iceberg tables are read on the same engine, with DuckDB's core <code>iceberg</code> extension loaded alongside Spatial (<code>INSTALL iceberg; LOAD iceberg;</code>). A table addressed by its metadata location is scanned with <code>iceberg_scan()</code>; an Iceberg REST catalog is <code>ATTACH</code>ed under a fixed alias, enumerated with <code>SHOW ALL TABLES</code>, and the chosen table read as a qualified name. Either generated statement is only a default: the dialog pre-fills it into a SQL box, and whatever is in that box becomes the scan's source, so a <code>WHERE</code>, a join, or a projection can decide which geometries are rendered. A custom statement is checked with <code>cleanStatement</code>/<code>containsMultipleStatements</code> (the literal-aware helpers in <code>sql-workspace.ts</code>) before being wrapped as a sub-select, so a pasted script fails with a clear message rather than a parse error pointing at the generated wrapper.</p>
+<p>Geometry handling is deliberately narrower than the vector-file loader's. Only columns DuckDB reports as native <code>GEOMETRY</code> are candidates: Iceberg v3 has a real geometry type — <code>iceberg_column_definition.cpp</code> maps it to <code>LogicalType::GEOMETRY</code> — so a BLOB or VARCHAR here is an ordinary attribute, and the blob/base64-WKB fallbacks that make sense for plain Parquet would only produce loads that fail inside <code>ST_AsGeoJSON</code>. <strong>The CRS comes from the schema, not the user.</strong> DuckDB renders a CRS-annotated column as <code>GEOMETRY(&lt;crs&gt;)</code>, so <code>icebergTransformCrs</code> reads it and reprojects to WGS84 through <code>ST_Transform</code>; a column carrying no CRS parameter is <code>OGC:CRS84</code> by specification (the same constant DuckDB's extension hard-codes as <code>IcebergConstants::DefaultGeometryCRS</code>), which is already GeoJSON's lon/lat convention and passes through untransformed. Nothing about the coordinate system is persisted on the layer, so a table re-projected upstream stays correct on the next reload.</p>
+<p>The work is split between <code>lib/iceberg.ts</code>, which holds the persisted layer config, the SQL builders, and the table-selection rule with no DuckDB dependency, and <code>lib/iceberg-loader.ts</code>, which owns the engine. The loader runs on the <strong>SQL Workspace's</strong> dedicated DuckDB instance rather than the shared one: an Iceberg scan reads the table's Parquet data files over HTTP, so it needs that instance's pre-spatial warm-up and its poisoned-instance recovery (see <code>resetSqlDatabase</code>).</p>
+<p>Two consequences of Iceberg tables being large are wired into the app rather than left to the user. Every load is capped by a row limit, and the total row count — a <code>count(*)</code> over the configured source, which DuckDB can answer from the manifest metadata for an unfiltered table, though a custom statement's filters, joins, or projections have to be evaluated — is shown before anything is materialized. And the resulting layer, though refreshable on demand, is excluded from timer-driven refresh by <code>supportsAutoRefresh</code> in <code>lib/layer-refresh.ts</code> — re-scanning a table of that size on an interval is never what the user meant, so the automatic-refresh interval is unavailable for it rather than merely defaulted off.</p>
 <h2 id="advanced-add-data-workflows">Advanced Add Data workflows<a class="headerlink" href="#advanced-add-data-workflows" title="Permanent link">&para;</a></h2>
-<p>The Add Data surface includes native dialogs for XYZ, WMS, WFS, vector files (via the Add Vector dialog backed by <code>maplibre-gl-vector</code>), GeoJSON URLs, vector tile sources, delimited text, raster tile templates, COG and GeoTIFF rasters (via the Add Raster dialog backed by <code>maplibre-gl-raster</code>), MBTiles, ArcGIS FeatureServer or VectorTileServer layers, and GPX waypoints, tracks, and routes. It also supports 3D Tiles layers, WFS and GeoJSON URL refresh, text marker labels, and multiple DuckDB SQL query-result layers with identify, selection, and attribute table support. The Components plugin wraps <code>maplibre-gl-components</code> panels for FlatGeobuf, PMTiles, Zarr, LiDAR, and Gaussian splats, then mirrors added layers into the GeoLibre store so the Layer panel, project format, and layer control can reason about them. Additional data sources are available through the Planetary Computer and Earth Engine panels, the Overture Maps plugin, and the federal Web Services plugins. The Time Slider plugin, backed by <code>maplibre-gl-time-slider</code>, animates time series raster and vector data (COG, XYZ/WMTS, WMS-Time, and time-filtered GeoJSON) through a docked timeline, mirroring each source it adds into the GeoLibre store as an external native layer.</p>
+<p>The Add Data surface includes native dialogs for XYZ, WMS, WFS, vector files (via the Add Vector dialog backed by <code>maplibre-gl-vector</code>), GeoJSON URLs, vector tile sources, delimited text, raster tile templates, COG and GeoTIFF rasters (via the Add Raster dialog backed by <code>maplibre-gl-raster</code>), MBTiles, ArcGIS FeatureServer or VectorTileServer layers, Apache Iceberg tables, and GPX waypoints, tracks, and routes. It also supports 3D Tiles layers, WFS and GeoJSON URL refresh, text marker labels, and multiple DuckDB SQL query-result layers with identify, selection, and attribute table support. The Components plugin wraps <code>maplibre-gl-components</code> panels for FlatGeobuf, PMTiles, Zarr, LiDAR, and Gaussian splats, then mirrors added layers into the GeoLibre store so the Layer panel, project format, and layer control can reason about them. Additional data sources are available through the Planetary Computer and Earth Engine panels, the Overture Maps plugin, and the federal Web Services plugins. The Time Slider plugin, backed by <code>maplibre-gl-time-slider</code>, animates time series raster and vector data (COG, XYZ/WMTS, WMS-Time, and time-filtered GeoJSON) through a docked timeline, mirroring each source it adds into the GeoLibre store as an external native layer.</p>
 <p>Local MBTiles tiles are read through a custom MapLibre protocol backed by Tauri commands. Remote rasters are fetched through the desktop backend when needed, and the local development server includes a raster proxy for selected release assets that need CORS handling.</p>
 <h2 id="python-sidecar">Python sidecar<a class="headerlink" href="#python-sidecar" title="Permanent link">&para;</a></h2>
 <p>The FastAPI app in <code>backend/geolibre_server</code> backs the format Conversion tools, the raster tools, and the optional server engine for the Whitebox toolbox through a managed local processing sidecar. The desktop app starts the sidecar on demand, communicates over <code>127.0.0.1</code>, and keeps the heavier Python processing stack outside the browser bundle.</p>
