@@ -2487,6 +2487,10 @@ operations, so its actions stay within GeoLibre's validated surface.</p>
 <td>Runs the registered <a href="../processing/">processing</a> algorithms (buffer, clip, dissolve, intersection, difference, union, spatial join, simplify, H3 grids, …) and chains them into multi-step pipelines, adding each result as a layer.</td>
 </tr>
 <tr>
+<td><strong>Raster tools</strong></td>
+<td>Searches the Whitebox catalog and runs its tools in the browser via WASM — hydrology (fill depressions, flow accumulation, extract streams), terrain (slope, aspect, hillshade), LiDAR, image processing, raster↔vector conversion — adding each result as a layer.</td>
+</tr>
+<tr>
 <td><strong>Model Builder</strong></td>
 <td>Creates a validated, editable Model Builder workflow from a description, saves it with the project, and opens it for review before you run it. It draws on the same palette as the canvas — client-side vector tools plus the full Whitebox catalog — so a raster chain such as fill depressions → flow accumulation → extract streams is a valid model. If the canvas holds unsaved work or a run is still in flight, Model Builder asks before replacing it.</td>
 </tr>
