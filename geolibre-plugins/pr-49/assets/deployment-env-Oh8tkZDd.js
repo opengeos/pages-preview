@@ -1,0 +1,1 @@
+function n(){if(!(typeof window>"u"))return window.__GEOLIBRE_DEPLOYMENT_ENV__}function r(E,o=n(),t={BASE_URL:"./",DEV:!1,MODE:"production",PROD:!0,SSR:!1,VITE_GEE_OAUTH_CLIENT_ID:"",VITE_MAPILLARY_ACCESS_TOKEN:"",VITE_PROTOMAPS_API_KEY:""}){for(const _ of[o,t]){const e=_?.[E];if(typeof e=="string"&&e.trim())return e}}export{r as n,n as t};
