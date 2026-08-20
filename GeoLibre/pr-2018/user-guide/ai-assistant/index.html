@@ -2487,6 +2487,14 @@ operations, so its actions stay within GeoLibre's validated surface.</p>
 <td>Runs the registered <a href="../processing/">processing</a> algorithms (buffer, clip, dissolve, intersection, difference, union, spatial join, simplify, H3 grids, …) and chains them into multi-step pipelines, adding each result as a layer.</td>
 </tr>
 <tr>
+<td><strong>Raster tools</strong></td>
+<td>Searches the Whitebox catalog and runs its tools in the browser via WASM — hydrology (fill depressions, flow accumulation, extract streams), terrain (slope, aspect, hillshade), LiDAR, image processing, raster↔vector conversion — adding each result as a layer.</td>
+</tr>
+<tr>
+<td><strong>Model Builder</strong></td>
+<td>Creates a validated, editable Model Builder workflow from a description, saves it with the project, and opens it for review before you run it. It draws on the same palette as the canvas — client-side vector tools plus the full Whitebox catalog — so a raster chain such as fill depressions → flow accumulation → extract streams is a valid model. If the canvas holds unsaved work or a run is still in flight, Model Builder asks before replacing it.</td>
+</tr>
+<tr>
 <td><strong>Symbology</strong></td>
 <td>Applies a <strong>graduated</strong> (numeric) or <strong>categorized</strong> (text) color ramp to a layer.</td>
 </tr>
@@ -2527,6 +2535,7 @@ count points in each polygon of the districts layer
 <p><strong>Geoprocessing &amp; analysis</strong></p>
 <div class="highlight"><pre><span></span><code>buffer the roads by 100 meters
 buffer the roads by 100 m, then clip the buffer to the county boundary
+create a Model Builder model that buffers roads by 100 m, clips the result to counties, and names the output Road buffers
 dissolve the parcels by zoning type
 find where the floodplain overlaps the buildings (intersection)
 create an H3 hex grid at resolution 8 over the points and count points per cell
