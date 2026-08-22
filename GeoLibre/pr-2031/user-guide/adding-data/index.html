@@ -2454,9 +2454,11 @@ project all work on them.</p>
 <li><strong>Sublayers</strong> (map service) takes the sublayer ids to draw, such as <code>0,2,5</code>.
   Leave it blank for the service's own default set. Pasting a URL that ends in a
   sublayer id (<code>.../MapServer/3</code>) selects that sublayer for you.</li>
-<li><strong>Rendering rule</strong> (image service) takes an Esri raster function as JSON, such
-  as <code>{"rasterFunction":"Hillshade"}</code>, applied by the server before the image is
-  sent.</li>
+<li><strong>Raster function</strong> (image service) can be selected from the functions the
+  service advertises with <strong>Browse functions</strong>. The selected function is applied
+  by the server before the image is sent. The <strong>Rendering rule</strong> field
+  remains available for advanced Esri raster function JSON. For example,
+  <code>{"rasterFunction":"Hillshade"}</code> selects the Hillshade function.</li>
 </ul>
 <p>Either choice draws the service dynamically, because a cached service's tiles
 were rendered before the choice existed and cannot honor it.</p>
