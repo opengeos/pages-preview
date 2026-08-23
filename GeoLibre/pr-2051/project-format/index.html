@@ -2575,6 +2575,13 @@ Library, Export selection). Renaming a layer or removing it from the project is
 not a feature edit and stays available. Omitted capabilities default to the
 behavior inferred from the layer's source kind. When <code>export</code> is <code>false</code>,
 project sharing/publishing strips embedded GeoJSON for that layer.</p>
+<p><code>export: false</code> strips the feature data the project file itself carries — the
+layer's inline <code>geojson</code> and its <code>metadata.embeddedGeoJSON</code> snapshot. It does
+not remove the layer's <code>source</code> or <code>connection</code>, so a layer that fetches its
+data live (WFS, ArcGIS FeatureServer, a remote GeoJSON or tile URL) is still
+shared with a reachable URL and re-fetches the same data when the project is
+opened. For that class of layer the flag hides the copy in the file, not the
+data itself.</p>
 <p><code>capabilities</code> describes the layer, and the app enforces it in the UI; it is not
 an access-control mechanism. The PostGIS sidecar refuses writes that contradict
 the capabilities the client sends with a save, which keeps an in-app edit from
