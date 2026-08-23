@@ -2933,7 +2933,7 @@ the public internet:</p>
 <tr>
 <td>Telemetry</td>
 <td>None</td>
-<td>GeoLibre collects no analytics or usage data. The hosted sites (geolibre.app, web.geolibre.app) run Google Analytics, but that is a build-time option the Docker image and every build from source leave off: it is enabled only by setting <code>VITE_GEOLIBRE_GA_MEASUREMENT_ID</code> when running <code>npm run build</code>, and there is no runtime variable that turns it on. See <a href="../privacy/">Privacy Policy</a>.</td>
+<td>GeoLibre collects no analytics or usage data. The hosted sites (geolibre.app, web.geolibre.app) run Google Analytics, but nothing you deploy does. The Docker image <strong>cannot</strong> turn it on: the <code>Dockerfile</code> declares no build argument for it, and the container's CSP does not allow <code>googletagmanager.com</code>. A build from source can, by setting <code>VITE_GEOLIBRE_GA_MEASUREMENT_ID</code> for <code>npm run build</code> with your own measurement ID; there is no runtime variable that enables it. See <a href="../privacy/">Privacy Policy</a>.</td>
 </tr>
 </tbody>
 </table>
