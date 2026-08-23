@@ -2342,9 +2342,12 @@ transparency channel, which would erase the map wherever the layer does not
 cover it. See <a href="https://github.com/maplibre/maplibre-gl-js/pull/8073">maplibre-gl-js#8073</a>
 for the upstream work that would widen this list.</p>
 </div>
-<p>Layers painted by a plugin with their own WebGL renderer (deck.gl overlays, 3D
-Tiles, Gaussian splats) draw outside MapLibre's render loop, so they have no
-Blend menu.</p>
+<p>Some layers draw with their own WebGL renderer rather than through MapLibre's,
+so blending cannot reach them and they have no Blend menu: 3D Tiles, Gaussian
+splats, LiDAR point clouds, deck.gl overlays, and Cloud-Optimized GeoTIFFs added
+through <strong>Add Data &gt; Raster Layer</strong>. Ordinary raster layers (XYZ, WMS, WMTS) and
+vector layers added through <strong>Add Data &gt; Vector Layer</strong> are drawn by MapLibre
+and do blend.</p>
 <h2 id="per-layer-actions">Per-layer actions<a class="headerlink" href="#per-layer-actions" title="Permanent link">&para;</a></h2>
 <p>Each layer exposes a set of actions:</p>
 <ul>
