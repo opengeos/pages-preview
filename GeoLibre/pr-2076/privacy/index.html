@@ -2319,13 +2319,17 @@ device/browser information, and sets its own cookies or similar identifiers in
 your browser. It is governed by <a href="https://policies.google.com/privacy">Google's privacy policy</a>.</p>
 <p>What analytics never sees is the geospatial data you work with: layers, files,
 project contents, queries, and coordinates are processed in your browser and are
-not sent to Google.</p>
+not sent to Google. The page address we report is trimmed to the site and path
+(for example <code>https://web.geolibre.app/</code>), with the query string removed, because
+a GeoLibre link can carry a project URL, an inline dataset, or a collaboration
+session identifier in its parameters.</p>
 <p>You can opt out by blocking <code>www.googletagmanager.com</code> with a content blocker or
 your browser's tracking protection; GeoLibre Web works normally with analytics
 blocked.</p>
 <p>Analytics run only on the sites we host. The desktop app, the Jupyter widget, the
-Docker image, and any build you host yourself contain no analytics code: the
-measurement ID is supplied at build time and is absent from those builds (see
+Docker image, and any build you host yourself never load or run them: the
+measurement ID is supplied at build time and is absent from those builds, so
+nothing is requested from Google and nothing is reported (see
 <a href="../self-hosting/">Self-Hosting</a>).</p>
 <h2 id="personal-information">Personal information<a class="headerlink" href="#personal-information" title="Permanent link">&para;</a></h2>
 <p>GeoLibre does not ask you to create an account and does not collect names, email
