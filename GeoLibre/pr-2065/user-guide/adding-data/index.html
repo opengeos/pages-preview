@@ -2379,7 +2379,7 @@
 </tr>
 </tbody>
 </table>
-<p>Vector files are reprojected to EPSG:4326 on load. In the browser, vector import relies on DuckDB-WASM Spatial, with direct handling for GeoJSON, zipped Shapefiles, and KMZ archives.</p>
+<p>Vector files are reprojected to EPSG:4326 on load. In the browser, vector import relies on DuckDB-WASM Spatial, with direct handling for GeoJSON, zipped Shapefiles, and KMZ archives. The source CRS is read from the file itself — the layer metadata for the GDAL-read formats, a Shapefile's <code>.prj</code> sidecar, or a GeoParquet's <code>geo</code> metadata — so a national grid such as EPSG:2100 (GGRS87 / Greek Grid) lands in the right place with nothing to configure.</p>
 <div class="admonition warning">
 <p class="admonition-title">Large vector files</p>
 <p>There is no fixed size limit. Files <strong>under 100 MB</strong> are read by the

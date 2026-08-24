@@ -795,6 +795,34 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#linux-desktop-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Linux desktop troubleshooting
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Linux desktop troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-blank-window-on-a-cpu-without-avx" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        A blank window on a CPU without AVX
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3018,6 +3046,34 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#linux-desktop-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Linux desktop troubleshooting
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Linux desktop troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-blank-window-on-a-cpu-without-avx" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        A blank window on a CPU without AVX
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3683,6 +3739,39 @@ conversions), the dialog falls back to it automatically when the sidecar or its
 extra is unavailable. See <a href="../user-guide/processing/">Processing Tools</a> for what
 each engine does, and <a href="../user-guide/segmentation/">AI Segmentation</a> for the
 separate <code>samgeo-api</code> model server.</p>
+<h2 id="linux-desktop-troubleshooting">Linux desktop troubleshooting<a class="headerlink" href="#linux-desktop-troubleshooting" title="Permanent link">&para;</a></h2>
+<h3 id="a-blank-window-on-a-cpu-without-avx">A blank window on a CPU without AVX<a class="headerlink" href="#a-blank-window-on-a-cpu-without-avx" title="Permanent link">&para;</a></h3>
+<p>On x86-64 CPUs with no AVX (Intel Celeron and Pentium N-series, Atom, and
+anything older than Sandy Bridge), WebKitGTK can kill its own renderer as soon
+as GeoLibre puts WebAssembly to work, leaving a window that never paints.
+The crash is a <code>SIGILL</code> in <code>WebKitWebProcess</code>: JavaScriptCore's WebAssembly
+tier-up runs a hand-written trampoline that spills the XMM registers with AVX
+instructions without checking whether the CPU has them
+(<a href="https://github.com/opengeos/GeoLibre/issues/2087">issue 2087</a>).</p>
+<p>The desktop app works around this on its own. On Linux it checks for AVX at
+startup, and on a CPU without it pins two JavaScriptCore options off before the
+web process starts:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">JSC_useWasmOSR</span><span class="o">=</span><span class="nb">false</span>
+<span class="nv">JSC_useBBQTierUpChecks</span><span class="o">=</span><span class="nb">false</span>
+</code></pre></div>
+<p>Both are needed; together they keep WebAssembly off the tier-up path that runs
+that trampoline. WebAssembly still runs and is still baseline compiled, so the
+cost is bounded: on WebKitGTK 2.52.6 a DuckDB-WASM query took about 2x longer,
+against 34x with the WebAssembly JIT disabled outright.</p>
+<p>The two options only work as a pair, so GeoLibre treats them as one decision.
+Turning either one back on is the opt-out and leaves both alone:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">JSC_useWasmOSR</span><span class="o">=</span><span class="nb">true</span><span class="w"> </span>geolibre
+</code></pre></div>
+<p>Setting one of them to <code>false</code> yourself is not an opt-out: GeoLibre keeps your
+value and still applies the other half, since half the workaround costs
+WebAssembly performance without keeping the renderer alive.</p>
+<p>Or, if a renderer crash persists, fall back to disabling the WebAssembly JIT
+entirely:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">JSC_useBBQJIT</span><span class="o">=</span><span class="nb">false</span><span class="w"> </span>geolibre
+</code></pre></div>
+<p>The check is a runtime CPU feature test, not a model or release-date list, so
+machines that do have AVX are untouched, as are arm64 machines, which never
+reach that code.</p>
 
 
 
