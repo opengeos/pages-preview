@@ -2429,7 +2429,8 @@ objects are styled into raster tiles — for those, <code>vis_params</code> take
 <code>ee.FeatureCollection.style()</code> keys such as <code>color</code>, <code>fillColor</code>, <code>width</code>, and
 <code>pointSize</code>, not image keys). That URL is tied to an Earth Engine map id that
 expires, so a saved project may need the Earth Engine layer regenerated when it
-is reopened.</p>
+is reopened. The result is a plain raster tile layer, not one of the live layers
+the app's own Earth Engine panel manages.</p>
 <p><code>add_raster</code> / <code>add_cog</code> also accept a <strong>local</strong> GeoTIFF path on the kernel host:
 the file is served by the bundled localhost server so the app can read it. This
 only works where the <strong>browser can reach the kernel's localhost</strong> (local Jupyter,
