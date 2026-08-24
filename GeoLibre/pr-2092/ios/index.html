@@ -2417,13 +2417,14 @@ spawning subprocesses:</p>
 <li>Add Data → <strong>PostgreSQL</strong> (served by the local Martin tile server)</li>
 </ul>
 <p>These are gated by a user-agent <code>isMobile()</code> check (which already matches
-iPhone/iPad) so they never appear and then fail. Everything else runs
-client-side.</p>
-<p>The Browser panel keeps its <strong>Databases</strong> section on every platform for
-discovery, so the PostgreSQL dialog is still reachable there. It gates on
-<code>isDesktopRuntime()</code> — <code>isTauri() &amp;&amp; !isMobile()</code> — rather than on <code>isTauri()</code>
-alone, so on iOS it shows the "requires GeoLibre Desktop" notice and disables
-Connect instead of calling a sidecar that cannot exist (GeoLibre#2091).</p>
+iPhone/iPad), so the Add Data menu and the Layer panel's add-data group never
+offer them. Everything else runs client-side.</p>
+<p>PostgreSQL has one entry point that check does not cover: the Browser panel
+keeps its <strong>Databases</strong> section on every platform for discovery, so its ＋ still
+opens the PostgreSQL dialog. The dialog gates on <code>isDesktopRuntime()</code>
+(<code>isTauri() &amp;&amp; !isMobile()</code>) rather than on <code>isTauri()</code> alone, so on iOS it
+shows the "requires GeoLibre Desktop" notice and disables Connect instead of
+calling a sidecar that cannot exist (GeoLibre#2091).</p>
 <h2 id="location-permission-required">Location permission (required)<a class="headerlink" href="#location-permission-required" title="Permanent link">&para;</a></h2>
 <p>This is the one place iOS differs sharply from Android. Android's geolocation
 plugin declares the runtime permission and the OS shows a generic dialog; <strong>iOS
