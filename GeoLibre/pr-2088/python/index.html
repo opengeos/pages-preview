@@ -2415,6 +2415,22 @@ extras):</p>
 <span class="n">m</span><span class="o">.</span><span class="n">add_basemap</span><span class="p">(</span><span class="s2">"dark"</span><span class="p">)</span>
 <span class="n">m</span><span class="o">.</span><span class="n">set_center</span><span class="p">(</span><span class="o">-</span><span class="mi">120</span><span class="p">,</span> <span class="mi">47</span><span class="p">,</span> <span class="n">zoom</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
 </code></pre></div>
+<p>Google Earth Engine layers are optional and need <code>pip install earthengine-api</code>
+plus credentials (<code>ee.Authenticate()</code> once, then a Google Cloud project):</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">ee</span>
+
+<span class="n">ee</span><span class="o">.</span><span class="n">Authenticate</span><span class="p">()</span>  <span class="c1"># once per machine</span>
+<span class="n">ee</span><span class="o">.</span><span class="n">Initialize</span><span class="p">(</span><span class="n">project</span><span class="o">=</span><span class="s2">"your-google-cloud-project"</span><span class="p">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">add_ee_layer</span><span class="p">(</span><span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="s2">"USGS/SRTMGL1_003"</span><span class="p">),</span> <span class="p">{</span><span class="s2">"min"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"max"</span><span class="p">:</span> <span class="mi">3000</span><span class="p">},</span> <span class="n">name</span><span class="o">=</span><span class="s2">"SRTM"</span><span class="p">)</span>
+</code></pre></div>
+<p><code>add_ee_layer</code> evaluates the Earth Engine object in the kernel and adds the
+resulting tile URL as a raster layer (ImageCollections are mosaicked, vector
+objects are styled into raster tiles — for those, <code>vis_params</code> takes
+<code>ee.FeatureCollection.style()</code> keys such as <code>color</code>, <code>fillColor</code>, <code>width</code>, and
+<code>pointSize</code>, not image keys). That URL is tied to an Earth Engine map id that
+expires, so a saved project may need the Earth Engine layer regenerated when it
+is reopened. The result is a plain raster tile layer, not one of the live layers
+the app's own Earth Engine panel manages.</p>
 <p><code>add_raster</code> / <code>add_cog</code> also accept a <strong>local</strong> GeoTIFF path on the kernel host:
 the file is served by the bundled localhost server so the app can read it. This
 only works where the <strong>browser can reach the kernel's localhost</strong> (local Jupyter,
@@ -2687,6 +2703,10 @@ e.g. <code>m.run_algorithm(..., timeout=300)</code>.</p>
 <tr>
 <td><code>add_tile_layer(url, name=, tile_size=, attribution=)</code></td>
 <td>Add a raster XYZ tile layer.</td>
+</tr>
+<tr>
+<td><code>add_ee_layer(ee_object, vis_params=, name=, shown=, opacity=)</code></td>
+<td>Add an authenticated Google Earth Engine object as raster tiles (needs <code>earthengine-api</code>).</td>
 </tr>
 <tr>
 <td><code>add_wms(endpoint, layers, name=, styles=, image_format=, transparent=, tile_size=, **style)</code></td>
