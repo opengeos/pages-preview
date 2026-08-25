@@ -2418,10 +2418,10 @@ data you add from Python appears in the UI, and edits you make in the UI
 <div class="highlight"><pre><span></span><code>conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>geolibre
 </code></pre></div>
 <p>Optional extras provide GeoPandas/Shapely support for GeoDataFrames and local
-vector files, plus xarray/rioxarray/rasterio support for in-memory rasters:</p>
+vector files, plus xarray/rioxarray/rasterio/rio-tiler support for in-memory rasters:</p>
 <div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">"geolibre[all]"</span><span class="w">      </span><span class="c1"># both</span>
 pip<span class="w"> </span>install<span class="w"> </span><span class="s2">"geolibre[vector]"</span><span class="w">   </span><span class="c1"># GeoPandas/Shapely only</span>
-pip<span class="w"> </span>install<span class="w"> </span><span class="s2">"geolibre[raster]"</span><span class="w">   </span><span class="c1"># xarray/rioxarray/rasterio only</span>
+pip<span class="w"> </span>install<span class="w"> </span><span class="s2">"geolibre[raster]"</span><span class="w">   </span><span class="c1"># xarray/rioxarray/rasterio/rio-tiler only</span>
 </code></pre></div>
 <p><code>[all]</code> is the union of the two, so it now installs rasterio (and GDAL with it);
 use <code>[vector]</code> to keep an existing vector-only environment as light as before.</p>
@@ -2462,8 +2462,10 @@ is reopened. The result is a plain raster tile layer, not one of the live layers
 the app's own Earth Engine panel manages.</p>
 <p><code>add_raster</code> / <code>add_cog</code> also accept a <strong>local</strong> GeoTIFF path on the kernel host:
 the file is served by the bundled localhost server so the app can read it. This
-works directly in local Jupyter and VS Code. Google Colab routes the file through
-its built-in kernel port proxy; JupyterHub can do the same when
+works directly in local Jupyter and VS Code. In Google Colab, where the kernel
+proxy does not preserve the byte-range semantics required by browser COG
+rendering, GeoLibre renders local rasters as PNG XYZ tiles in the kernel instead.
+JupyterHub can route the COG through the kernel port when
 <code>jupyter-server-proxy</code> is available. A static-server-extension-only deployment
 cannot expose kernel files, so pass a hosted URL there. The served URL is
 session-scoped, so a project saved with a local raster will not restore it when
@@ -2481,6 +2483,8 @@ bands unless one is selected:</p>
 </code></pre></div>
 <p>The temporary Cloud-Optimized GeoTIFF backing an xarray layer is removed when the widget is
 closed, so xarray layers have the same session-only limitation as local files.
+Locally the browser reads that COG directly; in Colab rio-tiler renders it into
+ordinary PNG XYZ tiles to avoid Colab's incompatible byte-range proxy behavior.
 Call <code>m.close()</code> when you are done to remove it promptly; otherwise it is removed
 when the <code>Map</code> is garbage collected or when the kernel exits normally. A kernel
 that is killed outright leaves the file behind in the system temp directory.</p>
