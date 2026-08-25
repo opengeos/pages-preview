@@ -2392,8 +2392,12 @@ data you add from Python appears in the UI, and edits you make in the UI
 </code></pre></div>
 <p>Optional extras provide GeoPandas/Shapely support for GeoDataFrames and local
 vector files, plus xarray/rioxarray/rasterio support for in-memory rasters:</p>
-<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">"geolibre[all]"</span>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">"geolibre[all]"</span><span class="w">      </span><span class="c1"># both</span>
+pip<span class="w"> </span>install<span class="w"> </span><span class="s2">"geolibre[vector]"</span><span class="w">   </span><span class="c1"># GeoPandas/Shapely only</span>
+pip<span class="w"> </span>install<span class="w"> </span><span class="s2">"geolibre[raster]"</span><span class="w">   </span><span class="c1"># xarray/rioxarray/rasterio only</span>
 </code></pre></div>
+<p><code>[all]</code> is the union of the two, so it now installs rasterio (and GDAL with it);
+use <code>[vector]</code> to keep an existing vector-only environment as light as before.</p>
 <p>The optional <code>[all]</code> extra is pip-only. If you installed via conda, add it with
 <code>pip install "geolibre[all]"</code> inside the same environment.</p>
 <h2 id="quickstart">Quickstart<a class="headerlink" href="#quickstart" title="Permanent link">&para;</a></h2>
@@ -2448,7 +2452,10 @@ bands unless one is selected:</p>
 <span class="p">)</span>
 </code></pre></div>
 <p>The temporary Cloud-Optimized GeoTIFF backing an xarray layer is removed when the widget is
-closed, so xarray layers have the same session-only limitation as local files.</p>
+closed, so xarray layers have the same session-only limitation as local files.
+Call <code>m.close()</code> when you are done to remove it promptly; otherwise it is removed
+when the <code>Map</code> is garbage collected or when the kernel exits normally. A kernel
+that is killed outright leaves the file behind in the system temp directory.</p>
 <p>Add markers and data-driven symbology without precomputing styles:</p>
 <div class="highlight"><pre><span></span><code><span class="n">m</span><span class="o">.</span><span class="n">add_marker</span><span class="p">(</span><span class="o">-</span><span class="mf">122.4</span><span class="p">,</span> <span class="mf">37.8</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"San Francisco"</span><span class="p">})</span>
 <span class="n">m</span><span class="o">.</span><span class="n">add_marker_cluster</span><span class="p">([(</span><span class="o">-</span><span class="mf">122.4</span><span class="p">,</span> <span class="mf">37.8</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mf">122.3</span><span class="p">,</span> <span class="mf">37.9</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mf">122.5</span><span class="p">,</span> <span class="mf">37.7</span><span class="p">)])</span>
