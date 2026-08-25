@@ -2390,11 +2390,9 @@ data you add from Python appears in the UI, and edits you make in the UI
 <p>Or with conda from <a href="https://anaconda.org/conda-forge/geolibre">conda-forge</a>:</p>
 <div class="highlight"><pre><span></span><code>conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>geolibre
 </code></pre></div>
-<p>Optional extras for <code>add_geojson()</code> from a GeoDataFrame and for reading <strong>local</strong>
-vector files with <code>add_vector()</code> / <code>add_geoparquet()</code> / <code>add_flatgeobuf()</code> /
-<code>add_shp()</code> / <code>add_kml()</code> / <code>add_gpkg()</code> (remote URLs for those formats need no
-extras):</p>
-<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">"geolibre[all]"</span><span class="w">   </span><span class="c1"># adds GeoPandas and Shapely</span>
+<p>Optional extras provide GeoPandas/Shapely support for GeoDataFrames and local
+vector files, plus xarray/rioxarray/rasterio support for in-memory rasters:</p>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">"geolibre[all]"</span>
 </code></pre></div>
 <p>The optional <code>[all]</code> extra is pip-only. If you installed via conda, add it with
 <code>pip install "geolibre[all]"</code> inside the same environment.</p>
