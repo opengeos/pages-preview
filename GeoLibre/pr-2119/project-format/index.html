@@ -2819,7 +2819,9 @@ while one is set.</p>
 <p><code>fieldVisibility</code> stays authoritative: a field marked <code>"hidden"</code> or
 <code>"excluded"</code> never reaches a popup, even when the <code>popup</code> block names it — the
 popup design selects from what is visible, it cannot re-expose what the author
-hid. Raster pixel identify goes through a different path and ignores <code>popup</code>.</p>
+hid. That holds for the expressions too: <code>titleExpression</code> and <code>bodyExpression</code>
+are evaluated against the visible properties only, so a <code>["get", …]</code> cannot
+pull back a hidden column or one of GeoLibre's internal ones. Raster pixel identify goes through a different path and ignores <code>popup</code>.</p>
 <h2 id="layer-types">Layer types<a class="headerlink" href="#layer-types" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
