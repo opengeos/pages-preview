@@ -2457,8 +2457,8 @@
 <p>See <a href="../layers/#importing-and-exporting-styles">Managing Layers</a> for the menu workflow and <a href="../embedding/#open-remote-data">Embedding &amp; Sharing</a> for the JSON conventions.</p>
 <div class="admonition tip">
 <p class="admonition-title">Choropleth maps</p>
-<p>To make a choropleth, select <strong>Graduated</strong>, pick a numeric attribute, choose a colormap, and click <strong>Apply style type</strong>. See the <a href="../../tutorials/first-map/">Your First Map tutorial</a>.</p>
 </div>
+<p>To make a choropleth, select <strong>Graduated</strong>, pick a numeric attribute, choose a colormap, and click <strong>Apply style type</strong>. See the <a href="../../tutorials/first-map/">Your First Map tutorial</a>.</p>
 <h3 id="popups-and-hover-tooltips">Popups and hover tooltips<a class="headerlink" href="#popups-and-hover-tooltips" title="Permanent link">&para;</a></h3>
 <p>Further down the Style panel, the <strong>Popup</strong> section designs what a viewer sees when they interact with a feature, rather than the raw column dump the Identify popup shows by default. It matters most for a map you share: a <code>layout=viewer</code> embed, a shared project, or a story-map chapter, where the recipient clicks a feature and would otherwise get join artifacts, editor-tracking columns, and internal ids alongside the fields you meant them to read.</p>
 <ul>
@@ -2466,7 +2466,7 @@
 <li><strong>Title field</strong> leads the popup with the feature's own name rather than the layer's. <strong>Title expression</strong> does the same from an expression, and wins over the field.</li>
 <li><strong>Body expression</strong> replaces the field rows with a sentence built from the feature's properties, for authors who want prose rather than a table. Both boxes open the same expression builder that backs <a href="#style-type-data-driven-styling">data-driven styling</a>, labels, and filters.</li>
 <li><strong>Fields</strong> chooses which attributes appear and in what order. Add a field from the picker, drag its handle (or use the arrow buttons) to reorder, and give it a <strong>Label</strong> to show instead of the raw column name. Leave the list empty to keep the default: every visible field, in the data's own order.</li>
-<li><strong>Value type</strong> formats the value: <strong>Number</strong> (decimals, thousands separator), <strong>Date</strong> (date, date and time, time, ISO 8601, or year), <strong>Link</strong>, <strong>Image</strong>, or plain <strong>Text</strong>. <strong>Prefix</strong> and <strong>Suffix</strong> wrap the result, which is where a currency symbol or a unit goes.</li>
+<li><strong>Value type</strong> formats the value: <strong>Number</strong> (decimals, thousands separator), <strong>Date</strong> (date, date and time, time, ISO 8601, or year), <strong>Link</strong>, <strong>Image</strong>, or plain <strong>Text</strong>. For <strong>Automatic</strong>, <strong>Text</strong>, <strong>Number</strong> and <strong>Date</strong> fields, <strong>Prefix</strong> and <strong>Suffix</strong> wrap the result, which is where a currency symbol or a unit goes.</li>
 <li><strong>In hover tooltip</strong> puts a field in the tooltip's short subset. Keep it to one or two fields: the tip follows the pointer, so it is a glance, not a table.</li>
 </ul>
 <p>Fields you hid or excluded from the <a href="../attribute-table/">attribute table</a> stay out of the popup: the popup design selects from the visible fields and cannot re-expose a hidden one. A layer with nothing configured behaves exactly as before, and the whole design saves with the project, so it travels to the Python package and the MCP authoring tools as well.</p>
