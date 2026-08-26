@@ -739,6 +739,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#quick-filters" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Quick filters
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#style-interchange-and-url-styles" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2316,6 +2327,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#quick-filters" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Quick filters
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#style-interchange-and-url-styles" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2479,6 +2501,44 @@
 <p>Nothing reaches the map until you click <strong>Apply style type</strong>, so you can adjust the classification and watch the stop list update first.</p>
 <h3 id="diagram-symbology">Diagram symbology<a class="headerlink" href="#diagram-symbology" title="Permanent link">&para;</a></h3>
 <p>Below the renderer controls, a <strong>Diagram</strong> control draws a small chart on each feature instead of (or as well as) a plain symbol: <strong>Pie chart</strong>, <strong>Donut chart</strong>, <strong>Bar chart</strong>, or <strong>Stacked bar chart</strong>, built from the numeric fields you pick. Set it to <strong>None</strong> to turn diagrams off. It is the usual way to show a composition — vote share, land-cover mix, age structure — per polygon or per point.</p>
+<h3 id="quick-filters">Quick filters<a class="headerlink" href="#quick-filters" title="Permanent link">&para;</a></h3>
+<p>Below the renderer and label controls, the <strong>Quick filters</strong> section narrows what
+the layer draws without writing an expression. Pick a field from <strong>Add a
+filter...</strong> and GeoLibre reads the data to decide which control it deserves:</p>
+<ul>
+<li>a <strong>Values</strong> list of checkboxes with a count beside each value (with a search
+  box once there are more than a handful),</li>
+<li>a <strong>Range</strong> slider plus typed minimum and maximum for a numeric field,</li>
+<li>a <strong>Dates</strong> from/to pair for a timestamp field, with both days included in full,</li>
+<li>a <strong>Text</strong> match — <em>contains</em>, <em>starts with</em>, or <em>is exactly</em> — which ignores case.</li>
+</ul>
+<p>The <strong>Filter type</strong> dropdown beside a field switches between the controls it
+supports, so a numeric code column that opens as a range can be answered with
+checkboxes instead. Several filters on one layer narrow it together, and they
+combine with a Time Slider window, an embed <code>setFilter</code>, and rule-based
+symbology rather than replacing them.</p>
+<p>A quick filter hides features; it does not select them. Use <strong>Select by
+Expression</strong> or the selection tools when you want to act on features rather than
+take them off the map.</p>
+<p>A layer with an active filter shows a funnel icon on its row in the Layers
+panel, so a filtered layer is never mistaken for missing data, and its <strong>Layer
+actions -&gt; Clear filters</strong> empties every control at once while keeping the
+controls themselves. Clearing the last checkbox in a Values list is the same as
+clearing that filter: it shows every value, not none. <strong>Remove all</strong> at the top of
+the section deletes the controls outright.</p>
+<p>Filters are saved with the project, so a shared map opens with the same view of
+the data. They also appear in the read-only viewer chrome (<code>?layout=viewer</code>) —
+filtering is a way of reading a map, so the person you shared it with can ask it
+questions even though the authoring panels are hidden.</p>
+<p>Tile-backed layers (vector tiles, PMTiles, MBTiles) carry no local features, so
+their value lists are read from the tiles currently loaded and grow as you pan
+and zoom; the section says so under the controls.</p>
+<p>One limit is worth knowing: a point layer using the <strong>cluster</strong> renderer builds
+its clusters from the layer's whole dataset before any filter applies, so while
+clustering is on the bubbles and their counts describe the unfiltered data. The
+same is true of a Time Slider window and a rule-based filter. Switch the point
+renderer back to <strong>Single symbol</strong> to see the filtered features drawn
+individually, one circle each, with no cluster counts to misread.</p>
 <h3 id="style-interchange-and-url-styles">Style interchange and URL styles<a class="headerlink" href="#style-interchange-and-url-styles" title="Permanent link">&para;</a></h3>
 <p>The selected vector layer's <strong>Layer actions → Styles</strong> submenu imports and exports GeoLibre URL style JSON, Mapbox/MapLibre style JSON, OGC SLD, and QGIS QML. A GeoLibre URL style is a compact MapLibre style whose feature data is supplied separately through the <code>data</code> URL parameter. Export one when you want to publish the current symbology beside hosted GeoJSON or a ZIP of GeoJSON files; import it when you want to apply that symbology to a layer already open in GeoLibre.</p>
 <p>See <a href="../layers/#importing-and-exporting-styles">Managing Layers</a> for the menu workflow and <a href="../embedding/#open-remote-data">Embedding &amp; Sharing</a> for the JSON conventions.</p>

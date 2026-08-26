@@ -3245,7 +3245,7 @@
 </tr>
 <tr>
 <td><strong>Composite score (suitability index)</strong></td>
-<td>Normalize, weight, and combine several numeric fields into one 0-100 index, styled on the map by the score.</td>
+<td>Normalize, weight, and combine several numeric fields into one index (0-100 by default, or 0-1), styled on the map by the score.</td>
 </tr>
 </tbody>
 </table>
@@ -3264,6 +3264,10 @@ editing.</p>
 <li><strong>Keep normalized components</strong> writes each field's normalized value as its own
   column, so a score can be audited instead of taken on trust.</li>
 </ul>
+<p><strong>Score range</strong> writes the index on 0 to 100 by default; switch it to 0 to 1
+when the score feeds another calculation rather than a legend. <strong>Score field
+name</strong> decides the column it lands in, and the normalized components, when kept,
+are written on the same scale beside it.</p>
 <p>Rank and quantile normalization share ranks across ties (the mid-rank
 convention), so equal inputs always score equally. The result lands as a new
 layer already styled by the graduated renderer on the score.</p>

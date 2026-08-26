@@ -2575,6 +2575,7 @@ kepler.gl, see the <a href="../comparison/">Comparison</a>.</p>
 <li>Copy and paste of a layer's style onto another layer</li>
 <li>A metadata dialog that reads a raster's real georeferencing from the GeoTIFF header: CRS and EPSG code, pixel size and extent in CRS units, data type, nodata, compression, tiling, and overviews</li>
 <li>A Search places box in the footer that geocodes to a location, flies straight to a typed coordinate in decimal degrees, DMS, or DDM, or flies to an H3 cell index typed as either a hexadecimal string or a 64-bit integer (framing and outlining the cell) — all without leaving the panel</li>
+<li>The same box also searches the loaded vector layers' own attributes, so a parcel id, a station code, or a well name is found in the data you just added. Matches are grouped by layer above the place results and ranked exact match first, then prefix, then contains; picking one selects that feature on its layer and flies to it with the attribute table's highlight. Fields marked hidden or excluded are skipped, as are hidden layers and tile-backed layers that hold no local features</li>
 </ul>
 </li>
 <li>Nested layer groups that give the layer stack a real hierarchy. See <a href="../user-guide/layers/#layer-groups">Layer groups</a><ul>
@@ -2632,6 +2633,7 @@ kepler.gl, see the <a href="../comparison/">Comparison</a>.</p>
 <li>A <strong>Raster Attribute Table</strong> for single-band categorical rasters</li>
 </ul>
 </li>
+<li><strong>Quick filters</strong> in layer properties: per-field controls derived from the data — checkboxes with value counts, a numeric range, a date range, or a text match — that narrow what a layer draws without writing an expression. The chosen values are saved with the project (so a filter can always be reopened and changed), they combine with a Time Slider window, an embed <code>setFilter</code>, and rule-based symbology rather than replacing them, a filtered layer is flagged in the Layers panel so nobody reads it as missing data, and they stay available in the read-only <code>layout=viewer</code> chrome so a shared map can be questioned as well as read</li>
 <li>Shared Expression Builder with a function reference, searchable field list, live preview, and reusable variables, wired into filters, labels, styling, field calculation, and selection, plus Select by Expression and Select by Location for building feature selections</li>
 <li>Select features by drawing on the map, QGIS-style: click, rectangle, polygon, freehand, and radius gestures from the layer's Select features menu, with Shift and Alt combining the result into the existing selection and Clear selection alongside them</li>
 </ul>
@@ -2746,7 +2748,7 @@ kepler.gl, see the <a href="../comparison/">Comparison</a>.</p>
 </li>
 <li>Spectral Index toolbox (NDVI, GNDVI, NDWI, NDMI, NDBI, NBR, EVI, SAVI) with Sentinel-2, Landsat 8-9, NAIP, and custom band layouts, evaluated client-side with geotiff.js or on the rasterio sidecar</li>
 <li>Spatial Statistics toolbox, including Emerging Hot Spot Analysis that builds a space-time cube from timestamped points, runs Getis-Ord Gi* per time slice, and classifies each cell as a new, intensifying, persistent, diminishing, sporadic, oscillating, or historical hot or cold spot<ul>
-<li>Plus a Composite score builder for suitability and index analysis: normalize, weight, and combine several numeric fields into one 0-100 index, with an explicit choice of how features missing a value are treated, and the result styled by the score on arrival</li>
+<li>Plus a Composite score builder for suitability and index analysis: normalize, weight, and combine several numeric fields into one index, 0-100 by default or 0-1, with an explicit choice of how features missing a value are treated, and the result styled by the score on arrival</li>
 </ul>
 </li>
 <li>Model Builder, an ArcGIS-style canvas for processing workflows: drop tools as nodes, wire an output into the next tool's input, and save the graph as a model that re-runs as one job, with the whole graph validated (cycles, missing connections, invented parameters, wrong parameter types) before anything executes<ul>

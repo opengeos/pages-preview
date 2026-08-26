@@ -2559,7 +2559,7 @@
 <tr>
 <td><code>layout</code></td>
 <td><code>layout=viewer</code></td>
-<td><code>viewer</code> provides read-only chrome: Layers, View, Controls, basemaps, search/identify, and Help, with authoring UI hidden. <code>compact</code> is the icon-only full-app layout; <code>embed</code> and <code>iframe</code> are aliases.</td>
+<td><code>viewer</code> provides read-only chrome: Layers, View, Controls, basemaps, search/identify, Help, and any quick filters the project's layers carry, with authoring UI hidden. <code>compact</code> is the icon-only full-app layout; <code>embed</code> and <code>iframe</code> are aliases.</td>
 </tr>
 <tr>
 <td><code>toolbar</code></td>
@@ -2658,7 +2658,9 @@ the <a href="../processing/">Whitebox toolbox</a>.</p>
 <p>Use <code>toolbar=none</code> to hide the top toolbar while retaining the configured side
 panels and status bar. Use <code>layout=viewer</code> for a read-only map with layer toggles, search/identify, and
 basemap switching. Its layer list mirrors the authoring Layers panel, folders
-and all, so group names carry over. The Controls menu is part of the viewer
+and all, so group names carry over, and a layer that carries
+<a href="../styling/#quick-filters">quick filters</a> shows them below its row so the map
+can be questioned as well as read. The Controls menu is part of the viewer
 chrome, minus the two entries that write to the project (Field Collection and
 GPS Tracking); Record Tour and Record Video only read the map, so they stay.
 Read-only covers the keyboard too: the
