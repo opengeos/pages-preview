@@ -2579,13 +2579,20 @@ frontend suite — the "enforces an expected result type" test in
 <code>tests/expressions.test.ts</code> fails if the shape stops being honored.</p>
 <p><code>SPEC_DEFAULT_COLOR</code> (<code>packages/map/src/mapbox-style-import.ts</code>) mirrors the
 spec's <code>default</code> for <code>fill-color</code>, <code>line-color</code> and <code>circle-color</code> — <code>#000000</code>
-for all three — which is the colour a class layer naming none is imported as.
+for all three — which is the colour a stacked class layer naming none is
+imported as.
 It is hard-coded rather than read from the spec because <code>@geolibre/map</code> is a
 published package and does not depend on it (only <code>packages/core</code> does). The
 frontend suite guards both directions: a test in
-<code>tests/mapbox-style-import.test.ts</code> asserts the spec still says <code>#000000</code>, and
-the behavioural tests beside it assert an imported colourless class renders that
-colour, so a change to either side fails.</p>
+<code>tests/mapbox-style-import.test.ts</code> asserts the spec still says
+<code>SPEC_DEFAULT_COLOR</code>, and the behavioural tests beside it assert an imported
+colourless class renders that colour, so a change to either side fails.</p>
+<p><code>COLOR_OVERRIDING_PAINT</code> in the same file mirrors the other half of that
+lookup: the paint properties that draw the feature themselves, so that the
+colour default does not apply. The spec encodes it as <code>line-color</code>'s
+<code>requires: [{ "!": "line-pattern" }]</code>, which the same test asserts; <code>fill-pattern</code>
+and <code>line-gradient</code> are listed on the same grounds. A class using one is not
+imported as black — it declines the stack.</p>
 <h3 id="maplibre-gl-components-packagespluginspackagejson"><code>maplibre-gl-components</code> (<code>packages/plugins/package.json</code>)<a class="headerlink" href="#maplibre-gl-components-packagespluginspackagejson" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong><code>MAP_PANEL_SELECTOR</code></strong>
