@@ -1,0 +1,2897 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A lightweight, cloud-native GIS platform for visualizing, exploring, and analyzing geospatial data across desktop and web environments, with a responsive layout for mobile screens.">
+      
+      
+      
+        <link rel="canonical" href="https://geolibre.app/maintenance/">
+      
+      
+        <link rel="prev" href="../contributing/">
+      
+      
+        <link rel="next" href="../citation/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/geolibre-icon.png">
+      <meta name="generator" content="zensical-0.0.57">
+    
+    
+      
+        <title>Maintenance Notes - GeoLibre</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.5da3a30f.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../assets/stylesheets/modern/palette.812a03bb.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+  
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#maintenance-notes" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="GeoLibre" class="md-header__button md-logo" aria-label="GeoLibre" data-md-component="logo">
+      
+  <img src="../assets/geolibre-icon.png" alt="GeoLibre">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            GeoLibre
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Maintenance Notes
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/opengeos/GeoLibre" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    opengeos/GeoLibre
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="GeoLibre" class="md-nav__button md-logo" aria-label="GeoLibre" data-md-component="logo">
+      
+  <img src="../assets/geolibre-icon.png" alt="GeoLibre">
+
+    </a>
+    GeoLibre
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/opengeos/GeoLibre" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    opengeos/GeoLibre
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Getting Started
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Features
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Comparison
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Demos
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../downloads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Downloads
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sponsor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sponsor
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Launch GeoLibre Web
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  User Guide
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  User Guide
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/interface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Interface Overview
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/projects/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Projects
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/adding-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Adding Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/chrome-extension/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Chrome Extension
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/layers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Managing Layers
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/styling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Styling Layers
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/attribute-table/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Attribute Table
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/map-controls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Map Controls & Tools
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Processing Tools
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/segmentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  AI Segmentation
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/sql-workspace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SQL Workspace
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/python-console/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Python Console
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/ai-assistant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  AI Assistant
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/data-integrations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Data Integrations
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Plugins & Marketplace
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/settings/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Settings & Preferences
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/storymaps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Story Maps
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/embedding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Embedding & Sharing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Troubleshooting
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tutorials
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Tutorials
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Overview
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/videos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Video Tutorials
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/first-map/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Your First Map
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/cloud-native-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Cloud-Native Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/vector-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Vector Analysis
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/terrain-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Terrain Analysis
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/spatial-sql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Spatial SQL
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/sharing-embedding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sharing & Embedding
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/supported-formats-en/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Format Reference
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/supported-formats-zh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Format Reference (中文)
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/source-code-deep-dive-en/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Source Code Deep Dive
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/source-code-deep-dive-zh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Source Code Deep Dive (中文)
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Reference
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Reference
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Architecture
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../self-hosting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Self-Hosting
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Server API
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../android/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Android
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  iOS
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mac-app-store/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Mac App Store
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project-format/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project Format
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Plugin API
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../collaboration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Collaboration
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ui-profiles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  UI Profiles
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../i18n/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Internationalization
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Python Package
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../r/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  R Package
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  MCP Server
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-skill/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Agent Skill
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Notebook Panel
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Roadmap
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Contributing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Maintenance Notes
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Maintenance Notes
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#dependency-bumps-that-need-a-manual-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Dependency bumps that need a manual check
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dependency bumps that need a manual check">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#geolibre-wasm-packagesprocessingpackagejson" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>geolibre-wasm</code> (<code>packages/processing/package.json</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maplibre-gl" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>maplibre-gl</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maplibremaplibre-gl-style-spec" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>@maplibre/maplibre-gl-style-spec</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maplibre-gl-components-packagespluginspackagejson" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>maplibre-gl-components</code> (<code>packages/plugins/package.json</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maplibre-gl-basemap-control-packagespluginspackagejson" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>maplibre-gl-basemap-control</code> (<code>packages/plugins/package.json</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maplibre-gl-vector-packagespluginspackagejson" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>maplibre-gl-vector</code> (<code>packages/plugins/package.json</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maplibre-gl-raster-checked-by-the-compiler" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>maplibre-gl-raster</code> — checked by the compiler
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-a-blend-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Adding a blend mode
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coverage-floors" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Coverage floors
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependency-updates-and-the-audit-allowlist" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Dependency updates and the audit allowlist
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#publishing-geolibrecore-and-geolibremap" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Publishing <code>@geolibre/core</code> and <code>@geolibre/map</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-bundled-sidecar-lockfile" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The bundled sidecar lockfile
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generated-files-and-cross-file-sync" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Generated files and cross-file sync
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../citation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  How to Cite
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../acknowledgements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Acknowledgements
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../privacy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Privacy Policy
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../terms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Terms of Service
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#dependency-bumps-that-need-a-manual-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Dependency bumps that need a manual check
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dependency bumps that need a manual check">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#geolibre-wasm-packagesprocessingpackagejson" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>geolibre-wasm</code> (<code>packages/processing/package.json</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maplibre-gl" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>maplibre-gl</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maplibremaplibre-gl-style-spec" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>@maplibre/maplibre-gl-style-spec</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maplibre-gl-components-packagespluginspackagejson" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>maplibre-gl-components</code> (<code>packages/plugins/package.json</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maplibre-gl-basemap-control-packagespluginspackagejson" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>maplibre-gl-basemap-control</code> (<code>packages/plugins/package.json</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maplibre-gl-vector-packagespluginspackagejson" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>maplibre-gl-vector</code> (<code>packages/plugins/package.json</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maplibre-gl-raster-checked-by-the-compiler" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>maplibre-gl-raster</code> — checked by the compiler
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-a-blend-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Adding a blend mode
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coverage-floors" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Coverage floors
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependency-updates-and-the-audit-allowlist" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Dependency updates and the audit allowlist
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#publishing-geolibrecore-and-geolibremap" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Publishing <code>@geolibre/core</code> and <code>@geolibre/map</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-bundled-sidecar-lockfile" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The bundled sidecar lockfile
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generated-files-and-cross-file-sync" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Generated files and cross-file sync
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+  
+
+
+<h1 id="maintenance-notes">Maintenance Notes<a class="headerlink" href="#maintenance-notes" title="Permanent link">&para;</a></h1>
+<p>This page collects the repository rules that are easy to break <strong>silently</strong> —
+hand-written mirrors of unexported upstream constants, coverage and audit gates,
+publishing layouts, and generated files. <code>CLAUDE.md</code> links here rather than
+restating any of it.</p>
+<p>If you are just getting set up, read <a href="../contributing/">Contributing</a> first.</p>
+<h2 id="dependency-bumps-that-need-a-manual-check">Dependency bumps that need a manual check<a class="headerlink" href="#dependency-bumps-that-need-a-manual-check" title="Permanent link">&para;</a></h2>
+<p>Several features depend on values or DOM contracts that upstream packages do not
+export, so GeoLibre mirrors them by hand. Drift usually produces <strong>no build
+error</strong> — the feature just stops working. After bumping any of the packages
+below (<strong>including Dependabot PRs</strong>), do the listed check and run the frontend
+suite.</p>
+<h3 id="geolibre-wasm-packagesprocessingpackagejson"><code>geolibre-wasm</code> (<code>packages/processing/package.json</code>)<a class="headerlink" href="#geolibre-wasm-packagesprocessingpackagejson" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Processing menu catalog.</strong> <code>ProcessingMenu.tsx</code> renders from a checked-in,
+  auto-generated catalog, <code>apps/geolibre-desktop/src/lib/whitebox-menu-catalog.ts</code>
+  (do not hand-edit). Run <code>node scripts/gen-whitebox-menu-catalog.mjs</code> and commit
+  the result, or new/renamed WASM tools silently miss the menu. The Processing
+  <em>dialog</em> lists tools dynamically, so the gap only shows in the menu.</li>
+<li><strong><code>MAX_VECTOR_PMTILES_ZOOM</code></strong> (<code>packages/processing/src/wasm-convert.ts</code>)
+  mirrors the deepest zoom <code>vector_to_pmtiles</code> accepts (18 — past it the tool
+  exits with <code>validation error: max_zoom must be &lt;= 18</code>). The cap lives inside
+  the WASM binary and is not exported. If it drifts, the browser's Vector to
+  PMTiles either refuses a zoom the tiler would now accept, or accepts one it
+  will reject after the user has waited. This is <strong>not</strong> the sidecar's cap:
+  freestiler allows 24 (<code>MAX_PMTILES_ZOOM</code> in <code>ConversionDialog.tsx</code>, mirroring
+  <code>backend/geolibre_server/geolibre_server/app/conversion.py</code>), and the dialog
+  validates against whichever engine is about to run.
+  <code>tests/wasm-convert.test.ts</code> fails if the mirror drifts.</li>
+<li><strong><code>DISTANCE_SEGMENTS</code> / <code>NON_DISTANCE_NAMES</code></strong>
+  (<code>apps/geolibre-desktop/src/lib/whitebox-distance-params.ts</code>) decide, by
+  parameter <em>name</em>, which Whitebox parameters are ground distances and so get the
+  Processing dialog's metric unit picker (GeoLibre#1540). The segments are
+  generic (<code>tolerance</code>, <code>radius</code>, <code>length</code>, <code>resolution</code>), so a tool can carry a
+  matching name that is not a length — <code>corridor_tolerance</code> is a 0–1 fraction.
+  Those are safe today only because the picker is confined to tools whose every
+  dataset input is a vector layer, and the colliding names happen to sit on
+  imagery/LiDAR tools; that is a coincidence, not a guarantee. Scan the new
+  catalog for a <code>double</code> matching the rule whose description reads as a fraction,
+  ratio, angle or weight, and add it to <code>NON_DISTANCE_NAMES</code>. If one is missed,
+  that tool's field offers metres and silently converts a dimensionless number as
+  if it were a distance.</li>
+</ul>
+<h3 id="maplibre-gl"><code>maplibre-gl</code><a class="headerlink" href="#maplibre-gl" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong><code>GLOBE_CONTROL_TOGGLE_SELECTOR</code></strong> (<code>packages/map/src/globe-control-toggle.ts</code>)
+  mirrors the class names MapLibre's own <code>GlobeControl</code> puts on its toggle button
+  — <code>maplibregl-ctrl-globe</code> and <code>maplibregl-ctrl-globe-enabled</code>, swapped on every
+  projection change. <code>MapCanvas</code> persists a projection change from a <strong>click</strong> on
+  that button rather than from the <code>projectiontransition</code> event, because style
+  initialization and project reconciliation emit that event too and a stale one
+  overwrites the projection of a project that has just loaded.
+  <code>tests/globe-control-toggle.test.ts</code> builds a real <code>GlobeControl</code> and fails if
+  the mirror stops matching.</li>
+<li><strong>Per-layer blend modes</strong> (<code>packages/map/src/layer-blend-modes.ts</code>) wrap three
+  <em>unexported</em> <code>maplibre-gl</code> internals, because MapLibre renders every layer into
+  one canvas and ships no per-layer blend API (upstream draft:
+  maplibre/maplibre-gl-js#8073). The wrappers are <code>Painter.prototype.renderLayer</code>
+  (brackets one layer's draws), <code>Painter.prototype.useProgram</code> (tells the
+  layer-opacity composite draw from the draws feeding it), and
+  <code>Context.prototype.setColorMode</code> (the single place every draw resolves GL blend
+  state). Fill and line layers additionally get <code>fill-layer-opacity</code> /
+  <code>line-layer-opacity</code> pinned just under 1 by <code>style-mapper</code>, which elects
+  MapLibre 6's render-to-texture composite so a layer blends <strong>as a whole</strong> rather
+  than once per overlapping polygon. <code>installLayerBlendModes</code> feature-detects
+  every seam and disables the feature (hiding the Style-panel control) rather than
+  breaking the map, so drift fails <em>quietly</em> — which is why
+  <code>tests/layer-blend-modes.test.ts</code> asserts the seams and
+  <code>e2e/blend-modes.spec.ts</code> asserts real pixels. Run both on a bump.</li>
+</ul>
+<p>See <a href="#adding-a-blend-mode">Adding a blend mode</a> before extending the list.</p>
+<h3 id="maplibremaplibre-gl-style-spec"><code>@maplibre/maplibre-gl-style-spec</code><a class="headerlink" href="#maplibremaplibre-gl-style-spec" title="Permanent link">&para;</a></h3>
+<p><code>propertySpecFor</code> (<code>packages/core/src/expressions.ts</code>) fabricates the
+<strong>unexported</strong> <code>StylePropertySpecification</code> shape that <code>createExpression</code> uses for
+expected-result-type enforcement (the Expression Builder's filter → boolean /
+color checks). The cast hides any contract change from the compiler, so run the
+frontend suite — the "enforces an expected result type" test in
+<code>tests/expressions.test.ts</code> fails if the shape stops being honored.</p>
+<h3 id="maplibre-gl-components-packagespluginspackagejson"><code>maplibre-gl-components</code> (<code>packages/plugins/package.json</code>)<a class="headerlink" href="#maplibre-gl-components-packagespluginspackagejson" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong><code>MAP_PANEL_SELECTOR</code></strong>
+  (<code>apps/geolibre-desktop/src/components/layout/RecordVideoDialog.tsx</code>) mirrors
+  the <strong>rendered</strong> control class names — <code>maplibre-gl-html-control</code>,
+  <code>maplibre-gl-legend</code>, <code>maplibre-gl-colorbar</code> — so Record Video's "Include map
+  panels" option can rasterize those on-map overlays into the recording. These are
+  the display elements, deliberately <strong>not</strong> the <code>*-gui-control</code> authoring
+  editors. If a class drifts, the option silently stops burning that panel into
+  the video (or the checkbox never appears) with no build error.</li>
+<li><strong>The PMTiles control's layer ids</strong> (<code>pmtilesControlLayerId</code> /
+  <code>pmtilesIdsForSourceLayers</code> / <code>pmtilesIdNamesSourceLayer</code>,
+  <code>packages/map/src/pmtiles-layer.ts</code>, read from <code>layer-sync.ts</code> and
+  <code>packages/plugins/src/plugins/maplibre-components.ts</code>) mirror an unexported fact
+  about <code>PMTilesLayerControl</code>: it names its MapLibre layers
+  <code>${sourceId}-${name}-${kind}</code> from the <strong>raw</strong> source-layer name, where
+  <code>pmtilesVectorLayerId</code> percent-encodes it. The two agree for every name needing
+  no encoding, so a store layer carrying the control's own ids — the archive kept
+  whole, or a split part, which keeps the ids naming its own source layer — is
+  recognised under the encoded scheme alone until a name holds a <code>/</code>, a space or
+  non-ASCII. Then <code>layer-sync</code> decides the source layer has no native layer and
+  adds a <strong>second</strong> fill/line/circle trio on top of the control's: drawn twice,
+  and only the control's copy answers the panel. Both schemes are therefore
+  matched, and only ids naming a source layer the store actually holds are kept.</li>
+</ul>
+<p>What the user <strong>ticked</strong> is deliberately <em>not</em> inferred from those ids:
+  <code>selectedSourceLayers</code> is a documented field of the exported
+  <code>PMTilesLayerControlState</code> handed to every handler, so <code>pmtilesLayerOptions</code>
+  reads it and the compiler checks it — the rules for a stale selection, and for
+  the archive ids the control reuses across a panel close, are written at that
+  function and at <code>addPMTilesArchive</code>. A reused id is the one case GeoLibre cannot
+  repair: two archives then name one MapLibre source, the first to sync wins it
+  and the other draws nothing, so <code>addPMTilesArchive</code> warns rather than pretending
+  otherwise — while an archive that takes a layer over outright is drawn
+  correctly, keeping the name, folder and styling of the one it replaced.
+  <code>tests/pmtiles-control-contract.test.ts</code> drives a <strong>real</strong> control against a
+  real archive, through the real <code>layeradd</code> handler into the store, and fails if
+  the id scheme moves or the selection stops reaching the handler.</p>
+<h3 id="maplibre-gl-basemap-control-packagespluginspackagejson"><code>maplibre-gl-basemap-control</code> (<code>packages/plugins/package.json</code>)<a class="headerlink" href="#maplibre-gl-basemap-control-packagespluginspackagejson" title="Permanent link">&para;</a></h3>
+<p><code>BASEMAP_PANEL_SELECTOR</code> / <code>BASEMAP_ROW_SELECTOR</code> / <code>BASEMAP_ROW_ID_ATTR</code>
+(<code>packages/plugins/src/plugins/basemap-thumbnails.ts</code>) mirror the DOM the control
+renders — <code>.basemap-control-panel</code>, <code>.basemap-control-result</code>, <code>data-basemap-id</code> —
+which the Basemaps panel's thumbnails hook into to find rows and join each one
+back to its catalog entry. That package exports only
+<code>BasemapControl</code>/<code>BasemapDefinition</code>, so a renamed class fails nothing at build
+time: the queries stop matching and thumbnails silently stop appearing.
+<code>tests/basemap-thumbnails.test.ts</code> builds a real control and asserts its rendered
+panel against the mirror.</p>
+<p>The same file's <code>hasUnresolvedPlaceholder</code> deliberately matches the <strong>complement</strong>
+of the tile tokens it substitutes rather than mirroring that package's credential
+placeholders (<code>{api-key}</code>, <code>{aws-region}</code>), so a new provider's placeholder is
+skipped instead of being fetched literally. Keep it that way rather than
+enumerating placeholder names.</p>
+<h3 id="maplibre-gl-vector-packagespluginspackagejson"><code>maplibre-gl-vector</code> (<code>packages/plugins/package.json</code>)<a class="headerlink" href="#maplibre-gl-vector-packagespluginspackagejson" title="Permanent link">&para;</a></h3>
+<p><code>MAX_VECTOR_BYTES</code> (<code>packages/plugins/src/plugins/remote-file-formats.ts</code>) mirrors
+<code>MAX_REMOTE_FILE_BYTES</code>, an <strong>internal, unexported</strong> constant in that package
+(2 GiB — DuckDB-WASM holds remote file sizes in 32 bits). It cannot be imported,
+so re-check <code>src/lib/utils/remote.ts</code> in that package and update the mirror if it
+moved. If it drifts, the remote-browse panels (Source Cooperative, Hugging Face)
+silently block GeoParquet the engine could now open, or offer an Add that is
+certain to fail. Updating the constant is enough: the limit the user is shown is
+rendered from it, not written into the copy.</p>
+<p><code>remote-file-formats.ts</code> is the <strong>single</strong> home for this and the other
+format/reader/size rules those panels share — a per-panel copy would miss this
+check, so add new browse panels against that module rather than duplicating it
+(<code>source-coop-api.ts</code> re-exports it under its own names for compatibility).</p>
+<h3 id="maplibre-gl-raster-checked-by-the-compiler"><code>maplibre-gl-raster</code> — checked by the compiler<a class="headerlink" href="#maplibre-gl-raster-checked-by-the-compiler" title="Permanent link">&para;</a></h3>
+<p><code>GeoLibreCogRenderEngine</code> (<code>packages/plugins/src/types.ts</code>) mirrors the
+<code>RenderEngine</code> union that package exports (<code>maplibre-gl-raster</code> |
+<code>cog-tiler-wasm</code> | <code>titiler</code>). It is hand-written rather than imported because
+<code>types.ts</code> is the public plugin-API surface and importing there would make that
+package's types a hard dependency of every external plugin. Unlike the mirrors
+above this one is checked by the <strong>compiler</strong>:
+<code>CogRenderEngineMirrorIsExact</code> in
+<code>packages/plugins/src/plugins/maplibre-raster.ts</code> asserts both directions of
+assignability against the real imported type, so a renamed or dropped engine
+identifier fails <code>npm run typecheck</code>. Nothing extra to do on a bump beyond letting
+the build run.</p>
+<h2 id="adding-a-blend-mode">Adding a blend mode<a class="headerlink" href="#adding-a-blend-mode" title="Permanent link">&para;</a></h2>
+<p><strong>Do not add a blend mode without checking it in the browser.</strong> MapLibre's blend
+state covers the alpha channel too, and it composites a blended layer as one
+viewport-filling quad, so any mode that does not reduce to "leave the destination
+alone" at zero source alpha repaints the whole map. That is what disqualified
+<code>darken</code> (a <code>MIN</code> equation erased the entire basemap to transparent black) and
+<code>subtract</code> (a reverse subtract left the canvas at <code>dstA - srcA</code>, showing the page
+through the layer). The shipped list is <code>BLEND_MODES</code> in <code>@geolibre/core</code>, and
+both the unit test's blend simulator and the e2e spec pin their exclusion.</p>
+<p>Only <code>fill</code> and <code>line</code> have a <code>*-layer-opacity</code> in the style spec, so only they
+blend as a <strong>whole layer</strong>; <code>circle</code> and <code>fill-extrusion</code> blend per symbol and
+visibly double-darken where symbols overlap on screen (measured under Multiply:
+<code>rgb(23, 77, 220)</code> in the overlap vs <code>rgb(76, 136, 222)</code> on a single symbol). That
+is upstream's limitation, documented in
+<a href="../user-guide/layers/">Managing Layers</a>; the test "has a layer-level composite for
+fill and line only" fails if a bump adds one of the missing properties, at which
+point extend <code>COMPOSITE_LAYER_TYPES</code> and <code>style-mapper</code> together and drop the
+caveat.</p>
+<p>The Style-panel control (<code>blendModeControl</code> in <code>StylePanel.tsx</code>, rendered in each
+of its terminal branches) is gated on <code>!pluginOwnsPaint &amp;&amp; !controlRendersLayer</code>:
+blending only reaches layers <strong>GeoLibre itself paints</strong>, so anything a control
+renders or paints (3D Tiles, Gaussian splats, LiDAR, the COG raster control, and
+Add Vector Layer, which sets <code>customLayerType</code> <em>and</em> <code>controlOwnsPaint</code>) is
+excluded — layer-sync never applies <code>fillPaint</code>/<code>linePaint</code> to those, so the
+<code>*-layer-opacity</code> that elects the composite never lands and a Blend menu there
+would silently do nothing. Keep <code>docs/user-guide/layers.md</code> and
+<code>tests/layer-blend-modes.test.ts</code> ("the layer kinds the Blend control is offered
+for") in step with that gate; build the test's mocks the way the real controls
+build their metadata, or they pass on shapes that never occur.</p>
+<h2 id="coverage-floors">Coverage floors<a class="headerlink" href="#coverage-floors" title="Permanent link">&para;</a></h2>
+<p>The <code>:coverage</code> test variants run the same suites and print a coverage summary;
+CI runs them so every build reports coverage. They are <strong>gated on a floor</strong>:
+<code>test:frontend:coverage</code> fails below 78% lines / 78% branches / 63% functions, and
+<code>test:backend:coverage</code> fails below 55% (<code>--cov-fail-under</code>). The floors sit a few
+points under the current numbers as a <strong>ratchet</strong> — regressions fail CI, and when
+coverage rises comfortably above a floor, raise the floor to lock in the gain.</p>
+<p>The frontend report only counts files a test actually imports, so a module with no
+test does not appear at all rather than as 0%. That is the part that bites:
+writing the <em>first</em> test for a large untested module reads as a coverage
+<strong>regression</strong>, because the module and everything it imports enter the denominator
+at once. GeoLibre#1784 added a test that imported <code>usePlugins.ts</code> and so pulled in
+the whole built-in plugin registry, 39 files, dropping function coverage 72.90% →
+60.36% and reddening <code>main</code>. The fix is to test against a leaf module rather than
+to lower the floor (GeoLibre#1888 extracted <code>lib/plugin-layer-queries.ts</code>;
+<code>geo-editor-geometry.ts</code> in <code>@geolibre/plugins</code> is the same pattern). Check what a
+new test <em>transitively</em> imports before assuming a coverage drop means the code got
+worse.</p>
+<p><code>test:frontend:coverage</code> runs through <code>scripts/coverage-check.mjs</code> rather than
+calling <code>node --test</code> directly. Node still enforces all three floors; the wrapper
+only re-measures once when <strong>line</strong> coverage alone comes up short with every test
+passing. Line coverage is nondeterministic on CI (GeoLibre#1889: two runs over
+byte-identical sources reported 81.82% and 76.47%, 114 of 444 files differing on
+lines and <em>none</em> on branches or functions), and it is not reproducible locally on
+either Node 22 or 26. Branch and function shortfalls, and any test failure, fail on
+the spot with no retry, so a real regression still fails fast. <code>classify()</code> is
+exported and covered by <code>tests/coverage-check.test.ts</code> — change the retry policy
+there, not by loosening a floor. If the retry starts firing regularly, fix the
+measurement instead of widening the mitigation.</p>
+<p>The backend coverage run (and <code>npm run ci</code>, which calls the <code>:coverage</code> variants)
+needs <code>pytest-cov</code> from the backend <code>dev</code> extra. Install the <strong><code>test</code></strong> extra to
+run the <em>full</em> backend suite — without the optional engines
+(geopandas/rasterio/sedona/httpx) the vector/raster/SQL/ML tests skip themselves
+and CI is green but hollow: <code>pip install -e "backend/geolibre_server[test]"</code>.</p>
+<h2 id="dependency-updates-and-the-audit-allowlist">Dependency updates and the audit allowlist<a class="headerlink" href="#dependency-updates-and-the-audit-allowlist" title="Permanent link">&para;</a></h2>
+<p>Dependencies are watched two ways: <strong>Dependabot</strong> (<code>.github/dependabot.yml</code>) opens
+grouped weekly update PRs for npm, pip (backend + <code>python/</code>), cargo, and Actions,
+and the CI <strong><code>audit</code> job</strong> runs <code>npm run audit:ci</code> (blocking) plus a non-blocking
+<code>pip-audit</code> of the resolved backend environment.</p>
+<p><code>audit:ci</code> is <code>scripts/audit-check.mjs</code>, a thin wrapper over <code>npm audit
+--omit=dev</code> that still fails on every high/critical advisory <em>except</em> the ones
+listed in its <code>ALLOWLIST</code>. The wrapper exists because plain <code>npm audit</code> cannot
+accept a single finding, so one unpatchable transitive advisory reddens every PR
+until upstream ships a fix — which for an unmaintained leaf package may be never.
+Only allowlist an advisory when there is <strong>no patched version to upgrade to</strong> and
+the vulnerable code is <strong>unreachable from a GeoLibre runtime path</strong>, and say why on
+both counts in the entry. Anything upgradeable gets upgraded instead. Stale entries
+print a warning rather than failing, since the advisory database is a live service
+and a transient omission must not redden an unrelated PR.</p>
+<h2 id="publishing-geolibrecore-and-geolibremap">Publishing <code>@geolibre/core</code> and <code>@geolibre/map</code><a class="headerlink" href="#publishing-geolibrecore-and-geolibremap" title="Permanent link">&para;</a></h2>
+<p>Both are published to npm by <code>.github/workflows/publish-packages.yml</code> on each
+GitHub Release, alongside <code>@geolibre/embed</code>. Their checked-in
+<code>main</code>/<code>types</code>/<code>exports</code> point at TypeScript <strong>source</strong>, because that is how the
+monorepo consumes them: Vite, <code>tsc</code> and tsx all resolve <code>./src/index.ts</code> through
+the package's own <code>exports</code>, so <code>npm run dev</code> and
+<code>node --import tsx --test tests/&lt;name&gt;.test.ts</code> need no build step.</p>
+<p>The npm tarball ships <code>dist</code> instead, and npm cannot express that split on its
+own: unlike pnpm and Yarn it deliberately <strong>ignores entry fields nested under
+<code>publishConfig</code></strong> (npm/cli#7586), so a manifest that only states its dist entries
+there publishes <code>./src/index.ts</code> to consumers who never receive <code>src</code>. The
+published entries therefore live under <code>publishConfig</code>, and
+<code>scripts/prepare-npm-package.mjs</code> hoists them (and pins the <code>"*"</code>
+<code>@geolibre/core</code> dependency to the release version) just before <code>npm publish</code>.</p>
+<p>Point those top-level fields at <code>dist</code> and every frontend test that imports a
+<code>@geolibre/map</code> subpath fails with <code>ERR_MODULE_NOT_FOUND</code>, because <code>dist</code> is
+gitignored and nothing builds it before the suite.
+<code>tests/prepare-npm-package.test.ts</code> guards both halves, including that each
+published path is one the package's own <code>tsdown</code> entries actually emit
+(<code>--format esm --dts</code> writes <code>&lt;entry&gt;.mjs</code> and <code>&lt;entry&gt;.d.mts</code>, <strong>not</strong> <code>.d.ts</code>).
+The release workflow does build both packages, but a green build proves only that
+the bundles were written, not that every path the manifest publishes names one of
+them, so nothing else would notice that drift.</p>
+<h2 id="the-bundled-sidecar-lockfile">The bundled sidecar lockfile<a class="headerlink" href="#the-bundled-sidecar-lockfile" title="Permanent link">&para;</a></h2>
+<p><code>backend/geolibre_server/uv.lock</code> <strong>is committed</strong> (the root <code>.gitignore</code> ignores
+<code>uv.lock</code> everywhere else and negates it for this one path). That project is
+bundled into the desktop installers and launched with
+<code>uv run --frozen --project &lt;resource dir&gt;</code> from <code>src-tauri/src/lib.rs</code> — a
+directory the user cannot write (<code>C:\Program Files\…</code>,
+<code>/usr/lib/GeoLibre Desktop/…</code>). Ship it lockless and uv resolves, then tries to
+<em>write</em> <code>uv.lock</code> there, fails with "Permission denied" and exits 2 — which reaches
+the user as "Jupyter server exited before it was ready (exit code: 2)" with the
+cause invisible.</p>
+<p>So: any edit to that <code>pyproject.toml</code>'s dependencies must land with a refreshed
+lock (<code>uv lock --project backend/geolibre_server</code>). CI's "Check the bundled sidecar
+lockfile is in sync" step (<code>uv lock --check</code>) fails if they drift.</p>
+<h2 id="generated-files-and-cross-file-sync">Generated files and cross-file sync<a class="headerlink" href="#generated-files-and-cross-file-sync" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Processing tool metadata.</strong> Names, descriptions, group labels, parameter
+  labels/help and select options live in registries with no i18n access, so the
+  dialogs resolve them through
+  <code>apps/geolibre-desktop/src/lib/processing-tool-i18n.ts</code> and fall back to the
+  registry's own English string. For the four small bundled registries,
+  <code>en.json</code>'s <code>processing.toolMeta</code>/<code>processing.toolGroup</code> subtrees are the
+  <strong>generated</strong> baseline translators work from. After adding or renaming one of
+  those tools, parameters, or select options, run <code>npm run i18n:tools</code> and commit
+  the result; CI fails on drift. Whitebox's much larger metadata is deliberately
+  absent from all bundled locales and comes from optional, validated packs at
+  <code>languages.geolibre.app</code> (or local file import); do not add
+  <code>processing.toolMeta.whitebox</code>, <code>processing.whitebox.categories</code>, <code>menuTool</code>, or
+  <code>menuSubcategory</code> back to a bundled locale.</li>
+<li><strong>The agent skill.</strong> <code>skills/geolibre/</code> is a <em>user-facing</em> agent skill — a
+  <code>SKILL.md</code> plus <code>references/</code> that teaches an external AI agent to author
+  <code>.geolibre.json</code> projects through <code>geolibre-mcp</code>, the Python package, or
+  hand-written JSON. It is not for contributors working on GeoLibre itself. It
+  restates things that live elsewhere: the MCP tool surface
+  (<code>python/src/geolibre/mcp/server.py</code>), the basemap/color-ramp/legend catalogs
+  (<code>python/src/geolibre/basemaps.py</code>, <code>color_ramp.py</code>, <code>legends.py</code>), the project
+  schema (<a href="../project-format/">Project Format</a>), and the embed parameters
+  (<a href="../user-guide/embedding/">Embedding</a>). <code>python/tests/test_agent_skill.py</code>
+  guards the parts that can be checked mechanically: every registered MCP tool
+  must appear in the tool reference, every tool and <code>Map</code> method the skill names
+  must exist, and the basemap, color-ramp, legend-preset, layer-type, frontmatter,
+  and reference-file lists must match their sources. It cannot check prose, so a
+  changed size cap, limit, or behavioral caveat still has to be carried over by
+  hand — update the skill in the same PR. A stale caveat sends an agent down a
+  path that no longer works, with no failure anywhere.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/opengeos/GeoLibre" target="_blank" rel="noopener" title="GeoLibre on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/sponsors/giswqs" target="_blank" rel="noopener" title="Sponsor GeoLibre on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="m241 87.1 15 20.7 15-20.7C296 52.5 336.2 32 378.9 32 452.4 32 512 91.6 512 165.1v2.6c0 112.2-139.9 242.5-212.9 298.2-12.4 9.4-27.6 14.1-43.1 14.1s-30.8-4.6-43.1-14.1C139.9 410.2 0 279.9 0 167.7v-2.6C0 91.6 59.6 32 133.1 32 175.8 32 216 52.5 241 87.1"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://buymeacoffee.com/giswqs" target="_blank" rel="noopener" title="Buy the maintainer a coffee" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M152-16c-13.3 0-24 10.7-24 24 0 38.9 23.4 59.4 39.1 73.1l1.1 1C184.5 96.4 192 103.9 192 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C183.5 31.7 176 24.1 176 8c0-13.3-10.7-24-24-24M96 192c-17.7 0-32 14.3-32 32v192c0 53 43 96 96 96h192c41.8 0 77.4-26.7 90.5-64h5.5c70.7 0 128-57.3 128-128s-57.3-128-128-128zm352 192V256c35.3 0 64 28.7 64 64s-28.7 64-64 64M288 8c0-13.3-10.7-24-24-24S240-5.3 240 8c0 38.9 23.4 59.4 39.1 73.1l1.1 1C296.5 96.4 304 103.9 304 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C295.5 31.7 288 24.1 288 8"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","navigation.sections","navigation.top","search.highlight","search.share","search.suggest","toc.follow"],"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.49251538.min.js"></script>
+      
+    
+  </body>
+</html>
