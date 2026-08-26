@@ -2802,6 +2802,11 @@ comparing the leading <code>YYYY-MM-DD</code> of ISO text), <code>epochMs</code>
 <code>enabled: false</code> mutes a control without discarding what it was answered with.
 A control with nothing chosen places no constraint, so an emptied selection
 shows every feature rather than none.</p>
+<p>A quick filter narrows the <em>rendered</em> features, so a point layer using the
+cluster renderer is an exception worth noting: MapLibre clusters at the source,
+from the layer's whole dataset, so cluster bubbles and their counts describe the
+unfiltered data while clustering is on (as they already do for a Time Slider
+window or a rule filter).</p>
 <p>The compiled filter is combined with the transient <code>timeFilter</code> and
 <code>embedFilter</code> and with the rule-based renderer's hide-unmatched filter under a
 single <code>all</code>, so a host page's <code>setFilter</code>, a Time Slider window, and a user's
