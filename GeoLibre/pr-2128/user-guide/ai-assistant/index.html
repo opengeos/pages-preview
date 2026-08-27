@@ -895,6 +895,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#using-local-ollama-from-webgeolibreapp" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Using local Ollama from web.geolibre.app
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#managed-ai-in-a-password-protected-docker-deployment" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2277,6 +2288,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#using-local-ollama-from-webgeolibreapp" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Using local Ollama from web.geolibre.app
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#managed-ai-in-a-password-protected-docker-deployment" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2460,6 +2482,60 @@ providers in <strong>Settings → AI Providers</strong>:</p>
 <p>Hosted keys (and AWS credentials) are used <strong>directly from your browser</strong> to call
 the provider; they are never sent to GeoLibre's servers. Saving the setting
 enables the panel immediately — no reload needed.</p>
+<h3 id="using-local-ollama-from-webgeolibreapp">Using local Ollama from web.geolibre.app<a class="headerlink" href="#using-local-ollama-from-webgeolibreapp" title="Permanent link">&para;</a></h3>
+<p>The hosted web app connects directly from your browser to Ollama on your
+computer. Prompts and responses do not pass through a GeoLibre server. Because
+the page origin is <code>https://web.geolibre.app</code>, Ollama must explicitly allow that
+origin before the browser can call its API.</p>
+<p>Set this environment variable for the Ollama server, then restart Ollama:</p>
+<div class="highlight"><pre><span></span><code>OLLAMA_ORIGINS=https://web.geolibre.app
+</code></pre></div>
+<p>Then open <strong>Settings → AI Providers</strong>, add or edit an <strong>Ollama</strong> profile, and
+use this Base URL:</p>
+<div class="highlight"><pre><span></span><code>http://localhost:11434
+</code></pre></div>
+<p>Configure <code>OLLAMA_ORIGINS</code> for your operating system:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:4"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Linux (systemd)</label><label for="__tabbed_1_2">macOS</label><label for="__tabbed_1_3">Windows</label><label for="__tabbed_1_4">Docker</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>Run <code>sudo systemctl edit ollama.service</code> and add:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[Service]</span>
+<span class="na">Environment</span><span class="o">=</span><span class="s">"OLLAMA_ORIGINS=https://web.geolibre.app"</span>
+</code></pre></div>
+<p>Save the file, then reload and restart the service:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>daemon-reload
+sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>ollama
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>Set the variable for the Ollama application, then quit and reopen Ollama:</p>
+<div class="highlight"><pre><span></span><code>launchctl<span class="w"> </span>setenv<span class="w"> </span>OLLAMA_ORIGINS<span class="w"> </span><span class="s2">"https://web.geolibre.app"</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<ol>
+<li>Quit Ollama from the taskbar.</li>
+<li>Open <strong>Edit environment variables for your account</strong>.</li>
+<li>Create a user variable named <code>OLLAMA_ORIGINS</code> with the value
+   <code>https://web.geolibre.app</code>.</li>
+<li>Start Ollama again from the Start menu.</li>
+</ol>
+</div>
+<div class="tabbed-block">
+<p>Pass the allowed origin when starting the container:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">OLLAMA_ORIGINS</span><span class="o">=</span>https://web.geolibre.app<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-p<span class="w"> </span><span class="m">11434</span>:11434<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>ollama/ollama
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>For a self-hosted GeoLibre URL, replace <code>https://web.geolibre.app</code> with the
+exact origin shown in GeoLibre's error message, including its scheme and port,
+for example <code>http://192.168.1.98:4000</code>. This is an Ollama server permission and
+cannot be enabled automatically by a web page. See Ollama's
+<a href="https://docs.ollama.com/faq#how-can-i-allow-additional-web-origins-to-access-ollama">official server configuration and web-origin instructions</a>.</p>
 <h3 id="managed-ai-in-a-password-protected-docker-deployment">Managed AI in a password-protected Docker deployment<a class="headerlink" href="#managed-ai-in-a-password-protected-docker-deployment" title="Permanent link">&para;</a></h3>
 <p>A deployment operator can provide AI without distributing provider API keys.
 In this configuration, the browser calls the same-origin <code>/ai</code> route. Docker's
