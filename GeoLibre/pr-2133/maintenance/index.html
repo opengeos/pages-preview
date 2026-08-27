@@ -2084,6 +2084,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#tauri-appsplugin-http-two-upstream-behaviors-not-apis" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>@tauri-apps/plugin-http</code> — two upstream <em>behaviors</em>, not APIs
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2458,6 +2469,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#tauri-appsplugin-http-two-upstream-behaviors-not-apis" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>@tauri-apps/plugin-http</code> — two upstream <em>behaviors</em>, not APIs
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2755,6 +2777,39 @@ above this one is checked by the <strong>compiler</strong>:
 assignability against the real imported type, so a renamed or dropped engine
 identifier fails <code>npm run typecheck</code>. Nothing extra to do on a bump beyond letting
 the build run.</p>
+<h3 id="tauri-appsplugin-http-two-upstream-behaviors-not-apis"><code>@tauri-apps/plugin-http</code> — two upstream <em>behaviors</em>, not APIs<a class="headerlink" href="#tauri-appsplugin-http-two-upstream-behaviors-not-apis" title="Permanent link">&para;</a></h3>
+<p><code>createNativeSidecarFetch</code>
+(<code>apps/geolibre-desktop/src/lib/sidecar-fetch.ts</code>) routes Windows sidecar traffic
+through the plugin's native <code>fetch</code> and hardens it with two options whose effect
+comes from <code>reqwest</code>'s implementation rather than from any documented contract.
+The option <em>names</em> are compiler-checked — <code>NativeFetchInit</code> is derived from
+<code>typeof import("@tauri-apps/plugin-http").fetch</code>, so a renamed or dropped option
+fails <code>npm run typecheck</code> — but the semantics are not, and both fail silently:</p>
+<ul>
+<li><code>maxRedirections: 0</code> maps to <code>reqwest::redirect::Policy::none()</code>
+  (<code>tauri-plugin-http/src/commands.rs</code>). Without it the native client follows
+  redirects, and <code>reqwest</code> only strips <code>Authorization</code>/<code>Cookie</code> across hosts, so
+  the per-launch <code>X-GeoLibre-Token</code> would be replayed to whatever a 3xx pointed
+  at.</li>
+<li><code>proxy: { all: { url, noProxy: "*" } }</code> is how the sidecar reaches the loopback
+  directly. The plugin has no "disable proxy" switch, but any <code>ClientBuilder::proxy</code>
+  call sets <code>auto_sys_proxy = false</code> (<code>reqwest/src/async_impl/client.rs</code>), and
+  <code>NoProxy::from_string("*")</code> matches every host
+  (<code>hyper-util/src/client/proxy/matcher.rs</code>), so the supplied proxy never
+  intercepts either. This matters because reqwest's <code>system-proxy</code> feature <em>is</em>
+  in the resolved graph (confirm with
+  <code>cargo tree -e features -i reqwest</code>; the plugin's default
+  <code>macos-system-configuration</code> feature pulls it in), and hyper-util's Windows
+  reader copies the registry <code>ProxyOverride</code> list verbatim — it never expands the
+  <code>&lt;local&gt;</code> token Windows writes for "bypass proxy server for local addresses".
+  Drop this and a corporate-proxied Windows machine sends the sidecar request
+  body and token to the proxy.</li>
+</ul>
+<p><code>tests/sidecar-fetch.test.ts</code> pins the options the adapter passes, which catches a
+careless edit here but cannot exercise the Rust side. On a plugin bump, re-check
+both behaviors against the sources above; the failure modes are a leaked token and
+a sidecar that is unreachable only for proxied users, neither of which shows up in
+CI or on an unproxied dev machine.</p>
 <h2 id="adding-a-blend-mode">Adding a blend mode<a class="headerlink" href="#adding-a-blend-mode" title="Permanent link">&para;</a></h2>
 <p><strong>Do not add a blend mode without checking it in the browser.</strong> MapLibre's blend
 state covers the alpha channel too, and it composites a blended layer as one
