@@ -2145,6 +2145,56 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#credentials-must-never-reach-a-redistributable-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Credentials must never reach a redistributable build
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Credentials must never reach a redistributable build">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-rules-now" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The rules now
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-scan" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The scan
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-the-scan-fires-after-a-dependency-bump" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        When the scan fires after a dependency bump
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#generated-files-and-cross-file-sync" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2469,6 +2519,56 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#credentials-must-never-reach-a-redistributable-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Credentials must never reach a redistributable build
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Credentials must never reach a redistributable build">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-rules-now" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The rules now
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-scan" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The scan
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-the-scan-fires-after-a-dependency-bump" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        When the scan fires after a dependency bump
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#generated-files-and-cross-file-sync" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2785,6 +2885,85 @@ cause invisible.</p>
 <p>So: any edit to that <code>pyproject.toml</code>'s dependencies must land with a refreshed
 lock (<code>uv lock --project backend/geolibre_server</code>). CI's "Check the bundled sidecar
 lockfile is in sync" step (<code>uv lock --check</code>) fails if they drift.</p>
+<h2 id="credentials-must-never-reach-a-redistributable-build">Credentials must never reach a redistributable build<a class="headerlink" href="#credentials-must-never-reach-a-redistributable-build" title="Permanent link">&para;</a></h2>
+<p>Anything we hand to someone else — the Jupyter wheel above all — must carry no
+credential of ours. Three properties of this build make that easy to get wrong,
+and every guard below blocks one of them.</p>
+<ol>
+<li><code>apps/geolibre-desktop/vite.config.ts</code> bridges bare shell vars into their
+   <code>VITE_</code> names — <code>GOOGLE_MAPS_API_KEY</code> → <code>VITE_GOOGLE_MAPS_API_KEY</code>, and the
+   same for <code>MAPBOX_TOKEN</code> and <code>CESIUM_TOKEN</code>. Convenient for local testing;
+   it also means the build machine's shell is build input.</li>
+<li>Something in the graph reads <code>import.meta.env</code> as a <strong>whole object</strong>. Vite
+   cannot tell which keys such a read wants, so it stops replacing per key and
+   inlines the entire env record — every <code>VITE_</code> var on the build machine — into
+   every chunk that read reaches. Ours was <code>packages/core/src/runtime-env.ts</code>;
+   the one we cannot fix is <code>@clerk/shared</code>'s <code>getEnvVariable.mjs</code>, which does
+   <code>import.meta.env[name]</code> with a computed name, so the inlined record lands in
+   the <code>ClerkGate-*.js</code> chunk.</li>
+<li><code>python/hatch_build.py</code> skips the JS build when <code>static/app</code> already exists
+   and <code>GEOLIBRE_FORCE_JS_BUILD</code> is unset. A local <code>python -m build</code> therefore
+   packages whatever an earlier <code>npm run build:embed</code> left staged, with no
+   JavaScript running at all.</li>
+</ol>
+<h3 id="the-rules-now">The rules now<a class="headerlink" href="#the-rules-now" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong><code>BUILD_ENV_KEYS</code></strong> in <code>vite.config.ts</code> is the allowlist of <code>VITE_</code> names that
+  may reach a bundle. <code>pruneBuildEnv()</code> deletes every other <code>VITE_</code> var from
+  <code>process.env</code> before Vite reads it. Adding a new build-time var means adding it
+  here — otherwise it silently resolves to undefined.</li>
+<li><strong><code>CREDENTIAL_ENV_KEYS</code></strong> is the subset that authenticates as, and bills to,
+  whoever ran the build. In a <em>redistributable</em> build these are blanked to <code>""</code>
+  (blanked, not deleted, so a <code>.env</code> file cannot reintroduce them). A build is
+  redistributable when <code>GEOLIBRE_EMBED=1</code> (the Jupyter wheel) or
+  <code>GEOLIBRE_STRIP_CREDENTIALS=1</code>.
+  The web deploy is <strong>not</strong> redistributable: it is our own site using our own
+  referrer-restricted keys, and it keeps them.</li>
+<li>Public-by-design identifiers stay in every build: the Clerk <em>publishable</em> key,
+  the Auth0 client ID and domain, the GEE OAuth client ID, the GA measurement ID.
+  <code>publish-python.yml</code> deliberately injects the GEE client ID into the wheel.</li>
+<li>Prefer <code>getBuildEnvironment()</code> from <code>@geolibre/core</code> over reading
+  <code>import.meta.env</code> yourself. A whole-object read re-opens cause (2) for every
+  chunk it reaches, and nothing in the type system will tell you.</li>
+</ul>
+<p>Each stripped credential resolves through <code>getRuntimeEnvironment()</code>, which
+overlays <code>window.__GEOLIBRE_RUNTIME_ENV__</code> from Settings → Environment variables.
+So a wheel user supplies their own token and the affected surfaces degrade as
+documented: Mapbox prompts in the basemap API-keys view, the 3D globe is not
+offered, Protomaps basemaps are hidden.</p>
+<h3 id="the-scan">The scan<a class="headerlink" href="#the-scan" title="Permanent link">&para;</a></h3>
+<p><code>scripts/scan-credentials.mjs</code> verifies the <strong>output</strong>. A build run by hand can
+satisfy every rule above and still be wrong, and a third-party asset dropped into
+the tree can arrive with a key already inside it — neither is visible from the
+config. It runs in two places:</p>
+<ul>
+<li><code>scripts/build-embed.mjs</code>, before staging <code>dist-embed</code> into the Python package.</li>
+<li><code>python/hatch_build.py</code>, before packaging any wheel or sdist — including the
+  stale-assets path (3) above, which no JS-side guard can cover. This one needs
+  no Node.</li>
+</ul>
+<p>Both read <code>scripts/credential-patterns.json</code>, so the JS and Python scanners
+cannot drift; the file is force-included into the sdist so an sdist → wheel build
+is gated too. <code>tests/credential-scan.test.ts</code> covers it.</p>
+<p>To scan any built directory by hand:</p>
+<div class="highlight"><pre><span></span><code>node<span class="w"> </span>scripts/scan-credentials.mjs<span class="w"> </span>apps/geolibre-desktop/dist-embed
+</code></pre></div>
+<h3 id="when-the-scan-fires-after-a-dependency-bump">When the scan fires after a dependency bump<a class="headerlink" href="#when-the-scan-fires-after-a-dependency-bump" title="Permanent link">&para;</a></h3>
+<p><code>allowedValueHashes</code> in <code>credential-patterns.json</code> holds the SHA-256 of values
+that match a pattern but are public by design — currently CesiumJS's built-in
+default Ion token, which ships inside <code>cesium</code> and appears in every build. A
+Cesium upgrade changes that token, so the guard will fire on the new one.</p>
+<p>That is intended. Decode the payload before doing anything: CesiumJS's has
+<code>sub: "CesiumJS"</code> and <code>iss: "https://api.cesium.com"</code>. Only once you have
+confirmed it is the vendor's own token, replace the hash. Never add a hash to
+silence a finding you have not decoded — the whole point of the list is that it
+is short and every entry was checked.</p>
+<p>Bundled plugin drop-ins under <code>apps/geolibre-desktop/public/plugins/&lt;id&gt;/</code> are
+scanned too. They are third-party build artifacts that are not committed here, so
+a hardcoded key inside one is fixed in that plugin's own repository, never by
+allowlisting it. Note that removing such a drop-in does not clean a <code>dist/</code> built
+while it was present: Vite copies <code>public/</code> into the output and only clears that
+output when a build actually runs. Rebuild, or delete the stale directory.</p>
 <h2 id="generated-files-and-cross-file-sync">Generated files and cross-file sync<a class="headerlink" href="#generated-files-and-cross-file-sync" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>Processing tool metadata.</strong> Names, descriptions, group labels, parameter
