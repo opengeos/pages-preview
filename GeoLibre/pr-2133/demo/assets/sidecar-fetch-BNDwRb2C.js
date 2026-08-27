@@ -1,2 +1,0 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["./dist-js-al3OwyfN.js","./core-BJdI5sl7.js"])))=>i.map(i=>d[i]);
-import{ST as e}from"./cesium-DLl7fZ2g.js";import{It as r}from"./src-CRHbMHzi.js";async function c(){const{fetch:t}=await e(async()=>{const{fetch:a}=await import("./dist-js-al3OwyfN.js");return{fetch:a}},__vite__mapDeps([0,1]),import.meta.url);r(t)}export{c as installNativeSidecarFetch};
