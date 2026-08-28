@@ -1940,6 +1940,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../deployment-capabilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Deployment Capabilities
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../i18n/" class="md-nav__link">
         
   
@@ -2787,6 +2814,15 @@ message identifies it, which is one more reason to name your origins.)</p>
 by the <a href="../../python/">Python package</a>) to the same origins. As extra hardening
 you can stop other sites from framing the app at all by adding
 <code>Content-Security-Policy: frame-ancestors &lt;your origins&gt;</code> at your reverse proxy.</p>
+<p>The allowlist decides <em>who</em> may send commands. To narrow <em>which</em> commands exist
+at all — so a trusted host page still cannot turn the embed into a
+general-purpose data-fetching proxy — build with
+<a href="../../deployment-capabilities/">deployment capabilities</a>. A denied command
+rejects with <code>Missing &lt;capability&gt; capability</code> rather than silently doing
+nothing: <code>loadProject</code> needs <code>project:edit</code>, <code>addLayer</code> and <code>addData</code> need
+<code>data:add</code>, <code>openTool</code> needs <code>processing:run</code>, and <code>exportImage</code> needs
+<code>export:data</code>. The rest — <code>setView</code>, <code>highlight</code>, layer visibility — are
+unprivileged and always available.</p>
 <h3 id="the-typed-client">The typed client<a class="headerlink" href="#the-typed-client" title="Permanent link">&para;</a></h3>
 <p><code>@geolibre/embed</code> is a dependency-free ESM package published to npm from each
 GeoLibre release, so its version tracks the app version:</p>

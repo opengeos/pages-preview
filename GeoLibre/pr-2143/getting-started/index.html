@@ -576,6 +576,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#limiting-what-the-deployment-can-do" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Limiting what the deployment can do
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#driving-an-embedded-map-from-a-host-page" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2265,6 +2276,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../deployment-capabilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Deployment Capabilities
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../i18n/" class="md-nav__link">
         
   
@@ -2908,6 +2946,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#limiting-what-the-deployment-can-do" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Limiting what the deployment can do
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#driving-an-embedded-map-from-a-host-page" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -3500,6 +3549,19 @@ deployments), bake <code>VITE_WELCOME_DISABLED=1</code> into the build:</p>
 </code></pre></div>
 <p>Individual links can also opt out at runtime with <code>?welcome=0</code>. See
 <a href="../user-guide/embedding/#url-parameters">Embedding &amp; Sharing</a>.</p>
+<h4 id="limiting-what-the-deployment-can-do">Limiting what the deployment can do<a class="headerlink" href="#limiting-what-the-deployment-can-do" title="Permanent link">&para;</a></h4>
+<p>For a kiosk, an exhibit terminal, or a classroom instance, name the
+capabilities the interface may offer. Unset (the default) grants everything, so
+existing deployments are unchanged:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>build<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--build-arg<span class="w"> </span><span class="nv">VITE_GEOLIBRE_CAPABILITIES</span><span class="o">=</span><span class="s2">"project:edit,data:add,processing:run,export:data"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-t<span class="w"> </span>geolibre-classroom<span class="w"> </span>.
+</code></pre></div>
+<p>That example drops plugin installs and Settings. <code>none</code> grants nothing at all.
+This removes the affordances — menus, command palette entries, shortcuts,
+drag-and-drop, embed commands — but does <strong>not</strong> restrict the server, so keep
+the protections above in place too. See
+<a href="../deployment-capabilities/">Deployment Capabilities</a>.</p>
 <h4 id="driving-an-embedded-map-from-a-host-page">Driving an embedded map from a host page<a class="headerlink" href="#driving-an-embedded-map-from-a-host-page" title="Permanent link">&para;</a></h4>
 <p>To let a page that frames the app talk to the live map over <code>postMessage</code> (fly to
 a record, highlight a feature, open a processing tool, and receive selection,

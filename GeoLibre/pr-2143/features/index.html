@@ -1920,6 +1920,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../deployment-capabilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Deployment Capabilities
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../i18n/" class="md-nav__link">
         
   
@@ -2867,12 +2894,14 @@ kepler.gl, see the <a href="../comparison/">Comparison</a>.</p>
 </ul>
 </li>
 <li>Optional Clerk access gate for a hosted deployment that needs individual sign-in, with an optional waitlist screen, loaded on demand and kept out of the default PWA precache. The gate is decided by the build target rather than by a client-controlled query parameter, so public, native, and embedded builds stay unchanged. See <a href="../getting-started/">Getting started</a></li>
+<li><code>VITE_GEOLIBRE_CAPABILITIES</code> build for a kiosk, exhibit terminal, or classroom instance: naming a subset of <code>project:edit</code>, <code>data:add</code>, <code>processing:run</code>, <code>export:data</code>, <code>plugins:install</code>, and <code>settings:manage</code> (or <code>none</code>) withholds the rest from every interface surface at once — the toolbar menus, the command palette and cheat sheet, keyboard shortcuts including undo/redo, drag-and-drop, and the embed API — rather than one menu item at a time. Unset grants everything, so existing deployments are unchanged, and the parse fails closed so an unrecognized value grants nothing. It removes affordances rather than restricting the server, so it complements the server-side protections instead of replacing them. See <a href="../deployment-capabilities/">Deployment capabilities</a></li>
 <li><code>GEOLIBRE_NO_EXTERNAL_CDN=1</code> build for deployments that cannot load from untrusted third-party hosts: it strips the GeoLibre-controlled CDN references, vendors the PGlite and CereusDB engines into the build rather than dropping them, and makes the few features that genuinely need a remote host (GDAL export, ONNX object detection and Segment Everything, story map HTML export, Pyodide without a configured mirror) report that up front instead of failing at the end of a run. See <a href="../self-hosting/">Self-hosting</a></li>
 <li>Versioned <code>postMessage</code> API for a host page that frames the app. See <a href="../user-guide/embedding/#talking-to-the-map-at-runtime">Talking to the map at runtime</a><ul>
 <li><strong>Commands</strong>: load a project, move the camera, highlight features, open a processing tool, toggle and list layers, apply filters, read the viewport, add a layer, and export the map as a PNG at runtime</li>
 <li><strong>Events back out</strong>: <code>ready</code>, <code>ack</code>, <code>projectLoaded</code>, <code>selectionChanged</code>, <code>viewChanged</code>, <code>toolCompleted</code>, and <code>serverFileWritten</code></li>
 <li>Protocol v2 is current, and v1 hosts stay supported</li>
 <li>Off unless the deployment names its trusted origins (<code>GEOLIBRE_EMBED_ORIGINS</code>), which are enforced in both directions</li>
+<li>The origin allowlist decides who may send commands; <a href="../deployment-capabilities/">deployment capabilities</a> decide which commands exist, so a trusted host page can be granted a narrow slice rather than the whole API</li>
 </ul>
 </li>
 <li>Dependency-free <code>@geolibre/embed</code> npm client for that protocol: <code>connect()</code> resolves once the app is ready, each typed command returns a promise settled from its correlated acknowledgement, and events are subscribed by name. Published from each GeoLibre release, so its version tracks the app. See <a href="../user-guide/embedding/#the-typed-client">The typed client</a></li>
