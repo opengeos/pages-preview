@@ -1097,6 +1097,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../videos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Video Tutorials
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../first-map/" class="md-nav__link">
         
   
@@ -1591,6 +1618,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../server-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Server API
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../android/" class="md-nav__link">
         
   
@@ -1761,6 +1815,33 @@
     
   
   UI Profiles
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment-capabilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Deployment Capabilities
 
     
   </span>
@@ -1977,6 +2058,33 @@
     
   
   Contributing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintenance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Maintenance Notes
 
     
   </span>
@@ -2238,6 +2346,7 @@
 <span class="k">LIMIT</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
 </code></pre></div>
 <p>Click <strong>Run</strong> to see the ten countries with the highest estimated GDP.</p>
+<p><img alt="The SQL Workspace with a query on the left and its result table on the right" src="https://assets.geolibre.app/images/geolibre-sql-workspace.webp" /></p>
 <div class="admonition note">
 <p class="admonition-title">Sample dataset columns</p>
 <p><code>NAME</code>, <code>CONTINENT</code>, <code>POP_EST</code>, and <code>GDP_MD_EST</code> are Natural Earth field names in the sample <code>countries.parquet</code>, whose geometry column is <code>geom</code>. A different dataset will have its own column names. To discover them, run <code>DESCRIBE SELECT * FROM 'your-file-url'</code> first.</p>
@@ -2257,9 +2366,9 @@
 <span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">area</span><span class="w"> </span><span class="k">DESC</span><span class="p">;</span>
 </code></pre></div>
 <h2 id="4-add-the-result-to-the-map">4. Add the result to the map<a class="headerlink" href="#4-add-the-result-to-the-map" title="Permanent link">&para;</a></h2>
-<p>When a query returns a geometry column, use <strong>add to map</strong> to create a new layer from the result, optionally naming it. The result layer supports <a href="../../user-guide/attribute-table/">identify, selection, and the attribute table</a> like any vector layer, and you can add several result layers at once.</p>
+<p>When a query returns a geometry column, click <strong>Add as layer</strong> to create a new layer from the result, optionally naming it. The result layer supports <a href="../../user-guide/attribute-table/">identify, selection, and the attribute table</a> like any vector layer, and you can add several result layers at once.</p>
 <h2 id="5-export">5. Export<a class="headerlink" href="#5-export" title="Permanent link">&para;</a></h2>
-<p>Export the query result as <strong>CSV</strong> or <strong>GeoParquet</strong> straight from the workspace. See <a href="../../user-guide/sql-workspace/">SQL Workspace</a>.</p>
+<p>Export the query result as <strong>CSV</strong> or <strong>GeoParquet</strong> straight from the workspace — the <strong>Export CSV</strong> and <strong>Export GeoParquet</strong> buttons sit beside <strong>Add as layer</strong>. See <a href="../../user-guide/sql-workspace/">SQL Workspace</a>.</p>
 <div class="admonition tip">
 <p class="admonition-title">Sample queries and history</p>
 <p>Use the <strong>Sample queries</strong> menus to start from a working query, and the <strong>history</strong> to rerun a previous one.</p>

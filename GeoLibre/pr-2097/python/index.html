@@ -1095,6 +1095,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../tutorials/videos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Video Tutorials
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../tutorials/first-map/" class="md-nav__link">
         
   
@@ -1478,6 +1505,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../server-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Server API
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../android/" class="md-nav__link">
         
   
@@ -1648,6 +1702,33 @@
     
   
   UI Profiles
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deployment-capabilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Deployment Capabilities
 
     
   </span>
@@ -2068,6 +2149,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../maintenance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Maintenance Notes
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../citation/" class="md-nav__link">
         
   
@@ -2390,12 +2498,14 @@ data you add from Python appears in the UI, and edits you make in the UI
 <p>Or with conda from <a href="https://anaconda.org/conda-forge/geolibre">conda-forge</a>:</p>
 <div class="highlight"><pre><span></span><code>conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>geolibre
 </code></pre></div>
-<p>Optional extras for <code>add_geojson()</code> from a GeoDataFrame and for reading <strong>local</strong>
-vector files with <code>add_vector()</code> / <code>add_geoparquet()</code> / <code>add_flatgeobuf()</code> /
-<code>add_shp()</code> / <code>add_kml()</code> / <code>add_gpkg()</code> (remote URLs for those formats need no
-extras):</p>
-<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">"geolibre[all]"</span><span class="w">   </span><span class="c1"># adds GeoPandas and Shapely</span>
+<p>Optional extras provide GeoPandas/Shapely support for GeoDataFrames and local
+vector files, plus xarray/rioxarray/rasterio/rio-tiler support for in-memory rasters:</p>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">"geolibre[all]"</span><span class="w">      </span><span class="c1"># both</span>
+pip<span class="w"> </span>install<span class="w"> </span><span class="s2">"geolibre[vector]"</span><span class="w">   </span><span class="c1"># GeoPandas/Shapely only</span>
+pip<span class="w"> </span>install<span class="w"> </span><span class="s2">"geolibre[raster]"</span><span class="w">   </span><span class="c1"># xarray/rioxarray/rasterio/rio-tiler only</span>
 </code></pre></div>
+<p><code>[all]</code> is the union of the two, so it now installs rasterio (and GDAL with it);
+use <code>[vector]</code> to keep an existing vector-only environment as light as before.</p>
 <p>The optional <code>[all]</code> extra is pip-only. If you installed via conda, add it with
 <code>pip install "geolibre[all]"</code> inside the same environment.</p>
 <h2 id="quickstart">Quickstart<a class="headerlink" href="#quickstart" title="Permanent link">&para;</a></h2>
@@ -2433,11 +2543,32 @@ is reopened. The result is a plain raster tile layer, not one of the live layers
 the app's own Earth Engine panel manages.</p>
 <p><code>add_raster</code> / <code>add_cog</code> also accept a <strong>local</strong> GeoTIFF path on the kernel host:
 the file is served by the bundled localhost server so the app can read it. This
-only works where the <strong>browser can reach the kernel's localhost</strong> (local Jupyter,
-VS Code); on remote/browser-separated setups (Colab, JupyterHub, remote servers)
-the localhost route is unreachable, so pass a hosted URL there. The served URL is
-also session-scoped, so a project saved with a local raster will not restore it
-when reopened later — pass a hosted URL for durable projects.</p>
+works directly in local Jupyter and VS Code. In Google Colab, where the kernel
+proxy does not preserve the byte-range semantics required by browser COG
+rendering, GeoLibre renders local rasters as PNG XYZ tiles in the kernel instead.
+JupyterHub can route the COG through the kernel port when
+<code>jupyter-server-proxy</code> is available. A static-server-extension-only deployment
+cannot expose kernel files, so pass a hosted URL there. The served URL is
+session-scoped, so a project saved with a local raster will not restore it when
+reopened later — pass a hosted URL for durable projects.</p>
+<p>Install <code>geolibre[raster]</code> to visualize an in-memory xarray object. Spatial
+dimensions named <code>lon</code>/<code>lat</code> or <code>longitude</code>/<code>latitude</code> default to EPSG:4326;
+otherwise provide CRS and dimension names explicitly. Dataset variables become
+bands unless one is selected:</p>
+<div class="highlight"><pre><span></span><code><span class="n">m</span><span class="o">.</span><span class="n">add_raster</span><span class="p">(</span><span class="n">data_array</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Temperature"</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s2">"viridis"</span><span class="p">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">add_raster</span><span class="p">(</span>
+    <span class="n">dataset</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">"Temperature"</span><span class="p">,</span>
+    <span class="n">array_args</span><span class="o">=</span><span class="p">{</span><span class="s2">"variable"</span><span class="p">:</span> <span class="s2">"temperature"</span><span class="p">,</span> <span class="s2">"isel"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"time"</span><span class="p">:</span> <span class="mi">0</span><span class="p">}},</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>The temporary Cloud-Optimized GeoTIFF backing an xarray layer is removed when the widget is
+closed, so xarray layers have the same session-only limitation as local files.
+Locally the browser reads that COG directly; in Colab rio-tiler renders it into
+ordinary PNG XYZ tiles to avoid Colab's incompatible byte-range proxy behavior.
+Call <code>m.close()</code> when you are done to remove it promptly; otherwise it is removed
+when the <code>Map</code> is garbage collected or when the kernel exits normally. A kernel
+that is killed outright leaves the file behind in the system temp directory.</p>
 <p>Add markers and data-driven symbology without precomputing styles:</p>
 <div class="highlight"><pre><span></span><code><span class="n">m</span><span class="o">.</span><span class="n">add_marker</span><span class="p">(</span><span class="o">-</span><span class="mf">122.4</span><span class="p">,</span> <span class="mf">37.8</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"San Francisco"</span><span class="p">})</span>
 <span class="n">m</span><span class="o">.</span><span class="n">add_marker_cluster</span><span class="p">([(</span><span class="o">-</span><span class="mf">122.4</span><span class="p">,</span> <span class="mf">37.8</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mf">122.3</span><span class="p">,</span> <span class="mf">37.9</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mf">122.5</span><span class="p">,</span> <span class="mf">37.7</span><span class="p">)])</span>
@@ -2725,8 +2856,8 @@ e.g. <code>m.run_algorithm(..., timeout=300)</code>.</p>
 <td>Add a Cloud Optimized GeoTIFF (URL or a kernel-side local GeoTIFF path).</td>
 </tr>
 <tr>
-<td><code>add_raster(url, name=, bands=, colormap=, rescale=, **style)</code></td>
-<td>Add a raster (COG/GeoTIFF), URL or local path; alias of <code>add_cog</code>.</td>
+<td><code>add_raster(source, name=, bands=, colormap=, rescale=, array_args=, **style)</code></td>
+<td>Add a COG/GeoTIFF URL or path, or an xarray DataArray/Dataset (xarray needs <code>geolibre[raster]</code>).</td>
 </tr>
 <tr>
 <td><code>add_3d_tiles(url, name=, altitude_offset=, request_headers=, **style)</code></td>

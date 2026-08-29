@@ -1271,6 +1271,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../tutorials/videos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Video Tutorials
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../tutorials/first-map/" class="md-nav__link">
         
   
@@ -1652,6 +1679,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../server-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Server API
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../android/" class="md-nav__link">
         
   
@@ -1822,6 +1876,33 @@
     
   
   UI Profiles
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment-capabilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Deployment Capabilities
 
     
   </span>
@@ -2038,6 +2119,33 @@
     
   
   Contributing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintenance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Maintenance Notes
 
     
   </span>
@@ -2352,7 +2460,7 @@
 
 <h1 id="map-controls-tools">Map Controls &amp; Tools<a class="headerlink" href="#map-controls-tools" title="Permanent link">&para;</a></h1>
 <p>The <strong>Controls</strong> menu toggles two kinds of on-map helpers: the built-in MapLibre map controls, and the component panels that add tools like Measure and Bookmark. A check mark next to an item means it is currently shown.</p>
-<p><img alt="Controls menu" src="https://data.geolibre.app/images/geolibre-controls-menu.webp" /></p>
+<p><img alt="The Controls menu, with map controls above and component panels and recording tools below" src="https://assets.geolibre.app/images/geolibre-controls-menu.webp" /></p>
 <h2 id="map-controls">Map controls<a class="headerlink" href="#map-controls" title="Permanent link">&para;</a></h2>
 <p>These are the standard MapLibre controls that sit in the map corners:</p>
 <table>
@@ -2365,7 +2473,11 @@
 <tbody>
 <tr>
 <td><strong>Navigation</strong></td>
-<td>Zoom in/out and a compass to reset bearing.</td>
+<td>The zoom in / zoom out buttons.</td>
+</tr>
+<tr>
+<td><strong>Compass</strong></td>
+<td>A north arrow that resets the bearing to north when clicked.</td>
 </tr>
 <tr>
 <td><strong>Fullscreen</strong></td>
@@ -2381,11 +2493,11 @@
 </tr>
 <tr>
 <td><strong>Terrain</strong></td>
-<td>Toggle terrain (3D elevation) rendering.</td>
+<td>Toggle terrain (3D elevation) rendering. Double-click the control to set the vertical exaggeration.</td>
 </tr>
 <tr>
 <td><strong>Scale</strong></td>
-<td>Show a scale bar.</td>
+<td>Show a scale bar, in the units set by <a href="../settings/#map-preferences">Scale bar units</a>.</td>
 </tr>
 <tr>
 <td><strong>Elevation</strong></td>
@@ -2396,8 +2508,8 @@
 <td>Show data attributions.</td>
 </tr>
 <tr>
-<td><strong>MapLibre logo</strong></td>
-<td>Show or hide the MapLibre logo.</td>
+<td><strong>Logos</strong></td>
+<td>Show or hide the MapLibre and provider logos.</td>
 </tr>
 </tbody>
 </table>
@@ -2451,7 +2563,10 @@
 <p>Plugin-backed controls can be positioned in any map corner. For plugins that support it, set the corner from the <a href="../plugins/">Plugins menu</a> (top left, top right, bottom left, or bottom right).</p>
 </div>
 <h2 id="measuring-distance-area-and-heading">Measuring distance, area, and heading<a class="headerlink" href="#measuring-distance-area-and-heading" title="Permanent link">&para;</a></h2>
-<p><strong>Controls → Measure</strong> draws a line or polygon on the map and reports it in the Measure panel. Beyond distance and area, the panel adds two further sections:</p>
+<p><strong>Controls → Measure</strong> opens a panel with three modes — <strong>Distance</strong> (a multi-segment line), <strong>Area</strong> (a polygon), and <strong>Circle</strong> (a radius from a center point) — plus a <strong>Unit</strong> picker. Click <strong>Start</strong>, then click the map to add points and double-click or right-click to finish; <strong>Clear All</strong> removes the measurements.</p>
+<p><img alt="The Measure panel, with its Distance, Area, and Circle modes and the exact-segment entry" src="https://assets.geolibre.app/images/geolibre-measure.webp" /></p>
+<p><strong>Exact segment</strong> is the keyboard route to the same thing: type a length and a bearing and click <strong>Add</strong> to extend the measurement by a segment of exactly those dimensions, instead of clicking for it. Useful for retracing a deed description or a survey traverse.</p>
+<p>Beyond distance and area, the panel adds two further sections:</p>
 <ul>
 <li><strong>Heading</strong> — the direction of the measured line, as degrees plus a 16-point compass label (for example <code>310° NW</code>). This is a true great-circle initial bearing, not the angle the line makes on screen: on a Mercator map Washington to London <em>looks</em> due east, while the real initial bearing is about 50°. On a path with more than two points, the heading is the overall first-to-last direction rather than one row per segment.</li>
 <li><strong>Final heading</strong> — the bearing arriving at the far end. A great circle changes direction along its length, so this row appears only on lines long enough for the convergence to reach a degree; short measurements stay a single row.</li>
@@ -2493,6 +2608,7 @@
 </tr>
 </tbody>
 </table>
+<p><img alt="The map's right-click menu, with the Quick analysis submenu open on its buffer, drive-time, walk-time, and viewshed presets" src="https://assets.geolibre.app/images/geolibre-map-context-menu.webp" /></p>
 <h3 id="quick-analysis-from-a-clicked-point">Quick analysis from a clicked point<a class="headerlink" href="#quick-analysis-from-a-clicked-point" title="Permanent link">&para;</a></h3>
 <p>The <strong>Quick analysis</strong> submenu runs a tool on the coordinate you right-clicked, with no dialog and no need to first create a point layer:</p>
 <table>
@@ -2604,12 +2720,12 @@
 <p>Directions and Reverse Geocode send your coordinates to a third-party service — the OSRM demo server and your configured geocoding provider. Weather fetches overlay imagery from NASA and RainViewer. The rest of the table runs locally against tiles the map already fetches.</p>
 </div>
 <h2 id="annotations-and-the-elements-panel">Annotations and the Elements panel<a class="headerlink" href="#annotations-and-the-elements-panel" title="Permanent link">&para;</a></h2>
-<p>The annotation tools draw on top of the map: <strong>Text</strong>, <strong>Arrow</strong>, <strong>Rectangle highlight</strong>, <strong>Ellipse highlight</strong>, <strong>Freehand highlight</strong>, <strong>Pin marker</strong>, <strong>Sticky note</strong>, and <strong>Placed image</strong>. Each has a color, and the stroked shapes (Arrow, Rectangle, Ellipse, and Freehand) also honor the line width. You can delete the last annotation or clear them all.</p>
+<p>The annotation tools draw on top of the map: <strong>Text</strong>, <strong>Arrow</strong>, <strong>Rectangle highlight</strong>, <strong>Ellipse highlight</strong>, <strong>Freehand highlight</strong>, <strong>Pin marker</strong>, <strong>Sticky note</strong>, and <strong>Placed image</strong>. Each has a color, and the stroked shapes (Arrow, Rectangle, Ellipse, and Freehand) also honor the line width. You can delete the last annotation or clear them all. Use the chevron at the top of the toolbar to collapse the tools when you need more room for controls beneath them.</p>
 <p>Annotations are saved with the project, and the <strong>Elements</strong> panel lists them so you can find and manage each one instead of hunting for it on the canvas. Most elements are anchored <strong>At Point</strong> — a geographic coordinate they move with. <strong>Placed image</strong> additionally offers <strong>Pinned to Extent</strong>, which stretches it across a bounding box so it scales with the view.</p>
 <h2 id="review-comments">Review comments<a class="headerlink" href="#review-comments" title="Permanent link">&para;</a></h2>
 <p>Comments are anchored notes for review and feedback, kept separate from annotations because they are a conversation rather than map decoration.</p>
 <ul>
-<li>Activate the comment tool from the <strong>Comments</strong> panel on the right sidebar, then click the map to drop a pin and write the note. GeoLibre asks for your name once and remembers it.</li>
+<li>Activate the comment tool from the <strong>Comments</strong> panel on the right sidebar, or by pressing <code>C</code>, then click the map to drop a pin and write the note. Pressing <code>C</code> again turns the tool back off. GeoLibre asks for your name once and remembers it.</li>
 <li>Each pin opens a thread you can reply to, resolve, reopen, or delete.</li>
 <li>Filter the panel by <strong>Open</strong>, <strong>Resolved</strong>, or <strong>All</strong>. Resolved pins are hidden from the map while the Open filter is active.</li>
 <li>In a live <a href="../../collaboration/">collaboration</a> session, adding, replying, resolving, and deleting all sync to the other participants.</li>

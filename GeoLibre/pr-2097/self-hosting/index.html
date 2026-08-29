@@ -16,7 +16,7 @@
         <link rel="prev" href="../architecture/">
       
       
-        <link rel="next" href="../android/">
+        <link rel="next" href="../server-api/">
       
       
         
@@ -1095,6 +1095,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../tutorials/videos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Video Tutorials
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../tutorials/first-map/" class="md-nav__link">
         
   
@@ -1708,6 +1735,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../server-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Server API
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../android/" class="md-nav__link">
         
   
@@ -1878,6 +1932,33 @@
     
   
   UI Profiles
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deployment-capabilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Deployment Capabilities
 
     
   </span>
@@ -2094,6 +2175,33 @@
     
   
   Contributing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../maintenance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Maintenance Notes
 
     
   </span>
@@ -2687,6 +2795,11 @@ time and strip the prefix in your proxy:</p>
 <td><code>VITE_WELCOME_DISABLED=1</code> (build arg)</td>
 <td>optional</td>
 <td>Skips the first-launch wizard for every visitor.</td>
+</tr>
+<tr>
+<td><code>VITE_GEOLIBRE_CAPABILITIES</code> (build arg)</td>
+<td>unset, or the capabilities to grant</td>
+<td>Unset grants everything (today's behavior). Naming a subset — or <code>none</code> — pins what the interface offers: adding data, processing, export, plugins, settings, project authoring. Removes affordances only; it is not a server-side restriction. See <a href="../deployment-capabilities/">Deployment Capabilities</a>.</td>
 </tr>
 </tbody>
 </table>

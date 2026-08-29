@@ -1097,6 +1097,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../videos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Video Tutorials
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../first-map/" class="md-nav__link">
         
   
@@ -1591,6 +1618,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../server-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Server API
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../android/" class="md-nav__link">
         
   
@@ -1761,6 +1815,33 @@
     
   
   UI Profiles
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment-capabilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Deployment Capabilities
 
     
   </span>
@@ -1977,6 +2058,33 @@
     
   
   Contributing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintenance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Maintenance Notes
 
     
   </span>
@@ -2230,6 +2338,11 @@
 
 <h1 id="vector-analysis">Vector Analysis<a class="headerlink" href="#vector-analysis" title="Permanent link">&para;</a></h1>
 <p>This tutorial runs a small vector workflow: buffer a layer, overlay it with another, and export the result. It uses the <a href="../../user-guide/processing/#vector">Vector tools</a> under <strong>Processing → GeoLibre Toolbox → Vector</strong>.</p>
+<p><img alt="The Processing menu with GeoLibre Toolbox → Vector open on its Geometry, Overlay, Join, and Select groups" src="https://assets.geolibre.app/images/geolibre-toolbox-vector-menu.webp" /></p>
+<div class="admonition note">
+<p class="admonition-title">Two toolboxes share this menu</p>
+<p><strong>Processing → Vector</strong> (above the separator) is the Whitebox catalog's vector category; <strong>Processing → GeoLibre Toolbox → Vector</strong> is the dialog this tutorial uses. See <a href="../../user-guide/processing/#two-toolboxes-in-one-menu">Two toolboxes in one menu</a>.</p>
+</div>
 <h2 id="1-load-input-data">1. Load input data<a class="headerlink" href="#1-load-input-data" title="Permanent link">&para;</a></h2>
 <p>Add at least one vector layer (see <a href="../../user-guide/adding-data/">Adding Data</a>). For an overlay you will need two layers, for example a set of points or lines and a polygon layer to clip against.</p>
 <h2 id="2-buffer-a-layer">2. Buffer a layer<a class="headerlink" href="#2-buffer-a-layer" title="Permanent link">&para;</a></h2>
@@ -2240,11 +2353,12 @@
 <li>Choose an <strong>Engine</strong>:</li>
 <li><strong>Client (Turf.js)</strong> runs in the browser with no setup.</li>
 <li><strong>Sidecar (GeoPandas)</strong> runs on the Python sidecar for projection-aware distances (desktop app).</li>
+<li><strong>Python (Pyodide)</strong> runs the same GeoPandas code as the sidecar, but in your browser, so the results match the sidecar without one being installed. The runtime downloads once on first use.</li>
 <li>Click <strong>Run</strong>. A buffered layer is added to the map.</li>
 </ol>
 <div class="admonition tip">
 <p class="admonition-title">Projection-aware distances</p>
-<p>The client engine buffers in geographic coordinates. For accurate metric distances over large areas, use the GeoPandas sidecar engine, which reprojects before buffering.</p>
+<p>The client engine buffers in geographic coordinates. For accurate metric distances over large areas, use one of the two GeoPandas engines, which reproject before buffering: <strong>Sidecar (GeoPandas)</strong> on the desktop app, or <strong>Python (Pyodide)</strong> anywhere, including the web build.</p>
 </div>
 <h2 id="3-overlay-two-layers">3. Overlay two layers<a class="headerlink" href="#3-overlay-two-layers" title="Permanent link">&para;</a></h2>
 <p>With the buffer (or any polygon layer) and a second layer, run an overlay:</p>
@@ -2258,7 +2372,7 @@
 </ul>
 <p>Open the tool from <strong>Processing → GeoLibre Toolbox → Vector</strong>, pick the input and overlay layers, and <strong>Run</strong>.</p>
 <h2 id="4-inspect-and-refine">4. Inspect and refine<a class="headerlink" href="#4-inspect-and-refine" title="Permanent link">&para;</a></h2>
-<p>Open the <a href="../../user-guide/attribute-table/">Attribute table</a> on the result layer to check the output, and adjust its <a href="../../user-guide/styling/">style</a> so it stands out from the inputs.</p>
+<p>Open the <a href="../../user-guide/attribute-table/">Attribute table</a> on the result layer to check the output, and adjust its <a href="../../user-guide/styling/">style</a> so it stands out from the inputs. Every run is also recorded in <strong>Processing → History</strong>, which re-runs an entry with one click and copies the equivalent Python code.</p>
 <h2 id="5-export-the-result">5. Export the result<a class="headerlink" href="#5-export-the-result" title="Permanent link">&para;</a></h2>
 <p>To save the output as a cloud-native file, use <strong>Processing → GeoLibre Toolbox → Conversion</strong> (for example <strong>Vector to GeoParquet</strong> or <strong>Vector to FlatGeobuf</strong>). See <a href="../cloud-native-data/">Cloud-Native Data</a>. You can also export records from the <a href="../../user-guide/attribute-table/">Attribute table</a> or the <a href="../../user-guide/sql-workspace/">SQL Workspace</a>.</p>
 <h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>

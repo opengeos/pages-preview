@@ -581,10 +581,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-three-panels" class="md-nav__link">
+  <a href="#the-side-panels" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        The three panels
+        The side panels
       </span>
     </span>
   </a>
@@ -1249,6 +1249,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../tutorials/videos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Video Tutorials
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../tutorials/first-map/" class="md-nav__link">
         
   
@@ -1630,6 +1657,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../server-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Server API
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../android/" class="md-nav__link">
         
   
@@ -1800,6 +1854,33 @@
     
   
   UI Profiles
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment-capabilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Deployment Capabilities
 
     
   </span>
@@ -2035,6 +2116,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../maintenance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Maintenance Notes
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../citation/" class="md-nav__link">
         
   
@@ -2206,10 +2314,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-three-panels" class="md-nav__link">
+  <a href="#the-side-panels" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        The three panels
+        The side panels
       </span>
     </span>
   </a>
@@ -2308,9 +2416,9 @@
 
 <h1 id="interface-overview">Interface Overview<a class="headerlink" href="#interface-overview" title="Permanent link">&para;</a></h1>
 <p>GeoLibre opens to a single workspace that is the same on desktop and in the browser. This page is a tour of that workspace so the rest of the User Guide can refer to its parts by name.</p>
-<p><img alt="GeoLibre interface overview" src="https://data.geolibre.app/images/geolibre-interface-overview.webp" /></p>
+<p><img alt="GeoLibre interface overview: the Layers panel on the left, the map in the centre, the Style panel on the right, and the status bar along the bottom" src="https://assets.geolibre.app/images/geolibre-interface-overview.webp" /></p>
 <h2 id="the-top-toolbar">The top toolbar<a class="headerlink" href="#the-top-toolbar" title="Permanent link">&para;</a></h2>
-<p>The toolbar across the top of the window groups every action into seven menus:</p>
+<p>The toolbar across the top of the window groups every action into nine menus:</p>
 <table>
 <thead>
 <tr>
@@ -2321,7 +2429,15 @@
 <tbody>
 <tr>
 <td><strong>Project</strong></td>
-<td>Create, open, save, share, and print projects. See <a href="../projects/">Projects</a>.</td>
+<td>Create, open, save, share, import, and print projects. See <a href="../projects/">Projects</a>.</td>
+</tr>
+<tr>
+<td><strong>Edit</strong></td>
+<td>Undo and redo, and the feature-selection tools: Select by Expression, Select by Location, zoom to / invert / clear the selection, and Export Selected Features as Layer.</td>
+</tr>
+<tr>
+<td><strong>View</strong></td>
+<td>Zoom in and out, step back and forward through the viewport history, reset the camera orientation, Set View… (type an exact center, zoom, bearing, and pitch), Split View, and View in Google Maps / Google Earth.</td>
 </tr>
 <tr>
 <td><strong>Add Data</strong></td>
@@ -2350,6 +2466,9 @@
 </tbody>
 </table>
 <p>On the right side of the toolbar are the light/dark theme toggle and the editable project name.</p>
+<p>The <strong>Edit</strong> and <strong>View</strong> menus are the two most easily missed, because their contents live nowhere else:</p>
+<p><img alt="The Edit menu: undo and redo above the selection tools" src="https://assets.geolibre.app/images/geolibre-edit-menu.webp" /></p>
+<p><img alt="The View menu: zoom, viewport history, Set View, Split View, and the external-map actions" src="https://assets.geolibre.app/images/geolibre-view-menu.webp" /></p>
 <div class="admonition tip">
 <p class="admonition-title">Toolbar labels</p>
 <p>On narrow windows the toolbar collapses to icon-only buttons. You can also force icon-only buttons from <strong>Settings → Layout</strong>, or with the <code>toolbar=icons</code> URL parameter. See <a href="../embedding/">Embedding &amp; Sharing</a>.</p>
@@ -2357,9 +2476,10 @@
 <h2 id="command-palette-and-keyboard-shortcuts">Command palette and keyboard shortcuts<a class="headerlink" href="#command-palette-and-keyboard-shortcuts" title="Permanent link">&para;</a></h2>
 <p>Every menu and toolbar action is also reachable from the keyboard, so you don't have to hunt through nested menus.</p>
 <ul>
-<li><strong>Command palette</strong> — press <code>Ctrl</code>/<code>Cmd</code> + <code>K</code> (or <strong>Help → Command Palette</strong>, or <strong>Settings → Command Palette</strong>) to open a searchable list of actions: Add Data sources, Processing tools, Controls, Plugins, and more. Type to filter, move the highlight with the arrow keys, and press <code>Enter</code> to run the highlighted command.</li>
-<li><strong>Keyboard shortcuts cheat sheet</strong> — press <code>?</code> (or <strong>Help → Keyboard Shortcuts</strong>, or <strong>Settings → Keyboard Shortcuts</strong>) to see the full list of global shortcuts.</li>
+<li><strong>Command palette</strong> — press <code>Ctrl</code>/<code>Cmd</code> + <code>K</code> (or <strong>Help → Command Palette</strong>) to open a searchable list of actions: Add Data sources, Processing tools, Controls, Plugins, and more. Type to filter, move the highlight with the arrow keys, and press <code>Enter</code> to run the highlighted command.</li>
+<li><strong>Keyboard shortcuts cheat sheet</strong> — press <code>?</code> (or <strong>Help → Keyboard Shortcuts</strong>) to see the full list of global shortcuts.</li>
 </ul>
+<p><img alt="The command palette, listing every Add Data source, Processing tool, control, and plugin in one searchable list" src="https://assets.geolibre.app/images/geolibre-command-palette.webp" /></p>
 <p>The built-in global shortcuts are:</p>
 <table>
 <thead>
@@ -2394,6 +2514,10 @@
 <td>Save project as…</td>
 </tr>
 <tr>
+<td><code>C</code></td>
+<td>Toggle the <a href="../map-controls/#review-comments">review comment</a> tool, then click the map to place the pin</td>
+</tr>
+<tr>
 <td><code>N</code></td>
 <td>Reset bearing (north up)</td>
 </tr>
@@ -2416,6 +2540,7 @@
 </tbody>
 </table>
 <p>The single-key view shortcuts mirror Google Earth Pro (<code>N</code> for north up, <code>U</code> for top-down, <code>R</code> to reset the view) and work anywhere in the app.</p>
+<p><img alt="The keyboard shortcuts cheat sheet, grouped by General, Project, Add Data, View, and Map navigation" src="https://assets.geolibre.app/images/geolibre-keyboard-shortcuts.webp" /></p>
 <p>While the map has keyboard focus, MapLibre's own navigation keys are also available:</p>
 <table>
 <thead>
@@ -2444,14 +2569,45 @@
 </tbody>
 </table>
 <p>Shortcuts are ignored while you are typing in a text field, so they never interfere with search boxes or attribute editing. On macOS the <code>Cmd</code> key is used; on Windows and Linux the <code>Ctrl</code> key is used.</p>
-<h2 id="the-three-panels">The three panels<a class="headerlink" href="#the-three-panels" title="Permanent link">&para;</a></h2>
-<p>GeoLibre has three dockable panels around the map:</p>
-<ul>
-<li><strong>Layers panel</strong> (left): the layer stack, including the basemap. Toggle visibility, change opacity, reorder layers, zoom to a layer, identify features, and open per-layer actions. See <a href="../layers/">Managing Layers</a>.</li>
-<li><strong>Style panel</strong> (right): the styling controls for the selected layer, including data-driven styling for vector layers and image adjustments for rasters. See <a href="../styling/">Styling Layers</a>.</li>
-<li><strong>Attribute table</strong> (bottom): the attributes of the selected vector or DuckDB layer. Expand it from the status bar. See <a href="../attribute-table/">Attribute Table</a>.</li>
-</ul>
-<p>Each panel can be shown or hidden from <strong>Settings → Layout</strong>, and panels auto-hide on small screens. You can resize the Layers and Style panels by dragging their inner edge.</p>
+<h2 id="the-side-panels">The side panels<a class="headerlink" href="#the-side-panels" title="Permanent link">&para;</a></h2>
+<p>Four dockable panels surround the map, plus the attribute table along the bottom. The left and right edges carry a vertical rail of tabs — <strong>Browser</strong> and <strong>Layers</strong> on the left, <strong>Comments</strong> and <strong>Style</strong> on the right — and clicking a tab expands that panel.</p>
+<table>
+<thead>
+<tr>
+<th>Panel</th>
+<th>Where</th>
+<th>What it holds</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Layers</strong></td>
+<td>Left</td>
+<td>The layer stack, including the basemap. Toggle visibility, change opacity, reorder layers, zoom to a layer, identify features, and open per-layer actions. See <a href="../layers/">Managing Layers</a>.</td>
+</tr>
+<tr>
+<td><strong>Browser</strong></td>
+<td>Left</td>
+<td>A QGIS-style Data Source Manager: saved map services, database connections, recent items, and your personal <strong>My Data</strong> layer library, all addable without going through a menu. See <a href="../adding-data/#the-browser-panel">Adding Data</a>.</td>
+</tr>
+<tr>
+<td><strong>Style</strong></td>
+<td>Right</td>
+<td>The styling controls for the selected layer, including data-driven styling for vector layers and image adjustments for rasters. See <a href="../styling/">Styling Layers</a>.</td>
+</tr>
+<tr>
+<td><strong>Comments</strong></td>
+<td>Right</td>
+<td>Anchored review notes and their threads. See <a href="../map-controls/#review-comments">Review comments</a>.</td>
+</tr>
+<tr>
+<td><strong>Attribute table</strong></td>
+<td>Bottom</td>
+<td>The attributes of the selected vector or DuckDB layer, with its own explorer, statistics, chart, and export tools. Expand it from the status bar. See <a href="../attribute-table/">Attribute Table</a>.</td>
+</tr>
+</tbody>
+</table>
+<p>The Layers, Style, and Attribute panels can each be shown or hidden from <strong>Settings → Layout</strong>, and panels auto-hide on small screens. Resize the Layers and Style panels by dragging their inner edge, and the attribute table by dragging its top edge.</p>
 <h2 id="the-map">The map<a class="headerlink" href="#the-map" title="Permanent link">&para;</a></h2>
 <p>The map fills the center of the workspace. It uses MapLibre GL JS for vector and raster rendering, with deck.gl for point clouds, 3D tiles, and other advanced overlays. Pan by dragging, zoom with the scroll wheel or the on-map zoom buttons, <strong>rotate</strong> by holding the right mouse button and dragging, <strong>tilt</strong> by holding <code>Ctrl</code>/<code>Cmd</code> and dragging, and reset north with the compass button.</p>
 <p>On-map controls such as zoom, globe, fullscreen, and the Layer Control appear in the corners. Which controls are shown is set from the <a href="../map-controls/">Controls menu</a>.</p>

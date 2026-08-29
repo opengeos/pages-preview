@@ -1095,6 +1095,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../tutorials/videos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Video Tutorials
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../tutorials/first-map/" class="md-nav__link">
         
   
@@ -1478,6 +1505,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../server-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Server API
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../android/" class="md-nav__link">
         
   
@@ -1824,6 +1878,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../deployment-capabilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Deployment Capabilities
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../i18n/" class="md-nav__link">
         
   
@@ -2021,6 +2102,33 @@
     
   
   Contributing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../maintenance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Maintenance Notes
 
     
   </span>
@@ -2687,11 +2795,105 @@ rewritten on every apply: <code>addedFields</code> lists the output columns the 
 <code>stats</code> records the last match counts shown in the Joins UI. Joins re-resolve
 against the loaded layer set on project open, so a saved copy of the joined
 output self-heals if the join table changed.</p>
+<p>A vector layer may carry <strong>quick filters</strong> (Layer properties → Quick filters):
+data-driven filter controls that narrow what the layer draws without anyone
+writing a MapLibre expression. What persists is the <em>control state</em>, never the
+compiled output, so a saved filter can always be reopened and changed:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"quickFilters"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"uuid"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"field"</span><span class="p">:</span><span class="w"> </span><span class="s2">"state"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"categorical"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"values"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"OR"</span><span class="p">,</span><span class="w"> </span><span class="s2">"WA"</span><span class="p">]</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"uuid"</span><span class="p">,</span><span class="w"> </span><span class="nt">"field"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pop"</span><span class="p">,</span><span class="w"> </span><span class="nt">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"range"</span><span class="p">,</span><span class="w"> </span><span class="nt">"min"</span><span class="p">:</span><span class="w"> </span><span class="mi">200000</span><span class="p">,</span><span class="w"> </span><span class="nt">"max"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"uuid"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"field"</span><span class="p">:</span><span class="w"> </span><span class="s2">"founded"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"date"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"dateKind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"iso"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"start"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1840-01-01"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"end"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1900-12-31"</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"uuid"</span><span class="p">,</span><span class="w"> </span><span class="nt">"field"</span><span class="p">:</span><span class="w"> </span><span class="s2">"name"</span><span class="p">,</span><span class="w"> </span><span class="nt">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"text"</span><span class="p">,</span><span class="w"> </span><span class="nt">"operator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"contains"</span><span class="p">,</span><span class="w"> </span><span class="nt">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"port"</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><code>kind</code> picks the control and the comparison: <code>categorical</code> (checkboxes over
+<code>values</code>), <code>range</code> (inclusive numeric <code>min</code>/<code>max</code>, either side <code>null</code> for an
+open bound), <code>date</code> (inclusive <code>YYYY-MM-DD</code> <code>start</code>/<code>end</code>), and <code>text</code>
+(case-insensitive <code>contains</code> / <code>startsWith</code> / <code>equals</code> against <code>text</code>).
+<code>dateKind</code> says how the field stores its timestamps — <code>iso</code> (the default,
+comparing the leading <code>YYYY-MM-DD</code> of ISO text), <code>epochMs</code>, or <code>epochS</code> — and
+<code>enabled: false</code> mutes a control without discarding what it was answered with.
+A control with nothing chosen places no constraint, so an emptied selection
+shows every feature rather than none.</p>
+<p>A quick filter narrows the <em>rendered</em> features, so a point layer using the
+cluster renderer is an exception worth noting: MapLibre clusters at the source,
+from the layer's whole dataset, so cluster bubbles and their counts describe the
+unfiltered data while clustering is on (as they already do for a Time Slider
+window or a rule filter).</p>
+<p>The compiled filter is combined with the transient <code>timeFilter</code> and
+<code>embedFilter</code> and with the rule-based renderer's hide-unmatched filter under a
+single <code>all</code>, so a host page's <code>setFilter</code>, a Time Slider window, and a user's
+quick filter narrow the layer together instead of replacing one another. Quick
+filters are also shown in the read-only <code>layout=viewer</code> chrome: filtering is a
+way of reading a shared map, not of editing it.</p>
 <p>When a <code>geojson</code> layer enables <code>style.simpleStyleEnabled</code>, individual features
 may override the layer style with <a href="https://github.com/mapbox/simplestyle-spec">simplestyle-spec</a>
 properties (<code>stroke</code>, <code>fill</code>, <code>stroke-width</code>, <code>fill-opacity</code>, ...). GeoLibre also
 honors a per-feature <code>text-color</code> on text-marker points (used by the Annotations
 layer), falling back to <code>style.textColor</code> when a feature does not set it.</p>
+<p>A vector layer may carry a <code>popup</code> block (Style panel → Popup): the design for
+what a viewer sees when they click or hover a feature. It decides which fields
+appear, in what order, under what labels and value formatting, what titles the
+popup, and whether a hover tooltip follows the pointer:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"popup"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"click"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"hover"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"titleField"</span><span class="p">:</span><span class="w"> </span><span class="s2">"name"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"showFeatureId"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"fields"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"field"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pop_max"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Population"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"number"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"format"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"thousands"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nt">"suffix"</span><span class="p">:</span><span class="w"> </span><span class="s2">" people"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">"hover"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nt">"field"</span><span class="p">:</span><span class="w"> </span><span class="s2">"region"</span><span class="p">,</span><span class="w"> </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Region"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nt">"field"</span><span class="p">:</span><span class="w"> </span><span class="s2">"homepage"</span><span class="p">,</span><span class="w"> </span><span class="nt">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"link"</span><span class="p">,</span><span class="w"> </span><span class="nt">"format"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"linkLabel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"City website"</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Every key is optional, and <strong>a layer with no <code>popup</code> block keeps the historical
+behavior</strong>: the layer name as the heading, then every property as a row. <code>click</code>
+defaults to <code>true</code> (<code>false</code> suppresses the Identify popup); <code>hover</code> defaults to
+<code>false</code>. <code>fields</code> narrows and orders what is shown — an absent or empty list
+means every visible field, in the data's own order — and a listed field the
+feature does not carry is skipped rather than printed empty. Each field's <code>kind</code>
+is one of <code>auto</code> (the untyped rendering: sanitized KML <code>description</code> markup and
+inline <code>data:image/*;base64</code> values as thumbnails), <code>text</code>, <code>number</code>, <code>date</code>,
+<code>link</code>, or <code>image</code>, and <code>format</code> carries <code>decimals</code>, <code>thousands</code>, <code>dateFormat</code>
+(<code>date</code> | <code>datetime</code> | <code>time</code> | <code>iso</code> | <code>year</code>), <code>prefix</code>, <code>suffix</code>, and
+<code>linkLabel</code>. <code>hover: true</code> on a field puts it in the tooltip's short subset; a
+tooltip with no flagged field shows the title alone, or nothing when the title
+is just the layer name.</p>
+<p><code>titleField</code> leads the popup with a feature's own value instead of the layer
+name; <code>titleExpression</code> (a MapLibre expression source) wins over it, and both
+fall back to the layer name when they produce nothing. <code>bodyExpression</code>
+replaces the whole body — the field rows and the <code>id</code> row with them — with a
+sentence built from the feature's properties, so <code>showFeatureId</code> has no effect
+while one is set.</p>
+<p><code>fieldVisibility</code> stays authoritative: a field marked <code>"hidden"</code> or
+<code>"excluded"</code> never reaches a popup, even when the <code>popup</code> block names it — the
+popup design selects from what is visible, it cannot re-expose what the author
+hid. That holds for the expressions too: <code>titleExpression</code> and <code>bodyExpression</code>
+are evaluated against the visible properties only, so a <code>["get", …]</code> cannot
+pull back a hidden column or one of GeoLibre's internal ones. Raster pixel identify goes through a different path and ignores <code>popup</code>.</p>
 <h2 id="layer-types">Layer types<a class="headerlink" href="#layer-types" title="Permanent link">&para;</a></h2>
 <table>
 <thead>

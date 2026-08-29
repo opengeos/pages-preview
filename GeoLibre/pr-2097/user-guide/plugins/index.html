@@ -1188,6 +1188,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../tutorials/videos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Video Tutorials
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../tutorials/first-map/" class="md-nav__link">
         
   
@@ -1569,6 +1596,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../server-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Server API
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../android/" class="md-nav__link">
         
   
@@ -1739,6 +1793,33 @@
     
   
   UI Profiles
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment-capabilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Deployment Capabilities
 
     
   </span>
@@ -1974,6 +2055,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../maintenance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Maintenance Notes
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../citation/" class="md-nav__link">
         
   
@@ -2187,11 +2295,100 @@
 <h1 id="plugins-marketplace">Plugins &amp; Marketplace<a class="headerlink" href="#plugins-marketplace" title="Permanent link">&para;</a></h1>
 <p>Much of GeoLibre's functionality ships as plugins. The <strong>Plugins</strong> menu activates built-in plugins, and the <strong>Manage Plugins</strong> dialog (under Settings) installs, updates, and removes external plugins from a curated registry.</p>
 <h2 id="the-plugins-menu">The Plugins menu<a class="headerlink" href="#the-plugins-menu" title="Permanent link">&para;</a></h2>
-<p>The <strong>Plugins</strong> menu lists every available plugin under <strong>Activate plugin</strong>. Click a plugin to toggle it on or off; a check mark shows which are active. Built-in plugins include the Layer Control, Basemaps, Components (Measure, Bookmark, Legend, Colorbar, Minimap, View State, Search, Print, HTML), GeoEditor, Time Slider, Layer Swipe, Street View, LiDAR Viewer, Overture Maps, GeoAgent, Historical Imagery, and the federal <strong>Web Services</strong> group. See <a href="../data-integrations/">Data Integrations</a>.</p>
-<p>For plugins that add an on-map control, a submenu lets you <strong>position</strong> the control in any corner: top left, top right, bottom left, or bottom right.</p>
+<p>The <strong>Plugins</strong> menu lists every available plugin under <strong>Activate plugin</strong>. Click a plugin to toggle it on or off; a check mark shows which are active.</p>
+<p><img alt="The Plugins menu, listing every built-in plugin under Activate plugin" src="https://assets.geolibre.app/images/geolibre-plugins-menu.webp" /></p>
+<p>The built-in plugins are:</p>
+<table>
+<thead>
+<tr>
+<th>Plugin</th>
+<th>What it adds</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Layer Control</strong></td>
+<td>The on-map layer list. On by default.</td>
+</tr>
+<tr>
+<td><strong>GeoEditor</strong></td>
+<td>Drawing, vertex editing, and deletion tools for GeoJSON layers.</td>
+</tr>
+<tr>
+<td><strong>Annotations</strong></td>
+<td>The map-annotation toolbar and Elements panel. See <a href="../map-controls/#annotations-and-the-elements-panel">Annotations</a>.</td>
+</tr>
+<tr>
+<td><strong>Basemaps</strong></td>
+<td>A basemap gallery for switching the background map, from the same catalog as the <a href="../adding-data/#basemaps">Change basemap dialog</a>.</td>
+</tr>
+<tr>
+<td><strong>Web Services</strong></td>
+<td>A submenu of catalog and service browsers: FEMA NFHL, NASA Earthdata, US EPA EnviroAtlas, USGS National Map, Vantor Open Data, Earthdata GIS, OpenAerialMap, ArcGIS Hub, Socrata, CKAN, STAC Catalogs, Source Cooperative, Natural Earth, Hugging Face, and GeoLens. See <a href="../data-integrations/">Data Integrations</a>.</td>
+</tr>
+<tr>
+<td><strong>Historical Imagery</strong></td>
+<td>Browse historical aerial and satellite imagery for a location.</td>
+</tr>
+<tr>
+<td><strong>Time Slider</strong></td>
+<td>Filter a temporal layer by a date or number field.</td>
+</tr>
+<tr>
+<td><strong>Timelapse</strong></td>
+<td>Animate annual cloudless basemaps (EOX Sentinel-2, and NASA GIBS Landsat/WELD and MODIS land cover) with a provider picker and legend.</td>
+</tr>
+<tr>
+<td><strong>Overture Maps</strong></td>
+<td>Browse and add Overture Maps themes.</td>
+</tr>
+<tr>
+<td><strong>GeoAgent</strong></td>
+<td>An in-map AI agent panel.</td>
+</tr>
+<tr>
+<td><strong>USGS LiDAR</strong></td>
+<td>Clip a USGS point cloud to an area of interest and download the result as COPC.</td>
+</tr>
+<tr>
+<td><strong>Street View</strong></td>
+<td>Google Street View panoramas at a clicked point.</td>
+</tr>
+<tr>
+<td><strong>Mapillary</strong></td>
+<td>Mapillary street-level imagery.</td>
+</tr>
+<tr>
+<td><strong>Elevation Profile</strong></td>
+<td>A terrain profile along a drawn line, or along the line features currently selected on a layer.</td>
+</tr>
+<tr>
+<td><strong>Layer Swipe</strong></td>
+<td>A swipe bar comparing two layers.</td>
+</tr>
+<tr>
+<td><strong>DGGS</strong></td>
+<td>A submenu of discrete global grid overlays — H3, S2, A5, DGGRID, DGGAL, OLC, Geohash, and Tilecode — each rendering its grid over the current view, identifying a cell, and exporting the grid or selection.</td>
+</tr>
+<tr>
+<td><strong>Flight Simulator</strong></td>
+<td>Fly over terrain and 3D layers with keyboard controls.</td>
+</tr>
+<tr>
+<td><strong>SamGeo</strong></td>
+<td>Segment imagery into vector features. See <a href="../segmentation/">AI Segmentation</a>.</td>
+</tr>
+</tbody>
+</table>
+<p>Most entries open a submenu that <strong>activates</strong> the plugin and <strong>positions</strong> its on-map control in any corner: top left, top right, bottom left, or bottom right. A few behave differently: <strong>Flight Simulator</strong> and <strong>SamGeo</strong> toggle directly with no submenu, and <strong>Web Services</strong> and <strong>DGGS</strong> open a list of their sub-plugins instead.</p>
+<p><img alt="A plugin submenu, with Activate above the four map-corner positions" src="https://assets.geolibre.app/images/geolibre-plugin-position-menu.webp" /></p>
+<div class="admonition note">
+<p class="admonition-title">Components live on the Controls menu</p>
+<p>Measure, Bookmark, Legend, Colorbar, Minimap, View State, Search, and HTML are on-map component panels rather than Plugins-menu entries; toggle them from the <a href="../map-controls/">Controls menu</a>. The Print composer is under <a href="../projects/#print">Project → Print Layout</a>.</p>
+</div>
 <h2 id="manage-plugins">Manage Plugins<a class="headerlink" href="#manage-plugins" title="Permanent link">&para;</a></h2>
 <p>Open <strong>Settings → Manage Plugins</strong> to browse the marketplace. The dialog is modeled on QGIS, with sections for <strong>All</strong>, <strong>Installed</strong>, <strong>Not installed</strong>, <strong>Upgradeable</strong>, and <strong>Settings</strong>.</p>
-<p><img alt="Manage Plugins dialog" src="https://data.geolibre.app/images/geolibre-manage-plugins.webp" /></p>
+<p><img alt="The Manage Plugins dialog, listing the curated registry with Install buttons" src="https://assets.geolibre.app/images/geolibre-manage-plugins.webp" /></p>
 <ul>
 <li><strong>Search</strong> the registry and <strong>Install</strong> an entry with one click. Installation records the plugin's manifest URL and registers it immediately, with no restart.</li>
 <li><strong>Update</strong> appears when a newer version is published; it re-fetches and re-registers the plugin in place, keeping the old version if the update fails.</li>

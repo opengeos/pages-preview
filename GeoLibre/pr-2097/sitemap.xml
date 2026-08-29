@@ -82,6 +82,9 @@
         <loc>https://geolibre.app/tutorials/</loc>
       </url>
       <url>
+        <loc>https://geolibre.app/tutorials/videos/</loc>
+      </url>
+      <url>
         <loc>https://geolibre.app/tutorials/first-map/</loc>
       </url>
       <url>
@@ -118,6 +121,9 @@
         <loc>https://geolibre.app/self-hosting/</loc>
       </url>
       <url>
+        <loc>https://geolibre.app/server-api/</loc>
+      </url>
+      <url>
         <loc>https://geolibre.app/android/</loc>
       </url>
       <url>
@@ -137,6 +143,9 @@
       </url>
       <url>
         <loc>https://geolibre.app/ui-profiles/</loc>
+      </url>
+      <url>
+        <loc>https://geolibre.app/deployment-capabilities/</loc>
       </url>
       <url>
         <loc>https://geolibre.app/i18n/</loc>
@@ -161,6 +170,9 @@
       </url>
       <url>
         <loc>https://geolibre.app/contributing/</loc>
+      </url>
+      <url>
+        <loc>https://geolibre.app/maintenance/</loc>
       </url>
       <url>
         <loc>https://geolibre.app/citation/</loc>

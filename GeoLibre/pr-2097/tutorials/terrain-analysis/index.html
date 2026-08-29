@@ -1097,6 +1097,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../videos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Video Tutorials
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../first-map/" class="md-nav__link">
         
   
@@ -1591,6 +1618,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../server-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Server API
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../android/" class="md-nav__link">
         
   
@@ -1761,6 +1815,33 @@
     
   
   UI Profiles
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment-capabilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Deployment Capabilities
 
     
   </span>
@@ -1977,6 +2058,33 @@
     
   
   Contributing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintenance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Maintenance Notes
 
     
   </span>
@@ -2231,8 +2339,8 @@
 <h1 id="terrain-analysis">Terrain Analysis<a class="headerlink" href="#terrain-analysis" title="Permanent link">&para;</a></h1>
 <p>This tutorial derives terrain products from a digital elevation model (DEM): a hillshade, a slope map, and contour lines. It uses the <a href="../../user-guide/processing/#raster">Raster tools</a> under <strong>Processing → GeoLibre Toolbox → Raster</strong>.</p>
 <div class="admonition note">
-<p class="admonition-title">Desktop app required</p>
-<p>The raster tools run on the rasterio Python sidecar, which the desktop app manages. They are not available in the browser build. See <a href="../../getting-started/#optional-python-sidecar">Getting Started</a>.</p>
+<p class="admonition-title">Which engine runs these</p>
+<p><strong>Hillshade</strong>, <strong>Slope</strong>, and <strong>Aspect</strong> each offer a <strong>Client (browser)</strong> engine, so this tutorial's first three steps work in the browser build with nothing installed. <strong>Contour</strong> and <strong>Clip by mask layer</strong> have no client engine and need the rasterio Python sidecar, which the desktop app manages — see <a href="../../getting-started/#optional-python-sidecar">Getting Started</a>. The engine picker at the top of each tool shows what is available; prefer the sidecar for large rasters or for terrain in a geographic CRS.</p>
 </div>
 <h2 id="1-load-a-dem">1. Load a DEM<a class="headerlink" href="#1-load-a-dem" title="Permanent link">&para;</a></h2>
 <p>Add an elevation raster as a layer, for example a GeoTIFF or COG DEM (see <a href="../../user-guide/adding-data/">Adding Data</a>). The raster tools take a file path in and write a file path out, so a local or accessible raster works best.</p>
@@ -2240,7 +2348,7 @@
 <ol>
 <li>Open <strong>Processing → GeoLibre Toolbox → Raster → Hillshade</strong>.</li>
 <li>Choose the DEM as input and set the azimuth, altitude, and z-factor if you want to adjust the lighting.</li>
-<li>Run it. The shaded-relief raster is added to the map. Place it under your other layers and lower their opacity for a relief backdrop.</li>
+<li>Run it. The shaded-relief raster is added to the map. Place it under your other layers and set the top one's <a href="../../user-guide/layers/#blend-modes">blend mode</a> to <strong>Multiply</strong>, which lets the relief show through the colour instead of washing both out the way lowered opacity would.</li>
 </ol>
 <h2 id="3-slope-and-aspect">3. Slope and aspect<a class="headerlink" href="#3-slope-and-aspect" title="Permanent link">&para;</a></h2>
 <ul>
@@ -2254,8 +2362,9 @@
 <li>Choose the DEM and set the contour <strong>interval</strong> (the elevation difference between lines).</li>
 <li>Run it to generate contour lines as a vector layer, which you can label and style like any vector data.</li>
 </ol>
+<p>Contour runs on the sidecar only, so this step needs the desktop app.</p>
 <h2 id="5-clip-to-an-area-of-interest">5. Clip to an area of interest<a class="headerlink" href="#5-clip-to-an-area-of-interest" title="Permanent link">&para;</a></h2>
-<p>To restrict outputs to a study area, use <strong>Processing → GeoLibre Toolbox → Raster → Clip by extent</strong> (a bounding box) or <strong>Clip by mask layer</strong> (a vector mask). See <a href="../../user-guide/processing/#raster">Processing Tools</a>.</p>
+<p>To restrict outputs to a study area, use <strong>Processing → GeoLibre Toolbox → Raster → Clip by extent</strong> (a bounding box, which also runs in the browser) or <strong>Clip by mask layer</strong> (a vector mask, sidecar only). See <a href="../../user-guide/processing/#raster">Processing Tools</a>.</p>
 <h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Convert raster outputs to vectors with <strong>Polygonize</strong>, or write a <strong>Raster to COG</strong> for sharing. See <a href="../cloud-native-data/">Cloud-Native Data</a>.</li>

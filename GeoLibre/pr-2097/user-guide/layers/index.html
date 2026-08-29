@@ -1238,6 +1238,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../tutorials/videos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Video Tutorials
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../tutorials/first-map/" class="md-nav__link">
         
   
@@ -1619,6 +1646,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../server-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Server API
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../android/" class="md-nav__link">
         
   
@@ -1789,6 +1843,33 @@
     
   
   UI Profiles
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment-capabilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Deployment Capabilities
 
     
   </span>
@@ -2005,6 +2086,33 @@
     
   
   Contributing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintenance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Maintenance Notes
 
     
   </span>
@@ -2286,7 +2394,7 @@
 
 <h1 id="managing-layers">Managing Layers<a class="headerlink" href="#managing-layers" title="Permanent link">&para;</a></h1>
 <p>The <strong>Layers panel</strong> on the left lists every layer in the project, from the topmost drawing layer down to the basemap. Selecting a layer here drives the <a href="../styling/">Style panel</a> and the <a href="../attribute-table/">Attribute table</a>.</p>
-<p><img alt="Layers panel with a vector layer and the basemap" src="https://data.geolibre.app/images/geolibre-layer-panel.webp" /></p>
+<p><img alt="The Layers panel: a group, two vector layers with the selected one's action buttons expanded, and the basemap at the bottom" src="https://assets.geolibre.app/images/geolibre-layers-panel.webp" /></p>
 <h2 id="layer-order-and-visibility">Layer order and visibility<a class="headerlink" href="#layer-order-and-visibility" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>Visibility</strong>: click the eye button to show or hide a layer. The <strong>Hide all layers</strong> button at the top of the panel hides every layer at once.</li>
@@ -2384,16 +2492,118 @@ no Blend menu:</p>
 <p>Everything else blends: local and remote GeoJSON, ordinary raster layers (XYZ,
 WMS, WMTS), PMTiles, MBTiles, and vector tiles.</p>
 <h2 id="per-layer-actions">Per-layer actions<a class="headerlink" href="#per-layer-actions" title="Permanent link">&para;</a></h2>
-<p>Each layer exposes a set of actions:</p>
-<ul>
-<li><strong>Open Style panel</strong>: when the built-in Style panel is enabled, use the palette button on the layer card to select the layer and open its styling controls.</li>
-<li><strong>Zoom to layer</strong>: fit the map to the layer's extent (for layers whose bounds are known).</li>
-<li><strong>Identify features</strong>: click features on the map to see their attributes in a popup. On a raster layer this reads the pixel value instead, and on a multiband raster it also builds a <a href="../styling/#spectral-profile">spectral profile</a>.</li>
-<li><strong>Labels</strong>: toggle text labels for vector layers that have a label field.</li>
-<li><strong>Metadata / Properties</strong>: inspect the layer's source and configuration.</li>
-<li><strong>Remove layer</strong>: delete the layer from the project.</li>
-<li><strong>Insert before</strong>: control where a new layer is placed in the stack.</li>
-</ul>
+<p>Selecting a layer expands a row of icon buttons on its card:</p>
+<table>
+<thead>
+<tr>
+<th>Button</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Move up</strong> / <strong>Move down</strong></td>
+<td>Shift the layer one position in the stack.</td>
+</tr>
+<tr>
+<td><strong>Zoom to layer</strong></td>
+<td>Fit the map to the layer's extent (for layers whose bounds are known).</td>
+</tr>
+<tr>
+<td><strong>Identify features</strong></td>
+<td>Click features on the map to see their attributes in a popup. On a raster layer this reads the pixel value instead, and on a multiband raster it also builds a <a href="../styling/#spectral-profile">spectral profile</a>.</td>
+</tr>
+<tr>
+<td><strong>Open Style panel</strong></td>
+<td>Select the layer and open its <a href="../styling/">styling controls</a>.</td>
+</tr>
+<tr>
+<td><strong>Layer actions</strong></td>
+<td>The full menu, below.</td>
+</tr>
+<tr>
+<td><strong>Metadata</strong></td>
+<td>Inspect the layer's source and configuration.</td>
+</tr>
+<tr>
+<td><strong>Remove layer</strong></td>
+<td>Delete the layer from the project.</td>
+</tr>
+</tbody>
+</table>
+<p>The <strong>Layer actions</strong> menu (the <code>…</code> button) holds everything else:</p>
+<p><img alt="The Layer actions menu on a vector layer" src="https://assets.geolibre.app/images/geolibre-layer-actions.webp" /></p>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Rename</strong></td>
+<td>Change the layer's display name.</td>
+</tr>
+<tr>
+<td><strong>Open Style panel</strong></td>
+<td>Same as the palette button on the card.</td>
+</tr>
+<tr>
+<td><strong>New group from layer</strong></td>
+<td>Wrap this layer in a new <a href="#layer-groups">group</a>.</td>
+</tr>
+<tr>
+<td><strong>Edit geometry</strong></td>
+<td>Hand the layer to the GeoEditor for vertex-level editing.</td>
+</tr>
+<tr>
+<td><strong>Load features into editor…</strong></td>
+<td>Copy features from this layer into the GeoEditor's sketch layer.</td>
+</tr>
+<tr>
+<td><strong>Open attribute table</strong></td>
+<td>Show this layer's records in the <a href="../attribute-table/">Attribute table</a>.</td>
+</tr>
+<tr>
+<td><strong>Quick analysis</strong></td>
+<td>Run a buffer, centroids, convex hull, or bounding box over the whole layer with no dialog. See <a href="../map-controls/#right-click-quick-actions">Right-click quick actions</a>.</td>
+</tr>
+<tr>
+<td><strong>Select features</strong></td>
+<td>The interactive selection modes: by click, rectangle, polygon, freehand, or radius, plus <strong>Clear Selection</strong>. Hold <code>Shift</code> to add, <code>Alt</code> to remove, <code>Shift</code>+<code>Alt</code> to intersect, and <code>Esc</code> to cancel.</td>
+</tr>
+<tr>
+<td><strong>Select by Expression…</strong> / <strong>Select by Location…</strong></td>
+<td>Build a selection from an attribute expression or a spatial relationship. Both are also on the <a href="../interface/#the-top-toolbar">Edit menu</a>.</td>
+</tr>
+<tr>
+<td><strong>Bind to Time Slider…</strong></td>
+<td>Drive the Time Slider from one of this layer's date or number fields.</td>
+</tr>
+<tr>
+<td><strong>Export</strong></td>
+<td>Write the layer out as GeoJSON, GeoParquet, GeoPackage, KML, KMZ, zipped Shapefile, or CSV (attributes only).</td>
+</tr>
+<tr>
+<td><strong>Styles</strong></td>
+<td>Import and export symbology — see <a href="#importing-and-exporting-styles">below</a>.</td>
+</tr>
+<tr>
+<td><strong>Save to My Data</strong></td>
+<td>Store the fully configured layer in your personal library, ready to re-add from the <a href="../adding-data/#the-browser-panel">Browser panel</a> in any later project.</td>
+</tr>
+<tr>
+<td><strong>Copy style</strong> / <strong>Paste style</strong></td>
+<td>Carry symbology from one layer to another.</td>
+</tr>
+<tr>
+<td><strong>Refresh</strong> / <strong>Auto refresh</strong></td>
+<td>Reload the source now, or on an interval — see <a href="#refreshing-live-layers">Refreshing live layers</a>.</td>
+</tr>
+</tbody>
+</table>
+<p>Some entries are unavailable on layers they do not apply to: <strong>Select by Location</strong> needs a second layer to compare against, and <strong>Paste style</strong> needs a style on the clipboard.</p>
 <h3 id="importing-and-exporting-styles">Importing and exporting styles<a class="headerlink" href="#importing-and-exporting-styles" title="Permanent link">&para;</a></h3>
 <p>Vector layers have a <strong>Layer actions → Styles</strong> submenu for symbology interchange:</p>
 <ul>
@@ -2401,6 +2611,7 @@ WMS, WMTS), PMTiles, MBTiles, and vector tiles.</p>
 <li><strong>Export as Mapbox GL style</strong> writes a self-contained Mapbox/MapLibre style with the layer's GeoJSON embedded.</li>
 <li><strong>Export as OGC SLD</strong> and <strong>Export as QGIS QML</strong> produce styles for other desktop and server GIS software.</li>
 <li><strong>Import style (GeoLibre URL / Mapbox GL / SLD / QML)…</strong> applies a supported style file to the selected layer. When importing a GeoLibre URL style interactively, the filename-based <code>source</code> association is ignored because the selected layer is the target.</li>
+<li><strong>Saved styles (Style Manager)…</strong> applies a preset from your style library, or saves the current symbology into it. The same library is reachable from <strong>Settings → Style Manager</strong>.</li>
 </ul>
 <p>To use a GeoLibre URL style, upload it to a CORS-enabled web host and open GeoLibre with both URLs:</p>
 <div class="highlight"><pre><span></span><code>https://web.geolibre.app/?data=https://assets.geolibre.app/data/places.geojson&amp;style=https://assets.geolibre.app/data/sample.style.json

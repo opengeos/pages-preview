@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://geolibre.app/tutorials/first-map/">
       
       
-        <link rel="prev" href="../">
+        <link rel="prev" href="../videos/">
       
       
         <link rel="next" href="../cloud-native-data/">
@@ -1094,6 +1094,33 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../videos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Video Tutorials
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -1591,6 +1618,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../server-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Server API
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../android/" class="md-nav__link">
         
   
@@ -1761,6 +1815,33 @@
     
   
   UI Profiles
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment-capabilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Deployment Capabilities
 
     
   </span>
@@ -1977,6 +2058,33 @@
     
   
   Contributing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintenance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Maintenance Notes
 
     
   </span>
@@ -2240,20 +2348,23 @@
 </code></pre></div></li>
 <li>Click <strong>Load</strong>. The countries appear on the map and a <code>countries</code> layer is added to the Layers panel.</li>
 </ol>
-<p><img alt="Add Vector Layer panel with the sample URL ready to load" src="https://data.geolibre.app/images/geolibre-add-vector-panel.webp" /></p>
+<p><img alt="The Add Vector Layer panel with the sample URL ready to load" src="https://assets.geolibre.app/images/geolibre-add-vector-panel.webp" /></p>
 <p>See <a href="../../user-guide/adding-data/">Adding Data</a> for every supported source.</p>
 <h2 id="3-style-the-layer">3. Style the layer<a class="headerlink" href="#3-style-the-layer" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Select the <code>countries</code> layer in the Layers panel, then expand the <a href="../../user-guide/styling/">Style panel</a> on the right if it is collapsed.</li>
 <li>Adjust the <strong>Fill color</strong>, <strong>Outline color</strong>, and <strong>Fill opacity</strong> to taste.</li>
-<li>To make a choropleth, set <strong>Style type</strong> to <strong>Graduated</strong>, pick a numeric field (for example a population or GDP column), choose a <strong>Colormap</strong>, and click <strong>Apply style type</strong>.</li>
+<li>To make a choropleth, set <strong>Style type</strong> to <strong>Graduated</strong>, pick a numeric <strong>Attribute</strong> (for example <code>POP_EST</code> or <code>GDP_MD_EST</code>), choose the number of <strong>Classes</strong>, a <strong>Scheme</strong>, and a <strong>Colormap</strong>, then click <strong>Apply style type</strong>.</li>
 </ol>
+<p><img alt="The Style panel driving a data-driven style, with one colour per class listed below the colormap" src="https://assets.geolibre.app/images/geolibre-style-panel.webp" /></p>
 <h2 id="4-inspect-the-data">4. Inspect the data<a class="headerlink" href="#4-inspect-the-data" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Click <strong>Attribute table</strong> on the status bar to expand it, then select the <code>countries</code> layer to load its records. See <a href="../../user-guide/attribute-table/">Attribute Table</a>.</li>
-<li>Sort by a column, or filter to find a feature. Selecting a row highlights it on the map.</li>
+<li>Sort by a column, or type in <strong>Search attributes</strong> to find a feature. Selecting a row highlights it on the map.</li>
+<li>Click <strong>Explore</strong> to profile every field at once — its type, how complete it is, and how its values are distributed.</li>
 <li>You can also turn on <strong>Identify features</strong> for the layer and click a country on the map to see its attributes in a popup.</li>
 </ol>
+<p><img alt="The attribute table below the map, with its Explore, Statistics, Charts, and Export tools" src="https://assets.geolibre.app/images/geolibre-attribute-table.webp" /></p>
 <h2 id="5-save-or-share">5. Save or share<a class="headerlink" href="#5-save-or-share" title="Permanent link">&para;</a></h2>
 <ul>
 <li>In the desktop app, use <strong>Project → Save</strong> to write a <code>.geolibre.json</code> file.</li>

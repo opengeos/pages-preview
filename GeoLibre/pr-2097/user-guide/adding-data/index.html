@@ -696,6 +696,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#the-browser-panel" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The Browser panel
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#basemaps" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -1266,6 +1277,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../tutorials/videos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Video Tutorials
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../tutorials/first-map/" class="md-nav__link">
         
   
@@ -1647,6 +1685,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../server-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Server API
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../android/" class="md-nav__link">
         
   
@@ -1817,6 +1882,33 @@
     
   
   UI Profiles
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment-capabilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Deployment Capabilities
 
     
   </span>
@@ -2033,6 +2125,33 @@
     
   
   Contributing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintenance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Maintenance Notes
 
     
   </span>
@@ -2284,6 +2403,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#the-browser-panel" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The Browser panel
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#basemaps" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2343,7 +2473,7 @@
 <h1 id="adding-data">Adding Data<a class="headerlink" href="#adding-data" title="Permanent link">&para;</a></h1>
 <p>The <strong>Add Data</strong> menu is the main way to bring layers into GeoLibre. It groups sources into Files, Web services, Cloud formats, 3D layers, and Databases. You can also drag files straight onto the map.</p>
 <p>To collect supported dataset links from a catalog or other webpage and open several at once, use the <a href="../chrome-extension/">GeoLibre Chrome extension</a>, available from the <a href="https://chromewebstore.google.com/detail/open-data-in-geolibre/joinecgbfoldanidcoakpjgkbaceaooj">Chrome Web Store</a>.</p>
-<p><img alt="Add Data menu" src="https://data.geolibre.app/images/geolibre-add-data-menu.webp" /></p>
+<p><img alt="The Add Data menu, grouped into Files, Web services, Cloud formats, 3D layers, and Databases" src="https://assets.geolibre.app/images/geolibre-add-data-menu.webp" /></p>
 <h2 id="files">Files<a class="headerlink" href="#files" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -2366,16 +2496,32 @@
 <td>Loads CSV/TSV from a file or URL, using longitude and latitude columns to build point features, or by geocoding one or more address columns (see <a href="../data-integrations/#geocoding">Geocoding</a>).</td>
 </tr>
 <tr>
-<td><strong>Encoded Polyline</strong></td>
-<td>Loads Google (precision 5) or Valhalla/Mapbox (precision 6) encoded polyline strings from pasted text or uploaded text files.</td>
+<td><strong>CAD (DXF/DWG) Layer</strong></td>
+<td>Loads AutoCAD drawings, converting their entities to vector features.</td>
+</tr>
+<tr>
+<td><strong>File Geodatabase (GDB)</strong></td>
+<td>Opens an Esri file geodatabase and adds one of its feature classes as a layer.</td>
+</tr>
+<tr>
+<td><strong>Geotagged Photos</strong></td>
+<td>Reads the EXIF GPS tags from a set of photos and places each one on the map as a point with a thumbnail.</td>
 </tr>
 <tr>
 <td><strong>GPX Layer</strong></td>
 <td>Loads a GPX file or URL and splits it into separate waypoint, track, and route layers.</td>
 </tr>
 <tr>
+<td><strong>Encoded Polyline</strong></td>
+<td>Loads Google (precision 5) or Valhalla/Mapbox (precision 6) encoded polyline strings from pasted text or uploaded text files.</td>
+</tr>
+<tr>
 <td><strong>MBTiles Layer</strong></td>
 <td>Loads a local MBTiles tile archive (desktop app).</td>
+</tr>
+<tr>
+<td><strong>OSM PBF Layer</strong></td>
+<td>Reads an OpenStreetMap <code>.osm.pbf</code> extract and adds the features you select from it.</td>
 </tr>
 </tbody>
 </table>
@@ -2432,12 +2578,32 @@ FlatGeobuf source when you have the choice.</p>
 <td>A Web Map Tile Service layer.</td>
 </tr>
 <tr>
+<td><strong>OGC API - Features</strong></td>
+<td>An OGC API - Features endpoint; pick a collection and add it as a vector layer.</td>
+</tr>
+<tr>
+<td><strong>OGC Vector Tiles</strong></td>
+<td>An OGC API - Tiles vector tile service.</td>
+</tr>
+<tr>
 <td><strong>ArcGIS Layer</strong></td>
 <td>An ArcGIS FeatureServer, VectorTileServer, MapServer, or ImageServer layer. See <a href="#arcgis-services">ArcGIS services</a>.</td>
 </tr>
 <tr>
+<td><strong>GeoRSS Layer</strong></td>
+<td>A GeoRSS feed, added as points and lines with the feed's titles and descriptions as attributes.</td>
+</tr>
+<tr>
 <td><strong>STAC Layer</strong></td>
 <td>Searches a STAC catalog and adds the matching raster items.</td>
+</tr>
+<tr>
+<td><strong>Video Layer</strong></td>
+<td>Drapes a video over four map corner coordinates, the way MapLibre's video source does.</td>
+</tr>
+<tr>
+<td><strong>Deck.gl Layer</strong></td>
+<td>Renders a deck.gl layer specification over the map, for visualizations MapLibre's own layer types do not cover.</td>
 </tr>
 </tbody>
 </table>
@@ -2516,6 +2682,10 @@ were rendered before the choice existed and cannot honor it.</p>
 <td><strong>Zarr Layer</strong></td>
 <td>Chunked, cloud-native multidimensional arrays.</td>
 </tr>
+<tr>
+<td><strong>NetCDF / HDF</strong></td>
+<td>Multidimensional scientific data cubes, with a setup step for picking the variable and the time and vertical dimensions.</td>
+</tr>
 </tbody>
 </table>
 <h2 id="3d-layers">3D layers<a class="headerlink" href="#3d-layers" title="Permanent link">&para;</a></h2>
@@ -2532,12 +2702,16 @@ were rendered before the choice existed and cannot honor it.</p>
 <td>Point-cloud visualization, rendered with deck.gl.</td>
 </tr>
 <tr>
-<td><strong>Splatting Layer</strong></td>
+<td><strong>Gaussian Splatting</strong></td>
 <td>Gaussian splat scenes.</td>
 </tr>
 <tr>
 <td><strong>3D Tiles Layer</strong></td>
 <td>OGC 3D Tiles, restored when reopening a project. Includes a Google Photorealistic 3D Tiles sample that reads <code>VITE_GOOGLE_MAPS_API_KEY</code> or <code>GOOGLE_MAPS_API_KEY</code> from the runtime environment.</td>
+</tr>
+<tr>
+<td><strong>3D Model (glTF)</strong></td>
+<td>Places a glTF/GLB model at a coordinate, with scale, rotation, and altitude controls.</td>
 </tr>
 </tbody>
 </table>
@@ -2558,12 +2732,47 @@ were rendered before the choice existed and cannot honor it.</p>
 <td><strong>PostgreSQL Layer</strong></td>
 <td>Add a layer from a PostgreSQL/PostGIS connection (desktop app, served through a local tile server).</td>
 </tr>
+<tr>
+<td><strong>Apache Iceberg Layer</strong></td>
+<td>Read an Iceberg table through DuckDB and add its spatial column as a layer.</td>
+</tr>
 </tbody>
 </table>
 <h2 id="drag-and-drop">Drag and drop<a class="headerlink" href="#drag-and-drop" title="Permanent link">&para;</a></h2>
 <p>Drag a vector file (GeoJSON, zipped Shapefile, KMZ, and similar) or a GeoTIFF/COG raster directly onto the map to add it as a layer. GPX files dropped on the map are split into named waypoint, track, and route layers.</p>
+<h2 id="the-browser-panel">The Browser panel<a class="headerlink" href="#the-browser-panel" title="Permanent link">&para;</a></h2>
+<p>The <strong>Browser</strong> tab on the left edge of the window opens a QGIS-style Data Source Manager: a tree of everything you can add without going through a menu. Use it when you add the same sources repeatedly, or when you want to explore a service or a database before committing to a layer.</p>
+<p><img alt="The Browser panel, with My Data, Services, Recent, and Databases sections" src="https://assets.geolibre.app/images/geolibre-browser-panel.webp" /></p>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>What it holds</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>My Data</strong></td>
+<td>Your personal layer library. <strong>Layer actions → Save to My Data</strong> stores a fully configured layer — source, style, labels, filters, joins, virtual fields, and attribute form — and one click here re-adds it to any later project. Import and export the library with the buttons on the section header.</td>
+</tr>
+<tr>
+<td><strong>Services</strong></td>
+<td>Saved map services, grouped by kind (XYZ, WMS, WFS, WMTS, ArcGIS). GeoLibre ships a starter set; the <strong>+</strong> on a group adds a new connection of that kind. Expand a service to browse its layers and add one.</td>
+</tr>
+<tr>
+<td><strong>Recent</strong></td>
+<td>The sources you added most recently, so a repeat is one click.</td>
+</tr>
+<tr>
+<td><strong>Databases</strong></td>
+<td>PostGIS connections. Expand one to browse its schemas and tables; on a table that registers more than one geometry column, pick the column explicitly.</td>
+</tr>
+</tbody>
+</table>
+<p>Type in the search box to filter the whole tree, and navigate it entirely from the keyboard with the arrow keys.</p>
 <h2 id="basemaps">Basemaps<a class="headerlink" href="#basemaps" title="Permanent link">&para;</a></h2>
-<p>The basemap sits at the bottom of the <a href="../layers/">Layers panel</a> as the <strong>Background</strong> entry. Activate the <strong>Basemaps</strong> plugin from the <a href="../plugins/">Plugins menu</a> to switch between OpenFreeMap styles (Liberty, Positron, Bright, Dark, Fiord, 3D), a blank background, or a custom style URL. You can toggle basemap visibility and adjust its opacity from the Layers panel.</p>
+<p>The basemap sits at the bottom of the <a href="../layers/">Layers panel</a> as the <strong>Background</strong> entry. <strong>Double-click that row</strong> to open the <strong>Change basemap</strong> dialog, or activate the <strong>Basemaps</strong> plugin from the <a href="../plugins/">Plugins menu</a> to switch between OpenFreeMap styles (Liberty, Liberty 3D, Positron, Bright, Dark, Fiord), a collapsible <strong>Regional</strong> group, a blank background, or a custom style URL. You can toggle basemap visibility and adjust its opacity from the Layers panel.</p>
+<p><img alt="The Change basemap dialog, with OpenFreeMap styles at the top and Moon, Mars, and other celestial-body sections below" src="https://assets.geolibre.app/images/geolibre-change-basemap.webp" /></p>
 <h3 id="other-celestial-bodies">Other celestial bodies<a class="headerlink" href="#other-celestial-bodies" title="Permanent link">&para;</a></h3>
 <p>GeoLibre can map worlds beyond Earth. The <strong>Change basemap</strong> dialog and the <strong>New project</strong> dialog group planetary basemaps into sections for <strong>The Moon</strong>, <strong>Mars</strong>, and a collapsible <strong>Other celestial bodies</strong> section covering <strong>Mercury, Venus, the Galilean moons</strong> (Io, Europa, Ganymede, Callisto), <strong>Titan, Pluto,</strong> and <strong>Charon</strong>. The Moon and Mars mosaics come from <a href="https://www.openplanetary.org/opm">OpenPlanetaryMap</a>; the other bodies come from <a href="https://astrogeology.usgs.gov/">USGS Astrogeology</a> and are reprojected to Web Mercator on the fly so MapLibre can render them.</p>
 <p>For quick switching, use the <strong>planet switcher</strong> (the orbit icon) in the Layers panel header. Selecting a body sets the project's <strong>ellipsoid</strong>, so distance, area, and scale-bar measurements use that body's radius instead of Earth's.</p>
