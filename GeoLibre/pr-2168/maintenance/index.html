@@ -2068,6 +2068,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#web-services-control-packages-packagespluginspackagejson" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Web Services control packages (<code>packages/plugins/package.json</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#maplibre-gl-components-packagespluginspackagejson" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2453,6 +2464,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#web-services-control-packages-packagespluginspackagejson" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Web Services control packages (<code>packages/plugins/package.json</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#maplibre-gl-components-packagespluginspackagejson" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2744,6 +2766,20 @@ and <code>line-gradient</code> are listed for the same reason but the spec does 
 it, so only the <code>line-pattern</code> entry is a mirror a test can guard; the other two
 rest on how MapLibre renders them. A class using any of them is not imported as
 black — it declines the stack.</p>
+<h3 id="web-services-control-packages-packagespluginspackagejson">Web Services control packages (<code>packages/plugins/package.json</code>)<a class="headerlink" href="#web-services-control-packages-packagespluginspackagejson" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Docked panel DOM bridge.</strong> <code>dockable-map-control.ts</code> adapts
+  <code>maplibre-gl-fema-wms</code>, <code>maplibre-gl-nasa-earthdata</code>,
+  <code>maplibre-gl-enviroatlas</code>, and <code>maplibre-gl-national-map</code> by calling the
+  control lifecycle directly and moving the panel element that <code>onAdd()</code>
+  appends to the map container into GeoLibre's native right-panel host. Vantor
+  returns a wrapper instead, so the bridge selects its <code>.vantor-panel</code>
+  descendant. The scoped CSS in <code>index.css</code> mirrors each package's panel,
+  header, toggle, close, and resize-handle class names. After bumping any of
+  these packages, activate every migrated Web Services plugin and verify that
+  its catalog renders, resizing the GeoLibre dock preserves the content, and
+  no vendor panel remains under the map container.</li>
+</ul>
 <h3 id="maplibre-gl-components-packagespluginspackagejson"><code>maplibre-gl-components</code> (<code>packages/plugins/package.json</code>)<a class="headerlink" href="#maplibre-gl-components-packagespluginspackagejson" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong><code>MAP_PANEL_SELECTOR</code></strong>
