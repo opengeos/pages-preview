@@ -2574,7 +2574,7 @@
 <li><code>MapCanvas</code> subscribes to <code>layers</code>, then <code>MapController.syncLayers</code> updates MapLibre sources and layers and keeps the layer control in sync.</li>
 <li>Style panel and layer panel updates change layer state, then map sync updates paint, visibility, opacity, ordering, and removal.</li>
 <li>Attribute table selections update the highlighted feature source and can zoom the map to the selected feature.</li>
-<li>Desktop save uses <code>projectFromStore</code> and writes <code>.geolibre.json</code> to disk.</li>
+<li>Desktop save uses <code>projectFromStore</code> and writes <code>.geolibre</code> to disk. The earlier <code>.geolibre.json</code> name remains readable.</li>
 </ol>
 <h2 id="3d-globe-view-cesiumjs">3D globe view (CesiumJS)<a class="headerlink" href="#3d-globe-view-cesiumjs" title="Permanent link">&para;</a></h2>
 <p>The 2D MapLibre map can be joined by a 3D globe rendered with <a href="https://cesium.com/platform/cesiumjs/">CesiumJS</a>, offered as a <strong>split pane</strong> rather than a whole-app engine swap. Because the store (<code>@geolibre/core</code>) is engine-agnostic — it holds plain <code>GeoLibreLayer</code> records and a <code>MapViewState</code>, not MapLibre objects — a second renderer plugs in by subscribing to the same store, exactly as the 2D <code>SecondaryMapCanvas</code> panes do. There is no engine abstraction layer: MapLibre stays the default and the primary map, and Cesium is a first-party view mode (not a plugin — the plugin API is MapLibre-typed).</p>

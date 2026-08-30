@@ -1672,6 +1672,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#desktop-file-opening" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Desktop file opening
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#schema" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2297,6 +2308,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#desktop-file-opening" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Desktop file opening
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#schema" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2425,7 +2447,22 @@
 
 
 <h1 id="geolibre-project-format">GeoLibre Project Format<a class="headerlink" href="#geolibre-project-format" title="Permanent link">&para;</a></h1>
-<p>Projects are saved as <strong><code>.geolibre.json</code></strong> files.</p>
+<p>Projects are saved as <strong><code>.geolibre</code></strong> files. GeoLibre continues to open the
+earlier <strong><code>.geolibre.json</code></strong> name, but the single extension lets desktop
+installers associate projects with GeoLibre without taking ownership of every
+JSON file on the system.</p>
+<h2 id="desktop-file-opening">Desktop file opening<a class="headerlink" href="#desktop-file-opening" title="Permanent link">&para;</a></h2>
+<p>Desktop installers register <code>.geolibre</code> as a GeoLibre Project document. Opening
+one from the file manager launches GeoLibre, or brings the existing GeoLibre
+window forward, and loads the project. The desktop executable also accepts both
+supported names on the command line:</p>
+<div class="highlight"><pre><span></span><code>geolibre-desktop /path/to/watershed.geolibre
+geolibre-desktop /path/to/legacy.geolibre.json
+</code></pre></div>
+<p>Operating systems see only <code>.json</code> at the end of a <code>.geolibre.json</code> name. Those
+legacy files continue to open from inside GeoLibre and from the command line,
+but renaming one to <code>.geolibre</code> is required for file-manager association. The
+file contents do not change.</p>
 <h2 id="schema">Schema<a class="headerlink" href="#schema" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
