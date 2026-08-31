@@ -2123,6 +2123,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#tauri-plugin-persisted-scope-private-on-disk-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>tauri-plugin-persisted-scope</code> — private on-disk format
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#tauri-appsplugin-http-two-upstream-behaviors-not-apis" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2519,6 +2530,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#tauri-plugin-persisted-scope-private-on-disk-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>tauri-plugin-persisted-scope</code> — private on-disk format
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#tauri-appsplugin-http-two-upstream-behaviors-not-apis" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2858,6 +2880,14 @@ above this one is checked by the <strong>compiler</strong>:
 assignability against the real imported type, so a renamed or dropped engine
 identifier fails <code>npm run typecheck</code>. Nothing extra to do on a bump beyond letting
 the build run.</p>
+<h3 id="tauri-plugin-persisted-scope-private-on-disk-format"><code>tauri-plugin-persisted-scope</code> — private on-disk format<a class="headerlink" href="#tauri-plugin-persisted-scope-private-on-disk-format" title="Permanent link">&para;</a></h3>
+<p><code>PersistedScopeState</code> (<code>apps/geolibre-desktop/src-tauri/src/lib.rs</code>) mirrors the
+plugin's private bincode <code>Scope</code> structure so GeoLibre can remove legacy
+per-photo grants before the plugin synchronously replays them at startup. On a
+<code>tauri-plugin-persisted-scope</code> bump, compare the upstream struct's field order
+and types against this mirror and run the Rust scope-cleanup tests. Bincode
+encodes fields positionally, so an upstream layout change is not compiler
+checked.</p>
 <h3 id="tauri-appsplugin-http-two-upstream-behaviors-not-apis"><code>@tauri-apps/plugin-http</code> — two upstream <em>behaviors</em>, not APIs<a class="headerlink" href="#tauri-appsplugin-http-two-upstream-behaviors-not-apis" title="Permanent link">&para;</a></h3>
 <p><code>createNativeSidecarFetch</code>
 (<code>apps/geolibre-desktop/src/lib/sidecar-fetch.ts</code>) routes Windows sidecar traffic
