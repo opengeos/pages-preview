@@ -1,1 +1,0 @@
-import{a as e,c as r,i as a,n as l,o,r as s,s as t,t as i}from"./xyz-url-C6h2m_kk.js";export{i as createXyzTileUrlTemplate,l as hasXyzTilePlaceholders,s as nativeWmsTileUrl,a as normalizeTileUrlTemplate,e as registerXyzTileProtocol,o as resolveProjectXyzLayers,t as resolveXyzTileUrlTemplate,r as routeWmsLayerThroughNativeProtocol};
