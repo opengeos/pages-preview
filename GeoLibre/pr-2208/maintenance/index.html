@@ -2964,8 +2964,11 @@ adds ~340 KB back with no build error and no test failure.</p>
 <li><strong>Asset copy.</strong> <code>vite-plugins/copy-cesium-assets.ts</code> copies <code>Assets</code>,
   <code>ThirdParty</code>, <code>Widgets</code> and <code>Workers</code> out of <code>cesium/Build/Cesium</code> into
   <code>public/cesium/</code>, keyed on the installed version. The copy is gitignored, so a
-  stale one is refreshed automatically — but a directory renamed upstream is
-  silently dropped.</li>
+  stale one is refreshed automatically. A directory <em>renamed or removed</em>
+  upstream fails loudly — <code>cpSync</code> throws <code>ENOENT</code> from <code>buildStart</code>, so the dev
+  server and the build both stop. The silent case is the opposite one: a runtime
+  directory <em>added</em> upstream is simply not in <code>RUNTIME_DIRS</code>, so it is never
+  copied and only surfaces as a 404 when the globe reaches for it.</li>
 <li><strong><code>CESIUM_BASE_URL</code>.</strong> <code>CesiumCanvas.tsx</code> derives it from the app's
   <code>BASE_URL</code>, not a hardcoded <code>/cesium</code>, so a sub-path deploy (the <code>/demo/</code>
   build) still resolves. Cesium reads it at import time; if the Workers 404 the
