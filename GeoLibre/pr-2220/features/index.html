@@ -2588,12 +2588,10 @@ kepler.gl, see the <a href="../comparison/">Comparison</a>.</p>
 <li>Layer Library: save a fully configured layer — source, style, labels, filters, joins, virtual fields, and attribute form — from the layer actions menu, then re-add it to any later project in one click from the Browser panel's <strong>My Data</strong> section<ul>
 <li>Entries can be renamed, removed, and exported or imported as a JSON bundle to share with a team</li>
 <li>Entries store the source specification rather than the data, so a saved COG, PostGIS table, or remote GeoParquet always reflects its source's current contents</li>
-</ul>
-</li>
-<li>A GeoParquet's <code>geo</code> metadata block is read in full — <code>version</code>, <code>primary_column</code>, <code>encoding</code>, <code>geometry_types</code>, <code>bbox</code>, <code>covering</code>, and <code>edges</code> — alongside the CRS a Parquet 2.0 file records only on its geometry column's GEOMETRY/GEOGRAPHY logical type. A 3D <code>bbox</code> is read minima-first rather than mistaking its ymax for an elevation, and a lon/lat table carrying no geometry column is recognized as one<ul>
 <li>Layers whose features exist only in memory or in a local file embed them behind a size cap</li>
 </ul>
 </li>
+<li>A GeoParquet's <code>geo</code> metadata block is read in full — <code>version</code>, <code>primary_column</code>, <code>encoding</code>, <code>geometry_types</code>, <code>bbox</code>, <code>covering</code>, and <code>edges</code> — alongside the CRS a Parquet 2.0 file records only on its geometry column's GEOMETRY/GEOGRAPHY logical type. A 3D <code>bbox</code> is read minima-first rather than mistaking its ymax for an elevation, and a lon/lat table carrying no geometry column is recognized as one</li>
 <li>Deck.gl Layer builder for composing deck.gl overlays from uploaded files or remote URLs</li>
 <li>Cloud data integrations through the Planetary Computer and Earth Engine panels, the Overture Maps plugin, and federal Web Services plugins</li>
 <li>Manual and automatic refresh for WFS, GeoJSON URL, and Add Vector Layer URL layers, with the cadence, last-synchronized time, last error, and on-failure policy persisted with the project as a <code>connection</code> record — so a reopened project keeps refreshing on schedule and the Layers panel can show each live layer's synchronization status</li>
@@ -2645,14 +2643,14 @@ kepler.gl, see the <a href="../comparison/">Comparison</a>.</p>
 <li>A Duplicate labels option, plus unique and concatenate modes that collapse points stacked at the same coordinate into a single deduplicated label</li>
 </ul>
 </li>
-<li>Popup and tooltip designer that decides what a viewer sees on click and hover, per layer, instead of dumping every property into the Identify popup</li>
-<li><strong>Identify every visible layer at once</strong>, folding vector features and raster pixel values from all visible queryable layers into one grouped, expandable popup with expand-all and collapse-all, instead of picking a layer first and clicking again<ul>
+<li>Popup and tooltip designer that decides what a viewer sees on click and hover, per layer, instead of dumping every property into the Identify popup<ul>
 <li>Pick which fields appear and in what order, relabel them, and format each value as text, a number with decimals and thousands separators, a date, a link, or an image, with an optional prefix and suffix</li>
 <li>Title the popup from a field or an expression, or replace the rows entirely with an expression-built sentence, and show or hide the feature id</li>
 <li>Independent click and hover switches, so a layer can carry a full popup, a light tooltip that follows the pointer, both, or neither</li>
 <li>Saved with the project, so a shared map, a <code>layout=viewer</code> embed, and a story-map chapter show the reader the fields that were meant to be read rather than join artifacts, editor-tracking columns, and internal ids. See <a href="../project-format/">Project format</a></li>
 </ul>
 </li>
+<li><strong>Identify every visible layer at once</strong>, folding vector features and raster pixel values from all visible queryable layers into one grouped, expandable popup with expand-all and collapse-all, instead of picking a layer first and clicking again</li>
 <li>Single-band pseudocolor with classification, reversed and custom color ramps, the full colormap list shown as inline gradient swatches in the Color ramp picker, a Legend populated automatically from a paletted raster's embedded color table, and RGB band combination for styling raster layers, plus COG pixel-value inspection from the Identify icon</li>
 <li>NetCDF and HDF grids are first-class raster layers rather than a single grey band<ul>
 <li>Local grids are colormapped in the browser from the same colormap catalog the Style panel uses, added as image overlays, and fitted to the camera on add, so Zoom to layer has a real extent to fly to</li>
@@ -2847,9 +2845,9 @@ kepler.gl, see the <a href="../comparison/">Comparison</a>.</p>
 <li><strong>Earthdata GIS</strong>, which searches NASA's EOSDIS ArcGIS portal and renders its imagery, map, and feature services and published web maps as first-class layers</li>
 <li><strong>Planet Open Data</strong>, which opens Planet's disaster releases through the STAC browser with the public catalog preselected</li>
 <li><strong>Vantor Open Data</strong>, a STAC explorer for pre-event and post-event imagery that filters by event and phase, takes the map extent or a drawn bounding box, and picks its own COG rendering engine (GPU, WebAssembly, or TiTiler)</li>
-<li>Catalog plugins that share panel state are mutually exclusive, and a failed switch reactivates the plugin it displaced rather than leaving both off</li>
 <li><strong>Hugging Face</strong>, for searching the Hub, walking a dataset repo's folders, adding its vector and raster files to the map, and creating and uploading dataset repos</li>
 <li><strong><a href="https://github.com/geolens-io/geolens">GeoLens</a></strong>, which connects to a self-hosted GeoLens server and adds datasets as signed vector tiles, OGC API Features GeoJSON, or server-rendered raster tiles — and writes edits to a GeoJSON-loaded dataset back to the GeoLens server, feature by feature, when the server allows it</li>
+<li>Catalog plugins that share panel state are mutually exclusive, and a failed switch reactivates the plugin it displaced rather than leaving both off</li>
 </ul>
 </li>
 <li>Analysis and editing integrations: Elevation Profile, Overture Maps, USGS LiDAR, GeoAgent, and GeoEditor<ul>
