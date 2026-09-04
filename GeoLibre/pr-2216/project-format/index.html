@@ -23,11 +23,11 @@
       
       
       <link rel="icon" href="../assets/geolibre-icon.png">
-      <meta name="generator" content="zensical-0.0.58">
+      <meta name="generator" content="zensical-0.0.59">
     
     
       
-        <title>GeoLibre Project Format - GeoLibre</title>
+        <title>Project Format - GeoLibre</title>
       
     
     
@@ -122,7 +122,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              GeoLibre Project Format
+              Project Format
             
           </span>
         </div>
@@ -2547,6 +2547,11 @@ file contents do not change.</p>
 <td><code>styleLibrary</code></td>
 <td>array</td>
 <td>Optional project-scoped Style Manager entries (name, tags, kind, <code>LayerStyle</code> subset); omitted when empty</td>
+</tr>
+<tr>
+<td><code>primaryRenderer</code></td>
+<td>string</td>
+<td>Optional engine for the primary map area: <code>"maplibre"</code> (2D, the default) or <code>"cesium"</code> (3D globe); omitted when default</td>
 </tr>
 <tr>
 <td><code>metadata</code></td>
