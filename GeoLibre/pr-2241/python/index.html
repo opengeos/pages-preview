@@ -2840,11 +2840,11 @@ e.g. <code>m.run_algorithm(..., timeout=300)</code>.</p>
 <td>Add an authenticated Google Earth Engine object as raster tiles (needs <code>earthengine-api</code>).</td>
 </tr>
 <tr>
-<td><code>add_wms(endpoint, layers, name=, styles=, image_format=, transparent=, tile_size=, **style)</code></td>
-<td>Add a WMS layer (GetMap, tiled raster).</td>
+<td><code>add_wms(endpoint, layers, name=, styles=, image_format=, transparent=, tile_size=, version=, bounds=, **style)</code></td>
+<td>Add a WMS layer (GetMap, tiled raster). <code>bounds</code> is <code>[west, south, east, north]</code>, needed for zoom-to-layer.</td>
 </tr>
 <tr>
-<td><code>add_wmts(url, name=, tile_size=, **style)</code></td>
+<td><code>add_wmts(url, name=, tile_size=, bounds=, **style)</code></td>
 <td>Add a WMTS layer from a tile URL template.</td>
 </tr>
 <tr>
