@@ -2782,6 +2782,7 @@ kepler.gl, see the <a href="../comparison/">Comparison</a>.</p>
 </li>
 <li>Vector menu<ul>
 <li><strong>Geometry and analysis</strong>: buffer, centroids, convex hull, dissolve, bounding box, simplify, clip, intersection, difference, union, spatial join, attribute join, select by value, select by expression, select by location, random extract, movement, space-time, and cell coverage</li>
+<li>Buffer takes a side: Outside grows each feature, Inside shrinks it, and Both sides keeps only the zone within the distance on either side of its boundary. Inside shrinks polygons only: a point or line has no interior, so the inward buffer empties it and the feature is dropped from the result and reported in the run log</li>
 <li><strong>Data management</strong>: merge layers, through a multi-layer parameter picker that unites attribute schemas and can record each feature's source layer</li>
 <li><strong>Vertices and sampling</strong>: extract vertices as points carrying their part and vertex index, and generate points along lines and polygon boundaries at a fixed geodesic interval</li>
 <li><strong>Data quality</strong>: check validity, fix geometries, and check topology rules</li>
