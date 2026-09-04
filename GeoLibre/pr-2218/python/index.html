@@ -23,11 +23,11 @@
       
       
       <link rel="icon" href="../assets/geolibre-icon.png">
-      <meta name="generator" content="zensical-0.0.58">
+      <meta name="generator" content="zensical-0.0.59">
     
     
       
-        <title>Python package (Jupyter) - GeoLibre</title>
+        <title>Python Package - GeoLibre</title>
       
     
     
@@ -122,7 +122,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Python package (Jupyter)
+              Python Package
             
           </span>
         </div>
@@ -2788,8 +2788,8 @@ e.g. <code>m.run_algorithm(..., timeout=300)</code>.</p>
 <td>Add clustered point markers.</td>
 </tr>
 <tr>
-<td><code>add_heatmap(points, name=, radius=, intensity=, **style)</code></td>
-<td>Add point data using the density heatmap renderer.</td>
+<td><code>add_heatmap(points, name=, radius=, intensity=, color_ramp=, weight_field=, **style)</code></td>
+<td>Add point data using the density heatmap renderer, optionally weighted by a numeric field.</td>
 </tr>
 <tr>
 <td><code>add_choropleth(data, column, name=, class_count=, colormap=, scheme=, **style)</code></td>
@@ -2840,11 +2840,11 @@ e.g. <code>m.run_algorithm(..., timeout=300)</code>.</p>
 <td>Add an authenticated Google Earth Engine object as raster tiles (needs <code>earthengine-api</code>).</td>
 </tr>
 <tr>
-<td><code>add_wms(endpoint, layers, name=, styles=, image_format=, transparent=, tile_size=, **style)</code></td>
-<td>Add a WMS layer (GetMap, tiled raster).</td>
+<td><code>add_wms(endpoint, layers, name=, styles=, image_format=, transparent=, tile_size=, version=, bounds=, **style)</code></td>
+<td>Add a WMS layer (GetMap, tiled raster). <code>bounds</code> is <code>[west, south, east, north]</code>, needed for zoom-to-layer.</td>
 </tr>
 <tr>
-<td><code>add_wmts(url, name=, tile_size=, **style)</code></td>
+<td><code>add_wmts(url, name=, tile_size=, bounds=, **style)</code></td>
 <td>Add a WMTS layer from a tile URL template.</td>
 </tr>
 <tr>

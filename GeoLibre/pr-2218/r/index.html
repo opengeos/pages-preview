@@ -23,11 +23,11 @@
       
       
       <link rel="icon" href="../assets/geolibre-icon.png">
-      <meta name="generator" content="zensical-0.0.58">
+      <meta name="generator" content="zensical-0.0.59">
     
     
       
-        <title>R package - GeoLibre</title>
+        <title>R Package - GeoLibre</title>
       
     
     
@@ -122,7 +122,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              R package
+              R Package
             
           </span>
         </div>
@@ -2359,7 +2359,8 @@
 
 
 <h1 id="r-package">R package<a class="headerlink" href="#r-package" title="Permanent link">&para;</a></h1>
-<p><a href="https://github.com/opengeos/geolibre-r/actions/workflows/R-CMD-check.yaml"><img alt="R-CMD-check" src="https://github.com/opengeos/geolibre-r/actions/workflows/R-CMD-check.yaml/badge.svg" /></a></p>
+<p><a href="https://CRAN.R-project.org/package=geolibre"><img alt="CRAN status" src="https://www.r-pkg.org/badges/version/geolibre" /></a>
+<a href="https://github.com/opengeos/geolibre-r/actions/workflows/R-CMD-check.yaml"><img alt="R-CMD-check" src="https://github.com/opengeos/geolibre-r/actions/workflows/R-CMD-check.yaml/badge.svg" /></a></p>
 <p>The <strong><code>geolibre</code></strong> R package embeds the full GeoLibre map in RStudio, Quarto,
 R Markdown, and Shiny through <a href="https://www.htmlwidgets.org/"><code>htmlwidgets</code></a>.
 It creates standard <code>.geolibre.json</code> projects, so maps can move between R and
@@ -2368,13 +2369,13 @@ the GeoLibre web or desktop application.</p>
 <a class="md-button" href="https://r.geolibre.app/articles/interactive-map.html">Open the interactive example</a>
 <a class="md-button" href="https://github.com/opengeos/geolibre-r">Browse the source</a></p>
 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
-<p>The package is currently available from GitHub while its first CRAN submission
-is prepared:</p>
+<p>Install the released version from
+<a href="https://CRAN.R-project.org/package=geolibre">CRAN</a>:</p>
+<div class="highlight"><pre><span></span><code><span class="nf">install.packages</span><span class="p">(</span><span class="s">"geolibre"</span><span class="p">)</span>
+</code></pre></div>
+<p>Or the development version from GitHub:</p>
 <div class="highlight"><pre><span></span><code><span class="nf">install.packages</span><span class="p">(</span><span class="s">"pak"</span><span class="p">)</span>
 <span class="n">pak</span><span class="o">::</span><span class="nf">pak</span><span class="p">(</span><span class="s">"opengeos/geolibre-r"</span><span class="p">)</span>
-</code></pre></div>
-<p>After it is published on CRAN, install the released version with:</p>
-<div class="highlight"><pre><span></span><code><span class="nf">install.packages</span><span class="p">(</span><span class="s">"geolibre"</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="quick-start">Quick start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
 <p>Create an interactive map from GeoJSON and set its initial camera:</p>

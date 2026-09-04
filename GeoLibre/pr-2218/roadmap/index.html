@@ -23,11 +23,11 @@
       
       
       <link rel="icon" href="../assets/geolibre-icon.png">
-      <meta name="generator" content="zensical-0.0.58">
+      <meta name="generator" content="zensical-0.0.59">
     
     
       
-        <title>GeoLibre Roadmap - GeoLibre</title>
+        <title>Roadmap - GeoLibre</title>
       
     
     
@@ -122,7 +122,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              GeoLibre Roadmap
+              Roadmap
             
           </span>
         </div>
@@ -2277,10 +2277,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#v28-a-popup-designer-quick-filters-per-layer-permissions-and-the-packages-on-npm-current" class="md-nav__link">
+  <a href="#v28-a-popup-designer-quick-filters-per-layer-permissions-and-the-packages-on-npm" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        v2.8: A popup designer, quick filters, per-layer permissions, and the packages on npm (current)
+        v2.8: A popup designer, quick filters, per-layer permissions, and the packages on npm
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v29-a-tokenless-3d-globe-kiosk-and-classroom-deployments-docked-service-panels-and-keyless-global-elevation-current" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        v2.9: A tokenless 3D globe, kiosk and classroom deployments, docked service panels, and keyless global elevation (current)
       </span>
     </span>
   </a>
@@ -2919,10 +2930,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#v28-a-popup-designer-quick-filters-per-layer-permissions-and-the-packages-on-npm-current" class="md-nav__link">
+  <a href="#v28-a-popup-designer-quick-filters-per-layer-permissions-and-the-packages-on-npm" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        v2.8: A popup designer, quick filters, per-layer permissions, and the packages on npm (current)
+        v2.8: A popup designer, quick filters, per-layer permissions, and the packages on npm
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v29-a-tokenless-3d-globe-kiosk-and-classroom-deployments-docked-service-panels-and-keyless-global-elevation-current" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        v2.9: A tokenless 3D globe, kiosk and classroom deployments, docked service panels, and keyless global elevation (current)
       </span>
     </span>
   </a>
@@ -3526,7 +3548,7 @@
 <li>[x] <strong>A composite score builder for suitability and index analysis</strong>: normalize two or more numeric fields (min-max, z-score, rank, or quantile), weight them, combine them with a weighted arithmetic or geometric mean, and write one index (0-100 by default, 0-1 on request) that the layer is immediately styled by, with how a feature missing a value is treated made an explicit choice rather than a silent default</li>
 <li>[x] A Style panel button on every layer card, field statistics scoped to the selected features, USGS LiDAR clipped and downloaded as COPC, ArcGIS ImageServer raster functions browsed from the service's own list, and <code>?data=</code> accepting several URLs at once</li>
 </ul>
-<h2 id="v28-a-popup-designer-quick-filters-per-layer-permissions-and-the-packages-on-npm-current">v2.8: A popup designer, quick filters, per-layer permissions, and the packages on npm (current)<a class="headerlink" href="#v28-a-popup-designer-quick-filters-per-layer-permissions-and-the-packages-on-npm-current" title="Permanent link">&para;</a></h2>
+<h2 id="v28-a-popup-designer-quick-filters-per-layer-permissions-and-the-packages-on-npm">v2.8: A popup designer, quick filters, per-layer permissions, and the packages on npm<a class="headerlink" href="#v28-a-popup-designer-quick-filters-per-layer-permissions-and-the-packages-on-npm" title="Permanent link">&para;</a></h2>
 <ul>
 <li>[x] <strong>An author decides what a viewer sees on click and hover</strong>: a per-layer Popup section in the Style panel picks which fields the Identify popup shows, in what order, under what labels, with what number, date, link, and image formatting, what titles it, and whether a hover tooltip follows the pointer — so a shared map, a <code>layout=viewer</code> embed, or a story-map chapter stops showing join artifacts, editor-tracking columns, and internal ids to its readers. See <a href="../project-format/">Project format</a></li>
 <li>[x] <strong>Quick filters answer a layer with controls instead of an expression</strong>: pick a field and GeoLibre profiles its values to offer the matching control — checkboxes with per-value counts for a categorical field, a range slider with typed bounds for a numeric one, a date range for a timestamp, a text match otherwise — with the control state saved, not the compiled expression, so a filter can always be reopened and changed. A filtered layer is flagged with a funnel icon and cleared in one action, the controls render in the read-only viewer layout, and a host page's <code>setFilter</code>, the Time Slider's window, and a user's own filter now narrow a layer together rather than clobbering each other</li>
@@ -3543,6 +3565,22 @@
 <li>[x] <strong>GeoEditor sketches export as a project layer</strong>, carrying their style, opacity, and visibility, so drawn work leaves the editor without being redrawn or re-imported</li>
 <li>[x] <strong>KML folder structure survives import</strong>: placemarks that sit inside a Folder become one layer per folder, the rest stay merged per file, and the import frames the combined extent</li>
 <li>[x] Release downloads are mirrored to GitHub Pages and <code>web.geolibre.app</code> moved there, the Model Builder panel maximizes across the map canvas, the annotation toolbar collapses, hosted-site analytics became opt-in at build time (and never ship in the desktop, Jupyter, Docker, or fork builds — see <a href="../privacy/">Privacy</a>), and the docs gained a <a href="../tutorials/videos/">Video Tutorials</a> page and a user guide checked against the running app</li>
+</ul>
+<h2 id="v29-a-tokenless-3d-globe-kiosk-and-classroom-deployments-docked-service-panels-and-keyless-global-elevation-current">v2.9: A tokenless 3D globe, kiosk and classroom deployments, docked service panels, and keyless global elevation (current)<a class="headerlink" href="#v29-a-tokenless-3d-globe-kiosk-and-classroom-deployments-docked-service-panels-and-keyless-global-elevation-current" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[x] <strong>The 3D globe no longer needs a Cesium Ion token</strong>, and it finally draws the project's own basemap. The pane used to hide itself unless a token was configured and then ignored the basemap entirely, so a project saved with a globe reopened as a flat map and a dark-themed project kept a bright globe in the corner. Planetary and regional basemaps carry over as raster tile sets, GeoLibre's vector styles map to a keyless raster basemap of matching tone, and the blank basemap draws a bare ellipsoid. A token is now an upgrade rather than a gate: it adds Cesium World Terrain and Ion world imagery</li>
+<li>[x] <strong>The two panes finally agree on scale</strong>: the globe camera aims at the terrain surface rather than the ellipsoid, so a view over high ground stops rendering more than twice as close as its 2D twin. The globe also builds a bare <code>CesiumWidget</code> and imports <code>@cesium/engine</code> directly instead of the <code>cesium</code> barrel, dropping the ten widgets it only switched off again and the Knockout dependency that came with them, and it now has automated coverage for the first time</li>
+<li>[x] <strong>Kiosk and classroom deployments can lock the app down</strong>: a capability model in <code>@geolibre/core</code> defines what a build is allowed to do, and the UI, the command palette, the keyboard shortcut layer, and the embed API all enforce it, so a denied action cannot be reached from a menu, a shortcut, or a host page. Denials explain themselves inline rather than silently disabling a control, and per-layer permissions from v2.8 now sit under one model. Processing, sidecar tools, project editing, data loading, plugins, and settings each gate independently</li>
+<li>[x] <strong>Elevation data without an account</strong>: a keyless global DEM downloader mosaics and clips the public AWS Terrain Tiles to the current map view or a bounding box drawn on the map, straight from Processing &gt; GeoLibre Toolbox &gt; Raster, with no API key to obtain and in-flight downloads cancelled when the tool closes</li>
+<li>[x] <strong>Web Services plugins dock like everything else.</strong> The first five moved into the shared dockable panel host, keeping their MapLibre control lifecycle and layer sync, so a catalog browser resizes, collapses, and sits alongside the Layers and Style panels rather than floating over the map</li>
+<li>[x] <strong>Two new open-data catalogs</strong> under Plugins &gt; Web Services: <strong>Planet Open Data</strong>, which opens Planet's disaster releases through the STAC browser with the public catalog preselected, and <strong>Vantor Open Data</strong>, a STAC explorer for pre-event and post-event imagery that filters by event and phase, draws a bounding box, and picks its own COG rendering engine (GPU, WebAssembly, or TiTiler). Catalog plugins that share panel state are now mutually exclusive, and a failed switch restores the plugin it displaced</li>
+<li>[x] <strong>Identify answers for every visible layer at once</strong>, folding vector features and raster pixel values from all visible queryable layers into one grouped, expandable popup, instead of making you pick a layer first and click again</li>
+<li>[x] <strong>Annotation layers are fully editable</strong>: an Elements panel lists what a layer holds, image overlay corners stay synchronized when an annotation moves, and the style controls shown are the ones that apply to the selected element</li>
+<li>[x] <strong>GeoParquet's <code>geo</code> metadata is read in full</strong> — <code>version</code>, <code>primary_column</code>, <code>encoding</code>, <code>geometry_types</code>, <code>bbox</code>, <code>covering</code>, and <code>edges</code> — alongside the CRS a Parquet 2.0 file records only on its geometry column's GEOMETRY/GEOGRAPHY logical type, which GeoLibre previously could not see at all. A 3D <code>bbox</code> is now read minima-first rather than mistaking its ymax for an elevation, and a lon/lat table without geometry is recognized</li>
+<li>[x] <strong>GeoLibre embeds in a Plotly Dash app</strong> through a new <code>DashMap</code> component, which pushes project changes into a mounted iframe after the ready handshake the way the Jupyter widget does. See <a href="../python/">Python API</a></li>
+<li>[x] <strong>Projects open the way files do</strong>: double-clicking a <code>.geolibre.json</code> in the desktop file manager opens it through a file association (with native project events on macOS), and dropping one on the map switches projects, keeping the unsaved-work prompt and reporting a bad file as a project error rather than a failed layer</li>
+<li>[x] <strong>Background controls say what they do</strong>, and a Blank background takes a custom color that survives a style reload and follows the theme by default, without bleeding into the planetary and regional styles that carry their own</li>
+<li>[x] Shift and Shift+Alt reach click selection again, so add and intersect work across multiple features instead of every click replacing the selection; remote zipped Shapefiles load in the web build; and all 18 shipped locales are complete again after the identify, Vantor, and Cesium features landed. See <a href="../i18n/">Internationalization</a></li>
 </ul>
 <h2 id="plugin-marketplace-and-registry-design">Plugin marketplace and registry (design)<a class="headerlink" href="#plugin-marketplace-and-registry-design" title="Permanent link">&para;</a></h2>
 <p>This captures the design for the <code>v1.0</code> "Plugin marketplace / registry" item. It
