@@ -3032,10 +3032,16 @@ the pane built a bare <code>CesiumWidget</code>. Reverting to <code>import("cesi
   target — the label reverts to English <em>after the first toggle</em>, which is why
   the spec toggles fullscreen and re-reads the title rather than checking it
   once at mount.</li>
-<li><strong>PWA globs.</strong> <code>**/cesium-*</code> / <code>**/Cesium-*</code> in <code>vite.config.ts</code> keep the
-  chunk out of the app-shell precache and CacheFirst-cache it instead. A chunk
-  renamed out of that pattern would be precached, adding megabytes to first load.</li>
 </ul>
+<p><strong>Scene-mode lifetime:</strong> the 2D/3D/Columbus picker controls the current
+  <code>CesiumWidget</code> only. Recreating the widget, including switching to MapLibre
+  and back or reopening a project, starts in 3D. The project retains its
+  rendering engine and camera, but does not serialize the Cesium scene mode.
+  Scene-mode persistence is outside the toolbar integration's scope; adding it
+  requires an explicit project/store field and restoration for each Cesium pane.
+- <strong>PWA globs.</strong> <code>**/cesium-*</code> / <code>**/Cesium-*</code> in <code>vite.config.ts</code> keep the
+  chunk out of the app-shell precache and CacheFirst-cache it instead. A chunk
+  renamed out of that pattern would be precached, adding megabytes to first load.</p>
 <p><code>e2e/cesium-globe.spec.ts</code> mounts the real engine keyless and drags the globe,
 so it catches a broken <code>CESIUM_BASE_URL</code> or a dead chunk.
 <code>e2e/cesium-primary-renderer.spec.ts</code> adds the toolbar: it asserts the three
