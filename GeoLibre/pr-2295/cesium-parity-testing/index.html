@@ -2247,8 +2247,12 @@ plugin engine declarations and menu gating have also landed.</p>
 while pointing at the globe. The corrected browser reports longitude/latitude
 and clears the readout on exit. The real US cities dataset produces 109 entities
 and 109 labels. Label collision avoidance and the advanced label data-defined
-appearance fields are outside this batch. Scene-mode persistence is also not
-added here; #2291 describes it as a possible follow-up.</p>
+appearance fields are outside this batch, and so are the <code>LabelStyle</code> placement
+fields the globe does not read yet: <code>anchor</code>, <code>rotation</code>, <code>placement</code> (line
+placement along a path), <code>maxWidth</code>, and <code>allowOverlap</code>. A label styled with
+them on the 2D map renders centred and unrotated on the globe; #2279 is not
+complete until they are honoured. Scene-mode persistence is also not added
+here; #2291 describes it as a possible follow-up.</p>
 <h2 id="remaining-work-and-ordering">Remaining work and ordering<a class="headerlink" href="#remaining-work-and-ordering" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
