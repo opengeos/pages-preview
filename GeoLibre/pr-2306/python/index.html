@@ -3048,9 +3048,10 @@ baker accepts nothing else, so a CSS color name is rejected rather than silently
 drawn in the default blue.</p>
 <h3 id="popups-and-tooltips">Popups and tooltips<a class="headerlink" href="#popups-and-tooltips" title="Permanent link">&para;</a></h3>
 <p>Without any configuration, clicking a feature shows the layer name and every
-visible property, and there is no hover tooltip. Every <code>add_*</code> method takes
-<code>popup=</code> and <code>tooltip=</code> to change that, and <code>set_popup</code> / <code>set_tooltip</code> /
-<code>clear_popup</code> change it on a layer that already exists.</p>
+visible property, and there is no hover tooltip. Every <code>add_*</code> method that
+takes style overrides accepts <code>popup=</code> and <code>tooltip=</code> to change that (the
+exception is <code>add_ee_layer</code>, which has a fixed signature), and <code>set_popup</code> /
+<code>set_tooltip</code> / <code>clear_popup</code> change it on a layer that already exists.</p>
 <div class="highlight"><pre><span></span><code><span class="n">m</span><span class="o">.</span><span class="n">add_markers</span><span class="p">(</span>
     <span class="n">points</span><span class="p">,</span>
     <span class="n">popup</span><span class="o">=</span><span class="p">{</span>
