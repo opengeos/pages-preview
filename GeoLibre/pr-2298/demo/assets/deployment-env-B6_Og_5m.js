@@ -1,1 +1,0 @@
-import{Yn as f}from"./src-Dm3B6Coh.js";function e(){if(!(typeof window>"u"))return window.__GEOLIBRE_DEPLOYMENT_ENV__}function u(o,t=e(),r=f()){for(const i of[t,r]){const n=i?.[o];if(typeof n=="string"&&n.trim())return n}}export{u as n,e as t};
