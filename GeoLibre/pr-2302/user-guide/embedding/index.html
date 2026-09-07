@@ -1227,6 +1227,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#switching-renderers" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Switching renderers
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2579,6 +2590,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#switching-renderers" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Switching renderers
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3236,6 +3258,16 @@ compatible.</p>
 <h2 id="what-works-in-an-embed">What works in an embed<a class="headerlink" href="#what-works-in-an-embed" title="Permanent link">&para;</a></h2>
 <p>The browser build supports map navigation, browser-selected and URL-based data, styling, the SQL Workspace, and most plugins. Desktop-only features (local file dialogs, local MBTiles and raster reads, project save/open, and the Python sidecar tools) are not available in an embed. See <a href="../../getting-started/">Getting Started</a>.</p>
 <p>See the <a href="../../tutorials/sharing-embedding/">Sharing &amp; Embedding tutorial</a> for a full walkthrough.</p>
+<h2 id="switching-renderers">Switching renderers<a class="headerlink" href="#switching-renderers" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="nx">client</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">"rendererchange"</span><span class="p">,</span><span class="w"> </span><span class="p">({</span><span class="w"> </span><span class="nx">renderer</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">renderer</span><span class="p">));</span>
+<span class="k">await</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">setRenderer</span><span class="p">(</span><span class="s2">"cesium"</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">renderer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">getRenderer</span><span class="p">();</span>
+</code></pre></div>
+<p>Both methods accept or return <code>"maplibre"</code> or <code>"cesium"</code>. The change event reports
+the selected renderer. <code>setRenderer</code> acknowledges the selection; the new canvas
+mounts asynchronously. Wait for the next <code>ready</code> event before issuing camera or
+capture commands. <code>exportImage()</code> supports either renderer and waits for its
+visible layers to settle before returning a PNG data URL.</p>
 
 
 

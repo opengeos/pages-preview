@@ -1998,6 +1998,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#cesium-and-mixed-pane-layouts" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Cesium and mixed pane layouts
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2483,6 +2494,17 @@
     <span class="md-ellipsis">
       <span class="md-typeset">
         Building from source
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cesium-and-mixed-pane-layouts" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Cesium and mixed pane layouts
       </span>
     </span>
   </a>
@@ -3066,6 +3088,19 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 </code></pre></div>
 <p>Changes to the Python code are picked up on kernel restart. Changes to the app
 (TypeScript) require re-running <code>npm run build:embed</code> and restarting the kernel.</p>
+<h2 id="cesium-and-mixed-pane-layouts">Cesium and mixed pane layouts<a class="headerlink" href="#cesium-and-mixed-pane-layouts" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="n">m</span> <span class="o">=</span> <span class="n">Map</span><span class="p">(</span><span class="n">renderer</span><span class="o">=</span><span class="s2">"cesium"</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="n">zoom</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">set_map_layout</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">view_kinds</span><span class="o">=</span><span class="p">[</span><span class="s2">"cesium"</span><span class="p">,</span> <span class="s2">"maplibre"</span><span class="p">],</span> <span class="n">sync_view</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">pane_id</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">project</span><span class="p">[</span><span class="s2">"secondaryMapViews"</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">"id"</span><span class="p">]</span>
+<span class="n">m</span><span class="o">.</span><span class="n">set_renderer</span><span class="p">(</span><span class="s2">"cesium"</span><span class="p">,</span> <span class="n">pane_id</span><span class="o">=</span><span class="n">pane_id</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">m</span><span class="o">.</span><span class="n">get_renderer</span><span class="p">()</span> <span class="o">==</span> <span class="s2">"cesium"</span>
+</code></pre></div>
+<p>Renderer choices are <code>"maplibre"</code> and <code>"cesium"</code>. Omitting <code>pane_id</code> targets the
+primary map. Grid dimensions are 1–4; <code>view_kinds</code> contains one renderer per
+pane, primary first. Existing pane IDs, cameras, and visibility overrides survive
+layout resizing. Save the project normally to preserve <code>primaryRenderer</code> and
+each secondary pane's <code>viewKind</code>. <code>DashMap(renderer="cesium")</code> selects the same
+initial renderer; Dash callbacks can update these fields through <code>project</code>.</p>
 
 
 

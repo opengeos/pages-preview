@@ -2069,6 +2069,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#renderer-and-pane-authoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Renderer and pane authoring
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2523,6 +2534,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#renderer-and-pane-authoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Renderer and pane authoring
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2775,6 +2797,12 @@ operations on project dicts (add/remove/restyle a layer, move the camera,
 compose the map controls). <code>geolibre.Map</code> delegates to the same module, so the
 notebook widget and the MCP server cannot drift apart in how they build a
 project.</p>
+<h2 id="renderer-and-pane-authoring">Renderer and pane authoring<a class="headerlink" href="#renderer-and-pane-authoring" title="Permanent link">&para;</a></h2>
+<p>Use <code>set_renderer(path, "cesium")</code> to open a project on the globe.
+<code>set_map_layout(path, 1, 2, view_kinds=["cesium", "maplibre"])</code> creates a mixed
+grid and returns the secondary pane IDs. Pass one as <code>pane_id</code> to <code>set_renderer</code>
+to change only that pane. Camera tools continue to use longitude/latitude and
+the shared zoom, bearing, and pitch convention.</p>
 
 
 
