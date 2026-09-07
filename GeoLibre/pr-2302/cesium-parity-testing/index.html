@@ -2309,9 +2309,9 @@ here; #2291 describes it as a possible follow-up.</p>
 <td>Real public sources for each supported format, resource disposal, picking, and accurate unsupported-layer badges</td>
 </tr>
 <tr>
-<td>#2286</td>
+<td>#2286 (implemented)</td>
 <td>Keyless and COG terrain</td>
-<td>Known elevations, tile boundaries, source replacement, exaggeration, missing tiles, and keyless browser checks</td>
+<td>Real Mount Rainier Terrarium relief (~4,315 m), local DEM sample (835 m versus 839 m source pixel after grid resampling), shared tile edges, source replacement, and both themes</td>
 </tr>
 <tr>
 <td>#2287</td>
@@ -2356,6 +2356,7 @@ both engines. STAC explicitly retains MapLibre dependencies for footprint
 picking. Planetary Computer and NASA Earthdata read their controls’ map;
 Hugging Face delegates file loading to the vector/raster controls. These are
 not automatically safe to ungate based on their catalog UI alone.</p>
+<p>Keyless globes now use Mapzen Terrarium heightmaps; an Ion token selects World Terrain. Controls → Terrain exaggeration accepts local and HTTP COG DEMs on either renderer. Shared edge samples avoid cracks between heightmap tiles; requests and tile caches are bounded and disposed with the source.</p>
 
 
 
