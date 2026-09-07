@@ -3042,10 +3042,17 @@ arguments, so you do not have to know the underlying style keys:</p>
 <p>A point layer draws two ways. By default it is a MapLibre circle sized by
 <code>radius</code>. Passing <code>shape</code>, <code>size</code>, or <code>icon</code> switches it to a <strong>marker sprite</strong>:
 one of <code>circle</code>, <code>square</code>, <code>triangle</code>, <code>diamond</code>, <code>star</code>, <code>cross</code>, <code>pin</code>, or
-<code>custom</code> (which needs <code>icon</code>, raw SVG markup or a data URL). A sprite is sized by
-<code>size</code> rather than <code>radius</code>, and its <code>color</code> must be a hex color — the sprite
-baker accepts nothing else, so a CSS color name is rejected rather than silently
-drawn in the default blue.</p>
+<code>custom</code> (which needs <code>icon</code>, raw SVG markup or a data URL).</p>
+<p>The two modes take different settings, and mixing them is an error rather than a
+silent no-op. A sprite layer replaces the circle layer outright and draws its own
+white halo, so <code>opacity</code>, <code>radius</code>, <code>stroke_color</code>, and <code>stroke_width</code> are
+circle-only and are rejected when <code>shape</code>/<code>size</code>/<code>icon</code> is also given — use
+<code>size</code> for a sprite's size. A sprite's <code>color</code> must be a hex color, because the
+sprite baker accepts nothing else and would otherwise fall back to the default
+blue in silence.</p>
+<p>Where a named argument and its underlying style key are both passed
+(<code>add_markers(pts, radius=8, circleRadius=20)</code>), the raw style key wins — it is
+the low-level escape hatch.</p>
 <h3 id="popups-and-tooltips">Popups and tooltips<a class="headerlink" href="#popups-and-tooltips" title="Permanent link">&para;</a></h3>
 <p>Without any configuration, clicking a feature shows the layer name and every
 visible property, and there is no hover tooltip. Every <code>add_*</code> method that
