@@ -3700,6 +3700,11 @@ underscore/hyphen spelling are rejected if they collide. Registering the same
 name for the same owner replaces it; an older disposer cannot remove the
 replacement. Tools are removed on deactivation, failed activation, and plugin
 removal, and stale asynchronous registrations after teardown are ignored.</p>
+<p>Register from <code>activate</code> (or from the app it hands you, including
+asynchronously). A tool lives for exactly one activation, so the app passed to
+the other lifecycle callbacks — <code>applyProjectState</code>, <code>setMapControlPosition</code>,
+<code>handleUrlParameters</code>, <code>deactivate</code> — omits both methods: those run for inactive
+plugins, whose registrations no cleanup path would reach.</p>
 <p>The assistant refreshes its tools before the next prompt while retaining its
 conversation history. Plugin callbacks execute plugin-authored code, like a
 panel button; they should use the app API to update layers and other app state.</p>
