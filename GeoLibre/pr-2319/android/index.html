@@ -1761,6 +1761,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#open-a-location-from-another-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Open a location from another app
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2501,6 +2512,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#open-a-location-from-another-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Open a location from another app
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2762,6 +2784,32 @@ review, so gate them on mobile the way the sidecar tools already are via
 <li>Earth Engine OAuth uses a desktop loopback/multi-window flow; a mobile
   deep-link redirect is future work.</li>
 </ul>
+<h2 id="open-a-location-from-another-app">Open a location from another app<a class="headerlink" href="#open-a-location-from-another-app" title="Permanent link">&para;</a></h2>
+<p>GeoLibre handles Android <code>ACTION_VIEW</code> intents with the <code>geo:</code> scheme, both
+when launching the app and while it is already open. Supported forms include:</p>
+<ul>
+<li><code>geo:40.7128,-74.006</code></li>
+<li><code>geo:40.7128,-74.006?z=12</code></li>
+<li><code>geo:0,0?q=40.7128,-74.006(New%20York)&amp;z=12</code></li>
+</ul>
+<p>Coordinates use latitude, longitude order. Numeric <code>q</code> coordinates override
+the URI's placeholder coordinates; address-only queries are not supported.
+An optional third coordinate in a direct URI is altitude in meters; it is validated
+and ignored when positioning the map. Zoom defaults to 14 and must be between
+0 and 24. Invalid locations are ignored.
+A received location moves the map without replacing the current project's layers.</p>
+<p>The Tauri deep-link plugin generates the Android intent filter from
+<code>tauri.android.conf.json</code>, so it also applies when CI regenerates <code>gen/android</code>.
+To check both a cold launch and a running app on a connected device, run this
+command twice, panning the map between invocations:</p>
+<div class="highlight"><pre><span></span><code>adb<span class="w"> </span>shell<span class="w"> </span>am<span class="w"> </span>start<span class="w"> </span>-a<span class="w"> </span>android.intent.action.VIEW<span class="w"> </span>-d<span class="w"> </span><span class="s1">'geo:0,0?q=40.7128,-74.006&amp;z=12'</span><span class="w"> </span>org.geolibre.app
+</code></pre></div>
+<p>Web links can open the same location with
+<code>https://geolibre.app/?lat=40.7128&amp;lon=-74.006&amp;zoom=12</code> or the compact form
+<code>https://geolibre.app/?12/40.7128/-74.006</code>. A coordinate-only launch takes
+precedence over saved startup settings and skips onboarding. An explicit
+project or data link retains its existing camera/loading behavior when combined
+with coordinate parameters.</p>
 
 
 

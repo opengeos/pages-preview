@@ -2274,9 +2274,9 @@ here; #2291 describes it as a possible follow-up.</p>
 <td>Nonblank 872×648 PNG; real print PNG; 11.6 s H.264 recording at 872×648; two-stop VP9 WebM tour; failed-layer and renderer-destruction capture tests. Atlas masks and map-series camera fitting retain their MapLibre gate.</td>
 </tr>
 <tr>
-<td>#2278</td>
+<td>#2278 (implemented)</td>
 <td>Shared per-feature style evaluation</td>
-<td>Classified/rule/expression examples compared with MapLibre; invalid-expression fallback; live changes</td>
+<td>Real Natural Earth countries categorized by continent and populated places sized proportionally by population rendered on the globe and compared with the 2D map in both themes; unit tests evaluate the real core expressions for single, categorized, graduated, rule-based (with per-rule radius/width/colour/opacity overrides and the else rule), expression (including the invalid-expression fallback), proportional size, metre-unit strokes (zoom re-resolution), and simplestyle; layer-sync tests cover per-entity baking, point-to-circle conversion, in-place opacity restyle versus reload</td>
 </tr>
 <tr>
 <td>#2280 (merged in #2298)</td>
@@ -2289,9 +2289,9 @@ here; #2291 describes it as a possible follow-up.</p>
 <td>Known-height buildings and elevation profiles; scale/base/offset checks and terrain interactions</td>
 </tr>
 <tr>
-<td>#2282</td>
+<td>#2282 (implemented for points)</td>
 <td>Clustering and large-vector primitives</td>
-<td>Cluster counts and zoom thresholds, feature picking, mixed geometry, removal, and measured performance on 50k+ features</td>
+<td>Real populated-places clustering on the globe with counts and the <code>clusterMaxZoom</code> cutoff, and a 60k-point layer as one primitive batch, verified in both themes; unit tests cover the plan (point-only, markers, elevation, threshold), count abbreviation, bubble sizes, the cluster handler and refresh, batch building with feature refs, picking, quick filters, in-place opacity, removal, and the zoom toggle. Batched ground polygons and lines are not part of this pass (see #2311)</td>
 </tr>
 <tr>
 <td>#2283 (implemented)</td>
@@ -2304,9 +2304,9 @@ here; #2291 describes it as a possible follow-up.</p>
 <td>Two real vector PMTiles archives (Protomaps Tilezen water and roads at z12, a global H3 building-count grid) draped on the globe in both themes with seam-free adjacent tiles, and the same project on the 2D map for comparison; unit tests cover the draped-kind predicate, the rebuild signature, tile-centre maths, the serialised render queue, stale-tile and destroy guards, the 512-px provider, and the layer-sync integration (one shared imagery layer, rebuild on change, teardown, no-drape error). Picking on draped content and ArcGIS VectorTileServer layers remain follow-ups.</td>
 </tr>
 <tr>
-<td>#2285</td>
+<td>#2285 (implemented)</td>
 <td>Native I3S, point clouds, splats; deck.gl gating</td>
-<td>Real public sources for each supported format, resource disposal, picking, and accurate unsupported-layer badges</td>
+<td>Real Esri San Francisco buildings I3S scene layer rendered through <code>I3SDataProvider</code> (54 content tiles) and the real Autzen COPC decoded into a 381,256-point preview positioned over Eugene, both themes; unit tests cover URL classification, the bounded breadth-first octree walk with lazy sub-pages, reprojection through the archive WKT, 16-bit colour, abort, I3S/splat/point-cloud-tileset routing, in-place opacity, and removal mid-decode. The Add Data deck.gl builder is disabled without the <code>customLayers</code> capability. EPT, plain LAS/LAZ, and raw splat files stay "2D only"</td>
 </tr>
 <tr>
 <td>#2286 (implemented)</td>
