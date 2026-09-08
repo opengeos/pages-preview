@@ -3134,14 +3134,21 @@ turn it off.</p>
   <code>body_expression='["concat", ["get", "name"], " — ", ["get", "county"], " County"]'</code>.
   The one exception is a KML <code>description</code> property, whose known markup is
   sanitized and rendered, so a converted KML keeps its description card.</li>
-<li><strong>A tooltip needs fields flagged for hover.</strong> <code>tooltip=</code> does that flagging
-  for you, and a tooltip that could never show anything is an error rather than
-  a tip that silently never appears. A field named only in <code>tooltip=</code> is added
-  to the popup's field list, so it appears in the click popup too; to keep a
-  field out of the click popup, hide it on the layer instead. Image fields are
-  skipped in tooltips (they would print a data URL); the click popup shows the
-  picture.</li>
+<li><strong>A tooltip needs fields flagged for hover, and flagging them narrows the
+  click popup.</strong> The two share one field list: the tooltip shows the entries
+  flagged for hover, and the click popup shows <em>every</em> entry — but only falls
+  back to "all visible properties" while that list is empty. So</li>
 </ul>
+<div class="highlight"><pre><span></span><code><span class="n">m</span><span class="o">.</span><span class="n">add_markers</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">tooltip</span><span class="o">=</span><span class="s2">"name"</span><span class="p">)</span>     <span class="c1"># click popup now shows ONLY name</span>
+</code></pre></div>
+<p>because naming a tooltip field creates the list. To keep the full click popup,
+  list the fields you want on click as well, and flag one for hover:</p>
+<div class="highlight"><pre><span></span><code><span class="n">m</span><span class="o">.</span><span class="n">add_markers</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">popup</span><span class="o">=</span><span class="p">[</span><span class="s2">"name"</span><span class="p">,</span> <span class="s2">"pop"</span><span class="p">,</span> <span class="s2">"county"</span><span class="p">],</span> <span class="n">tooltip</span><span class="o">=</span><span class="s2">"name"</span><span class="p">)</span>
+</code></pre></div>
+<p>A tooltip that could never show anything is an error rather than a tip that
+  silently never appears — including one whose only flagged field is an
+  <code>image</code>, since images are dropped from tooltips (their value is a URL, which
+  would become the whole tip). The click popup still shows the picture.</p>
 <h2 id="use-in-marimo">Use in marimo<a class="headerlink" href="#use-in-marimo" title="Permanent link">&para;</a></h2>
 <p><a href="https://marimo.io/">marimo</a> can render GeoLibre's anywidget, but its browser
 may not be able to reach the random <code>127.0.0.1</code> port where GeoLibre normally
