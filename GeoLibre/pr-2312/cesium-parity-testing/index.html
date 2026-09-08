@@ -2294,9 +2294,9 @@ here; #2291 describes it as a possible follow-up.</p>
 <td>Cluster counts and zoom thresholds, feature picking, mixed geometry, removal, and measured performance on 50k+ features</td>
 </tr>
 <tr>
-<td>#2283</td>
+<td>#2283 (implemented)</td>
 <td>Raster protocol bridge</td>
-<td>Actual COG, DEM, raster PMTiles, and MBTiles; cancellation, errors, bounds, tile levels, and symbology</td>
+<td>Real UC Berkeley COG (RGB, EPSG:3857) rendered pixel-identical to the 2D map, and a real raster PMTiles archive (Protomaps Terrarium z9) draped on the globe in both themes; unit tests cover template expansion, the registry path through a real <code>addProtocol</code> handler, back-pressure, destruction, empty tiles, the COG state-to-tiler mapping with automatic percentile stretch, the PMTiles header bounds, TMS templates, the unregistered-scheme error, and the raster symbology mapping. MBTiles and the native XYZ fetcher share the registry path and are desktop-only, so they are covered by the routing tests rather than the browser run.</td>
 </tr>
 <tr>
 <td>#2284</td>
