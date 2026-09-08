@@ -2872,6 +2872,10 @@
 <span class="w">  </span><span class="nx">fetchArrayBuffer</span><span class="o">?:</span><span class="w"> </span><span class="p">(</span><span class="nx">url</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nb">ArrayBuffer</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="w">  </span><span class="nx">fitBounds</span><span class="o">?:</span><span class="w"> </span><span class="p">(</span><span class="nx">bounds</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="kt">number</span><span class="p">,</span><span class="w"> </span><span class="kt">number</span><span class="p">,</span><span class="w"> </span><span class="kt">number</span><span class="p">,</span><span class="w"> </span><span class="kt">number</span><span class="p">])</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
 <span class="w">  </span><span class="nx">getMap</span><span class="o">?:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="k">import</span><span class="p">(</span><span class="s2">"maplibre-gl"</span><span class="p">).</span><span class="nb">Map</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+<span class="w">  </span><span class="c1">// The primary Cesium globe's scene (namespace, widget, scene, camera, clock,</span>
+<span class="w">  </span><span class="c1">// canvas, readView), or null when the primary map is not a globe. The globe's</span>
+<span class="w">  </span><span class="c1">// counterpart to getMap for plugins that declare engines: ["maplibre", "cesium"].</span>
+<span class="w">  </span><span class="nx">getCesiumScene</span><span class="o">?:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="k">import</span><span class="p">(</span><span class="s2">"@geolibre/map"</span><span class="p">).</span><span class="nx">CesiumSceneHandle</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
 <span class="w">  </span><span class="nx">addMapControl</span><span class="o">:</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="nx">control</span><span class="o">:</span><span class="w"> </span><span class="kt">IControl</span><span class="p">,</span>
 <span class="w">    </span><span class="nx">position?</span><span class="o">:</span><span class="w"> </span><span class="kt">GeoLibreMapControlPosition</span><span class="p">,</span>
@@ -3714,6 +3718,22 @@ parameters, project restoration, and delayed control registration, as well as
 by the Plugins menu and command palette. Renderer changes suspend unsupported
 plugins and retain their saved settings and activation for the return trip.
 Compatible plugins remount their controls on the replacement renderer.</p>
+<p>A plugin that drives the renderer directly branches on which handle is
+non-null: <code>app.getMap()</code> on MapLibre, <code>app.getCesiumScene()</code> on the globe. The
+Cesium handle carries the <code>@cesium/engine</code> namespace alongside the live widget,
+scene, camera, and clock, so a plugin constructs Cesium objects (<code>SunLight</code>,
+<code>JulianDate</code>, <code>Cartesian3</code>) without importing the engine itself — which is what
+keeps Cesium off the 2D boot path. Its <code>primary</code> flag distinguishes the primary
+map area from a grid pane; the built-in environment plugins bind to the
+primary map only, as they do on MapLibre. The Sun simulation (native
+<code>SunLight</code>, globe lighting, and the scene clock), Atmospheric Effects (the sky
+box, <code>SkyAtmosphere</code> hue/saturation/brightness shifts, and the background
+colour), the Flight Simulator (<code>camera.setView</code> each frame with navigation
+inputs suspended), and the Clouds / Precipitation overlays (store tile layers)
+are the reference implementations of this pattern. A plugin bound to the globe
+must restore any scene state it changes on <code>deactivate</code>, because both engines
+are rebuilt on a renderer swap and the host re-activates compatible plugins
+against the new one.</p>
 
 
 
