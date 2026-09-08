@@ -1972,6 +1972,34 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Assistant tools">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reading-the-viewport" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Reading the viewport
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-a-maplibre-control-gets-on-the-globe" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        What a MapLibre control gets on the globe
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -2709,6 +2737,34 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Assistant tools">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reading-the-viewport" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Reading the viewport
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-a-maplibre-control-gets-on-the-globe" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        What a MapLibre control gets on the globe
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -2871,6 +2927,10 @@
 <span class="w">  </span><span class="nx">onBasemapChange</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">callback</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">styleUrl</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
 <span class="w">  </span><span class="nx">fetchArrayBuffer</span><span class="o">?:</span><span class="w"> </span><span class="p">(</span><span class="nx">url</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nb">ArrayBuffer</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="w">  </span><span class="nx">fitBounds</span><span class="o">?:</span><span class="w"> </span><span class="p">(</span><span class="nx">bounds</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="kt">number</span><span class="p">,</span><span class="w"> </span><span class="kt">number</span><span class="p">,</span><span class="w"> </span><span class="kt">number</span><span class="p">,</span><span class="w"> </span><span class="kt">number</span><span class="p">])</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
+<span class="w">  </span><span class="c1">// The extent the primary map currently shows, [west, south, east, north] in</span>
+<span class="w">  </span><span class="c1">// degrees, on either renderer. The engine-neutral replacement for</span>
+<span class="w">  </span><span class="c1">// getMap()?.getBounds() — see "Reading the viewport" below.</span>
+<span class="w">  </span><span class="nx">getViewBounds</span><span class="o">?:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">[</span><span class="kt">number</span><span class="p">,</span><span class="w"> </span><span class="kt">number</span><span class="p">,</span><span class="w"> </span><span class="kt">number</span><span class="p">,</span><span class="w"> </span><span class="kt">number</span><span class="p">]</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
 <span class="w">  </span><span class="nx">getMap</span><span class="o">?:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="k">import</span><span class="p">(</span><span class="s2">"maplibre-gl"</span><span class="p">).</span><span class="nb">Map</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
 <span class="w">  </span><span class="c1">// The primary Cesium globe's scene (namespace, widget, scene, camera, clock,</span>
 <span class="w">  </span><span class="c1">// canvas, readView), or null when the primary map is not a globe. The globe's</span>
@@ -3718,6 +3778,27 @@ parameters, project restoration, and delayed control registration, as well as
 by the Plugins menu and command palette. Renderer changes suspend unsupported
 plugins and retain their saved settings and activation for the return trip.
 Compatible plugins remount their controls on the replacement renderer.</p>
+<h3 id="reading-the-viewport">Reading the viewport<a class="headerlink" href="#reading-the-viewport" title="Permanent link">&para;</a></h3>
+<p>A catalog or service browser that narrows its search to what the user can see
+must read the extent through <code>app.getViewBounds()</code>, not
+<code>app.getMap()?.getBounds()</code>. <code>getMap()</code> is null on the globe, so the second
+form yields no bounds there — and a plugin that reads "no bounds" as "no
+filter" then searches the whole world while its "current view only" checkbox
+stays ticked, which is exactly the silent success an <code>engines</code> declaration is
+meant to rule out. <code>getViewBounds</code> answers from whichever engine is primary
+and unwraps an antimeridian crossing (east &gt; 180), as <code>MapExtent</code> does
+everywhere else in the app.</p>
+<p><code>getViewBounds</code> has its own <code>null</code>: no map mounted yet, the globe mid-morph
+between scene modes, or a camera pointed away from Earth. Do not read that as
+"no filter" — widening the search is the same lie in a second place. Refuse the
+search and say the extent is unavailable, as the ArcGIS Hub panel does.</p>
+<p>A frontend test scans every plugin that declares Cesium support, follows its
+relative imports so a plugin split across a subdirectory is covered too, and
+fails on a <code>getMap()</code>-routed bounds read — chained or split across two
+statements. A call that deliberately branches on <code>getMap()</code> being null carries
+an <code>engine-audit-allow: getMap-bounds</code> comment on its own line or just above
+it, with the reason — the opt-out is scoped to that call, so a second bounds
+read elsewhere in the same module still reports.</p>
 <p>A plugin that drives the renderer directly branches on which handle is
 non-null: <code>app.getMap()</code> on MapLibre, <code>app.getCesiumScene()</code> on the globe. The
 Cesium handle carries the <code>@cesium/engine</code> namespace alongside the live widget,
@@ -3734,6 +3815,37 @@ are the reference implementations of this pattern. A plugin bound to the globe
 must restore any scene state it changes on <code>deactivate</code>, because both engines
 are rebuilt on a renderer swap and the host re-activates compatible plugins
 against the new one.</p>
+<h3 id="what-a-maplibre-control-gets-on-the-globe">What a MapLibre control gets on the globe<a class="headerlink" href="#what-a-maplibre-control-gets-on-the-globe" title="Permanent link">&para;</a></h3>
+<p><code>app.addMapControl</code> works under Cesium too. The globe mounts the control's DOM
+in the same four <code>.maplibregl-ctrl-{top,bottom}-{left,right}</code> corner containers
+over its canvas — so the scoped CSS in <code>index.css</code> keeps applying — and hands
+<code>onAdd</code> a MapLibre-shaped facade over the Cesium scene rather than a real
+<code>Map</code>. The facade answers:</p>
+<ul>
+<li><code>getContainer</code>, <code>getCanvas</code>, <code>isStyleLoaded</code>, and the <code>Evented</code> methods
+  (<code>on</code> / <code>off</code> / <code>once</code> / <code>fire</code>).</li>
+<li><code>getCenter</code>, <code>getZoom</code>, <code>getBearing</code>, <code>getPitch</code> from the store's map view,
+  and <code>jumpTo</code> / <code>flyTo</code> / <code>easeTo</code> by writing it back.</li>
+<li><code>project</code>, <code>unproject</code>, and <code>getBounds</code> from the live scene: a coordinate is
+  projected on the terrain surface, a screen point is picked against terrain
+  then the ellipsoid, and the bounds come from the camera's view rectangle. A
+  coordinate the scene cannot place reads as off-screen window coordinates, a
+  screen point that misses the globe unprojects to the view centre, and a
+  camera with no bounded view rectangle reports the whole world — the same
+  shapes MapLibre's globe projection answers with, so a control keeps running
+  instead of throwing mid-render.</li>
+<li><code>setStyle(url)</code>, routed to the project basemap.</li>
+<li><code>addSource</code> / <code>getSource</code> / <code>removeSource</code>, kept in a map on the facade.</li>
+</ul>
+<p>Everything that paints through the Mapbox Style Spec — <code>addLayer</code>,
+<code>setPaintProperty</code>, <code>setLayoutProperty</code>, <code>getStyle</code> — <strong>throws</strong>. That is the
+honest boundary: a control that draws its own map layers has no globe
+representation, and a silent no-op would leave it reporting success while
+nothing appears. <code>addMapControl</code> catches the throw and returns <code>false</code>, so a
+control that trips it fails to mount rather than taking plugin activation down
+with it. A plugin whose control needs those methods should keep the default
+<code>engines: ["maplibre"]</code> and, if the globe matters, add a Cesium branch through
+<code>app.getCesiumScene()</code>.</p>
 
 
 
