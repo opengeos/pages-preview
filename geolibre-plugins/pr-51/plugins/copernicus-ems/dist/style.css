@@ -332,6 +332,14 @@
 
 /* Copernicus EMS activation browser. The host provides the panel chrome. */
 .cems-panel {
+  --pc-bg: hsl(var(--popover, 222 22% 12%));
+  --pc-text: hsl(var(--foreground, 210 20% 94%));
+  --pc-muted: hsl(var(--muted-foreground, 215 16% 68%));
+  --pc-border: hsl(var(--border, 215 18% 28%));
+  --pc-input-bg: hsl(var(--background, 222 24% 10%));
+  --pc-input-text: var(--pc-text);
+  --pc-input-border: var(--pc-border);
+  color: var(--pc-text);
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -386,14 +394,83 @@
 .cems-search select {
   flex: 1;
   min-width: 0;
-  border-color: #64748b;
-  box-shadow: inset 0 0 0 1px rgba(100, 116, 139, 0.2);
+  border-radius: 8px;
+  border-color: var(--pc-border);
+  min-height: 42px;
+  font: inherit;
+  font-weight: 500;
+  padding: 10px;
+  color-scheme: inherit;
 }
 
-/* Native Windows option menus stay light even when GeoLibre is in dark mode. */
+.dark .cems-panel {
+  color-scheme: dark;
+}
+.light .cems-panel {
+  color-scheme: light;
+}
+
+.cems-search select option,
+.cems-search select optgroup {
+  background: var(--pc-bg);
+  color: var(--pc-text);
+  font: inherit;
+}
+
+.cems-search select optgroup {
+  font-weight: 700;
+}
 .cems-search select option {
-  background: #fff;
-  color: #17212b;
+  font-weight: 400;
+}
+.cems-search input {
+  font: inherit;
+  border-radius: 8px;
+}
+.cems-search input:focus-visible,
+.cems-search select:focus-visible,
+.cems-about summary:focus-visible {
+  outline: 2px solid #38bdf8;
+  outline-offset: 2px;
+}
+.cems-search .cems-selection-info {
+  border: 1px solid var(--pc-border);
+  border-left: 3px solid var(--pc-muted);
+  border-radius: 6px;
+  background: var(--pc-bg);
+  padding: 9px 11px;
+  margin: 8px 0 12px;
+  color: var(--pc-text);
+}
+.cems-selection-info[data-catalog="map-ready"] {
+  border-left-color: #38bdf8;
+}
+.cems-selection-info[data-catalog="archive"] {
+  border-left-color: #fb923c;
+}
+.cems-about {
+  margin-top: 12px;
+  border: 1px solid var(--pc-border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  background: var(--pc-bg);
+}
+.cems-about summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+.cems-about h4 {
+  font-size: 12px;
+  margin: 12px 0 4px;
+}
+.cems-about p + p {
+  margin-top: 10px;
+}
+.cems-search #cems-refresh-catalog {
+  background: transparent;
+  border: 1px solid var(--pc-border);
+  color: var(--pc-text);
+  border-radius: 6px;
 }
 
 .cems-search button,
@@ -490,5 +567,98 @@
 .cems-actions a {
   color: var(--pc-accent);
   font-size: 12px;
+}
+
+.cems-archive-downloads {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+.cems-archive-official {
+  color: var(--pc-text);
+  font-size: 12px;
+  text-underline-offset: 3px;
+  margin-bottom: 4px;
+}
+
+.cems-archive-download,
+.cems-panel .cems-product-action {
+  --download-accent: #38bdf8;
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr) 18px;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid var(--pc-border);
+  border-left: 3px solid var(--download-accent);
+  border-radius: 8px;
+  background: var(--pc-bg);
+  color: var(--pc-text);
+  text-decoration: none;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: left;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.cems-archive-download--zip,
+.cems-panel .cems-product-action--orange {
+  --download-accent: #fb923c;
+}
+.cems-archive-download:hover,
+.cems-panel .cems-product-action:hover:not(:disabled) {
+  border-color: var(--download-accent);
+}
+.cems-archive-download:focus-visible,
+.cems-panel .cems-product-action:focus-visible,
+.cems-archive-official:focus-visible {
+  outline: 2px solid var(--download-accent, #38bdf8);
+  outline-offset: 3px;
+}
+.cems-download-format {
+  color: var(--pc-text);
+  border: 1px solid var(--download-accent);
+  border-radius: 6px;
+  padding: 8px 0;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+.cems-download-content {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+.cems-download-name {
+  font-size: 12px;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.cems-download-action {
+  font-size: 11px;
+  color: var(--pc-muted);
+}
+.cems-archive-download svg,
+.cems-product-action svg {
+  width: 18px;
+  height: 18px;
+  color: var(--download-accent);
+}
+
+.cems-panel .cems-map-actions {
+  display: grid;
+  width: 100%;
+  gap: 8px;
+}
+.cems-panel .cems-product-action:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.cems-product-group {
+  gap: 8px;
+  min-width: 0;
 }
 /*$vite$:1*/
