@@ -1,0 +1,2 @@
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["./dist-js-al3OwyfN.js","./core-BJdI5sl7.js"])))=>i.map(i=>d[i]);
+import{rT as a}from"./cesium-Cup6Mau_.js";import{Hd as c}from"./src-ChF-y9jg.js";async function e(){const{fetch:t}=await a(async()=>{const{fetch:r}=await import("./dist-js-al3OwyfN.js");return{fetch:r}},__vite__mapDeps([0,1]),import.meta.url);c(t)}export{e as installNativeArcGISFetch};
