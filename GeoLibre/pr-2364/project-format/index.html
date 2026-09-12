@@ -2899,6 +2899,11 @@ non-matching features without changing or copying the source data:</p>
 <p>The expression is saved with the project and remains active until it is cleared
 from the Select by Expression panel or from the layer's <strong>Clear filters</strong> action.
 It combines with Quick Filters and the transient filters described below.</p>
+<p>What is stored is a plain MapLibre expression, so the Expression Builder's <code>@</code>
+variables (<code>@project_name</code>, <code>@layer_name</code>, <code>@feature_count</code>, <code>@map_zoom</code>,
+<code>@map_scale</code>) are resolved to literal values at the moment the filter is
+applied and do not track the map afterwards. Use the MapLibre <code>["zoom"]</code>
+operator instead when the filter should follow the current zoom.</p>
 <p><code>kind</code> picks the control and the comparison: <code>categorical</code> (checkboxes over
 <code>values</code>), <code>range</code> (inclusive numeric <code>min</code>/<code>max</code>, either side <code>null</code> for an
 open bound), <code>date</code> (inclusive <code>YYYY-MM-DD</code> <code>start</code>/<code>end</code>), and <code>text</code>
