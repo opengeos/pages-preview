@@ -3110,9 +3110,9 @@ manual check, not a Dependabot event:</p>
   compiler's <code>gl__id</code> field arriving. <code>e2e/arcgis-renderer.spec.ts</code> (opt-in,
   <code>ARCGIS_API_KEY</code>) is the check.</li>
 <li><strong>CSP and caching.</strong> <code>https://js.arcgis.com/</code> is allow-listed in <code>script-src</code>
-  in <code>tauri.conf.json</code> and <code>docker/nginx.conf</code>, and cached by the
-  <code>geolibre-cdn-engines</code> service-worker rule in <code>vite.config.ts</code>. The version is
-  in every URL, so a bump mints new cache entries.</li>
+  and <code>font-src</code> in <code>tauri.conf.json</code> and <code>docker/nginx.conf</code>, and cached by
+  the <code>geolibre-arcgis-sdk</code> service-worker rule in <code>vite.config.ts</code>. The
+  version is in every URL, so a bump mints new cache entries.</li>
 </ul>
 <h2 id="adding-a-blend-mode">Adding a blend mode<a class="headerlink" href="#adding-a-blend-mode" title="Permanent link">&para;</a></h2>
 <p><strong>Do not add a blend mode without checking it in the browser.</strong> MapLibre's blend

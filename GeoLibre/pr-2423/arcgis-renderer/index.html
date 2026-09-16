@@ -2285,8 +2285,9 @@ code in <code>packages/map/src/arcgis-*.ts</code> ships with GeoLibre.</p>
   first ArcGIS pane of a session takes longer to appear than a Mapbox one.</li>
 <li>The content-security policies of the desktop app (<code>tauri.conf.json</code>) and the
   Docker image (<code>docker/nginx.conf</code>) allow-list <code>https://js.arcgis.com/</code> in
-  <code>script-src</code>. The SDK's stylesheet is fetched as text and inlined, since
-  neither policy allows external stylesheets.</li>
+  <code>script-src</code> and <code>font-src</code> (the SDK's icon and text fonts). The SDK's
+  stylesheet is fetched as text and inlined, since neither policy allows
+  external stylesheets.</li>
 </ul>
 <h2 id="api-key">API key<a class="headerlink" href="#api-key" title="Permanent link">&para;</a></h2>
 <p>The renderer works without a key. It translates the project basemap into tiles
