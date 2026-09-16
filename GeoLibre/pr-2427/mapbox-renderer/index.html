@@ -2386,7 +2386,7 @@ browser against an authenticated Mapbox map):</p>
   Mapbox map (<code>geo-editor-mapbox.ts</code>); the toolbar's rotate and
   feature-properties popups come from <code>maplibre-gl-geo-editor</code>'s <code>createPopup</code>
   option, fed mapbox-gl's <code>Popup</code>. Text markers use Mapbox's <code>Open Sans
-Regular</code> glyphs when the style has no font to borrow.</li>
+  Regular</code> glyphs when the style has no font to borrow.</li>
 <li><strong>Atmospheric Effects</strong> (its overlay canvases mount in the Mapbox canvas
   container; the control container is lifted above them, as on MapLibre) and
   <strong>Sun</strong> (canvas night mask, raster layer and <code>setLight</code> all apply to
@@ -2403,6 +2403,14 @@ Regular</code> glyphs when the style has no font to borrow.</li>
   bearing), so <strong>Bank the horizon in turns</strong> leaves the horizon level — the
   aircraft still banks, and a bank still turns it. The panel says so while the
   Mapbox renderer is primary.</li>
+<li><strong>Street View</strong> (Google and Mapillary). Everything the upstream control
+  touches is on the shared surface except the location marker: MapLibre's
+  <code>Marker</code> reads <code>map._camera.transform</code> on every position update, so it threw
+  on the first map click. <code>maplibre-gl-streetview</code> 0.8.0 takes a <code>createMarker</code>
+  factory, and the plugin feeds it mapbox-gl's own <code>Marker</code> on a Mapbox host —
+  the control still owns the marker element and its direction arrow, and only
+  the positioning changes engine. A renderer swap rebuilds the control, so the
+  marker follows whichever engine is primary.</li>
 <li><strong>Layer Swipe</strong> for native style layers. The control drives both maps only
   through the surface the two engines share, so the one map it constructed
   itself — the clipped comparison pane, until now always a MapLibre one — comes
@@ -2438,8 +2446,6 @@ Regular</code> glyphs when the style has no font to borrow.</li>
 </ul>
 <p>Still MapLibre-only, each for a concrete reason:</p>
 <ul>
-<li><strong>Street View</strong>: the upstream control places a <code>maplibre-gl</code> <code>Marker</code>, whose
-  update path reads <code>map._camera.transform</code> and throws on a mapbox-gl map.</li>
 <li><strong>GeoAgent</strong>: its tools call <code>setProjection({ type })</code>, <code>setTerrain</code> and
   MapLibre <code>Marker</code> / <code>Popup</code>, so agent actions would break mid-run.</li>
 </ul>

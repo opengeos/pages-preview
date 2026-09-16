@@ -4032,19 +4032,22 @@ only for the shared surface; a mapbox-gl map has none of MapLibre's extensions:<
   and a name string (or <code>{ name }</code>) on Mapbox. Read both.</li>
 <li>MapLibre's <code>Popup</code> and <code>Marker</code> classes imported from <code>maplibre-gl</code> do not
   work on a mapbox-gl map: their update path reads <code>map._camera.transform</code> and
-  throws on the first move (the Street View control's marker, GeoAgent's tool
-  markers). A plugin that needs markers on both engines positions a DOM element
-  through <code>map.project</code> instead, as the Elements panel does. When an upstream
-  library insists on constructing the engine's own classes, <code>app.getMapboxGl()</code>
-  hands out the mapbox-gl namespace: the Geo Editor feeds its <code>Marker</code> /
-  <code>LngLatBounds</code> to Geoman's map adapter and its <code>Popup</code> to
-  <code>maplibre-gl-geo-editor</code>'s <code>createPopup</code> option (<code>geo-editor-mapbox.ts</code>), and
-  Layer Swipe feeds its <code>Map</code> to <code>maplibre-gl-swipe</code>'s <code>createMap</code> option, which
-  builds the clipped comparison pane. A plugin that constructs a <em>second</em> Mapbox
-  map must also pass <code>app.getMapboxAccessToken()</code> in its constructor options:
-  mapbox-gl reads its token from the global <code>mapboxgl.accessToken</code> unless handed
-  one, and GeoLibre sets it per map, so a second map built without it renders
-  nothing and logs every frame.</li>
+  throws on the first move (GeoAgent's tool markers still do). A plugin that
+  needs markers on both engines positions a DOM element through <code>map.project</code>
+  instead, as the Elements panel does. When an upstream library insists on
+  constructing the engine's own classes, <code>app.getMapboxGl()</code> hands out the
+  mapbox-gl namespace: the Geo Editor feeds its <code>Marker</code> / <code>LngLatBounds</code> to
+  Geoman's map adapter and its <code>Popup</code> to <code>maplibre-gl-geo-editor</code>'s
+  <code>createPopup</code> option (<code>geo-editor-mapbox.ts</code>), Street View feeds its <code>Marker</code>
+  to <code>maplibre-gl-streetview</code>'s <code>createMarker</code> option, and Layer Swipe feeds its
+  <code>Map</code> to <code>maplibre-gl-swipe</code>'s <code>createMap</code> option, which builds the clipped
+  comparison pane. The pattern upstream is the same each time: the library keeps
+  the element and its styling and takes only the engine class that positions it.
+  A plugin that constructs a <em>second</em> Mapbox map must also pass
+  <code>app.getMapboxAccessToken()</code> in its constructor options: mapbox-gl reads its
+  token from the global <code>mapboxgl.accessToken</code> unless handed one, and GeoLibre
+  sets it per map, so a second map built without it renders nothing and logs
+  every frame.</li>
 </ul>
 <p>The same frontend audit that scans Cesium-capable plugins scans every plugin
 declaring Mapbox support, follows its relative imports, and fails on a read
