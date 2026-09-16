@@ -2366,8 +2366,9 @@ drop the file instead.</p>
 <li>Plugin controls. The engine has no MapLibre map for a <code>maplibre-gl</code> control
   to call into, so no bundled plugin declares <code>engines: ["arcgis"]</code>, and the
   on-map layer control is not mounted.</li>
-<li>Video overlays, heatmap and cluster point renderers (points draw as circles),
-  SVG markers and fill patterns.</li>
+<li>Video overlays, heatmap and cluster point renderers (points draw as circles)
+  and fill patterns. Markers (built-in shapes, custom SVG, KML icons) do draw,
+  as picture symbols baked from the same sprites MapLibre uses.</li>
 </ul>
 <h2 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h2>
 <p><code>tests/arcgis-layers.test.ts</code> covers the layer compiler and basemap planner,
