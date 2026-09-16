@@ -4023,8 +4023,10 @@ only for the shared surface; a mapbox-gl map has none of MapLibre's extensions:<
   per request) are MapLibre-only. Custom <code>CustomLayerInterface</code> layers
   (<code>capabilities.customLayers</code> is false on Mapbox). The terrain camera helpers
   (<code>calculateCameraOptionsFromCameraLngLatAltRotation</code>,
-  <code>getCenterClampedToGround</code>) the Flight Simulator flies with. The <code>transform</code>
-  / <code>_camera</code> internals some upstream controls read.</li>
+  <code>getCenterClampedToGround</code>): Mapbox kept the free camera those replaced, so
+  the Flight Simulator flies it there through <code>setFreeCameraOptions</code> and a
+  <code>MercatorCoordinate</code> carrying the altitude. The <code>transform</code> / <code>_camera</code>
+  internals some upstream controls read.</li>
 <li><code>getProjection()</code> differs in shape: <code>{ type: "globe" }</code> on MapLibre,
   <code>{ name: "globe" }</code> on Mapbox; <code>setProjection</code> takes <code>{ type }</code> on MapLibre
   and a name string (or <code>{ name }</code>) on Mapbox. Read both.</li>
