@@ -2182,6 +2182,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#arcgis-maps-sdk-for-javascript-loaded-from-esris-cdn" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ArcGIS Maps SDK for JavaScript — loaded from Esri's CDN
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2594,6 +2605,17 @@
     <span class="md-ellipsis">
       <span class="md-typeset">
         <code>cesium</code> / <code>@cesium/engine</code> / <code>@cesium/widgets</code> — runtime assets fetched by URL
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arcgis-maps-sdk-for-javascript-loaded-from-esris-cdn" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ArcGIS Maps SDK for JavaScript — loaded from Esri's CDN
       </span>
     </span>
   </a>
@@ -3058,6 +3080,40 @@ buttons mount, carry translated tooltips, and share a right edge, which catches 
 renamed view-model observable and the 0x0-button case of a missing stylesheet.
 Neither catches the rest of the CSS regression or the bundle-size one — check
 those by eye and in the build output.</p>
+<h3 id="arcgis-maps-sdk-for-javascript-loaded-from-esris-cdn">ArcGIS Maps SDK for JavaScript — loaded from Esri's CDN<a class="headerlink" href="#arcgis-maps-sdk-for-javascript-loaded-from-esris-cdn" title="Permanent link">&para;</a></h3>
+<p>The ArcGIS renderer (<code>docs/arcgis-renderer.md</code>) has <strong>no npm dependency</strong>.
+<code>packages/map/src/arcgis-sdk.ts</code> imports the SDK's ES modules from
+<code>https://js.arcgis.com/&lt;ARCGIS_SDK_VERSION&gt;/@arcgis/core/…</code> at runtime and
+types the surface it uses by hand, so nothing here is checked by the compiler
+against Esri's declarations. Bumping <code>ARCGIS_SDK_VERSION</code> is therefore a
+manual check, not a Dependabot event:</p>
+<ul>
+<li><strong>Module paths and default exports.</strong> <code>SDK_MODULES</code> in <code>arcgis-sdk.ts</code> lists
+  every module the engine loads. <code>tests/arcgis-renderer.test.ts</code> only checks the
+  assembly against fakes; probe the real CDN (<code>curl -sI</code> each URL returns 200)
+  and mount a pane in a browser — a moved module rejects the whole load and the
+  pane shows the error banner.</li>
+<li><strong>The legacy widgets.</strong> <code>widgets/Zoom</code>, <code>Compass</code>, <code>ScaleBar</code>, <code>Fullscreen</code>
+  and <code>Locate</code> back the built-in controls. Esri deprecated them in 4.32 in
+  favour of web components and still ships them in 5.x with a console warning
+  each; a release that drops them breaks <code>setBuiltInControlVisible</code>. The
+  replacement is the <code>@arcgis/map-components</code> CDN build. Attribution already
+  uses the 5.x path: the view draws it while <code>view.attributionVisible</code> is on,
+  so the deprecated <code>Attribution</code> widget is not loaded.</li>
+<li><strong>The ESM CDN notice.</strong> The SDK logs "Only use ES modules from ArcGIS CDN for
+  testing" on load; Esri's documented production path is an npm build, which
+  this renderer deliberately avoids (see the size argument in issue #2421). The
+  AMD CDN (<code>&lt;script src="https://js.arcgis.com/&lt;version&gt;/"&gt;</code>) is the supported
+  alternative if the ESM CDN is ever withdrawn.</li>
+<li><strong>Hit-test attributes.</strong> <code>GeoJSONLayer</code> graphics only carry the fields the
+  renderer reads unless <code>outFields: ["*"]</code> is set; identify depends on the
+  compiler's <code>gl__id</code> field arriving. <code>e2e/arcgis-renderer.spec.ts</code> (opt-in,
+  <code>ARCGIS_API_KEY</code>) is the check.</li>
+<li><strong>CSP and caching.</strong> <code>https://js.arcgis.com/</code> is allow-listed in <code>script-src</code>
+  and <code>font-src</code> in <code>tauri.conf.json</code> and <code>docker/nginx.conf</code>, and cached by
+  the <code>geolibre-arcgis-sdk</code> service-worker rule in <code>vite.config.ts</code>. The
+  version is in every URL, so a bump mints new cache entries.</li>
+</ul>
 <h2 id="adding-a-blend-mode">Adding a blend mode<a class="headerlink" href="#adding-a-blend-mode" title="Permanent link">&para;</a></h2>
 <p><strong>Do not add a blend mode without checking it in the browser.</strong> MapLibre's blend
 state covers the alpha channel too, and it composites a blended layer as one
