@@ -2403,6 +2403,36 @@ browser against an authenticated Mapbox map):</p>
   bearing), so <strong>Bank the horizon in turns</strong> leaves the horizon level — the
   aircraft still banks, and a bank still turns it. The panel says so while the
   Mapbox renderer is primary.</li>
+<li><strong>Street View</strong> (Google and Mapillary). Everything the upstream control
+  touches is on the shared surface except the location marker: MapLibre's
+  <code>Marker</code> reads <code>map._camera.transform</code> on every position update, so it threw
+  on the first map click. <code>maplibre-gl-streetview</code> 0.8.0 takes a <code>createMarker</code>
+  factory, and the plugin feeds it mapbox-gl's own <code>Marker</code> on a Mapbox host —
+  the control still owns the marker element and its direction arrow, and only
+  the positioning changes engine. A renderer swap rebuilds the control, so the
+  marker follows whichever engine is primary.</li>
+<li><strong>Layer Swipe</strong> for native style layers. The control drives both maps only
+  through the surface the two engines share, so the one map it constructed
+  itself — the clipped comparison pane, until now always a MapLibre one — comes
+  from <code>maplibre-gl-swipe</code> 0.13.0's <code>createMap</code>, fed mapbox-gl's <code>Map</code>. Two Mapbox specifics come with it: the
+  pane is handed the access token explicitly (mapbox-gl reads its token from a
+  global the app never sets, so a second map built without it renders nothing),
+  and the basemap grouping is seeded with <code>basemapLayerIds</code> because a
+  <code>mapbox://</code> style URL cannot be fetched — the same reason the layer control
+  seeds its own. The panel lists each row by the name the Layers panel shows
+  rather than by the style layer id it drives, because the engine publishes the
+  same style-layer-id-to-name bridge MapController does
+  (<code>packages/map/src/layer-labels.ts</code>); without it a row read
+  <code>geolibre-mapbox-&lt;id&gt;-geojson-fill</code>. The deck.gl <strong>raster provider stays MapLibre-only</strong>: it mirrors
+  COG and <code>maplibre-gl-raster</code> layers onto the comparison pane, and both of
+  those controls register MapLibre tile protocols, so neither draws on Mapbox in
+  the first place. A project authored on MapLibre can still carry such layers,
+  and the swipe panel omits them rather than offering sides for layers that are
+  not on screen. One known defect: changing the basemap while the swipe is
+  active leaves the previous comparison pane — and the map inside it, a live
+  WebGL context — orphaned on the Mapbox canvas. The swipe itself keeps working
+  against the new basemap. The same sequence on MapLibre leaves one pane, so it
+  sits in the Mapbox control lifecycle rather than the plugin; tracked in #2430.</li>
 <li><strong>GeoAgent</strong>. Almost every tool already sits on the shared Style Spec
   surface; four did not, and each broke differently — <code>add_marker</code> built
   MapLibre's <code>Marker</code>/<code>Popup</code>, <code>set_projection</code> wrote <code>{ type }</code> (Mapbox takes a
@@ -2428,13 +2458,9 @@ browser against an authenticated Mapbox map):</p>
   MapLibre. The Style panel's 3D extrusion of the buildings theme is a
   MapLibre layer-sync feature and stays MapLibre-only.</li>
 </ul>
-<p>Still MapLibre-only, each for a concrete reason:</p>
-<ul>
-<li><strong>Street View</strong>: the upstream control places a <code>maplibre-gl</code> <code>Marker</code>, whose
-  update path reads <code>map._camera.transform</code> and throws on a mapbox-gl map.</li>
-<li><strong>Swipe</strong>: <code>maplibre-gl-swipe</code> constructs a second MapLibre <code>Map</code> as the
-  comparison pane, and the plugin mirrors COG and raster layers onto it.</li>
-</ul>
+<p>No plugin is held back by a MapLibre-internal dependency of its own any more:
+GeoAgent, Street View and Layer Swipe were the last three, and each is listed
+above with the seam that made it portable.</p>
 <p>Two engine changes came with the port and apply to every plugin: a store
 layer added while a Mapbox source is still loading is now synced when that
 source finishes (previously it waited for <code>idle</code>, which a map with an
