@@ -3093,11 +3093,13 @@ manual check, not a Dependabot event:</p>
   assembly against fakes; probe the real CDN (<code>curl -sI</code> each URL returns 200)
   and mount a pane in a browser — a moved module rejects the whole load and the
   pane shows the error banner.</li>
-<li><strong>The legacy widgets.</strong> <code>widgets/Zoom</code>, <code>Compass</code>, <code>ScaleBar</code>, <code>Attribution</code>,
-  <code>Fullscreen</code> and <code>Locate</code> back the built-in controls. Esri deprecated them in
-  4.32 in favour of web components and still ships them in 5.x with a console
-  warning; a release that drops them breaks <code>setBuiltInControlVisible</code>. The
-  replacement is the <code>@arcgis/map-components</code> CDN build.</li>
+<li><strong>The legacy widgets.</strong> <code>widgets/Zoom</code>, <code>Compass</code>, <code>ScaleBar</code>, <code>Fullscreen</code>
+  and <code>Locate</code> back the built-in controls. Esri deprecated them in 4.32 in
+  favour of web components and still ships them in 5.x with a console warning
+  each; a release that drops them breaks <code>setBuiltInControlVisible</code>. The
+  replacement is the <code>@arcgis/map-components</code> CDN build. Attribution already
+  uses the 5.x path: the view draws it while <code>view.attributionVisible</code> is on,
+  so the deprecated <code>Attribution</code> widget is not loaded.</li>
 <li><strong>The ESM CDN notice.</strong> The SDK logs "Only use ES modules from ArcGIS CDN for
   testing" on load; Esri's documented production path is an npm build, which
   this renderer deliberately avoids (see the size argument in issue #2421). The
