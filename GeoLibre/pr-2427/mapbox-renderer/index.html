@@ -2399,7 +2399,11 @@ Regular</code> glyphs when the style has no font to borrow.</li>
   global the app never sets, so a second map built without it renders nothing),
   and the basemap grouping is seeded with <code>basemapLayerIds</code> because a
   <code>mapbox://</code> style URL cannot be fetched — the same reason the layer control
-  seeds its own. The deck.gl <strong>raster provider stays MapLibre-only</strong>: it mirrors
+  seeds its own. The panel lists each row by the name the Layers panel shows
+  rather than by the style layer id it drives, because the engine publishes the
+  same style-layer-id-to-name bridge MapController does
+  (<code>packages/map/src/layer-labels.ts</code>); without it a row read
+  <code>geolibre-mapbox-&lt;id&gt;-geojson-fill</code>. The deck.gl <strong>raster provider stays MapLibre-only</strong>: it mirrors
   COG and <code>maplibre-gl-raster</code> layers onto the comparison pane, and both of
   those controls register MapLibre tile protocols, so neither draws on Mapbox in
   the first place. A project authored on MapLibre can still carry such layers,
