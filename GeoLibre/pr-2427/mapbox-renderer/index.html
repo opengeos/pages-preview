@@ -2391,6 +2391,18 @@ Regular</code> glyphs when the style has no font to borrow.</li>
   container; the control container is lifted above them, as on MapLibre) and
   <strong>Sun</strong> (canvas night mask, raster layer and <code>setLight</code> all apply to
   mapbox-gl).</li>
+<li><strong>Flight Simulator</strong>. mapbox-gl kept the free camera MapLibre dropped, so the
+  Mapbox adapter places the eye directly — a <code>MercatorCoordinate</code> carrying the
+  altitude plus <code>setPitchBearing</code> — where MapLibre converts through
+  <code>calculateCameraOptionsFromCameraLngLatAltRotation</code>. Terrain, the suspended
+  interaction handlers, the widened pitch ceiling and the exit view all behave
+  as on MapLibre; <code>setCenterClampedToGround</code> has no counterpart and needs none,
+  because the free camera positions the eye rather than the map center. One
+  setting does nothing here: mapbox-gl 3 has no camera roll axis at all (its
+  free camera orientation is documented as representable with only pitch and
+  bearing), so <strong>Bank the horizon in turns</strong> leaves the horizon level — the
+  aircraft still banks, and a bank still turns it. The panel says so while the
+  Mapbox renderer is primary.</li>
 <li><strong>Layer Swipe</strong> for native style layers. The control drives both maps only
   through the surface the two engines share, so the one map it constructed
   itself — the clipped comparison pane, until now always a MapLibre one — comes
@@ -2430,9 +2442,6 @@ Regular</code> glyphs when the style has no font to borrow.</li>
   update path reads <code>map._camera.transform</code> and throws on a mapbox-gl map.</li>
 <li><strong>GeoAgent</strong>: its tools call <code>setProjection({ type })</code>, <code>setTerrain</code> and
   MapLibre <code>Marker</code> / <code>Popup</code>, so agent actions would break mid-run.</li>
-<li><strong>Flight Simulator</strong>: flies with <code>calculateCameraOptionsFromCameraLngLatAltRotation</code>
-  and <code>getCenterClampedToGround</code>, which have no mapbox-gl equivalent (a
-  <code>FreeCameraOptions</code> port is a separate job).</li>
 </ul>
 <p>Two engine changes came with the port and apply to every plugin: a store
 layer added while a Mapbox source is still loading is now synced when that
