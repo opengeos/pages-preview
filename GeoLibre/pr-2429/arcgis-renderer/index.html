@@ -2396,11 +2396,15 @@ The globe button under the compass switches projection (as on MapLibre, a
 split pane's button only switches that pane), and <strong>Controls → Terrain</strong> turns
 terrain on or off. The 3D modules (<code>views/SceneView</code> and the elevation
 layers, close to a megabyte) are only fetched the first time a pane needs a
-scene.</p>
+scene. While a new view loads, the previous one stays on screen, so a switch
+does not flash an empty pane.</p>
 <p>In a scene:</p>
 <ul>
 <li>The camera tilts (right-drag, or the project's saved pitch), limited by the
   project's maximum pitch. The status bar shows the camera's altitude.</li>
+<li>Lighting follows the camera (the SDK's virtual lighting), so the whole
+  visible map is lit. The SDK's default simulated sun would leave part of the
+  globe on the night side.</li>
 <li>Terrain drapes the map over Esri's
   <a href="https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer">World Elevation</a>
   service. It needs no API key. <strong>Controls → Terrain exaggeration</strong> scales the
