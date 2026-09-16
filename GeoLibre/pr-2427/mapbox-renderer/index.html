@@ -2386,7 +2386,7 @@ browser against an authenticated Mapbox map):</p>
   Mapbox map (<code>geo-editor-mapbox.ts</code>); the toolbar's rotate and
   feature-properties popups come from <code>maplibre-gl-geo-editor</code>'s <code>createPopup</code>
   option, fed mapbox-gl's <code>Popup</code>. Text markers use Mapbox's <code>Open Sans
-  Regular</code> glyphs when the style has no font to borrow.</li>
+Regular</code> glyphs when the style has no font to borrow.</li>
 <li><strong>Atmospheric Effects</strong> (its overlay canvases mount in the Mapbox canvas
   container; the control container is lifted above them, as on MapLibre) and
   <strong>Sun</strong> (canvas night mask, raster layer and <code>setLight</code> all apply to
@@ -2404,7 +2404,11 @@ browser against an authenticated Mapbox map):</p>
   those controls register MapLibre tile protocols, so neither draws on Mapbox in
   the first place. A project authored on MapLibre can still carry such layers,
   and the swipe panel omits them rather than offering sides for layers that are
-  not on screen.</li>
+  not on screen. One known defect: changing the basemap while the swipe is
+  active leaves the previous comparison pane — and the map inside it, a live
+  WebGL context — orphaned on the Mapbox canvas. The swipe itself keeps working
+  against the new basemap. The same sequence on MapLibre leaves one pane, so it
+  sits in the Mapbox control lifecycle rather than the plugin; tracked in #2430.</li>
 <li><strong>Overture Maps</strong>. mapbox-gl 3.30+ reads <code>.pmtiles</code> archives itself, through
   a tile provider it fetches from <code>api.mapbox.com</code> (allowlisted in the desktop
   and web CSPs), so the plugin hands <code>maplibre-gl-overture-maps</code> its <code>nativePmtiles</code>
