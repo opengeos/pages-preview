@@ -4015,8 +4015,10 @@ equivalent with <code>app.getMap?.() ?? app.getMapboxMap?.()</code>. The cast is
 only for the shared surface; a mapbox-gl map has none of MapLibre's extensions:</p>
 <ul>
 <li><code>addProtocol</code> / <code>removeProtocol</code> — <code>pmtiles://</code>, COG and other custom tile
-  protocols do not load, which is why Overture Maps and the COG raster control
-  stay MapLibre-only. <code>setTransformRequest</code> — Mapbox takes <code>transformRequest</code>
+  protocols do not load, which is why the COG raster control stays
+  MapLibre-only (Overture Maps instead asks <code>maplibre-gl-overture-maps</code> for
+  plain <code>.pmtiles</code> URLs, which mapbox-gl 3.30+ reads through its own tile
+  provider). <code>setTransformRequest</code> — Mapbox takes <code>transformRequest</code>
   only at construction, so GeoLens private rasters (whose API key is injected
   per request) are MapLibre-only. Custom <code>CustomLayerInterface</code> layers
   (<code>capabilities.customLayers</code> is false on Mapbox). The terrain camera helpers
