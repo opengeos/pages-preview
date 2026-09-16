@@ -2273,7 +2273,7 @@ code in <code>packages/map/src/arcgis-*.ts</code> ships with GeoLibre.</p>
 <ul>
 <li>The first ArcGIS pane needs network access, on the desktop too. The service
   worker caches the SDK modules and stylesheet after first use
-  (<code>geolibre-cdn-engines</code> in <code>vite.config.ts</code>), so the renderer works offline
+  (<code>geolibre-arcgis-sdk</code> in <code>vite.config.ts</code>), so the renderer works offline
   afterwards like the other CDN-loaded engines.</li>
 <li>The SDK version is pinned in <code>packages/map/src/arcgis-sdk.ts</code>
   (<code>ARCGIS_SDK_VERSION</code>). Bumping it is a deliberate change; see
