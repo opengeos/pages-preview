@@ -1,1 +1,0 @@
-import{ur as u}from"./src-CXcFaxBl.js";function e(){if(!(typeof window>"u"))return window.__GEOLIBRE_DEPLOYMENT_ENV__}function f(o,t=e(),r=u()){for(const i of[t,r]){const n=i?.[o];if(typeof n=="string"&&n.trim())return n}}export{f as n,e as t};
