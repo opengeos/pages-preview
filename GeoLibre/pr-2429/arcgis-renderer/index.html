@@ -2412,9 +2412,12 @@ finish loading on the new view.</p>
   service. It needs no API key. <strong>Controls → Terrain exaggeration</strong> scales the
   heights.</li>
 <li>Polygon layers whose style extrudes (the Style panel's <strong>3D extrusion</strong>) draw as
-  extruded 3D shapes: the height property (or the advanced height expression)
-  times the height scale, lifted by the base height, in the extrusion colour
-  (or the advanced colour expression). On a 2D <code>MapView</code> they stay flat fills.</li>
+  extruded 3D shapes with the same height and colour as MapLibre's
+  fill-extrusion: the height property times the height scale (or the advanced
+  height expression) is the top and the base height the bottom, and the colour
+  follows the layer's categorized, graduated or rule-based symbology, the
+  advanced colour expression, or the extrusion colour. On a 2D <code>MapView</code> they
+  stay flat fills.</li>
 <li>Identify, selection highlighting, extent drawing and capture work as in 2D.
   The scale bar does not: the SDK's scale bar only measures a <code>MapView</code>, so
   the Controls menu cannot show it in a scene. The project's minimum and
