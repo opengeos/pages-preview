@@ -3847,9 +3847,9 @@ connects. The fields each kind's form saves are:</p>
   entries.</li>
 </ul>
 <p>Invalid entries — a missing id, an unknown kind, duplicate ids, empty
-fields, or numbers outside JavaScript's safe integer range (2<sup>53</sup>−1)
-— <strong>fail the container boot</strong> with an error naming the offending entry,
-rather than publishing a half-configured library.</p>
+fields, integers outside JavaScript's safe integer range (2<sup>53</sup>−1),
+or non-finite numbers — <strong>fail the container boot</strong> with an error naming the
+offending entry, rather than publishing a half-configured library.</p>
 <div class="admonition warning">
 <p class="admonition-title">Made for public data</p>
 <p>The catalog is published to every visitor as part of the page's runtime
