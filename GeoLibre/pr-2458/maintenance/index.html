@@ -2084,6 +2084,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#deckglmapbox-and-deckglmaplibre" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>@deck.gl/mapbox</code> and <code>@deck.gl/maplibre</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#maplibremaplibre-gl-style-spec" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2513,6 +2524,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#deckglmapbox-and-deckglmaplibre" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>@deck.gl/mapbox</code> and <code>@deck.gl/maplibre</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#maplibremaplibre-gl-style-spec" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2834,6 +2856,13 @@ suite.</p>
   <code>e2e/blend-modes.spec.ts</code> asserts real pixels. Run both on a bump.</li>
 </ul>
 <p>See <a href="#adding-a-blend-mode">Adding a blend mode</a> before extending the list.</p>
+<h3 id="deckglmapbox-and-deckglmaplibre"><code>@deck.gl/mapbox</code> and <code>@deck.gl/maplibre</code><a class="headerlink" href="#deckglmapbox-and-deckglmaplibre" title="Permanent link">&para;</a></h3>
+<p><code>bridgeArcgisDeckControl</code> (<code>packages/plugins/src/plugins/arcgis-deck/control-adapter.ts</code>)
+reads each overlay's private <code>_props</code> field so ArcGIS can transfer its initial
+layers into a native <code>ArcgisDeckOverlay</code> without mounting the MapLibre control.
+The cast hides upstream changes from TypeScript. After either deck.gl package is
+bumped, run <code>tests/arcgis-control-adapters.test.ts</code> and confirm the overlay still
+exposes <code>_props</code> with the initial <code>DeckProps</code> object.</p>
 <h3 id="maplibremaplibre-gl-style-spec"><code>@maplibre/maplibre-gl-style-spec</code><a class="headerlink" href="#maplibremaplibre-gl-style-spec" title="Permanent link">&para;</a></h3>
 <p><code>propertySpecFor</code> (<code>packages/core/src/expressions.ts</code>) fabricates the
 <strong>unexported</strong> <code>StylePropertySpecification</code> shape that <code>createExpression</code> uses for
