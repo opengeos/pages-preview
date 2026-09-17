@@ -3057,6 +3057,9 @@
 <span class="w">  </span><span class="c1">// falls back to this when getMap() is null — see "Supporting the Mapbox</span>
 <span class="w">  </span><span class="c1">// renderer" below.</span>
 <span class="w">  </span><span class="nx">getMapboxMap</span><span class="o">?:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="k">import</span><span class="p">(</span><span class="s2">"mapbox-gl"</span><span class="p">).</span><span class="nb">Map</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+<span class="w">  </span><span class="c1">// The primary ArcGIS MapView or SceneView, or null on another renderer.</span>
+<span class="w">  </span><span class="c1">// The shared deck overlay hosts flat maps and local scenes only.</span>
+<span class="w">  </span><span class="nx">getArcgisView</span><span class="o">?:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">ReturnType</span><span class="o">&lt;</span><span class="k">import</span><span class="p">(</span><span class="s2">"@geolibre/map"</span><span class="p">).</span><span class="nx">ArcgisEngine</span><span class="p">[</span><span class="s2">"getView"</span><span class="p">]</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="w">  </span><span class="c1">// The primary Cesium globe's scene (namespace, widget, scene, camera, clock,</span>
 <span class="w">  </span><span class="c1">// canvas, readView), or null when the primary map is not a globe. The globe's</span>
 <span class="w">  </span><span class="c1">// counterpart to getMap for plugins that declare engines: ["maplibre", "cesium"].</span>
