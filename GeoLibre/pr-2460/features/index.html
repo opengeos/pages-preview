@@ -791,6 +791,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../data-formats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Supported Data Formats
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../user-guide/chrome-extension/" class="md-nav__link">
         
   
@@ -2641,7 +2668,7 @@ kepler.gl, see the <a href="../comparison/">Comparison</a>.</p>
 <li><strong>Cloud-native archives</strong>: PMTiles, and Zarr from a remote store, an Icechunk repository, or a folder on disk, with variable and dimension pickers that offer the store's real coordinate values rather than raw indices. A tiled archive carrying several source layers is added as a group of them — one named, individually styleable layer per source layer — instead of a single opaque row</li>
 <li><strong>Files with pickers</strong>: multi-layer GeoPackages, with a layer picker so only the chosen feature tables load; Excel workbooks imported as point layers from their X and Y columns, with a worksheet picker; delimited text with a source CRS field so projected easting/northing columns reproject correctly, or an Addresses mode that concatenates the columns you pick and geocodes each row through the project's provider (unmatched rows are kept as null-geometry features so they stay visible and fixable in the attribute table); CAD drawings (DXF/DWG) with a drawing-layer picker and CRS selector; and Esri File Geodatabases (<code>.gdb</code> folders, desktop) with a feature-class picker and automatic reprojection</li>
 <li><strong>3D and media</strong>: LiDAR; 3D Tiles, including authenticated tilesets via custom request headers; ArcGIS I3S scene layers (Integrated Mesh and 3D Object, rendered on deck.gl); Gaussian splats; glTF/GLB 3D models placed at coordinates, from a URL or a local file embedded in the project; georeferenced video overlays; and geotagged photos imported as a point layer from their EXIF GPS, with manual placement and drag for photos lacking coordinates and a true native-resolution photo viewer</li>
-<li><strong><a href="../wcs/">WCS raster subsets</a></strong>: discover WCS 1.0.0 coverages and download GeoTIFF subsets in EPSG:4326 with explicit extent and pixel dimensions, preserving numerical values for raster inspection and analysis</li>
+<li><strong><a href="../data-formats/#wcs-raster-subsets">WCS raster subsets</a></strong>: discover WCS 1.0.0 coverages and download GeoTIFF subsets in EPSG:4326 with explicit extent and pixel dimensions, preserving numerical values for raster inspection and analysis</li>
 <li><strong>Catalog search</strong>: an OGC CSW 2.0.2 source that searches a catalog's records by keyword, saves the connection to the service library, adds GeoJSON resources directly, and hands WMS, WFS, and ArcGIS results to their prefilled Add Data forms</li>
 <li><strong>Throughout</strong>: a fully internationalized dialog, comma decimal support, drag-and-dropped CSV coordinate files, sample-data dropdowns on every upstream-backed panel for loading ready-made example datasets, and a saved service library for storing and re-adding frequently used web-service endpoints</li>
 </ul>
