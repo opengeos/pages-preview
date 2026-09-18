@@ -3829,6 +3829,7 @@ server, but no bare <code>wss:</code>.) No manual edit of <code>docker/nginx.con
 <p>All remote services must use TLS because the app may send credentials to the
 configured service. Use <code>https://</code> for the share and GeoLens servers and
 <code>wss://</code> for the relay.
+For GeoLens only, a scheme-less host is interpreted as HTTPS.
 Plaintext is accepted only on <code>localhost</code> / <code>127.0.0.1</code> for local development, so
 put a self-hosted server behind a reverse proxy that terminates TLS. A value that
 does not satisfy this <strong>fails the container boot</strong> with an error naming the
