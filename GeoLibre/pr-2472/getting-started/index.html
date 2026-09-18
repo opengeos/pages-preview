@@ -3813,15 +3813,15 @@ default. Point them at your own server instead, or turn the feature off:</p>
 </tr>
 <tr>
 <td><code>GEOLIBRE_GEOLENS_URL</code></td>
-<td>Default GeoLens server. The plugin connects automatically and remembers the last successful server; unset uses the app's browser origin for co-located deployments. Set <code>off</code> to leave the panel idle until the user chooses a server.</td>
+<td>Default GeoLens server root without a query or fragment. The plugin connects automatically and remembers the last successful server; unset uses the image's baked default. Set <code>same-origin</code> for a co-located deployment or <code>off</code> to leave the panel idle until the user chooses a server.</td>
 </tr>
 </tbody>
 </table>
 <p>All three are read at container startup, so a prebuilt image can be repointed by
 restarting it with different values, with no rebuild. (The equivalent build
 arguments, <code>VITE_GEOLIBRE_SHARE_URL</code>, <code>VITE_GEOLIBRE_COLLAB_URL</code>, and
-<code>VITE_GEOLENS_DEFAULT_URL</code>, exist for baking defaults into your own image. Set
-the last one to <code>same-origin</code> to mirror the prebuilt container's default.)</p>
+<code>VITE_GEOLENS_DEFAULT_URL</code>, exist for baking defaults into your own image. The
+last one defaults to <code>same-origin</code> and can be overridden when building.)</p>
 <p>When <code>GEOLIBRE_COLLAB_URL</code> is set, the entrypoint also adds that relay's origin to
 the container's <code>Content-Security-Policy</code> <code>connect-src</code>, so the browser is allowed
 to open the WebSocket. (The directive has a bare <code>https:</code>, which covers any share
