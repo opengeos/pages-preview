@@ -3820,7 +3820,8 @@ default. Point them at your own server instead, or turn the feature off:</p>
 <p>All three are read at container startup, so a prebuilt image can be repointed by
 restarting it with different values, with no rebuild. (The equivalent build
 arguments, <code>VITE_GEOLIBRE_SHARE_URL</code>, <code>VITE_GEOLIBRE_COLLAB_URL</code>, and
-<code>VITE_GEOLENS_DEFAULT_URL</code>, exist for baking defaults into your own image.)</p>
+<code>VITE_GEOLENS_DEFAULT_URL</code>, exist for baking defaults into your own image. Set
+the last one to <code>same-origin</code> to mirror the prebuilt container's default.)</p>
 <p>When <code>GEOLIBRE_COLLAB_URL</code> is set, the entrypoint also adds that relay's origin to
 the container's <code>Content-Security-Policy</code> <code>connect-src</code>, so the browser is allowed
 to open the WebSocket. (The directive has a bare <code>https:</code>, which covers any share
