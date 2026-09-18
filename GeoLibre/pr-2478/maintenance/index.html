@@ -3017,7 +3017,15 @@ suite.</p>
   <code>tests/layer-blend-modes.test.ts</code> asserts the seams and
   <code>e2e/blend-modes.spec.ts</code> asserts real pixels. Run both on a bump.</li>
 </ul>
-<p>See <a href="#adding-a-blend-mode">Adding a blend mode</a> before extending the list.</p>
+<p>See <a href="#adding-a-blend-mode">Adding a blend mode</a> before extending the list.
+- <strong><code>DEFAULT_MARKER_OFFSET_Y</code></strong>
+  (<code>apps/geolibre-desktop/src/components/storymap/storymap-engine.ts</code>) mirrors the
+  <code>-14</code> px vertical offset <code>maplibregl.Marker</code> applies to its default pin.
+  <code>createStoryMapMarker</code> positions that pin by hand on every engine (Mapbox,
+  Cesium, ArcGIS, and MapLibre alike), so if a bump changes the default pin's
+  anchor or offset, story markers drift off their coordinate with no error.
+  Compare with <code>defaultMarker.ts</code>/<code>marker.ts</code> upstream and play a story on a
+  non-MapLibre renderer.</p>
 <h3 id="deckglmapbox-and-deckglmaplibre"><code>@deck.gl/mapbox</code> and <code>@deck.gl/maplibre</code><a class="headerlink" href="#deckglmapbox-and-deckglmaplibre" title="Permanent link">&para;</a></h3>
 <p><code>bridgeArcgisDeckControl</code> (<code>packages/plugins/src/plugins/arcgis-deck/control-adapter.ts</code>)
 reads each overlay's private <code>_props</code> field so ArcGIS can transfer its initial
