@@ -3813,7 +3813,7 @@ default. Point them at your own server instead, or turn the feature off:</p>
 </tr>
 <tr>
 <td><code>GEOLIBRE_GEOLENS_URL</code></td>
-<td>Default GeoLens server. The plugin connects automatically and remembers the last successful server; unset uses the app's browser origin for co-located deployments.</td>
+<td>Default GeoLens server. The plugin connects automatically and remembers the last successful server; unset uses the app's browser origin for co-located deployments. Set <code>off</code> to leave the panel idle until the user chooses a server.</td>
 </tr>
 </tbody>
 </table>
@@ -3826,9 +3826,9 @@ the last one to <code>same-origin</code> to mirror the prebuilt container's defa
 the container's <code>Content-Security-Policy</code> <code>connect-src</code>, so the browser is allowed
 to open the WebSocket. (The directive has a bare <code>https:</code>, which covers any share
 server, but no bare <code>wss:</code>.) No manual edit of <code>docker/nginx.conf</code> is needed.</p>
-<p>All remote services must use TLS: <code>https://</code> for the share and GeoLens servers,
-and <code>wss://</code> for the relay,
-because the app may send credentials to the configured service.
+<p>All remote services must use TLS because the app may send credentials to the
+configured service. Use <code>https://</code> for the share and GeoLens servers and
+<code>wss://</code> for the relay.
 Plaintext is accepted only on <code>localhost</code> / <code>127.0.0.1</code> for local development, so
 put a self-hosted server behind a reverse proxy that terminates TLS. A value that
 does not satisfy this <strong>fails the container boot</strong> with an error naming the
