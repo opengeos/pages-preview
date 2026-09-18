@@ -579,6 +579,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../data-formats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Supported Data Formats
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../user-guide/chrome-extension/" class="md-nav__link">
         
   
@@ -2084,6 +2111,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#deckglmapbox-and-deckglmaplibre" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>@deck.gl/mapbox</code> and <code>@deck.gl/maplibre</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#maplibremaplibre-gl-style-spec" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2513,6 +2551,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#deckglmapbox-and-deckglmaplibre" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>@deck.gl/mapbox</code> and <code>@deck.gl/maplibre</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#maplibremaplibre-gl-style-spec" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2834,6 +2883,13 @@ suite.</p>
   <code>e2e/blend-modes.spec.ts</code> asserts real pixels. Run both on a bump.</li>
 </ul>
 <p>See <a href="#adding-a-blend-mode">Adding a blend mode</a> before extending the list.</p>
+<h3 id="deckglmapbox-and-deckglmaplibre"><code>@deck.gl/mapbox</code> and <code>@deck.gl/maplibre</code><a class="headerlink" href="#deckglmapbox-and-deckglmaplibre" title="Permanent link">&para;</a></h3>
+<p><code>bridgeArcgisDeckControl</code> (<code>packages/plugins/src/plugins/arcgis-deck/control-adapter.ts</code>)
+reads each overlay's private <code>_props</code> field so ArcGIS can transfer its initial
+layers into a native <code>ArcgisDeckOverlay</code> without mounting the MapLibre control.
+The cast hides upstream changes from TypeScript. After either deck.gl package is
+bumped, run <code>tests/arcgis-control-adapters.test.ts</code> and confirm the overlay still
+exposes <code>_props</code> with the initial <code>DeckProps</code> object.</p>
 <h3 id="maplibremaplibre-gl-style-spec"><code>@maplibre/maplibre-gl-style-spec</code><a class="headerlink" href="#maplibremaplibre-gl-style-spec" title="Permanent link">&para;</a></h3>
 <p><code>propertySpecFor</code> (<code>packages/core/src/expressions.ts</code>) fabricates the
 <strong>unexported</strong> <code>StylePropertySpecification</code> shape that <code>createExpression</code> uses for
@@ -3092,7 +3148,12 @@ manual check, not a Dependabot event:</p>
   every module the engine loads. <code>tests/arcgis-renderer.test.ts</code> only checks the
   assembly against fakes; probe the real CDN (<code>curl -sI</code> each URL returns 200)
   and mount a pane in a browser — a moved module rejects the whole load and the
-  pane shows the error banner.</li>
+  pane shows the error banner. Also check the deck adapter's lazy imports in
+  <code>packages/plugins/src/plugins/arcgis-deck/overlay.ts</code>:
+  <code>layers/Layer</code>, <code>views/2d/layers/BaseLayerViewGL2D</code>, and
+  <code>views/3d/webgl/RenderNode</code>. Mount a deck.gl layer in both a 2D MapView and a
+  local SceneView after a version bump; those imports are outside the engine's
+  module registry.</li>
 <li><strong>The legacy widgets.</strong> <code>widgets/Zoom</code>, <code>Compass</code>, <code>ScaleBar</code>, <code>Fullscreen</code>
   and <code>Locate</code> back the built-in controls. Esri deprecated them in 4.32 in
   favour of web components and still ships them in 5.x with a console warning

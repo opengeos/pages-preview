@@ -608,6 +608,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#deployment-service-library" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Deployment service library
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1117,6 +1128,33 @@
     
   
   Adding Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-formats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Supported Data Formats
 
     
   </span>
@@ -3005,6 +3043,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#deployment-service-library" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Deployment service library
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3704,6 +3753,143 @@ docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </
 service's
 <a href="https://github.com/opengeos/GeoLibre/tree/main/backend/geolibre_server_api"><code>README</code></a>
 for Postgres and S3-compatible storage configuration.</p>
+<h4 id="deployment-service-library">Deployment service library<a class="headerlink" href="#deployment-service-library" title="Permanent link">&para;</a></h4>
+<p>GeoLibre ships a small read-only service library (Sentinel-2 cloudless OSM,
+GEBCO, GeoServer examples) so the Browser and the Add Data dialog are useful on
+first run. Self-hosted deployments can add their own organization-wide services
+to that library without rebuilding or forking the app, by mounting a service
+catalog JSON and pointing the entrypoint at it:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span>:80<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span>/srv/geolibre/services.json:/data/services.json:ro<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">GEOLIBRE_SERVICES_FILE</span><span class="o">=</span>/data/services.json<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>ghcr.io/opengeos/geolibre:latest
+</code></pre></div>
+<p>To show only the configured and personal services, add
+<code>-e GEOLIBRE_BUILTIN_SERVICES=off</code> — the built-in starter set (USGS, GEBCO,
+OSM samples) disappears from the Browser and every Add Data service picker.
+Unset (the default) keeps them; any other nonempty value fails the container
+boot so a typo cannot silently keep publishing the built-ins.</p>
+<p>The file is read at <strong>container startup</strong> — change it and restart the container
+(visitors refresh their browser tab) to repoint a prebuilt image, no rebuild.
+One catalog can mix the two endpoint styles: the relative entries below resolve
+against the GeoLibre origin itself (reverse-proxy your GIS services onto the
+same host or path the app is served from, and no per-user URL configuration is
+needed), while the absolute <code>https://</code> entries point at services on their own
+host — the last three are the app's own starter services, kept as working
+references for the field shapes:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"services"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"org-geoserver-wms"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Internal GeoServer"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Organization"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"wms"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"fields"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"endpoint"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/geoserver/wms"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"layers"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"format"</span><span class="p">:</span><span class="w"> </span><span class="s2">"image/png"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"transparent"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"tileSize"</span><span class="p">:</span><span class="w"> </span><span class="s2">"256"</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"org-geoserver-wfs"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Internal GeoServer Features"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Organization"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"wfs"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"fields"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"endpoint"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/geoserver/wfs"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0.0"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"outputFormat"</span><span class="p">:</span><span class="w"> </span><span class="s2">"application/json"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"srsName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EPSG:4326"</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"org-tiles"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Internal Tiles"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Organization"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xyz"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"fields"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/tiles/{z}/{x}/{y}.png"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"tileSize"</span><span class="p">:</span><span class="w"> </span><span class="s2">"256"</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ref-xyz"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USGS national imagery"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xyz"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"fields"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/tile/{z}/{y}/{x}"</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ref-wms"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OSM WMS"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"wms"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"fields"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"endpoint"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://ows.terrestris.de/osm/service"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"layers"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OSM-WMS"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"format"</span><span class="p">:</span><span class="w"> </span><span class="s2">"image/png"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"transparent"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"tileSize"</span><span class="p">:</span><span class="w"> </span><span class="s2">"256"</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ref-wfs"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GeoServer demo features"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"wfs"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"fields"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"endpoint"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://ahocevar.com/geoserver/wfs"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.1.0"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"typeName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"topp:states"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"outputFormat"</span><span class="p">:</span><span class="w"> </span><span class="s2">"application/json"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"srsName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EPSG:4326"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"maxFeatures"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1000"</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Each entry is one of the built-in service kinds (<code>wms</code>, <code>wfs</code>, <code>wmts</code>, <code>xyz</code>,
+<code>arcgis</code>, <code>csw</code>). Startup validates only the structural conditions described
+here; a well-formed entry is published even when its kind-specific fields are
+incomplete, and the Add Data form validates those fields when a user actually
+connects. The fields each kind's form saves are:</p>
+<ul>
+<li><code>wms</code> — <code>endpoint</code>, <code>layers</code>, <code>styles</code>, <code>format</code>, <code>transparent</code>, <code>tileSize</code>, <code>version</code></li>
+<li><code>wfs</code> — <code>endpoint</code>, <code>version</code>, <code>typeName</code>, <code>outputFormat</code>, <code>srsName</code>, <code>maxFeatures</code></li>
+<li><code>wmts</code> — <code>url</code>, <code>tileSize</code></li>
+<li><code>xyz</code> — <code>url</code>, <code>tileSize</code>, <code>shortUrl</code></li>
+<li><code>arcgis</code> — <code>layerType</code>, <code>sourceType</code>, <code>url</code>, <code>itemId</code>, <code>portalUrl</code>, <code>pageSize</code>, <code>maxFeatures</code>, <code>sublayers</code>, <code>renderingRule</code></li>
+<li><code>csw</code> — <code>endpoint</code>, <code>keyword</code></li>
+</ul>
+<p>Configured services:</p>
+<ul>
+<li>appear automatically in the Browser and in every Add Data service picker;</li>
+<li>are read-only — users can apply them, and save a personal copy, but cannot
+  edit or delete the organization's entries;</li>
+<li>are <strong>not</strong> stored in <code>localStorage</code> or included in service-library
+  import/export;</li>
+<li>are individually marked <em>config</em> in the UI, distinct from built-in
+  entries.</li>
+</ul>
+<p>Invalid entries — a missing id, an unknown kind, duplicate ids, empty
+fields, integers outside JavaScript's safe integer range (2<sup>53</sup>−1),
+or non-finite numbers — <strong>fail the container boot</strong> with an error naming the
+offending entry, rather than publishing a half-configured library.</p>
+<div class="admonition warning">
+<p class="admonition-title">Made for public data</p>
+<p>The catalog is published to every visitor as part of the page's runtime
+configuration (the same file that carries the sign-in keys and share URL),
+so treat it as public and never put credentials, signed URLs, or
+authentication tokens in service fields.</p>
+</div>
+<p>For a non-Docker static hosting, serve the same <code>window.__GEOLIBRE_DEPLOYMENT_ENV__</code>
+object yourself, with <code>VITE_GEOLIBRE_SERVICES</code> set to the JSON string of that
+<code>{ "services": [...] }</code> document — the app reads it, unchanged, from
+<code>geolibre-runtime-config.js</code>. Set <code>VITE_GEOLIBRE_BUILTIN_SERVICES</code> to <code>"off"</code>
+in the same object to hide the built-in starter services, mirroring
+<code>GEOLIBRE_BUILTIN_SERVICES=off</code> in Docker.</p>
 <h3 id="run-the-desktop-app">Run the desktop app<a class="headerlink" href="#run-the-desktop-app" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>npm<span class="w"> </span>run<span class="w"> </span>tauri:dev
 </code></pre></div>

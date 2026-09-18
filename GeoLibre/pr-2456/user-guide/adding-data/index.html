@@ -16,7 +16,7 @@
         <link rel="prev" href="../projects/">
       
       
-        <link rel="next" href="../chrome-extension/">
+        <link rel="next" href="../../data-formats/">
       
       
         
@@ -749,6 +749,33 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data-formats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Supported Data Formats
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -2499,6 +2526,7 @@
 
 <h1 id="adding-data">Adding Data<a class="headerlink" href="#adding-data" title="Permanent link">&para;</a></h1>
 <p>The <strong>Add Data</strong> menu is the main way to bring layers into GeoLibre. It groups sources into Files, Web services, Cloud formats, 3D layers, and Databases. You can also drag files straight onto the map.</p>
+<p>For a consolidated list of file formats, service protocols, and platform limitations, see <a href="../../data-formats/">Supported Data Formats</a>.</p>
 <p>To collect supported dataset links from a catalog or other webpage and open several at once, use the <a href="../chrome-extension/">GeoLibre Chrome extension</a>, available from the <a href="https://chromewebstore.google.com/detail/open-data-in-geolibre/joinecgbfoldanidcoakpjgkbaceaooj">Chrome Web Store</a>.</p>
 <p><img alt="The Add Data menu, grouped into Files, Web services, Cloud formats, 3D layers, and Databases" src="https://assets.geolibre.app/images/geolibre-add-data-menu.webp" /></p>
 <h2 id="files">Files<a class="headerlink" href="#files" title="Permanent link">&para;</a></h2>
@@ -2592,6 +2620,10 @@ FlatGeobuf source when you have the choice.</p>
 <tr>
 <td><strong>XYZ Layer</strong></td>
 <td>A raster or vector tile service using a <code>{z}/{x}/{y}</code> URL template.</td>
+</tr>
+<tr>
+<td><strong><a href="../../data-formats/#wcs-raster-subsets">WCS Layer</a></strong></td>
+<td>Downloads numerical GeoTIFF subsets from WCS 1.0.0 services.</td>
 </tr>
 <tr>
 <td><strong>WMS Layer</strong></td>
@@ -2785,7 +2817,7 @@ were rendered before the choice existed and cannot honor it.</p>
 </tr>
 <tr>
 <td><strong>Services</strong></td>
-<td>Saved map services, grouped by kind (XYZ, WMS, WFS, WMTS, ArcGIS). GeoLibre ships a starter set; the <strong>+</strong> on a group adds a new connection of that kind. Expand a service to browse its layers and add one.</td>
+<td>Saved map services, grouped by kind (XYZ, WMS, WFS, WMTS, ArcGIS). GeoLibre ships a starter set; the <strong>+</strong> on a group adds a new connection of that kind. Expand a service to browse its layers and add one. Self-hosted deployments can add read-only organization-wide services here, marked with a <em>config</em> badge (see <a href="../../getting-started/#deployment-service-library">Getting Started</a>); they are shared with every user, cannot be edited or deleted, and are never stored in your own service library.</td>
 </tr>
 <tr>
 <td><strong>Recent</strong></td>
