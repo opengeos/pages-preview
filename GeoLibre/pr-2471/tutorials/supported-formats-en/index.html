@@ -3470,7 +3470,7 @@ can replace layers owned by an earlier one.</p>
 <p><strong>2. The iteration speed is a double-edged sword.</strong> From 0 to 2.4.0 in just over two months; 2.0.0 to 2.1.0 was separated by roughly 19 hours. If you're considering it as a long-term production dependency, factor in this churn risk.</p>
 <p><strong>3. Several clear format gaps.</strong> glTF/GLB has no local file picker (URL only), <code>.obj</code> is completely unsupported, Excel is unsupported, HDF4 is unsupported, raw <code>.osm</code> XML is unsupported.</p>
 <p><strong>4. Platform capability asymmetry.</strong> See the table in Section 10. Don't extrapolate the browser version's experience to represent the whole.</p>
-<p><strong>5. Cesium 3D Globe does not require an ion token.</strong> Without one it still draws the project basemap; a token enables Cesium World Terrain and ion imagery or assets. Teams using those services should account for quotas and pricing.</p>
+<p><strong>5. Cesium 3D Globe requires an ion token outside the web version.</strong> The hosted web version bundles a demo token, but the desktop and mobile apps need your own. The free tier is sufficient for individual use; teams need to budget for quotas and pricing.</p>
 <p><strong>6. The China-specific environment.</strong> Default sources for basemaps, terrain, and Photorealistic 3D Tiles are all outside the firewall; coordinates use standard WGS84 — <strong>GCJ-02 offsets must be handled separately</strong>. These two issues need to be addressed first for serious use. Reliable first-hand data on this is unavailable; further input from actual users is welcome.</p>
 <hr />
 <h2 id="in-closing">In Closing<a class="headerlink" href="#in-closing" title="Permanent link">&para;</a></h2>

@@ -3464,7 +3464,7 @@ geoparquet, duckdb-query, deckgl-viz, video, image
 <p><strong>二、迭代速度是双刃剑。</strong> 两个多月从 0 到 2.4.0，2.0.0 到 2.1.0 只隔了大概 19 小时。拿它做生产环境的长期依赖，得想清楚这个 churn 风险。</p>
 <p><strong>三、几个明确的格式缺口。</strong> glTF/GLB 没有本地文件选择器（只能填 URL）、<code>.obj</code> 完全不支持、Excel 不支持、HDF4 不支持、原始 <code>.osm</code> XML 不支持。</p>
 <p><strong>四、平台能力不对等。</strong> 见第十节那张表。别拿浏览器版的体验去代表全部。</p>
-<p><strong>五、Cesium 3D 球不强制要求 Ion token。</strong> 无 token 时仍可显示项目底图；token 会启用 Cesium World Terrain 和 ion 影像或资产，团队使用时应留意配额和计费。</p>
+<p><strong>五、Cesium 3D 球在网页版之外需要 Ion token。</strong> 网页版内置了演示 token，桌面版和移动版需要自己的 token。免费额度够个人玩，团队用要算账。</p>
 <p><strong>六、国内环境。</strong> 底图、地形、Photorealistic 3D Tiles 这些默认源都在墙外；坐标系走标准 WGS84，<strong>GCJ-02 偏移得自己处理</strong>。想认真用得先解决这两件事。这部分暂无可靠的实测信息，留给实际使用者补充。</p>
 <hr />
 <h2 id="_14">写在最后<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h2>

@@ -2487,9 +2487,10 @@ a native CesiumJS globe. Cesium is also available from the rendering-engine
 menu in every split pane, so a project can place a globe beside any of the
 other three engines. Primary and pane choices are saved with the project.</p>
 <h2 id="credentials">Credentials<a class="headerlink" href="#credentials" title="Permanent link">&para;</a></h2>
-<p>The renderer works without credentials. In that mode it draws the project's
-basemap on an ellipsoid. An optional Cesium ion token adds Cesium World Terrain,
-Ion World Imagery as a fallback, and access to ion-hosted assets.</p>
+<p>The renderer requires a Cesium ion token. The hosted web version bundles a
+demo token, so Cesium works there out of the box; the desktop and mobile apps
+need your own token. The token enables Cesium World Terrain, Ion World Imagery
+as a fallback, and access to ion-hosted assets.</p>
 <p>Enter the token under <strong>Settings → Environment Variables → Cesium Ion token</strong>.
 It is stored on the current device rather than in the project file. Developers
 can alternatively set <code>CESIUM_TOKEN</code> or <code>VITE_CESIUM_TOKEN</code> at build time. See
