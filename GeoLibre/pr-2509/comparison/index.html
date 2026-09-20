@@ -3315,12 +3315,14 @@ Earth and diverge almost everywhere after it.</p>
 <li><strong>Google Earth</strong> (the web app, plus the Android and iOS apps) is the one Google
   is investing in. It comes in three plans: <strong>Standard</strong> is free, while
   <strong>Professional</strong> and <strong>Professional Advanced</strong> are paid per seat. Standard
-  covers exploring, drawing, measuring, historical imagery, and Street View, with
-  projects stored in Google Drive and shared like any other Drive file. The paid
-  plans add curated data layers (finer elevation contours, parcel zoning,
-  household income, traffic), larger design quotas and cloud import storage, and
-  more of the Gemini-powered <em>Ask Google Earth</em>, which every plan includes at a
-  limited, higher, or highest level of access.</li>
+  covers exploring, drawing, measuring, historical imagery, Street View, and
+  broadly applicable data layers such as administrative areas, postal codes, and
+  household income, with projects stored in Google Drive and shared like any
+  other Drive file. The paid plans add specialized layers (finer elevation
+  contours, slope and aspect, inundation history, parcel zoning, traffic), larger
+  design quotas and cloud import storage, and more of the Gemini-powered <em>Ask
+  Google Earth</em>, which every plan includes at a limited, higher, or highest level
+  of access.</li>
 <li><strong>Google Earth Pro</strong> (desktop, version 7.3.x) is the free application GIS users
   have leaned on for historical imagery, Shapefile and GeoTIFF import, viewshed,
   elevation profiles, and HD movie export. Google has announced that <strong>desktop
@@ -3367,7 +3369,7 @@ planetary-scale raster analysis — and is out of scope here.</p>
 <tr>
 <td><strong>Data in</strong></td>
 <td>Vector, raster, tiles, databases, STAC, OGC and Esri services, and cloud-native formats (COG, GeoParquet, PMTiles, Zarr)</td>
-<td>KML/KMZ and Shapefile into projects, plus experimental GLB-only 3D model import on the web; more import storage on paid plans</td>
+<td>KML/KMZ, GeoJSON, and zipped Shapefile into projects, plus experimental GLB-only 3D model import on the web; more import storage on paid plans</td>
 <td>KML/KMZ, Shapefile, GeoTIFF and image overlays, CSV with address geocoding, GPS/GPX, MapInfo TAB</td>
 </tr>
 <tr>
@@ -3385,7 +3387,7 @@ planetary-scale raster analysis — and is out of scope here.</p>
 <tr>
 <td><strong>Analysis</strong></td>
 <td>1,000+ geoprocessing tools, spatial SQL, spatial statistics, routing and isochrones</td>
-<td>Measurement, elevation profiles, and layer filtering</td>
+<td>Measurement, elevation profiles on the web, and layer filtering</td>
 <td>Measure, elevation profile, viewshed</td>
 </tr>
 <tr>
@@ -3397,7 +3399,7 @@ planetary-scale raster analysis — and is out of scope here.</p>
 <tr>
 <td><strong>Historical imagery</strong></td>
 <td>Historical Imagery plugin over Esri World Imagery snapshots, plus Timelapse annual basemaps</td>
-<td>A timeline of the capture dates available for a place, plus historical Street View</td>
+<td>A timeline of the capture dates available for a place, plus historical Street View on the web</td>
 <td>Historical imagery slider</td>
 </tr>
 <tr>
