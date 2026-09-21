@@ -5149,14 +5149,16 @@
 </code></pre></div></td></tr></table></div>
 <p>Check how many objects were found and how confident the model is about them.</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Objects found: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">sam3</span><span class="o">.</span><span class="n">masks</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mean confidence: </span><span class="si">{</span><span class="nb">sum</span><span class="p">(</span><span class="n">sam3</span><span class="o">.</span><span class="n">scores</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">sam3</span><span class="o">.</span><span class="n">scores</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Objects found: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">sam3</span><span class="o">.</span><span class="n">masks</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">sam3</span><span class="o">.</span><span class="n">scores</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mean confidence: </span><span class="si">{</span><span class="nb">sum</span><span class="p">(</span><span class="n">sam3</span><span class="o">.</span><span class="n">scores</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">sam3</span><span class="o">.</span><span class="n">scores</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
 <h2 id="show-the-results">Show the results<a class="headerlink" href="#show-the-results" title="Permanent link">&para;</a></h2>
 <p>Display each object with a random color, along with its bounding box and confidence score.</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">sam3</span><span class="o">.</span><span class="n">show_anns</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
-<p><img alt="" src="https://github.com/user-attachments/assets/376e1d12-9d1d-42c3-9868-2b45d49647bf" /></p>
+<p><img alt="Aerial image with each detected car outlined in a different color and labeled with its confidence score" src="https://github.com/user-attachments/assets/376e1d12-9d1d-42c3-9868-2b45d49647bf" /></p>
 <p>Display the masks alone, with one unique value per object.</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">sam3</span><span class="o">.</span><span class="n">show_masks</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
@@ -5199,7 +5201,7 @@
 </code></pre></div></td></tr></table></div>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">sam3</span><span class="o">.</span><span class="n">show_anns</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
-<p><img alt="" src="https://github.com/user-attachments/assets/09e370f4-8b3f-4fb0-9017-773477ed5ef3" /></p>
+<p><img alt="Aerial image with the parking lot areas outlined as large colored regions" src="https://github.com/user-attachments/assets/09e370f4-8b3f-4fb0-9017-773477ed5ef3" /></p>
 <h2 id="interactive-segmentation">Interactive segmentation<a class="headerlink" href="#interactive-segmentation" title="Permanent link">&para;</a></h2>
 <p>Enter a text prompt or draw a rectangle on the map, then click the <strong>Segment</strong> button to run segmentation interactively. Try prompts such as <code>car</code>, <code>tree</code>, <code>building</code>, or <code>parking lot</code> to see how the results change.</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">sam3</span><span class="o">.</span><span class="n">show_map</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="s2">"700px"</span><span class="p">,</span> <span class="n">min_size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>

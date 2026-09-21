@@ -1234,6 +1234,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#related-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Related example
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -4890,6 +4901,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#related-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Related example
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -4932,7 +4954,7 @@
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">geoai</span><span class="o">.</span><span class="n">view_raster</span><span class="p">(</span><span class="n">raster_url</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
 <h2 id="initialize-the-model">Initialize the model<a class="headerlink" href="#initialize-the-model" title="Permanent link">&para;</a></h2>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">detector</span> <span class="o">=</span> <span class="n">geoai</span><span class="o">.</span><span class="n">ParkingSplotDetector</span><span class="p">()</span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">detector</span> <span class="o">=</span> <span class="n">geoai</span><span class="o">.</span><span class="n">ParkingSpotDetector</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
 <h2 id="extract-parking-spots">Extract parking spots<a class="headerlink" href="#extract-parking-spots" title="Permanent link">&para;</a></h2>
 <p>Extract parking spots from the image using the model and save the output image.</p>
@@ -4975,6 +4997,8 @@
 <h2 id="visualize-results">Visualize results<a class="headerlink" href="#visualize-results" title="Permanent link">&para;</a></h2>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">geoai</span><span class="o">.</span><span class="n">view_vector_interactive</span><span class="p">(</span><span class="n">gdf</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="s2">"confidence"</span><span class="p">,</span> <span class="n">tiles</span><span class="o">=</span><span class="n">raster_url</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
+<h2 id="related-example">Related example<a class="headerlink" href="#related-example" title="Permanent link">&para;</a></h2>
+<p>The same image can also be segmented without any training data using SAM3 text prompts. See <a href="../parking_spot_sam3.ipynb">Parking Spot Segmentation with SAM3</a>.</p>
 
 
 
