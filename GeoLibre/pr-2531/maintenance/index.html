@@ -2317,6 +2317,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#maplibre-gl-raster-stretch-and-gamma-curves" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>maplibre-gl-raster</code> — stretch and gamma curves
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#maplibre-gl-raster-checked-by-the-compiler" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2758,6 +2769,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#maplibre-gl-raster-stretch-and-gamma-curves" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>maplibre-gl-raster</code> — stretch and gamma curves
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#maplibre-gl-raster-checked-by-the-compiler" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -3154,6 +3176,22 @@ rendered from it, not written into the copy.</p>
 format/reader/size rules those panels share — a per-panel copy would miss this
 check, so add new browse panels against that module rather than duplicating it
 (<code>source-coop-api.ts</code> re-exports it under its own names for compatibility).</p>
+<h3 id="maplibre-gl-raster-stretch-and-gamma-curves"><code>maplibre-gl-raster</code> — stretch and gamma curves<a class="headerlink" href="#maplibre-gl-raster-stretch-and-gamma-curves" title="Permanent link">&para;</a></h3>
+<p><code>buildContinuousColormapRgba</code>
+(<code>packages/plugins/src/plugins/raster-symbology.ts</code>) mirrors the render
+pipeline's value adjustments <strong>by hand</strong>, inverted. Value-range opacity paints
+its alpha into the injected 256-wide colormap texture, so it has to map a
+texture column back to a data value — and the renderer samples that texture
+<em>after</em> rescale, the stretch curve and gamma. The mirror therefore unwinds
+gamma (<code>pow(x, 1 / max(gamma, 0.0001))</code>), then <code>sqrt</code> (<code>sqrt(x)</code>) or <code>log</code>
+(<code>log(1 + 99x) / log(1 + 99)</code>), in that order. None of it is exported: the
+curves live in the package's <code>pushAdjustments</code> / shader modules, and the
+strength constant (99) is a hard-coded prop. If upstream reorders the pipeline,
+changes a curve, or retunes the log strength, nothing fails to build — opacity
+thresholds just drift off the values the user typed, and only under a
+non-default stretch or gamma. On a bump, re-read that package's
+<code>pushAdjustments</code> (and its <code>inverseStretch</code> helper, which is the same pair of
+curves) and run <code>tests/raster-symbology.test.ts</code>.</p>
 <h3 id="maplibre-gl-raster-checked-by-the-compiler"><code>maplibre-gl-raster</code> — checked by the compiler<a class="headerlink" href="#maplibre-gl-raster-checked-by-the-compiler" title="Permanent link">&para;</a></h3>
 <p><code>GeoLibreCogRenderEngine</code> (<code>packages/plugins/src/types.ts</code>) mirrors the
 <code>RenderEngine</code> union that package exports (<code>maplibre-gl-raster</code> |
