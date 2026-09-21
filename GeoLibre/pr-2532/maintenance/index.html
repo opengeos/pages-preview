@@ -2317,10 +2317,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#maplibre-gl-lidar-packagespluginspackagejson-checked-by-a-test" class="md-nav__link">
+  <a href="#maplibre-gl-lidar-packagespluginspackagejson-half-checked-by-the-compiler" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        <code>maplibre-gl-lidar</code> (<code>packages/plugins/package.json</code>) — checked by a test
+        <code>maplibre-gl-lidar</code> (<code>packages/plugins/package.json</code>) — half checked by the compiler
       </span>
     </span>
   </a>
@@ -2769,10 +2769,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#maplibre-gl-lidar-packagespluginspackagejson-checked-by-a-test" class="md-nav__link">
+  <a href="#maplibre-gl-lidar-packagespluginspackagejson-half-checked-by-the-compiler" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        <code>maplibre-gl-lidar</code> (<code>packages/plugins/package.json</code>) — checked by a test
+        <code>maplibre-gl-lidar</code> (<code>packages/plugins/package.json</code>) — half checked by the compiler
       </span>
     </span>
   </a>
@@ -3176,22 +3176,24 @@ rendered from it, not written into the copy.</p>
 format/reader/size rules those panels share — a per-panel copy would miss this
 check, so add new browse panels against that module rather than duplicating it
 (<code>source-coop-api.ts</code> re-exports it under its own names for compatibility).</p>
-<h3 id="maplibre-gl-lidar-packagespluginspackagejson-checked-by-a-test"><code>maplibre-gl-lidar</code> (<code>packages/plugins/package.json</code>) — checked by a test<a class="headerlink" href="#maplibre-gl-lidar-packagespluginspackagejson-checked-by-a-test" title="Permanent link">&para;</a></h3>
+<h3 id="maplibre-gl-lidar-packagespluginspackagejson-half-checked-by-the-compiler"><code>maplibre-gl-lidar</code> (<code>packages/plugins/package.json</code>) — half checked by the compiler<a class="headerlink" href="#maplibre-gl-lidar-packagespluginspackagejson-half-checked-by-the-compiler" title="Permanent link">&para;</a></h3>
 <p>The space-effects engine raises the MapLibre canvas to <code>z-index: 4</code> so its
 starfield canvases can sit underneath. That package renders point clouds into an
 <strong>overlaid</strong> deck.gl canvas which it parks in the canvas container, directly
-after the map canvas, tagged <code>maplibre-gl-lidar-canvas</code>. <code>LIDAR_CANVAS_CLASS</code>
-(<code>packages/plugins/src/plugins/maplibre-effects.ts</code>) mirrors that class so
-<code>effectsOverlayCss()</code> can hand the wrapper the canvas's own z-index. Drop the
-rule and the wrapper falls below the raised canvas, hiding the point cloud
-outright; drop the re-parenting upstream and the wrapper goes back to covering
-the Measure/Colorbar/Legend/HTML/Bookmark panels (#2530).</p>
-<p>Neither half fails the build on its own, so both are asserted:
-<code>tests/effects-settings.test.ts</code> builds the selector from the package's own
-exported <code>DECK_CANVAS_CLASS</code>, so a rename upstream fails the test rather than
-silently un-fixing the stacking, and <code>e2e/lidar-canvas-stacking.spec.ts</code> mounts
-the real control and asserts the resulting DOM order and z-indices. Run both on
-a bump.</p>
+after the map canvas, tagged <code>DECK_CANVAS_CLASS</code>
+(<code>maplibre-gl-lidar-canvas</code>). <code>effectsOverlayCss()</code>
+(<code>packages/plugins/src/plugins/maplibre-effects.ts</code>) hands that wrapper the
+canvas's own z-index. Drop the rule and the wrapper falls below the raised
+canvas, hiding the point cloud outright; drop the re-parenting upstream and the
+wrapper goes back to covering the Measure/Colorbar/Legend/HTML/Bookmark panels
+(#2530).</p>
+<p>The <strong>class</strong> is imported from the package rather than copied, so a rename
+fails <code>npm run typecheck</code>. Keep it that way: the package is side-effect-free, so
+the import tree-shakes to the string and does not pull deck.gl into this
+eagerly loaded plugin. The <strong>placement</strong> is not visible to the compiler, so
+<code>e2e/lidar-canvas-stacking.spec.ts</code> mounts the real control and asserts the
+resulting DOM order and z-indices — run it on a bump
+(<code>npx playwright test e2e/lidar-canvas-stacking.spec.ts --project=features</code>).</p>
 <h3 id="maplibre-gl-raster-checked-by-the-compiler"><code>maplibre-gl-raster</code> — checked by the compiler<a class="headerlink" href="#maplibre-gl-raster-checked-by-the-compiler" title="Permanent link">&para;</a></h3>
 <p><code>GeoLibreCogRenderEngine</code> (<code>packages/plugins/src/types.ts</code>) mirrors the
 <code>RenderEngine</code> union that package exports (<code>maplibre-gl-raster</code> |
