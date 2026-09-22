@@ -3124,7 +3124,7 @@ e.g. <code>m.run_algorithm(..., timeout=300)</code>.</p>
 </tr>
 <tr>
 <td><code>add_wms(endpoint, layers, name=, styles=, image_format=, transparent=, tile_size=, version=, crs=, bounds=, **style)</code></td>
-<td>Add a WMS layer (GetMap, tiled raster). <code>bounds</code> is <code>[west, south, east, north]</code>, needed for zoom-to-layer. <code>crs</code> defaults to <code>EPSG:3857</code>; for a server without Web Mercator pass a geographic CRS it lists (<code>EPSG:4326</code>, <code>EPSG:4258</code>, <code>EPSG:6706</code>, <code>CRS:84</code>, no others). Only the desktop app redraws those tiles into Web Mercator: the web build and <code>export_html</code> pages still send the Web Mercator BBOX, so such a layer stays blank there.</td>
+<td>Add a WMS layer (GetMap, tiled raster). <code>bounds</code> is <code>[west, south, east, north]</code>, needed for zoom-to-layer. <code>crs</code> defaults to <code>EPSG:3857</code>; for a server without Web Mercator pass a geographic CRS it lists (<code>EPSG:4326</code>, <code>EPSG:4258</code>, <code>EPSG:6706</code>, or <code>CRS:84</code> with <code>version="1.3.0"</code>; no others). Only the desktop app redraws those tiles into Web Mercator: the web build and <code>export_html</code> pages still send the Web Mercator BBOX, so such a layer stays blank there.</td>
 </tr>
 <tr>
 <td><code>add_wmts(url, name=, tile_size=, bounds=, **style)</code></td>
