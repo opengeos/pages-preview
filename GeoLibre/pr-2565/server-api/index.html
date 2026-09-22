@@ -3073,8 +3073,11 @@ not a capability URL for a private project.</p>
 <p>Creates an account and returns a personal API token once. This endpoint may be
 disabled when an installation delegates identity to an external provider.
 <code>name</code>, <code>scopes</code>, and <code>expiresInDays</code> are optional. New tokens default to all
-three project scopes and expire after 90 days; the accepted lifetime is 1–365
-days.</p>
+three project scopes. Omitting <code>expiresInDays</code> preserves the v1 delete-only
+token lifecycle (the token does not expire); the accepted explicit lifetime is
+1–365 days. An unknown or empty <code>scopes</code> list returns <code>400</code>
+<code>{"error": "invalid_scope"}</code>; an <code>expiresInDays</code> outside 1–365 returns <code>400</code>
+<code>{"error": "invalid_request"}</code>.</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ada"</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"correct horse battery staple"</span><span class="p">,</span>
@@ -3256,6 +3259,8 @@ project visibility. <code>DELETE</code> removes it. Upload and delete responses 
 </table>
 <p>New personal tokens require a nonempty subset of these scopes. Omitting
 <code>scopes</code> preserves the historical project permissions for existing clients.
+Omitting <code>expiresInDays</code> keeps the token valid until revoked (the v1
+delete-only lifecycle); set <code>expiresInDays</code> to 1–365 to mint an expiring token.
 Tokens that predate the policy table are upgraded on first use with all three
 project scopes, no expiry, and a legacy marker.</p>
 <p>A valid credential missing a required scope receives <code>403</code> with
