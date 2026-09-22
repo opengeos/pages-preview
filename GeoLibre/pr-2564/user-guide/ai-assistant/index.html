@@ -3076,10 +3076,11 @@ with no client configuration.</p>
 npx<span class="w"> </span>wrangler<span class="w"> </span>secret<span class="w"> </span>put<span class="w"> </span>JEV_API_KEY
 </code></pre></div>
 <p>Leaving the secret unset disables the route; the assistant keeps working
-through the model as usual. The endpoint must be reachable over <strong>HTTPS</strong>:
-a plain-HTTP routing endpoint on another origin is refused, because the
-answer it returns decides which tool the assistant runs. Loopback, and an
-endpoint on the same origin as the app itself, are allowed.</p>
+through the model as usual. A routing endpoint on <strong>another origin must use
+HTTPS</strong> — a plain-HTTP one is refused, because the answer it returns decides
+which tool the assistant runs. Loopback and an endpoint on the app's own
+origin are the exceptions: there, HTTPS would protect nothing that an
+attacker in a position to read the request does not already have.</p>
 </div>
 <div class="tabbed-block">
 <p>A browser dev server can reach neither endpoint on its own: TypeSafe
