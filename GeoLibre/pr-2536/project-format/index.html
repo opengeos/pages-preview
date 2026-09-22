@@ -3109,6 +3109,8 @@ popup, and whether a hover tooltip follows the pointer:</p>
 <span class="w">    </span><span class="nt">"hover"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">"titleField"</span><span class="p">:</span><span class="w"> </span><span class="s2">"name"</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">"showFeatureId"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"maxWidth"</span><span class="p">:</span><span class="w"> </span><span class="mi">640</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"imageHeight"</span><span class="p">:</span><span class="w"> </span><span class="mi">420</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">"fields"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">      </span><span class="p">{</span>
 <span class="w">        </span><span class="nt">"field"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pop_max"</span><span class="p">,</span>
@@ -3136,6 +3138,13 @@ inline <code>data:image/*;base64</code> values as thumbnails), <code>text</code>
 <code>linkLabel</code>. <code>hover: true</code> on a field puts it in the tooltip's short subset; a
 tooltip with no flagged field shows the title alone, or nothing when the title
 is just the layer name.</p>
+<p><code>maxWidth</code> (288-1200) is how wide the click popup may draw and <code>imageHeight</code>
+(40-1200) how tall an <code>image</code> field's thumbnail may draw inside it, both in CSS
+pixels; each is clamped to its range and <code>maxWidth</code> is capped by the viewport
+besides, so neither can produce a popup that blankets the map. Absent, the
+popup keeps its default width and image height. A thumbnail keeps its aspect
+ratio, so <code>imageHeight</code> alone does little for a landscape photo without
+<code>maxWidth</code> to match.</p>
 <p><code>titleField</code> leads the popup with a feature's own value instead of the layer
 name; <code>titleExpression</code> (a MapLibre expression source) wins over it, and both
 fall back to the layer name when they produce nothing. <code>bodyExpression</code>
