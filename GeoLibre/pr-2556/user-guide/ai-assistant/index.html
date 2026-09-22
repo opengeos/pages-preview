@@ -3034,7 +3034,7 @@ cost — which is the other reason the fast path stays off unless you enable it.
 <p>Because every action runs through the same tool as the slow path, fast-path
 changes appear in the transcript and are <strong>undoable</strong> like any other.</p>
 <h3 id="enabling-it">Enabling it<a class="headerlink" href="#enabling-it" title="Permanent link">&para;</a></h3>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Desktop</label><label for="__tabbed_2_2">Web / Docker</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Desktop</label><label for="__tabbed_2_2">Web / Docker</label><label for="__tabbed_2_3">Local development</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>Set <code>JEV_API_KEY</code> in <strong>Settings → Environment Variables</strong>, or export it in
@@ -3055,6 +3055,24 @@ npx<span class="w"> </span>wrangler<span class="w"> </span>secret<span class="w"
 </code></pre></div>
 <p>Leaving the secret unset disables the route; the assistant keeps working
 through the model as usual.</p>
+</div>
+<div class="tabbed-block">
+<p>A browser dev server can reach neither endpoint on its own: TypeSafe
+refuses <code>http://localhost:5173</code> as an origin, and the Worker wants an
+instance token a page cannot supply. So <code>npm run dev</code> proxies <code>/systemone</code>
+itself when you give it a credential, and points the app at that route:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># through the deployed Worker, which holds the TypeSafe key (preferred —</span>
+<span class="c1"># this is the same path production uses)</span>
+<span class="nv">GEOLIBRE_AI_PROXY_TOKEN</span><span class="o">=</span>…<span class="w"> </span>npm<span class="w"> </span>run<span class="w"> </span>dev
+
+<span class="c1"># or straight to TypeSafe with your own key</span>
+<span class="nv">JEV_API_KEY</span><span class="o">=</span>…<span class="w"> </span>npm<span class="w"> </span>run<span class="w"> </span>dev
+</code></pre></div>
+<p>The dev server prints which one it is using at startup, and neither value
+enters the client bundle. With neither set the route is not registered and
+the fast path stays off. <code>npm run tauri:dev</code> needs none of this: the
+desktop build reads <code>JEV_API_KEY</code> from your environment and reaches
+TypeSafe through Tauri's native HTTP client.</p>
 </div>
 </div>
 </div>
