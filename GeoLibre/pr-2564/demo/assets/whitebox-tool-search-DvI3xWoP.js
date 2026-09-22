@@ -1,0 +1,1 @@
+function a(s,c,i){const e=c.trim().toLowerCase();if(!e)return[...s];const t=[],n=[];for(const o of s){const r=i(o);r.name.toLowerCase().includes(e)?t.push(o):r.summary.toLowerCase().includes(e)&&n.push(o)}return[...t,...n]}export{a as t};
