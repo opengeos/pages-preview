@@ -1027,6 +1027,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#finding-the-right-whitebox-tool-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Finding the right Whitebox tool (optional)
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#voice-commands" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2626,6 +2637,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#finding-the-right-whitebox-tool-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Finding the right Whitebox tool (optional)
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#voice-commands" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2937,7 +2959,7 @@ the UI:</p>
 <td><code>TAVILY_API_KEY</code></td>
 </tr>
 <tr>
-<td><a href="#fast-path-for-simple-commands-optional">Fast path</a></td>
+<td><a href="#fast-path-for-simple-commands-optional">Fast path</a> and <a href="#finding-the-right-whitebox-tool-optional">tool search</a></td>
 <td><code>JEV_API_KEY</code></td>
 </tr>
 </tbody>
@@ -3054,7 +3076,11 @@ with no client configuration.</p>
 npx<span class="w"> </span>wrangler<span class="w"> </span>secret<span class="w"> </span>put<span class="w"> </span>JEV_API_KEY
 </code></pre></div>
 <p>Leaving the secret unset disables the route; the assistant keeps working
-through the model as usual.</p>
+through the model as usual. A routing endpoint on <strong>another origin must use
+HTTPS</strong> — a plain-HTTP one is refused, because the answer it returns decides
+which tool the assistant runs. Loopback and an endpoint on the app's own
+origin are the exceptions: there, HTTPS would protect nothing that an
+attacker in a position to read the request does not already have.</p>
 </div>
 <div class="tabbed-block">
 <p>A browser dev server can reach neither endpoint on its own: TypeSafe
@@ -3080,6 +3106,65 @@ TypeSafe through Tauri's native HTTP client.</p>
 names</strong> are sent to TypeSafe for routing. On a local-Ollama setup, where nothing
 otherwise leaves your machine, that is a real trade-off — which is why the fast
 path is off unless you configure it.</p>
+<h2 id="finding-the-right-whitebox-tool-optional">Finding the right Whitebox tool (optional)<a class="headerlink" href="#finding-the-right-whitebox-tool-optional" title="Permanent link">&para;</a></h2>
+<p>The same credential also changes how the assistant searches the <strong>Whitebox
+catalog</strong> — 775 raster, terrain, hydrology, LiDAR and imagery tools, far too
+many to put in front of a model at once.</p>
+<p>Without it, the assistant filters that catalog by substring, which only works
+when it already guesses the word the catalog uses. Ask for something in ordinary
+language and the filter finds nothing: no tool is called "grainy", so "get rid
+of the grainy speckle in a radar image" matches none of the four speckle filters
+the catalog actually ships.</p>
+<p>With a credential configured, the search is also answered by meaning. Two
+questions go to Jev — which part of the catalog, then which tool inside it — and
+the ranked answer is merged in front of the substring hits, which keep working
+unchanged. Measured over 20 raster requests:</p>
+<table>
+<thead>
+<tr>
+<th>The assistant searches for</th>
+<th>Right tool found</th>
+<th>Right tool listed first</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>a keyword, substring only (before)</td>
+<td>19/20</td>
+<td>8/20</td>
+</tr>
+<tr>
+<td>a keyword, merged</td>
+<td>19/20</td>
+<td><strong>15/20</strong></td>
+</tr>
+<tr>
+<td>the request in plain words, substring only (before)</td>
+<td>0/20</td>
+<td>0/20</td>
+</tr>
+<tr>
+<td>the request in plain words, merged</td>
+<td><strong>19/20</strong></td>
+<td><strong>19/20</strong></td>
+</tr>
+</tbody>
+</table>
+<p>The lookup adds about <strong>400 ms</strong> to a tool call the model is already waiting on,
+and like the fast path it can only add candidates: if TypeSafe is unreachable,
+slow or unconfigured, the search is exactly the substring filter it always was.</p>
+<p>This sends the assistant's search text to TypeSafe. Unlike the fast path it does
+<strong>not</strong> send your layer names — the questions are asked against the tool catalog,
+which is public data shipped with the app.</p>
+<div class="admonition note">
+<p class="admonition-title">Tool summaries</p>
+<p>Both searches read each tool's <code>summary</code>, and 770 of the 775 in the bundled
+catalog have one. The five that do not — <code>assign_projection_lidar</code>,
+<code>assign_projection_raster</code>, <code>assign_projection_vector</code>, <code>reproject_lidar</code>
+and <code>reproject_raster</code> — are in the tool taxonomy but not in the Whitebox
+runtime catalog the summaries come from, so they are matched on their name
+and category alone.</p>
+</div>
 <h2 id="voice-commands">Voice commands<a class="headerlink" href="#voice-commands" title="Permanent link">&para;</a></h2>
 <p>The assistant also listens. When your browser supports speech recognition, the
 composer gains a <strong>microphone</strong> button, and you can talk to the map instead of
@@ -3249,9 +3334,14 @@ load a CSV from a URL with pandas and summarize its columns
   the current view are sent to the model — not your feature data.</li>
 <li><strong>What leaves your browser.</strong> When you send a prompt, it (plus that scoped
   context) is sent to your chosen LLM provider using your own key. Don't enable
-  the assistant on sensitive data you can't share with that provider. With the
-  optional <a href="#fast-path-for-simple-commands-optional">fast path</a> enabled, the
-  prompt and your layer names also go to TypeSafe for routing.</li>
+  the assistant on sensitive data you can't share with that provider. A TypeSafe
+  credential adds a second destination for two things: the
+  <a href="#fast-path-for-simple-commands-optional">fast path</a> sends the prompt and your
+  <strong>layer names</strong> there for routing, and
+  <a href="#finding-the-right-whitebox-tool-optional">tool search</a> sends the text the
+  assistant is <strong>searching the tool catalog for</strong> (that one carries no layer
+  names). Both are off unless you configure them, and GeoLibre refuses a
+  routing endpoint that is plain HTTP on another origin.</li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Code-execution caveat</p>
