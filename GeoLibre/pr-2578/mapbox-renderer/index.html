@@ -2665,9 +2665,8 @@ browser against an authenticated Mapbox map):</p>
   bound to the <code>gpu</code> / <code>wasm</code> engines (MapLibre-only tile protocols) is
   re-added through TiTiler; a mosaic manifest is dropped with a console
   warning. The pixel time series tool picks and marks its points on Mapbox too
-  (the engine's click events and projected DOM markers). Pixel identify is not
-  available while Mapbox is primary because it still depends on the MapLibre
-  map.</li>
+  (the engine's click events and projected DOM markers), and Identify reads a
+  pixel's band values, as on MapLibre.</li>
 <li><strong>NetCDF</strong> sample markers, the 3D cube's "current view" and "draw" extents,
   and the COG spectral-profile click work on either 2D engine.</li>
 <li><strong>Timelapse</strong>, including recording the Mapbox canvas to video.</li>
@@ -2792,9 +2791,11 @@ on the map instead of being silently omitted. The heatmap and clustered point
 renderers compile to native Mapbox layers, with a clustered layer's authored
 filters applied to its data before clustering, as on MapLibre. Advanced
 MapLibre-only symbology (marker icons, fill patterns, inverted fill, line
-decorations, the geometry generator, layer blend modes, label de-duplication and
-data-driven label expressions) is not reproduced by this native renderer, and
-the Style panel lists the ones a layer turns on. Mapbox Standard is loaded as a local style import with a shared opacity setting.
+decorations, the geometry generator and layer blend modes) is not reproduced by
+this native renderer, and the Style panel lists the ones a layer turns on.
+Attribute labels are: de-duplicated labels read an aggregated companion source,
+and the data-defined size, color, opacity, visibility and priority expressions
+apply as on MapLibre. Mapbox Standard is loaded as a local style import with a shared opacity setting.
 The Background card fades its land and water colors, labels (including ocean labels),
 3D objects, and atmosphere while preserving project layers and Standard's configuration.</p>
 <h2 id="license-and-terms">License and terms<a class="headerlink" href="#license-and-terms" title="Permanent link">&para;</a></h2>
