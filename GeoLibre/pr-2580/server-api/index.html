@@ -3421,9 +3421,10 @@ code and refresh grants; <code>S256</code>; and the three project scopes.</p>
 and <code>code_challenge_method=S256</code>; <code>device_label</code> is optional. State is 16–512
 URL-safe characters. The S256 challenge is the 43-character unpadded base64url
 SHA-256 value.</p>
-<p>Unknown clients and unregistered redirects return a local error page and never
-receive a <code>Location</code> header. Other authorization errors redirect to the already
-validated callback with <code>error</code>, <code>state</code>, and <code>iss</code>.</p>
+<p>Unknown clients, unregistered redirects, and state values longer than 512
+characters return a local error page without a <code>Location</code> header. Other
+authorization errors redirect to the already validated callback with <code>error</code>,
+<code>iss</code>, and the exact <code>state</code> value when supplied.</p>
 <p><code>POST /oauth/authorize</code> submits the server-owned consent form. It requires the
 browser-binding cookie, CSRF value, same-origin <code>Origin</code> or <code>Referer</code>, and
 account credentials. Approval returns <code>303</code> to the exact callback with a
