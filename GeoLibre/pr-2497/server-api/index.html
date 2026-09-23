@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../assets/geolibre-icon.png">
-      <meta name="generator" content="zensical-0.0.63">
+      <meta name="generator" content="zensical-0.0.64">
     
     
       
@@ -34,7 +34,7 @@
       
         
       
-      <link rel="stylesheet" href="../assets/stylesheets/modern/main.10763589.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.40d3fdbb.min.css">
       
         
           
@@ -2023,6 +2023,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#personal-token-scopes" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Personal token scopes
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#compatibility" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2923,6 +2934,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#personal-token-scopes" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Personal token scopes
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#compatibility" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2976,9 +2998,7 @@ implementation or storage engine. The reference implementation lives in
   GeoLibre web origin. Native desktop requests do not depend on CORS.</li>
 </ul>
 <h2 id="what-the-reference-server-leaves-to-the-operator">What the reference server leaves to the operator<a class="headerlink" href="#what-the-reference-server-leaves-to-the-operator" title="Permanent link">&para;</a></h2>
-<p>Three parts of the contract above are deliberately not implemented in
-<code>backend/geolibre_server_api</code>, and an operator exposing it publicly has to
-supply them:</p>
+<p>Two deployment protections remain the operator's responsibility:</p>
 <ul>
 <li><strong>Rate limiting.</strong> <code>429</code> is in the error vocabulary, but no route returns it.
   <code>POST /api/auth/token</code> and <code>POST /api/accounts</code> are unauthenticated and run
@@ -2986,15 +3006,12 @@ supply them:</p>
   brute-forcing, username enumeration through the <code>409</code>/<code>401</code> distinction, and
   a cheap CPU-burn. Put a reverse proxy or WAF limit on both, keyed by client IP
   and by username.</li>
-<li><strong>Token expiry.</strong> <code>401</code> covers an expired token, but tokens issued here do not
-  carry an expiry and stay valid until <code>DELETE /api/auth/token</code> revokes them.</li>
 <li><strong>A request-size limit.</strong> The server rejects an oversized <em>declared</em>
   <code>Content-Length</code> before reading the body, but a chunked or HTTP/2 request
   declares no length and is parsed in full before the per-route limit applies.
   Cap request size at the proxy as well.</li>
 </ul>
-<p>All three are contract-level capabilities a compatible server may implement;
-the reference implementation is a correctness baseline, not a hardened
+<p>The reference implementation is a correctness baseline, not a hardened
 deployment.</p>
 <h2 id="limits">Limits<a class="headerlink" href="#limits" title="Permanent link">&para;</a></h2>
 <table>
@@ -3053,30 +3070,43 @@ deployment.</p>
 not a capability URL for a private project.</p>
 <h2 id="identity">Identity<a class="headerlink" href="#identity" title="Permanent link">&para;</a></h2>
 <h3 id="post-apiaccounts"><code>POST /api/accounts</code><a class="headerlink" href="#post-apiaccounts" title="Permanent link">&para;</a></h3>
-<p>Creates an account and returns a token once. This endpoint may be disabled when
-an installation delegates identity to an external provider.</p>
+<p>Creates an account and returns a personal API token once. This endpoint may be
+disabled when an installation delegates identity to an external provider.
+<code>name</code>, <code>scopes</code>, and <code>expiresInDays</code> are optional. New tokens default to all
+three project scopes. Omitting <code>expiresInDays</code> preserves the v1 delete-only
+token lifecycle (the token does not expire); the accepted explicit lifetime is
+1–365 days. An unknown or empty <code>scopes</code> list returns <code>400</code>
+<code>{"error": "invalid_scope"}</code>; an <code>expiresInDays</code> outside 1–365 returns <code>400</code>
+<code>{"error": "invalid_request"}</code>.</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ada"</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"correct horse battery staple"</span>
+<span class="w">  </span><span class="nt">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"correct horse battery staple"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GeoLibre desktop"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"scopes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"read:projects"</span><span class="p">,</span><span class="w"> </span><span class="s2">"write:projects"</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">"expiresInDays"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>Response <code>201</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"account"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"uuid"</span><span class="p">,</span><span class="w"> </span><span class="nt">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ada"</span><span class="p">,</span><span class="w"> </span><span class="nt">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2026-08-03T12:00:00Z"</span><span class="p">},</span>
-<span class="w">  </span><span class="nt">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"secret-token"</span>
+<span class="w">  </span><span class="nt">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"secret-token"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"tokenId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"uuid"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"scopes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"read:projects"</span><span class="p">,</span><span class="w"> </span><span class="s2">"write:projects"</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">"expiresAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2026-09-02T12:00:00Z"</span>
 <span class="p">}</span>
 </code></pre></div>
 <h3 id="post-apiauthtoken"><code>POST /api/auth/token</code><a class="headerlink" href="#post-apiauthtoken" title="Permanent link">&para;</a></h3>
-<p>Exchanges account credentials for a personal API token.</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ada"</span><span class="p">,</span><span class="w"> </span><span class="nt">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"correct horse battery staple"</span><span class="p">}</span>
-</code></pre></div>
-<p>Response <code>200</code> has the same shape as account creation. Tokens are opaque and
-must be stored hashed by the server.</p>
+<p>Exchanges account credentials for a personal API token. It accepts the same
+optional policy fields and returns the same shape as account creation. Tokens
+are opaque and stored only as SHA-256 digests.</p>
 <h3 id="delete-apiauthtoken"><code>DELETE /api/auth/token</code><a class="headerlink" href="#delete-apiauthtoken" title="Permanent link">&para;</a></h3>
 <p>Revokes the presented Bearer token. Response: <code>204</code>.</p>
 <h3 id="get-apiusersme"><code>GET /api/users/me</code><a class="headerlink" href="#get-apiusersme" title="Permanent link">&para;</a></h3>
-<p>Returns the account associated with the token:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">"user"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"uuid"</span><span class="p">,</span><span class="w"> </span><span class="nt">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ada"</span><span class="p">,</span><span class="w"> </span><span class="nt">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2026-08-03T12:00:00Z"</span><span class="p">}}</span>
+<p>Returns the account and effective project scopes associated with the token:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"user"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"uuid"</span><span class="p">,</span><span class="w"> </span><span class="nt">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ada"</span><span class="p">,</span><span class="w"> </span><span class="nt">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2026-08-03T12:00:00Z"</span><span class="p">},</span>
+<span class="w">  </span><span class="nt">"scopes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"read:projects"</span><span class="p">,</span><span class="w"> </span><span class="s2">"write:projects"</span><span class="p">,</span><span class="w"> </span><span class="s2">"share:public"</span><span class="p">]</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>An identity provider may create accounts without a username. Project creation
 for such an account must return <code>400</code> with an error containing the stable,
@@ -3204,6 +3234,40 @@ must not count failed or unauthorized reads.</p>
 <p><code>PUT /api/projects/{id}/thumbnail</code> requires ownership and accepts the image
 bytes with their image content type. <code>GET /api/projects/{id}/thumbnail</code> follows
 project visibility. <code>DELETE</code> removes it. Upload and delete responses are <code>204</code>.</p>
+<h2 id="personal-token-scopes">Personal token scopes<a class="headerlink" href="#personal-token-scopes" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Scope</th>
+<th>Grants</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>read:projects</code></td>
+<td>List and open the caller's own projects, including unlisted/private projects</td>
+</tr>
+<tr>
+<td><code>write:projects</code></td>
+<td>Create, update, delete, and fork projects owned by the caller</td>
+</tr>
+<tr>
+<td><code>share:public</code></td>
+<td>Create a public project or raise a project's visibility to public</td>
+</tr>
+</tbody>
+</table>
+<p>New personal tokens require a nonempty subset of these scopes. Omitting
+<code>scopes</code> preserves the historical project permissions for existing clients.
+Omitting <code>expiresInDays</code> keeps the token valid until revoked (the v1
+delete-only lifecycle); set <code>expiresInDays</code> to 1–365 to mint an expiring token.
+Tokens that predate the policy table are upgraded on first use with all three
+project scopes, no expiry, and a legacy marker.</p>
+<p>A valid credential missing a required scope receives <code>403</code> with
+<code>{"error": "insufficient_scope", "requiredScope": "&lt;scope&gt;"}</code> and
+<code>WWW-Authenticate: Bearer error="insufficient_scope"</code>. Missing credentials use
+the <code>Bearer</code> challenge; malformed, unknown, revoked, and expired credentials use
+<code>Bearer error="invalid_token"</code>.</p>
 <h2 id="compatibility">Compatibility<a class="headerlink" href="#compatibility" title="Permanent link">&para;</a></h2>
 <p>The API is additive within version 1. Implementations must not repurpose fields
 or narrow visibility rules. New optional fields and endpoints may be added.
@@ -3305,7 +3369,7 @@ reference server's API tests.</p>
       <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","navigation.sections","navigation.top","search.highlight","search.share","search.suggest","toc.follow"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
     
     
-      <script src="../assets/javascripts/bundle.8dcc8e9c.min.js"></script>
+      <script src="../assets/javascripts/bundle.c04ba553.min.js"></script>
       
     
   </body>

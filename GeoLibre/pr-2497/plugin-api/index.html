@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../assets/geolibre-icon.png">
-      <meta name="generator" content="zensical-0.0.63">
+      <meta name="generator" content="zensical-0.0.64">
     
     
       
@@ -34,7 +34,7 @@
       
         
       
-      <link rel="stylesheet" href="../assets/stylesheets/modern/main.10763589.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.40d3fdbb.min.css">
       
         
           
@@ -1976,6 +1976,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#layer-groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Layer groups
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#raster-and-tile-layers" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2775,6 +2786,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#layer-groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Layer groups
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#raster-and-tile-layers" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -3093,6 +3115,15 @@
 <span class="w">  </span><span class="nx">opacity</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
 <span class="p">}</span>
 
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">GeoLibreLayerGroupSummary</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">parentId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w">  </span><span class="c1">// null for a group at the panel root</span>
+<span class="w">  </span><span class="nx">visible</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">opacity</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">collapsed</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">;</span>
+<span class="p">}</span>
+
 <span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">GeoLibreSelection</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="nx">layerId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
 <span class="w">  </span><span class="nx">features</span><span class="o">:</span><span class="w"> </span><span class="kt">Feature</span><span class="o">&lt;</span><span class="nx">Geometry</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="o">&gt;</span><span class="p">[];</span>
@@ -3182,6 +3213,12 @@
 <span class="w">    </span><span class="nx">layer</span><span class="o">:</span><span class="w"> </span><span class="kt">GeoLibreExternalNativeLayerRegistration</span><span class="p">,</span>
 <span class="w">  </span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
 <span class="w">  </span><span class="nx">unregisterExternalNativeLayer</span><span class="o">?:</span><span class="w"> </span><span class="p">(</span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
+<span class="w">  </span><span class="c1">// Layers-panel groups (folders). See "Layer groups" below.</span>
+<span class="w">  </span><span class="nx">addLayerGroup</span><span class="o">?:</span><span class="w"> </span><span class="p">(</span><span class="nx">name?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">layerIds?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">[])</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">listLayerGroups</span><span class="o">?:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">GeoLibreLayerGroupSummary</span><span class="p">[];</span>
+<span class="w">  </span><span class="nx">moveLayersToGroup</span><span class="o">?:</span><span class="w"> </span><span class="p">(</span><span class="nx">layerIds</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">[],</span><span class="w"> </span><span class="nx">groupId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">moveLayerGroupToGroup</span><span class="o">?:</span><span class="w"> </span><span class="p">(</span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">parentId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">removeLayerGroup</span><span class="o">?:</span><span class="w"> </span><span class="p">(</span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
 <span class="w">  </span><span class="nx">getActiveBasemap</span><span class="o">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
 <span class="w">  </span><span class="nx">onBasemapChange</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">callback</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">styleUrl</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
 <span class="w">  </span><span class="nx">fetchArrayBuffer</span><span class="o">?:</span><span class="w"> </span><span class="p">(</span><span class="nx">url</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nb">ArrayBuffer</span><span class="o">&gt;</span><span class="p">;</span>
@@ -3558,6 +3595,31 @@ deactivation:</p>
 <p>These methods are a read-only query surface: calling them does not change the
 GeoLibre store. Plugins must also treat returned GeoJSON features as read-only
 and use host APIs such as <code>addGeoJsonLayer</code> when they need to add data.</p>
+<h2 id="layer-groups">Layer groups<a class="headerlink" href="#layer-groups" title="Permanent link">&para;</a></h2>
+<p>A plugin that adds several related layers can put them in a Layers-panel group (a folder) instead of leaving them loose at the panel root, and can nest one group inside another the same way a user can by hand.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Create a folder, optionally moving existing layers into it. Returns its id.</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">basins</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">app</span><span class="p">.</span><span class="nx">addLayerGroup</span><span class="o">?</span><span class="p">.(</span><span class="s2">"Basins"</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="nx">catchmentLayerId</span><span class="p">])</span><span class="w"> </span><span class="o">??</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+
+<span class="c1">// Append to a folder you created earlier rather than creating a second one</span>
+<span class="c1">// with the same name. A null group id lifts the layers back to the root.</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">moveLayersToGroup</span><span class="o">?</span><span class="p">.([</span><span class="nx">outletLayerId</span><span class="p">],</span><span class="w"> </span><span class="nx">basins</span><span class="p">);</span>
+
+<span class="c1">// Nest a folder inside another one. A null parent lifts it back to the root.</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">subBasins</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">app</span><span class="p">.</span><span class="nx">addLayerGroup</span><span class="o">?</span><span class="p">.(</span><span class="s2">"Sub-basins"</span><span class="p">);</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">basins</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">subBasins</span><span class="p">)</span><span class="w"> </span><span class="nx">app</span><span class="p">.</span><span class="nx">moveLayerGroupToGroup</span><span class="o">?</span><span class="p">.(</span><span class="nx">subBasins</span><span class="p">,</span><span class="w"> </span><span class="nx">basins</span><span class="p">);</span>
+
+<span class="c1">// Remove the folder without removing the layers inside it.</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">subBasins</span><span class="p">)</span><span class="w"> </span><span class="nx">app</span><span class="p">.</span><span class="nx">removeLayerGroup</span><span class="o">?</span><span class="p">.(</span><span class="nx">subBasins</span><span class="p">);</span>
+</code></pre></div>
+<p><code>moveLayerGroupToGroup</code> is the group-of-groups counterpart of <code>moveLayersToGroup</code>: the same reparenting the Layers panel's own "Move to group" menu performs. It is a no-op when either id is unknown, when the group is already in that parent, and when the move would make a group its own ancestor — the host refuses the cycle rather than corrupting the tree, so a plugin does not have to walk the parent chain itself.</p>
+<p><code>addLayerGroup</code> is the only source of group ids for folders a plugin creates. To address a folder it did not create — one the user made, or one another plugin made — read the tree first:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">groups</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">app</span><span class="p">.</span><span class="nx">listLayerGroups</span><span class="o">?</span><span class="p">.()</span><span class="w"> </span><span class="o">??</span><span class="w"> </span><span class="p">[];</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">existing</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">groups</span><span class="p">.</span><span class="nx">find</span><span class="p">((</span><span class="nx">group</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">group</span><span class="p">.</span><span class="nx">name</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s2">"Basins"</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">roots</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">groups</span><span class="p">.</span><span class="nx">filter</span><span class="p">((</span><span class="nx">group</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">group</span><span class="p">.</span><span class="nx">parentId</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="kc">null</span><span class="p">);</span>
+</code></pre></div>
+<p><code>listLayerGroups</code> returns every group with <code>parentId</code> set to the enclosing group's id, or <code>null</code> at the root, so the flat array describes the whole folder tree. It is the store's own group order, which is not the panel's: the panel re-orders a group after its parent for display, while a reparent leaves the array alone. Like the other read-only queries, calling it does not change the store.</p>
+<p>Group visibility and opacity are <strong>combined</strong> with each child layer's own: a hidden group hides its children on the map without touching their individual <code>visible</code> flags, and group opacity multiplies into each child's. <code>removeLayerGroup</code> through this API removes only the folder, never its contents: the layers it held move to the panel root, and any groups nested inside it are reparented to the removed folder's own parent.</p>
+<p>These methods are typed optional for forward-compatibility with host variants, so call them with optional chaining.</p>
 <h2 id="raster-and-tile-layers">Raster and tile layers<a class="headerlink" href="#raster-and-tile-layers" title="Permanent link">&para;</a></h2>
 <p><code>addGeoJsonLayer</code> registers vector data as a native layer. For raster and tile data there are three matching helpers — <code>addTileLayer</code> (XYZ), <code>addWmtsLayer</code> (WMTS), and <code>addWmsLayer</code> (WMS). Each returns the new layer's id, and the layer appears in the Layers panel with full opacity, reorder, and styling support and persists with the project, so a plugin no longer has to call <code>getMap().addSource()/addLayer()</code> directly (which leaves the layer invisible to GeoLibre's layer store).</p>
 <div class="highlight"><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">GeoLibreTileLayerOptions</span><span class="w"> </span><span class="p">{</span>
@@ -4379,7 +4441,7 @@ with it. A plugin whose control needs those methods should keep the default
       <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","navigation.sections","navigation.top","search.highlight","search.share","search.suggest","toc.follow"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
     
     
-      <script src="../assets/javascripts/bundle.8dcc8e9c.min.js"></script>
+      <script src="../assets/javascripts/bundle.c04ba553.min.js"></script>
       
     
   </body>

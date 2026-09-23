@@ -19,7 +19,7 @@
       
       
       <link rel="icon" href="../assets/geolibre-icon.png">
-      <meta name="generator" content="zensical-0.0.63">
+      <meta name="generator" content="zensical-0.0.64">
     
     
       
@@ -30,7 +30,7 @@
       
         
       
-      <link rel="stylesheet" href="../assets/stylesheets/modern/main.10763589.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.40d3fdbb.min.css">
       
         
           
@@ -2414,8 +2414,9 @@ here; #2291 describes it as a possible follow-up.</p>
 <p>September 11 audit: the open Cesium trackers are #2259, #2261, and #2262.
 The tileset styling requirement of #2290 landed in #2337 and native CZML in</p>
 <h1 id="2350-although-2350-closed-2290-several-requirements-remain">2350. Although #2350 closed #2290, several requirements remain.<a class="headerlink" href="#2350-although-2350-closed-2290-several-requirements-remain" title="Permanent link">&para;</a></h1>
-<p>Clipping polygons, terrain sampling in the measurement tools,
-Ion terrain assets, and Google Photorealistic 3D Tiles remain outstanding.
+<p>Clipping polygons, terrain sampling in the measurement tools, and
+Ion terrain assets (#2552) remain outstanding; Google Photorealistic 3D Tiles
+and the Asset Depot samples are now Ion quick picks in the Add Data dialog.
 The layer-format gaps listed below also remain, including ArcGIS vector tiles,
 drape picking, Zarr, raw point clouds and splats, and deck.gl visualizations.</p>
 <p>The control host now forwards camera and geographic pointer events and reports
@@ -2507,7 +2508,7 @@ layers.</p>
 <tr>
 <td>#2290 (Ion assets implemented)</td>
 <td>Cesium-native authoring features</td>
-<td>Ion assets: Cesium OSM Buildings (asset 96188) and Bing Aerial (asset 2) added from the Add Data dialog on the globe in both themes, the same project reopened on the 2D map showing the "3D only" badge, a missing token surfacing as a layer error; unit tests cover the layer builder, the asset-id parser, the globe's tileset/imagery routing through <code>IonResource</code>/<code>IonImageryProvider</code>, rebuild on asset change, and the Python/MCP builders. Tileset styling and CZML have merged. Native KML/KMZ and elevation profiles are implemented: a real San Francisco landmarks KMZ retains its billboard styles and labels in both themes; a drawn 3.43 km profile samples World Terrain from -27 m to 74 m. Tests cover document loading, cancellation, opacity, cleanup, Python serialization, and terrain-provider replacement. Clipping polygons, Terrain Measure, Ion terrain assets, and Google Photorealistic 3D Tiles remain follow-ups.</td>
+<td>Ion assets: Cesium OSM Buildings (asset 96188) and Bing Aerial (asset 2) added from the Add Data dialog on the globe in both themes, the same project reopened on the 2D map showing the "3D only" badge, a missing token surfacing as a layer error; unit tests cover the layer builder, the asset-id parser, the globe's tileset/imagery routing through <code>IonResource</code>/<code>IonImageryProvider</code>, rebuild on asset change, and the Python/MCP builders. Tileset styling and CZML have merged. Native KML/KMZ and elevation profiles are implemented: a real San Francisco landmarks KMZ retains its billboard styles and labels in both themes; a drawn 3.43 km profile samples World Terrain from -27 m to 74 m. Tests cover document loading, cancellation, opacity, cleanup, Python serialization, and terrain-provider replacement. Google Photorealistic 3D Tiles (asset 2275207) is one of the Ion quick picks, verified loading over San Francisco with the Google Maps credit in the Cesium attribution bar; the dropdown also carries six Asset Depot samples (Japan 3D Building Data, Melbourne Photogrammetry, Melbourne Point Cloud, Montreal Point Cloud, New York City 3D Buildings, Washington DC 2017), with New York City verified rendering over Manhattan and a depot asset the account has not added reported as a load error. Clipping polygons, Terrain Measure, and Ion terrain assets remain follow-ups.</td>
 </tr>
 <tr>
 <td>#2261, #2259</td>
@@ -2628,7 +2629,7 @@ not automatically safe to ungate based on their catalog UI alone.</p>
       <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","navigation.sections","navigation.top","search.highlight","search.share","search.suggest","toc.follow"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
     
     
-      <script src="../assets/javascripts/bundle.8dcc8e9c.min.js"></script>
+      <script src="../assets/javascripts/bundle.c04ba553.min.js"></script>
       
     
   </body>

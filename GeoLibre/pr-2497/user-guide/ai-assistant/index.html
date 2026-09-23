@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../assets/geolibre-icon.png">
-      <meta name="generator" content="zensical-0.0.63">
+      <meta name="generator" content="zensical-0.0.64">
     
     
       
@@ -34,7 +34,7 @@
       
         
       
-      <link rel="stylesheet" href="../../assets/stylesheets/modern/main.10763589.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/modern/main.40d3fdbb.min.css">
       
         
           
@@ -992,6 +992,56 @@
     <span class="md-ellipsis">
       <span class="md-typeset">
         Using it
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fast-path-for-simple-commands-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Fast path for simple commands (optional)
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fast path for simple commands (optional)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#enabling-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Enabling it
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#finding-the-right-whitebox-tool-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Finding the right Whitebox tool (optional)
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#voice-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Voice commands
       </span>
     </span>
   </a>
@@ -2559,6 +2609,56 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#fast-path-for-simple-commands-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Fast path for simple commands (optional)
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fast path for simple commands (optional)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#enabling-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Enabling it
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#finding-the-right-whitebox-tool-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Finding the right Whitebox tool (optional)
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#voice-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Voice commands
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#what-it-can-do" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2858,6 +2958,10 @@ the UI:</p>
 <td>Web search</td>
 <td><code>TAVILY_API_KEY</code></td>
 </tr>
+<tr>
+<td><a href="#fast-path-for-simple-commands-optional">Fast path</a> and <a href="#finding-the-right-whitebox-tool-optional">tool search</a></td>
+<td><code>JEV_API_KEY</code></td>
+</tr>
 </tbody>
 </table>
 <p><strong>Precedence:</strong> a value you enter in <strong>Settings → Environment Variables</strong> always
@@ -2894,6 +2998,228 @@ load the latest Sentinel-2 scene over this view
 zoom to Africa, then switch to a dark basemap
 add an OpenTopoMap basemap
 </code></pre></div>
+<h2 id="fast-path-for-simple-commands-optional">Fast path for simple commands (optional)<a class="headerlink" href="#fast-path-for-simple-commands-optional" title="Permanent link">&para;</a></h2>
+<p>A handful of requests are pure routing — "hide the rivers", "make the basemap
+dark", "zoom to the counties layer". They need no reasoning, no SQL and no code,
+just an intent and a layer id. Sending them through the full model still costs a
+round trip carrying the system prompt and every tool definition.</p>
+<p>If a <a href="https://typesafe.ai">TypeSafe</a> credential is configured, GeoLibre routes
+those requests with <strong>Jev</strong>, a model that returns typed judgments instead of
+generated text, and then runs the very same tool the model would have called.
+Measured against this repo's own prompt, that turns a <strong>~3.8 s</strong> wait on a
+hosted model (or <strong>~0.8 s</strong> on a local one) into <strong>~190 ms</strong>.</p>
+<p>It covers exactly six commands:</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Switch the basemap style</td>
+<td>"make the basemap dark"</td>
+</tr>
+<tr>
+<td>Add a named tile basemap</td>
+<td>"add OpenTopoMap"</td>
+</tr>
+<tr>
+<td>Show or hide a layer</td>
+<td>"hide the rivers"</td>
+</tr>
+<tr>
+<td>Change a layer's opacity</td>
+<td>"set the cities layer to half transparent"</td>
+</tr>
+<tr>
+<td>Zoom to a layer</td>
+<td>"zoom to the counties layer"</td>
+</tr>
+<tr>
+<td>Remove a layer</td>
+<td>"drop the elevation raster"</td>
+</tr>
+</tbody>
+</table>
+<p>Everything else — querying data, geoprocessing, styling by attribute, adding
+data, running code — is classified as complex and goes to your LLM exactly as
+before. So does any request the router is not confident about, any layer it
+cannot match, and any request at all if TypeSafe is slow, unreachable or not
+configured. The fast path can never be the reason a request fails.</p>
+<p>It is not free for those requests, though: routing happens <strong>before</strong> the model
+request starts, so a complex request waits for the routing answer (typically
+under 200 ms, and abandoned after 1.5 s) before its LLM round trip begins. On a
+multi-second model turn that is a small share of the total, but it is a real
+cost — which is the other reason the fast path stays off unless you enable it.</p>
+<p>Because every action runs through the same tool as the slow path, fast-path
+changes appear in the transcript and are <strong>undoable</strong> like any other.</p>
+<h3 id="enabling-it">Enabling it<a class="headerlink" href="#enabling-it" title="Permanent link">&para;</a></h3>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Desktop</label><label for="__tabbed_2_2">Web / Docker</label><label for="__tabbed_2_3">Local development</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>Set <code>JEV_API_KEY</code> in <strong>Settings → Environment Variables</strong>, or export it in
+your shell before launching the app (see
+<a href="#reading-keys-from-your-system-environment-desktop">Reading keys from your system environment</a>).
+The desktop app reaches TypeSafe through Tauri's native HTTP client.</p>
+</div>
+<div class="tabbed-block">
+<p><code>api.typesafe.ai</code> refuses browser origins, so a browser build <strong>cannot</strong>
+call it directly — a personal <code>JEV_API_KEY</code> has no effect there. Instead the
+deployment operator sets <code>JEV_API_KEY</code> on the
+<a href="https://github.com/opengeos/GeoLibre/tree/main/workers/ai-proxy">AI proxy Worker</a>,
+which exposes the routing endpoint at <code>/systemone</code> with the credential held
+server-side. Deployments already using the managed AI proxy pick this up
+with no client configuration.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>workers/ai-proxy
+npx<span class="w"> </span>wrangler<span class="w"> </span>secret<span class="w"> </span>put<span class="w"> </span>JEV_API_KEY
+</code></pre></div>
+<p>Leaving the secret unset disables the route; the assistant keeps working
+through the model as usual. A routing endpoint on <strong>another origin must use
+HTTPS</strong> — a plain-HTTP one is refused, because the answer it returns decides
+which tool the assistant runs. Loopback and an endpoint on the app's own
+origin are the exceptions: there, HTTPS would protect nothing that an
+attacker in a position to read the request does not already have.</p>
+</div>
+<div class="tabbed-block">
+<p>A browser dev server can reach neither endpoint on its own: TypeSafe
+refuses <code>http://localhost:5173</code> as an origin, and the Worker wants an
+instance token a page cannot supply. So <code>npm run dev</code> proxies <code>/systemone</code>
+itself when you give it a credential, and points the app at that route:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># through the deployed Worker, which holds the TypeSafe key (preferred —</span>
+<span class="c1"># this is the same path production uses)</span>
+<span class="nv">GEOLIBRE_AI_PROXY_TOKEN</span><span class="o">=</span>…<span class="w"> </span>npm<span class="w"> </span>run<span class="w"> </span>dev
+
+<span class="c1"># or straight to TypeSafe with your own key</span>
+<span class="nv">JEV_API_KEY</span><span class="o">=</span>…<span class="w"> </span>npm<span class="w"> </span>run<span class="w"> </span>dev
+</code></pre></div>
+<p>The dev server prints which one it is using at startup, and neither value
+enters the client bundle. With neither set the route is not registered and
+the fast path stays off. <code>npm run tauri:dev</code> needs none of this: the
+desktop build reads <code>JEV_API_KEY</code> from your environment and reaches
+TypeSafe through Tauri's native HTTP client.</p>
+</div>
+</div>
+</div>
+<p>Note that enabling the fast path means the text of a prompt and your <strong>layer
+names</strong> are sent to TypeSafe for routing. On a local-Ollama setup, where nothing
+otherwise leaves your machine, that is a real trade-off — which is why the fast
+path is off unless you configure it.</p>
+<h2 id="finding-the-right-whitebox-tool-optional">Finding the right Whitebox tool (optional)<a class="headerlink" href="#finding-the-right-whitebox-tool-optional" title="Permanent link">&para;</a></h2>
+<p>The same credential also changes how the assistant searches the <strong>Whitebox
+catalog</strong> — 775 raster, terrain, hydrology, LiDAR and imagery tools, far too
+many to put in front of a model at once.</p>
+<p>Without it, the assistant filters that catalog by substring, which only works
+when it already guesses the word the catalog uses. Ask for something in ordinary
+language and the filter finds nothing: no tool is called "grainy", so "get rid
+of the grainy speckle in a radar image" matches none of the four speckle filters
+the catalog actually ships.</p>
+<p>With a credential configured, the search is also answered by meaning. Two
+questions go to Jev — which part of the catalog, then which tool inside it — and
+the ranked answer is merged in front of the substring hits, which keep working
+unchanged. Measured over 20 raster requests:</p>
+<table>
+<thead>
+<tr>
+<th>The assistant searches for</th>
+<th>Right tool found</th>
+<th>Right tool listed first</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>a keyword, substring only (before)</td>
+<td>19/20</td>
+<td>8/20</td>
+</tr>
+<tr>
+<td>a keyword, merged</td>
+<td>19/20</td>
+<td><strong>15/20</strong></td>
+</tr>
+<tr>
+<td>the request in plain words, substring only (before)</td>
+<td>0/20</td>
+<td>0/20</td>
+</tr>
+<tr>
+<td>the request in plain words, merged</td>
+<td><strong>19/20</strong></td>
+<td><strong>19/20</strong></td>
+</tr>
+</tbody>
+</table>
+<p>The lookup adds about <strong>400 ms</strong> to a tool call the model is already waiting on,
+and like the fast path it can only add candidates: if TypeSafe is unreachable,
+slow or unconfigured, the search is exactly the substring filter it always was.</p>
+<p>This sends the assistant's search text to TypeSafe. Unlike the fast path it does
+<strong>not</strong> send your layer names — the questions are asked against the tool catalog,
+which is public data shipped with the app.</p>
+<div class="admonition note">
+<p class="admonition-title">Tool summaries</p>
+<p>Both searches read each tool's <code>summary</code>, and 770 of the 775 in the bundled
+catalog have one. The five that do not — <code>assign_projection_lidar</code>,
+<code>assign_projection_raster</code>, <code>assign_projection_vector</code>, <code>reproject_lidar</code>
+and <code>reproject_raster</code> — are in the tool taxonomy but not in the Whitebox
+runtime catalog the summaries come from, so they are matched on their name
+and category alone.</p>
+</div>
+<h2 id="voice-commands">Voice commands<a class="headerlink" href="#voice-commands" title="Permanent link">&para;</a></h2>
+<p>The assistant also listens. When your browser supports speech recognition, the
+composer gains a <strong>microphone</strong> button, and you can talk to the map instead of
+typing. What you say runs through exactly the same agent and the same tools as a
+typed request — so it is still auditable in the transcript and still undoable.</p>
+<p>There are two ways in, and they behave differently on purpose:</p>
+<table>
+<thead>
+<tr>
+<th>Gesture</th>
+<th>Mode</th>
+<th>How it ends</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Click the microphone</strong></td>
+<td>Open mic — it keeps listening, and each finished sentence is sent on its own</td>
+<td>Click it again</td>
+</tr>
+<tr>
+<td><strong>Hold Space for half a second</strong></td>
+<td>Push-to-talk — one turn</td>
+<td>Release Space</td>
+</tr>
+</tbody>
+</table>
+<p>Push-to-talk is deliberately a <em>hold</em>. A short tap on Space still activates
+whatever control has focus, and a space typed in the composer is always just a
+space, so the shortcut never gets in the way of ordinary use. The hold is only
+armed while the assistant panel is open.</p>
+<p>Answers are read back aloud, and the <strong>speaker</strong> button next to the microphone
+turns that off (the choice is remembered). Only <em>spoken</em> questions get spoken
+answers — typing while the microphone happens to be open stays silent. Code
+blocks and URLs are skipped when reading, and long answers are trimmed to their
+first few sentences; the full reply is always in the transcript.</p>
+<p>A few things worth knowing:</p>
+<ul>
+<li><strong>The microphone closes while an answer is being read</strong>, so the assistant
+  cannot transcribe itself and answer its own reply. To interrupt a push-to-talk
+  answer, hold Space again — the new turn stops the playback at once. An open
+  mic reopens by itself when the answer ends, and the button stops it sooner;
+  Space deliberately leaves an open mic alone, so a stray key press can never
+  cut off a session you started with the button.</li>
+<li><strong>Speaking again while it is still working cancels that run</strong> and starts over
+  with what you just said, the same way sending a new message would.</li>
+<li><strong>Recognition is your browser's, not GeoLibre's.</strong> Chrome, Edge and Safari
+  provide it; Firefox and the desktop (Tauri) builds do not, and the microphone
+  button is simply not shown there. Note that Chrome's implementation sends
+  audio to Google's speech service for transcription — separate from your
+  configured AI provider, and subject to Google's terms. The text it returns is
+  then sent to your provider like any typed prompt.</li>
+<li><strong>It listens in the app's language</strong>, refined by your browser's regional
+  variant when they agree (<code>pt</code> with a <code>pt-BR</code> browser listens as <code>pt-BR</code>).</li>
+</ul>
 <h2 id="what-it-can-do">What it can do<a class="headerlink" href="#what-it-can-do" title="Permanent link">&para;</a></h2>
 <p>The assistant works by calling a fixed set of tools — it cannot invent
 operations, so its actions stay within GeoLibre's validated surface.</p>
@@ -3008,7 +3334,14 @@ load a CSV from a URL with pandas and summarize its columns
   the current view are sent to the model — not your feature data.</li>
 <li><strong>What leaves your browser.</strong> When you send a prompt, it (plus that scoped
   context) is sent to your chosen LLM provider using your own key. Don't enable
-  the assistant on sensitive data you can't share with that provider.</li>
+  the assistant on sensitive data you can't share with that provider. A TypeSafe
+  credential adds a second destination for two things: the
+  <a href="#fast-path-for-simple-commands-optional">fast path</a> sends the prompt and your
+  <strong>layer names</strong> there for routing, and
+  <a href="#finding-the-right-whitebox-tool-optional">tool search</a> sends the text the
+  assistant is <strong>searching the tool catalog for</strong> (that one carries no layer
+  names). Both are off unless you configure them, and GeoLibre refuses a
+  routing endpoint that is plain HTTP on another origin.</li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Code-execution caveat</p>
@@ -3019,6 +3352,8 @@ the store and are <strong>not undoable</strong>. The code is shown in the transc
 <h2 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Requires a provider API key; offline use is not supported.</li>
+<li>Voice commands need a browser with the Web Speech API (Chrome, Edge, Safari);
+  they are unavailable in Firefox and in the desktop app.</li>
 <li>Subject to each provider's cost, rate limits, and your network's CORS/CSP
   policy (browser-side calls).</li>
 <li>The unofficial Google Maps tile endpoints are intentionally <strong>not</strong> included;
@@ -3124,7 +3459,7 @@ build a project file for you, see the <a href="../../agent-skill/">agent skill</
       <script id="__config" type="application/json">{"annotate":null,"base":"../..","features":["navigation.instant","navigation.sections","navigation.top","search.highlight","search.share","search.suggest","toc.follow"],"redirect":null,"search":"../../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.8dcc8e9c.min.js"></script>
+      <script src="../../assets/javascripts/bundle.c04ba553.min.js"></script>
       
     
   </body>

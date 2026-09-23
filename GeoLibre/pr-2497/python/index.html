@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../assets/geolibre-icon.png">
-      <meta name="generator" content="zensical-0.0.63">
+      <meta name="generator" content="zensical-0.0.64">
     
     
       
@@ -34,7 +34,7 @@
       
         
       
-      <link rel="stylesheet" href="../assets/stylesheets/modern/main.10763589.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.40d3fdbb.min.css">
       
         
           
@@ -2138,6 +2138,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#sizing-the-popup-and-its-pictures" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Sizing the popup and its pictures
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2663,6 +2674,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#sizing-the-popup-and-its-pictures" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Sizing the popup and its pictures
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3101,8 +3123,8 @@ e.g. <code>m.run_algorithm(..., timeout=300)</code>.</p>
 <td>Add an authenticated Google Earth Engine object as raster tiles (needs <code>earthengine-api</code>).</td>
 </tr>
 <tr>
-<td><code>add_wms(endpoint, layers, name=, styles=, image_format=, transparent=, tile_size=, version=, bounds=, **style)</code></td>
-<td>Add a WMS layer (GetMap, tiled raster). <code>bounds</code> is <code>[west, south, east, north]</code>, needed for zoom-to-layer.</td>
+<td><code>add_wms(endpoint, layers, name=, styles=, image_format=, transparent=, tile_size=, version=, crs=, bounds=, **style)</code></td>
+<td>Add a WMS layer (GetMap, tiled raster). <code>bounds</code> is <code>[west, south, east, north]</code>, needed for zoom-to-layer. <code>crs</code> defaults to <code>EPSG:3857</code>; for a server without Web Mercator pass a geographic CRS it lists (<code>EPSG:4326</code>, <code>EPSG:4258</code>, <code>EPSG:6706</code>, or <code>CRS:84</code> with <code>version="1.3.0"</code>; no others). Only the desktop app redraws those tiles into Web Mercator: the web build and <code>export_html</code> pages still send the Web Mercator BBOX, so such a layer stays blank there.</td>
 </tr>
 <tr>
 <td><code>add_wmts(url, name=, tile_size=, bounds=, **style)</code></td>
@@ -3263,12 +3285,14 @@ exception is <code>add_ee_layer</code>, which has a fixed signature), and <code>
 list of names (<code>popup=["name", "pop"]</code>), a list of field mappings, or <code>False</code> to
 suppress the click popup. The full mapping form above takes the same keys as
 <code>set_popup</code> — <code>fields</code>, <code>click</code>, <code>hover</code>, <code>title</code>, <code>title_expression</code>,
-<code>body_expression</code>, <code>show_feature_id</code>, <code>tooltip</code> — and rejects a key it does not
-know, so a misspelling is an error rather than a setting that quietly does
-nothing. Those keys belong <em>inside</em> <code>popup=</code>; passed to <code>add_markers</code> directly
-they would be taken for style keys. <code>tooltip=</code> takes a property name, a list
-of names, <code>True</code> to put every configured popup field in the tip, or <code>False</code> to
-turn it off.</p>
+<code>body_expression</code>, <code>show_feature_id</code>, <code>max_width</code>, <code>image_height</code>, <code>tooltip</code> —
+and rejects a key it does not know, so a misspelling is an error rather than a
+setting that quietly does nothing. Those keys belong <em>inside</em> <code>popup=</code>; passed
+to <code>add_markers</code> directly they would be taken for style keys. The two sizes are
+the exception: <code>popup_max_width=</code> and <code>popup_image_height=</code> work as top-level
+arguments on every <code>add_*</code> method too, for when a wider popup is the only
+change you want. <code>tooltip=</code> takes a property name, a list of names, <code>True</code> to
+put every configured popup field in the tip, or <code>False</code> to turn it off.</p>
 <p>A field's <code>kind</code> decides how the value renders:</p>
 <table>
 <thead>
@@ -3304,11 +3328,42 @@ turn it off.</p>
 </tr>
 </tbody>
 </table>
+<h3 id="sizing-the-popup-and-its-pictures">Sizing the popup and its pictures<a class="headerlink" href="#sizing-the-popup-and-its-pictures" title="Permanent link">&para;</a></h3>
+<p>The popup is 520 px wide by default (420 px when it carries a picture, which it
+lets you drag wider), and a picture inside it draws at most <code>min(50vh, 420px)</code>
+tall. <code>max_width</code> and <code>image_height</code> change both, in CSS pixels:</p>
+<div class="highlight"><pre><span></span><code><span class="n">m</span><span class="o">.</span><span class="n">add_markers</span><span class="p">(</span>
+    <span class="n">sites</span><span class="p">,</span>
+    <span class="n">shape</span><span class="o">=</span><span class="s2">"pin"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"#e11d48"</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+    <span class="n">popup</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"name"</span><span class="p">,</span>
+        <span class="s2">"max_width"</span><span class="p">:</span> <span class="mi">640</span><span class="p">,</span>       <span class="c1"># 288–1200; the viewport still caps it</span>
+        <span class="s2">"image_height"</span><span class="p">:</span> <span class="mi">420</span><span class="p">,</span>    <span class="c1"># 40–1200</span>
+        <span class="s2">"fields"</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span><span class="s2">"field"</span><span class="p">:</span> <span class="s2">"photo"</span><span class="p">,</span> <span class="s2">"kind"</span><span class="p">:</span> <span class="s2">"image"</span><span class="p">,</span> <span class="s2">"label"</span><span class="p">:</span> <span class="s2">"Photo"</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">"field"</span><span class="p">:</span> <span class="s2">"url"</span><span class="p">,</span> <span class="s2">"kind"</span><span class="p">:</span> <span class="s2">"link"</span><span class="p">,</span> <span class="s2">"link_label"</span><span class="p">:</span> <span class="s2">"Read more"</span><span class="p">},</span>
+        <span class="p">],</span>
+    <span class="p">},</span>
+    <span class="n">tooltip</span><span class="o">=</span><span class="s2">"name"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># The same two settings as top-level arguments, on any add_* method:</span>
+<span class="n">m</span><span class="o">.</span><span class="n">add_markers</span><span class="p">(</span><span class="n">sites</span><span class="p">,</span> <span class="n">popup</span><span class="o">=</span><span class="p">[</span><span class="s2">"name"</span><span class="p">,</span> <span class="s2">"photo"</span><span class="p">],</span> <span class="n">popup_max_width</span><span class="o">=</span><span class="mi">640</span><span class="p">,</span> <span class="n">popup_image_height</span><span class="o">=</span><span class="mi">420</span><span class="p">)</span>
+
+<span class="c1"># Or on a layer that already exists (merge=True keeps the fields):</span>
+<span class="n">m</span><span class="o">.</span><span class="n">set_popup</span><span class="p">(</span><span class="s2">"Sites"</span><span class="p">,</span> <span class="n">max_width</span><span class="o">=</span><span class="mi">640</span><span class="p">,</span> <span class="n">image_height</span><span class="o">=</span><span class="mi">420</span><span class="p">,</span> <span class="n">merge</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+<p>A thumbnail keeps its aspect ratio, so a landscape photo needs the <strong>width</strong> to
+grow before it can use the extra height — raise <code>max_width</code> alongside
+<code>image_height</code>. A size outside the range the app renders is an error rather
+than a value silently clamped on the map, and clicking a picture still opens it
+full-size in a lightbox whatever the popup's own size is.</p>
 <p>Two rules worth knowing before you port a popup from another library:</p>
 <ul>
-<li><strong>Raw HTML in a property is not rendered as markup.</strong> A popup value that
-  arrives from a GeoJSON file is untrusted, so it is written as text rather
-  than parsed. Use <code>kind="image"</code> and <code>kind="link"</code> for pictures and links, and
+<li><strong>Raw HTML in a property is not rendered as markup, and neither is Markdown.</strong>
+  A popup value that arrives from a GeoJSON file is untrusted, so it is written
+  as text rather than parsed. Use <code>kind="image"</code> and <code>kind="link"</code> for pictures
+  and links, and
   <code>body_expression</code> (a <a href="https://maplibre.org/maplibre-style-spec/expressions/">MapLibre expression</a>,
   as JSON text) when you want a composed sentence instead of a table:
   <code>body_expression='["concat", ["get", "name"], " — ", ["get", "county"], " County"]'</code>.
@@ -3546,7 +3601,7 @@ initial renderer; Dash callbacks can update these fields through <code>project</
       <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","navigation.sections","navigation.top","search.highlight","search.share","search.suggest","toc.follow"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
     
     
-      <script src="../assets/javascripts/bundle.8dcc8e9c.min.js"></script>
+      <script src="../assets/javascripts/bundle.c04ba553.min.js"></script>
       
     
   </body>

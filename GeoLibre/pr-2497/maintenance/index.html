@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../assets/geolibre-icon.png">
-      <meta name="generator" content="zensical-0.0.63">
+      <meta name="generator" content="zensical-0.0.64">
     
     
       
@@ -34,7 +34,7 @@
       
         
       
-      <link rel="stylesheet" href="../assets/stylesheets/modern/main.10763589.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.40d3fdbb.min.css">
       
         
           
@@ -2262,6 +2262,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#loadersgltiles-via-deckglgeo-layers-tile-cache-cap" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>@loaders.gl/tiles</code> (via <code>@deck.gl/geo-layers</code>) — tile cache cap
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#maplibremaplibre-gl-style-spec" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2725,6 +2736,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#loadersgltiles-via-deckglgeo-layers-tile-cache-cap" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>@loaders.gl/tiles</code> (via <code>@deck.gl/geo-layers</code>) — tile cache cap
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#maplibremaplibre-gl-style-spec" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -3084,6 +3106,16 @@ layers into a native <code>ArcgisDeckOverlay</code> without mounting the MapLibr
 The cast hides upstream changes from TypeScript. After either deck.gl package is
 bumped, run <code>tests/arcgis-control-adapters.test.ts</code> and confirm the overlay still
 exposes <code>_props</code> with the initial <code>DeckProps</code> object.</p>
+<h3 id="loadersgltiles-via-deckglgeo-layers-tile-cache-cap"><code>@loaders.gl/tiles</code> (via <code>@deck.gl/geo-layers</code>) — tile cache cap<a class="headerlink" href="#loadersgltiles-via-deckglgeo-layers-tile-cache-cap" title="Permanent link">&para;</a></h3>
+<p><code>applyThreeDTilesTilesetMemoryLimit</code> (<code>packages/plugins/src/plugins/arcgis-i3s-tiles.ts</code>)
+works around <code>Tileset3D</code> trimming its tile cache against a <code>maximumMemoryUsage</code>
+field it never copies from the load options, so the cap stays at 32 MB and
+every camera move evicts the tiles just drawn (issue #2560). The same PR turned
+<code>memoryAdjustedScreenSpaceError</code> off because it ratchets the level of detail
+down once that cache fills. After bumping deck.gl or loaders.gl, run
+<code>tests/arcgis-i3s-tiles.test.ts</code>: its real-<code>Tileset3D</code> case fails if the field
+is renamed or no longer starts at 32 MB. If upstream starts honouring the
+option, the helper can go.</p>
 <h3 id="maplibremaplibre-gl-style-spec"><code>@maplibre/maplibre-gl-style-spec</code><a class="headerlink" href="#maplibremaplibre-gl-style-spec" title="Permanent link">&para;</a></h3>
 <p><code>propertySpecFor</code> (<code>packages/core/src/expressions.ts</code>) fabricates the
 <strong>unexported</strong> <code>StylePropertySpecification</code> shape that <code>createExpression</code> uses for
@@ -3170,6 +3202,23 @@ black — it declines the stack.</p>
   <code>tests/pmtiles-control-contract.test.ts</code> drives a <strong>real</strong> control against a
   real archive, through the real <code>layeradd</code> handler into the store, and fails if
   the id scheme moves or the selection stops reaching the handler.</p>
+<ul>
+<li><strong>The MeasureControl's <code>_panel</code> and <code>_sourceId</code></strong>
+  (<code>packages/plugins/src/plugins/terrain-measure.ts</code>, via <code>measurePanelElement</code>
+  and <code>measureSourceId</code>) are private members that only the control knows: the
+  panel carries GeoLibre's Terrain (3D)/heading sections and the resize styling,
+  and the source id is how <code>lidar-measure-mirror.ts</code> finds the geometry it
+  redraws above a LiDAR point cloud (#2533). Both readers warn and fall back to
+  doing nothing on a rename, so after a bump check the console for
+  "MeasureControl: …not found" and confirm the Terrain section still appears and
+  a measured line still shows inside a point cloud.</li>
+<li><strong>The measure paint</strong> (<code>MEASURE_LINE_COLOR</code>/<code>MEASURE_LINE_WIDTH</code>/
+  <code>MEASURE_FILL_COLOR</code>, <code>packages/plugins/src/plugins/lidar-measure-mirror.ts</code>)
+  is passed to the control explicitly rather than left to its defaults, because
+  the deck.gl mirror has to repaint the same geometry in the same colour. Change
+  one form and change the RGBA twin beside it;
+  <code>tests/lidar-measure-mirror.test.ts</code> asserts the pair agrees.</li>
+</ul>
 <h3 id="maplibre-gl-basemap-control-packagespluginspackagejson"><code>maplibre-gl-basemap-control</code> (<code>packages/plugins/package.json</code>)<a class="headerlink" href="#maplibre-gl-basemap-control-packagespluginspackagejson" title="Permanent link">&para;</a></h3>
 <p><code>BASEMAP_PANEL_SELECTOR</code> / <code>BASEMAP_ROW_SELECTOR</code> / <code>BASEMAP_ROW_ID_ATTR</code>
 (<code>packages/plugins/src/plugins/basemap-thumbnails.ts</code>) mirror the DOM the control
@@ -3209,6 +3258,16 @@ canvas's own z-index. Drop the rule and the wrapper falls below the raised
 canvas, hiding the point cloud outright; drop the re-parenting upstream and the
 wrapper goes back to covering the Measure/Colorbar/Legend/HTML/Bookmark panels
 (#2530).</p>
+<p><code>lidar-measure-mirror.ts</code> draws the Measure tool's line/polygon into that same
+overlay (<code>LidarControl.getDeckOverlay()</code>) with <code>depthTest: false</code>, the trick the
+plugin's own cross-section line uses to sit above the points. Two things there
+are not compiler checked: deck paints its layers in insertion order, so the
+mirror re-appends itself on any frame where it is no longer the overlay's last
+layer (streaming adds a chunk layer whenever the viewport pulls in new nodes),
+and the geometry is read from the MapLibre/Mapbox <code>geojson</code> source's <code>_data</code>
+field, since neither library exposes a public reader. Losing either costs only
+the mirror — the measured line goes back to being hidden inside the cloud, which
+is what #2533 was.</p>
 <p>The <strong>class</strong> is imported from the package rather than copied, so a rename
 fails <code>npm run typecheck</code>. Keep it that way: the package is side-effect-free, so
 the import tree-shakes to the string and does not pull deck.gl into this
@@ -3753,7 +3812,7 @@ output when a build actually runs. Rebuild, or delete the stale directory.</p>
       <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","navigation.sections","navigation.top","search.highlight","search.share","search.suggest","toc.follow"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
     
     
-      <script src="../assets/javascripts/bundle.8dcc8e9c.min.js"></script>
+      <script src="../assets/javascripts/bundle.c04ba553.min.js"></script>
       
     
   </body>

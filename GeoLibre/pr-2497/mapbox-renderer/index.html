@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../assets/geolibre-icon.png">
-      <meta name="generator" content="zensical-0.0.63">
+      <meta name="generator" content="zensical-0.0.64">
     
     
       
@@ -34,7 +34,7 @@
       
         
       
-      <link rel="stylesheet" href="../assets/stylesheets/modern/main.10763589.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.40d3fdbb.min.css">
       
         
           
@@ -2775,7 +2775,12 @@ basemap is an offline archive falls back to the default basemap (with a console
 warning). Pick a Mapbox style from the shared Basemaps panel instead.
 MapLibre custom protocols, tiled/streamed vector imports beyond the bridge's
 materialization limits, custom COG terrain, and other plugin-owned layers
-require additional adapters. Layers drawn with deck.gl need none:
+require additional adapters. <strong>Custom terrain sources</strong> are one of those with
+UI of its own: mapbox-gl has no <code>raster-dem</code> source a COG can back, so the
+Terrain settings dialog's "Terrain source" section (a COG URL, a local file, or
+a raster layer already on the map) is hidden on this renderer and explains why.
+Mapbox's own global terrain and the vertical-exaggeration slider still work.</p>
+<p>Layers drawn with deck.gl need none:
 <code>@deck.gl/mapbox</code> targets Mapbox GL JS natively, so the engine reports
 <code>capabilities.deckOverlay</code> and the shared interleaved overlay binds to the
 Mapbox map through <code>app.getMapboxMap()</code>. Visible unsupported layers report an error
@@ -3118,7 +3123,7 @@ those services and every 3D Tiles extension are not covered by this test.</p>
       <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","navigation.sections","navigation.top","search.highlight","search.share","search.suggest","toc.follow"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
     
     
-      <script src="../assets/javascripts/bundle.8dcc8e9c.min.js"></script>
+      <script src="../assets/javascripts/bundle.c04ba553.min.js"></script>
       
     
   </body>
