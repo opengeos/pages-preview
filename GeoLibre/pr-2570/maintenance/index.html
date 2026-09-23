@@ -3275,6 +3275,16 @@ eagerly loaded plugin. The <strong>placement</strong> is not visible to the comp
 <code>e2e/lidar-canvas-stacking.spec.ts</code> mounts the real control and asserts the
 resulting DOM order and z-indices — run it on a bump
 (<code>npx playwright test e2e/lidar-canvas-stacking.spec.ts --project=features</code>).</p>
+<p>The <code>?data=</code> LiDAR deep link leans on two more things the compiler cannot see.
+<code>isStreamedLidarUrl</code> (<code>apps/geolibre-desktop/src/lib/data-url.ts</code>) copies the
+routing at the top of <code>LidarControl.loadPointCloud</code> (an <code>/ept.json</code> suffix or a
+<code>.copc.</code> anywhere in the URL streams; anything else downloads whole) so that only
+whole downloads get the size check. If upstream changes that routing, update the
+copy, or a streamed file gets a needless size check and a downloaded one skips
+it. <code>addLidarLayerFromUrl</code> also relies on <code>load</code> firing, and adding the store
+layer, before <code>loadPointCloud</code> resolves; it throws if not.
+<code>tests/lidar-url-layer.test.ts</code> pins the GeoLibre side of both. Re-read
+<code>loadPointCloud</code> on a bump.</p>
 <h3 id="maplibre-gl-raster-stretch-and-gamma-curves"><code>maplibre-gl-raster</code> — stretch and gamma curves<a class="headerlink" href="#maplibre-gl-raster-stretch-and-gamma-curves" title="Permanent link">&para;</a></h3>
 <p><code>buildContinuousColormapRgba</code>
 (<code>packages/plugins/src/plugins/raster-symbology.ts</code>) mirrors the render
