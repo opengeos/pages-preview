@@ -2262,6 +2262,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#loadersgltiles-via-deckglgeo-layers-tile-cache-cap" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>@loaders.gl/tiles</code> (via <code>@deck.gl/geo-layers</code>) — tile cache cap
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#maplibremaplibre-gl-style-spec" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2725,6 +2736,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#loadersgltiles-via-deckglgeo-layers-tile-cache-cap" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>@loaders.gl/tiles</code> (via <code>@deck.gl/geo-layers</code>) — tile cache cap
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#maplibremaplibre-gl-style-spec" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -3084,6 +3106,16 @@ layers into a native <code>ArcgisDeckOverlay</code> without mounting the MapLibr
 The cast hides upstream changes from TypeScript. After either deck.gl package is
 bumped, run <code>tests/arcgis-control-adapters.test.ts</code> and confirm the overlay still
 exposes <code>_props</code> with the initial <code>DeckProps</code> object.</p>
+<h3 id="loadersgltiles-via-deckglgeo-layers-tile-cache-cap"><code>@loaders.gl/tiles</code> (via <code>@deck.gl/geo-layers</code>) — tile cache cap<a class="headerlink" href="#loadersgltiles-via-deckglgeo-layers-tile-cache-cap" title="Permanent link">&para;</a></h3>
+<p><code>applyThreeDTilesTilesetMemoryLimit</code> (<code>packages/plugins/src/plugins/arcgis-i3s-tiles.ts</code>)
+works around <code>Tileset3D</code> trimming its tile cache against a <code>maximumMemoryUsage</code>
+field it never copies from the load options, so the cap stays at 32 MB and
+every camera move evicts the tiles just drawn (issue #2560). The same PR turned
+<code>memoryAdjustedScreenSpaceError</code> off because it ratchets the level of detail
+down once that cache fills. After bumping deck.gl or loaders.gl, run
+<code>tests/arcgis-i3s-tiles.test.ts</code>: its real-<code>Tileset3D</code> case fails if the field
+is renamed or no longer starts at 32 MB. If upstream starts honouring the
+option, the helper can go.</p>
 <h3 id="maplibremaplibre-gl-style-spec"><code>@maplibre/maplibre-gl-style-spec</code><a class="headerlink" href="#maplibremaplibre-gl-style-spec" title="Permanent link">&para;</a></h3>
 <p><code>propertySpecFor</code> (<code>packages/core/src/expressions.ts</code>) fabricates the
 <strong>unexported</strong> <code>StylePropertySpecification</code> shape that <code>createExpression</code> uses for
