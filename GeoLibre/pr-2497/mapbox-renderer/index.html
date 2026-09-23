@@ -2784,9 +2784,13 @@ Mapbox's own global terrain and the vertical-exaggeration slider still work.</p>
 <code>@deck.gl/mapbox</code> targets Mapbox GL JS natively, so the engine reports
 <code>capabilities.deckOverlay</code> and the shared interleaved overlay binds to the
 Mapbox map through <code>app.getMapboxMap()</code>. Visible unsupported layers report an error
-on the map instead of being silently omitted. Advanced MapLibre-only symbology
-(such as custom marker assets and blend modes) is not reproduced by this native
-renderer. Mapbox Standard is loaded as a local style import with a shared opacity setting.
+on the map instead of being silently omitted. The heatmap and clustered point
+renderers compile to native Mapbox layers, with a clustered layer's authored
+filters applied to its data before clustering, as on MapLibre. Advanced
+MapLibre-only symbology (marker icons, fill patterns, inverted fill, line
+decorations, the geometry generator, layer blend modes, label de-duplication and
+data-driven label expressions) is not reproduced by this native renderer, and
+the Style panel lists the ones a layer turns on. Mapbox Standard is loaded as a local style import with a shared opacity setting.
 The Background card fades its land and water colors, labels (including ocean labels),
 3D objects, and atmosphere while preserving project layers and Standard's configuration.</p>
 <h2 id="license-and-terms">License and terms<a class="headerlink" href="#license-and-terms" title="Permanent link">&para;</a></h2>
