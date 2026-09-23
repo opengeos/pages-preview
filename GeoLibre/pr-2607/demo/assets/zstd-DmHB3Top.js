@@ -1,1 +1,573 @@
-var ur=ArrayBuffer,U=Uint8Array,_=Uint16Array,or=Int16Array,p=Int32Array,s=function(r,e,n){if(U.prototype.slice)return U.prototype.slice.call(r,e,n);(e==null||e<0)&&(e=0),(n==null||n>r.length)&&(n=r.length);var v=new U(n-e);return v.set(r.subarray(e,n)),v},Q=function(r,e,n,v){if(U.prototype.fill)return U.prototype.fill.call(r,e,n,v);for((n==null||n<0)&&(n=0),(v==null||v>r.length)&&(v=r.length);n<v;++n)r[n]=e;return r},wr=function(r,e,n,v){if(U.prototype.copyWithin)return U.prototype.copyWithin.call(r,e,n,v);for((n==null||n<0)&&(n=0),(v==null||v>r.length)&&(v=r.length);n<v;)r[e++]=r[n++]},lr=["invalid zstd data","window size too large (>2046MB)","invalid block type","FSE accuracy too high","match distance too far back","unexpected EOF"],B=function(r,e,n){var v=new Error(e||lr[r]);if(v.code=r,Error.captureStackTrace&&Error.captureStackTrace(v,B),!n)throw v;return v},fr=function(r,e,n){for(var v=0,a=0;v<n;++v)a|=r[e++]<<(v<<3);return a},gr=function(r,e){return(r[e]|r[e+1]<<8|r[e+2]<<16|r[e+3]<<24)>>>0},zr=function(r,e){var n=r[0]|r[1]<<8|r[2]<<16;if(n==3126568&&r[3]==253){var v=r[4],a=v>>5&1,y=v>>2&1,i=v&3,o=v>>6;v&8&&B(0);var w=6-a,z=i==3?4:i,L=fr(r,w,z);w+=z;var g=o?1<<o:a,A=fr(r,w,g)+(o==1&&256),c=A;if(!a){var M=1<<10+(r[5]>>3);c=M+(M>>3)*(r[5]&7)}c>2145386496&&B(1);var u=new U((e==1?A||c:e?0:c)+12);return u[0]=1,u[4]=4,u[8]=8,{b:w+g,y:0,l:0,d:L,w:e&&e!=1?e:u.subarray(12),e:c,o:new p(u.buffer,0,3),u:A,c:y,m:Math.min(131072,c)}}else if((n>>4|r[3]<<20)==25481893)return gr(r,4)+8;B(0)},H=function(r){for(var e=0;1<<e<=r;++e);return e-1},R=function(r,e,n){var v=(e<<3)+4,a=(r[e]&15)+5;a>n&&B(3);for(var y=1<<a,i=y,o=-1,w=-1,z=-1,L=y,g=new ur(512+(y<<2)),A=new or(g,0,256),c=new _(g,0,256),M=new _(g,512,y),u=512+(y<<1),E=new U(g,u,y),N=new U(g,u+y);o<255&&i>0;){var S=H(i+1),F=v>>3,D=(1<<S+1)-1,I=(r[F]|r[F+1]<<8|r[F+2]<<16)>>(v&7)&D,f=(1<<S)-1,O=D-i-1,j=I&f;if(j<O?(v+=S,I=j):(v+=S+1,I>f&&(I-=O)),A[++o]=--I,I==-1?(i+=I,E[--L]=o):i-=I,!I)do{var V=v>>3;w=(r[V]|r[V+1]<<8)>>(v&7)&3,v+=2,o+=w}while(w==3)}(o>255||i)&&B(0);for(var T=0,k=(y>>1)+(y>>3)+3,C=y-1,q=0;q<=o;++q){var l=A[q];if(l<1){c[q]=-l;continue}for(z=0;z<l;++z){E[T]=q;do T=T+k&C;while(T>=L)}}for(T&&B(0),z=0;z<y;++z){var h=c[E[z]]++,W=N[z]=a-H(h);M[z]=(h<<W)-y}return[v+7>>3,{b:a,s:E,n:N,t:M}]},Ar=function(r,e){var n=0,v=-1,a=new U(292),y=r[e],i=a.subarray(0,256),o=a.subarray(256,268),w=new _(a.buffer,268);if(y<128){var z=R(r,e+1,6),L=z[0],g=z[1];e+=y;var A=L<<3,c=r[e];c||B(0);for(var M=0,u=0,E=g.b,N=E,S=(++e<<3)-8+H(c);S-=E,!(S<A);){var F=S>>3;if(M+=(r[F]|r[F+1]<<8)>>(S&7)&(1<<E)-1,i[++v]=g.s[M],S-=N,S<A)break;F=S>>3,u+=(r[F]|r[F+1]<<8)>>(S&7)&(1<<N)-1,i[++v]=g.s[u],E=g.n[M],M=g.t[M],N=g.n[u],u=g.t[u]}++v>255&&B(0)}else{for(v=y-127;n<v;n+=2){var D=r[++e];i[n]=D>>4,i[n+1]=D&15}++e}var I=0;for(n=0;n<v;++n){var f=i[n];f>11&&B(0),I+=f&&1<<f-1}var O=H(I)+1,j=1<<O,V=j-I;for(V&V-1&&B(0),i[v++]=H(V)+1,n=0;n<v;++n){var f=i[n];++o[i[n]=f&&O+1-f]}var T=new U(j<<1),k=T.subarray(0,j),C=T.subarray(j);for(w[O]=0,n=O;n>0;--n){var q=w[n];Q(C,n,q,w[n-1]=q+o[n]*(1<<O-n))}for(w[0]!=j&&B(0),n=0;n<v;++n){var l=i[n];if(l){var h=w[l];Q(k,n,h,w[l]=h+(1<<O-l))}}return[e,{n:C,b:O,s:k}]},Er=R(new U([81,16,99,140,49,198,24,99,12,33,196,24,99,102,102,134,70,146,4]),0,6)[1],Ur=R(new U([33,20,196,24,99,140,33,132,16,66,8,33,132,16,66,8,33,68,68,68,68,68,68,68,68,36,9]),0,6)[1],cr=R(new U([32,132,16,66,102,70,68,68,68,68,36,73,2]),0,5)[1],yr=function(r,e){for(var n=r.length,v=new p(n),a=0;a<n;++a)v[a]=e,e+=1<<r[a];return v},t=new U(new p([0,0,0,0,16843009,50528770,134678020,202050057,269422093]).buffer,0,36),Br=yr(t,0),rr=new U(new p([0,0,0,0,0,0,0,0,16843009,50528770,117769220,185207048,252579084,16]).buffer,0,53),Fr=yr(rr,3),X=function(r,e,n){var v=r.length,a=e.length,y=r[v-1],i=(1<<n.b)-1,o=-n.b;y||B(0);for(var w=0,z=n.b,L=(v<<3)-8+H(y)-z,g=-1;L>o&&g<a;){var A=L>>3,c=(r[A]|r[A+1]<<8|r[A+2]<<16)>>(L&7);w=(w<<z|c)&i,e[++g]=n.s[w],L-=z=n.n[w]}(L!=o||g+1!=a)&&B(0)},Ir=function(r,e,n){var v=6,a=e.length+3>>2,y=a<<1,i=a+y;X(r.subarray(v,v+=r[0]|r[1]<<8),e.subarray(0,a),n),X(r.subarray(v,v+=r[2]|r[3]<<8),e.subarray(a,y),n),X(r.subarray(v,v+=r[4]|r[5]<<8),e.subarray(y,i),n),X(r.subarray(v),e.subarray(i),n)},Lr=function(r,e,n){var v,a=e.b,y=r[a],i=y>>1&3;e.l=y&1;var o=y>>3|r[a+1]<<5|r[a+2]<<13,w=(a+=3)+o;if(i==1)return a>=r.length?void 0:(e.b=a+1,n?(Q(n,r[a],e.y,e.y+=o),n):Q(new U(o),r[a]));if(!(w>r.length)){if(i==0)return e.b=w,n?(n.set(r.subarray(a,w),e.y),e.y+=o,n):s(r,a,w);if(i==2){var z=r[a],L=z&3,g=z>>2&3,A=z>>4,c=0,M=0;L<2?g&1?A|=r[++a]<<4|(g&2&&r[++a]<<12):A=z>>3:(M=g,g<2?(A|=(r[++a]&63)<<4,c=r[a]>>6|r[++a]<<2):g==2?(A|=r[++a]<<4|(r[++a]&3)<<12,c=r[a]>>2|r[++a]<<6):(A|=r[++a]<<4|(r[++a]&63)<<12,c=r[a]>>6|r[++a]<<2|r[++a]<<10)),++a;var u=n?n.subarray(e.y,e.y+e.m):new U(e.m),E=u.length-A;if(L==0)u.set(r.subarray(a,a+=A),E);else if(L==1)Q(u,r[a++],E);else{var N=e.h;if(L==2){var S=Ar(r,a);c+=a-(a=S[0]),e.h=N=S[1]}else N||B(0);(M?Ir:X)(r.subarray(a,a+=c),u.subarray(E),N)}var F=r[a++];if(F){F==255?F=(r[a++]|r[a++]<<8)+32512:F>127&&(F=F-128<<8|r[a++]);var D=r[a++];D&3&&B(0);for(var I=[Ur,cr,Er],f=2;f>-1;--f){var O=D>>(f<<1)+2&3;if(O==1){var j=new U([0,0,r[a++]]);I[f]={s:j.subarray(2,3),n:j.subarray(0,1),t:new _(j.buffer,0,1),b:0}}else O==2?(v=R(r,a,9-(f&1)),a=v[0],I[f]=v[1]):O==3&&(e.t||B(0),I[f]=e.t[f])}var V=e.t=I,T=V[0],k=V[1],C=V[2],q=r[w-1];q||B(0);var l=(w<<3)-8+H(q)-C.b,h=l>>3,W=0,Y=(r[h]|r[h+1]<<8)>>(l&7)&(1<<C.b)-1;h=(l-=k.b)>>3;var Z=(r[h]|r[h+1]<<8)>>(l&7)&(1<<k.b)-1;h=(l-=T.b)>>3;var $=(r[h]|r[h+1]<<8)>>(l&7)&(1<<T.b)-1;for(++F;--F;){var b=C.s[Y],er=C.n[Y],d=T.s[$],nr=T.n[$],ar=k.s[Z],vr=k.n[Z];h=(l-=ar)>>3;var ir=1<<ar,G=ir+((r[h]|r[h+1]<<8|r[h+2]<<16|r[h+3]<<24)>>>(l&7)&ir-1);h=(l-=rr[d])>>3;var J=Fr[d]+((r[h]|r[h+1]<<8|r[h+2]<<16)>>(l&7)&(1<<rr[d])-1);h=(l-=t[b])>>3;var x=Br[b]+((r[h]|r[h+1]<<8|r[h+2]<<16)>>(l&7)&(1<<t[b])-1);if(h=(l-=er)>>3,Y=C.t[Y]+((r[h]|r[h+1]<<8)>>(l&7)&(1<<er)-1),h=(l-=nr)>>3,$=T.t[$]+((r[h]|r[h+1]<<8)>>(l&7)&(1<<nr)-1),h=(l-=vr)>>3,Z=k.t[Z]+((r[h]|r[h+1]<<8)>>(l&7)&(1<<vr)-1),G>3)e.o[2]=e.o[1],e.o[1]=e.o[0],e.o[0]=G-=3;else{var m=G-(x!=0);m?(G=m==3?e.o[0]-1:e.o[m],m>1&&(e.o[2]=e.o[1]),e.o[1]=e.o[0],e.o[0]=G):G=e.o[0]}for(var f=0;f<x;++f)u[W+f]=u[E+f];W+=x,E+=x;var K=W-G;if(K<0){var P=-K,hr=e.e+K;P>J&&(P=J);for(var f=0;f<P;++f)u[W+f]=e.w[hr+f];W+=P,J-=P,K=0}for(var f=0;f<J;++f)u[W+f]=u[K+f];W+=J}if(W!=E)for(;E<u.length;)u[W++]=u[E++];else W=u.length;n?e.y+=W:u=s(u,0,W)}else if(n){if(e.y+=A,E)for(var f=0;f<A;++f)u[f]=u[E+f]}else E&&(u=s(u,E));return e.b=w,u}B(2)}},Sr=function(r,e){if(r.length==1)return r[0];for(var n=new U(e),v=0,a=0;v<r.length;++v){var y=r[v];n.set(y,a),a+=y.length}return n};function Mr(r,e){for(var n=[],v=+!e,a=0,y=0;r.length;){var i=zr(r,v||e);if(typeof i=="object"){for(v?(e=null,i.w.length==i.u&&(n.push(e=i.w),y+=i.u)):(n.push(e),i.e=0);!i.l;){var o=Lr(r,i,e);o||B(5),e?i.e=i.y:(n.push(o),y+=o.length,wr(i.w,0,o.length),i.w.set(o,i.w.length-o.length))}a=i.b+i.c*4}else a=i;r=r.subarray(a)}return Sr(n,y)}async function Or(r){return Tr(Mr(new Uint8Array(r)))}function Tr(r){if(r.byteOffset===0&&r.byteLength===r.buffer.byteLength)return r.buffer;const e=new Uint8Array(r.byteLength);return e.set(r),e.buffer}export{Or as decode};
+//#region ../../node_modules/fzstd/esm/index.mjs
+var ab = ArrayBuffer;
+var u8 = Uint8Array;
+var u16 = Uint16Array;
+var i16 = Int16Array;
+var i32 = Int32Array;
+var slc = function(v, s, e) {
+	if (u8.prototype.slice) return u8.prototype.slice.call(v, s, e);
+	if (s == null || s < 0) s = 0;
+	if (e == null || e > v.length) e = v.length;
+	var n = new u8(e - s);
+	n.set(v.subarray(s, e));
+	return n;
+};
+var fill = function(v, n, s, e) {
+	if (u8.prototype.fill) return u8.prototype.fill.call(v, n, s, e);
+	if (s == null || s < 0) s = 0;
+	if (e == null || e > v.length) e = v.length;
+	for (; s < e; ++s) v[s] = n;
+	return v;
+};
+var cpw = function(v, t, s, e) {
+	if (u8.prototype.copyWithin) return u8.prototype.copyWithin.call(v, t, s, e);
+	if (s == null || s < 0) s = 0;
+	if (e == null || e > v.length) e = v.length;
+	while (s < e) v[t++] = v[s++];
+};
+var ec = [
+	"invalid zstd data",
+	"window size too large (>2046MB)",
+	"invalid block type",
+	"FSE accuracy too high",
+	"match distance too far back",
+	"unexpected EOF"
+];
+var err = function(ind, msg, nt) {
+	var e = new Error(msg || ec[ind]);
+	e.code = ind;
+	if (Error.captureStackTrace) Error.captureStackTrace(e, err);
+	if (!nt) throw e;
+	return e;
+};
+var rb = function(d, b, n) {
+	var i = 0, o = 0;
+	for (; i < n; ++i) o |= d[b++] << (i << 3);
+	return o;
+};
+var b4 = function(d, b) {
+	return (d[b] | d[b + 1] << 8 | d[b + 2] << 16 | d[b + 3] << 24) >>> 0;
+};
+var rzfh = function(dat, w) {
+	var n3 = dat[0] | dat[1] << 8 | dat[2] << 16;
+	if (n3 == 3126568 && dat[3] == 253) {
+		var flg = dat[4];
+		var ss = flg >> 5 & 1, cc = flg >> 2 & 1, df = flg & 3, fcf = flg >> 6;
+		if (flg & 8) err(0);
+		var bt = 6 - ss;
+		var db = df == 3 ? 4 : df;
+		var di = rb(dat, bt, db);
+		bt += db;
+		var fsb = fcf ? 1 << fcf : ss;
+		var fss = rb(dat, bt, fsb) + (fcf == 1 && 256);
+		var ws = fss;
+		if (!ss) {
+			var wb = 1 << 10 + (dat[5] >> 3);
+			ws = wb + (wb >> 3) * (dat[5] & 7);
+		}
+		if (ws > 2145386496) err(1);
+		var buf = new u8((w == 1 ? fss || ws : w ? 0 : ws) + 12);
+		buf[0] = 1, buf[4] = 4, buf[8] = 8;
+		return {
+			b: bt + fsb,
+			y: 0,
+			l: 0,
+			d: di,
+			w: w && w != 1 ? w : buf.subarray(12),
+			e: ws,
+			o: new i32(buf.buffer, 0, 3),
+			u: fss,
+			c: cc,
+			m: Math.min(131072, ws)
+		};
+	} else if ((n3 >> 4 | dat[3] << 20) == 25481893) return b4(dat, 4) + 8;
+	err(0);
+};
+var msb = function(val) {
+	var bits = 0;
+	for (; 1 << bits <= val; ++bits);
+	return bits - 1;
+};
+var rfse = function(dat, bt, mal) {
+	var tpos = (bt << 3) + 4;
+	var al = (dat[bt] & 15) + 5;
+	if (al > mal) err(3);
+	var sz = 1 << al;
+	var probs = sz, sym = -1, re = -1, i = -1, ht = sz;
+	var buf = new ab(512 + (sz << 2));
+	var freq = new i16(buf, 0, 256);
+	var dstate = new u16(buf, 0, 256);
+	var nstate = new u16(buf, 512, sz);
+	var bb1 = 512 + (sz << 1);
+	var syms = new u8(buf, bb1, sz);
+	var nbits = new u8(buf, bb1 + sz);
+	while (sym < 255 && probs > 0) {
+		var bits = msb(probs + 1);
+		var cbt = tpos >> 3;
+		var msk = (1 << bits + 1) - 1;
+		var val = (dat[cbt] | dat[cbt + 1] << 8 | dat[cbt + 2] << 16) >> (tpos & 7) & msk;
+		var msk1fb = (1 << bits) - 1;
+		var msv = msk - probs - 1;
+		var sval = val & msk1fb;
+		if (sval < msv) tpos += bits, val = sval;
+		else {
+			tpos += bits + 1;
+			if (val > msk1fb) val -= msv;
+		}
+		freq[++sym] = --val;
+		if (val == -1) {
+			probs += val;
+			syms[--ht] = sym;
+		} else probs -= val;
+		if (!val) do {
+			var rbt = tpos >> 3;
+			re = (dat[rbt] | dat[rbt + 1] << 8) >> (tpos & 7) & 3;
+			tpos += 2;
+			sym += re;
+		} while (re == 3);
+	}
+	if (sym > 255 || probs) err(0);
+	var sympos = 0;
+	var sstep = (sz >> 1) + (sz >> 3) + 3;
+	var smask = sz - 1;
+	for (var s = 0; s <= sym; ++s) {
+		var sf = freq[s];
+		if (sf < 1) {
+			dstate[s] = -sf;
+			continue;
+		}
+		for (i = 0; i < sf; ++i) {
+			syms[sympos] = s;
+			do
+				sympos = sympos + sstep & smask;
+			while (sympos >= ht);
+		}
+	}
+	if (sympos) err(0);
+	for (i = 0; i < sz; ++i) {
+		var ns = dstate[syms[i]]++;
+		var nb = nbits[i] = al - msb(ns);
+		nstate[i] = (ns << nb) - sz;
+	}
+	return [tpos + 7 >> 3, {
+		b: al,
+		s: syms,
+		n: nbits,
+		t: nstate
+	}];
+};
+var rhu = function(dat, bt) {
+	var i = 0, wc = -1;
+	var buf = new u8(292), hb = dat[bt];
+	var hw = buf.subarray(0, 256);
+	var rc = buf.subarray(256, 268);
+	var ri = new u16(buf.buffer, 268);
+	if (hb < 128) {
+		var _a = rfse(dat, bt + 1, 6), ebt = _a[0], fdt = _a[1];
+		bt += hb;
+		var epos = ebt << 3;
+		var lb = dat[bt];
+		if (!lb) err(0);
+		var st1 = 0, st2 = 0, btr1 = fdt.b, btr2 = btr1;
+		var fpos = (++bt << 3) - 8 + msb(lb);
+		for (;;) {
+			fpos -= btr1;
+			if (fpos < epos) break;
+			var cbt = fpos >> 3;
+			st1 += (dat[cbt] | dat[cbt + 1] << 8) >> (fpos & 7) & (1 << btr1) - 1;
+			hw[++wc] = fdt.s[st1];
+			fpos -= btr2;
+			if (fpos < epos) break;
+			cbt = fpos >> 3;
+			st2 += (dat[cbt] | dat[cbt + 1] << 8) >> (fpos & 7) & (1 << btr2) - 1;
+			hw[++wc] = fdt.s[st2];
+			btr1 = fdt.n[st1];
+			st1 = fdt.t[st1];
+			btr2 = fdt.n[st2];
+			st2 = fdt.t[st2];
+		}
+		if (++wc > 255) err(0);
+	} else {
+		wc = hb - 127;
+		for (; i < wc; i += 2) {
+			var byte = dat[++bt];
+			hw[i] = byte >> 4;
+			hw[i + 1] = byte & 15;
+		}
+		++bt;
+	}
+	var wes = 0;
+	for (i = 0; i < wc; ++i) {
+		var wt = hw[i];
+		if (wt > 11) err(0);
+		wes += wt && 1 << wt - 1;
+	}
+	var mb = msb(wes) + 1;
+	var ts = 1 << mb;
+	var rem = ts - wes;
+	if (rem & rem - 1) err(0);
+	hw[wc++] = msb(rem) + 1;
+	for (i = 0; i < wc; ++i) {
+		var wt = hw[i];
+		++rc[hw[i] = wt && mb + 1 - wt];
+	}
+	var hbuf = new u8(ts << 1);
+	var syms = hbuf.subarray(0, ts), nb = hbuf.subarray(ts);
+	ri[mb] = 0;
+	for (i = mb; i > 0; --i) {
+		var pv = ri[i];
+		fill(nb, i, pv, ri[i - 1] = pv + rc[i] * (1 << mb - i));
+	}
+	if (ri[0] != ts) err(0);
+	for (i = 0; i < wc; ++i) {
+		var bits = hw[i];
+		if (bits) {
+			var code = ri[bits];
+			fill(syms, i, code, ri[bits] = code + (1 << mb - bits));
+		}
+	}
+	return [bt, {
+		n: nb,
+		b: mb,
+		s: syms
+	}];
+};
+var dllt = (/*#__PURE__*/ rfse(/*#__PURE__*/ new u8([
+	81,
+	16,
+	99,
+	140,
+	49,
+	198,
+	24,
+	99,
+	12,
+	33,
+	196,
+	24,
+	99,
+	102,
+	102,
+	134,
+	70,
+	146,
+	4
+]), 0, 6))[1];
+var dmlt = (/*#__PURE__*/ rfse(/*#__PURE__*/ new u8([
+	33,
+	20,
+	196,
+	24,
+	99,
+	140,
+	33,
+	132,
+	16,
+	66,
+	8,
+	33,
+	132,
+	16,
+	66,
+	8,
+	33,
+	68,
+	68,
+	68,
+	68,
+	68,
+	68,
+	68,
+	68,
+	36,
+	9
+]), 0, 6))[1];
+var doct = (/*#__PURE__ */ rfse(/*#__PURE__*/ new u8([
+	32,
+	132,
+	16,
+	66,
+	102,
+	70,
+	68,
+	68,
+	68,
+	68,
+	36,
+	73,
+	2
+]), 0, 5))[1];
+var b2bl = function(b, s) {
+	var len = b.length, bl = new i32(len);
+	for (var i = 0; i < len; ++i) {
+		bl[i] = s;
+		s += 1 << b[i];
+	}
+	return bl;
+};
+var llb = /*#__PURE__ */ new u8((/*#__PURE__ */ new i32([
+	0,
+	0,
+	0,
+	0,
+	16843009,
+	50528770,
+	134678020,
+	202050057,
+	269422093
+])).buffer, 0, 36);
+var llbl = /*#__PURE__ */ b2bl(llb, 0);
+var mlb = /*#__PURE__ */ new u8((/*#__PURE__ */ new i32([
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	16843009,
+	50528770,
+	117769220,
+	185207048,
+	252579084,
+	16
+])).buffer, 0, 53);
+var mlbl = /*#__PURE__ */ b2bl(mlb, 3);
+var dhu = function(dat, out, hu) {
+	var len = dat.length, ss = out.length, lb = dat[len - 1], msk = (1 << hu.b) - 1, eb = -hu.b;
+	if (!lb) err(0);
+	var st = 0, btr = hu.b, pos = (len << 3) - 8 + msb(lb) - btr, i = -1;
+	for (; pos > eb && i < ss;) {
+		var cbt = pos >> 3;
+		var val = (dat[cbt] | dat[cbt + 1] << 8 | dat[cbt + 2] << 16) >> (pos & 7);
+		st = (st << btr | val) & msk;
+		out[++i] = hu.s[st];
+		pos -= btr = hu.n[st];
+	}
+	if (pos != eb || i + 1 != ss) err(0);
+};
+var dhu4 = function(dat, out, hu) {
+	var bt = 6;
+	var sz1 = out.length + 3 >> 2, sz2 = sz1 << 1, sz3 = sz1 + sz2;
+	dhu(dat.subarray(bt, bt += dat[0] | dat[1] << 8), out.subarray(0, sz1), hu);
+	dhu(dat.subarray(bt, bt += dat[2] | dat[3] << 8), out.subarray(sz1, sz2), hu);
+	dhu(dat.subarray(bt, bt += dat[4] | dat[5] << 8), out.subarray(sz2, sz3), hu);
+	dhu(dat.subarray(bt), out.subarray(sz3), hu);
+};
+var rzb = function(dat, st, out) {
+	var _a;
+	var bt = st.b;
+	var b0 = dat[bt], btype = b0 >> 1 & 3;
+	st.l = b0 & 1;
+	var sz = b0 >> 3 | dat[bt + 1] << 5 | dat[bt + 2] << 13;
+	var ebt = (bt += 3) + sz;
+	if (btype == 1) {
+		if (bt >= dat.length) return;
+		st.b = bt + 1;
+		if (out) {
+			fill(out, dat[bt], st.y, st.y += sz);
+			return out;
+		}
+		return fill(new u8(sz), dat[bt]);
+	}
+	if (ebt > dat.length) return;
+	if (btype == 0) {
+		st.b = ebt;
+		if (out) {
+			out.set(dat.subarray(bt, ebt), st.y);
+			st.y += sz;
+			return out;
+		}
+		return slc(dat, bt, ebt);
+	}
+	if (btype == 2) {
+		var b3 = dat[bt], lbt = b3 & 3, sf = b3 >> 2 & 3;
+		var lss = b3 >> 4, lcs = 0, s4 = 0;
+		if (lbt < 2) {
+			if (sf & 1) lss |= dat[++bt] << 4 | (sf & 2 && dat[++bt] << 12);
+			else lss = b3 >> 3;
+		} else {
+			s4 = sf;
+			if (sf < 2) lss |= (dat[++bt] & 63) << 4, lcs = dat[bt] >> 6 | dat[++bt] << 2;
+			else if (sf == 2) lss |= dat[++bt] << 4 | (dat[++bt] & 3) << 12, lcs = dat[bt] >> 2 | dat[++bt] << 6;
+			else lss |= dat[++bt] << 4 | (dat[++bt] & 63) << 12, lcs = dat[bt] >> 6 | dat[++bt] << 2 | dat[++bt] << 10;
+		}
+		++bt;
+		var buf = out ? out.subarray(st.y, st.y + st.m) : new u8(st.m);
+		var spl = buf.length - lss;
+		if (lbt == 0) buf.set(dat.subarray(bt, bt += lss), spl);
+		else if (lbt == 1) fill(buf, dat[bt++], spl);
+		else {
+			var hu = st.h;
+			if (lbt == 2) {
+				var hud = rhu(dat, bt);
+				lcs += bt - (bt = hud[0]);
+				st.h = hu = hud[1];
+			} else if (!hu) err(0);
+			(s4 ? dhu4 : dhu)(dat.subarray(bt, bt += lcs), buf.subarray(spl), hu);
+		}
+		var ns = dat[bt++];
+		if (ns) {
+			if (ns == 255) ns = (dat[bt++] | dat[bt++] << 8) + 32512;
+			else if (ns > 127) ns = ns - 128 << 8 | dat[bt++];
+			var scm = dat[bt++];
+			if (scm & 3) err(0);
+			var dts = [
+				dmlt,
+				doct,
+				dllt
+			];
+			for (var i = 2; i > -1; --i) {
+				var md = scm >> (i << 1) + 2 & 3;
+				if (md == 1) {
+					var rbuf = new u8([
+						0,
+						0,
+						dat[bt++]
+					]);
+					dts[i] = {
+						s: rbuf.subarray(2, 3),
+						n: rbuf.subarray(0, 1),
+						t: new u16(rbuf.buffer, 0, 1),
+						b: 0
+					};
+				} else if (md == 2) _a = rfse(dat, bt, 9 - (i & 1)), bt = _a[0], dts[i] = _a[1];
+				else if (md == 3) {
+					if (!st.t) err(0);
+					dts[i] = st.t[i];
+				}
+			}
+			var _b = st.t = dts, mlt = _b[0], oct = _b[1], llt = _b[2];
+			var lb = dat[ebt - 1];
+			if (!lb) err(0);
+			var spos = (ebt << 3) - 8 + msb(lb) - llt.b, cbt = spos >> 3, oubt = 0;
+			var lst = (dat[cbt] | dat[cbt + 1] << 8) >> (spos & 7) & (1 << llt.b) - 1;
+			cbt = (spos -= oct.b) >> 3;
+			var ost = (dat[cbt] | dat[cbt + 1] << 8) >> (spos & 7) & (1 << oct.b) - 1;
+			cbt = (spos -= mlt.b) >> 3;
+			var mst = (dat[cbt] | dat[cbt + 1] << 8) >> (spos & 7) & (1 << mlt.b) - 1;
+			for (++ns; --ns;) {
+				var llc = llt.s[lst];
+				var lbtr = llt.n[lst];
+				var mlc = mlt.s[mst];
+				var mbtr = mlt.n[mst];
+				var ofc = oct.s[ost];
+				var obtr = oct.n[ost];
+				cbt = (spos -= ofc) >> 3;
+				var ofp = 1 << ofc;
+				var off = ofp + ((dat[cbt] | dat[cbt + 1] << 8 | dat[cbt + 2] << 16 | dat[cbt + 3] << 24) >>> (spos & 7) & ofp - 1);
+				cbt = (spos -= mlb[mlc]) >> 3;
+				var ml = mlbl[mlc] + ((dat[cbt] | dat[cbt + 1] << 8 | dat[cbt + 2] << 16) >> (spos & 7) & (1 << mlb[mlc]) - 1);
+				cbt = (spos -= llb[llc]) >> 3;
+				var ll = llbl[llc] + ((dat[cbt] | dat[cbt + 1] << 8 | dat[cbt + 2] << 16) >> (spos & 7) & (1 << llb[llc]) - 1);
+				cbt = (spos -= lbtr) >> 3;
+				lst = llt.t[lst] + ((dat[cbt] | dat[cbt + 1] << 8) >> (spos & 7) & (1 << lbtr) - 1);
+				cbt = (spos -= mbtr) >> 3;
+				mst = mlt.t[mst] + ((dat[cbt] | dat[cbt + 1] << 8) >> (spos & 7) & (1 << mbtr) - 1);
+				cbt = (spos -= obtr) >> 3;
+				ost = oct.t[ost] + ((dat[cbt] | dat[cbt + 1] << 8) >> (spos & 7) & (1 << obtr) - 1);
+				if (off > 3) {
+					st.o[2] = st.o[1];
+					st.o[1] = st.o[0];
+					st.o[0] = off -= 3;
+				} else {
+					var idx = off - (ll != 0);
+					if (idx) {
+						off = idx == 3 ? st.o[0] - 1 : st.o[idx];
+						if (idx > 1) st.o[2] = st.o[1];
+						st.o[1] = st.o[0];
+						st.o[0] = off;
+					} else off = st.o[0];
+				}
+				for (var i = 0; i < ll; ++i) buf[oubt + i] = buf[spl + i];
+				oubt += ll, spl += ll;
+				var stin = oubt - off;
+				if (stin < 0) {
+					var len = -stin;
+					var bs = st.e + stin;
+					if (len > ml) len = ml;
+					for (var i = 0; i < len; ++i) buf[oubt + i] = st.w[bs + i];
+					oubt += len, ml -= len, stin = 0;
+				}
+				for (var i = 0; i < ml; ++i) buf[oubt + i] = buf[stin + i];
+				oubt += ml;
+			}
+			if (oubt != spl) while (spl < buf.length) buf[oubt++] = buf[spl++];
+			else oubt = buf.length;
+			if (out) st.y += oubt;
+			else buf = slc(buf, 0, oubt);
+		} else if (out) {
+			st.y += lss;
+			if (spl) for (var i = 0; i < lss; ++i) buf[i] = buf[spl + i];
+		} else if (spl) buf = slc(buf, spl);
+		st.b = ebt;
+		return buf;
+	}
+	err(2);
+};
+var cct = function(bufs, ol) {
+	if (bufs.length == 1) return bufs[0];
+	var buf = new u8(ol);
+	for (var i = 0, b = 0; i < bufs.length; ++i) {
+		var chk = bufs[i];
+		buf.set(chk, b);
+		b += chk.length;
+	}
+	return buf;
+};
+/**
+* Decompresses Zstandard data
+* @param dat The input data
+* @param buf The output buffer. If unspecified, the function will allocate
+*            exactly enough memory to fit the decompressed data. If your
+*            data has multiple frames and you know the output size, specifying
+*            it will yield better performance.
+* @returns The decompressed data
+*/
+function decompress(dat, buf) {
+	var bufs = [], nb = +!buf;
+	var bt = 0, ol = 0;
+	for (; dat.length;) {
+		var st = rzfh(dat, nb || buf);
+		if (typeof st == "object") {
+			if (nb) {
+				buf = null;
+				if (st.w.length == st.u) {
+					bufs.push(buf = st.w);
+					ol += st.u;
+				}
+			} else {
+				bufs.push(buf);
+				st.e = 0;
+			}
+			for (; !st.l;) {
+				var blk = rzb(dat, st, buf);
+				if (!blk) err(5);
+				if (buf) st.e = st.y;
+				else {
+					bufs.push(blk);
+					ol += blk.length;
+					cpw(st.w, 0, blk.length);
+					st.w.set(blk, st.w.length - blk.length);
+				}
+			}
+			bt = st.b + st.c * 4;
+		} else bt = st;
+		dat = dat.subarray(bt);
+	}
+	return cct(bufs, ol);
+}
+//#endregion
+//#region ../../node_modules/@developmentseed/geotiff/dist/codecs/zstd.js
+async function decode(bytes) {
+	return copyIfViewNotFullBuffer(decompress(new Uint8Array(bytes)));
+}
+function copyIfViewNotFullBuffer(view) {
+	if (view.byteOffset === 0 && view.byteLength === view.buffer.byteLength) return view.buffer;
+	const copy = new Uint8Array(view.byteLength);
+	copy.set(view);
+	return copy.buffer;
+}
+//#endregion
+export { decode };

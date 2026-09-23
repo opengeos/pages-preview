@@ -1228,6 +1228,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#satellite-embeddings" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Satellite Embeddings
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#geolens" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2822,6 +2833,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#satellite-embeddings" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Satellite Embeddings
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#geolens" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2968,6 +2990,11 @@
 <td>Geospatial files in dataset repos — and uploads</td>
 </tr>
 <tr>
+<td><a href="#satellite-embeddings">Satellite Embeddings</a></td>
+<td>Source.coop, Tessera</td>
+<td>Pre-computed foundation-model embeddings (AlphaEarth, Tessera, Earth Index, …)</td>
+</tr>
+<tr>
 <td><a href="#geolens">GeoLens</a></td>
 <td>your server</td>
 <td>A self-hosted spatial catalog</td>
@@ -3096,6 +3123,65 @@
 <li><strong>Upload</strong> — with a user access token, create a dataset repo and push files into it.</li>
 </ul>
 <p>The access token is stored in <code>localStorage</code> under your control, sent only as a bearer header to the Hugging Face API, and never written into a layer URL or a saved project.</p>
+<h2 id="satellite-embeddings">Satellite Embeddings<a class="headerlink" href="#satellite-embeddings" title="Permanent link">&para;</a></h2>
+<p>A catalog of popular pre-computed <strong>satellite embedding</strong> datasets — per-pixel or per-patch vectors produced by geospatial foundation models — with search, on-map visualization, and download.</p>
+<table>
+<thead>
+<tr>
+<th>Dataset</th>
+<th>Layout</th>
+<th>Resolution</th>
+<th>Search</th>
+<th>Visualize</th>
+<th>Download</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://source.coop/tge-labs/aef">AlphaEarth Foundations</a> (Google Satellite Embedding V1), 2017–2025</td>
+<td>64-band raster</td>
+<td>10 m</td>
+<td>✓</td>
+<td>RGB composite of any three bands</td>
+<td>Clipped GeoTIFF, source COG, VRT</td>
+</tr>
+<tr>
+<td><a href="https://github.com/ucam-eo/geotessera">Tessera</a>, 2017–2025</td>
+<td>128-band raster</td>
+<td>10 m</td>
+<td>✓</td>
+<td>—</td>
+<td>Embeddings and scales (<code>.npy</code>)</td>
+</tr>
+<tr>
+<td><a href="https://source.coop/earthgenome/earthindexembeddings">Earth Index</a>, 2024</td>
+<td>Points (GeoParquet)</td>
+<td>~320 m</td>
+<td>✓</td>
+<td>Points colored by principal components</td>
+<td>Source GeoParquet</td>
+</tr>
+<tr>
+<td>Clay, Major TOM, Copernicus-Embed</td>
+<td>—</td>
+<td>—</td>
+<td>Links to the data source only</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Pick a dataset to see its provider, model, resolution, dimensions, years, coverage, and license, with links to the data and the paper.</li>
+<li>Search by the <strong>current map view</strong> or a <strong>box drawn on the map</strong>, and (for annual datasets) a year. Result footprints are drawn as one entry in the Layers panel; hovering a result outlines it, and clicking a footprint scrolls to its result.</li>
+<li><strong>AlphaEarth → Visualize</strong> adds the chosen bands (Earth Engine's <code>A01</code>, <code>A16</code>, <code>A09</code> by default) as an RGB layer, stretching de-quantized values across ±0.3 by default. When the raster rendering engine is <strong>cog-tiler-wasm (WASM)</strong> (the default) the whole tile becomes a regular COG layer, zoomable to full 10 m detail, with its bands and range adjustable in the Style panel; the stretch is applied to the raw int8 values, so colors differ slightly from the de-quantized stretch. The GPU and TiTiler engines cannot read these files, so on those the panel instead renders a snapshot image of the search area (from an overview when the area is large; the status line says so) rather than switching the engine for every raster on the map.</li>
+<li><strong>AlphaEarth → GeoTIFF</strong> saves all 64 bands over the search area as a north-up GeoTIFF in the tile's UTM zone, either de-quantized to float32 (unit-length vectors, NoData as NaN) or as the raw int8 values (NoData −128). The clip is built in memory and capped at 256 MB: about 100 km² of float32 values, or 400 km² of int8.</li>
+<li><strong>Earth Index → Load points</strong> adds the embeddings inside the search area as a point layer. Each point is colored by the top three principal components of the loaded vectors, so similar places get similar colors.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">AlphaEarth files are stored bottom-up</p>
+<p>The AlphaEarth COGs on Source Cooperative put their southern row first, which many GDAL workflows do not expect. The WASM engine (cog-tiler-wasm 0.3.8 and later) and the panel's own reader flip them; the GPU engine does not yet. The panel also offers each tile's companion <code>.vrt</code>, which GDAL reads north-up. The data is licensed CC-BY 4.0: <em>The AlphaEarth Foundations Satellite Embedding dataset is produced by Google and Google DeepMind.</em></p>
+</div>
 <h2 id="geolens">GeoLens<a class="headerlink" href="#geolens" title="Permanent link">&para;</a></h2>
 <p>Connects to a self-hosted <a href="https://getgeolens.com">GeoLens</a> catalog — an open-source spatial catalog (FastAPI + PostGIS) you run on your own infrastructure, which makes it the recommended way to work with private data in GeoLibre.</p>
 <ul>
