@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../assets/geolibre-icon.png">
-      <meta name="generator" content="zensical-0.0.64">
+      <meta name="generator" content="zensical-0.0.65">
     
     
       
@@ -2615,6 +2615,14 @@ Source Cooperative mirror under CC BY-NC-SA 3.0, including its NonCommercial
 restriction. Public camera imagery comes from TfL, Austin, Calgary, Fintraffic,
 Ontario 511, DriveBC, Live Traffic NSW, and Caltrans under each provider's
 public-data terms.</p>
+<p>Two layers use a key of your own, entered under <strong>API keys</strong> at the bottom of
+the panel. <strong>Live AIS Vessels</strong> streams ship positions from
+<a href="https://aisstream.io/">AISStream</a> for the current view (up to 30° across) and
+shows nothing without a key. <strong>Simulated Street Traffic</strong> works keyless; with a
+<a href="https://developer.tomtom.com/">TomTom</a> key it also draws live congestion and
+paces its vehicles by it. Keys typed there stay in the browser and are never
+written to the project; <code>VITE_TOMTOM_API_KEY</code> or <code>AISSTREAM_API_KEY</code> under
+<strong>Settings → Environment variables</strong> works too.</p>
 <p><img alt="A plugin submenu, with Activate above the four map-corner positions" src="https://assets.geolibre.app/images/geolibre-plugin-position-menu.webp" /></p>
 <div class="admonition note">
 <p class="admonition-title">Components live on the Controls menu</p>
