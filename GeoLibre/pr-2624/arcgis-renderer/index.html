@@ -2887,9 +2887,7 @@ finish loading on the new view.</p>
   advanced colour expression, or the extrusion colour. On a 2D <code>MapView</code> they
   stay flat fills.</li>
 <li>Identify, selection highlighting, extent drawing and capture work as in 2D.
-  The project's zoom range becomes the scene's altitude range on a globe, and
-  a scene that settles outside the zoom range or the restricted bounds eases
-  back inside them.</li>
+  The project's zoom range becomes the scene's altitude range on a globe.</li>
 <li><strong>3D (Z values)</strong> places vector coordinates at their absolute altitude, with
   the configured vertical scale and offset. Selection highlights use the same
   transformed coordinates. Source data stays unchanged.</li>
@@ -2973,11 +2971,11 @@ experimental alignment and depth limitations described above.</p>
   banner too.</li>
 <li>The Print Layout atlas and vector-tile icon symbols (the store's vector-tile
   records carry no sprite), in any view.</li>
-<li>Navigation limits differ slightly from MapLibre's: the SDK keeps the view's
-  centre (not the whole viewport) inside restricted bounds, rounds the
-  minimum zoom to one of its levels, and always wraps around the
-  antimeridian, so turning off world copies only clamps the views the app
-  applies.</li>
+<li>Navigation limits differ slightly from MapLibre's: a view that settles past
+  the zoom range or the restricted bounds eases back inside them (the wheel
+  stops at the zoom limits), the bounds hold the view's centre rather than the
+  whole viewport, and the SDK always wraps around the antimeridian, so turning
+  off world copies only clamps the views the app applies.</li>
 <li>Measure and the geometry editor draw through the MapLibre/Mapbox style API;
   the Controls menu greys Measure out, and editing a layer's geometry says the
   renderer does not support it.</li>
