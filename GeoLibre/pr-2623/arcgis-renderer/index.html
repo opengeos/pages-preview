@@ -1,0 +1,3110 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A lightweight, cloud-native GIS platform for visualizing, exploring, and analyzing geospatial data across desktop and web environments, with a responsive layout for mobile screens.">
+      
+      
+      
+        <link rel="canonical" href="https://geolibre.app/arcgis-renderer/">
+      
+      
+        <link rel="prev" href="../cesium-renderer/">
+      
+      
+        <link rel="next" href="../self-hosting/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/geolibre-icon.png">
+      <meta name="generator" content="zensical-0.0.64">
+    
+    
+      
+        <title>ArcGIS Renderer - GeoLibre</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.40d3fdbb.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../assets/stylesheets/modern/palette.812a03bb.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+  
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#arcgis-renderer" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="GeoLibre" class="md-header__button md-logo" aria-label="GeoLibre" data-md-component="logo">
+      
+  <img src="../assets/geolibre-icon.png" alt="GeoLibre">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            GeoLibre
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              ArcGIS Renderer
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/opengeos/GeoLibre" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    opengeos/GeoLibre
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="GeoLibre" class="md-nav__button md-logo" aria-label="GeoLibre" data-md-component="logo">
+      
+  <img src="../assets/geolibre-icon.png" alt="GeoLibre">
+
+    </a>
+    GeoLibre
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/opengeos/GeoLibre" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    opengeos/GeoLibre
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Getting Started
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Features
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Comparison
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Demos
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../downloads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Downloads
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sponsor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sponsor
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://web.geolibre.app" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Launch GeoLibre Web
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  User Guide
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_9">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  User Guide
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/interface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Interface Overview
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/rendering-engines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Rendering Engines
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/projects/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Projects
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/adding-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Adding Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-formats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Supported Data Formats
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/chrome-extension/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Chrome Extension
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/layers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Managing Layers
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/styling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Styling Layers
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/attribute-table/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Attribute Table
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/map-controls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Map Controls & Tools
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Processing Tools
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/segmentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  AI Segmentation
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/sql-workspace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SQL Workspace
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/python-console/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Python Console
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/ai-assistant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  AI Assistant
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/data-integrations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Data Integrations
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Plugins & Marketplace
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/web-services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Web Services
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/settings/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Settings & Preferences
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/storymaps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Story Maps
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/embedding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Embedding & Sharing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Troubleshooting
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tutorials
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_10">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Tutorials
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Overview
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/videos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Video Tutorials
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/first-map/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Your First Map
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/cloud-native-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Cloud-Native Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/vector-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Vector Analysis
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/terrain-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Terrain Analysis
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/spatial-sql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Spatial SQL
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/sharing-embedding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sharing & Embedding
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/supported-formats-en/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Format Reference
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/supported-formats-zh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Format Reference (中文)
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/source-code-deep-dive-en/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Source Code Deep Dive
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/source-code-deep-dive-zh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Source Code Deep Dive (中文)
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Reference
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_11">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Reference
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Architecture
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../maplibre-renderer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  MapLibre Renderer
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mapbox-renderer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Mapbox Renderer
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cesium-renderer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Cesium Renderer
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  ArcGIS Renderer
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  ArcGIS Renderer
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#nothing-is-bundled" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Nothing is bundled
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        API key
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supported-paths" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Supported paths
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2d-and-3d" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2D and 3D
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Adding data
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deckgl-layers" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        deck.gl layers
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tile-archives" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Tile archives
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zarr-and-netcdf-grids" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Zarr and NetCDF grids
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adapted-plugin-panels" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Adapted plugin panels
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#not-supported-yet" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Not supported yet
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Testing
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#license-and-terms" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        License and terms
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../self-hosting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Self-Hosting
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Server API
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../android/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Android
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  iOS
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mac-app-store/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Mac App Store
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project-format/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project Format
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Plugin API
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../collaboration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Collaboration
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ui-profiles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  UI Profiles
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deployment-capabilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Deployment Capabilities
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../i18n/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Internationalization
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Python Package
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../r/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  R Package
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  MCP Server
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-skill/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Agent Skill
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Notebook Panel
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Roadmap
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Contributing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../maintenance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Maintenance Notes
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../citation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  How to Cite
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../acknowledgements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Acknowledgements
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../privacy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Privacy Policy
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../terms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Terms of Service
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#nothing-is-bundled" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Nothing is bundled
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        API key
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supported-paths" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Supported paths
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2d-and-3d" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2D and 3D
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Adding data
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deckgl-layers" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        deck.gl layers
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tile-archives" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Tile archives
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zarr-and-netcdf-grids" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Zarr and NetCDF grids
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adapted-plugin-panels" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Adapted plugin panels
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#not-supported-yet" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Not supported yet
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Testing
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#license-and-terms" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        License and terms
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+  
+
+
+<h1 id="arcgis-renderer">ArcGIS renderer<a class="headerlink" href="#arcgis-renderer" title="Permanent link">&para;</a></h1>
+<p>Choose <strong>View → Rendering engine → ArcGIS</strong> to render a project with the
+<a href="https://developers.arcgis.com/javascript/latest/">ArcGIS Maps SDK for JavaScript</a>.
+The engine is also available from the rendering-engine menu in each split pane.
+MapLibre remains the default. Projects save the primary and secondary renderer
+choices, and the Python and iframe APIs accept <code>arcgis</code> as a renderer name.</p>
+<h2 id="nothing-is-bundled">Nothing is bundled<a class="headerlink" href="#nothing-is-bundled" title="Permanent link">&para;</a></h2>
+<p>The SDK is <strong>not</strong> part of GeoLibre's build. <code>@arcgis/core</code> is 84 MB unpacked
+across 18,810 files, and bundling it would grow the web build, the Python wheel
+and the desktop installers by tens of megabytes. Instead the engine imports the
+modules it needs from Esri's versioned ES-module CDN the first time an ArcGIS
+pane mounts (<code>https://js.arcgis.com/&lt;version&gt;/@arcgis/core/…</code>), the same way
+the PostGIS and Sedona SQL engines are fetched from jsDelivr. Only the adapter
+code in <code>packages/map/src/arcgis-*.ts</code> ships with GeoLibre.</p>
+<p>Consequences:</p>
+<ul>
+<li>The first ArcGIS pane needs network access, on the desktop too. The service
+  worker caches the SDK modules and stylesheet after first use
+  (<code>geolibre-arcgis-sdk</code> in <code>vite.config.ts</code>), so the SDK itself boots offline
+  afterwards like the other CDN-loaded engines. Esri basemaps, tile services
+  and other remote layers still need the network, as on every renderer.</li>
+<li>The SDK version is pinned in <code>packages/map/src/arcgis-sdk.ts</code>
+  (<code>ARCGIS_SDK_VERSION</code>). Bumping it is a deliberate change; see
+  <a href="../maintenance/#arcgis-maps-sdk-for-javascript-loaded-from-esris-cdn">Maintenance</a>.</li>
+<li>Esri documents the ES-module CDN as a prototyping path and logs "Only use ES
+  modules from ArcGIS CDN for testing" once per session; its supported
+  production path is an npm build, which is exactly what this integration
+  avoids for size. The first load pulls a few hundred small modules, so the
+  first ArcGIS pane of a session takes longer to appear than a Mapbox one.</li>
+<li>The content-security policies of the desktop app (<code>tauri.conf.json</code>) and the
+  Docker image (<code>docker/nginx.conf</code>) allow-list <code>https://js.arcgis.com/</code> in
+  <code>script-src</code> and <code>font-src</code> (the SDK's icon and text fonts). The SDK's
+  stylesheet is fetched as text and inlined, since neither policy allows
+  external stylesheets.</li>
+</ul>
+<h2 id="api-key">API key<a class="headerlink" href="#api-key" title="Permanent link">&para;</a></h2>
+<p>The renderer works without a key. It translates the project basemap into tiles
+the SDK can draw (the same translation the 3D globe uses) and draws your layers
+through the SDK's own layer classes.</p>
+<p>An <strong>ArcGIS API key</strong> adds Esri's basemap styles. Create one in your ArcGIS
+account (ArcGIS Online or ArcGIS Location Platform) under <strong>Content → New item
+→ Developer credentials → API key credentials</strong> with the <strong>Basemaps</strong>
+privilege, then paste it into <strong>Settings → Environment Variables → ArcGIS API
+key</strong> and click <strong>Save Settings</strong>. Like the Mapbox and Cesium tokens, it is
+stored on this device, outside the project file. Alternatively, launch the
+development server with <code>ARCGIS_API_KEY</code> in its environment. Key changes
+recreate ArcGIS maps. Requests made with the key are metered against its
+account and subject to Esri's terms; basemap requests have a generous free
+allotment.</p>
+<p>With a key, new projects use <strong>ArcGIS Streets</strong> for the ArcGIS renderer. The
+<strong>Change background</strong> picker offers Esri's Streets, Navigation, Topographic,
+Light Gray, Dark Gray, Imagery, Imagery (no labels), Oceans, Outdoor and
+OpenStreetMap styles when ArcGIS is active
+and a key is configured. Selecting one preserves the camera. The
+choice is saved as <code>preferences.map.arcgisBasemap</code> (an Esri basemap style id
+such as <code>arcgis/streets</code>, <code>arcgis/imagery</code> or <code>osm/standard</code>); selecting a
+basemap from the shared <strong>Basemaps</strong> panel while ArcGIS is active clears it,
+so the pane follows the shared MapLibre/Cesium basemap again. Without a key the
+override is set aside and the shared basemap is translated instead.</p>
+<h2 id="supported-paths">Supported paths<a class="headerlink" href="#supported-paths" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Native GeoJSON, including the vector importer's materialized data, FlatGeobuf
+  and GeoParquet imports, and ArcGIS feature layers already loaded into the
+  project. Point, line and polygon symbology, fill and stroke opacity, circle
+  radius, labels (field or expression, size, colour, halo, placement, offset,
+  rotation, case transform), and the data-driven colour modes — categorized,
+  graduated, rule-based, expression and simplestyle — all render. The SDK has no
+  MapLibre Style Spec, so the engine evaluates the same MapLibre expressions
+  <code>@geolibre/core</code> builds for the 2D map <em>per feature</em> with the style-spec
+  engine and bakes the answers into the features; the layer's renderer is a
+  unique-value renderer over the resulting symbol keys. Layer filters, quick
+  filters, the time slider's filter and the embed filter are applied the same
+  way before features reach the SDK. Zoom-dependent expressions (metre-unit
+  strokes, per-rule zoom ranges) are re-evaluated when the integer zoom
+  changes.</li>
+<li>HTTP(S) raster tiles (XYZ, WMTS tile templates), WMS (the GetMap template is
+  split into the SDK's <code>WMSLayer</code> description), and vector tiles with named
+  source layers (drawn by the SDK's <code>VectorTileLayer</code> from the same style
+  layers the Mapbox engine compiles, minus text labels). A raster template
+  <code>WebTileLayer</code> cannot express — a <code>{bbox-epsg-3857}</code> request, a TMS scheme,
+  <code>{-y}</code> or <code>{quadkey}</code>, a 512 px tile size, a source <code>minzoom</code>/<code>maxzoom</code>, or
+  several templates — draws through a custom tile layer that requests each
+  tile as MapLibre would, cropping 512 px tiles and overzooming past <code>maxzoom</code>.
+  A template on a registered MapLibre protocol (the desktop app's CORS-exempt
+  <code>geolibre-wms://</code> WMS fetcher, say) is asked of that protocol's handler, as
+  the globe does.</li>
+<li><strong>Add Data → ArcGIS Layer</strong> stores cached MapServer and ImageServer services
+  as tile templates and dynamic ones (sublayers, a rendering rule, no usable
+  cache) as <code>/export</code> / <code>/exportImage</code> bounding-box templates, both drawn as
+  above. FeatureServer layers, and any service recorded as <code>type: "arcgis"</code>
+  (hand-authored or Python records), draw through the SDK's own
+  <code>FeatureLayer</code>, <code>TileLayer</code>, <code>MapImageLayer</code> and <code>ImageryLayer</code>; a single
+  MapServer sublayer (<code>MapServer/2</code>) is a <code>FeatureLayer</code> too. A service layer
+  draws with its layer style, as on the 2D map; its identified features can be
+  highlighted, and its features read back as GeoJSON (paged past the service's
+  per-request record limit, up to 50 requests). A
+  FeatureServer layer's filters (quick filters, the expression filter, the time
+  and embed filters) become the service's SQL <code>definitionExpression</code>; a filter
+  with no SQL form is reported in the map's banner and the service draws
+  unfiltered.</li>
+<li>Georeferenced images, placed by their four corners through a control-point
+  georeference, so rotated and skewed fits land where they do on MapLibre.</li>
+<li>Shared layer/group visibility, opacity and ordering; synchronized or
+  independent split-view cameras; the project's zoom and bounds constraints.</li>
+<li>The Style panel's raster brightness, contrast, saturation and hue sliders,
+  as the SDK's CSS-filter <code>effect</code> on raster layers, and every layer's blend
+  mode as the SDK's <code>blendMode</code> (<code>add</code> is the SDK's <code>plus</code>). A <code>SceneView</code>
+  ignores the raster effects, and blends only tiled and imagery layers.</li>
+<li>Geo Editor text markers and annotation text, drawn as text at their points
+  in their own colours.</li>
+<li>Feature picking (click identify with the layer's popup template and field
+  visibility; <strong>Identify visible layers</strong> groups every layer's hits, including
+  WMS GetFeatureInfo, Time Slider pixels, COG/NetCDF pixels and DuckDB
+  layers), selection highlighting, extent
+  drawing, draggable placement, and engine-level image capture. <strong>Layers →
+  Select features</strong> (single, rectangle, polygon, freehand and radius) runs the
+  same gestures as on MapLibre on the primary map. The status bar's pointer
+  elevation reads the ground under the cursor from the scene's elevation
+  surface, or (with consent) the same remote lookup the other maps use.</li>
+<li><strong>GPS Tracking</strong> (the position marker, accuracy circle and track, following
+  the position), <strong>Add comment</strong>, the Georeferencer's <strong>Link on map</strong>, and the
+  Pixel Time Series and NetCDF sample markers work through the engine's render
+  surface and click events.</li>
+<li>Plugin controls hosted on the map receive MapLibre's <code>move</code>, <code>zoom</code>,
+  <code>rotate</code>, <code>click</code> and <code>mousemove</code> events, so readouts such as View State and
+  the minimap follow the camera. Story chapter layer fades run over the
+  chapter's transition.</li>
+<li><strong>Search places</strong> flies to places and coordinates with a temporary marker,
+  and frames H3 cells with a filled outline. Clearing the search removes its
+  highlight without removing a selection made elsewhere.</li>
+<li>Point heatmaps use the shared color ramp, radius, intensity and optional
+  weight field in both 2D and 3D. Esri's density kernel differs from MapLibre's,
+  so the visual density can differ; SceneView caps the radius at 112 points.
+  Clustering uses native count labels and the configured radius and maximum
+  zoom in 2D. Built-in and custom SVG fill patterns also render in 2D, with
+  per-feature fill opacity and independent outlines.</li>
+<li>The built-in controls the <strong>Controls</strong> menu governs, as the SDK's own widgets:
+  fullscreen, compass (resets rotation), zoom (navigation), locate (geolocate)
+  and the scale bar (metric or imperial, 2D only), plus a globe/Mercator
+  toggle and terrain (see <a href="#2d-and-3d">2D and 3D</a>). Attribution is drawn by the view
+  itself (<code>attributionVisible</code>); Esri requires it and it cannot be hidden.</li>
+<li><strong>Plugins → Layer Control</strong> toggles the native ArcGIS layer list, enabled by
+  default on the primary map like the shared plugin. Its visibility
+  toggles update the project and the sidebar, and sidebar changes update the
+  list. Mixed-geometry GeoJSON records have one entry for all their parts.
+  Temporary search and selection highlights are omitted. Split panes keep the
+  control hidden by default and retain their independent layer visibility.</li>
+<li>Plugins that only add store layers: <strong>ArcGIS Hub</strong>, <strong>Socrata</strong> and <strong>CKAN</strong>
+  search, the <strong>OSM Downloader</strong>, and the <strong>Weather</strong> overlays (Clouds and
+  Precipitation). <strong>Controls</strong> menu entries whose plugin needs a MapLibre,
+  Mapbox or Cesium map (Atmospheric Effects, Sun, Route Animation, Flight
+  Simulator, Graticule, Directions, Reverse Geocode) are greyed out with the
+  reason while ArcGIS is the primary renderer.</li>
+<li>If the SDK cannot be loaded from the CDN, the map's banner offers <strong>Retry</strong>,
+  which reloads the page: the browser keeps a failed module import for the life
+  of the page, so only a reload can fetch it again.</li>
+</ul>
+<h2 id="2d-and-3d">2D and 3D<a class="headerlink" href="#2d-and-3d" title="Permanent link">&para;</a></h2>
+<p>The SDK draws flat maps and 3D scenes through two different view classes, so
+the ArcGIS pane picks one from the project's map preferences and rebuilds the
+view when the choice changes. The camera (centre, zoom, bearing and pitch)
+carries over.</p>
+<table>
+<thead>
+<tr>
+<th>Projection</th>
+<th>Terrain</th>
+<th>View</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Globe</td>
+<td>off or on</td>
+<td><code>SceneView</code>, global (a 3D globe)</td>
+</tr>
+<tr>
+<td>Mercator</td>
+<td>on</td>
+<td><code>SceneView</code>, local (a flat 3D map)</td>
+</tr>
+<tr>
+<td>Mercator</td>
+<td>off</td>
+<td><code>MapView</code> (a flat 2D map)</td>
+</tr>
+</tbody>
+</table>
+<p>New projects use the globe projection, so an ArcGIS pane opens as a globe.
+The globe button under the compass switches projection (as on MapLibre, a
+split pane's button only switches that pane), and <strong>Controls → Terrain</strong> turns
+terrain on or off. The 3D modules (<code>views/SceneView</code> and the elevation layers, close to a
+megabyte) are not part of the first load: a flat ArcGIS map fetches them in the
+background once the page is idle, so the first switch to a globe does not wait
+on the network. While a new view loads, the previous one stays on screen and is
+swapped out once the new view's basemap has drawn; data layers and terrain
+finish loading on the new view.</p>
+<p>In a scene:</p>
+<ul>
+<li>The camera tilts (right-drag, or the project's saved pitch), limited by the
+  project's maximum pitch. The status bar shows the camera's altitude.</li>
+<li>Lighting follows the camera (the SDK's virtual lighting), so the whole
+  visible map is lit. The SDK's default simulated sun would leave part of the
+  globe on the night side.</li>
+<li>Terrain drapes the map over Esri's
+  <a href="https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer">World Elevation</a>
+  service. It needs no API key. <strong>Controls → Terrain exaggeration</strong> scales the
+  heights.</li>
+<li><strong>Controls → Terrain exaggeration</strong> also accepts a local or remote COG DEM
+  in EPSG:3857 or EPSG:4326, using the same reader as the other engines.
+  The local file stays on the device. The source and exaggeration survive
+  switches between flat maps, local scenes and the globe during the session;
+  they are not saved in the project. Missing DEM pixels and areas outside the
+  COG use zero metres. <strong>Use global terrain</strong> restores Esri's World Elevation.</li>
+<li>Polygon layers whose style extrudes (the Style panel's <strong>3D extrusion</strong>) draw as
+  extruded 3D shapes with the same height and colour as MapLibre's
+  fill-extrusion: the height property times the height scale (or the advanced
+  height expression) is the top and the base height the bottom, and the colour
+  follows the layer's categorized, graduated or rule-based symbology, the
+  advanced colour expression, or the extrusion colour. On a 2D <code>MapView</code> they
+  stay flat fills.</li>
+<li>Identify, selection highlighting, extent drawing and capture work as in 2D.
+  The scale bar does not: the SDK's scale bar only measures a <code>MapView</code>, so
+  the Controls menu cannot show it in a scene. The project's minimum and
+  maximum zoom still clamp camera moves the app makes, but not the user's own
+  navigation.</li>
+<li><strong>3D (Z values)</strong> places vector coordinates at their absolute altitude, with
+  the configured vertical scale and offset. Selection highlights use the same
+  transformed coordinates. Source data stays unchanged.</li>
+</ul>
+<h2 id="adding-data">Adding data<a class="headerlink" href="#adding-data" title="Permanent link">&para;</a></h2>
+<p>Files dropped onto the map, the host importers behind <strong>Add Data → FlatGeobuf
+Layer / GeoParquet Layer / KML / KMZ / Delimited Text</strong>, and the <strong>XYZ</strong>,
+<strong>WMS</strong>, <strong>WMTS</strong> and <strong>ArcGIS Layer</strong> dialogs all work on the ArcGIS map. The
+<strong>Vector Layer</strong> panel uses the shared store bridge for bounded vector imports;
+large streaming GeoParquet still requires MapLibre. <strong>Raster Layer</strong> opens a
+host dialog for a local GeoTIFF or HTTP(S) URL.</p>
+<p>GeoTIFF/COG files and URLs render through the existing WebAssembly COG tiler
+and a native ArcGIS tile layer in 2D and 3D. Saved RGB bands, continuous color
+ramps, stretch, gamma, nodata and opacity are honored; edit them in the Style
+panel. Browser files last for the session; desktop local paths can be reopened
+on the same device. GPU-only classified/custom color ramps still require the
+MapLibre raster control.</p>
+<h2 id="deckgl-layers">deck.gl layers<a class="headerlink" href="#deckgl-layers" title="Permanent link">&para;</a></h2>
+<p><strong>Add Data → Deck.gl Layer / 3D Model</strong> works on the primary flat map and
+local 3D scene. The shared overlay renders saved visualizations and models,
+follows visibility, opacity and ordering among deck.gl layers, and releases
+its GPU resources on a renderer switch. The shared overlay is one native SDK
+layer; deck.gl layers cannot be interleaved individually with native ArcGIS
+layers. Native feature Z rendering stays owned by ArcGIS.</p>
+<p>The adapter uses the MIT-licensed compositor from <code>@deck.gl/arcgis</code> 9.4.0
+with CDN-loaded SDK classes, avoiding a bundled <code>@arcgis/core</code> dependency.
+Local 3D rendering uses the upstream experimental camera approximation: it can
+drift at extreme camera angles and does not share the terrain depth buffer.
+Global scenes and secondary panes do not host the overlay; the menus and layer
+badges reflect that restriction. Switch back to a flat map or local scene to
+restore the layers.</p>
+<h2 id="tile-archives">Tile archives<a class="headerlink" href="#tile-archives" title="Permanent link">&para;</a></h2>
+<p><strong>Add Data → PMTiles</strong> loads remote vector (MVT) and raster archives directly
+through the shared PMTiles reader. Native vector tiles retain polygon, line and
+point styles; raster archives use native tiled imagery and resample their last
+native level when zooming in. Existing in-memory archives in the shared registry
+also work. <strong>Add Data → MBTiles</strong> uses the desktop file reader for both vector
+and raster tiles. MBTiles still requires the desktop app.</p>
+<p>The vector adapter owns a request interceptor per layer and removes it when the
+layer is replaced or removed. Tiles are read on demand, including cancellation;
+synthetic tile addresses never go to the network. MLT encoding and archive text
+labels are not supported. The adapter reads PMTiles zoom limits from the archive
+header, including for older projects that omit those limits.</p>
+<p>Each vector source layer uses a separate native VectorTileLayer so its style and
+visibility can be controlled independently. The PMTiles reader is shared, but
+the SDK decodes tiles separately for each native layer. Archives with many source
+layers therefore use more decoding work and memory than the shared MapLibre
+source; enable only the layers needed for the current view.</p>
+<h2 id="zarr-and-netcdf-grids">Zarr and NetCDF grids<a class="headerlink" href="#zarr-and-netcdf-grids" title="Permanent link">&para;</a></h2>
+<p><strong>Add Data → Zarr</strong> loads numeric Zarr v2/v3 variables through native tiled
+imagery. The reader supports regularly spaced, one-dimensional spatial axes,
+ascending or descending latitude, 0–360° longitude, CF scale/offset and fill
+values, and integer selectors for other dimensions. The Time Slider uses the
+same selector path. Projected grids require a CRS or proj4 definition through
+the import API. Curvilinear coordinates and automatic multiscale selection are
+not supported; a pyramid level can be selected by its variable path. The plugin
+<code>queryZarrLayer</code> API (point values and region statistics) is not yet supported
+for native ArcGIS grids.</p>
+<p><strong>Add Data → NetCDF</strong> uses the existing file dialog. Image slices render as
+native image overlays; kerchunk-backed grids share the tiled Zarr reader.
+Reference manifests are preserved in the layer source for project restoration.
+Registered local Zarr stores remain session-local. Reads return bounded windows
+and retain at most 32 MiB of compressed data per layer; coarse views of large
+untiled arrays can still require many chunk requests.</p>
+<h2 id="adapted-plugin-panels">Adapted plugin panels<a class="headerlink" href="#adapted-plugin-panels" title="Permanent link">&para;</a></h2>
+<p><strong>LiDAR</strong>, <strong>DuckDB</strong> and ordinary <strong>3D Tiles</strong> render through deck.gl on the
+primary flat map or local scene. Google Photorealistic and I3S tiles still
+require another renderer. The global globe and secondary panes do not
+host these overlays. LiDAR keeps the existing COPC/EPT streaming and styling
+controls; its terrain toggle delegates to the host terrain setting. Saved URL
+LiDAR and 3D Tiles layers restore when the view is rebuilt. Browser-local point
+cloud files and cached DuckDB query results retain their existing session
+lifetime; reopen the source/query when necessary. Scene overlays have the same
+experimental alignment and depth limitations described above.</p>
+<h2 id="not-supported-yet">Not supported yet<a class="headerlink" href="#not-supported-yet" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Gaussian splats and Cesium-only sources, STAC search results and video
+  overlays. <strong>Add Data</strong> greys these out while ArcGIS is the primary
+  renderer, and the layer panels badge such layers <strong>No ArcGIS</strong>. A layer a
+  plugin draws on MapLibre only (Planetary Computer, say) is named in the map's
+  banner too.</li>
+<li>The Print Layout atlas and vector-tile icon symbols (the store's vector-tile
+  records carry no sprite), in any view; and, in a 3D <code>SceneView</code>, the
+  project's zoom and bounds constraints and the nautical scale unit.</li>
+<li>Measure and the geometry editor draw through the MapLibre/Mapbox style API;
+  the Controls menu greys Measure out, and editing a layer's geometry says the
+  renderer does not support it.</li>
+<li>Line decorations, geometry generators, inverted fills, diagrams and label
+  de-duplication; clustering, fill patterns and blend modes in a <code>SceneView</code>;
+  extrusion on a flat map. The Style panel names whichever of these a layer
+  turns on.</li>
+<li>Arbitrary MapLibre custom layers and rendering APIs still require adapters.
+  The primary view hosts DOM controls with navigation methods; Vector, LiDAR,
+  DuckDB and 3D Tiles have explicit rendering bridges. Layer Control delegates
+  to ArcGIS's native layer list.</li>
+<li>Video overlays. The SDK does not support clustering or picture-fill patterns
+  in SceneView: scenes retain individual point symbols and solid polygon fills.
+  Heatmap labels are also unsupported in scenes.
+  Markers (built-in shapes, custom SVG, KML icons) do draw,
+  as picture symbols baked from the same sprites MapLibre uses.</li>
+</ul>
+<h2 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h2>
+<p><code>tests/arcgis-layers.test.ts</code> covers the layer compiler and basemap planner,
+<code>tests/arcgis-engine.test.ts</code> drives the engine against a fake SDK, and
+<code>tests/arcgis-renderer.test.ts</code> covers the project format, settings and loader
+boundaries. None of them touch the network. <code>e2e/arcgis-renderer.spec.ts</code> is
+the opt-in browser check against Esri's real CDN: set <code>ARCGIS_API_KEY</code> for
+the full suite, or <code>ARCGIS_E2E=1</code> for keyless coordinate and H3 search coverage.
+With <code>ARCGIS_E2E=1</code>, <code>e2e/arcgis-offline.spec.ts</code> also verifies a fresh keyless
+boot under the production Tauri CSP, cached SDK/inline-data startup with the
+browser offline, and a visible error when the CDN is unavailable on first use.
+The CSP test runs in Chromium with the exact policy header; it does not replace
+native webview testing on each desktop platform.</p>
+<h2 id="license-and-terms">License and terms<a class="headerlink" href="#license-and-terms" title="Permanent link">&para;</a></h2>
+<p>The ArcGIS Maps SDK for JavaScript is distributed by Esri under its own
+<a href="https://developers.arcgis.com/javascript/latest/licensing/">terms of use</a>, not
+an open-source license. GeoLibre does not redistribute it; the SDK is fetched
+from Esri's CDN by the user's browser at runtime, and use of Esri's basemaps and
+location services is governed by the account the API key belongs to.</p>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/opengeos/GeoLibre" target="_blank" rel="noopener" title="GeoLibre on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/sponsors/giswqs" target="_blank" rel="noopener" title="Sponsor GeoLibre on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="m241 87.1 15 20.7 15-20.7C296 52.5 336.2 32 378.9 32 452.4 32 512 91.6 512 165.1v2.6c0 112.2-139.9 242.5-212.9 298.2-12.4 9.4-27.6 14.1-43.1 14.1s-30.8-4.6-43.1-14.1C139.9 410.2 0 279.9 0 167.7v-2.6C0 91.6 59.6 32 133.1 32 175.8 32 216 52.5 241 87.1"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://buymeacoffee.com/giswqs" target="_blank" rel="noopener" title="Buy the maintainer a coffee" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M152-16c-13.3 0-24 10.7-24 24 0 38.9 23.4 59.4 39.1 73.1l1.1 1C184.5 96.4 192 103.9 192 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C183.5 31.7 176 24.1 176 8c0-13.3-10.7-24-24-24M96 192c-17.7 0-32 14.3-32 32v192c0 53 43 96 96 96h192c41.8 0 77.4-26.7 90.5-64h5.5c70.7 0 128-57.3 128-128s-57.3-128-128-128zm352 192V256c35.3 0 64 28.7 64 64s-28.7 64-64 64M288 8c0-13.3-10.7-24-24-24S240-5.3 240 8c0 38.9 23.4 59.4 39.1 73.1l1.1 1C296.5 96.4 304 103.9 304 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C295.5 31.7 288 24.1 288 8"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","navigation.sections","navigation.top","search.highlight","search.share","search.suggest","toc.follow"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c04ba553.min.js"></script>
+      
+    
+  </body>
+</html>
