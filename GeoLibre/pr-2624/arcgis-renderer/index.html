@@ -2972,8 +2972,8 @@ experimental alignment and depth limitations described above.</p>
 <li>The Print Layout atlas and vector-tile icon symbols (the store's vector-tile
   records carry no sprite), in any view.</li>
 <li>Navigation limits differ slightly from MapLibre's: a view that settles past
-  the zoom range or the restricted bounds eases back inside them (the wheel
-  stops at the zoom limits), the bounds hold the view's centre rather than the
+  the zoom range or the restricted bounds eases back inside them (on a flat
+  map the wheel also stops at the zoom limits), the bounds hold the view's centre rather than the
   whole viewport, and the SDK always wraps around the antimeridian, so turning
   off world copies only clamps the views the app applies.</li>
 <li>Measure and the geometry editor draw through the MapLibre/Mapbox style API;
