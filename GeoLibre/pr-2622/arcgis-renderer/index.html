@@ -2749,14 +2749,19 @@ override is set aside and the shared basemap is translated instead.</p>
   label-only layer. The label size, colour, opacity and visibility
   expressions are evaluated per feature and grouped into one label class per
   resolved size and colour, since the SDK's label symbols are not
-  data-driven (a continuous ramp is binned to at most 64 classes). The layer's
+  data-driven (a continuous ramp is binned into a few dozen classes). The layer's
   opacity also applies to its labels, so an opacity expression cannot make a
   label more opaque than its layer. Companion layers are not identified or
   selected.</li>
 <li>HTTP(S) raster tiles (XYZ, WMTS tile templates), WMS (the GetMap template is
   split into the SDK's <code>WMSLayer</code> description), and vector tiles with named
   source layers (drawn by the SDK's <code>VectorTileLayer</code> from the same style
-  layers the Mapbox engine compiles, minus text labels). A raster template
+  layers the Mapbox engine compiles). Markers, line decorations and fill
+  patterns are GeoLibre's generated images, baked into a sprite sheet the SDK
+  reads through a request interceptor; labels use Arial from Esri's public
+  glyph service, so they need the network. Past a source's maximum zoom the
+  SDK magnifies its last tiles, patterns and decoration spacing with them,
+  where MapLibre keeps them crisp. A raster template
   <code>WebTileLayer</code> cannot express — a <code>{bbox-epsg-3857}</code> request, a TMS scheme,
   <code>{-y}</code> or <code>{quadkey}</code>, a 512 px tile size, a source <code>minzoom</code>/<code>maxzoom</code>, or
   several templates — draws through a custom tile layer that requests each
@@ -2985,9 +2990,10 @@ experimental alignment and depth limitations described above.</p>
   renderer, and the layer panels badge such layers <strong>No ArcGIS</strong>. A layer a
   plugin draws on MapLibre only (Planetary Computer, say) is named in the map's
   banner too.</li>
-<li>The Print Layout atlas and vector-tile icon symbols (the store's vector-tile
-  records carry no sprite), in any view; and, in a 3D <code>SceneView</code>, the
-  project's zoom and bounds constraints and the nautical scale unit.</li>
+<li>The Print Layout atlas, in any view; an Esri vector tile service's own icon
+  and label layers (its stored style keeps no sprite or glyphs); and, in a 3D
+  <code>SceneView</code>, the project's zoom and bounds constraints and the nautical
+  scale unit.</li>
 <li>Measure and the geometry editor draw through the MapLibre/Mapbox style API;
   the Controls menu greys Measure out, and editing a layer's geometry says the
   renderer does not support it.</li>
