@@ -2741,10 +2741,17 @@ override is set aside and the shared basemap is translated instead.</p>
 <li>HTTP(S) raster tiles (XYZ, WMTS tile templates), WMS (the GetMap template is
   split into the SDK's <code>WMSLayer</code> description), and vector tiles with named
   source layers (drawn by the SDK's <code>VectorTileLayer</code> from the same style
-  layers the Mapbox engine compiles, minus text labels).</li>
-<li>ArcGIS services natively: FeatureServer, MapServer (tiled and dynamic) and
-  ImageServer records added through <strong>Add Data → ArcGIS Layer</strong> draw through the
-  SDK's own <code>FeatureLayer</code>, <code>TileLayer</code>, <code>MapImageLayer</code> and <code>ImageryLayer</code>. A
+  layers the Mapbox engine compiles, minus text labels). A raster template
+  <code>WebTileLayer</code> cannot express — a <code>{bbox-epsg-3857}</code> request, a TMS scheme,
+  <code>{-y}</code> or <code>{quadkey}</code>, a 512 px tile size, a source <code>minzoom</code>/<code>maxzoom</code>, or
+  several templates — draws through a custom tile layer that requests each
+  tile as MapLibre would, cropping 512 px tiles and overzooming past <code>maxzoom</code>.</li>
+<li><strong>Add Data → ArcGIS Layer</strong> stores cached MapServer and ImageServer services
+  as tile templates and dynamic ones (sublayers, a rendering rule, no usable
+  cache) as <code>/export</code> / <code>/exportImage</code> bounding-box templates, both drawn as
+  above. FeatureServer layers, and any service recorded as <code>type: "arcgis"</code>
+  (hand-authored or Python records), draw through the SDK's own
+  <code>FeatureLayer</code>, <code>TileLayer</code>, <code>MapImageLayer</code> and <code>ImageryLayer</code>. A
   FeatureServer layer's filters (quick filters, the expression filter, the time
   and embed filters) become the service's SQL <code>definitionExpression</code>; a filter
   with no SQL form is reported in the map's banner and the service draws
