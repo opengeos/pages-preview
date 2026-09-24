@@ -2738,10 +2738,30 @@ override is set aside and the shared basemap is translated instead.</p>
   way before features reach the SDK. Zoom-dependent expressions (metre-unit
   strokes, per-rule zoom ranges) are re-evaluated when the integer zoom
   changes.</li>
+<li>The symbology pack draws through companion layers built from the filtered
+  features: the <strong>inverted fill</strong> as a world mask with the polygons cut out
+  (clamped to the Web Mercator latitude limit, as on Mapbox), the <strong>geometry
+  generator</strong> (centroids, bounding boxes, convex hulls, buffers) in its own
+  fill, stroke and proportional circle size, and <strong>line decorations</strong> as a CIM
+  marker line that repeats the shape at the style's spacing and turns arrows
+  to follow the line (a flat <code>MapView</code> only; the SDK draws no CIM line symbols
+  in a scene). <strong>Label de-duplication</strong> labels the aggregated points from a
+  label-only layer. The label size, colour, opacity and visibility
+  expressions are evaluated per feature and grouped into one label class per
+  resolved size and colour, since the SDK's label symbols are not
+  data-driven (a continuous ramp is binned into a few dozen classes). The layer's
+  opacity also applies to its labels, so an opacity expression cannot make a
+  label more opaque than its layer. Companion layers are not identified or
+  selected.</li>
 <li>HTTP(S) raster tiles (XYZ, WMTS tile templates), WMS (the GetMap template is
   split into the SDK's <code>WMSLayer</code> description), and vector tiles with named
   source layers (drawn by the SDK's <code>VectorTileLayer</code> from the same style
-  layers the Mapbox engine compiles, minus text labels). A raster template
+  layers the Mapbox engine compiles). Markers, line decorations and fill
+  patterns are GeoLibre's generated images, baked into a sprite sheet the SDK
+  reads through a request interceptor; labels use Arial from Esri's public
+  glyph service, so they need the network. Past a source's maximum zoom the
+  SDK magnifies its last tiles, patterns and decoration spacing with them,
+  where MapLibre keeps them crisp. A raster template
   <code>WebTileLayer</code> cannot express — a <code>{bbox-epsg-3857}</code> request, a TMS scheme,
   <code>{-y}</code> or <code>{quadkey}</code>, a 512 px tile size, a source <code>minzoom</code>/<code>maxzoom</code>, or
   several templates — draws through a custom tile layer that requests each
@@ -2969,20 +2989,21 @@ experimental alignment and depth limitations described above.</p>
   renderer, and the layer panels badge such layers <strong>No ArcGIS</strong>. A layer a
   plugin draws on MapLibre only (Planetary Computer, say) is named in the map's
   banner too.</li>
-<li>The Print Layout atlas and vector-tile icon symbols (the store's vector-tile
-  records carry no sprite), in any view.</li>
+<li>The Print Layout atlas, in any view; an Esri vector tile service's own icon
+  and label layers (its stored style keeps no sprite or glyphs).</li>
 <li>Navigation limits differ slightly from MapLibre's: a view that settles past
   the zoom range or the restricted bounds eases back inside them (on a flat
-  map the wheel also stops at the zoom limits), the bounds hold the view's centre rather than the
-  whole viewport, and the SDK always wraps around the antimeridian, so turning
-  off world copies only clamps the views the app applies.</li>
+  map the wheel also stops at the zoom limits), the bounds hold the view's
+  centre rather than the whole viewport, and the SDK always wraps around the
+  antimeridian, so turning off world copies only clamps the views the app
+  applies.</li>
 <li>Measure and the geometry editor draw through the MapLibre/Mapbox style API;
   the Controls menu greys Measure out, and editing a layer's geometry says the
   renderer does not support it.</li>
-<li>Line decorations, geometry generators, inverted fills, diagrams and label
-  de-duplication; clustering, fill patterns and blend modes in a <code>SceneView</code>;
-  extrusion on a flat map. The Style panel names whichever of these a layer
-  turns on.</li>
+<li>Diagrams and the label priority expression (the SDK has no per-feature
+  label priority); clustering, fill patterns, blend modes and line
+  decorations in a <code>SceneView</code>; extrusion on a flat map. The Style panel names
+  whichever of these a layer turns on.</li>
 <li>Arbitrary MapLibre custom layers and rendering APIs still require adapters.
   The primary view hosts DOM controls with navigation methods; Vector, LiDAR,
   DuckDB and 3D Tiles have explicit rendering bridges. Layer Control delegates
