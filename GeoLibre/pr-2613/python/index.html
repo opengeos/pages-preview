@@ -2791,6 +2791,10 @@ pip<span class="w"> </span>install<span class="w"> </span><span class="s2">"geol
 use <code>[vector]</code> to keep an existing vector-only environment as light as before.</p>
 <p>The optional <code>[all]</code> extra is pip-only. If you installed via conda, add it with
 <code>pip install "geolibre[all]"</code> inside the same environment.</p>
+<p>To embed the map in a <a href="https://dash.plotly.com/">Dash</a> app, install the <code>dash</code>
+extra and use <code>from geolibre import DashMap</code>:</p>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">"geolibre[dash]"</span>
+</code></pre></div>
 <h2 id="quickstart">Quickstart<a class="headerlink" href="#quickstart" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">geolibre</span><span class="w"> </span><span class="kn">import</span> <span class="n">Map</span>
 
