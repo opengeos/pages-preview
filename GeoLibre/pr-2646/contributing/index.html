@@ -2268,6 +2268,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#component-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Component tests
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#end-to-end-smoke-tests" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2637,6 +2648,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#component-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Component tests
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#end-to-end-smoke-tests" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2911,6 +2933,48 @@ frontend-only change does not require Rust or Python (use <code>npm run ci:web</
 though the full <code>npm run ci</code> gate does. The backend step needs the sidecar's
 <code>test</code> extra (<code>pip install -e "backend/geolibre_server[test]"</code>); without it the
 vector, raster, SQL and ML tests skip themselves.</p>
+<h3 id="component-tests">Component tests<a class="headerlink" href="#component-tests" title="Permanent link">&para;</a></h3>
+<p>React panels are tested under the same <code>node --test</code> runner, against a
+<a href="https://github.com/capricorn86/happy-dom">happy-dom</a> DOM with
+<a href="https://testing-library.com/docs/react-testing-library/intro/">Testing Library</a>,
+and with no map behind them. The <code>tests/component-*.test.ts</code> files are the
+examples to copy. A component test imports <code>tests/helpers/dom.ts</code> first and
+then loads the component with a dynamic <code>import()</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">fireEvent</span><span class="p">,</span><span class="w"> </span><span class="nx">render</span><span class="p">,</span><span class="w"> </span><span class="nx">screen</span><span class="p">,</span><span class="w"> </span><span class="nx">useAppStore</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">"./helpers/dom"</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">createElement</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">"react"</span><span class="p">;</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">LayerPanel</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="k">import</span><span class="p">(</span><span class="s2">"../apps/geolibre-desktop/src/components/panels/LayerPanel"</span><span class="p">);</span>
+</code></pre></div>
+<p>The component has to be imported dynamically. The helper registers loader hooks
+that let Node load a component the way Vite does: CSS and <code>?url</code>/<code>?raw</code> imports
+become stubs, <code>virtual:</code> modules and <code>import.meta.env</code> get stand-ins, and <code>.tsx</code>
+compiles with the automatic JSX runtime. Hooks only apply to modules loaded after
+they are registered, and a static import is loaded before any module code runs.
+The helper also installs the DOM and initializes the app's own i18next with
+<code>en.json</code>, so queries use the real English strings. Its <code>render</code> wraps the
+element in the app's i18n, tooltip and direction providers.</p>
+<p>Set up state through the store (<code>useAppStore.setState(...)</code>) and assert on what
+the user sees or what lands in the store. After each test the helper unmounts
+everything and resets the app and desktop-settings stores, <code>localStorage</code>,
+<code>fetch</code> and any <code>stubLayout()</code>. Some other rules:</p>
+<ul>
+<li>Pass <code>{ current: null }</code> for <code>mapControllerRef</code>. A panel that needs a live map
+  for a behaviour is a sign that logic belongs in a <code>lib/</code> module, where a plain
+  unit test can cover it.</li>
+<li>Wrap store writes made after <code>render</code> in <code>act(...)</code> so React re-renders before
+  you assert.</li>
+<li><code>fetch</code> rejects by default. Serve a response with <code>mockFetch(...)</code>.</li>
+<li>Call <code>stubLayout()</code> for virtualized lists such as the attribute table.
+  happy-dom does no layout, so without it every element is 0px tall and the list
+  renders no rows.</li>
+<li>Assert on plain values (<code>textContent</code>, <code>.checked</code>, <code>.value</code>, store state), not
+  on DOM nodes. When an <code>assert.equal</code> on a node fails, Node formats the whole
+  happy-dom tree, which looks like a hang. Count query results with
+  <code>queryAll…().length</code> instead.</li>
+</ul>
+<p>These tests count towards the frontend <a href="../maintenance/#coverage-floors">coverage floor</a>
+like any other test, so the first test for a large panel adds that panel to the
+report.</p>
 <h3 id="end-to-end-smoke-tests">End-to-end smoke tests<a class="headerlink" href="#end-to-end-smoke-tests" title="Permanent link">&para;</a></h3>
 <p><code>npm run test:e2e</code> runs the Playwright suite in <code>e2e/</code> against the built web app
 (it builds, serves it with <code>vite preview</code>, and drives a headless Chromium).
