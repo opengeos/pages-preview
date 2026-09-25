@@ -2361,6 +2361,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#zarr-cesium-packagesmappackagejson-private-internals" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>zarr-cesium</code> (<code>packages/map/package.json</code>) — private internals
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#maplibre-gl-planetary-computer-packagespluginspackagejson-private-stac-client" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2890,6 +2901,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#zarr-cesium-packagesmappackagejson-private-internals" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>zarr-cesium</code> (<code>packages/map/package.json</code>) — private internals
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#maplibre-gl-planetary-computer-packagespluginspackagejson-private-stac-client" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -3207,8 +3229,9 @@ upstream fixed the bug), rename the patch file, and update both declarations and
   <code>tests/layer-blend-modes.test.ts</code> asserts the seams and
   <code>e2e/blend-modes.spec.ts</code> asserts real pixels. Run both on a bump.</li>
 </ul>
-<p>See <a href="#adding-a-blend-mode">Adding a blend mode</a> before extending the list.
-- <strong><code>DEFAULT_MARKER_OFFSET_Y</code></strong>
+<p>See <a href="#adding-a-blend-mode">Adding a blend mode</a> before extending the list.</p>
+<ul>
+<li><strong><code>DEFAULT_MARKER_OFFSET_Y</code></strong>
   (<code>apps/geolibre-desktop/src/components/storymap/storymap-engine.ts</code>) mirrors the
   <code>-14</code> px vertical offset <code>maplibregl.Marker</code> applies to its default pin.
   <code>createStoryMapMarker</code> (also reused by Field Collection's capture marker in
@@ -3216,7 +3239,8 @@ upstream fixed the bug), rename the patch file, and update both declarations and
   hand on every engine (Mapbox, Cesium, ArcGIS, and MapLibre alike), so if a bump changes the default pin's
   anchor or offset, story markers drift off their coordinate with no error.
   Compare with <code>defaultMarker.ts</code>/<code>marker.ts</code> upstream and play a story on a
-  non-MapLibre renderer.</p>
+  non-MapLibre renderer.</li>
+</ul>
 <h3 id="deckglmapbox-and-deckglmaplibre"><code>@deck.gl/mapbox</code> and <code>@deck.gl/maplibre</code><a class="headerlink" href="#deckglmapbox-and-deckglmaplibre" title="Permanent link">&para;</a></h3>
 <p><code>bridgeArcgisDeckControl</code> (<code>packages/plugins/src/plugins/arcgis-deck/control-adapter.ts</code>)
 reads each overlay's private <code>_props</code> field so ArcGIS can transfer its initial
@@ -3426,6 +3450,25 @@ and placement restore stop working without an error.
 not catch that either: re-read <code>loadSplat</code> / <code>loadModel</code> in the package on a bump.
 Better still, upstream an id option and a per-asset placement getter and delete
 the patching.</p>
+<h3 id="zarr-cesium-packagesmappackagejson-private-internals"><code>zarr-cesium</code> (<code>packages/map/package.json</code>) — private internals<a class="headerlink" href="#zarr-cesium-packagesmappackagejson-private-internals" title="Permanent link">&para;</a></h3>
+<p><code>packages/map/src/cesium-zarr-imagery.ts</code> draws Zarr layers on the globe and
+relies on two things zarr-cesium does not export as API:</p>
+<ul>
+<li><code>ZarrLayerProvider</code> only honours named matplotlib colormaps (its documented
+  <code>colorScale</code> option is not forwarded in 0.3.3), so GeoLibre writes the layer's
+  ramp to the provider's private <code>source.colorScale.colors</code> and calls
+  <code>source.updateColormapTexture()</code>. If those move, the globe draws the default
+  ramp and logs one warning.</li>
+<li><code>ZARR_DIMENSION_ALIASES</code> mirrors zarr-maps-tiling's <code>DIMENSION_ALIASES_DEFAULT</code>
+  (the names it files under <code>time</code> / <code>elevation</code>). Drift sends a selector to the
+  wrong key, so the Time Slider steps nothing.</li>
+</ul>
+<p><code>tests/cesium-zarr-imagery.test.ts</code> constructs the real provider and imports
+the real alias table, so both fail CI on a bump; run it, and check whether
+upstream now forwards <code>colorScale</code> so the private write can go. zarr-cesium also
+imports the <code>cesium</code> wrapper, which <code>apps/geolibre-desktop/vite.config.ts</code>
+aliases to <code>@cesium/engine</code>: keep that alias if a bump adds more <code>cesium</code>
+imports, or the globe loads a second engine.</p>
 <h3 id="maplibre-gl-planetary-computer-packagespluginspackagejson-private-stac-client"><code>maplibre-gl-planetary-computer</code> (<code>packages/plugins/package.json</code>) — private STAC client<a class="headerlink" href="#maplibre-gl-planetary-computer-packagespluginspackagejson-private-stac-client" title="Permanent link">&para;</a></h3>
 <p>The Planetary Computer STAC API sends no CORS headers on <code>GET /collections</code> and
 rejects the preflight a JSON <code>POST /search</code> needs, so the library's own
@@ -3600,10 +3643,12 @@ the pane built a bare <code>CesiumWidget</code>. Reverting to <code>import("cesi
   and back or reopening a project, starts in 3D. The project retains its
   rendering engine and camera, but does not serialize the Cesium scene mode.
   Scene-mode persistence is outside the toolbar integration's scope; adding it
-  requires an explicit project/store field and restoration for each Cesium pane.
-- <strong>PWA globs.</strong> <code>**/cesium-*</code> / <code>**/Cesium-*</code> in <code>vite.config.ts</code> keep the
+  requires an explicit project/store field and restoration for each Cesium pane.</p>
+<ul>
+<li><strong>PWA globs.</strong> <code>**/cesium-*</code> / <code>**/Cesium-*</code> in <code>vite.config.ts</code> keep the
   chunk out of the app-shell precache and CacheFirst-cache it instead. A chunk
-  renamed out of that pattern would be precached, adding megabytes to first load.</p>
+  renamed out of that pattern would be precached, adding megabytes to first load.</li>
+</ul>
 <p><code>e2e/cesium-globe.spec.ts</code> mounts the real engine keyless and drags the globe,
 so it catches a broken <code>CESIUM_BASE_URL</code> or a dead chunk.
 <code>e2e/cesium-primary-renderer.spec.ts</code> adds the toolbar: it asserts the three
