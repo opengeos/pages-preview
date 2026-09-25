@@ -2778,7 +2778,7 @@ see <a href="../user-guide/adding-data/#files">vector import details</a>.</p>
 <tr>
 <td><a href="#wcs-raster-subsets">WCS 1.0.0</a></td>
 <td>WCS Layer</td>
-<td>Numerical GeoTIFF subsets with chosen extent and pixel dimensions; requires EPSG:4326 request/output support.</td>
+<td>Numerical GeoTIFF subsets with chosen extent, pixel dimensions, and an EPSG:4326 or EPSG:3857 request CRS.</td>
 </tr>
 <tr>
 <td>WFS</td>
@@ -2976,7 +2976,8 @@ band values for pixel inspection, raster styling, export, and raster analysis.</
 <li>Enter the service's WCS endpoint and click <strong>Retrieve coverages</strong>.</li>
 <li>Select a coverage. Choose <strong>Use view</strong>, <strong>Use coverage extent</strong>, or enter
    west, south, east, and north in longitude/latitude degrees.</li>
-<li>Set the output width and height in pixels and click <strong>Add layer</strong>.</li>
+<li>Pick a <strong>Request CRS</strong> (see below), set the output width and height in
+   pixels, and click <strong>Add layer</strong>.</li>
 <li>Use the layer's pixel inspector or raster tools. Export the raster as a
    GeoTIFF to keep a copy of the downloaded data.</li>
 </ol>
@@ -2986,10 +2987,18 @@ ArcGIS ImageServer REST URL is also accepted and converted to its WCS endpoint.
 This is a convenience; GeoServer and other WCS endpoints use the same protocol.</p>
 <h3 id="supported-requests">Supported requests<a class="headerlink" href="#supported-requests" title="Permanent link">&para;</a></h3>
 <p>The initial implementation supports <strong>WCS 1.0.0</strong> KVP <code>GetCapabilities</code>,
-<code>DescribeCoverage</code>, and <code>GetCoverage</code>. Services must advertise GeoTIFF output
-and EPSG:4326 for both the request and response. Unsupported versions, formats,
-and coordinate systems produce an error before the coverage download. WCS 1.1
-and 2.x requests are not yet implemented.</p>
+<code>DescribeCoverage</code>, and <code>GetCoverage</code>. Services must advertise GeoTIFF output;
+unsupported versions and formats produce an error before the coverage download.
+WCS 1.1 and 2.x requests are not yet implemented.</p>
+<p>The coverage is requested in <strong>EPSG:4326</strong> or <strong>EPSG:3857</strong> (Web Mercator).
+The box is always entered in longitude/latitude and projected to the chosen
+CRS. <strong>Automatic</strong> picks EPSG:4326 when the coverage advertises it, then
+EPSG:3857, and otherwise still tries EPSG:4326: many services (for example
+PDOK's AHN elevation service, which lists only EPSG:28992) serve CRSes they do
+not advertise. If the server rejects a CRS it did not advertise, the error
+names the advertised list so you can try the other option. Striped GeoTIFF
+responses, which MapServer-based services return, are converted to a
+Cloud-Optimized GeoTIFF in the browser before loading.</p>
 <p>The selected extent and pixel dimensions determine output resolution. The
 server may resample values; this is not a guarantee of native-resolution data.
 Each dimension must be 1–4096 pixels, with a 128 MB download limit; coverage
