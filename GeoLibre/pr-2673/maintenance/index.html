@@ -2361,6 +2361,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#maplibre-gl-planetary-computer-packagespluginspackagejson-private-stac-client" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>maplibre-gl-planetary-computer</code> (<code>packages/plugins/package.json</code>) — private STAC client
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#maplibre-gl-raster-stretch-and-gamma-curves" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2872,6 +2883,17 @@
     <span class="md-ellipsis">
       <span class="md-typeset">
         <code>maplibre-gl-splat</code> (<code>packages/plugins/package.json</code>) — private internals
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maplibre-gl-planetary-computer-packagespluginspackagejson-private-stac-client" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>maplibre-gl-planetary-computer</code> (<code>packages/plugins/package.json</code>) — private STAC client
       </span>
     </span>
   </a>
@@ -3404,6 +3426,23 @@ and placement restore stop working without an error.
 not catch that either: re-read <code>loadSplat</code> / <code>loadModel</code> in the package on a bump.
 Better still, upstream an id option and a per-asset placement getter and delete
 the patching.</p>
+<h3 id="maplibre-gl-planetary-computer-packagespluginspackagejson-private-stac-client"><code>maplibre-gl-planetary-computer</code> (<code>packages/plugins/package.json</code>) — private STAC client<a class="headerlink" href="#maplibre-gl-planetary-computer-packagespluginspackagejson-private-stac-client" title="Permanent link">&para;</a></h3>
+<p>The Planetary Computer STAC API sends no CORS headers on <code>GET /collections</code> and
+rejects the preflight a JSON <code>POST /search</code> needs, so the library's own
+<code>STACClient</code> fails with "Failed to fetch" in the browser and the Tauri webview.
+<code>packages/plugins/src/plugins/planetary-computer-stac.ts</code> subclasses it: search
+goes out as a <code>GET /search</code>, and the collection list falls back to the bundled
+<code>planetary-computer-collections.json</code> when the live one cannot be read. The
+subclass reuses the private <code>fetch</code> / <code>abortController</code> fields, and
+<code>maplibre-gl-planetary-computer.ts</code> swaps it into the control's private
+<code>_stacClient</code> field before the control is added (collections load in <code>onAdd</code>).</p>
+<p>If upstream renames those fields, loads collections in its constructor, or adds
+new POST requests, the panel breaks again without a compiler error. Re-read
+<code>STACClient</code> and the control's constructor/<code>onAdd</code> on a bump, and run
+<code>tests/planetary-computer-stac.test.ts</code>. Regenerate the bundled list with
+<code>node scripts/gen-planetary-computer-collections.mjs</code> to pick up new
+collections. Better still, upstream a GET search and a client/fetch option and
+delete the swap.</p>
 <h3 id="maplibre-gl-raster-stretch-and-gamma-curves"><code>maplibre-gl-raster</code> — stretch and gamma curves<a class="headerlink" href="#maplibre-gl-raster-stretch-and-gamma-curves" title="Permanent link">&para;</a></h3>
 <p><code>buildContinuousColormapRgba</code>
 (<code>packages/plugins/src/plugins/raster-symbology.ts</code>) mirrors the render
