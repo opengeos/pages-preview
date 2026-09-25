@@ -2350,6 +2350,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#maplibre-gl-splat-packagespluginspackagejson-private-internals" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>maplibre-gl-splat</code> (<code>packages/plugins/package.json</code>) — private internals
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#maplibre-gl-raster-stretch-and-gamma-curves" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2850,6 +2861,17 @@
     <span class="md-ellipsis">
       <span class="md-typeset">
         <code>maplibre-gl-lidar</code> (<code>packages/plugins/package.json</code>) — half checked by the compiler
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maplibre-gl-splat-packagespluginspackagejson-private-internals" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>maplibre-gl-splat</code> (<code>packages/plugins/package.json</code>) — private internals
       </span>
     </span>
   </a>
@@ -3361,6 +3383,27 @@ it. <code>addLidarLayerFromUrl</code> also relies on <code>load</code> firing, a
 layer, before <code>loadPointCloud</code> resolves; it throws if not.
 <code>tests/lidar-url-layer.test.ts</code> pins the GeoLibre side of both. Re-read
 <code>loadPointCloud</code> on a bump.</p>
+<h3 id="maplibre-gl-splat-packagespluginspackagejson-private-internals"><code>maplibre-gl-splat</code> (<code>packages/plugins/package.json</code>) — private internals<a class="headerlink" href="#maplibre-gl-splat-packagespluginspackagejson-private-internals" title="Permanent link">&para;</a></h3>
+<p><code>packages/plugins/src/plugins/components/splatting.ts</code> reaches into
+<code>GaussianSplatControl</code>'s private fields, which the compiler cannot check:</p>
+<ul>
+<li><code>reserveSplattingIds</code> replaces the <code>_layerCounter</code> / <code>_modelCounter</code> instance
+  fields with accessors. Upstream names each asset <code>splat-${this._layerCounter++}</code>
+  / <code>model-${this._modelCounter++}</code>, and a new control restarts at 0, so without
+  the accessors a fresh load could take a saved layer's id and overwrite it.
+  Restoring a saved layer under its own id also goes through them.</li>
+<li><code>recordSplattingPlacements</code> wraps <code>loadSplat</code> / <code>loadModel</code> on the instance and
+  reads <code>_splatLayers</code> / <code>_modelLayers</code> (per-asset longitude/latitude/altitude),
+  <code>_state.rotation</code> / <code>_state.scale</code> and <code>_options.defaultModelRotation</code>, so the
+  store layer carries the placement a restore needs. The restore turns
+  <code>_options.flyTo</code> off while it runs.</li>
+</ul>
+<p>If upstream renames those fields or changes how it assigns ids, id reservation
+and placement restore stop working without an error.
+<code>tests/splatting-restore.test.ts</code> drives a fake with the same shape, so it will
+not catch that either: re-read <code>loadSplat</code> / <code>loadModel</code> in the package on a bump.
+Better still, upstream an id option and a per-asset placement getter and delete
+the patching.</p>
 <h3 id="maplibre-gl-raster-stretch-and-gamma-curves"><code>maplibre-gl-raster</code> — stretch and gamma curves<a class="headerlink" href="#maplibre-gl-raster-stretch-and-gamma-curves" title="Permanent link">&para;</a></h3>
 <p><code>buildContinuousColormapRgba</code>
 (<code>packages/plugins/src/plugins/raster-symbology.ts</code>) mirrors the render
