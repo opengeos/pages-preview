@@ -25985,29 +25985,7 @@ export_geotiff_tiles('image.tif', 'output/', 'labels.tif',
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>geoai/utils/training.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1409</span>
-<span class="normal">1410</span>
-<span class="normal">1411</span>
-<span class="normal">1412</span>
-<span class="normal">1413</span>
-<span class="normal">1414</span>
-<span class="normal">1415</span>
-<span class="normal">1416</span>
-<span class="normal">1417</span>
-<span class="normal">1418</span>
-<span class="normal">1419</span>
-<span class="normal">1420</span>
-<span class="normal">1421</span>
-<span class="normal">1422</span>
-<span class="normal">1423</span>
-<span class="normal">1424</span>
-<span class="normal">1425</span>
-<span class="normal">1426</span>
-<span class="normal">1427</span>
-<span class="normal">1428</span>
-<span class="normal">1429</span>
-<span class="normal">1430</span>
-<span class="normal">1431</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1431</span>
 <span class="normal">1432</span>
 <span class="normal">1433</span>
 <span class="normal">1434</span>
@@ -26541,7 +26519,29 @@ export_geotiff_tiles('image.tif', 'output/', 'labels.tif',
 <span class="normal">1962</span>
 <span class="normal">1963</span>
 <span class="normal">1964</span>
-<span class="normal">1965</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">export_geotiff_tiles</span><span class="p">(</span>
+<span class="normal">1965</span>
+<span class="normal">1966</span>
+<span class="normal">1967</span>
+<span class="normal">1968</span>
+<span class="normal">1969</span>
+<span class="normal">1970</span>
+<span class="normal">1971</span>
+<span class="normal">1972</span>
+<span class="normal">1973</span>
+<span class="normal">1974</span>
+<span class="normal">1975</span>
+<span class="normal">1976</span>
+<span class="normal">1977</span>
+<span class="normal">1978</span>
+<span class="normal">1979</span>
+<span class="normal">1980</span>
+<span class="normal">1981</span>
+<span class="normal">1982</span>
+<span class="normal">1983</span>
+<span class="normal">1984</span>
+<span class="normal">1985</span>
+<span class="normal">1986</span>
+<span class="normal">1987</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">export_geotiff_tiles</span><span class="p">(</span>
     <span class="n">in_raster</span><span class="p">,</span>
     <span class="n">out_folder</span><span class="p">,</span>
     <span class="n">in_class_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -27527,29 +27527,7 @@ or if counts don't match when using masks_folder with match_by_name=False.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>geoai/utils/training.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1968</span>
-<span class="normal">1969</span>
-<span class="normal">1970</span>
-<span class="normal">1971</span>
-<span class="normal">1972</span>
-<span class="normal">1973</span>
-<span class="normal">1974</span>
-<span class="normal">1975</span>
-<span class="normal">1976</span>
-<span class="normal">1977</span>
-<span class="normal">1978</span>
-<span class="normal">1979</span>
-<span class="normal">1980</span>
-<span class="normal">1981</span>
-<span class="normal">1982</span>
-<span class="normal">1983</span>
-<span class="normal">1984</span>
-<span class="normal">1985</span>
-<span class="normal">1986</span>
-<span class="normal">1987</span>
-<span class="normal">1988</span>
-<span class="normal">1989</span>
-<span class="normal">1990</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1990</span>
 <span class="normal">1991</span>
 <span class="normal">1992</span>
 <span class="normal">1993</span>
@@ -28048,7 +28026,30 @@ or if counts don't match when using masks_folder with match_by_name=False.</p>
 <span class="normal">2486</span>
 <span class="normal">2487</span>
 <span class="normal">2488</span>
-<span class="normal">2489</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">export_geotiff_tiles_batch</span><span class="p">(</span>
+<span class="normal">2489</span>
+<span class="normal">2490</span>
+<span class="normal">2491</span>
+<span class="normal">2492</span>
+<span class="normal">2493</span>
+<span class="normal">2494</span>
+<span class="normal">2495</span>
+<span class="normal">2496</span>
+<span class="normal">2497</span>
+<span class="normal">2498</span>
+<span class="normal">2499</span>
+<span class="normal">2500</span>
+<span class="normal">2501</span>
+<span class="normal">2502</span>
+<span class="normal">2503</span>
+<span class="normal">2504</span>
+<span class="normal">2505</span>
+<span class="normal">2506</span>
+<span class="normal">2507</span>
+<span class="normal">2508</span>
+<span class="normal">2509</span>
+<span class="normal">2510</span>
+<span class="normal">2511</span>
+<span class="normal">2512</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">export_geotiff_tiles_batch</span><span class="p">(</span>
     <span class="n">images_folder</span><span class="p">,</span>
     <span class="n">masks_folder</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">masks_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -28347,6 +28348,7 @@ or if counts don't match when using masks_folder with match_by_name=False.</p>
             <span class="n">scan_files</span><span class="p">,</span>
             <span class="n">class_value_field</span><span class="o">=</span><span class="n">class_value_field</span><span class="p">,</span>
             <span class="n">quiet</span><span class="o">=</span><span class="n">quiet</span><span class="p">,</span>
+            <span class="n">preloaded</span><span class="o">=</span><span class="p">({</span><span class="n">masks_file</span><span class="p">:</span> <span class="n">single_mask_gdf</span><span class="p">}</span> <span class="k">if</span> <span class="n">use_single_mask_file</span> <span class="k">else</span> <span class="kc">None</span><span class="p">),</span>
         <span class="p">)</span>
 
         <span class="c1"># Seed the aggregated annotation classes from the batch mapping so that</span>
@@ -29007,30 +29009,7 @@ or if counts don't match when using masks_folder with match_by_name=False.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>geoai/utils/training.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">2947</span>
-<span class="normal">2948</span>
-<span class="normal">2949</span>
-<span class="normal">2950</span>
-<span class="normal">2951</span>
-<span class="normal">2952</span>
-<span class="normal">2953</span>
-<span class="normal">2954</span>
-<span class="normal">2955</span>
-<span class="normal">2956</span>
-<span class="normal">2957</span>
-<span class="normal">2958</span>
-<span class="normal">2959</span>
-<span class="normal">2960</span>
-<span class="normal">2961</span>
-<span class="normal">2962</span>
-<span class="normal">2963</span>
-<span class="normal">2964</span>
-<span class="normal">2965</span>
-<span class="normal">2966</span>
-<span class="normal">2967</span>
-<span class="normal">2968</span>
-<span class="normal">2969</span>
-<span class="normal">2970</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">2970</span>
 <span class="normal">2971</span>
 <span class="normal">2972</span>
 <span class="normal">2973</span>
@@ -29715,7 +29694,30 @@ or if counts don't match when using masks_folder with match_by_name=False.</p>
 <span class="normal">3652</span>
 <span class="normal">3653</span>
 <span class="normal">3654</span>
-<span class="normal">3655</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">export_training_data</span><span class="p">(</span>
+<span class="normal">3655</span>
+<span class="normal">3656</span>
+<span class="normal">3657</span>
+<span class="normal">3658</span>
+<span class="normal">3659</span>
+<span class="normal">3660</span>
+<span class="normal">3661</span>
+<span class="normal">3662</span>
+<span class="normal">3663</span>
+<span class="normal">3664</span>
+<span class="normal">3665</span>
+<span class="normal">3666</span>
+<span class="normal">3667</span>
+<span class="normal">3668</span>
+<span class="normal">3669</span>
+<span class="normal">3670</span>
+<span class="normal">3671</span>
+<span class="normal">3672</span>
+<span class="normal">3673</span>
+<span class="normal">3674</span>
+<span class="normal">3675</span>
+<span class="normal">3676</span>
+<span class="normal">3677</span>
+<span class="normal">3678</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">export_training_data</span><span class="p">(</span>
     <span class="n">in_raster</span><span class="p">,</span>
     <span class="n">out_folder</span><span class="p">,</span>
     <span class="n">in_class_data</span><span class="p">,</span>
