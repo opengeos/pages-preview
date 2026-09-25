@@ -1169,7 +1169,18 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Open remote data">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#open-a-stac-catalog" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Open a STAC catalog
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Open a STAC catalog">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -2645,7 +2656,18 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Open remote data">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#open-a-stac-catalog" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Open a STAC catalog
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Open a STAC catalog">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -2826,6 +2848,11 @@
 <td><code>style</code></td>
 <td><code>style=https://assets.geolibre.app/data/sample.style.json</code></td>
 <td>Applies a GeoLibre/MapLibre vector style or raster-style JSON to the data loaded by <code>data</code>.</td>
+</tr>
+<tr>
+<td><code>stac</code></td>
+<td><code>stac=https://earth-search.aws.element84.com/v1/collections/naip</code></td>
+<td>Opens the STAC Catalogs browser connected to a STAC catalog, API, or API collection. A collection URL is searched on load, so its item footprints appear as a layer. See <a href="#open-a-stac-catalog">Open a STAC catalog</a>.</td>
 </tr>
 <tr>
 <td><code>layout</code></td>
@@ -3057,6 +3084,12 @@ extents. A style applies only to the <code>data</code> value at the same positio
 <p>For a ZIP containing files of the same geometry type, assign different styles by setting each Mapbox style layer's <code>source</code> to the corresponding filename stem. For example, <code>source: "parks"</code> targets <code>parks.geojson</code>, while <code>source: "counties"</code> targets <code>counties.geojson</code>. Style layers without a <code>source</code> are shared by every imported file. GeoLibre validates all filename/style matches before adding any ZIP layers.</p>
 <p>You do not need to author that JSON by hand. Open the vector layer's <strong>Layer actions → Styles → Export GeoLibre URL style</strong> menu. The downloaded <code>.geolibre.style.json</code> contains only symbology—not feature data—and its render-layer <code>source</code> is already set to the original GeoJSON filename stem. Host the file on a CORS-enabled server and pass its URL as <code>style</code> alongside the corresponding <code>data</code> URL. For a multi-file ZIP, export each layer's GeoLibre URL style and combine their <code>layers</code> and <code>sources</code> into one style document; layers without <code>source</code> can be used for rules shared by every ZIP member.</p>
 <p>The same file can be applied interactively to an existing vector layer through <strong>Layer actions → Styles → Import style from file (GeoLibre URL / Mapbox GL / SLD / QML)…</strong>. Interactive import ignores the file's query-param <code>source</code> binding and applies its supported symbology to the layer you selected, so the data filename does not need to match.</p>
+<h2 id="open-a-stac-catalog">Open a STAC catalog<a class="headerlink" href="#open-a-stac-catalog" title="Permanent link">&para;</a></h2>
+<p>Use <code>stac</code> to open the <strong>STAC Catalogs</strong> browser already connected to a catalog. It accepts a static catalog, the root of a STAC API, or one collection of a STAC API:</p>
+<div class="highlight"><pre><span></span><code>https://web.geolibre.app/?stac=https://earth-search.aws.element84.com/v1/collections/naip
+</code></pre></div>
+<p>A collection URL (<code>…/collections/{id}</code>) connects to the API it belongs to, found through the collection's <code>root</code> link, selects that collection, and runs a search on it. The map fits the collection's extent and the matching item footprints are added as a <strong>STAC search footprints</strong> layer. From the result list you can then add an item's assets (COG, GeoJSON, GeoParquet, PMTiles, or Zarr) as layers. A catalog or API root only connects, leaving the search to you.</p>
+<p>Percent-encode the value with <code>encodeURIComponent</code> when the STAC URL carries its own query string. The server must allow cross-origin browser requests (CORS). The browser is a side panel, so <code>stac</code> has no effect in <code>layout=viewer</code> (which cannot add layers), and its panel is hidden by <code>maponly</code> or <code>panels=none</code>.</p>
 <h3 id="an-open-in-geolibre-badge">An "Open in GeoLibre" badge<a class="headerlink" href="#an-open-in-geolibre-badge" title="Permanent link">&para;</a></h3>
 <p>If you publish a dataset — in a repository README, a data catalog, a paper's
 supplementary material — an <strong>Open in GeoLibre</strong> badge turns it into a one-click
