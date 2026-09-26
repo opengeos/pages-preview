@@ -1003,6 +1003,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#open-a-plugin-from-a-link" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Open a plugin from a link
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#manage-plugins" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2448,6 +2459,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#open-a-plugin-from-a-link" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Open a plugin from a link
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#manage-plugins" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2628,6 +2650,260 @@ written to the project; <code>VITE_TOMTOM_API_KEY</code> or <code>AISSTREAM_API_
 <p class="admonition-title">Components live on the Controls menu</p>
 <p>Measure, Bookmark, Legend, Colorbar, Minimap, View State, Search, and HTML are on-map component panels rather than Plugins-menu entries; toggle them from the <a href="../map-controls/">Controls menu</a>. The Print composer is under <a href="../projects/#print">Project → Print Layout</a>.</p>
 </div>
+<h2 id="open-a-plugin-from-a-link">Open a plugin from a link<a class="headerlink" href="#open-a-plugin-from-a-link" title="Permanent link">&para;</a></h2>
+<p>Add <code>plugin=&lt;link name&gt;</code> to a GeoLibre web address to open the app with that
+plugin already active, as if you had picked it from the Plugins menu:</p>
+<div class="highlight"><pre><span></span><code>https://web.geolibre.app/?plugin=nasa-earthdata
+</code></pre></div>
+<p>List several with commas (<code>?plugin=graticule,h3-grid</code>). The full plugin id, such
+as <code>maplibre-gl-nasa-earthdata</code>, works too. See
+<a href="../embedding/#deep-linking-a-plugin">Deep-linking a plugin</a> for how it combines
+with a shared project and the read-only viewer.</p>
+<table>
+<thead>
+<tr>
+<th>Plugin</th>
+<th>Link name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Layer Control</td>
+<td><code>layer-control</code></td>
+</tr>
+<tr>
+<td>GeoEditor</td>
+<td><code>geo-editor</code></td>
+</tr>
+<tr>
+<td>Annotations</td>
+<td><code>annotations</code></td>
+</tr>
+<tr>
+<td>Dimensions</td>
+<td><code>dimensions</code></td>
+</tr>
+<tr>
+<td>Basemaps</td>
+<td><code>basemap-control</code></td>
+</tr>
+<tr>
+<td>FEMA NFHL</td>
+<td><code>fema-wms</code></td>
+</tr>
+<tr>
+<td>NASA Earthdata</td>
+<td><code>nasa-earthdata</code></td>
+</tr>
+<tr>
+<td>US EPA EnviroAtlas</td>
+<td><code>enviroatlas</code></td>
+</tr>
+<tr>
+<td>USGS National Map</td>
+<td><code>national-map</code></td>
+</tr>
+<tr>
+<td>USGS NLDI</td>
+<td><code>usgs-nldi</code></td>
+</tr>
+<tr>
+<td>Vantor Open Data</td>
+<td><code>vantor</code></td>
+</tr>
+<tr>
+<td>Planet Open Data</td>
+<td><code>planet-open-data</code></td>
+</tr>
+<tr>
+<td>Portolan</td>
+<td><code>portolan</code></td>
+</tr>
+<tr>
+<td>Earthdata GIS</td>
+<td><code>earthdata-gis</code></td>
+</tr>
+<tr>
+<td>OpenAerialMap</td>
+<td><code>openaerialmap</code></td>
+</tr>
+<tr>
+<td>OSM Downloader</td>
+<td><code>osm-downloader</code></td>
+</tr>
+<tr>
+<td>IGN LiDAR HD Downloader</td>
+<td><code>ign-lidar-hd</code></td>
+</tr>
+<tr>
+<td>ArcGIS Hub</td>
+<td><code>arcgis-hub</code></td>
+</tr>
+<tr>
+<td>Tennessee GIS</td>
+<td><code>tennessee-gis</code></td>
+</tr>
+<tr>
+<td>Socrata</td>
+<td><code>socrata</code></td>
+</tr>
+<tr>
+<td>CKAN</td>
+<td><code>ckan</code></td>
+</tr>
+<tr>
+<td>STAC Catalogs</td>
+<td><code>stac-catalogs</code></td>
+</tr>
+<tr>
+<td>Source Cooperative</td>
+<td><code>source-coop</code></td>
+</tr>
+<tr>
+<td>Natural Earth</td>
+<td><code>natural-earth</code></td>
+</tr>
+<tr>
+<td>Hugging Face</td>
+<td><code>huggingface</code></td>
+</tr>
+<tr>
+<td>Satellite Embeddings</td>
+<td><code>satellite-embeddings</code></td>
+</tr>
+<tr>
+<td>Fields of the World</td>
+<td><code>fields-of-the-world</code></td>
+</tr>
+<tr>
+<td>Ocean Data Platform</td>
+<td><code>ocean-data-platform</code></td>
+</tr>
+<tr>
+<td>GeoLens</td>
+<td><code>geolens</code></td>
+</tr>
+<tr>
+<td>Historical Imagery</td>
+<td><code>esri-wayback</code></td>
+</tr>
+<tr>
+<td>Time Slider</td>
+<td><code>time-slider</code></td>
+</tr>
+<tr>
+<td>Timelapse</td>
+<td><code>timelapse</code></td>
+</tr>
+<tr>
+<td>Overture Maps</td>
+<td><code>overture-maps</code></td>
+</tr>
+<tr>
+<td>GeoAgent</td>
+<td><code>geoagent</code></td>
+</tr>
+<tr>
+<td>USGS LiDAR</td>
+<td><code>usgs-lidar</code></td>
+</tr>
+<tr>
+<td>Street View</td>
+<td><code>streetview</code></td>
+</tr>
+<tr>
+<td>Mapillary</td>
+<td><code>mapillary</code></td>
+</tr>
+<tr>
+<td>Elevation Profile</td>
+<td><code>elevation-profile</code></td>
+</tr>
+<tr>
+<td>Layer Swipe</td>
+<td><code>swipe</code></td>
+</tr>
+<tr>
+<td>Gridlines</td>
+<td><code>graticule</code></td>
+</tr>
+<tr>
+<td>H3 Grid</td>
+<td><code>h3-grid</code></td>
+</tr>
+<tr>
+<td>S2 Grid</td>
+<td><code>s2-grid</code></td>
+</tr>
+<tr>
+<td>A5 Grid</td>
+<td><code>a5-grid</code></td>
+</tr>
+<tr>
+<td>DGGRID</td>
+<td><code>dggrid</code></td>
+</tr>
+<tr>
+<td>DGGAL</td>
+<td><code>dggal</code></td>
+</tr>
+<tr>
+<td>OLC</td>
+<td><code>olc</code></td>
+</tr>
+<tr>
+<td>Geohash</td>
+<td><code>geohash</code></td>
+</tr>
+<tr>
+<td>Tilecode</td>
+<td><code>tilecode</code></td>
+</tr>
+<tr>
+<td>Clouds</td>
+<td><code>clouds</code></td>
+</tr>
+<tr>
+<td>Precipitation</td>
+<td><code>precipitation</code></td>
+</tr>
+<tr>
+<td>Atmospheric Effects</td>
+<td><code>atmosphere-effects</code></td>
+</tr>
+<tr>
+<td>Sun Simulation</td>
+<td><code>sun</code></td>
+</tr>
+<tr>
+<td>Route Animation</td>
+<td><code>route-animation</code></td>
+</tr>
+<tr>
+<td>Flight Simulator</td>
+<td><code>flight-simulator</code></td>
+</tr>
+<tr>
+<td>God's Eye View</td>
+<td><code>gods-eye-view</code></td>
+</tr>
+<tr>
+<td>SamGeo</td>
+<td><code>samgeo</code></td>
+</tr>
+<tr>
+<td>Deck.gl Layer</td>
+<td><code>deckgl-viz</code></td>
+</tr>
+<tr>
+<td>Components</td>
+<td><code>components</code></td>
+</tr>
+</tbody>
+</table>
+<p>Directions and reverse geocoding are not listed: they send what you click to a
+public server, so they only open from the menu, after their one-time notice.
+Plugins installed from <strong>Manage Plugins</strong> can't be opened from a link.</p>
 <h2 id="manage-plugins">Manage Plugins<a class="headerlink" href="#manage-plugins" title="Permanent link">&para;</a></h2>
 <p>Open <strong>Settings → Manage Plugins</strong> to browse the marketplace. The dialog is modeled on QGIS, with sections for <strong>All</strong>, <strong>Installed</strong>, <strong>Not installed</strong>, <strong>Upgradeable</strong>, and <strong>Settings</strong>.</p>
 <p><img alt="The Manage Plugins dialog, listing the curated registry with Install buttons" src="https://assets.geolibre.app/images/geolibre-manage-plugins.webp" /></p>

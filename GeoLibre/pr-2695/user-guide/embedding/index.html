@@ -1133,6 +1133,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#deep-linking-a-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Deep-linking a plugin
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2620,6 +2631,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#deep-linking-a-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Deep-linking a plugin
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2899,6 +2921,11 @@
 <td><code>tool=adaptive_filter</code></td>
 <td>Opens the Processing (Whitebox toolbox) dialog on a specific tool by its id. Unknown ids open the dialog without preselecting a tool.</td>
 </tr>
+<tr>
+<td><code>plugin</code></td>
+<td><code>plugin=swipe</code></td>
+<td>Activates one or more built-in plugins, as if picked from the Plugins menu. See <a href="#deep-linking-a-plugin">Activate a plugin</a>.</td>
+</tr>
 </tbody>
 </table>
 <div class="admonition note">
@@ -2941,6 +2968,26 @@ preselecting a tool or applying any parameters. A known id the current engine
 doesn't expose (WASM in the browser, the Python sidecar on desktop) likewise
 isn't preselected. Tool ids match the Processing menu — the same ids used across
 the <a href="../processing/">Whitebox toolbox</a>.</p>
+<h3 id="deep-linking-a-plugin">Deep-linking a plugin<a class="headerlink" href="#deep-linking-a-plugin" title="Permanent link">&para;</a></h3>
+<p>Use <code>plugin</code> to open the app with a built-in plugin already active, as if you
+had picked it from the <strong>Plugins</strong> menu:</p>
+<div class="highlight"><pre><span></span><code>https://web.geolibre.app/?plugin=swipe
+</code></pre></div>
+<p>Name a plugin by its id (<code>maplibre-gl-time-slider</code>) or by its short name, the id
+without a <code>maplibre-gl-</code>, <code>maplibre-</code>, or <code>geolibre-</code> prefix (<code>time-slider</code>).
+Short names are case-insensitive. The
+<a href="../plugins/#open-a-plugin-from-a-link">Plugins page</a> lists every link name. List
+several plugins with commas, or repeat the parameter:</p>
+<div class="highlight"><pre><span></span><code>https://web.geolibre.app/?plugin=graticule,h3-grid
+</code></pre></div>
+<p>It combines with <code>url</code>: the plugin opens once the shared project has loaded, on
+top of the plugins the project itself turns on.</p>
+<div class="highlight"><pre><span></span><code>https://web.geolibre.app/?url=https://share.geolibre.app/giswqs/3d-tiles.geolibre.json&amp;plugin=swipe
+</code></pre></div>
+<p>Unknown names are ignored. A plugin that does not support the current renderer
+does not activate. Directions and reverse geocoding send what you click to a
+public server, so they only open from the menu, after their one-time notice. The
+drawing and editing plugins stay off in <code>layout=viewer</code>.</p>
 <h2 id="waiting-for-a-screenshot">Waiting for a screenshot<a class="headerlink" href="#waiting-for-a-screenshot" title="Permanent link">&para;</a></h2>
 <p>Add <code>&amp;loading=true</code> to a project link to enable a machine-readable readiness
 signal without adding a visible overlay to the screenshot:</p>
