@@ -1943,6 +1943,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#interaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Interaction
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#layer-object" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2580,6 +2591,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#interaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Interaction
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#layer-object" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2749,6 +2771,11 @@ file contents do not change.</p>
 <td>Optional engine for the primary map area: <code>"maplibre"</code> (2D, the default), <code>"mapbox"</code> (Mapbox GL JS), <code>"arcgis"</code> (ArcGIS Maps SDK for JavaScript) or <code>"cesium"</code> (3D globe); omitted when default</td>
 </tr>
 <tr>
+<td><code>interaction</code></td>
+<td>object</td>
+<td>Optional startup Identify target and control visibility (see below); omitted by default</td>
+</tr>
+<tr>
 <td><code>metadata</code></td>
 <td>object</td>
 <td>Free-form project metadata</td>
@@ -2896,6 +2923,25 @@ Unused keys are ignored. The Dashboard panel (Tools → Dashboard, or the
 widget-grid column count (1-6, default 2), at the top level of the project.
 Charts read from GeoJSON-backed vector layers and DuckDB query layers; widgets
 bound to a missing or non-attribute layer are shown as empty.</p>
+<h2 id="interaction">Interaction<a class="headerlink" href="#interaction" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"interaction"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"identify"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"layer-a"</span><span class="p">,</span><span class="w"> </span><span class="s2">"layer-b"</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">"controls"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"search"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nt">"globe"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Applied when the project opens, so a map shared from a notebook starts the way
+it was set up there. The Python package writes it from <code>Map.set_identify</code> and
+<code>Map.show_control</code> / <code>Map.hide_control</code> in <code>save_project</code>, <code>to_project</code> and
+<code>to_html</code>. <code>identify</code> is a layer id, <code>"all"</code> for every visible queryable layer,
+a list of layer ids to identify only those, or <code>null</code> for off; ids that name no
+layer are skipped. <code>controls</code> maps a toolbar panel (<code>bookmark</code>, <code>search</code>,
+<code>measure</code>, <code>minimap</code>, <code>print</code>) or built-in map control (<code>navigation</code>,
+<code>fullscreen</code>, <code>compass</code>, <code>geolocate</code>, <code>globe</code>, <code>scale</code>, <code>attribution</code>, <code>logo</code>)
+to whether it starts shown; other names are ignored. The app writes the block
+back unchanged when it saves the project; turning Identify or a control on or
+off in the app does not edit it.</p>
 <h2 id="layer-object">Layer object<a class="headerlink" href="#layer-object" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"uuid"</span><span class="p">,</span>

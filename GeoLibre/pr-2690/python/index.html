@@ -3224,7 +3224,7 @@ e.g. <code>m.run_algorithm(..., timeout=300)</code>.</p>
 </tr>
 <tr>
 <td><code>set_identify(layer="all")</code></td>
-<td>Arm the Identify tool so a click opens the popup: on one layer (id, name, or handle), on every visible layer (<code>"all"</code>), or off (<code>None</code>).</td>
+<td>Arm the Identify tool so a click opens the popup: on one layer (id, name, or handle), on a list of layers, on every visible layer (<code>"all"</code>), or off (<code>None</code>).</td>
 </tr>
 <tr>
 <td><code>show_control(name, visible=True)</code> / <code>hide_control(name)</code></td>
@@ -3300,10 +3300,11 @@ exception is <code>add_ee_layer</code>, which has a fixed signature), and <code>
 <p>Popups open only while the Identify tool is armed, which in the app is the
 Identify button on a layer or the "Identify visible layers" button in the Layers
 panel header. <code>set_identify</code> arms it from Python, and can run before the map is
-displayed. Identify covers one layer or every visible layer at a time, and hover
-tooltips pause while it is armed:</p>
+displayed. Identify covers one layer, a list of layers, or every visible layer,
+and hover tooltips pause while it is armed:</p>
 <div class="highlight"><pre><span></span><code><span class="n">m</span><span class="o">.</span><span class="n">set_identify</span><span class="p">()</span>                 <span class="c1"># every visible layer</span>
 <span class="n">m</span><span class="o">.</span><span class="n">set_identify</span><span class="p">(</span><span class="s2">"Sites"</span><span class="p">)</span>          <span class="c1"># one layer</span>
+<span class="n">m</span><span class="o">.</span><span class="n">set_identify</span><span class="p">([</span><span class="s2">"Sites"</span><span class="p">,</span> <span class="s2">"Roads"</span><span class="p">])</span>  <span class="c1"># only these layers</span>
 <span class="n">m</span><span class="o">.</span><span class="n">set_identify</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>             <span class="c1"># off</span>
 
 <span class="n">m</span><span class="o">.</span><span class="n">show_control</span><span class="p">(</span><span class="s2">"bookmark"</span><span class="p">)</span>       <span class="c1"># open the Bookmarks panel</span>
@@ -3311,7 +3312,10 @@ tooltips pause while it is armed:</p>
 <span class="n">m</span><span class="o">.</span><span class="n">hide_control</span><span class="p">(</span><span class="s2">"globe"</span><span class="p">)</span>          <span class="c1"># hide the globe/flat toggle button</span>
 <span class="n">m</span><span class="o">.</span><span class="n">set_projection</span><span class="p">(</span><span class="s2">"mercator"</span><span class="p">)</span>     <span class="c1"># draw a flat map instead of a globe</span>
 </code></pre></div>
-<p>Identify and the controls are not saved in the project. <code>set_projection</code> is.</p>
+<p><code>save_project</code>, <code>to_project</code> and <code>to_html</code> save the Identify target and the
+controls in the project's <code>interaction</code> block, so the saved file or HTML page
+opens the same way, and <code>load_project</code> reads them back. <code>set_projection</code> is
+saved as a project preference.</p>
 <p><code>popup=</code> also accepts shorter forms: a single property name (<code>popup="name"</code>), a
 list of names (<code>popup=["name", "pop"]</code>), a list of field mappings, or <code>False</code> to
 suppress the click popup. The full mapping form above takes the same keys as
