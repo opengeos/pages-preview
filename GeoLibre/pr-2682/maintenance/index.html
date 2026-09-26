@@ -3681,6 +3681,12 @@ manual check, not a Dependabot event:</p>
   replacement is the <code>@arcgis/map-components</code> CDN build. Attribution already
   uses the 5.x path: the view draws it while <code>view.attributionVisible</code> is on,
   so the deprecated <code>Attribution</code> widget is not loaded.</li>
+<li><strong>The Compass widget's <code>viewModel.reset</code>.</strong> The engine overwrites it so a
+  click levels the pitch as well as the heading, as MapLibre's compass does.
+  That member is not part of the typed surface, and a missing <code>viewModel</code> is
+  skipped quietly, so a release that restructures it silently reverts the
+  compass to heading-only. After a bump, tilt a scene and click the compass:
+  both heading and tilt must return to 0.</li>
 <li><strong>The ESM CDN notice.</strong> The SDK logs "Only use ES modules from ArcGIS CDN for
   testing" on load; Esri's documented production path is an npm build, which
   this renderer deliberately avoids (see the size argument in issue #2421). The
