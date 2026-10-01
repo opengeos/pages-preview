@@ -3789,10 +3789,13 @@ immediately because the caller already manages the recipient (see
   longer publish them become <code>organization</code>.</li>
 <li><code>DELETE /api/organizations/{id}/members/{username}</code> removes a member
   (administrator only), and <code>{username}=me</code> leaves. The last administrator
-  cannot be removed, leave, or be demoted. Projects the leaver created stay
-  owned by the organization, and their <code>public</code> ones become <code>organization</code>
-  unless the policy is <code>yes</code>. The leaver's memberships and pending invitations
-  in the organization's groups are removed. Groups they own pass to the
+  cannot be removed, leave, or be demoted (<code>409</code>). Neither can the break-glass
+  administrator of the organization's identity provider (<code>422 account is the
+  organization's break-glass administrator</code>); clear <code>breakGlassUsername</code> on the
+  provider first. Projects the leaver created stay owned by the organization,
+  and their <code>public</code> ones become <code>organization</code> unless the policy is <code>yes</code>. The
+  leaver's memberships and pending invitations in the organization's groups
+  are removed. Groups they own pass to the
   administrator who removed them; a member who owns one must transfer it before
   leaving (<code>409</code>).</li>
 <li><code>POST /api/organizations/{id}/invitations</code> creates a pending invitation for
@@ -4138,6 +4141,17 @@ and <code>identity provider discovery failed</code>. Out-of-range values are a g
   invalid JSON also fails discovery. The endpoints are stored; discovery runs
   again only on the next <code>PUT</code>. Signing keys are fetched from <code>jwksUri</code> on the
   first sign-in and cached; changing <code>issuer</code> or <code>jwksUri</code> clears the cache.</li>
+<li><strong>Internal addresses (SSRF protection):</strong> any signed-in user can create an
+  organization and choose its provider URLs, so the server connects to an
+  identity provider only on public addresses. Each host is resolved once and
+  every loopback, private, link-local, CGNAT (<code>100.64.0.0/10</code>), multicast,
+  reserved, or unspecified address (including their IPv4-mapped, NAT64, 6to4,
+  and Teredo forms) is dropped; a host left with none fails like a network
+  error, so discovery answers <code>identity provider discovery failed</code> and sign-in
+  is rejected. The connection goes to the checked address, while TLS still
+  verifies the certificate against the URL's hostname. To use a provider on an
+  internal network, list its networks in <code>GEOLIBRE_OIDC_ALLOWED_NETWORKS</code>
+  (comma-separated IPs or CIDRs; an invalid entry fails startup).</li>
 <li><strong>Accounts:</strong> the first sign-in of a provider subject (<code>sub</code>) creates an
   account linked to it. Its username comes from <code>usernameClaim</code> (or else
   <code>emailClaim</code>): lowercased, cut at <code>@</code>, other characters replaced with <code>-</code>,
@@ -4150,8 +4164,11 @@ and <code>identity provider discovery failed</code>. Out-of-range values are a g
 <li><strong>Mappings,</strong> applied at every sign-in from the <code>groupsClaim</code> value (a string
   or a list of strings): the role is the highest-ranked <code>role</code> among matching
   <code>roleMappings</code>, else <code>defaultRole</code>. A new member receives it; an existing
-  member's role follows it only when <code>roleMappings</code> is non-empty, and the
-  organization's last administrator is never demoted. For each mapped group,
+  member's role follows it only when <code>roleMappings</code> is non-empty, and neither
+  the organization's last administrator nor its break-glass administrator is
+  ever demoted. A lowered role re-applies the public sharing policy as
+  <code>PUT /api/organizations/{id}/members</code> does: <code>public</code> projects the member can
+  no longer publish become <code>organization</code>. For each mapped group,
   the account becomes a <code>member</code> when a matching value is present and loses a
   plain <code>member</code> row when none is; owner and manager rows are never changed.</li>
 <li><strong>Built-in accounts:</strong> with <code>allowBuiltinAccounts: false</code>, a correct password
@@ -4160,7 +4177,9 @@ and <code>identity provider discovery failed</code>. Out-of-range values are a g
   <code>POST /api/account/password</code>, and <code>Your organization requires single
   sign-on. Use “Sign in with your organization”.</code> on the consent page. The
   break-glass account keeps password sign-in only while it remains an
-  administrator of the organization; lockout still applies to it.</li>
+  administrator of the organization; lockout still applies to it. While it is
+  the break-glass account it cannot be demoted, removed, or leave (<code>422</code>);
+  clear <code>breakGlassUsername</code> first.</li>
 <li><strong>Deletion</strong> removes the provider, its account links, and pending sign-in
   redirects. Accounts and memberships remain, but accounts created through
   single sign-on have no way to sign in. A provider configured later links
@@ -4200,25 +4219,30 @@ must carry the browser-binding cookie of the browser that started consent.</p>
   <code>invalid_request: single sign-on response rejected</code>. The reason is only
   logged (<code>oidc sign-in rejected: &lt;reason&gt;</code>).</li>
 </ul>
-<p>Calls to the identity provider use a 10-second timeout, never follow
-redirects, ignore proxy environment variables, and stop reading at 1 MiB. Set
-<code>GEOLIBRE_OIDC_CA_BUNDLE</code> to trust a provider whose certificate is issued by a
-private CA.</p>
+<p>Calls to the identity provider give up when connecting or any read stalls for
+10 seconds, or once the whole response has taken longer than 10 seconds. They
+never follow redirects, ignore proxy environment variables, and stop reading at
+1 MiB. Set <code>GEOLIBRE_OIDC_CA_BUNDLE</code> to also trust a provider whose
+certificate is issued by a private CA; the public CAs stay trusted.</p>
 <h3 id="trusted-header-proxy-sign-in">Trusted-header proxy sign-in<a class="headerlink" href="#trusted-header-proxy-sign-in" title="Permanent link">&para;</a></h3>
-<p>Behind an identity-aware proxy listed in <code>GEOLIBRE_TRUSTED_PROXIES</code>, the
-consent page trusts the proxy's user header (<code>GEOLIBRE_PROXY_USER_HEADER</code>,
-default <code>Remote-User</code>) and optional email header (<code>GEOLIBRE_PROXY_EMAIL_HEADER</code>,
-default <code>Remote-Email</code>). When the direct peer is a trusted proxy and the user
-header is present, the page shows <code>Signed in through your organization's proxy
-as &lt;user&gt;</code> instead of the password and single sign-on forms, and <code>Allow</code>
-approves the interaction for the account linked to that user. The first
-sign-in creates the account: the username is derived as for single sign-on,
-and the email is set when it is valid and unused. Organization mappings and
-the built-in account switch do not apply to proxy identities. An empty user,
-one over 255 characters, or one containing control characters returns a <code>400</code>
-page with <code>invalid_request: invalid proxy identity</code>. Identity headers from any
-other peer are never read, so the proxy must strip client-sent identity headers
-and be the only network path to the API.</p>
+<p>With <code>GEOLIBRE_PROXY_AUTH=true</code> (or <code>1</code>/<code>yes</code>), behind an identity-aware proxy
+listed in <code>GEOLIBRE_TRUSTED_PROXIES</code>, the consent page trusts the proxy's user
+header (<code>GEOLIBRE_PROXY_USER_HEADER</code>, default <code>Remote-User</code>) and optional email
+header (<code>GEOLIBRE_PROXY_EMAIL_HEADER</code>, default <code>Remote-Email</code>). Without
+<code>GEOLIBRE_PROXY_AUTH</code>, <code>GEOLIBRE_TRUSTED_PROXIES</code> only trusts
+<code>X-Forwarded-For</code> and identity headers are never read. When the direct peer is
+a trusted proxy and the user header is present, the page shows <code>Signed in
+through your organization's proxy as &lt;user&gt;</code> instead of the password and
+single sign-on forms, and <code>Allow</code> approves the interaction for the account
+linked to that user. The first sign-in creates the account: the username is
+derived as for single sign-on, and the email is set when it is valid and
+unused. Organization mappings and the built-in account switch do not apply to
+proxy identities. An empty user, one over 255 characters, or one containing
+control characters returns a <code>400</code> page with <code>invalid_request: invalid proxy
+identity</code>; an account that cannot be created returns <code>invalid_request: proxy
+sign-in failed</code>. Identity headers from any other peer are never read, so the
+proxy must strip client-sent identity headers and be the only network path to
+the API.</p>
 <h2 id="projects">Projects<a class="headerlink" href="#projects" title="Permanent link">&para;</a></h2>
 <h3 id="project-representation">Project representation<a class="headerlink" href="#project-representation" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
