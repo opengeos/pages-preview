@@ -2856,7 +2856,7 @@ kepler.gl, see the <a href="../comparison/">Comparison</a>.</p>
 </ul>
 </li>
 <li>Customizable UI profiles that tailor which menus, panels, and data sources are visible, so a deployment can present a focused subset of the app to its users. See <a href="../ui-profiles/">UI Profiles</a></li>
-<li>Internationalization framework with react-i18next and 19 complete per-build translation catalogs — including right-to-left Arabic, Persian, and Hebrew with a fully mirrored interface, Persian set in Vazirmatn — plus a <code>?locale</code>/<code>?lang</code> query parameter to set the embed language<ul>
+<li>Internationalization framework with react-i18next and 20 complete per-build translation catalogs — including right-to-left Arabic, Persian, and Hebrew with a fully mirrored interface, Persian set in Vazirmatn — plus a <code>?locale</code>/<code>?lang</code> query parameter to set the embed language<ul>
 <li>Plugin display names resolve through one place, so a plugin reads the same in the Plugins menu, the command palette, Settings, and Manage Plugins, and every processing tool name, description, group label, parameter, and select option is generated into the English catalog for translators to work from. See <a href="../i18n/">Internationalization</a></li>
 <li>The Whitebox toolbox is translated too: its 1066 tool names, 45 subcategory labels, and unlocked tool parameters are generated into the catalogs and rendered through <code>t()</code> in the Processing menu, the tool dialog, and Model Builder search, with Simplified Chinese complete and other locales falling back to English per string</li>
 </ul>
@@ -2935,6 +2935,7 @@ kepler.gl, see the <a href="../comparison/">Comparison</a>.</p>
 <li>A GeoParquet's <code>geo</code> metadata block is read in full — <code>version</code>, <code>primary_column</code>, <code>encoding</code>, <code>geometry_types</code>, <code>bbox</code>, <code>covering</code>, and <code>edges</code> — alongside the CRS a Parquet 2.0 file records only on its geometry column's GEOMETRY/GEOGRAPHY logical type. A 3D <code>bbox</code> is read minima-first rather than mistaking its ymax for an elevation, and a lon/lat table carrying no geometry column is recognized as one</li>
 <li>Deck.gl Layer builder for composing deck.gl overlays from uploaded files or remote URLs</li>
 <li>Cloud data integrations through the Planetary Computer and Earth Engine panels, the Overture Maps plugin, and federal Web Services plugins</li>
+<li>Private Amazon S3 buckets through saved S3 connections that take access keys, named profiles, IAM Identity Center (SSO) sign-in, or IAM roles, with an S3 Browser for walking a bucket; on the desktop app the secret parts are kept in the operating system's credential store. See <a href="../user-guide/cloud-storage/">Cloud Storage</a></li>
 <li>Manual and automatic refresh for WFS, GeoJSON URL, and Add Vector Layer URL layers, with the cadence, last-synchronized time, last error, and on-failure policy persisted with the project as a <code>connection</code> record — so a reopened project keeps refreshing on schedule and the Layers panel can show each live layer's synchronization status</li>
 <li>ArcGIS Hub, Socrata, and CKAN (Humanitarian Data Exchange) open-data browsers under Plugins → Web Services: search public dataset catalogs by keyword (or restrict the ArcGIS Hub search to the current map area), page through results, and add a dataset to the map or download it</li>
 <li>OSM Downloader under Plugins → Web Services: query buildings, roads, amenities, waterways, land use, all tagged features, or a custom tag from the current view or typed bounds through Overpass, then add the result as GeoJSON or save it to disk</li>
@@ -2979,6 +2980,7 @@ kepler.gl, see the <a href="../comparison/">Comparison</a>.</p>
 <li><strong>Style toolkit</strong>: diagram symbology (pie, donut, and bar charts drawn on features); a symbology pack of inverted-polygon masks, arrow and marker lines, and geometry generators whose derived centroids can be sized and whose buffer distances can be driven by an attribute; and data-driven proportional sizing for marker icons</li>
 <li><strong>Style Manager</strong>: saves reusable symbol, color-ramp, and label presets to a personal library, where they can be renamed, and applies them across projects</li>
 <li><strong>Interchange</strong>: vector layer symbology imports and exports as OGC SLD, QGIS QML, Mapbox GL style JSON, and compact GeoLibre URL style JSON; URL-style exports omit feature data, carry filename-matched sources for ZIP layers, work directly with <code>?style=</code>, and can be imported back onto any selected vector layer</li>
+<li><strong>Layer styles by name</strong>: Export Layer Styles writes every layer's style to one JSON file keyed by layer name, Import Layer Styles restyles the matching layers in one undo step, and a Startup setting auto-applies a styles file to each matching layer as it is added</li>
 </ul>
 </li>
 <li>Data-defined label engine for labeling vector features by any attribute or expression<ul>
@@ -3210,6 +3212,7 @@ kepler.gl, see the <a href="../comparison/">Comparison</a>.</p>
 <li><strong><a href="https://app.hubocean.earth/catalog">Ocean Data Platform</a></strong>, HUB Ocean's catalog of public ocean datasets (habitats, protected areas, fisheries, observations); searches it by text, collection, or map view, streams a dataset onto the map as vector tiles, and reads the features in the map view as an editable GeoJSON layer or file</li>
 <li><strong>Satellite Embeddings</strong>, a catalog of pre-computed foundation-model embeddings (AlphaEarth/Google Satellite Embedding, Tessera, Earth Index, Clay, Major TOM, Copernicus-Embed) that searches by map view or drawn box, renders AlphaEarth and Tessera (v1.1, AWS Open Data) band composites and Earth Index points colored by principal components, and downloads clipped 64-band GeoTIFFs or the source files</li>
 <li><strong><a href="https://github.com/geolens-io/geolens">GeoLens</a></strong>, which connects to a self-hosted GeoLens server and adds datasets as signed vector tiles, OGC API Features GeoJSON, or server-rendered raster tiles — and writes edits to a GeoJSON-loaded dataset back to the GeoLens server, feature by feature, when the server allows it</li>
+<li><strong>US GIS portals</strong>: US Federal GIS (24 federal agencies), US State GIS (all 50 states and DC), US Local GIS (about 150 cities, counties, and regional agencies), and Tennessee GIS, adding feature services as vector layers and map and image services as raster layers. See <a href="../user-guide/web-services/">Web Services</a></li>
 <li>Catalog plugins that share panel state are mutually exclusive, and a failed switch reactivates the plugin it displaced rather than leaving both off</li>
 </ul>
 </li>
@@ -3218,6 +3221,7 @@ kepler.gl, see the <a href="../comparison/">Comparison</a>.</p>
 <li>Elevation Profile charts a drawn line or the line features currently selected on a layer, so a route already on the map does not have to be traced again</li>
 <li>USGS LiDAR clips a point cloud to an area of interest and downloads the result as COPC</li>
 <li>IGN LiDAR HD browses and loads France's national LiDAR HD point clouds</li>
+<li>Point Cloud Annotation labels LiDAR points on the map with ASPRS or custom classes, instances, polygon-to-point lifting, Whitebox pre-labels, oriented 3D boxes, and 3D vectors, saves labels with the project, and exports a labelled LAS/LAZ, NumPy arrays, or GeoJSON. See <a href="../user-guide/point-cloud-annotation/">Point cloud annotation</a></li>
 <li>The GeoEditor can pull the vector features currently visible in the map view into the editor for editing without re-importing the source, and write edits back to their origin, including GeoPackage and GeoJSON files and PostGIS database tables</li>
 <li>GeoEditor sketches export as an ordinary project layer, carrying their style, opacity, and visibility, so drawn work leaves the editor without being redrawn or re-imported</li>
 <li>Topological polygon digitizing, so a polygon drawn against its neighbor shares that edge instead of leaving a sliver or an overlap behind</li>
@@ -3266,7 +3270,7 @@ kepler.gl, see the <a href="../comparison/">Comparison</a>.</p>
 <li>Self-hostable sharing, accounts, and live collaboration, so a deployment keeps its projects on its own infrastructure<ul>
 <li>A documented version 1 projects and identity HTTP contract that any server may implement, with a FastAPI reference implementation in <code>backend/geolibre_server_api</code>. See <a href="../server-api/">Server API</a></li>
 <li>OAuth sign-in (Authorization Code with S256 PKCE) for project Share and the Gallery on the web and desktop, with desktop session management, plus scoped and expiring personal tokens for scripts</li>
-<li>Shares carry access roles (view, comment, edit), link expiry, password protection, and revocation</li>
+<li>Shares carry access roles (view, comment, edit), link expiry, password protection, and revocation, and an owner can transfer project ownership, with deletion protected</li>
 <li>A plain Node collaboration relay alongside the Cloudflare Durable Object one, both driven by a shared session core and both held to a single conformance suite so their permission behavior cannot drift</li>
 <li>An activity log: a project owner can read who opened and edited a shared project, and a session host can download the session log, bounded in both entry count and stored bytes and read through a bearer token rather than a URL query</li>
 <li><code>GEOLIBRE_SHARE_URL</code> and <code>GEOLIBRE_COLLAB_URL</code> repoint a published web image at those servers at container runtime instead of requiring a rebuilt fork; <code>off</code> removes Share and the Project Gallery from the UI entirely, and a malformed value stops the container at boot rather than falling back to the public hosted service</li>
