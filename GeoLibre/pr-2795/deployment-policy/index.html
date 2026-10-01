@@ -2923,6 +2923,11 @@ desktop config directory arrives in a later release.</p>
   <code>false</code> removes any operator-configured AI proxy (a provider a user enters in
   Settings is unaffected). <code>ai.model</code> picks the proxy's model.</li>
 </ul>
+<p>Because the wait is bounded, <code>capabilities</code> fails open like every other
+section: a <code>deployment.json</code> that is blocked or arrives late means that session
+runs with the env-derived capabilities or the default full grant. See
+<a href="../deployment-capabilities/">Deployment capabilities</a> before using it as a
+restriction.</p>
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
