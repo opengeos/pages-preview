@@ -2910,9 +2910,9 @@ desktop config directory arrives in a later release.</p>
 <ul>
 <li><code>capabilities</code> restricts the app; <code>[]</code> grants none, and omitting it leaves
   <code>VITE_GEOLIBRE_CAPABILITIES</code> (or the default full grant) in force.</li>
-<li><code>interface</code> replaces <code>admin-profile.json</code> whole; fields are not merged. A
-  present <code>interface</code> section wins even when it is empty (<code>{}</code>): omit the
-  section entirely to keep using <code>admin-profile.json</code>.</li>
+<li><code>interface</code> replaces <code>admin-profile.json</code> whole; fields are not merged. An
+  empty <code>interface</code> (<code>{}</code>) configures nothing and counts as absent, so
+  <code>admin-profile.json</code> still applies.</li>
 <li><code>plugins.registryUrl</code> sets the plugin registry. <code>allowed</code>, <code>blocked</code>,
   <code>sideload</code> and <code>defaultActive</code> are stored but not enforced yet.</li>
 <li><code>services</code>, <code>sharing</code>, <code>geolens</code> and <code>branding.appName</code> override the
