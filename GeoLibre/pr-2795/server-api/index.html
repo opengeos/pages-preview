@@ -1987,6 +1987,45 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#enterprise-sign-in" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Enterprise sign-in
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Enterprise sign-in">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#organization-security-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Organization security policy
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-apiaccountpassword" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>POST /api/account/password</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#projects" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -3041,6 +3080,45 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#enterprise-sign-in" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Enterprise sign-in
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Enterprise sign-in">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#organization-security-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Organization security policy
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-apiaccountpassword" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>POST /api/account/password</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#projects" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -3354,8 +3432,9 @@ implementation or storage engine. The reference implementation lives in
   browser binding, but a fresh cookie bypasses that cap; the reference server
   has no general request limiter. Before enabling OAuth publicly, enforce
   per-client-IP limits at the ingress on <strong>GET and POST</strong> <code>/oauth/authorize</code>,
-  <code>POST /oauth/token</code>, <code>POST /api/auth/token</code>, and <code>POST /api/accounts</code>.
-  The last three POSTs include password or token operations; consent login
+  <code>POST /oauth/token</code>, <code>POST /api/auth/token</code>, <code>POST /api/accounts</code>, and
+  <code>POST /api/account/password</code>. The last four POSTs include password or token
+  operations; consent login
   and the PAT/account routes run scrypt. Add per-username limits where the
   ingress can safely parse credentials. Every public path to the API must go
   through this limiter: Compose binds the API host port to loopback by default.
@@ -3366,7 +3445,7 @@ implementation or storage engine. The reference implementation lives in
 <span class="k">limit_req_zone</span><span class="w"> </span><span class="nv">$binary_remote_addr</span><span class="w"> </span><span class="s">zone=geolibre_auth:10m</span><span class="w"> </span><span class="s">rate=12r/m</span><span class="p">;</span>
 
 <span class="c1"># TLS issuer server context; proxy other API routes separately.</span>
-<span class="k">location</span><span class="w"> </span><span class="p">~</span><span class="w"> </span><span class="sr">^/(oauth/(authorize|token)|api/(auth/token|accounts))$</span><span class="w"> </span><span class="p">{</span>
+<span class="k">location</span><span class="w"> </span><span class="p">~</span><span class="w"> </span><span class="sr">^/(oauth/(authorize|token)|api/(auth/token|accounts|account/password))$</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kn">limit_req</span><span class="w"> </span><span class="s">zone=geolibre_auth</span><span class="w"> </span><span class="s">burst=6</span><span class="w"> </span><span class="s">nodelay</span><span class="p">;</span>
 <span class="w">    </span><span class="kn">limit_req_status</span><span class="w"> </span><span class="mi">429</span><span class="p">;</span>
 <span class="w">    </span><span class="kn">client_max_body_size</span><span class="w"> </span><span class="mi">16k</span><span class="p">;</span>
@@ -3485,6 +3564,28 @@ optional policy fields (but not <code>email</code>) and returns the same shape a
 creation. Tokens are opaque and stored only as SHA-256 digests. <code>email</code> is
 optional at account creation, trimmed and normalized to lowercase, validated,
 and unique when present.</p>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th><code>error</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>401</td>
+<td><code>invalid username or password</code></td>
+</tr>
+<tr>
+<td>401</td>
+<td><code>account temporarily locked</code> (organization lockout policy)</td>
+</tr>
+<tr>
+<td>403</td>
+<td><code>password expired</code> (change it with <code>POST /api/account/password</code>)</td>
+</tr>
+</tbody>
+</table>
 <h3 id="patch-apiaccount"><code>PATCH /api/account</code><a class="headerlink" href="#patch-apiaccount" title="Permanent link">&para;</a></h3>
 <p>Requires <code>write:projects</code>. <code>{"email":"ada@example.org"}</code> sets the signed-in
 account's validated, normalized email; <code>{"email":null}</code> clears it. A duplicate
@@ -3709,6 +3810,138 @@ public and may use <code>Cache-Control: public, max-age=3600</code>. For <code>i
 successful response uses <code>Cache-Control: private, no-store</code>; non-members receive
 <code>404</code>. This prevents a stable public thumbnail URL from disclosing content from
 a membership-confined group.</p>
+<h2 id="enterprise-sign-in">Enterprise sign-in<a class="headerlink" href="#enterprise-sign-in" title="Permanent link">&para;</a></h2>
+<h3 id="organization-security-policy">Organization security policy<a class="headerlink" href="#organization-security-policy" title="Permanent link">&para;</a></h3>
+<p>Organization administrators can set a security policy for their members.</p>
+<ul>
+<li><code>GET /api/organizations/{id}/security-policy</code> (<code>read:projects</code>) returns
+  <code>{"securityPolicy": {...}}</code> with <code>idleTimeoutSeconds</code>,
+  <code>absoluteSessionSeconds</code>, <code>adminReauthSeconds</code>, <code>adminIpAllowlist</code> (list),
+  <code>passwordMinLength</code>, <code>passwordMinClasses</code>, <code>passwordMaxAgeDays</code>,
+  <code>lockoutThreshold</code>, and <code>lockoutSeconds</code>. Unset values are <code>null</code>; with no
+  policy every value is <code>null</code> and the allowlist is empty.</li>
+<li><code>PUT /api/organizations/{id}/security-policy</code> (<code>write:projects</code>) replaces the
+  whole policy (an omitted field becomes <code>null</code>) and returns the <code>GET</code> shape.</li>
+</ul>
+<p>Both require an organization administrator and respond with
+<code>Cache-Control: private, no-store</code>. Bounds:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Allowed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>idleTimeoutSeconds</code></td>
+<td>300–2592000</td>
+</tr>
+<tr>
+<td><code>absoluteSessionSeconds</code></td>
+<td>900–31536000</td>
+</tr>
+<tr>
+<td><code>adminReauthSeconds</code></td>
+<td>60–86400</td>
+</tr>
+<tr>
+<td><code>passwordMinLength</code></td>
+<td>8–128</td>
+</tr>
+<tr>
+<td><code>passwordMinClasses</code></td>
+<td>1–4 (lowercase, uppercase, digits, symbols)</td>
+</tr>
+<tr>
+<td><code>passwordMaxAgeDays</code></td>
+<td>1–3650</td>
+</tr>
+<tr>
+<td><code>lockoutThreshold</code></td>
+<td>3–100</td>
+</tr>
+<tr>
+<td><code>lockoutSeconds</code></td>
+<td>60–86400</td>
+</tr>
+<tr>
+<td><code>adminIpAllowlist</code></td>
+<td>up to 50 IP addresses or CIDR networks</td>
+</tr>
+</tbody>
+</table>
+<p>Out-of-range values are a <code>422</code>. Other <code>422</code> errors:
+<code>adminIpAllowlist entries must be IP addresses or networks</code>,
+<code>lockoutThreshold and lockoutSeconds must be set together</code>, and
+<code>adminIpAllowlist must include your current address</code> (so an administrator
+cannot lock themselves out).</p>
+<p>When an account belongs to several organizations, the strictest value wins:
+the shortest idle timeout, absolute session lifetime, password age, and
+lockout threshold; the longest minimum length, class count, and lockout
+duration. Password length is never below 8.</p>
+<ul>
+<li><strong>Idle and absolute session limits</strong> apply to OAuth sessions and personal
+  tokens. An OAuth session idle longer than <code>idleTimeoutSeconds</code>, or older than
+  <code>absoluteSessionSeconds</code> since its sign-in, is revoked: Bearer use returns
+  <code>401 invalid or expired token</code> and refresh returns <code>400 invalid_grant</code>. A
+  personal token is measured from its creation and last use and is revoked the
+  same way. New OAuth families never outlive the absolute limit.</li>
+<li><strong>Lockout:</strong> <code>lockoutThreshold</code> consecutive wrong passwords lock the account
+  for <code>lockoutSeconds</code>; a successful sign-in resets the count.</li>
+<li><strong>Password rotation:</strong> a password older than <code>passwordMaxAgeDays</code> is
+  rejected at sign-in until changed with <code>POST /api/account/password</code>. For
+  accounts created before this feature, the age counts from their first
+  sign-in after the upgrade.</li>
+<li><strong>Administrator re-authentication:</strong> when the organization sets
+  <code>adminReauthSeconds</code>, administrator mutations (organization settings,
+  members, invitations, security policy) from a credential whose sign-in is
+  older than that return <code>401 {"error":"reauthentication_required"}</code> with
+  <code>WWW-Authenticate: Bearer error="insufficient_user_authentication",
+  max_age="&lt;seconds&gt;"</code> (RFC 9470). Sign in again to continue. Reads are not
+  affected.</li>
+<li><strong>Administrator IP allowlist:</strong> when <code>adminIpAllowlist</code> is non-empty, every
+  administrator route of that organization from an address outside it returns
+  <code>403 administrative access is not allowed from this network</code>. The client
+  address is the direct peer unless the peer is listed in
+  <code>GEOLIBRE_TRUSTED_PROXIES</code> (comma-separated IPs or CIDRs); then the
+  rightmost untrusted <code>X-Forwarded-For</code> entry is used.</li>
+</ul>
+<h3 id="post-apiaccountpassword"><code>POST /api/account/password</code><a class="headerlink" href="#post-apiaccountpassword" title="Permanent link">&para;</a></h3>
+<p>Unauthenticated. Body:
+<code>{"username":"ada","currentPassword":"...","newPassword":"..."}</code> (new password
+up to 1024 characters). Works even when the current password has expired.
+Response: <code>204</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th><code>error</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>401</td>
+<td><code>invalid username or password</code></td>
+</tr>
+<tr>
+<td>401</td>
+<td><code>account temporarily locked</code></td>
+</tr>
+<tr>
+<td>422</td>
+<td><code>new password must differ from the current password</code></td>
+</tr>
+<tr>
+<td>422</td>
+<td><code>password must be at least &lt;n&gt; characters</code></td>
+</tr>
+<tr>
+<td>422</td>
+<td><code>password must use at least &lt;n&gt; of: lowercase, uppercase, digits, symbols</code></td>
+</tr>
+</tbody>
+</table>
 <h2 id="projects">Projects<a class="headerlink" href="#projects" title="Permanent link">&para;</a></h2>
 <h3 id="project-representation">Project representation<a class="headerlink" href="#project-representation" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
