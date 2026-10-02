@@ -2274,6 +2274,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#desktop" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Desktop
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#docker" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2886,6 +2897,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#desktop" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Desktop
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#docker" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2921,14 +2943,15 @@ settings of a GeoLibre deployment: which capabilities users have, which
 interface elements are visible, which plugins may load, the curated service
 library, sharing endpoints, and branding.</p>
 <h2 id="loading">Loading<a class="headerlink" href="#loading" title="Permanent link">&para;</a></h2>
-<p>The web, desktop and Jupyter builds fetch <code>deployment.json</code> from the app's base
-URL (<code>&lt;base&gt;/deployment.json</code>) before the first render, so nothing paints with a
-setting the policy then changes. No policy applies when the file is absent
-(404 or an HTML fallback page), unreachable, not JSON, of an unknown <code>version</code>,
-or does not arrive within 3 seconds. In those cases the app behaves exactly as
-it does without the file. The container image writes the file on every boot
-(see <a href="#docker">Docker</a>); reading it from the desktop config directory arrives in
-a later release.</p>
+<p>The web and Jupyter builds fetch <code>deployment.json</code> from the app's base URL
+(<code>&lt;base&gt;/deployment.json</code>) before the first render, so nothing paints with a
+setting the policy then changes. Desktop first reads the app config directory
+(see <a href="#desktop">Desktop</a>), falling back to that web URL only when the config-dir
+file is absent or cannot be read. No policy applies when the selected file is
+absent (404 or an HTML fallback page), not JSON, or of an unknown <code>version</code>.
+An unreachable web file or a fetch that takes more than 3 seconds also yields
+no policy. In those cases the app behaves exactly as it does without the file.
+The container image writes the file on every boot (see <a href="#docker">Docker</a>).</p>
 <p>What each section does today:</p>
 <ul>
 <li><code>capabilities</code> restricts the app; <code>[]</code> grants none, and omitting it leaves
@@ -3233,6 +3256,52 @@ version is ignored with a console warning.</p>
 <p>The container validates strictly: it rejects unknown keys, duplicate or invalid
 ids, service ids that collide after trimming, and numeric service field values
 beyond the safe-integer range, none of which JSON Schema alone can all express.</p>
+<h2 id="desktop">Desktop<a class="headerlink" href="#desktop" title="Permanent link">&para;</a></h2>
+<p>Place <code>deployment.json</code> in Tauri's <code>&lt;app_config_dir&gt;</code>, next to any
+<code>admin-profile.json</code>. For the standard <code>org.geolibre.desktop</code> application
+identifier, the paths are:</p>
+<table>
+<thead>
+<tr>
+<th>OS</th>
+<th>Policy path</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Linux</td>
+<td><code>$XDG_CONFIG_HOME/org.geolibre.desktop/deployment.json</code>, or <code>~/.config/org.geolibre.desktop/deployment.json</code> when <code>XDG_CONFIG_HOME</code> is unset</td>
+</tr>
+<tr>
+<td>macOS</td>
+<td><code>~/Library/Application Support/org.geolibre.desktop/deployment.json</code></td>
+</tr>
+<tr>
+<td>Windows</td>
+<td><code>%APPDATA%\org.geolibre.desktop\deployment.json</code> (normally <code>C:\Users\&lt;user&gt;\AppData\Roaming\org.geolibre.desktop\deployment.json</code>)</td>
+</tr>
+</tbody>
+</table>
+<p>These follow Tauri's <a href="https://v2.tauri.app/reference/javascript/api/namespacepath/#appconfigdir">app config directory</a>.
+Sandboxed installations may resolve the directory inside their sandbox;
+custom builds with a different application identifier use that identifier
+instead.</p>
+<p>The <code>read_deployment_policy</code> command returns raw UTF-8 text, or <code>null</code> when
+the file is absent. A leading UTF-8 BOM is accepted by the parser. The selected
+policy is applied before the first render, including capability restrictions,
+without rebuilding the app. Restart GeoLibre after changing the file; there is
+no runtime file watching.</p>
+<p>An existing config-dir file is authoritative, even if empty, malformed or of
+an unsupported version: it yields no policy rather than falling back to a
+bundled file. Config-dir and bundled policies are never merged. When the file
+is absent, GeoLibre fetches <code>&lt;base&gt;/deployment.json</code> instead. Other read errors
+(including permission failures) produce a console warning in every build and
+fall back to that same web file. Unsupported versions also warn in every build.
+With no file in either location, existing behavior is unchanged.</p>
+<p>A non-empty policy <code>interface</code> replaces <code>admin-profile.json</code> whole, just as
+on the web; an absent or empty <code>interface</code> leaves the admin profile in force.
+The config directory is user-writable: this is desktop provisioning, not a
+security boundary or server-side enforcement.</p>
 <h2 id="docker">Docker<a class="headerlink" href="#docker" title="Permanent link">&para;</a></h2>
 <p>The image writes a validated <code>/usr/share/nginx/html/deployment.json</code> on every
 boot, served <code>Cache-Control: no-store</code>. The source is the file mounted at
