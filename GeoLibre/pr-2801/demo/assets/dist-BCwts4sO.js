@@ -1,1 +1,0 @@
-import{n as o,t as i}from"./preload-helper-Vk_MWTS9.js";o();var r;(function(t){t.load=function(){return i(()=>import("./webdggrid-BMAHOceJ.js").then(e=>e.Webdggrid.load()),[],import.meta.url)}})(r||(r={}));export{r as Webdggrid};
