@@ -4347,7 +4347,8 @@ caller must be a member of every listed group, and for an organization project
 a non-administrator may list only that organization's groups. When <code>visibility</code>
 is omitted, the organization's <code>defaultVisibility</code> applies, or <code>private</code> for a
 personal project.</p>
-<p>Optional share-link settings: <code>role</code> (<code>view</code>, <code>comment</code>, or <code>edit</code>; default
+<p>Optional share-link settings (only for <code>public</code> or <code>unlisted</code> projects; any other
+visibility answers <code>422</code> when one is set): <code>role</code> (<code>view</code>, <code>comment</code>, or <code>edit</code>; default
 <code>edit</code>), <code>expiresIn</code> (<code>24h</code>, <code>7d</code>, <code>30d</code>, or <code>never</code>), and <code>password</code>. They are
 echoed in every project representation as <code>role</code>, <code>expiresAt</code> (ISO timestamp or
 <code>null</code>), and <code>hasPassword</code>. <code>role</code> is metadata for viewers; the server enforces
