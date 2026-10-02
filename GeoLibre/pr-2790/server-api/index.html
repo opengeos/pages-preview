@@ -2020,6 +2020,39 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#organization-identity-provider" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Organization identity provider
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#single-sign-on-on-the-consent-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Single sign-on on the consent page
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trusted-header-proxy-sign-in" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Trusted-header proxy sign-in
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3113,6 +3146,39 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#organization-identity-provider" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Organization identity provider
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#single-sign-on-on-the-consent-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Single sign-on on the consent page
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trusted-header-proxy-sign-in" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Trusted-header proxy sign-in
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3432,10 +3498,11 @@ implementation or storage engine. The reference implementation lives in
   browser binding, but a fresh cookie bypasses that cap; the reference server
   has no general request limiter. Before enabling OAuth publicly, enforce
   per-client-IP limits at the ingress on <strong>GET and POST</strong> <code>/oauth/authorize</code>,
-  <code>POST /oauth/token</code>, <code>POST /api/auth/token</code>, <code>POST /api/accounts</code>, and
-  <code>POST /api/account/password</code>. The last four POSTs include password or token
-  operations; consent login
-  and the PAT/account routes run scrypt. Add per-username limits where the
+  <code>GET /oauth/sso/callback</code>, <code>POST /oauth/token</code>, <code>POST /api/auth/token</code>,
+  <code>POST /api/accounts</code>, and <code>POST /api/account/password</code>. The last four POSTs
+  include password or token operations; consent login and the PAT/account
+  routes run scrypt, and the single sign-on callback calls the organization's
+  identity provider. Add per-username limits where the
   ingress can safely parse credentials. Every public path to the API must go
   through this limiter: Compose binds the API host port to loopback by default.
   A root-issuer nginx deployment can put this zone in its <code>http</code> context and
@@ -3445,7 +3512,7 @@ implementation or storage engine. The reference implementation lives in
 <span class="k">limit_req_zone</span><span class="w"> </span><span class="nv">$binary_remote_addr</span><span class="w"> </span><span class="s">zone=geolibre_auth:10m</span><span class="w"> </span><span class="s">rate=12r/m</span><span class="p">;</span>
 
 <span class="c1"># TLS issuer server context; proxy other API routes separately.</span>
-<span class="k">location</span><span class="w"> </span><span class="p">~</span><span class="w"> </span><span class="sr">^/(oauth/(authorize|token)|api/(auth/token|accounts|account/password))$</span><span class="w"> </span><span class="p">{</span>
+<span class="k">location</span><span class="w"> </span><span class="p">~</span><span class="w"> </span><span class="sr">^/(oauth/(authorize|token|sso/callback)|api/(auth/token|accounts|account/password))$</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kn">limit_req</span><span class="w"> </span><span class="s">zone=geolibre_auth</span><span class="w"> </span><span class="s">burst=6</span><span class="w"> </span><span class="s">nodelay</span><span class="p">;</span>
 <span class="w">    </span><span class="kn">limit_req_status</span><span class="w"> </span><span class="mi">429</span><span class="p">;</span>
 <span class="w">    </span><span class="kn">client_max_body_size</span><span class="w"> </span><span class="mi">16k</span><span class="p">;</span>
@@ -3584,6 +3651,10 @@ and unique when present.</p>
 <td>403</td>
 <td><code>password expired</code> (change it with <code>POST /api/account/password</code>)</td>
 </tr>
+<tr>
+<td>403</td>
+<td><code>single sign-on required</code> (an organization of the account <a href="#organization-identity-provider">disallows built-in accounts</a>)</td>
+</tr>
 </tbody>
 </table>
 <h3 id="patch-apiaccount"><code>PATCH /api/account</code><a class="headerlink" href="#patch-apiaccount" title="Permanent link">&para;</a></h3>
@@ -3718,10 +3789,13 @@ immediately because the caller already manages the recipient (see
   longer publish them become <code>organization</code>.</li>
 <li><code>DELETE /api/organizations/{id}/members/{username}</code> removes a member
   (administrator only), and <code>{username}=me</code> leaves. The last administrator
-  cannot be removed, leave, or be demoted. Projects the leaver created stay
-  owned by the organization, and their <code>public</code> ones become <code>organization</code>
-  unless the policy is <code>yes</code>. The leaver's memberships and pending invitations
-  in the organization's groups are removed. Groups they own pass to the
+  cannot be removed, leave, or be demoted (<code>409</code>). Neither can the break-glass
+  administrator of the organization's identity provider (<code>422 account is the
+  organization's break-glass administrator</code>); clear <code>breakGlassUsername</code> on the
+  provider first. Projects the leaver created stay owned by the organization,
+  and their <code>public</code> ones become <code>organization</code> unless the policy is <code>yes</code>. The
+  leaver's memberships and pending invitations in the organization's groups
+  are removed. Groups they own pass to the
   administrator who removed them; a member who owns one must transfer it before
   leaving (<code>409</code>).</li>
 <li><code>POST /api/organizations/{id}/invitations</code> creates a pending invitation for
@@ -3929,6 +4003,10 @@ Response: <code>204</code>.</p>
 <td><code>account temporarily locked</code></td>
 </tr>
 <tr>
+<td>403</td>
+<td><code>single sign-on required</code></td>
+</tr>
+<tr>
 <td>422</td>
 <td><code>new password must differ from the current password</code></td>
 </tr>
@@ -3942,6 +4020,229 @@ Response: <code>204</code>.</p>
 </tr>
 </tbody>
 </table>
+<h3 id="organization-identity-provider">Organization identity provider<a class="headerlink" href="#organization-identity-provider" title="Permanent link">&para;</a></h3>
+<p>An organization administrator can connect one OpenID Connect provider (Entra
+ID, Okta, Google, Keycloak, ADFS 2016+, …) to the organization.</p>
+<ul>
+<li><code>GET /api/organizations/{id}/identity-provider</code> (<code>read:projects</code>) returns
+  <code>{"identityProvider": {...}}</code>, or <code>404 identity provider not configured</code>.</li>
+<li><code>PUT /api/organizations/{id}/identity-provider</code> (<code>write:projects</code>) creates or
+  replaces it and returns the <code>GET</code> shape.</li>
+<li><code>DELETE /api/organizations/{id}/identity-provider</code> (<code>write:projects</code>)
+  removes it. Response: <code>204</code>, also when none is configured.</li>
+</ul>
+<p>All three require an organization administrator (the organization's IP
+allowlist applies, and re-authentication applies to <code>PUT</code> and <code>DELETE</code>) and
+respond with <code>Cache-Control: private, no-store</code>. <code>PUT</code> body:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"issuer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://login.example.org/realms/acme"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"geolibre"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"clientSecret"</span><span class="p">:</span><span class="w"> </span><span class="s2">"…"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"tokenEndpointAuthMethod"</span><span class="p">:</span><span class="w"> </span><span class="s2">"client_secret_basic"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"scopes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"openid"</span><span class="p">,</span><span class="w"> </span><span class="s2">"email"</span><span class="p">,</span><span class="w"> </span><span class="s2">"profile"</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">"usernameClaim"</span><span class="p">:</span><span class="w"> </span><span class="s2">"preferred_username"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"emailClaim"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"groupsClaim"</span><span class="p">:</span><span class="w"> </span><span class="s2">"groups"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"defaultRole"</span><span class="p">:</span><span class="w"> </span><span class="s2">"member"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"roleMappings"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"gis-admins"</span><span class="p">,</span><span class="w"> </span><span class="nt">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"publisher"</span><span class="p">}],</span>
+<span class="w">  </span><span class="nt">"groupMappings"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"gis-admins"</span><span class="p">,</span><span class="w"> </span><span class="nt">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"group-uuid"</span><span class="p">}],</span>
+<span class="w">  </span><span class="nt">"requireMfa"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"allowBuiltinAccounts"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"breakGlassUsername"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"enabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="p">}</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Rules</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>issuer</code></td>
+<td>Required, up to 512 characters, <code>https://</code> without query or fragment. Compared exactly with the ID token's <code>iss</code>, never normalized.</td>
+</tr>
+<tr>
+<td><code>clientId</code></td>
+<td>Required, 1–255 characters.</td>
+</tr>
+<tr>
+<td><code>clientSecret</code></td>
+<td>1–512 characters. Required when creating; omitted or <code>null</code> on update keeps the stored secret. Never returned.</td>
+</tr>
+<tr>
+<td><code>authorizationEndpoint</code>, <code>tokenEndpoint</code>, <code>jwksUri</code></td>
+<td>All three (each <code>https://</code>) or none. When none, they are read from the issuer's discovery document.</td>
+</tr>
+<tr>
+<td><code>tokenEndpointAuthMethod</code></td>
+<td><code>client_secret_basic</code> (default) or <code>client_secret_post</code>.</td>
+</tr>
+<tr>
+<td><code>scopes</code></td>
+<td>Up to 20 simple scope tokens, including <code>openid</code>. Default <code>openid</code>, <code>email</code>, <code>profile</code>.</td>
+</tr>
+<tr>
+<td><code>usernameClaim</code>, <code>emailClaim</code>, <code>groupsClaim</code></td>
+<td>Claim names, up to 64 characters. Defaults <code>preferred_username</code>, <code>email</code>, <code>groups</code>; <code>groupsClaim</code> may be <code>null</code>.</td>
+</tr>
+<tr>
+<td><code>defaultRole</code></td>
+<td>Organization role when no role mapping matches. Default <code>member</code>.</td>
+</tr>
+<tr>
+<td><code>roleMappings</code></td>
+<td>Up to 100 <code>{"value", "role"}</code> entries.</td>
+</tr>
+<tr>
+<td><code>groupMappings</code></td>
+<td>Up to 100 <code>{"value", "groupId"}</code> entries; each group must belong to this organization.</td>
+</tr>
+<tr>
+<td><code>requireMfa</code></td>
+<td>Require <code>"mfa"</code> in the ID token's <code>amr</code>. Default <code>false</code>. Providers that list only the individual factors (for example <code>["pwd", "otp"]</code>) need a claim mapper that adds <code>"mfa"</code>, or every sign-in is rejected.</td>
+</tr>
+<tr>
+<td><code>allowBuiltinAccounts</code></td>
+<td><code>false</code> disables password sign-in for the organization's members. Default <code>true</code>.</td>
+</tr>
+<tr>
+<td><code>breakGlassUsername</code></td>
+<td>A current administrator of this organization who keeps password sign-in. Required when <code>allowBuiltinAccounts</code> is <code>false</code>.</td>
+</tr>
+<tr>
+<td><code>enabled</code></td>
+<td>A disabled provider is neither offered nor accepted. Default <code>true</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>GET</code> shape echoes the settings (<code>scopes</code> as a list) plus <code>protocol</code>
+(<code>"oidc"</code>), the stored endpoints, <code>clientSecretSet: true</code> instead of the
+secret, <code>redirectUri</code>, and <code>updatedAt</code>. Register <code>redirectUri</code>
+(<code>&lt;issuer&gt;/oauth/sso/callback</code> of this server; <code>null</code> when OAuth is not
+configured) at the identity provider for a confidential client using the
+authorization code flow with S256 PKCE.</p>
+<p><code>422</code> errors: <code>issuer must be an https URL without query or fragment</code>,
+<code>clientSecret is required</code>, <code>set all three endpoints or none</code>,
+<code>identity provider endpoints must be https URLs</code>,
+<code>scopes must include openid and use simple scope tokens</code>,
+<code>group mapping must name a group in this organization</code>,
+<code>break-glass account must be an organization administrator</code>,
+<code>a break-glass administrator is required when built-in accounts are disallowed</code>,
+and <code>identity provider discovery failed</code>. Out-of-range values are a generic
+<code>422</code>.</p>
+<ul>
+<li><strong>Discovery:</strong> without explicit endpoints, <code>PUT</code> fetches
+  <code>&lt;issuer&gt;/.well-known/openid-configuration</code>. Its <code>issuer</code> must equal the
+  configured <code>issuer</code> exactly and it must name <code>https://</code> authorization, token,
+  and JWKS endpoints; a network error, non-<code>200</code> status, a body over 1 MiB, or
+  invalid JSON also fails discovery. The endpoints are stored; discovery runs
+  again only on the next <code>PUT</code>. Signing keys are fetched from <code>jwksUri</code> on the
+  first sign-in and cached; changing <code>issuer</code> or <code>jwksUri</code> clears the cache.</li>
+<li><strong>Internal addresses (SSRF protection):</strong> any signed-in user can create an
+  organization and choose its provider URLs, so the server connects to an
+  identity provider only on public addresses. Each host is resolved once and
+  every loopback, private, link-local, CGNAT (<code>100.64.0.0/10</code>), multicast,
+  reserved, or unspecified address (including their IPv4-mapped, NAT64, 6to4,
+  and Teredo forms) is dropped; a host left with none fails like a network
+  error, so discovery answers <code>identity provider discovery failed</code> and sign-in
+  is rejected. The connection goes to the checked address, while TLS still
+  verifies the certificate against the URL's hostname. To use a provider on an
+  internal network, list its networks in <code>GEOLIBRE_OIDC_ALLOWED_NETWORKS</code>
+  (comma-separated IPs or CIDRs; an invalid entry fails startup).</li>
+<li><strong>Accounts:</strong> the first sign-in of a provider subject (<code>sub</code>) creates an
+  account linked to it. Its username comes from <code>usernameClaim</code> (or else
+  <code>emailClaim</code>): lowercased, cut at <code>@</code>, other characters replaced with <code>-</code>,
+  with a <code>-2</code>…<code>-99</code> suffix when taken. When nothing fits, the account has no
+  username (see the <code>username required</code> sentinel under <code>GET /api/users/me</code>). Its
+  email is set only when <code>email_verified</code> is <code>true</code> and no other account uses
+  the address. A sign-in is never linked to an existing account by email, so
+  existing members who move to single sign-on get a new account. Federated
+  accounts have no password.</li>
+<li><strong>Mappings,</strong> applied at every sign-in from the <code>groupsClaim</code> value (a string
+  or a list of strings): the role is the highest-ranked <code>role</code> among matching
+  <code>roleMappings</code>, else <code>defaultRole</code>. A new member receives it; an existing
+  member's role follows it only when <code>roleMappings</code> is non-empty, and neither
+  the organization's last administrator nor its break-glass administrator is
+  ever demoted. A lowered role re-applies the public sharing policy as
+  <code>PUT /api/organizations/{id}/members</code> does: <code>public</code> projects the member can
+  no longer publish become <code>organization</code>. For each mapped group,
+  the account becomes a <code>member</code> when a matching value is present and loses a
+  plain <code>member</code> row when none is; owner and manager rows are never changed.</li>
+<li><strong>Built-in accounts:</strong> with <code>allowBuiltinAccounts: false</code>, a correct password
+  for any member of the organization other than the break-glass administrator
+  is rejected: <code>403 single sign-on required</code> from <code>POST /api/auth/token</code> and
+  <code>POST /api/account/password</code>, and <code>Your organization requires single
+  sign-on. Use “Sign in with your organization”.</code> on the consent page. The
+  break-glass account keeps password sign-in only while it remains an
+  administrator of the organization; lockout still applies to it. While it is
+  the break-glass account it cannot be demoted, removed, or leave (<code>422</code>);
+  clear <code>breakGlassUsername</code> first.</li>
+<li><strong>Deletion</strong> removes the provider, its account links, and pending sign-in
+  redirects. Accounts and memberships remain, but accounts created through
+  single sign-on have no way to sign in. A provider configured later links
+  subjects afresh, so their next sign-in creates new accounts; remove the old
+  ones.</li>
+<li><strong>Secret storage:</strong> <code>clientSecret</code> is stored unencrypted in the database, at
+  the same trust level as the rest of its contents.</li>
+</ul>
+<h3 id="single-sign-on-on-the-consent-page">Single sign-on on the consent page<a class="headerlink" href="#single-sign-on-on-the-consent-page" title="Permanent link">&para;</a></h3>
+<p>When any organization has an enabled identity provider, the consent page adds
+a second form: an <code>Organization</code> field (the organization slug) and a
+<code>Sign in with your organization</code> button (<code>decision=sso</code>, with the same
+<code>interaction</code>, <code>csrf</code>, and <code>label</code> fields). Its <code>POST</code> answers <code>303</code> to that
+organization's authorization endpoint with <code>state</code>, <code>nonce</code>, an S256 PKCE
+challenge, and <code>max_age</code> when the organization's security policy sets
+<code>adminReauthSeconds</code>. An unknown slug or a disabled provider re-renders the
+consent page with <code>Single sign-on is not configured for that organization</code>.
+Browsers apply <code>form-action</code> to that redirect, so while single sign-on is
+offered the consent page's <code>Content-Security-Policy</code> adds <code>https:</code> to
+<code>form-action</code>.</p>
+<p><code>GET /oauth/sso/callback</code> receives the provider's response. The <code>state</code> must
+be live and unused, the interaction undecided and unexpired, and the request
+must carry the browser-binding cookie of the browser that started consent.</p>
+<ul>
+<li><code>error</code> from the provider: <code>303</code> to the client's callback with
+  <code>error=access_denied</code>.</li>
+<li>Otherwise the server redeems the <code>code</code> at the token endpoint with the client
+  secret and PKCE verifier and validates the ID token: an RS256, PS256, or
+  ES256 signature from the provider's JWKS (an unknown key id refetches the
+  key set at most once a minute), <code>iss</code>, <code>aud</code> (plus <code>azp</code> when there are
+  several audiences), <code>exp</code> and <code>iat</code> with 60 seconds of leeway, <code>nonce</code>,
+  <code>sub</code>, <code>amr</code> when <code>requireMfa</code> is set, and <code>auth_time</code> when <code>max_age</code> was
+  sent. Success approves the interaction exactly like a password sign-in: <code>303</code>
+  to the client's callback with <code>code</code>, <code>state</code>, and <code>iss</code>. The OAuth session's
+  sign-in time is the ID token's <code>auth_time</code> when present.</li>
+<li>Any other failure, including a reused <code>state</code>, returns a <code>400</code> page with
+  <code>invalid_request: single sign-on response rejected</code>. The reason is only
+  logged (<code>oidc sign-in rejected: &lt;reason&gt;</code>).</li>
+</ul>
+<p>Calls to the identity provider give up when connecting or any read stalls for
+10 seconds, or once the whole response has taken longer than 10 seconds. They
+never follow redirects, ignore proxy environment variables, and stop reading at
+1 MiB. Set <code>GEOLIBRE_OIDC_CA_BUNDLE</code> to also trust a provider whose
+certificate is issued by a private CA; the public CAs stay trusted.</p>
+<h3 id="trusted-header-proxy-sign-in">Trusted-header proxy sign-in<a class="headerlink" href="#trusted-header-proxy-sign-in" title="Permanent link">&para;</a></h3>
+<p>With <code>GEOLIBRE_PROXY_AUTH=true</code> (or <code>1</code>/<code>yes</code>), behind an identity-aware proxy
+listed in <code>GEOLIBRE_TRUSTED_PROXIES</code>, the consent page trusts the proxy's user
+header (<code>GEOLIBRE_PROXY_USER_HEADER</code>, default <code>Remote-User</code>) and optional email
+header (<code>GEOLIBRE_PROXY_EMAIL_HEADER</code>, default <code>Remote-Email</code>). Without
+<code>GEOLIBRE_PROXY_AUTH</code>, <code>GEOLIBRE_TRUSTED_PROXIES</code> only trusts
+<code>X-Forwarded-For</code> and identity headers are never read. When the direct peer is
+a trusted proxy and the user header is present, the page shows <code>Signed in
+through your organization's proxy as &lt;user&gt;</code> instead of the password and
+single sign-on forms, and <code>Allow</code> approves the interaction for the account
+linked to that user. The first sign-in creates the account: the username is
+derived as for single sign-on, and the email is set when it is valid and
+unused. Organization mappings and the built-in account switch do not apply to
+proxy identities. An empty user, one over 255 characters, or one containing
+control characters returns a <code>400</code> page with <code>invalid_request: invalid proxy
+identity</code>; an account that cannot be created returns <code>invalid_request: proxy
+sign-in failed</code>. Identity headers from any other peer are never read, so the
+proxy must strip client-sent identity headers and be the only network path to
+the API.</p>
 <h2 id="projects">Projects<a class="headerlink" href="#projects" title="Permanent link">&para;</a></h2>
 <h3 id="project-representation">Project representation<a class="headerlink" href="#project-representation" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>

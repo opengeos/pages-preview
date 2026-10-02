@@ -2273,6 +2273,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Docker
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2874,6 +2885,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Docker
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2904,8 +2926,9 @@ URL (<code>&lt;base&gt;/deployment.json</code>) before the first render, so noth
 setting the policy then changes. No policy applies when the file is absent
 (404 or an HTML fallback page), unreachable, not JSON, of an unknown <code>version</code>,
 or does not arrive within 3 seconds. In those cases the app behaves exactly as
-it does without the file. Reading the file from a container mount or the
-desktop config directory arrives in a later release.</p>
+it does without the file. The container image writes the file on every boot
+(see <a href="#docker">Docker</a>); reading it from the desktop config directory arrives in
+a later release.</p>
 <p>What each section does today:</p>
 <ul>
 <li><code>capabilities</code> restricts the app; <code>[]</code> grants none, and omitting it leaves
@@ -3207,9 +3230,77 @@ version is ignored with a console warning.</p>
 <li>Unknown top-level keys are ignored with one warning.</li>
 <li>Non-JSON content or a non-object is ignored silently.</li>
 </ul>
-<p>A stricter container-side validator is planned. The schema cannot express some
-rules that the parser enforces: duplicate service ids after trimming, and
-numeric service field values beyond the safe-integer range.</p>
+<p>The container validates strictly: it rejects unknown keys, duplicate or invalid
+ids, service ids that collide after trimming, and numeric service field values
+beyond the safe-integer range, none of which JSON Schema alone can all express.</p>
+<h2 id="docker">Docker<a class="headerlink" href="#docker" title="Permanent link">&para;</a></h2>
+<p>The image writes a validated <code>/usr/share/nginx/html/deployment.json</code> on every
+boot, served <code>Cache-Control: no-store</code>. The source is the file mounted at
+<code>GEOLIBRE_DEPLOYMENT_FILE</code>, or an empty <code>{"version": 1}</code> when none is mounted.
+Environment variables then override it field by field; a blank variable counts
+as unset.</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span>:80<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span>./deployment.json:/etc/geolibre/deployment.json:ro<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">GEOLIBRE_DEPLOYMENT_FILE</span><span class="o">=</span>/etc/geolibre/deployment.json<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">GEOLIBRE_CAPABILITIES</span><span class="o">=</span>data:add,export:data<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>ghcr.io/opengeos/geolibre
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Policy field</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GEOLIBRE_CAPABILITIES</code></td>
+<td><code>capabilities</code>: comma-separated names, or <code>none</code> for no grants</td>
+</tr>
+<tr>
+<td><code>GEOLIBRE_SERVICES_FILE</code></td>
+<td><code>services.catalog</code></td>
+</tr>
+<tr>
+<td><code>GEOLIBRE_BUILTIN_SERVICES=off</code></td>
+<td><code>services.builtins: false</code></td>
+</tr>
+<tr>
+<td><code>GEOLIBRE_SHARE_URL</code></td>
+<td><code>sharing.shareUrl</code></td>
+</tr>
+<tr>
+<td><code>GEOLIBRE_COLLAB_URL</code></td>
+<td><code>sharing.collabUrl</code></td>
+</tr>
+<tr>
+<td><code>GEOLIBRE_EMBED_ORIGINS</code></td>
+<td><code>sharing.embedOrigins</code></td>
+</tr>
+<tr>
+<td><code>GEOLIBRE_GEOLENS_URL</code></td>
+<td><code>geolens.url</code></td>
+</tr>
+<tr>
+<td><code>GEOLIBRE_APP_NAME</code></td>
+<td><code>branding.appName</code>: whitespace collapsed, cut to 60 characters</td>
+</tr>
+<tr>
+<td><code>GEOLIBRE_AI_URL</code> / <code>GEOLIBRE_AI_MODEL</code></td>
+<td><code>ai.enabled: true</code> / <code>ai.model</code></td>
+</tr>
+</tbody>
+</table>
+<p>The boot log has one <code>Deployment policy: &lt;path&gt; from &lt;VAR&gt; = &lt;value&gt;</code> line per
+override. Tokens never appear in it, and a query string or fragment on a URL is
+replaced with <code>[redacted]</code>.</p>
+<p>Invalid input stops the boot with an <code>ERROR:</code> line that names the JSON path (for
+example <code>ERROR: GEOLIBRE_DEPLOYMENT_FILE capabilities[1] must be one of: ...</code>),
+so nginx never starts with a weaker policy than you asked for. A file with
+<code>ai.enabled: true</code> also needs <code>GEOLIBRE_AI_URL</code>, <code>GEOLIBRE_AI_PROXY_URL</code> and
+<code>GEOLIBRE_AI_PROXY_TOKEN</code>, otherwise the boot fails.</p>
+<p><code>GEOLIBRE_CAPABILITIES</code> is also published into the runtime config, so the grant
+holds even if <code>deployment.json</code> is blocked or arrives late.</p>
 <div class="admonition warning">
 <p class="admonition-title">Public file, no secrets</p>
 <p><code>deployment.json</code> is served to every browser. Never put secrets in it. The

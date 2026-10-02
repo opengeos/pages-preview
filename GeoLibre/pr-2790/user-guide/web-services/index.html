@@ -1176,6 +1176,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#usgs-3dep" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        USGS 3DEP
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#vantor-open-data" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2885,6 +2896,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#usgs-3dep" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        USGS 3DEP
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#vantor-open-data" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -3192,6 +3214,11 @@
 <td>Flowline tracing, hydrolocation, basins, and network navigation</td>
 </tr>
 <tr>
+<td><a href="#usgs-3dep">USGS 3DEP</a></td>
+<td>USGS</td>
+<td>3DEP digital elevation models (1 m, 1/3 and 1 arc-second, and more)</td>
+</tr>
+<tr>
 <td><a href="#vantor-open-data">Vantor Open Data</a></td>
 <td>Vantor</td>
 <td>Disaster-event satellite imagery (COG)</td>
@@ -3341,6 +3368,14 @@
 <h2 id="usgs-nldi">USGS NLDI<a class="headerlink" href="#usgs-nldi" title="Permanent link">&para;</a></h2>
 <p>Traces a clicked point onto the National Hydrography Dataset network: flowline and raindrop path, hydrolocation and COMID, the upstream basin, and network navigation to streamgages, wells, HUC12 pour points, and other catalogs.</p>
 <p>Unlike the other entries, this one is a click-driven analysis workflow rather than a catalog search. See <strong><a href="../usgs-nldi/">USGS NLDI workflows</a></strong> for the full walkthrough, including exporting the traced results to GeoJSON or copying them into the Layers panel.</p>
+<h2 id="usgs-3dep">USGS 3DEP<a class="headerlink" href="#usgs-3dep" title="Permanent link">&para;</a></h2>
+<p>Searches The National Map for <a href="https://www.usgs.gov/3d-elevation-program">3D Elevation Program</a> digital elevation models.</p>
+<ul>
+<li>Search the <strong>current view</strong>, a <strong>bounding box drawn on the map</strong>, typed <strong>coordinates</strong>, or a USGS <strong>1:24,000 topographic quad</strong> by name and state.</li>
+<li>Pick the <strong>elevation datasets</strong> (1 m DEM, 1/3 arc-second, 1 arc-second, Alaska 5 m, and others) and the file <strong>format</strong>, and optionally hide redundant partial tiles.</li>
+<li>Footprints render on the map and in the Layers panel; click one to select its result, or export them all to GeoJSON.</li>
+<li><strong>Load on Map</strong> streams a GeoTIFF DEM through GeoLibre's raster path; <strong>Download</strong> saves the source file (IMG products are download-only).</li>
+</ul>
 <h2 id="vantor-open-data">Vantor Open Data<a class="headerlink" href="#vantor-open-data" title="Permanent link">&para;</a></h2>
 <p>A STAC explorer for <a href="https://www.vantor.com/">Vantor's</a> open disaster imagery releases.</p>
 <ul>
