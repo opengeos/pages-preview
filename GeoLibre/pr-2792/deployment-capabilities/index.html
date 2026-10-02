@@ -2780,9 +2780,9 @@ you want to grant, at build time:</p>
 <p class="admonition-title">Runtime configuration</p>
 <p>A <a href="../deployment-policy/"><code>deployment.json</code></a> with a <code>capabilities</code> array,
 served next to the app, restricts a <strong>prebuilt</strong> deployment without a
-rebuild and takes precedence over <code>VITE_GEOLIBRE_CAPABILITIES</code>. <code>-e</code> on a
-prebuilt image still cannot set this variable, because <code>docker/entrypoint.sh</code>
-does not publish it into the runtime configuration.</p>
+rebuild and takes precedence over <code>VITE_GEOLIBRE_CAPABILITIES</code>. On the
+container image, <code>-e GEOLIBRE_CAPABILITIES=data:add,export:data</code> (or <code>none</code>)
+writes that file for you; see <a href="../deployment-policy/#docker">Docker</a>.</p>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">A late or blocked <code>deployment.json</code> fails open</p>

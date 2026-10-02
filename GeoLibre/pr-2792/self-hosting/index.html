@@ -1864,6 +1864,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Putting both behind one auth layer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#passing-the-signed-in-user-to-the-projects-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Passing the signed-in user to the projects server
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -2725,6 +2742,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Putting both behind one auth layer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#passing-the-signed-in-user-to-the-projects-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Passing the signed-in user to the projects server
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -3116,6 +3150,16 @@ time and strip the prefix in your proxy:</p>
 <td>unset, or the capabilities to grant</td>
 <td>Unset grants everything (today's behavior). Naming a subset — or <code>none</code> — pins what the interface offers: adding data, processing, export, plugins, settings, project authoring. Removes affordances only; it is not a server-side restriction. See <a href="../deployment-capabilities/">Deployment Capabilities</a>.</td>
 </tr>
+<tr>
+<td><code>GEOLIBRE_DEPLOYMENT_FILE</code></td>
+<td>unset, or a mounted policy file</td>
+<td>Path to a <a href="../deployment-policy/#docker"><code>deployment.json</code></a> inside the container. The entrypoint validates it, applies the <code>GEOLIBRE_*</code> overrides per field, and writes <code>/deployment.json</code> on every boot. An invalid file stops the container.</td>
+</tr>
+<tr>
+<td><code>GEOLIBRE_CAPABILITIES</code></td>
+<td>unset, or the capabilities to grant</td>
+<td>Same as <code>VITE_GEOLIBRE_CAPABILITIES</code>, but set at run time with <code>-e</code> on a prebuilt image. Unset leaves the file or build value in force; <code>none</code> grants nothing. An unknown name stops the container and lists the accepted values. See <a href="../deployment-capabilities/">Deployment Capabilities</a>.</td>
+</tr>
 </tbody>
 </table>
 <p>See <a href="../getting-started/#run-with-docker">Getting Started</a> for the full list.</p>
@@ -3185,6 +3229,68 @@ they are gated by the forward-auth layer alone.</p>
 <code>?url=/projects/watershed.geolibre.json</code> is ignored. Write the full URL, as
 above. It is still same-origin, so the session cookie is still sent.</p>
 </div>
+<h4 id="passing-the-signed-in-user-to-the-projects-server">Passing the signed-in user to the projects server<a class="headerlink" href="#passing-the-signed-in-user-to-the-projects-server" title="Permanent link">&para;</a></h4>
+<p>If you also run the <a href="../server-api/">projects server</a> (<code>geolibre-server</code> in
+<code>docker-compose.yml</code>), the same proxy can sign users in to it, so Share and the
+Project Gallery need no separate GeoLibre password. The server trusts the
+proxy's <code>Remote-User</code> and <code>Remote-Email</code> headers on its sign-in (consent) page
+once <code>GEOLIBRE_PROXY_AUTH=true</code>, and only on connections from an address listed
+in <code>GEOLIBRE_TRUSTED_PROXIES</code>:</p>
+<ol>
+<li>Set <code>GEOLIBRE_PROXY_AUTH=true</code> and set <code>GEOLIBRE_TRUSTED_PROXIES</code> to the
+   address the projects server sees the proxy connect from: a comma-separated
+   list of IPs or CIDRs, such as the proxy container's IP or a Docker network
+   that contains only the proxy and the server. Every other peer's identity
+   headers are ignored. <code>GEOLIBRE_TRUSTED_PROXIES</code> alone only trusts the
+   proxy's <code>X-Forwarded-For</code>.</li>
+<li>Bind the projects server so only the proxy can reach it. The Compose file
+   publishes it on <code>127.0.0.1</code> only; drop that port entirely when the proxy runs
+   in the same Compose network.</li>
+<li>The proxy <strong>must strip identity headers sent by the client</strong>. Otherwise
+   anyone who reaches a route where the proxy does not overwrite them can claim
+   to be any user.</li>
+</ol>
+<p>The projects server answers on <code>/api/*</code> like GeoLens does, so give it its own
+hostname and point the web image's <code>GEOLIBRE_SHARE_URL</code> (and the server's
+<code>GEOLIBRE_PUBLIC_URL</code>) at it. Only the consent page goes through forward auth:
+the app calls the token endpoint and the API cross-origin with bearer tokens,
+and a login redirect there would break them.</p>
+<div class="highlight"><pre><span></span><code>projects.example.org<span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1"># Drop client-sent identity headers before anything else runs. Caddy orders</span>
+<span class="w">    </span><span class="c1"># request_header ahead of handle, so this precedes the forward_auth below.</span>
+<span class="w">    </span><span class="k">request_header</span><span class="w"> </span>-Remote-User
+<span class="w">    </span><span class="k">request_header</span><span class="w"> </span>-Remote-Email
+
+<span class="w">    </span><span class="c1"># The consent page: forward auth sets the headers for the signed-in user.</span>
+<span class="w">    </span><span class="k">handle</span><span class="w"> </span>/oauth/authorize<span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">forward_auth</span><span class="w"> </span>authelia:9091<span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">uri</span><span class="w"> </span>/api/verify?rd=https://auth.example.org
+<span class="w">            </span>copy_headers<span class="w"> </span>Remote-User<span class="w"> </span>Remote-Email
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">reverse_proxy</span><span class="w"> </span>geolibre-server:8000
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1"># `handle`, not `handle_path`: the server expects the /oauth and /api prefixes.</span>
+<span class="w">    </span><span class="k">handle</span><span class="w"> </span>/oauth/*<span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">reverse_proxy</span><span class="w"> </span>geolibre-server:8000
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">handle</span><span class="w"> </span>/api/*<span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">reverse_proxy</span><span class="w"> </span>geolibre-server:8000
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Signing in from the app then opens a consent page that names the proxy user
+(<code>Signed in through your organization's proxy as …</code>) and asks only for the
+device label. The first sign-in creates the account. If your proxy uses other
+header names (oauth2-proxy sends <code>X-Forwarded-User</code> and <code>X-Forwarded-Email</code>),
+set <code>GEOLIBRE_PROXY_USER_HEADER</code> and <code>GEOLIBRE_PROXY_EMAIL_HEADER</code> and strip
+those names instead. See
+<a href="../server-api/#trusted-header-proxy-sign-in">Trusted-header proxy sign-in</a> for
+the full contract.</p>
+<p>The nginx Basic Auth built into the web image (<code>GEOLIBRE_AUTH_USER</code> /
+<code>GEOLIBRE_AUTH_PASSWORD</code>) is not a substitute: it is a single shared
+credential, so it cannot tell the projects server who the visitor is.</p>
 <h2 id="3-connect-geolibre-to-geolens">3. Connect GeoLibre to GeoLens<a class="headerlink" href="#3-connect-geolibre-to-geolens" title="Permanent link">&para;</a></h2>
 <p>The <strong>GeoLens</strong> plugin is built in. There is nothing to install, no marketplace
 step, and no bundled drop-in to deploy: open the <strong>Plugins</strong> menu and choose
