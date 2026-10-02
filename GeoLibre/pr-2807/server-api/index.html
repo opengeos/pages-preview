@@ -4356,7 +4356,13 @@ manager of the project gets <code>410</code> (<code>share link expired</code>) f
 While a password is set, those readers get <code>401</code> (<code>share password required</code>)
 until they unlock the link with <code>POST /{username}/{slug}/access</code> (or
 <code>POST /org/{organization}/{slug}/access</code> for an organization project) with
-<code>{"password": "..."}</code>. That returns <code>{"content": "&lt;project JSON&gt;", "role": "view"}</code>.</p>
+<code>{"password": "..."}</code>. That returns <code>{"content": "&lt;project JSON&gt;", "role": "view"}</code>
+with <code>Cache-Control: private, no-store</code>. After 10 wrong passwords within 5 minutes
+from one client address, the route answers <code>429</code> for that project, even for the
+right password. The count is kept in memory, per server process.</p>
+<p>The version-list route (<code>GET /api/projects/{id}/versions</code>) takes no password, so
+while a password is set it answers <code>401</code> to everyone except a manager of the
+project.</p>
 <h3 id="get-apiprojects"><code>GET /api/projects</code><a class="headerlink" href="#get-apiprojects" title="Permanent link">&para;</a></h3>
 <p>Returns a page in newest-updated-first order:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">"projects"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w"> </span><span class="nt">"limit"</span><span class="p">:</span><span class="w"> </span><span class="mi">24</span><span class="p">,</span><span class="w"> </span><span class="nt">"offset"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">}</span>
@@ -4429,14 +4435,16 @@ on it to explain the refusal. Turning the switch off with
 <p>Deleting a project also removes its pending transfers and its redirect rows.</p>
 <h3 id="get-apishares"><code>GET /api/shares</code><a class="headerlink" href="#get-apishares" title="Permanent link">&para;</a></h3>
 <p>Requires <code>read:projects</code>. Returns <code>{"shares": [&lt;project&gt;, ...]}</code>, newest-updated
-first: the projects the caller manages whose <code>visibility</code> is not <code>private</code>. Each
+first: the projects the caller manages whose <code>visibility</code> is <code>public</code> or <code>unlisted</code>
+(organization-visible projects are not link shares). Each
 entry is a project representation plus <code>projectSlug</code>. A share's <code>id</code> is its
 project id. Expired links stay listed so they can be revoked.</p>
 <h3 id="delete-apisharesid"><code>DELETE /api/shares/{id}</code><a class="headerlink" href="#delete-apisharesid" title="Permanent link">&para;</a></h3>
 <p>Requires <code>write:projects</code> and management of the project. Revokes the share: the
 project becomes <code>private</code> and its <code>role</code>, expiry, and password are reset. The
-project, its versions, and its group shares are kept. Response: <code>204</code>; <code>404</code> when
-the project is already private.</p>
+project, its versions, and its group shares are kept. Response: <code>204</code>; <code>403</code> when
+the caller does not manage the project; <code>404</code> when the project is unknown, already
+private, or organization-visible.</p>
 <h3 id="get-apiprojectsidactivity"><code>GET /api/projects/{id}/activity</code><a class="headerlink" href="#get-apiprojectsidactivity" title="Permanent link">&para;</a></h3>
 <p>Requires ownership. Returns the project's activity log, newest first, capped
 at 100 entries:</p>
