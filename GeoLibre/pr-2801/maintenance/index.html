@@ -2588,6 +2588,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#httpx-backendgeolibre_server_apipyprojecttoml-private-transport-pool" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>httpx</code> (<code>backend/geolibre_server_api/pyproject.toml</code>) — private transport pool
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3144,6 +3155,17 @@
     <span class="md-ellipsis">
       <span class="md-typeset">
         ArcGIS Maps SDK for JavaScript — loaded from Esri's CDN
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#httpx-backendgeolibre_server_apipyprojecttoml-private-transport-pool" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>httpx</code> (<code>backend/geolibre_server_api/pyproject.toml</code>) — private transport pool
       </span>
     </span>
   </a>
@@ -3936,6 +3958,18 @@ manual check, not a Dependabot event:</p>
   the <code>geolibre-arcgis-sdk</code> service-worker rule in <code>vite.config.ts</code>. The
   version is in every URL, so a bump mints new cache entries.</li>
 </ul>
+<h3 id="httpx-backendgeolibre_server_apipyprojecttoml-private-transport-pool"><code>httpx</code> (<code>backend/geolibre_server_api/pyproject.toml</code>) — private transport pool<a class="headerlink" href="#httpx-backendgeolibre_server_apipyprojecttoml-private-transport-pool" title="Permanent link">&para;</a></h3>
+<p>The projects server's protection against identity-provider requests to internal
+addresses (<code>geolibre_server_api/egress.py</code>) needs an httpcore network backend,
+which <code>httpx.HTTPTransport</code> does not accept. <code>GuardedTransport</code> therefore
+replaces the private <code>HTTPTransport._pool</code> with an <code>httpcore.ConnectionPool</code>
+built on <code>GuardedBackend</code>. If <code>_pool</code> is renamed, building the transport raises
+<code>RuntimeError</code> at startup. If httpx keeps <code>_pool</code> but stops sending requests
+through it, the guard is bypassed with no error. After a bump, check that
+<code>HTTPTransport.handle_request</code> still sends requests through <code>self._pool</code>, and
+run <code>python -m pytest backend/geolibre_server_api/tests/test_egress.py</code>
+(<code>test_identity_provider_client_refuses_loopback</code> makes a real connection
+through the transport).</p>
 <h2 id="adding-a-blend-mode">Adding a blend mode<a class="headerlink" href="#adding-a-blend-mode" title="Permanent link">&para;</a></h2>
 <p><strong>Do not add a blend mode without checking it in the browser.</strong> MapLibre's blend
 state covers the alpha channel too, and it composites a blended layer as one
