@@ -4102,7 +4102,7 @@ respond with <code>Cache-Control: private, no-store</code>. <code>PUT</code> bod
 </tr>
 <tr>
 <td><code>requireMfa</code></td>
-<td>Require <code>"mfa"</code> in the ID token's <code>amr</code>. Default <code>false</code>.</td>
+<td>Require <code>"mfa"</code> in the ID token's <code>amr</code>. Default <code>false</code>. Providers that list only the individual factors (for example <code>["pwd", "otp"]</code>) need a claim mapper that adds <code>"mfa"</code>, or every sign-in is rejected.</td>
 </tr>
 <tr>
 <td><code>allowBuiltinAccounts</code></td>
