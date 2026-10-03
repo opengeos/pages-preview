@@ -4354,7 +4354,9 @@ and use host APIs such as <code>addGeoJsonLayer</code> when they need to add dat
 boundary. GeoLibre keeps them in a trusted local save only when the user
 explicitly chooses to retain credentials, and removes the entire
 <code>plugins.settings</code> object from shares, standalone HTML exports, embed
-snapshots, and collaboration snapshots. Store portable, non-secret identifiers
+snapshots, and collaboration snapshots. The exception is state a plugin's
+registry entry declares publishable (see <code>publishableSettings</code> under "Plugin
+marketplace"), which is kept and still scrubbed for credentials. Store portable, non-secret identifiers
 such as broker references in layer source or metadata instead when recipients
 need them.</p>
 <p>Manifest paths must be relative zip paths with forward slashes, no leading slash, no backslashes, and no <code>..</code> segments. External plugins cannot set <code>activeByDefault</code> on the exported plugin object, and the manifest-level flag is honored only for bundled drop-ins (see "Bundled plugins" above); saved project state can still reactivate an external plugin by ID after the zip is loaded.</p>
