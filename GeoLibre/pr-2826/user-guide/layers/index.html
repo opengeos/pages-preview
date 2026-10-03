@@ -803,6 +803,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#3d-model-export" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        3D model export
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2649,6 +2660,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#3d-model-export" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        3D model export
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2911,7 +2933,7 @@ WMS, WMTS), PMTiles, MBTiles, and vector tiles.</p>
 </tr>
 <tr>
 <td><strong>Export</strong></td>
-<td>Write the layer out as GeoJSON, GeoParquet, GeoPackage, KML, KMZ, zipped Shapefile, or CSV (attributes only).</td>
+<td>Write the layer out as GeoJSON, GeoParquet, GeoPackage, KML, KMZ, zipped Shapefile, or CSV (attributes only). A polygon layer drawn as a 3D extrusion can also be exported as a 3D model (glTF <code>.glb</code>, OBJ, or STL) for Blender and other 3D tools. See <a href="#3d-model-export">3D model export</a>.</td>
 </tr>
 <tr>
 <td><strong>Styles</strong></td>
@@ -2946,6 +2968,14 @@ WMS, WMTS), PMTiles, MBTiles, and vector tiles.</p>
 <div class="highlight"><pre><span></span><code>https://web.geolibre.app/?data=https://assets.geolibre.app/data/places.geojson&amp;style=https://assets.geolibre.app/data/sample.style.json
 </code></pre></div>
 <p>See <a href="../embedding/#open-remote-data">Embedding &amp; Sharing</a> for GeoParquet and PMTiles deep links, ZIP source matching, REST API responses, raster-style JSON, and encoding nested URLs.</p>
+<h3 id="3d-model-export">3D model export<a class="headerlink" href="#3d-model-export" title="Permanent link">&para;</a></h3>
+<p>When a polygon layer's <strong>Visualization</strong> is set to <strong>3D extrusion</strong> in the Style panel, <strong>Layer actions → Export</strong> also offers <strong>3D model: glTF (.glb)</strong>, <strong>3D model: OBJ</strong>, and <strong>3D model: STL</strong>. Each feature becomes a closed solid (floor, walls, and roof) with the height, base, and color the map draws. Categorized, graduated, and expression-based colors and heights come through as drawn.</p>
+<ul>
+<li><strong>glTF (.glb)</strong> keeps one named object per feature with its attributes as custom properties, and one material per color. Blender opens it with <strong>File → Import → glTF 2.0</strong>.</li>
+<li><strong>OBJ</strong> keeps one object per feature and stores colors on the vertices.</li>
+<li><strong>STL</strong> writes one uncolored mesh, for 3D printing and CAD tools.</li>
+</ul>
+<p>Coordinates are in meters around the center of the layer. glTF and OBJ use Y as the up axis, and STL uses Z. The glTF file stores the longitude and latitude of that center on its root object. Features whose height is not above the extrusion base, or that have no area, are skipped, and a notice says how many.</p>
 <h2 id="layer-groups">Layer groups<a class="headerlink" href="#layer-groups" title="Permanent link">&para;</a></h2>
 <p>Groups are folders in the layer stack. They can nest, so a project can carry a real hierarchy rather than one flat list.</p>
 <ul>

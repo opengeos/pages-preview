@@ -2845,10 +2845,15 @@ GeoLibre projects. Point an MCP client (Claude Desktop, Claude Code, or any
 other) at it and you can ask for a map in words: the server writes a real
 <code>.geolibre.json</code> project you open in the desktop app, the web app, or the
 <code>geolibre</code> Jupyter widget, and can export it as a standalone HTML page.</p>
-<p>The server is <strong>headless</strong>. It needs no browser, no running GeoLibre instance,
-and no bundled web build. It builds project files with the same
-<a href="../python/">project builders</a> the Python package uses, so a project it writes is
-byte-for-byte the kind the app already loads.</p>
+<p>The file tools are <strong>headless</strong>. They need no browser, no running GeoLibre
+instance, and no bundled web build. They build project files with the same
+<a href="../python/">project builders</a> the Python package uses, so a project they write
+is byte-for-byte the kind the app already loads.</p>
+<p>The <code>live_*</code> tools are the other half. They speak the desktop Notebook relay
+(<a href="../notebook/">Notebook panel</a>), so a command from an MCP client moves the map
+already open in GeoLibre Desktop. Open <strong>Processing → Jupyter Notebook</strong> once
+per app launch; the panel can be closed after that. Web and JupyterLite have
+no relay, so those tools have nothing to attach to there.</p>
 <h2 id="install">Install<a class="headerlink" href="#install" title="Permanent link">&para;</a></h2>
 <p>The MCP SDK is an optional extra:</p>
 <div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">"geolibre[mcp]"</span>
@@ -3097,10 +3102,12 @@ intended.</p>
 <li><strong>Remote fetches are checked</strong>: a URL whose host resolves to a private,
   loopback, or link-local address is refused, on every redirect hop as well as
   the first request, so a crafted URL cannot reach a cloud metadata endpoint.</li>
-<li>The server authors projects; it does <strong>not</strong> drive a live map. Interactive
-  control of a running GeoLibre instance goes through the scripting bridge that
-  backs the <a href="../python/">Python widget</a> and the
-  <a href="../user-guide/embedding/">embed API</a>.</li>
+<li><strong>File tools write a project. <code>live_*</code> tools move the open desktop map.</strong>
+  A live edit is in the session until you save it from the app. The relay is
+  loopback-only and refuses redirects, so the Jupyter token stays on the
+  machine. The same scripting surface backs the <a href="../python/">Python widget</a>
+  and the <a href="../user-guide/embedding/">embed API</a>; those remain how a host page
+  or a notebook drives a map without MCP.</li>
 </ul>
 <h2 id="driving-the-server-from-an-agent">Driving the server from an agent<a class="headerlink" href="#driving-the-server-from-an-agent" title="Permanent link">&para;</a></h2>
 <p>GeoLibre ships an <a href="../agent-skill/">agent skill</a> that teaches an external AI
