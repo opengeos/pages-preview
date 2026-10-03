@@ -3770,14 +3770,26 @@ namespace. Its <code>default</code> export is the callable library:</p>
 <span class="kd">const</span><span class="w"> </span><span class="nx">module</span><span class="o">:</span><span class="w"> </span><span class="kt">typeof</span><span class="w"> </span><span class="nx">Proj4</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">undefined</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">app</span><span class="p">.</span><span class="nx">getProj4</span><span class="o">?</span><span class="p">.();</span>
 <span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">module</span><span class="p">)</span><span class="w"> </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span><span class="s2">"This plugin requires a host with getProj4 support."</span><span class="p">);</span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">proj4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">module</span><span class="p">.</span><span class="k">default</span><span class="p">;</span>
-<span class="nx">proj4</span><span class="p">.</span><span class="nx">defs</span><span class="p">(</span><span class="s2">"EPSG:32632"</span><span class="p">,</span><span class="w"> </span><span class="s2">"+proj=utm +zone=32 +datum=WGS84 +units=m +no_defs"</span><span class="p">);</span>
-<span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">longitude</span><span class="p">,</span><span class="w"> </span><span class="nx">latitude</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">proj4</span><span class="p">(</span><span class="s2">"EPSG:32632"</span><span class="p">,</span><span class="w"> </span><span class="s2">"EPSG:4326"</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="mf">500000</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">]);</span>
+<span class="nx">proj4</span><span class="p">.</span><span class="nx">defs</span><span class="p">(</span><span class="s2">"my-plugin:utm32n"</span><span class="p">,</span><span class="w"> </span><span class="s2">"+proj=utm +zone=32 +datum=WGS84 +units=m +no_defs"</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">longitude</span><span class="p">,</span><span class="w"> </span><span class="nx">latitude</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">proj4</span><span class="p">(</span><span class="s2">"my-plugin:utm32n"</span><span class="p">,</span><span class="w"> </span><span class="s2">"EPSG:4326"</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="mf">500000</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">]);</span>
 </code></pre></div>
 <p>This returns longitude 9 and latitude 0. See the
 <a href="https://github.com/proj4js/proj4js/blob/master/README.md">proj4 API</a> for coordinate
-conversion and CRS definitions. Definitions belong to the shared library
-instance; do not overwrite existing CRS names with conflicting definitions.
+conversion and CRS definitions. The mutable definitions registry is shared with
+the host (including ArcGIS/Zarr reprojection) and all plugins. Register only
+plugin-prefixed names, as above; do not register or redefine <code>EPSG:*</code> names or
+names belonging to the host or other plugins. A conflicting definition can
+silently corrupt subsequently created transforms. These naming rules are a
+plugin-author responsibility, not an isolation boundary enforced by this API.
 Unknown EPSG definitions are not fetched automatically.</p>
+<p>For one-off conversions, pass the definition directly instead of modifying the
+shared registry:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">longitude</span><span class="p">,</span><span class="w"> </span><span class="nx">latitude</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">proj4</span><span class="p">(</span>
+<span class="w">  </span><span class="s2">"+proj=utm +zone=32 +datum=WGS84 +units=m +no_defs"</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">"EPSG:4326"</span><span class="p">,</span>
+<span class="w">  </span><span class="p">[</span><span class="mf">500000</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">],</span>
+<span class="p">);</span>
+</code></pre></div>
 <p>Older or variant hosts may omit <code>getProj4</code>; plugins must handle that absence.
 Shared access does not change <code>addGeoJsonLayer</code>'s WGS84 longitude/latitude
 requirement: reproject source coordinates before adding the layer. Omit proj4's
