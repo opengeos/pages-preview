@@ -1856,6 +1856,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#container-policy-enforcement" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Container policy enforcement
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#putting-both-behind-one-auth-layer" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2734,6 +2745,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#container-policy-enforcement" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Container policy enforcement
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#putting-both-behind-one-auth-layer" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -3123,7 +3145,7 @@ time and strip the prefix in your proxy:</p>
 <tr>
 <td><code>GEOLIBRE_DISABLE_SIDECAR</code></td>
 <td><code>1</code> if you do not need it</td>
-<td>Runs nginx only.</td>
+<td>Skips uvicorn regardless of capabilities; every <code>/sidecar/</code> request returns HTTP 403 with an <code>application/json</code> detail response.</td>
 </tr>
 <tr>
 <td><code>GEOLIBRE_EMBED_ORIGINS</code></td>
@@ -3148,7 +3170,7 @@ time and strip the prefix in your proxy:</p>
 <tr>
 <td><code>VITE_GEOLIBRE_CAPABILITIES</code> (build arg)</td>
 <td>unset, or the capabilities to grant</td>
-<td>Unset grants everything (today's behavior). Naming a subset — or <code>none</code> — pins what the interface offers: adding data, processing, export, plugins, settings, project authoring. Removes affordances only; it is not a server-side restriction. See <a href="../deployment-capabilities/">Deployment Capabilities</a>.</td>
+<td>Unset grants everything (today's behavior). Naming a subset — or <code>none</code> — pins what the interface offers: adding data, processing, export, plugins, settings, project authoring. Build-time client grants do not configure nginx guards; set <code>GEOLIBRE_CAPABILITIES</code> or mount a policy for container enforcement. See <a href="../deployment-capabilities/">Deployment Capabilities</a>.</td>
 </tr>
 <tr>
 <td><code>GEOLIBRE_DEPLOYMENT_FILE</code></td>
@@ -3158,7 +3180,12 @@ time and strip the prefix in your proxy:</p>
 <tr>
 <td><code>GEOLIBRE_CAPABILITIES</code></td>
 <td>unset, or the capabilities to grant</td>
-<td>Same as <code>VITE_GEOLIBRE_CAPABILITIES</code>, but set at run time with <code>-e</code> on a prebuilt image. Unset leaves the file or build value in force; <code>none</code> grants nothing. An unknown name stops the container and lists the accepted values. See <a href="../deployment-capabilities/">Deployment Capabilities</a>.</td>
+<td>Same as <code>VITE_GEOLIBRE_CAPABILITIES</code>, but set at run time with <code>-e</code> on a prebuilt image. Unset leaves the file or build value in force; <code>none</code> grants nothing. An unknown name stops the container and lists the accepted values. The final policy controls nginx sidecar guards and whether uvicorn starts. See <a href="../deployment-capabilities/">Deployment Capabilities</a>.</td>
+</tr>
+<tr>
+<td><code>GEOLIBRE_AI_URL</code> / <code>GEOLIBRE_AI_PROXY_URL</code> / <code>GEOLIBRE_AI_PROXY_TOKEN</code></td>
+<td>unset, or the approved proxy trio</td>
+<td><code>GEOLIBRE_AI_URL=/ai</code> overrides the policy to enable AI. All three values must be configured together under the existing proxy validation rules. The upstream URL and token stay private to the server, not in <code>deployment.json</code>.</td>
 </tr>
 </tbody>
 </table>
@@ -3170,6 +3197,78 @@ time and strip the prefix in your proxy:</p>
 another port. On a public host that lets the served JavaScript probe each
 visitor's loopback interface. Drop those allowances from the CSP for a
 public deployment.</p>
+</div>
+<h3 id="container-policy-enforcement">Container policy enforcement<a class="headerlink" href="#container-policy-enforcement" title="Permanent link">&para;</a></h3>
+<p>The container uses the final deployment policy, after environment overrides,
+to guard these route families at nginx. Each row is an <strong>any-of</strong> check: at
+least one listed capability must be granted.</p>
+<table>
+<thead>
+<tr>
+<th>Sidecar route prefix</th>
+<th>Required capability (any of)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/sidecar/whitebox</code></td>
+<td><code>processing:run</code></td>
+</tr>
+<tr>
+<td><code>/sidecar/raster</code></td>
+<td><code>processing:run</code></td>
+</tr>
+<tr>
+<td><code>/sidecar/vector</code></td>
+<td><code>processing:run</code></td>
+</tr>
+<tr>
+<td><code>/sidecar/pointcloud</code></td>
+<td><code>processing:run</code></td>
+</tr>
+<tr>
+<td><code>/sidecar/ml</code></td>
+<td><code>processing:run</code></td>
+</tr>
+<tr>
+<td><code>/sidecar/sql</code></td>
+<td><code>processing:run</code></td>
+</tr>
+<tr>
+<td><code>/sidecar/postgis</code></td>
+<td><code>data:add</code></td>
+</tr>
+<tr>
+<td><code>/sidecar/conversion</code></td>
+<td><code>processing:run</code> <strong>or</strong> <code>data:add</code></td>
+</tr>
+</tbody>
+</table>
+<p>A denied route returns HTTP 403 with an <code>application/json</code> body containing
+<code>detail</code>, rather than reaching the sidecar. Omitting <code>capabilities</code> grants all
+capabilities. If the final grant contains neither <code>processing:run</code> nor
+<code>data:add</code>, uvicorn is not started and all <code>/sidecar/</code> requests return that JSON
+403 response. <code>GEOLIBRE_DISABLE_SIDECAR=1</code> does the same regardless of the grant.</p>
+<p>When uvicorn runs, existing utility routes such as <code>/health</code>, <code>/algorithms</code>,
+<code>/run</code>, and <code>/shutdown</code> remain unguarded by capabilities; this is a route-family
+policy, not per-endpoint authorization. Guards use nginx's normalized URI,
+including duplicate-slash merging and percent-decoded prefixes.</p>
+<p>The final policy also controls <code>/ai</code>: <code>ai.enabled: false</code>, or an absent
+<code>ai.enabled</code>, disables the proxy. <code>ai.enabled: true</code> requires the approved
+proxy environment trio (<code>GEOLIBRE_AI_URL=/ai</code>, <code>GEOLIBRE_AI_PROXY_URL</code>, and
+<code>GEOLIBRE_AI_PROXY_TOKEN</code>); missing or invalid configuration stops boot.
+The existing environment override is preserved: setting
+<code>GEOLIBRE_AI_URL=/ai</code> enables AI even if a mounted policy says false. Merely
+setting the upstream URL or token does not enable AI. Proxy infrastructure,
+including its upstream URL and token, remains server-private.</p>
+<div class="admonition warning">
+<p class="admonition-title">Container guards are not general authorization</p>
+<p>These restrictions apply only to the bundled container's nginx routes.
+They do not enforce capabilities on browser WASM engines, desktop
+processing, or separately exposed services. Keep the sidecar and AI
+upstream private behind nginx, retain filesystem confinement, and use
+Basic Auth or a real auth proxy for user authentication. Client-side
+hiding alone is not an authorization boundary.</p>
 </div>
 <h3 id="putting-both-behind-one-auth-layer">Putting both behind one auth layer<a class="headerlink" href="#putting-both-behind-one-auth-layer" title="Permanent link">&para;</a></h3>
 <p>Basic Auth is fine for a single shared credential. For accounts or SSO, put
