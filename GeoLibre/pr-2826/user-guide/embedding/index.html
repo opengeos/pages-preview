@@ -3092,6 +3092,9 @@ several plugins with commas, or repeat the parameter:</p>
 top of the plugins the project itself turns on.</p>
 <div class="highlight"><pre><span></span><code>https://web.geolibre.app/?url=https://share.geolibre.app/giswqs/3d-tiles.geolibre.json&amp;plugin=swipe
 </code></pre></div>
+<p>A plugin from the official plugin registry works too, by its registry id
+(<code>?plugin=openrndt-geolibre</code>). One that is not installed yet is never loaded
+silently: the app asks first and installs it only after <strong>Trust and load</strong>.</p>
 <p>Unknown names are ignored. A plugin that does not support the current renderer
 does not activate. Directions and reverse geocoding send what you click to a
 public server, so they only open from the menu, after their one-time notice. The
