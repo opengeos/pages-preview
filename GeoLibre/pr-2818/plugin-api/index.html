@@ -2042,6 +2042,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Example plugin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#shared-projection-library" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Shared projection library
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2912,6 +2929,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Example plugin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#shared-projection-library" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Shared projection library
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -3219,6 +3253,7 @@
 <h2 id="interface">Interface<a class="headerlink" href="#interface" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="kr">type</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Feature</span><span class="p">,</span><span class="w"> </span><span class="nx">FeatureCollection</span><span class="p">,</span><span class="w"> </span><span class="nx">Geometry</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">"geojson"</span><span class="p">;</span>
 <span class="k">import</span><span class="w"> </span><span class="kr">type</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">IControl</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">"maplibre-gl"</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="kr">type</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">Proj4</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">"proj4"</span><span class="p">;</span>
 
 <span class="k">export</span><span class="w"> </span><span class="kr">type</span><span class="w"> </span><span class="nx">GeoLibreMapControlPosition</span><span class="w"> </span><span class="o">=</span>
 <span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="s2">"top-left"</span>
@@ -3449,6 +3484,7 @@
 <span class="w">    </span><span class="nx">position</span><span class="o">:</span><span class="w"> </span><span class="kt">GeoLibreMapControlPosition</span>
 <span class="w">  </span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="kt">boolean</span><span class="p">;</span>
 <span class="w">  </span><span class="nx">getDeckGL</span><span class="o">?:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">GeoLibreDeckGL</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">getProj4</span><span class="o">?:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">typeof</span><span class="w"> </span><span class="nx">Proj4</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="w">  </span><span class="c1">// Right-sidebar panels (see "Right sidebar panels" below).</span>
 <span class="w">  </span><span class="nx">registerRightPanel</span><span class="o">?:</span><span class="w"> </span><span class="p">(</span><span class="nx">panel</span><span class="o">:</span><span class="w"> </span><span class="kt">GeoLibreRightPanelRegistration</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
 <span class="w">  </span><span class="nx">unregisterRightPanel</span><span class="o">?:</span><span class="w"> </span><span class="p">(</span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
@@ -3726,6 +3762,39 @@ change. If you also touched pages under <code>docs/</code>, build the site — C
 <p>Map control plugins can optionally expose <code>getMapControlPosition()</code> and <code>setMapControlPosition()</code> so the desktop Plugins menu can move the control between map corners. Position-aware plugins should remove and recreate or re-add their control when the position changes.</p>
 <p>Plugins with serializable runtime settings can expose <code>getProjectState()</code> and <code>applyProjectState()</code> so GeoLibre can save and restore those settings in the project file. A wrapper should use these hooks to adapt upstream control APIs such as <code>getState()</code> without requiring every upstream package to implement a GeoLibre-specific interface.</p>
 <p>Plugins that render with deck.gl should call <code>app.getDeckGL()</code> (returns a promise) to obtain GeoLibre's own deck.gl modules — <code>core</code>, <code>layers</code>, <code>geoLayers</code>, <code>meshLayers</code>, and <code>mapbox</code> (use <code>mapbox.MapboxOverlay</code> for interleaved MapLibre rendering). Render on the host's single deck.gl instance rather than bundling a second copy: deck.gl and luma.gl throw on a version mismatch and share global singletons, so a bundled copy fails to render. Call it with optional chaining (<code>app.getDeckGL?.()</code>) since a host variant may not ship deck.gl.</p>
+<h3 id="shared-projection-library">Shared projection library<a class="headerlink" href="#shared-projection-library" title="Permanent link">&para;</a></h3>
+<p>External plugins can use <code>app.getProj4()</code> to resolve the host's proj4 module
+namespace. Its <code>default</code> export is the callable library:</p>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="kr">type</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">Proj4</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">"proj4"</span><span class="p">;</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">module</span><span class="o">:</span><span class="w"> </span><span class="kt">typeof</span><span class="w"> </span><span class="nx">Proj4</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">undefined</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">app</span><span class="p">.</span><span class="nx">getProj4</span><span class="o">?</span><span class="p">.();</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">module</span><span class="p">)</span><span class="w"> </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span><span class="s2">"This plugin requires a host with getProj4 support."</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">proj4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">module</span><span class="p">.</span><span class="k">default</span><span class="p">;</span>
+<span class="nx">proj4</span><span class="p">.</span><span class="nx">defs</span><span class="p">(</span><span class="s2">"my-plugin:utm32n"</span><span class="p">,</span><span class="w"> </span><span class="s2">"+proj=utm +zone=32 +datum=WGS84 +units=m +no_defs"</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">longitude</span><span class="p">,</span><span class="w"> </span><span class="nx">latitude</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">proj4</span><span class="p">(</span><span class="s2">"my-plugin:utm32n"</span><span class="p">,</span><span class="w"> </span><span class="s2">"EPSG:4326"</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="mf">500000</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">]);</span>
+</code></pre></div>
+<p>This returns longitude 9 and latitude 0. See the
+<a href="https://github.com/proj4js/proj4js/blob/master/README.md">proj4 API</a> for coordinate
+conversion and CRS definitions. The mutable definitions registry is shared with
+the host (including ArcGIS/Zarr reprojection) and all plugins. Register only
+plugin-prefixed names, as above; do not register or redefine <code>EPSG:*</code> names or
+names belonging to the host or other plugins. A conflicting definition can
+silently corrupt subsequently created transforms. These naming rules are a
+plugin-author responsibility, not an isolation boundary enforced by this API.
+Unknown EPSG definitions are not fetched automatically.</p>
+<p>For one-off conversions, pass the definition directly instead of modifying the
+shared registry:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">longitude</span><span class="p">,</span><span class="w"> </span><span class="nx">latitude</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">proj4</span><span class="p">(</span>
+<span class="w">  </span><span class="s2">"+proj=utm +zone=32 +datum=WGS84 +units=m +no_defs"</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">"EPSG:4326"</span><span class="p">,</span>
+<span class="w">  </span><span class="p">[</span><span class="mf">500000</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">],</span>
+<span class="p">);</span>
+</code></pre></div>
+<p>Older or variant hosts may omit <code>getProj4</code>; plugins must handle that absence.
+Shared access does not change <code>addGeoJsonLayer</code>'s WGS84 longitude/latitude
+requirement: reproject source coordinates before adding the layer. Omit proj4's
+runtime import and dependency from the plugin bundle when using this API;
+type-only references, such as the namespace import above, need no runtime copy.</p>
 <p>Plugins can also declare URL query parameters and handle them when GeoLibre opens. URL parameter handlers run after the map is ready, external plugins are loaded, and project plugin state has been restored. GeoLibre calls handlers for plugins whose declared parameter names are present in the URL, and it suppresses repeated handling of the same URL context for the same plugin. If a matching plugin is registered (installed) but inactive, GeoLibre first attempts to activate it via <code>PluginManager.activate</code>; the handler runs only if activation succeeds (an <code>activate()</code> that returns <code>false</code> or throws leaves the plugin inactive and skips dispatch). Parameter names are case-sensitive, as URL query parameters are: declaring <code>exampleGeoJson</code> will not match <code>?ExampleGeoJson=…</code>.</p>
 <div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="kr">type</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">GeoLibreAppAPI</span><span class="p">,</span><span class="w"> </span><span class="nx">GeoLibrePlugin</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">"@geolibre/plugins"</span><span class="p">;</span>
 

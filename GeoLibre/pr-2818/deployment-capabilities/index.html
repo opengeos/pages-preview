@@ -2680,17 +2680,21 @@ kiosk, a classroom instance, and everything between that and the full app.</p>
 ("may add data at all"), not an individual menu item, so a locked-down
 deployment cannot be defeated by one item somebody forgot to list.</p>
 <div class="admonition warning">
-<p class="admonition-title">This is a client-side gate, not an authorization boundary</p>
+<p class="admonition-title">Client gates are not a general authorization boundary</p>
 <p>Withholding a capability removes the affordance: the menu is not rendered,
 the command palette does not list or run the action, the keyboard shortcut
-does nothing, and the embed API refuses the command. It does <strong>not</strong> stop
-someone with browser devtools, and it does not restrict the server.</p>
-<p>The sidecar (<code>/sidecar</code>) and AI proxy (<code>/ai</code>) endpoints answer the same
-requests whatever capabilities are configured. For a deployment that must
-hold up against its own users, keep the server-side protections in
-<a href="../self-hosting/">Self-Hosting</a> — Basic Auth or a real auth proxy,
-<code>GEOLIBRE_CONVERSION_ROOTS</code>, <code>GEOLIBRE_DISABLE_SIDECAR</code> — and treat
-capabilities as the interface half of the story.</p>
+does nothing, and the embed API refuses the command. These client gates do
+<strong>not</strong> stop someone with browser devtools.</p>
+<p>The Docker container also enforces its final deployment policy at nginx:
+selected <code>/sidecar/</code> route families require <code>processing:run</code> or <code>data:add</code>,
+and <code>/ai</code> is disabled unless the final policy enables AI and the approved
+proxy environment is configured. See the exact route table and startup
+rules in <a href="../self-hosting/#container-policy-enforcement">Self-Hosting</a>.
+This enforcement is <strong>container-only</strong>: it does not restrict browser WASM
+engines, desktop processing, or a separately hosted sidecar.</p>
+<p>Keep Basic Auth or a real auth proxy and <code>GEOLIBRE_CONVERSION_ROOTS</code> in
+place. Container policy enforcement is not user authentication, and
+capabilities remain the interface half of the story outside those routes.</p>
 </div>
 <h2 id="not-the-same-as-ui-profiles">Not the same as UI Profiles<a class="headerlink" href="#not-the-same-as-ui-profiles" title="Permanent link">&para;</a></h2>
 <p><a href="../ui-profiles/">UI Profiles</a> also hide menus and items, and the two run

@@ -3039,7 +3039,12 @@ with a shared project and the read-only viewer.</p>
 </table>
 <p>Directions and reverse geocoding are not listed: they send what you click to a
 public server, so they only open from the menu, after their one-time notice.
-Plugins installed from <strong>Manage Plugins</strong> can't be opened from a link.</p>
+A plugin from the <a href="#manage-plugins">plugin registry</a> opens from a link by its
+full registry id, for example <code>?plugin=openrndt-geolibre</code>. If it is already
+installed it activates like a built-in one. If not, GeoLibre first asks whether
+to install it, showing the name, author, description, and homepage the registry
+lists, and installs and activates it only after <strong>Trust and load</strong>. The prompt is
+skipped in the read-only <code>layout=viewer</code>, which never installs plugins.</p>
 <h2 id="manage-plugins">Manage Plugins<a class="headerlink" href="#manage-plugins" title="Permanent link">&para;</a></h2>
 <p>Open <strong>Settings → Manage Plugins</strong> to browse the marketplace. The dialog is modeled on QGIS, with sections for <strong>All</strong>, <strong>Installed</strong>, <strong>Not installed</strong>, <strong>Upgradeable</strong>, and <strong>Settings</strong>.</p>
 <p><img alt="The Manage Plugins dialog, listing the curated registry with Install buttons" src="https://assets.geolibre.app/images/geolibre-manage-plugins.webp" /></p>
