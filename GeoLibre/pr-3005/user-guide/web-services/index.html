@@ -1485,6 +1485,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#sentinel-2-explorer" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Sentinel-2 Explorer
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#ocean-data-platform" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -3216,6 +3227,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#sentinel-2-explorer" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Sentinel-2 Explorer
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#ocean-data-platform" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -3413,6 +3435,11 @@
 <td><a href="#fields-of-the-world">Fields of the World</a></td>
 <td>Source.coop</td>
 <td>Global agricultural field boundaries (2024, 2025)</td>
+</tr>
+<tr>
+<td><a href="#sentinel-2-explorer">Sentinel-2 Explorer</a></td>
+<td>Source.coop, AWS</td>
+<td>Every Sentinel-2 L2A scene since 2015, searched from static GeoParquet</td>
 </tr>
 <tr>
 <td><a href="#ocean-data-platform">Ocean Data Platform</a></td>
@@ -3699,6 +3726,26 @@ adds it to the map.</p>
 <div class="admonition note">
 <p class="admonition-title">Running the FTW model</p>
 <p>The plugin shows and downloads the published global predictions. To run the FTW model on your own area and Sentinel-2 scenes, use the <a href="https://fieldsofthe.world/ftw-inference-app">FTW inference app</a> or the <a href="https://github.com/fieldsoftheworld/ftw-baselines">ftw-baselines</a> command-line tools, then add the result to GeoLibre. The data is licensed CC-BY-4.0.</p>
+</div>
+<h2 id="sentinel-2-explorer">Sentinel-2 Explorer<a class="headerlink" href="#sentinel-2-explorer" title="Permanent link">&para;</a></h2>
+<p>Finds and views Sentinel-2 L2A imagery anywhere on Earth, the way Taylor Geospatial's <a href="https://research.taylorgeospatial.org/s2-stac-geoparquet/">reference explorer</a> does. It reads the <a href="https://github.com/taylor-geospatial/s2-stac-geoparquet">s2-stac-geoparquet</a> catalog on <a href="https://source.coop/tge-labs/s2-stac-geoparquet">Source Cooperative</a>, which republishes every scene Earth Search indexes as partitioned STAC-GeoParquet. There is no API or server behind it: each search is a set of HTTP range reads against static files, and each image streams from the scene's Cloud-Optimized GeoTIFFs on AWS.</p>
+<ul>
+<li>Pick a <strong>collection</strong>: <strong>Collection 1</strong> (ESA's uniform reprocessing, from October 2015, the default) or the original <strong>L2A</strong> index (from November 2016).</li>
+<li>Set the <strong>From</strong> and <strong>To</strong> dates. The map colors every MGRS tile by its statistics over that window, read from the catalog's small monthly stats files: the <strong>clearest scene</strong>'s cloud cover, the <strong>scene count</strong>, the <strong>median cloud</strong> cover, or the <strong>coverage</strong> (the most of the tile any one scene fills). Green is good and dark red is poor.</li>
+<li>The <strong>Max cloud %</strong>, <strong>Min coverage %</strong>, and <strong>Min scenes per tile</strong> filters grey out tiles that fail them. Max cloud and Min coverage also filter the scene list. <strong>Show the tile grid</strong> hides the grid without closing the panel.</li>
+<li><strong>Click a tile</strong> to search its scenes. The panel reads only the row groups of the window's GeoParquet parts that can hold the tile, usually a few hundred KB, and reports how many range reads it took. The scenes can be sorted by least cloud, most coverage, or newest, and hovering a scene outlines its footprint.</li>
+<li><strong>Add scenes as</strong> picks what <strong>Add to map</strong> streams:<ul>
+<li>the <strong>true color</strong> (TCI) image, or any <strong>single band</strong> (B01 to B12, B8A, AOT, WVP, the SCL scene classification, and for Collection 1 the cloud and snow probability masks), added as a COG layer and restyled in the Style panel like any raster;</li>
+<li>a <strong>composite</strong> of several band files: <strong>false color infrared</strong> (B08, B04, B03), <strong>agriculture</strong> (B11, B08, B02), or <strong>short-wave infrared</strong> (B12, B8A, B04), or an <strong>index</strong>: <strong>NDVI</strong> (B08/B04) or <strong>NDWI</strong> (B03/B08) on a diverging ramp. Each map tile reads the bands' windows straight from their COGs at the matching overview, warps them from UTM, and paints them in the browser, so 10 m and 20 m bands combine at full resolution. Reflectance is corrected for the 1000 offset of processing baseline 04.00 and later. Composites need the MapLibre renderer.</li>
+</ul>
+</li>
+<li>Once a scene is on the map in the chosen display, its button reads <strong>Remove from map</strong>; removing the layer in the Layers panel turns it back into <strong>Add to map</strong>. All of these layers are saved with the project. The selected tile is left unfilled so the scene shows through.</li>
+<li><strong>Download</strong> lists the scene's files (TCI, every band, SCL, and the Collection 1 masks). Each opens the Cloud-Optimized GeoTIFF in your browser (the system browser on desktop), which saves it.</li>
+<li><strong>About this explorer</strong> at the top of the panel collapses to save space.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Data and license</p>
+<p>The imagery is Copernicus Sentinel-2 data processed by ESA, indexed by Element 84's Earth Search, and hosted on the AWS Registry of Open Data. The catalog is published by Taylor Geospatial under CC-BY-4.0.</p>
 </div>
 <h2 id="ocean-data-platform">Ocean Data Platform<a class="headerlink" href="#ocean-data-platform" title="Permanent link">&para;</a></h2>
 <p>Browses the public datasets on HUB Ocean's <a href="https://app.hubocean.earth/catalog">Ocean Data Platform</a> (ODP), which shares ocean data from research institutions, governments, and industry: benthic habitats, coral reefs, protected areas, fisheries, seafloor features, observations, and more.</p>
