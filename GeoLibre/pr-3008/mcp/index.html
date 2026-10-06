@@ -1143,60 +1143,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../user-guide/usgs-nldi/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  USGS NLDI
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../arcgis-editing/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  ArcGIS Feature Editing
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../user-guide/settings/" class="md-nav__link">
         
   
@@ -3285,14 +3231,19 @@ what <code>describe_project</code> showed it without tracking UUIDs.</p>
 <td><code>move_story_chapter</code> / <code>remove_story_chapter</code></td>
 <td>Reorder or drop a chapter by id, title, or index.</td>
 </tr>
+<tr>
+<td><code>add_bookmark</code></td>
+<td>Add a saved view to the Bookmarks panel, optionally in a folder (a new folder name creates it) and with the layers to show when it is opened. A camera value left out comes from the project's saved view.</td>
+</tr>
+<tr>
+<td><code>remove_bookmark</code></td>
+<td>Drop a bookmark by id, name, or index.</td>
+</tr>
 </tbody>
 </table>
 <p>The shapes match what the app reads (<code>parseProject</code> in <code>@geolibre/core</code>); a
 round-trip test loads a project these tools wrote through it and checks nothing
 is dropped or rewritten.</p>
-<p>Bookmarks have no tool: the app keeps them in browser storage, not in the
-project file, so there is nothing for a project tool to write. Story chapters
-are the saved, shareable equivalent.</p>
 <h3 id="live-desktop-map">Live desktop map<a class="headerlink" href="#live-desktop-map" title="Permanent link">&para;</a></h3>
 <table>
 <thead>

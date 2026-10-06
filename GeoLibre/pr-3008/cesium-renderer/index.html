@@ -1143,60 +1143,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../user-guide/usgs-nldi/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  USGS NLDI
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../arcgis-editing/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  ArcGIS Feature Editing
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../user-guide/settings/" class="md-nav__link">
         
   
@@ -2735,7 +2681,8 @@ menu in every split pane, so a project can place a globe beside any of the
 other three engines. Primary and pane choices are saved with the project.</p>
 <h2 id="credentials">Credentials<a class="headerlink" href="#credentials" title="Permanent link">&para;</a></h2>
 <p>The globe works without a Cesium ion token: it drapes the project basemap as
-its base imagery and shows a hint that terrain is unavailable. A token adds
+its base imagery, uses keyless Terrarium elevation (or a configured COG) for
+terrain, and shows a hint that links to the token setting. A token adds
 Cesium World Terrain, Ion World Imagery as the fallback for a basemap with no
 raster form, and access to ion-hosted assets. The hosted web version bundles a
 demo token; the desktop and mobile apps need your own for those features.</p>

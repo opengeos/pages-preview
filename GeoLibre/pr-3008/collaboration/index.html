@@ -1143,60 +1143,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../user-guide/usgs-nldi/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  USGS NLDI
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../arcgis-editing/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  ArcGIS Feature Editing
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../user-guide/settings/" class="md-nav__link">
         
   
@@ -3507,7 +3453,8 @@ environment. Until that env var is set, the feature stays dark.</p>
 <li><strong>Payload size</strong>: layers can embed <code>FeatureCollection</code>s. <code>projectFromStore</code>
   already strips redundant <code>geojson</code> for URL-backed layers, but a large
   in-memory/local-file layer can exceed the snapshot cap
-  (<code>COLLAB_MAX_SNAPSHOT_BYTES</code>; 10 MB by default) and is rejected with
+  (<code>COLLAB_MAX_SNAPSHOT_BYTES</code>: 10 MB by default for the relay, 1 MB in the
+  Docker Compose setup) and is rejected with
   <code>error: too-large</code> (share via URL instead). v2: diff / chunked layer sync.</li>
 <li><strong>Undo</strong>: a remote apply clears local undo (see above).</li>
 <li>v2 directions: per-action mutation or CRDT transport, coalesced remote-apply

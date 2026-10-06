@@ -1355,60 +1355,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../user-guide/usgs-nldi/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  USGS NLDI
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../arcgis-editing/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  ArcGIS Feature Editing
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../user-guide/settings/" class="md-nav__link">
         
   
@@ -3027,7 +2973,7 @@ kepler.gl, and Google Earth, see the <a href="../comparison/">Comparison</a>.</p
 <li><strong>Four interchangeable rendering engines</strong>: <strong>View → Rendering engine</strong> switches the primary workspace among MapLibre GL JS, Mapbox GL JS, CesiumJS, and the ArcGIS Maps SDK for JavaScript. Every split pane can independently use any of the four. Engine choices are saved with the project; the camera, layers, groups, visibility, opacity, and supported styles survive a switch. Menus, tools, and plugins are gated on the active engine's capabilities. See <a href="../user-guide/rendering-engines/">Rendering engines</a>.</li>
 <li><strong>Engine-specific strengths</strong>: MapLibre is the default and has the broadest plugin support; Mapbox supplies Mapbox styles, globe, and terrain; Cesium is the native globe for terrain, 3D Tiles, CZML, ion, and I3S; ArcGIS renders native ArcGIS services in 2D maps and 3D scenes. Mapbox requires an access token; Cesium works without a token, and a Cesium ion token adds World Terrain and ion assets (the web version bundles a demo token, desktop and mobile need your own); ArcGIS works without credentials and uses an optional API key for Esri basemap styles. See the <a href="../mapbox-renderer/">Mapbox</a> and <a href="../arcgis-renderer/">ArcGIS</a> references.</li>
 <li><strong>Cesium as the primary rendering engine</strong>: selecting Cesium replaces the whole workspace with its 3D globe; the previous canvas is unmounted rather than hidden. See <a href="../architecture/#3d-globe-view-cesiumjs">Architecture</a>.<ul>
-<li>A Cesium Ion token is optional: without one the globe draws the project's basemap on a bare ellipsoid, and with one it adds Cesium World Terrain and Ion imagery, and any quantized-mesh Cesium Ion terrain asset available to the account can be used as the terrain source. See <a href="../getting-started/#optional-3d-globe-credentials-cesium-ion">Optional 3D globe credentials</a></li>
+<li>A Cesium Ion token is optional: without one the globe draws the project's basemap and takes terrain from keyless Terrarium elevation or a configured COG, and with one it adds Cesium World Terrain and Ion imagery, and any quantized-mesh Cesium Ion terrain asset available to the account can be used as the terrain source. See <a href="../getting-started/#optional-3d-globe-credentials-cesium-ion">Optional 3D globe credentials</a></li>
 </ul>
 </li>
 <li><strong>Globe chrome</strong>: Reset view, fullscreen, and a 3D / 2D / Columbus scene-mode picker (flat modes in Web Mercator to match the project map), movable between corners; a native basemap and terrain gallery with Ion imagery plus keyless Esri and OpenStreetMap styles, with a Project basemap option; cursor coordinates, elevation, and the active projection in the shared status bar</li>

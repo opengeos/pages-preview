@@ -1143,60 +1143,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../user-guide/usgs-nldi/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  USGS NLDI
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../arcgis-editing/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  ArcGIS Feature Editing
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../user-guide/settings/" class="md-nav__link">
         
   
@@ -2155,6 +2101,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#bookmarks" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Bookmarks
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#interaction" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2847,6 +2804,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#bookmarks" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Bookmarks
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#interaction" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -3081,6 +3049,16 @@ file contents do not change.</p>
 <td>Optional label for the primary pane of a multi-map grid</td>
 </tr>
 <tr>
+<td><code>bookmarks</code></td>
+<td>array</td>
+<td>Optional saved map views from the Bookmarks panel (see below); omitted when there are none</td>
+</tr>
+<tr>
+<td><code>bookmarkGroups</code></td>
+<td>array</td>
+<td>Optional folders the bookmarks are organized into; omitted when there are none</td>
+</tr>
+<tr>
 <td><code>styleLibrary</code></td>
 <td>array</td>
 <td>Optional project-scoped Style Manager entries (name, tags, kind, <code>LayerStyle</code> subset); omitted when empty</td>
@@ -3252,6 +3230,34 @@ Unused keys are ignored. The Dashboard panel (Tools → Dashboard, or the
 widget-grid column count (1-6, default 2), at the top level of the project.
 Charts read from GeoJSON-backed vector layers and DuckDB query layers; widgets
 bound to a missing or non-attribute layer are shown as empty.</p>
+<h2 id="bookmarks">Bookmarks<a class="headerlink" href="#bookmarks" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"bookmarkGroups"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w"> </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hoods"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Neighborhoods"</span><span class="p">,</span><span class="w"> </span><span class="nt">"collapsed"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="p">}],</span>
+<span class="w">  </span><span class="nt">"bookmarks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"downtown"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Downtown"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"lng"</span><span class="p">:</span><span class="w"> </span><span class="mf">-83.92</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"lat"</span><span class="p">:</span><span class="w"> </span><span class="mf">35.96</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"zoom"</span><span class="p">:</span><span class="w"> </span><span class="mi">14</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"pitch"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"bearing"</span><span class="p">:</span><span class="w"> </span><span class="mi">340</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="mi">1700000000000</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hoods"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"extra"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"visibleLayerIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"cities"</span><span class="p">]</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Saved views from the Bookmarks panel (Controls → Bookmark), in panel order.
+<code>lng</code>/<code>lat</code> (-180..180 / -90..90), <code>zoom</code> (0-24), <code>pitch</code> (0-85) and <code>bearing</code>
+(wrapped into 0-360) are the camera; <code>createdAt</code> is milliseconds since the
+epoch. <code>groupId</code> files a bookmark in one of <code>bookmarkGroups</code> (folders do not
+nest); a <code>groupId</code> that names no folder is dropped on load. <code>extra</code> is state
+captured with the view: <code>visibleLayerIds</code> lists the layers to show when the
+bookmark is opened, and the others are hidden. Bookmarks with a missing or
+out-of-range camera, or a duplicate <code>id</code>, are dropped on load. Before these
+fields existed, bookmarks lived only in the browser's local storage.</p>
 <h2 id="interaction">Interaction<a class="headerlink" href="#interaction" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"interaction"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>

@@ -1143,60 +1143,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../user-guide/usgs-nldi/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  USGS NLDI
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../arcgis-editing/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  ArcGIS Feature Editing
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-                
-              
-                
-                  
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../user-guide/settings/" class="md-nav__link">
         
   
@@ -3526,6 +3472,14 @@ e.g. <code>m.run_algorithm(..., timeout=300)</code>.</p>
 <tr>
 <td><code>move_story_chapter(chapter, index)</code> / <code>remove_story_chapter(chapter)</code></td>
 <td>Reorder or drop a chapter by id, title, or 0-based index.</td>
+</tr>
+<tr>
+<td><code>add_bookmark(name, center=, zoom=, pitch=, bearing=, folder=, visible_layers=)</code></td>
+<td>Save a view to the Bookmarks panel; camera values left out come from the saved view. <code>folder</code> is a folder id or name (a new name creates it); <code>visible_layers</code> lists the layers (ids, names, or handles) to show when it is opened.</td>
+</tr>
+<tr>
+<td><code>remove_bookmark(bookmark)</code></td>
+<td>Drop a bookmark by id, name, or 0-based index.</td>
 </tr>
 <tr>
 <td><code>set_identify(layer="all")</code></td>
