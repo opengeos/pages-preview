@@ -1436,6 +1436,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#reading-features-back" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Reading features back
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#a-host-page" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2961,6 +2972,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#reading-features-back" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Reading features back
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#a-host-page" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -3382,6 +3404,15 @@ recommended typed client and handles origin checks and request correlation:</p>
 <span class="kd">const</span><span class="w"> </span><span class="nx">added</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">map</span><span class="p">.</span><span class="nx">addData</span><span class="p">(</span><span class="s2">"https://assets.geolibre.app/data/places.geojson"</span><span class="p">);</span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">layers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">map</span><span class="p">.</span><span class="nx">listLayers</span><span class="p">();</span>
 <span class="nx">map</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">"selectionChanged"</span><span class="p">,</span><span class="w"> </span><span class="p">({</span><span class="w"> </span><span class="nx">featureIds</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">featureIds</span><span class="p">));</span>
+<span class="c1">// Read back what the user drew or edited:</span>
+<span class="nx">map</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">"featuresChanged"</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">({</span><span class="w"> </span><span class="nx">layerId</span><span class="p">,</span><span class="w"> </span><span class="nx">removed</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">removed</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">removeFromBackend</span><span class="p">(</span><span class="nx">layerId</span><span class="p">);</span><span class="w"> </span><span class="c1">// the layer is gone; getLayerFeatures would reject</span>
+<span class="w">    </span><span class="k">return</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">features</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">map</span><span class="p">.</span><span class="nx">getLayerFeatures</span><span class="p">(</span><span class="nx">layerId</span><span class="p">);</span>
+<span class="w">  </span><span class="nx">saveToBackend</span><span class="p">(</span><span class="nx">layerId</span><span class="p">,</span><span class="w"> </span><span class="nx">features</span><span class="p">);</span>
+<span class="p">});</span>
 </code></pre></div>
 <h3 id="enabling-it">Enabling it<a class="headerlink" href="#enabling-it" title="Permanent link">&para;</a></h3>
 <p>The API is <strong>off by default</strong>. The primary configuration is
@@ -3420,9 +3451,10 @@ general-purpose data-fetching proxy — configure
 <a href="../../deployment-capabilities/">deployment capabilities</a> in the runtime
 policy. A denied command rejects with <code>Missing &lt;capability&gt; capability</code> rather
 than silently doing nothing: <code>loadProject</code> needs <code>project:edit</code>, <code>addLayer</code> and
-<code>addData</code> need <code>data:add</code>, <code>openTool</code> needs <code>processing:run</code>, and <code>exportImage</code>
-needs <code>export:data</code>. The rest — <code>setView</code>, <code>highlight</code>, layer visibility — are
-unprivileged and always available.</p>
+<code>addData</code> need <code>data:add</code>, <code>openTool</code> needs <code>processing:run</code>, and
+<code>exportImage</code>, <code>getLayerFeatures</code>, and <code>getDrawnFeatures</code> need <code>export:data</code>.
+The rest — <code>setView</code>, <code>highlight</code>, layer visibility — are unprivileged and
+always available.</p>
 <h3 id="the-typed-client">The typed client<a class="headerlink" href="#the-typed-client" title="Permanent link">&para;</a></h3>
 <p><code>@geolibre/embed</code> is a dependency-free ESM package published to npm from each
 GeoLibre release, so its version tracks the app version:</p>
@@ -3517,6 +3549,16 @@ other frame or origin is ignored. Pass the <em>app's</em> origin, not your own.<
 <td><code>exportImage()</code></td>
 <td>a PNG <code>data:</code> URL</td>
 <td>The map as currently rendered.</td>
+</tr>
+<tr>
+<td><code>getLayerFeatures(layerId)</code></td>
+<td><code>Feature[]</code></td>
+<td>A layer's features. See <a href="#reading-features-back">Reading features back</a>.</td>
+</tr>
+<tr>
+<td><code>getDrawnFeatures()</code></td>
+<td><code>Feature[]</code></td>
+<td>The user's drawings (all Sketches layers). See <a href="#reading-features-back">Reading features back</a>.</td>
 </tr>
 <tr>
 <td><code>on(event, listener)</code></td>
@@ -3625,6 +3667,16 @@ them out of the other <code>postMessage</code> traffic on your page.</p>
 <td><code>{}</code></td>
 <td>Returns the rendered map as a PNG data URL in <code>result</code>.</td>
 </tr>
+<tr>
+<td><code>getLayerFeatures</code></td>
+<td><code>{ layerId }</code></td>
+<td>Returns a layer's GeoJSON features as an array in <code>result</code>. See <a href="#reading-features-back">Reading features back</a>.</td>
+</tr>
+<tr>
+<td><code>getDrawnFeatures</code></td>
+<td><code>{}</code></td>
+<td>Returns the features of all Sketches layers as an array in <code>result</code>. See <a href="#reading-features-back">Reading features back</a>.</td>
+</tr>
 </tbody>
 </table>
 <p>Send <code>{ layerId }</code> alone to <code>highlightFeature</code> to clear the highlight. A request
@@ -3697,8 +3749,69 @@ reporting whether it worked.</p>
 <td><code>{ path, toolId }</code></td>
 <td>A file-based tool wrote an output (conversion and raster tools).</td>
 </tr>
+<tr>
+<td><code>featuresChanged</code></td>
+<td><code>{ layerId, featureCount, removed? }</code></td>
+<td>A layer's features were replaced or removed (debounced, see below).</td>
+</tr>
 </tbody>
 </table>
+<h3 id="reading-features-back">Reading features back<a class="headerlink" href="#reading-features-back" title="Permanent link">&para;</a></h3>
+<p><code>addLayer</code> pushes features into the map; <code>getLayerFeatures</code> and
+<code>getDrawnFeatures</code> read them out again, so a host can store what the user drew
+or edited. They mirror the plugin API's read-only layer queries
+<code>getLayerFeatures</code> and <code>getDrawnFeatures</code> (see the <a href="../../plugin-api/">plugin API</a>)
+and the Python widget's <code>get_features</code> and <code>get_drawn_features</code>.</p>
+<ul>
+<li><strong>Params:</strong> the wire message <code>getLayerFeatures</code> takes <code>{ layerId }</code>, a
+  non-empty string (the typed client call is <code>getLayerFeatures(layerId)</code>).
+  <code>getDrawnFeatures</code> takes no parameters and returns the features of every
+  <strong>Sketches</strong> layer (where free drawings live) combined; if nothing has been
+  drawn yet the result is an empty array, not an error.</li>
+<li><strong>Result:</strong> an array of WGS84 GeoJSON features. Feature <code>id</code>s are returned
+  exactly as stored (strings stay strings, numbers stay numbers), so you can join
+  on them. It is a copy: nothing you do to it reaches the map. It is what the app
+  holds: for a layer that is itself a truncated subset (a SQL or Iceberg query
+  result, for example) that is the subset, not the full source.</li>
+<li><strong>Drawings:</strong> features in a Sketches layer carry the drawing editor's
+  bookkeeping properties (such as <code>__gm_shape</code>). Circles and text come back as
+  Point features with those properties as hints about the original shape.</li>
+<li><strong>Errors:</strong> an unknown <code>layerId</code> is rejected (<code>No layer with id "…"</code>). A layer
+  that holds no in-memory features, such as a raster, a tile or PMTiles layer, or
+  a remote vector source, returns an empty array. An empty array therefore
+  means "no in-memory features" (an empty layer, or a raster, tile or remote
+  source); the layer <code>type</code> from <code>listLayers</code> cannot tell these apart. A removed
+  layer is rejected like an unknown one.</li>
+<li><strong>Capability:</strong> <code>export:data</code>, because data leaves the app. A denied call
+  rejects with <code>Missing export:data capability</code>, like <code>exportImage</code>, and
+  <code>featuresChanged</code> is not sent either.</li>
+</ul>
+<p><code>featuresChanged</code> tells you when to read. It fires when a layer's in-memory
+feature collection is replaced: drawings (including the first one, which creates
+the Sketches layer), edits, attribute edits, refreshes, and late-loaded data. It
+may fire without a content change, and it is not sent for whole project loads
+(use <code>projectLoaded</code>). It also fires for layers the host itself created with
+<code>addLayer</code> or <code>addData</code>, so do not write each event straight back as a new
+layer, or you will loop. When a layer that held features is removed it is sent at
+once as <code>{ layerId, featureCount: 0, removed: true }</code>, and a layer that stays but
+loses its in-memory features is reported with <code>featureCount: 0</code> (no <code>removed</code>).
+Events are <strong>debounced per
+layer</strong>: a burst of changes, such as dragging a vertex, produces one event 250 ms
+after the last change, so listen for it and then call <code>getLayerFeatures</code>. An edit made
+less than 250 ms before a renderer hand-off may be folded into the new baseline
+and not reported.</p>
+<div class="highlight"><pre><span></span><code><span class="nx">map</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">"featuresChanged"</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">({</span><span class="w"> </span><span class="nx">layerId</span><span class="p">,</span><span class="w"> </span><span class="nx">featureCount</span><span class="p">,</span><span class="w"> </span><span class="nx">removed</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">removed</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">removeFromBackend</span><span class="p">(</span><span class="nx">layerId</span><span class="p">);</span><span class="w"> </span><span class="c1">// the layer is gone; getLayerFeatures would reject</span>
+<span class="w">    </span><span class="k">return</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">layerId</span><span class="si">}</span><span class="sb"> now has </span><span class="si">${</span><span class="nx">featureCount</span><span class="si">}</span><span class="sb"> features`</span><span class="p">);</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">features</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">map</span><span class="p">.</span><span class="nx">getLayerFeatures</span><span class="p">(</span><span class="nx">layerId</span><span class="p">);</span>
+<span class="w">  </span><span class="nx">saveToBackend</span><span class="p">(</span><span class="nx">layerId</span><span class="p">,</span><span class="w"> </span><span class="nx">features</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">drawings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">map</span><span class="p">.</span><span class="nx">getDrawnFeatures</span><span class="p">();</span><span class="w"> </span><span class="c1">// all Sketches layers, combined</span>
+</code></pre></div>
 <h3 id="a-host-page">A host page<a class="headerlink" href="#a-host-page" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">iframe</span>
   <span class="na">id</span><span class="o">=</span><span class="s">"map"</span>

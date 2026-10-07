@@ -1540,6 +1540,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#dynamical" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Dynamical
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#geolens" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -3315,6 +3326,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#dynamical" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Dynamical
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#geolens" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -3531,6 +3553,11 @@
 <td><a href="#ocean-data-platform">Ocean Data Platform</a></td>
 <td>HUB Ocean</td>
 <td>Public ocean datasets: habitats, protected areas, fisheries, observations</td>
+</tr>
+<tr>
+<td><a href="#dynamical">Dynamical</a></td>
+<td>dynamical.org</td>
+<td>Weather forecasts (NOAA GFS and HRRR, ECMWF AIFS, DWD ICON-EU, ECCC HRDPS) as Zarr layers with forecast run and lead time sliders</td>
 </tr>
 <tr>
 <td><a href="#geolens">GeoLens</a></td>
@@ -3855,6 +3882,19 @@ adds it to the map.</p>
 <div class="admonition note">
 <p class="admonition-title">Public datasets only</p>
 <p>The panel lists and reads only datasets shared publicly on ODP; it does not sign in or take an API key. ODP's tile and features endpoints do not allow other websites to read them directly, so GeoLibre reads them through its own tile proxy (<code>tiles.geolibre.app</code>). Each dataset keeps its provider's license, shown in the result list; check it before reuse.</p>
+</div>
+<h2 id="dynamical">Dynamical<a class="headerlink" href="#dynamical" title="Permanent link">&para;</a></h2>
+<p>Browses the open weather data catalog of <a href="https://dynamical.org/catalog/">dynamical.org</a>, which republishes forecasts and analyses from NOAA, ECMWF, DWD, ECCC, and NASA as cloud-optimized Icechunk (Zarr) archives, updated as each model run lands. GeoLibre reads a variable straight from its archive and draws it as a Zarr raster layer.</p>
+<ul>
+<li>Pick a <strong>Dataset</strong>: the list loads the whole catalog when the panel opens, with the map-ready datasets first. The card below shows its summary, domain, resolution, and time range, a <strong>Documentation</strong> link to the dataset's page, and <strong>Zoom to extent</strong>.</li>
+<li>Pick a <strong>Variable</strong>, then a slice: <strong>Forecast run</strong> starts on the newest run and <strong>Lead time</strong> on the analysis hour, and the panel shows the valid time they add up to. An analysis has a single <strong>Time</strong> slider instead.</li>
+<li><strong>Colormap</strong>, <strong>Min</strong>, and <strong>Max</strong> start from the variable: fixed ranges for temperature (-30 to 40 °C), percentages, wind components, precipitation rate, and sea-level pressure; for anything else leave them empty and the panel reads one chunk of the chosen slice to set a range.</li>
+<li><strong>Add to map</strong> adds the layer, named after the dataset, variable, and slice. Moving the sliders afterward re-slices that layer in place, so you can step through a forecast; stepping lead times is quick, since each chunk already holds a run's lead times. Add the variable again to keep a slice side by side. Unlike the other panels' layers, a Dynamical layer is not restored when a saved project is reopened (true of every Zarr layer on the MapLibre renderer); add it again from the panel.</li>
+<li>Projected grids are placed from the archive's own CRS: HRRR's Lambert conformal conic grid and HRDPS's rotated-pole grid.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Which datasets can be drawn</p>
+<p>A map draws one slice, but the reader has to decode whole chunks. The forecasts dynamical.org stores one run per chunk (NOAA GFS forecast, NOAA HRRR 48-hour forecast, ECMWF AIFS Single, DWD ICON-EU, ECCC HRDPS) draw in seconds; a global GFS slice is about 70 MB. The analyses and ensembles pack hundreds to thousands of time steps or members into each chunk, so a single map would read gigabytes, and the low-latency <em>virtual</em> datasets point into the original GRIB2 files, which the browser cannot decode yet. These are listed but disabled. The data is free under CC BY 4.0; credit the source shown under the panel.</p>
 </div>
 <h2 id="geolens">GeoLens<a class="headerlink" href="#geolens" title="Permanent link">&para;</a></h2>
 <p>Connects to a self-hosted <a href="https://getgeolens.com">GeoLens</a> catalog — an open-source spatial catalog (FastAPI + PostGIS) you run on your own infrastructure, which makes it the recommended way to work with private data in GeoLibre.</p>

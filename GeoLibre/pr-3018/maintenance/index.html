@@ -3823,6 +3823,29 @@ black — it declines the stack.</p>
   the deck.gl mirror has to repaint the same geometry in the same colour. Change
   one form and change the RGBA twin beside it;
   <code>tests/lidar-measure-mirror.test.ts</code> asserts the pair agrees.</li>
+<li><strong>Theme defaults for GUI-created overlays</strong> (<code>themeHtmlControlOutputs</code>,
+  <code>themeLegendControlOutputs</code>, <code>themeColorbarControlOutputs</code> in
+  <code>packages/plugins/src/plugins/components/{html,legend,colorbar}.ts</code>) wrap the
+  private factories <code>HtmlGuiControl._createHtmlControl</code>,
+  <code>LegendGuiControl._createLegend</code> and <code>ColorbarGuiControl._syncPositionControl</code>
+  (which keeps the per-corner outputs in the private <code>_positionControls</code> map),
+  then call each output's public <code>update({ backgroundColor, fontColor })</code> with
+  <code>var(--geolibre-bg)</code> / <code>var(--geolibre-fg)</code>. The GUI constructor's own
+  <code>backgroundColor</code>/<code>fontColor</code> options only style the editor panel and are not
+  forwarded, so this is the only way the on-map legend/colorbar/HTML surfaces
+  follow the app theme. A rename leaves the wrapper calling an undefined
+  function (the panel throws on Add) or skipping silently (the surface reverts
+  to upstream white). <code>createComponentsControl</code> (<code>maplibre-components.ts</code>)
+  applies the same wrappers, and adds the standalone <code>geolibre-*</code> theme class
+  plus <code>geolibre-grid-child</code> in each child's <code>onAdd</code>, to the ControlGrid's
+  internally created children. After a bump, toggle the app theme with a
+  legend, colorbar and HTML overlay on the map, from both the Controls menu and
+  the Components grid.</li>
+<li><strong>Theme overrides in <code>index.css</code></strong> assume the component/Layer
+  Control/Street View stylesheets may load <strong>after</strong> <code>index.css</code> (they arrive
+  with lazily imported chunks), so a same-specificity override loses. Overrides
+  of single-class vendor rules are prefixed with <code>html</code> to win regardless of
+  order; keep that when adding new ones.</li>
 </ul>
 <h3 id="maplibre-gl-basemap-control-packagespluginspackagejson"><code>maplibre-gl-basemap-control</code> (<code>packages/plugins/package.json</code>)<a class="headerlink" href="#maplibre-gl-basemap-control-packagespluginspackagejson" title="Permanent link">&para;</a></h3>
 <p><code>BASEMAP_PANEL_SELECTOR</code> / <code>BASEMAP_ROW_SELECTOR</code> / <code>BASEMAP_ROW_ID_ATTR</code>

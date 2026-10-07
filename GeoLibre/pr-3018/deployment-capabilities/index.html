@@ -2868,7 +2868,7 @@ withheld is never on offer, whatever the profile says.</p>
 </tr>
 <tr>
 <td><code>export:data</code></td>
-<td>Getting data or a rendering back out: Share, Export HTML, Print, Print Layout, Offline Basemap, and the embed API's <code>exportImage</code>.</td>
+<td>Getting data or a rendering back out: Share, Export HTML, Print, Print Layout, Offline Basemap, and the embed API's <code>exportImage</code>, <code>getLayerFeatures</code>, and <code>getDrawnFeatures</code>.</td>
 </tr>
 <tr>
 <td><code>plugins:install</code></td>
@@ -2931,8 +2931,10 @@ export, but no plugin installs or settings:</p>
 <span class="w">  </span>ghcr.io/opengeos/geolibre:latest
 </code></pre></div>
 <p>An embedded map can use an empty grant to refuse commands such as
-<code>loadProject</code>, <code>addLayer</code>, <code>addData</code>, <code>openTool</code>, and <code>exportImage</code>, while
-<code>setView</code>, <code>highlightFeature</code>, and layer-visibility commands remain available.</p>
+<code>loadProject</code>, <code>addLayer</code>, <code>addData</code>, <code>openTool</code>, <code>exportImage</code>,
+<code>getLayerFeatures</code>, and <code>getDrawnFeatures</code> (an empty grant also suppresses
+<code>featuresChanged</code> events), while <code>setView</code>, <code>highlightFeature</code>, and
+layer-visibility commands remain available.</p>
 <h2 id="embed-api-behavior">Embed API behavior<a class="headerlink" href="#embed-api-behavior" title="Permanent link">&para;</a></h2>
 <p>A denied command rejects rather than silently doing nothing, so the host page
 can tell the difference between "refused" and "no effect":</p>
