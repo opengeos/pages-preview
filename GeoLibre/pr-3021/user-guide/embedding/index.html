@@ -3405,7 +3405,11 @@ recommended typed client and handles origin checks and request correlation:</p>
 <span class="kd">const</span><span class="w"> </span><span class="nx">layers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">map</span><span class="p">.</span><span class="nx">listLayers</span><span class="p">();</span>
 <span class="nx">map</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">"selectionChanged"</span><span class="p">,</span><span class="w"> </span><span class="p">({</span><span class="w"> </span><span class="nx">featureIds</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">featureIds</span><span class="p">));</span>
 <span class="c1">// Read back what the user drew or edited:</span>
-<span class="nx">map</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">"featuresChanged"</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">({</span><span class="w"> </span><span class="nx">layerId</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="nx">map</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">"featuresChanged"</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">({</span><span class="w"> </span><span class="nx">layerId</span><span class="p">,</span><span class="w"> </span><span class="nx">removed</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">removed</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">removeFromBackend</span><span class="p">(</span><span class="nx">layerId</span><span class="p">);</span><span class="w"> </span><span class="c1">// the layer is gone; getLayerFeatures would reject</span>
+<span class="w">    </span><span class="k">return</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
 <span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">features</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">map</span><span class="p">.</span><span class="nx">getLayerFeatures</span><span class="p">(</span><span class="nx">layerId</span><span class="p">);</span>
 <span class="w">  </span><span class="nx">saveToBackend</span><span class="p">(</span><span class="nx">layerId</span><span class="p">,</span><span class="w"> </span><span class="nx">features</span><span class="p">);</span>
 <span class="p">});</span>
@@ -3774,8 +3778,10 @@ and the Python widget's <code>get_features</code> and <code>get_drawn_features</
   Point features with those properties as hints about the original shape.</li>
 <li><strong>Errors:</strong> an unknown <code>layerId</code> is rejected (<code>No layer with id "…"</code>). A layer
   that holds no in-memory features, such as a raster, a tile or PMTiles layer, or
-  a remote vector source, returns an empty array. To tell that from
-  an empty vector layer, check the layer's <code>type</code> with <code>listLayers</code>.</li>
+  a remote vector source, returns an empty array. An empty array therefore
+  means "no in-memory features" (an empty layer, or a raster, tile or remote
+  source); the layer <code>type</code> from <code>listLayers</code> cannot tell these apart. A removed
+  layer is rejected like an unknown one.</li>
 <li><strong>Capability:</strong> <code>export:data</code>, because data leaves the app. A denied call
   rejects with <code>Missing export:data capability</code>, like <code>exportImage</code>, and
   <code>featuresChanged</code> is not sent either.</li>
@@ -3787,12 +3793,18 @@ may fire without a content change, and it is not sent for whole project loads
 (use <code>projectLoaded</code>). It also fires for layers the host itself created with
 <code>addLayer</code> or <code>addData</code>, so do not write each event straight back as a new
 layer, or you will loop. When a layer that held features is removed it is sent at
-once as <code>{ layerId, featureCount: 0, removed: true }</code>. Events are <strong>debounced per
+once as <code>{ layerId, featureCount: 0, removed: true }</code>, and a layer that stays but
+loses its in-memory features is reported with <code>featureCount: 0</code> (no <code>removed</code>).
+Events are <strong>debounced per
 layer</strong>: a burst of changes, such as dragging a vertex, produces one event 250 ms
 after the last change, so listen for it and then call <code>getLayerFeatures</code>. An edit made
 less than 250 ms before a renderer hand-off may be folded into the new baseline
 and not reported.</p>
-<div class="highlight"><pre><span></span><code><span class="nx">map</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">"featuresChanged"</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">({</span><span class="w"> </span><span class="nx">layerId</span><span class="p">,</span><span class="w"> </span><span class="nx">featureCount</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="nx">map</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">"featuresChanged"</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">({</span><span class="w"> </span><span class="nx">layerId</span><span class="p">,</span><span class="w"> </span><span class="nx">featureCount</span><span class="p">,</span><span class="w"> </span><span class="nx">removed</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">removed</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">removeFromBackend</span><span class="p">(</span><span class="nx">layerId</span><span class="p">);</span><span class="w"> </span><span class="c1">// the layer is gone; getLayerFeatures would reject</span>
+<span class="w">    </span><span class="k">return</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
 <span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">layerId</span><span class="si">}</span><span class="sb"> now has </span><span class="si">${</span><span class="nx">featureCount</span><span class="si">}</span><span class="sb"> features`</span><span class="p">);</span>
 <span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">features</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">map</span><span class="p">.</span><span class="nx">getLayerFeatures</span><span class="p">(</span><span class="nx">layerId</span><span class="p">);</span>
 <span class="w">  </span><span class="nx">saveToBackend</span><span class="p">(</span><span class="nx">layerId</span><span class="p">,</span><span class="w"> </span><span class="nx">features</span><span class="p">);</span>
