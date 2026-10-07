@@ -1,0 +1,1 @@
+import{o as r}from"./core-CzBt0HhP.js";import{i as t}from"./event-b0f5m9YH.js";async function i(){return await r("plugin:deep-link|get_current")}async function o(n){return await t("deep-link://new-url",e=>{n(e.payload)})}export{i as getCurrent,o as onOpenUrl};
