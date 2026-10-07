@@ -1,0 +1,1 @@
+function n(e,t){const c=new TextDecoder("ascii").decode(e.subarray(0,256)).match(/encoding=["']([\w-]+)["']/i)?.[1],r=t||c||"utf-8";try{return new TextDecoder(r).decode(e)}catch{return new TextDecoder("utf-8").decode(e)}}function o(e){return e?.match(/charset=["']?([\w-]+)/i)?.[1]}export{n,o as t};
