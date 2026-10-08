@@ -240,14 +240,17 @@ function activeLayer(id = layerId) {
 
 function removeNativeLayer(id) {
   if (!id) return;
-  const map = app?.getMap?.();
+  const registration = nativeLayers.get(id);
+  const map = registration?.map ?? app?.getMap?.();
   if (map?.getLayer?.(id)) map.removeLayer(id);
-  app?.unregisterExternalNativeLayer?.(id);
+  (registration?.host ?? app)?.unregisterExternalNativeLayer?.(id);
   nativeLayers.delete(id);
 }
 
 async function addNativeZarrLayer(name, config, selector) {
-  const map = app.getMap?.();
+  const host = app;
+  if (!host) throw new DOMException("Zarr viewer deactivated.", "AbortError");
+  const map = host.getMap?.();
   if (!map?.addLayer) {
     throw new Error("The Zarr viewer requires GeoLibre's MapLibre renderer.");
   }
@@ -280,8 +283,8 @@ async function addNativeZarrLayer(name, config, selector) {
     },
   });
   map.addLayer(layer);
-  nativeLayers.set(id, { layer, name, mapBounds });
-  app.registerExternalNativeLayer?.({
+  nativeLayers.set(id, { layer, name, mapBounds, map, host });
+  host.registerExternalNativeLayer?.({
     id,
     name,
     type: "zarr",
@@ -311,6 +314,10 @@ async function addNativeZarrLayer(name, config, selector) {
   });
   try {
     await layer.ready;
+    if (app !== host || !nativeLayers.has(id)) {
+      removeNativeLayer(id);
+      throw new DOMException("Zarr viewer deactivated.", "AbortError");
+    }
   } catch (error) {
     removeNativeLayer(id);
     throw error;
@@ -880,11 +887,16 @@ async function load(next = cfg) {
     void palette;
     void clim;
     if (layerId) removeNativeLayer(layerId);
-    layerId = await addNativeZarrLayer(
+    const nextLayerId = await addNativeZarrLayer(
       cfg.name || `${cfg.variable} time series`,
       cfg,
       cfg.source === "local" ? undefined : { [cfg.timeDimension]: values[frame] },
     );
+    if (!app || !nativeLayers.has(nextLayerId)) {
+      removeNativeLayer(nextLayerId);
+      throw new DOMException("Zarr viewer deactivated.", "AbortError");
+    }
+    layerId = nextLayerId;
     const dimensions = activeLayer()?.dimensionValues;
     const detected = dimensions?.[cfg.timeDimension];
     if (Array.isArray(detected) && detected.length) {
@@ -892,7 +904,12 @@ async function load(next = cfg) {
       labels = axisLabels(values, cfg);
       cfg.timeCount = values.length;
       frame = values.length - 1;
-      await activeLayer().setSelector({ [cfg.timeDimension]: values[frame] });
+      const layer = activeLayer();
+      if (!layer)
+        throw new DOMException("Zarr viewer deactivated.", "AbortError");
+      await layer.setSelector({ [cfg.timeDimension]: values[frame] });
+      if (!app || activeLayer() !== layer)
+        throw new DOMException("Zarr viewer deactivated.", "AbortError");
     }
     try {
       app.fitBounds?.(datasetMapBounds(cfg));
@@ -906,6 +923,7 @@ async function load(next = cfg) {
       "success"
     );
   } catch (error) {
+    if (error instanceof DOMException && error.name === "AbortError") return;
     status(
       error instanceof Error ? error.message : "Could not load the Zarr data.",
       "error"
@@ -1284,10 +1302,17 @@ const plugin = {
     if (Number.isInteger(state.frame))
       frame = Math.max(0, Math.min(values.length - 1, state.frame));
     if ([250, 500, 1e3].includes(state.speed)) speed = state.speed;
-    if (Array.isArray(state.selectedPoint) && state.selectedPoint.length === 2)
-      selectedPoint = state.selectedPoint;
+    selectedPoint =
+      Array.isArray(state.selectedPoint) && state.selectedPoint.length === 2
+        ? [...state.selectedPoint]
+        : null;
+    selectedSeries = null;
     updateUi();
-    if (layerId) void show(frame);
+    const restoredPoint = selectedPoint;
+    if (layerId)
+      void show(frame).then(() => {
+        if (restoredPoint) return inspect(...restoredPoint);
+      });
     return true;
   },
 };
