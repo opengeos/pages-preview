@@ -20,6 +20,16 @@ GeoLibre source change. It adds:
 - animated playback and click-to-chart pixel histories; and
 - project-state persistence for viewer settings.
 
+## Screenshots
+
+### Bundled NDVI example
+
+![Zarr Time Series Viewer showing the bundled NDVI example](screenshots/ndvi-viewer.png)
+
+### Generic Zarr time series
+
+![Zarr Time Series Viewer showing a non-NDVI NIR time series](screenshots/generic-zarr-viewer.png)
+
 Open **Data source and display settings** in the panel to configure another
 dataset. Use **Choose Zarr folder** for a directory on disk. Consolidated Zarr
 v2 metadata is used to prefill the variable, dimensions, time count, date units,
