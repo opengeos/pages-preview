@@ -2837,7 +2837,7 @@ workflow and <a href="../user-guide/projects/">Projects</a> for saving and reope
 <td>KML / KMZ</td>
 <td><code>.kml</code>, <code>.kmz</code></td>
 <td>KML / KMZ or Vector Layer</td>
-<td>Supports folders, styles, placemark icons, ground overlays, embedded models, and Super-Overlays; behavior depends on the renderer. Remote icon URLs (such as Google Earth's built-in icons) are downloaded from their public host when the file is opened and saved inline with the layer; private-network hosts are skipped.</td>
+<td>Supports folders, styles, placemark icons, ground overlays, embedded models, and Super-Overlays; behavior depends on the renderer. Remote icon URLs (such as Google Earth's built-in icons) are downloaded from their public host when the file is opened and saved inline with the layer. Icon URLs that name a loopback or private-network address are skipped, and redirects are not followed.</td>
 </tr>
 <tr>
 <td>GPX</td>
