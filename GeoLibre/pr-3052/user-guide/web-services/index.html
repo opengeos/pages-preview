@@ -3542,7 +3542,7 @@
 <tr>
 <td><a href="#fields-of-the-world">Fields of the World</a></td>
 <td>Source.coop</td>
-<td>Global agricultural field boundaries (2024, 2025)</td>
+<td>Global agricultural field boundaries (2017–2025)</td>
 </tr>
 <tr>
 <td><a href="#sentinel-2-explorer">Sentinel-2 Explorer</a></td>
@@ -3838,15 +3838,19 @@ adds it to the map.</p>
 <p>The AWS release (<code>s3://tessera-embeddings/v1.1/dclimate.icechunk</code>) is an Icechunk repository whose <code>scales</code> array is PCodec-encoded, which no browser Zarr reader decodes. The panel reads the publishers' plain Zarr v3 mirror of the same snapshot on <a href="https://source.coop/tessera/tessera/zarr/v1.1-dclimate">Source Cooperative</a> instead. A 0.1° tile always lies in one UTM zone, so no reprojection across zones is needed.</p>
 </div>
 <h2 id="fields-of-the-world">Fields of the World<a class="headerlink" href="#fields-of-the-world" title="Permanent link">&para;</a></h2>
-<p>Browses <a href="https://fieldsofthe.world">Fields of the World</a> (FTW), the global agricultural field boundaries predicted from Sentinel-2 imagery by the FTW PRUE model. It reads the same public files on <a href="https://source.coop/ftw/global-data/">Source Cooperative</a> as the <a href="https://fieldsofthe.world/ftw-inference-app">FTW inference app</a>.</p>
+<p>Browses the 2nd Edition of <a href="https://fieldsofthe.world">Fields of the World</a> (FTW) global data: about 1.24 billion agricultural field polygons predicted for each year from 2017 to 2025 from Sentinel-2 quarterly mosaics. It reads the public files on <a href="https://source.coop/ftw/global-data-2e">Source Cooperative</a> directly; the publishers' <a href="https://research.taylorgeospatial.org/global-ftw-2e/web/">interactive map</a> shows the same data.</p>
 <ul>
-<li>Pick a <strong>year</strong> (2025 or 2024).</li>
-<li><strong>Field boundaries</strong> adds that year's global archive as a PMTiles layer, colored by the model's confidence from red (low) to green (high). The 2025 archive has tiles at every zoom; the 2024 alpha archive starts at zoom 10, so zoom in to see its fields.</li>
-<li><strong>Field density</strong> adds the global 500 m field-density raster as a COG layer, for the zoomed-out picture. It keeps the current view and hides itself above zoom 12, where the field boundaries take over; both can be changed in the Style panel.</li>
-<li>The <strong>confidence threshold</strong> (70% by default, as in the FTW app) hides fields the model is less confident about. It applies to every FTW field layer on the map, is saved with the project as the layer's filter, and can be edited later in the Style panel. Downloads are never filtered.</li>
-<li><strong>Search tiles</strong> lists the 1° × 1° download tiles in the <strong>current map view</strong> or a <strong>box drawn on the map</strong> that have data for the year, most fields first, with each tile's field count and file size. Their outlines are drawn as one entry in the Layers panel; hovering a result outlines it, and clicking an outline selects its result.</li>
-<li>Each tile offers <strong>Add to map</strong> (its fields as an editable GeoJSON layer, styled and filtered like the archive), <strong>GeoParquet</strong> (the source file, unchanged), and <strong>GeoJSON</strong>. With <strong>Only fields in the search area</strong> checked (the default), Add to map and GeoJSON keep only the fields overlapping the search area. The file is read one row group at a time, so even the largest tiles (about 3 million fields) can be clipped to a small box; the result is limited to 250,000 fields on the map or 1,000,000 in a GeoJSON file. Download the GeoParquet for anything larger.</li>
+<li>Pick a <strong>year</strong> (2017 to 2025).</li>
+<li><strong>Field boundaries</strong> adds that year's field polygons from the global PMTiles archive, colored by score with the dataset's own bins (red below 45, through orange, yellow and light green, to green from 80). The archive draws fields from zoom 9, so zoom in to see them.</li>
+<li><strong>Field density</strong> adds the same archive's A5 summary cells for the year, colored by the share of each cell covered by fields, for the zoomed-out picture. It hides itself from zoom 9, where the field boundaries take over; both can be changed in the Style panel.</li>
+<li>The <strong>score threshold</strong> (0 by default, so every field shows) hides fields scoring below it. The score is the model's mean field probability inside the field × 100: a ranking, not a calibrated probability, which is why the dataset's authors advise using it continuously rather than as a hard cutoff. The threshold applies to every FTW field layer the plugin added, is saved with the project as the layer's filter, and can be edited later in the Style panel. Downloads are never filtered.</li>
+<li><strong>Search area</strong> finds the UTM zones with fields in the <strong>current map view</strong> or a <strong>box drawn on the map</strong>. Each year's fields are stored as one GeoParquet file per UTM zone (up to about 6.6 GB), sorted spatially into row groups of 8,192 fields whose extents are recorded in the file footer. The search reads only the footers (up to about 2.7 MB each) and lists each zone with how much the area needs to read. It spans at most six zones; zoom in for larger areas. The parts of the search area each zone covers are drawn as one entry in the Layers panel; hovering a result outlines it, and clicking an outline selects its result.</li>
+<li>Each zone offers <strong>Add to map</strong> (its fields overlapping the search area as an editable GeoJSON layer, styled and filtered like the archive), <strong>GeoJSON</strong> (the same fields saved to a file), and <strong>GeoParquet</strong> (the zone's whole source file). Only the overlapping row groups are fetched, and fields are kept whole rather than cut at the box. A read is limited to about 512 MB of compressed data and 250,000 fields, for the map and for a GeoJSON file alike. A zone file over 256 MB is too large to save from the app, so <strong>GeoParquet</strong> copies its URL instead; DuckDB, GDAL or GeoPandas can query it in place over HTTP range requests.</li>
 </ul>
+<div class="admonition note">
+<p class="admonition-title">Coverage and caveats</p>
+<p>Only Sentinel-2 tiles with at least 1% cropland were processed, so an empty area may simply not have been mapped. A field here is a predicted remote-sensing field unit, not a cadastral or legal parcel. A field crossing a UTM zone line can appear in both zones' files. 1st Edition layers in older projects keep working, but the panel's threshold no longer drives them.</p>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Running the FTW model</p>
 <p>The plugin shows and downloads the published global predictions. To run the FTW model on your own area and Sentinel-2 scenes, use the <a href="https://fieldsofthe.world/ftw-inference-app">FTW inference app</a> or the <a href="https://github.com/fieldsoftheworld/ftw-baselines">ftw-baselines</a> command-line tools, then add the result to GeoLibre. The data is licensed CC-BY-4.0.</p>
