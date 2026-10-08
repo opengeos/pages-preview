@@ -2463,6 +2463,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#geotiff-packagesprocessingpackagejson-private-actualizedfields" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>geotiff</code> (<code>packages/processing/package.json</code>) — private <code>actualizedFields</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#maplibre-gl" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -3142,6 +3153,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#geotiff-packagesprocessingpackagejson-private-actualizedfields" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>geotiff</code> (<code>packages/processing/package.json</code>) — private <code>actualizedFields</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#maplibre-gl" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -3709,6 +3731,16 @@ at zoom &gt;= 12 on Mesa GPUs without them). Before bumping it, confirm
   that tool's field offers metres and silently converts a dimensionless number as
   if it were a distance.</li>
 </ul>
+<h3 id="geotiff-packagesprocessingpackagejson-private-actualizedfields"><code>geotiff</code> (<code>packages/processing/package.json</code>) — private <code>actualizedFields</code><a class="headerlink" href="#geotiff-packagesprocessingpackagejson-private-actualizedfields" title="Permanent link">&para;</a></h3>
+<p><code>readRasterData</code> (<code>packages/processing/src/raster-client.ts</code>) pads a
+<code>SampleFormat</code> tag shorter than <code>SamplesPerPixel</code> so geotiff.js can decode
+band 2+ of such files (older geolibre-wasm COGs carry one). geotiff.js reads
+the tag from several places, so the pad replaces the parsed value in the
+image's private <code>fileDirectory.actualizedFields</code> map (keyed by tag number, 339).
+If a bump renames or reshapes that map, the pad stops working and those files
+fail again with "Unsupported data format/bitsPerSample";
+<code>readRasterData</code> warns when the map is missing, and
+<code>tests/upstream-contracts.test.ts</code> checks the map and key on a real image.</p>
 <h3 id="maplibre-gl"><code>maplibre-gl</code><a class="headerlink" href="#maplibre-gl" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong><code>GLOBE_CONTROL_TOGGLE_SELECTOR</code></strong> (<code>packages/map/src/globe-control-toggle.ts</code>)
