@@ -2599,8 +2599,17 @@ back to an editable ArcGIS Feature Service in the web and desktop apps.</p>
 <li>Choose <strong>Layer actions → Save edits to ArcGIS service</strong>. The status reports
    inserted, updated, and deleted records, followed by any individual failures.</li>
 </ol>
+<p>Edits stay local until step 3. The <strong>Save</strong> button of an Edit geometry session,
+and <strong>Save</strong> in the attribute table, only commit the edits to the layer in
+GeoLibre; the layer row then reminds you that they are not on the service yet.
+After the service save, a new feature shows its service-assigned object ID and
+any server-calculated fields such as area and length.</p>
 <p>The save action appears when the service advertises supported editing operations
-and supplies its field schema and object ID field. GeoLibre checks the latest
+and supplies its field schema and object ID field. Versioned layers and layers
+whose dates are in an unknown time zone are read-only. A layer that stores
+measure (M) values, common for Enterprise polylines, accepts attribute edits and
+deletions, but GeoLibre cannot author M values, so adding or reshaping its
+features is refused at save. GeoLibre checks the latest
 service metadata again before each save. The server remains responsible for
 user permissions, ownership restrictions, and attribute rules.
 Write requests require HTTPS. Browser deployments also require the service to
@@ -2616,6 +2625,8 @@ permit cross-origin requests; desktop uses the native ArcGIS HTTP transport.</p>
   keep the codes.</li>
 <li>A <strong>range domain</strong> on an integer or floating-point field becomes a bounded
   number input. Bounds are inclusive and integer fields reject decimals.</li>
+<li>A numeric field <strong>without a domain</strong> edits as a number, so a value typed into
+  a column that holds no values yet is still saved as a number.</li>
 <li>A <strong>type or subtype field</strong> (<code>typeIdField</code>/<code>types[]</code> or
   <code>subtypeField</code>/<code>subtypes[]</code>) becomes a dropdown of the published types.
   Fields whose domain the selected type overrides switch their choices and
