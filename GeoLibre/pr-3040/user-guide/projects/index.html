@@ -775,6 +775,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#layers-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Layers files
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#collaborate" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2898,6 +2909,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#layers-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Layers files
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#collaborate" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -3051,6 +3073,8 @@
 <p><strong>Project → Export → Export as HTML...</strong> writes the whole project to a single standalone HTML file that runs offline with no server. Host it anywhere, or open it straight from disk.</p>
 <h2 id="layer-styles">Layer styles<a class="headerlink" href="#layer-styles" title="Permanent link">&para;</a></h2>
 <p><strong>Project → Export → Export Layer Styles...</strong> writes every layer's style to one JSON file keyed by layer name. <strong>Project → Import → Import Layer Styles...</strong> applies such a file to the open project, restyling each layer whose name matches in one undoable step, and reports any styles that matched no layer. To apply a styles file automatically, choose it under <strong>Default layer styles</strong> in <a href="../settings/#startup">Settings → Startup</a>: each layer you add whose name matches is styled as it arrives, while layers in opened projects keep their saved styles.</p>
+<h2 id="layers-files">Layers files<a class="headerlink" href="#layers-files" title="Permanent link">&para;</a></h2>
+<p><strong>Project → Export → Export Layers...</strong> writes the project's layers to a JSON file (<code>"type": "geolibre-layers"</code>) for the <strong>Default layers</strong> setting in <a href="../settings/#startup">Settings → Startup</a>, which adds them to every new project. Each layer keeps its style, labels, visibility, opacity, and folder, but the file holds only a <em>reference</em> to its data: a tile or service URL, a remote file URL, or a local file path the desktop app can re-read. Features are never embedded, so a layer whose data exists only in the project (drawn features, processing results, or a file opened in the browser) is left out, and GeoLibre lists the layers it skipped. Credentials such as API keys and tokens are removed from the exported layers, as they are when sharing a project.</p>
 <h2 id="collaborate">Collaborate<a class="headerlink" href="#collaborate" title="Permanent link">&para;</a></h2>
 <p><strong>Project → Collaborate...</strong> starts or joins a live session in which several people edit the same project at once, with presence cursors, chat, and per-participant permissions. The feature is off unless the build configures a relay URL — see <a href="../../collaboration/">Collaboration</a>.</p>
 <h2 id="offline-basemap">Offline basemap<a class="headerlink" href="#offline-basemap" title="Permanent link">&para;</a></h2>
