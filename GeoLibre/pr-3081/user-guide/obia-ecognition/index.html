@@ -1,0 +1,3520 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A lightweight, cloud-native GIS platform for visualizing, exploring, and analyzing geospatial data across desktop and web environments, with a responsive layout for mobile screens.">
+      
+      
+      
+        <link rel="canonical" href="https://geolibre.app/user-guide/obia-ecognition/">
+      
+      
+        <link rel="prev" href="../obia/">
+      
+      
+        <link rel="next" href="../segmentation/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/geolibre-icon.png">
+      <meta name="generator" content="zensical-0.0.69">
+    
+    
+      
+        <title>Coming from eCognition - GeoLibre</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../assets/stylesheets/modern/main.e15858d4.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/modern/palette.b27955a4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+  
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-hidden="true"></label>
+    <div data-md-component="skip">
+      <a href="#__skip" class="md-skip">
+        Skip to content
+      </a>
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="GeoLibre" class="md-header__button md-logo" aria-label="GeoLibre" data-md-component="logo">
+      
+  <img src="../../assets/geolibre-icon.png" alt="GeoLibre">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            GeoLibre
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Coming from eCognition
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/opengeos/GeoLibre" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    opengeos/GeoLibre
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="GeoLibre" class="md-nav__button md-logo" aria-label="GeoLibre" data-md-component="logo">
+      
+  <img src="../../assets/geolibre-icon.png" alt="GeoLibre">
+
+    </a>
+    GeoLibre
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/opengeos/GeoLibre" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    opengeos/GeoLibre
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Getting Started
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../features/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Features
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Comparison
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../demos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Demos
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gallery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Gallery
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../downloads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Downloads
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sponsor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sponsor
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://web.geolibre.app" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Launch GeoLibre Web
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  User Guide
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_10">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  User Guide
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../interface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Interface Overview
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rendering-engines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Rendering Engines
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../projects/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Projects
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adding-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Adding Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data-formats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Supported Data Formats
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chrome-extension/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Chrome Extension
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Managing Layers
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../styling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Styling Layers
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../attribute-table/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Attribute Table
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../map-controls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Map Controls & Tools
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../field-collection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  GPS Tracking & Field Collection
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../print-layout/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Print Layout
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Processing Tools
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../model-builder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Model Builder
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../obia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Object-Based Analysis
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Coming from eCognition
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Coming from eCognition
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#image-objects-and-the-hierarchy" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Image objects and the hierarchy
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Features
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#classification-and-rulesets" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Classification and rulesets
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#migrating-a-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Migrating a workflow
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#importing-a-rule-set" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Importing a rule set
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#validation-pilot" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Validation pilot
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Validation pilot">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#classification" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Classification
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#segmentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Segmentation
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conclusions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Conclusions
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../segmentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  AI Segmentation
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../point-cloud-annotation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Point Cloud Annotation
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sql-workspace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SQL Workspace
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python-console/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Python Console
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ai-assistant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  AI Assistant
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-integrations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Data Integrations
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cloud-storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Cloud Storage (S3)
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Plugins & Marketplace
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../web-services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Web Services
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../settings/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Settings & Preferences
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../storymaps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Story Maps
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../embedding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Embedding & Sharing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Troubleshooting
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tutorials
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_11">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Tutorials
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Overview
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/videos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Video Tutorials
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/first-map/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Your First Map
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/cloud-native-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Cloud-Native Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/vector-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Vector Analysis
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/terrain-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Terrain Analysis
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/spatial-sql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Spatial SQL
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/sharing-embedding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sharing & Embedding
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/supported-formats-en/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Format Reference
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/supported-formats-zh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Format Reference (中文)
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/source-code-deep-dive-en/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Source Code Deep Dive
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/source-code-deep-dive-zh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Source Code Deep Dive (中文)
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Reference
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_12">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Reference
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Architecture
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maplibre-renderer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  MapLibre Renderer
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mapbox-renderer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Mapbox Renderer
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cesium-renderer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Cesium Renderer
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../arcgis-renderer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  ArcGIS Renderer
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../self-hosting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Self-Hosting
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../server-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Server API
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Android
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  iOS
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mac-app-store/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Mac App Store
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project-format/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project Format
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../plugin-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Plugin API
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../collaboration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Collaboration
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ui-profiles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  UI Profiles
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment-capabilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Deployment Capabilities
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment-policy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Deployment Policy
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../i18n/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Internationalization
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Python Package
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../r/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  R Package
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  MCP Server
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../agent-skill/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Agent Skill
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../notebook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Notebook Panel
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Roadmap
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Contributing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintenance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Maintenance Notes
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../citation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  How to Cite
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../acknowledgements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Acknowledgements
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../privacy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Privacy Policy
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../terms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Terms of Service
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#image-objects-and-the-hierarchy" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Image objects and the hierarchy
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Features
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#classification-and-rulesets" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Classification and rulesets
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#migrating-a-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Migrating a workflow
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#importing-a-rule-set" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Importing a rule set
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#validation-pilot" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Validation pilot
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Validation pilot">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#classification" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Classification
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#segmentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Segmentation
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conclusions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Conclusions
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                <a id="__skip" tabindex="-1"></a>
+                
+                  
+
+  
+  
+
+
+<h1 id="coming-from-ecognition">Coming from eCognition<a class="headerlink" href="#coming-from-ecognition" title="Permanent link">&para;</a></h1>
+<p>This page maps eCognition concepts and algorithms to the
+<a href="../obia/">Object-Based Analysis</a> workbench, so you can tell which parts of an
+eCognition land-cover workflow carry over, which need rework, and which are not
+available. The workbench reads the classification part of eCognition rule
+sets (<code>.dcp</code>) and projects (<code>.dpr</code>), see
+<a href="#importing-a-rule-set">Importing a rule set</a>; the rest is translated by hand
+with the tables below, and results come over with
+<a href="../obia/#import-from-other-software">Import from other software</a>.</p>
+<p>Legend: <strong>Yes</strong> works the same way; <strong>Partly</strong> is available with the
+differences noted; <strong>No</strong> is not available.</p>
+<h2 id="image-objects-and-the-hierarchy">Image objects and the hierarchy<a class="headerlink" href="#image-objects-and-the-hierarchy" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>eCognition</th>
+<th>Workbench</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Image object level</td>
+<td><a href="../obia/#3-levels">Levels</a></td>
+<td><strong>Yes</strong></td>
+</tr>
+<tr>
+<td>Multiresolution segmentation (first level)</td>
+<td>Seeded region growing, SLIC or Felzenszwalb</td>
+<td><strong>Partly</strong>: different algorithms, so a scale parameter does not carry over; tune on your imagery</td>
+</tr>
+<tr>
+<td>Multiresolution segmentation (level above)</td>
+<td><strong>Build coarser level</strong></td>
+<td><strong>Partly</strong>: the same color heterogeneity criterion on whole objects, best-first; no shape criterion (compactness/smoothness weights)</td>
+</tr>
+<tr>
+<td>Chessboard / quadtree segmentation</td>
+<td>None</td>
+<td><strong>No</strong></td>
+</tr>
+<tr>
+<td>Spectral difference segmentation</td>
+<td><strong>Build coarser level</strong> with a small scale</td>
+<td><strong>Partly</strong>: merges by heterogeneity increase, not by mean difference</td>
+</tr>
+<tr>
+<td>Super-objects contain sub-objects</td>
+<td>Every coarser level is a union of whole children (<code>obia_parent</code>, <code>child_count</code>)</td>
+<td><strong>Yes</strong></td>
+</tr>
+<tr>
+<td>Merge region (by class)</td>
+<td>None (merging is by heterogeneity only)</td>
+<td><strong>No</strong></td>
+</tr>
+<tr>
+<td>Split, grow, shrink, morphology on objects</td>
+<td>None</td>
+<td><strong>No</strong></td>
+</tr>
+<tr>
+<td>Level created from exported objects</td>
+<td>Import objects, then a level mapping</td>
+<td><strong>Yes</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>eCognition</th>
+<th>Workbench field</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Layer mean, standard deviation, min, max</td>
+<td><code>mean_b&lt;n&gt;</code>, <code>std_b&lt;n&gt;</code>, <code>min_b&lt;n&gt;</code>, <code>max_b&lt;n&gt;</code></td>
+<td><strong>Yes</strong></td>
+</tr>
+<tr>
+<td>Brightness</td>
+<td><code>brightness</code> (mean of the band means)</td>
+<td><strong>Partly</strong>: unweighted</td>
+</tr>
+<tr>
+<td>Customized arithmetic features (indices)</td>
+<td><code>ndvi</code>, <code>ndwi</code>; or import a feature table</td>
+<td><strong>Partly</strong></td>
+</tr>
+<tr>
+<td>Area, border length</td>
+<td><code>area_px</code>, <code>perimeter_px</code> (pixels and pixel edges)</td>
+<td><strong>Yes</strong>, in pixel units</td>
+</tr>
+<tr>
+<td>Compactness, roundness, shape index</td>
+<td><code>compactness</code> (4π·area/perimeter²)</td>
+<td><strong>Partly</strong>: one shape measure of that family</td>
+</tr>
+<tr>
+<td>Length/width, asymmetry</td>
+<td><code>elongation</code> (bounding box), <code>bbox_width_px</code>, <code>bbox_height_px</code></td>
+<td><strong>Partly</strong></td>
+</tr>
+<tr>
+<td>GLCM homogeneity, contrast, entropy</td>
+<td><code>glcm_contrast_b&lt;n&gt;</code>, <code>glcm_homogeneity_b&lt;n&gt;</code>, <code>glcm_energy_b&lt;n&gt;</code>, <code>glcm_entropy_b&lt;n&gt;</code></td>
+<td><strong>Partly</strong>: one symmetric GLCM per object on one band, distance 1, horizontal and vertical pairs pooled (browser engine only)</td>
+</tr>
+<tr>
+<td>Number of neighbors, border to neighbors</td>
+<td><code>neighbor_count</code>, <code>shared_boundary_total</code>, <code>mean_shared_boundary</code></td>
+<td><strong>Yes</strong></td>
+</tr>
+<tr>
+<td>Mean difference to neighbors</td>
+<td><code>nb_contrast_b&lt;n&gt;</code> (border-weighted)</td>
+<td><strong>Yes</strong></td>
+</tr>
+<tr>
+<td>Relative border to class</td>
+<td><code>nb_border_&lt;class&gt;</code> (in rulesets; the class name as a field-safe suffix)</td>
+<td><strong>Yes</strong></td>
+</tr>
+<tr>
+<td>Super-object features</td>
+<td><code>parent_&lt;feature&gt;</code></td>
+<td><strong>Yes</strong> for band means, indices and size</td>
+</tr>
+<tr>
+<td>Existence of super-object of class</td>
+<td><code>parent_is_&lt;class&gt;</code></td>
+<td><strong>Yes</strong></td>
+</tr>
+<tr>
+<td>Sub-object features (number, relative area of class)</td>
+<td><code>child_count</code>, <code>child_frac_&lt;class&gt;</code></td>
+<td><strong>Yes</strong></td>
+</tr>
+<tr>
+<td>Distance to class, thematic layer features</td>
+<td>None</td>
+<td><strong>No</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="classification-and-rulesets">Classification and rulesets<a class="headerlink" href="#classification-and-rulesets" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>eCognition</th>
+<th>Workbench</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nearest neighbor / standard NN</td>
+<td>Random forest</td>
+<td><strong>Partly</strong>: a different classifier on the same samples</td>
+</tr>
+<tr>
+<td>Random trees, SVM, decision tree (classifier algorithm)</td>
+<td>Random forest</td>
+<td><strong>Partly</strong></td>
+</tr>
+<tr>
+<td>Assign class (threshold)</td>
+<td>Threshold rules, or a ruleset <code>assign</code> with conditions</td>
+<td><strong>Yes</strong></td>
+</tr>
+<tr>
+<td>Membership functions (larger than, smaller than, about range, sigmoids, custom)</td>
+<td>Ruleset <code>fuzzy</code> with <code>larger</code>, <code>smaller</code>, <code>about</code>, or <code>curve</code> (eCognition's own points)</td>
+<td><strong>Yes</strong></td>
+</tr>
+<tr>
+<td>Thresholds in class descriptions</td>
+<td><code>threshold</code> memberships</td>
+<td><strong>Yes</strong></td>
+</tr>
+<tr>
+<td>Remove classification</td>
+<td>Ruleset <code>unassign</code></td>
+<td><strong>Yes</strong></td>
+</tr>
+<tr>
+<td>Logical terms and, or, mean</td>
+<td><code>combine</code>: <code>and</code> (min), <code>or</code> (max), <code>mean</code></td>
+<td><strong>Yes</strong> (the importer reads and and or)</td>
+</tr>
+<tr>
+<td>Minimum membership value</td>
+<td><code>minMembership</code></td>
+<td><strong>Yes</strong></td>
+</tr>
+<tr>
+<td>Class hierarchy inheritance</td>
+<td>Inherit from level above; <code>parent_is_&lt;class&gt;</code> in rules</td>
+<td><strong>Partly</strong>: class-to-level inheritance, not inheritance of class descriptions</td>
+</tr>
+<tr>
+<td>Process tree, domains (level, class filter, conditions)</td>
+<td>Ruleset processes with a <code>domain</code> (classes and conditions) on the level you work on</td>
+<td><strong>Partly</strong>: a domain cannot name another level</td>
+</tr>
+<tr>
+<td>Loops, "while something changes"</td>
+<td><code>loop</code> until nothing changes, or <code>maxIterations</code></td>
+<td><strong>Yes</strong></td>
+</tr>
+<tr>
+<td>Variables, arrays, customized algorithms</td>
+<td>None</td>
+<td><strong>No</strong></td>
+</tr>
+<tr>
+<td>Accuracy assessment (error matrix)</td>
+<td><a href="../obia/#6-assess-accuracy">Assess accuracy</a></td>
+<td><strong>Yes</strong></td>
+</tr>
+<tr>
+<td>Export classification (vector, raster)</td>
+<td>Objects layer exports; <a href="../obia/#7-export">Export</a></td>
+<td><strong>Yes</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="migrating-a-workflow">Migrating a workflow<a class="headerlink" href="#migrating-a-workflow" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Run the eCognition workflow and export what it produced: the image objects
+   of each level (polygons with their ids), the samples, the class hierarchy
+   (names and colors), the object features you rely on (a CSV with the object
+   id), and each level's parent ids. Object ids must be distinct positive
+   whole numbers up to 16,777,216; renumber larger ones before importing.</li>
+<li>In GeoLibre, add the image and the exported layers to the map, then use
+   <a href="../obia/#import-from-other-software">Import from other software</a>: objects
+   (with the id field), the feature table, the level mapping, the class list
+   and the samples.</li>
+<li>Import the rule set (see below), then rebuild what did not convert: a
+   ruleset or threshold rules over the imported and measured features, using
+   the tables above to find the equivalents. Where an algorithm is marked
+   <strong>No</strong>, keep that part's result from eCognition (import its objects or
+   classes) rather than recreating it.</li>
+<li>Check the result against eCognition's with
+   <a href="../obia/#6-assess-accuracy">Assess accuracy</a>, using validation samples
+   from the eCognition classification.</li>
+</ol>
+<h2 id="importing-a-rule-set">Importing a rule set<a class="headerlink" href="#importing-a-rule-set" title="Permanent link">&para;</a></h2>
+<p>Under <a href="../obia/#import-from-other-software">Import from other software</a>,
+<strong>eCognition rule set</strong> reads a <code>.dcp</code> rule set or a <code>.dpr</code> project (from
+eCognition / Definiens Developer 7 onwards; encrypted rule sets cannot be
+read; files up to 128 MB) and converts its process tree:</p>
+<table>
+<thead>
+<tr>
+<th>eCognition</th>
+<th>Converted to</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Execute child processes</td>
+<td>Its children, in order; a loop when it repeats (a count, or "while something changes", up to 1000 passes)</td>
+</tr>
+<tr>
+<td>Assign class</td>
+<td><code>assign</code> (<code>unassign</code> for unclassified)</td>
+</tr>
+<tr>
+<td>Remove classification</td>
+<td><code>unassign</code></td>
+</tr>
+<tr>
+<td>Classification (class descriptions)</td>
+<td><code>fuzzy</code>: each active class's description, membership functions as <code>curve</code>, thresholds as <code>threshold</code>, combined by and(min) or or(max); the class hierarchy's minimum membership</td>
+</tr>
+<tr>
+<td>Image object domain: class filter, conditions joined by "and"</td>
+<td>The process's <code>domain</code></td>
+</tr>
+</tbody>
+</table>
+<p>Features become the workbench's fields where it computes the same thing:
+<code>Mean &lt;layer&gt;</code>, <code>Standard deviation &lt;layer&gt;</code>, <code>Max. pixel value &lt;layer&gt;</code> and
+<code>Min. pixel value &lt;layer&gt;</code> (by the layer's band), <code>Brightness</code>, <code>Area</code> (in
+pixels), <code>Number of pixels</code>, <code>Border length</code> (in pixels), <code>Rel. border to
+&lt;class&gt;</code> (<code>nb_border_&lt;class&gt;</code>), <code>Existence of &lt;class&gt; (0)</code> (a neighbor of the
+class: <code>nb_border_&lt;class&gt;</code> above 0), <code>Existence of super objects &lt;class&gt; (1)</code>
+(<code>parent_is_&lt;class&gt;</code>, after context features) and a customized normalized
+difference of two layer means (as <code>ndvi</code> or <code>ndwi</code> when its layers are read
+from the bands Measure uses for them). Any other feature
+keeps its eCognition name: import a feature table exported from eCognition
+with that column and the ruleset can use it.</p>
+<p>Not converted, and listed with the reason: segmentation (redo it under
+Segment), export and display processes, conditions joined by "or" or compared
+with a variable, other domains (pixel level, linked objects, maps), nearest
+neighbor and other operators in class descriptions, variables and arrays,
+merging, growing and shrinking objects, level management, samples and
+supervised classification, and any algorithm not in the table. The converted
+processes all run on the level you work on, whatever level the rule set
+named.</p>
+<p>How much of a rule set converts depends on how much of it is classification
+logic. Over public rule sets (a container process counts as converted when
+any of its children does):</p>
+<table>
+<thead>
+<tr>
+<th>Rule set</th>
+<th>Processes</th>
+<th>Converted</th>
+<th>Mostly not converted</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/khdelphine/eCognition_rulesets">Buildings and water, Hamden NY</a></td>
+<td>54</td>
+<td>39</td>
+<td>merge region</td>
+</tr>
+<tr>
+<td><a href="https://figshare.com/articles/dataset/14214182">Laughing gull nests</a></td>
+<td>64</td>
+<td>45</td>
+<td>merge region, level management</td>
+</tr>
+<tr>
+<td><a href="https://sees-rsrc.science.uq.edu.au/CRSSIS_old/OOIA/process_tree_library.htm">Water, seed growing</a></td>
+<td>27</td>
+<td>14</td>
+<td>segmentation, merge region</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mveitzel/historical-imagery">Historical imagery, NAIP</a></td>
+<td>20</td>
+<td>7</td>
+<td>segmentation, merge region</td>
+</tr>
+<tr>
+<td><a href="https://github.com/GeologicalMethodical/eCognition_Developer_Ruleset">Seafloor geomorphology</a></td>
+<td>22</td>
+<td>9</td>
+<td>segmentation, object resizing</td>
+</tr>
+<tr>
+<td><a href="https://figshare.com/articles/software/27297483">NSW estuarine habitats</a></td>
+<td>240</td>
+<td>35</td>
+<td>manual classification, variables, levels</td>
+</tr>
+<tr>
+<td><a href="https://github.com/peterhofmann1/Yalova-S-2-LULC">Yalova land cover</a></td>
+<td>2,813</td>
+<td>191</td>
+<td>supervised classification, samples, maps</td>
+</tr>
+<tr>
+<td><a href="https://github.com/fkroeber/field_boundary_delineation">Field boundaries</a></td>
+<td>292</td>
+<td>11</td>
+<td>variables, layer arithmetic, levels</td>
+</tr>
+</tbody>
+</table>
+<h2 id="validation-pilot">Validation pilot<a class="headerlink" href="#validation-pilot" title="Permanent link">&para;</a></h2>
+<p>To see how far a translated eCognition workflow gets, the workbench was run
+against an eCognition result.</p>
+<ul>
+<li><strong>Data:</strong> a Landsat 7 ETM+ scene (September 1999) of upland North Wales,
+  1001 × 1001 pixels at 15 m: the panchromatic band plus the six
+  multispectral bands resampled to it, the layers and resolution the
+  eCognition project used. The reference is that project's 18-class
+  eCognition land-cover classification of the same area (24,807 objects on
+  the grid).</li>
+<li><strong>Ruleset:</strong> a six-class threshold ruleset from an eCognition training
+  course (water and non-vegetation by NDVI, forest, improved grassland and
+  bog/heath by band means and NDVI, then a catch-all class), translated by
+  hand. The 18 reference classes are grouped into its six for comparison.</li>
+</ul>
+<h3 id="classification">Classification<a class="headerlink" href="#classification" title="Permanent link">&para;</a></h3>
+<p>Agreement with the eCognition classification, by area:</p>
+<table>
+<thead>
+<tr>
+<th>Run</th>
+<th>Agreement</th>
+<th>Kappa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Translated ruleset, whole scene</td>
+<td>67.2%</td>
+<td>0.55</td>
+</tr>
+<tr>
+<td>Translated ruleset, held-out blocks</td>
+<td>66.9%</td>
+<td>0.55</td>
+</tr>
+<tr>
+<td>Random forest, 6 classes, held-out blocks</td>
+<td>55% to 62%</td>
+<td>0.38 to 0.49</td>
+</tr>
+<tr>
+<td>Random forest, 18 classes, held-out blocks</td>
+<td>30% to 37%</td>
+<td>0.24 to 0.31</td>
+</tr>
+</tbody>
+</table>
+<p>Per class, the translated ruleset reached a producer's/user's accuracy of
+0.91/0.95 for water, 0.82/0.87 for forest, 0.69/0.90 for bog/heath,
+0.78/0.70 for non-vegetation and 0.86/0.50 for improved grassland. The
+catch-all class was the weakest (0.20/0.24), which the course itself expects
+of this ruleset.</p>
+<p>The random forest was trained in 2.5 km checkerboard blocks and checked in
+the others, with eCognition's classes moved onto the workbench's objects at
+one point per eCognition object (up to 400 per class, or all of them).
+scikit-learn's random forest, trained on the same features and labels (all
+samples), reached an out-of-bag accuracy of 0.74 (6 classes) and 0.44 (18
+classes), and agreed with the workbench's forest on 85% of the objects. The
+fine 18 classes, and labels moved onto objects drawn differently from
+eCognition's, limit it more than the classifier does.</p>
+<h3 id="segmentation">Segmentation<a class="headerlink" href="#segmentation" title="Permanent link">&para;</a></h3>
+<p>Each method's objects, compared with eCognition's objects (multiresolution
+segmentation with a shape weight of 0.1):</p>
+<ul>
+<li><strong>Class purity:</strong> the area-weighted share of an object in its main
+  eCognition class.</li>
+<li><strong>Object purity:</strong> the same share for the main eCognition object.</li>
+<li><strong>Kept whole:</strong> the share of an eCognition object in its largest
+  workbench object.</li>
+</ul>
+<p>A chessboard of square objects of a similar size is the baseline. Times are
+for the segmentation alone; turning the objects into polygons adds 15 to 25
+seconds in the browser at these object counts.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Objects</th>
+<th>Class purity</th>
+<th>Object purity</th>
+<th>Kept whole</th>
+<th>Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Region growing (browser), threshold 1.0</td>
+<td>13,379</td>
+<td>0.743</td>
+<td>0.670</td>
+<td>0.487</td>
+<td>1.0 s</td>
+</tr>
+<tr>
+<td>Region growing (browser), threshold 0.8 (default)</td>
+<td>20,058</td>
+<td>0.776</td>
+<td>0.725</td>
+<td>0.414</td>
+<td>1.4 s</td>
+</tr>
+<tr>
+<td>Region growing (browser), threshold 0.6</td>
+<td>29,469</td>
+<td>0.808</td>
+<td>0.778</td>
+<td>0.306</td>
+<td>1.2 s</td>
+</tr>
+<tr>
+<td>Region growing (browser), threshold 0.5</td>
+<td>35,179</td>
+<td>0.817</td>
+<td>0.794</td>
+<td>0.237</td>
+<td>1.5 s</td>
+</tr>
+<tr>
+<td>Felzenszwalb (browser), scale 200</td>
+<td>18,424</td>
+<td>0.756</td>
+<td>0.733</td>
+<td>0.294</td>
+<td>2.7 s</td>
+</tr>
+<tr>
+<td>Felzenszwalb (browser or native), scale 30</td>
+<td>28,312</td>
+<td>0.790</td>
+<td>0.776</td>
+<td>0.210</td>
+<td>0.9 s</td>
+</tr>
+<tr>
+<td>SLIC (native), size 40</td>
+<td>27,495</td>
+<td>0.788</td>
+<td>0.777</td>
+<td>0.190</td>
+<td>1.1 s</td>
+</tr>
+<tr>
+<td>Chessboard 9 × 9 (baseline)</td>
+<td>12,544</td>
+<td>0.702</td>
+<td>0.689</td>
+<td>0.227</td>
+<td></td>
+</tr>
+<tr>
+<td>Chessboard 7 × 7 (baseline)</td>
+<td>20,449</td>
+<td>0.733</td>
+<td>0.723</td>
+<td>0.193</td>
+<td></td>
+</tr>
+<tr>
+<td>Chessboard 6 × 6 (baseline)</td>
+<td>27,889</td>
+<td>0.753</td>
+<td>0.745</td>
+<td>0.174</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>The region-growing runs used a minimum object size of 10 pixels, and the
+Felzenszwalb runs a smoothing of 0.5 and a minimum size of 10. Every method
+gave the same objects when run again. Native runs peaked at about 580 MB,
+including the Python process. The browser and native Felzenszwalb found the
+same objects (an adjusted Rand index of 0.98 between them at scale 30).</p>
+<p>Every method produces purer objects than a chessboard with as many objects.
+At a given object count, region growing produces the purest objects, and it
+keeps eCognition's objects whole best. Boundary agreement within one pixel
+(F1) was 0.70 to 0.74 for the methods, against 0.59 to 0.62 for the
+chessboard.</p>
+<p>These figures compare label rasters on the image grid. On the map, objects
+of an image in a CRS with a datum shift, such as this one, are currently
+placed off their image (see
+<a href="https://github.com/opengeos/GeoLibre/issues/3080">#3080</a>); comparing their
+polygons rather than their labels understated every browser result in an
+earlier version of this section.</p>
+<h3 id="conclusions">Conclusions<a class="headerlink" href="#conclusions" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Recommended workflow:</strong></li>
+<li>Segment with region growing (in the browser), or with Felzenszwalb or
+     SLIC.</li>
+<li>Measure the objects.</li>
+<li>Import or translate the eCognition classification rules, check what did
+     not convert, and assess the result against the eCognition output.</li>
+<li><strong>What carries over:</strong> the classification logic (thresholds, membership
+  functions, class order and domains) translates directly and gives similar
+  results.</li>
+<li><strong>What does not:</strong> eCognition's segmentation, whose objects no method here
+  reproduces, and processes that work across levels. These are the main
+  differences to expect.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/opengeos/GeoLibre" target="_blank" rel="noopener" title="GeoLibre on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/sponsors/giswqs" target="_blank" rel="noopener" title="Sponsor GeoLibre on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="m241 87.1 15 20.7 15-20.7C296 52.5 336.2 32 378.9 32 452.4 32 512 91.6 512 165.1v2.6c0 112.2-139.9 242.5-212.9 298.2-12.4 9.4-27.6 14.1-43.1 14.1s-30.8-4.6-43.1-14.1C139.9 410.2 0 279.9 0 167.7v-2.6C0 91.6 59.6 32 133.1 32 175.8 32 216 52.5 241 87.1"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://buymeacoffee.com/giswqs" target="_blank" rel="noopener" title="Buy the maintainer a coffee" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M152-16c-13.3 0-24 10.7-24 24 0 38.9 23.4 59.4 39.1 73.1l1.1 1C184.5 96.4 192 103.9 192 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C183.5 31.7 176 24.1 176 8c0-13.3-10.7-24-24-24M96 192c-17.7 0-32 14.3-32 32v192c0 53 43 96 96 96h192c41.8 0 77.4-26.7 90.5-64h5.5c70.7 0 128-57.3 128-128s-57.3-128-128-128zm352 192V256c35.3 0 64 28.7 64 64s-28.7 64-64 64M288 8c0-13.3-10.7-24-24-24S240-5.3 240 8c0 38.9 23.4 59.4 39.1 73.1l1.1 1C296.5 96.4 304 103.9 304 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C295.5 31.7 288 24.1 288 8"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"../..","features":["navigation.instant","navigation.sections","navigation.top","search.highlight","search.share","search.suggest","toc.follow"],"redirect":null,"search":"../../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.8b1c90bd.min.js"></script>
+      
+    
+  </body>
+</html>
