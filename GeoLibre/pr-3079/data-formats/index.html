@@ -2936,6 +2936,12 @@ workflow and <a href="../user-guide/projects/">Projects</a> for saving and reope
 <td>Reads an extract in the browser and adds the selected features.</td>
 </tr>
 <tr>
+<td>ICESat-2 / GEDI footprints</td>
+<td><code>.h5</code> granules of ICESat-2 ATL06/ATL08 and GEDI L2A/L2B/L4A</td>
+<td>ICESat-2 / GEDI</td>
+<td>Read in the browser into a point layer. Choose beams and fields, apply the product's quality filter, limit the read to the current view, and cap the point count; each footprint carries its beam, acquisition time and along-track distance. Download granules from NASA Earthdata, or load a sample granule from Source Cooperative. Large layers are stored inline in the project, which can pause autosave.</td>
+</tr>
+<tr>
 <td>Encoded polyline</td>
 <td>Encoded strings or text files</td>
 <td>Encoded Polyline</td>
@@ -3102,11 +3108,6 @@ are described in <a href="../user-guide/web-services/">Web Services</a> and
 <td>LiDAR point clouds</td>
 <td>LiDAR Layer</td>
 <td>LAS/LAZ and cloud-optimized point-cloud data. The layer menu exports a cloud to LAS, LAZ or COPC, and Whitebox LiDAR tool outputs load as new point cloud layers. LAS, LAZ and COPC files can also be dropped on the map.</td>
-</tr>
-<tr>
-<td>ICESat-2 and GEDI footprints</td>
-<td>ICESat-2 / GEDI</td>
-<td>Local HDF5 granules of ICESat-2 ATL06 and ATL08 and GEDI L2A, L2B and L4A, read in the browser into a point layer. Choose beams and fields, apply the product's quality flag, limit the read to the current view, and cap the point count; each footprint carries its beam, acquisition time and along-track distance. Download granules from NASA Earthdata first. Large layers are stored inline in the project, which can pause autosave.</td>
 </tr>
 <tr>
 <td>Gaussian splats</td>

@@ -2964,6 +2964,10 @@
 <td><strong>OSM PBF Layer</strong></td>
 <td>Reads an OpenStreetMap <code>.osm.pbf</code> extract and adds the features you select from it.</td>
 </tr>
+<tr>
+<td><strong>ICESat-2 / GEDI</strong></td>
+<td>Spaceborne LiDAR footprints from an ICESat-2 (ATL06, ATL08) or GEDI (L2A, L2B, L4A) HDF5 granule, from a local file or the sample granules on Source Cooperative, added as a point layer colored by the product's main field. Plot a field against <code>distance_km</code> in the attribute table's Charts for an along-track profile.</td>
+</tr>
 </tbody>
 </table>
 <p>A layer the Add Vector panel loads in GeoJSON mode, with up to 100,000 features, is handed over to GeoLibre once it has loaded, so it gets the same Style panel as a file dropped on the map: joins, virtual fields, the attribute form, popup design, editor tracking, diagrams, and geometry generators included. It then leaves the panel's own layer list and is managed from the Layers panel. The panel keeps the layers it draws as tiles, streamed GeoParquet, larger layers, and KML/KMZ layers with placemark icons; for those, the Style panel shows only the settings the panel can draw. A saved project still reopens a handed-over layer from its URL or file path, and a URL-backed one refreshes the same way.</p>
@@ -3157,10 +3161,6 @@ were rendered before the choice existed and cannot honor it.</p>
 <tr>
 <td><strong>LiDAR Layer</strong></td>
 <td>Point-cloud visualization, rendered with deck.gl.</td>
-</tr>
-<tr>
-<td><strong>ICESat-2 / GEDI</strong></td>
-<td>Spaceborne LiDAR footprints from a local ICESat-2 (ATL06, ATL08) or GEDI (L2A, L2B, L4A) HDF5 granule, added as a point layer colored by the product's main field. Plot a field against <code>distance_km</code> in the attribute table's Charts for an along-track profile.</td>
 </tr>
 <tr>
 <td><strong>Gaussian Splatting</strong></td>

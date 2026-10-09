@@ -3091,6 +3091,12 @@ imagery. The Whitebox catalog's other segmentation tools (SLIC superpixels,
 Felzenszwalb graph, marker watershed) are wrappers around this same region
 growing with a remapped threshold, which is why the workbench offers it under
 its real name.</p>
+<p><strong>Felzenszwalb graph method (browser)</strong> is a second browser method: Felzenszwalb
+and Huttenlocher's graph-based segmentation, implemented the way scikit-image
+implements it, so it finds the same objects as the native Felzenszwalb below
+(on the validation pilot's scene, identical up to how exactly equal pixel
+differences are ordered) and takes the same parameters (<strong>Scale</strong>, <strong>Smoothing (sigma)</strong> and <strong>Minimum
+object size</strong>). It reads up to 4,194,304 pixels (4096 × 1024).</p>
 <h3 id="native-segmentation-in-the-desktop-app">Native segmentation in the desktop app<a class="headerlink" href="#native-segmentation-in-the-desktop-app" title="Permanent link">&para;</a></h3>
 <p>The desktop app can also segment natively, in its processing server, with
 scikit-image instead of the in-browser engine. Pick a native method under
@@ -3163,9 +3169,9 @@ features):</p>
 </table>
 <p>The browser figures are the engine run outside a browser on the whole scene,
 which the workbench itself would read from an overview. These numbers compare
-speed and memory only: comparing segmentation quality needs independent
-reference objects and validation data (the eCognition pilot workflows of
-<a href="https://github.com/opengeos/GeoLibre/issues/3053">#3053</a>).</p>
+speed and memory only; the segmentation quality of each method, against
+eCognition's objects, is in the
+<a href="../obia-ecognition/#segmentation">validation pilot</a>.</p>
 <h3 id="large-images">Large images<a class="headerlink" href="#large-images" title="Permanent link">&para;</a></h3>
 <p>A run reads at most about 16.8 million pixels (4096 × 4096). A larger image
 still works:</p>
