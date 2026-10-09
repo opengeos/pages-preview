@@ -3221,6 +3221,14 @@ files to the map first; they then appear in the layer lists.</p>
   too) builds the level above the current one from the mapping instead of by
   merging. Objects the mapping leaves out become their own parent, and the step
   says how many; a child given two different parents is rejected.</li>
+<li><strong>eCognition rule set</strong>: a <code>.dcp</code> rule set or a <code>.dpr</code> project converts to a
+  ruleset for the Classify step. The step lists the rule set's image layers
+  with the band each is read from (change them to match your image), the
+  segmentation to redo under Segment, the features the workbench does not
+  compute, and every process it did not convert, with the reason. <strong>Use as
+  ruleset</strong> puts the converted ruleset in the Classify step and adds its
+  classes. See <a href="../obia-ecognition/#importing-a-rule-set">Coming from eCognition</a>
+  for what converts.</li>
 </ul>
 <h2 id="2-measure">2. Measure<a class="headerlink" href="#2-measure" title="Permanent link">&para;</a></h2>
 <p>Once objects exist, <strong>Measure</strong> computes per-object features on the original
@@ -3369,16 +3377,23 @@ the random forest.</p>
 <strong>domain</strong>: the objects whose current class is one of <code>classes</code> (<code>""</code> is
 unclassified; leave <code>classes</code> out for any class) and that meet every condition
 in <code>conditions</code> (a feature, an operator <code>&gt;</code>, <code>&gt;=</code>, <code>&lt;</code>, <code>&lt;=</code>, <code>==</code> or <code>!=</code>, and
-a value). There are three kinds of process:</p>
+a value). There are four kinds of process:</p>
 <ul>
 <li><code>assign</code> gives the domain's objects <code>className</code>.</li>
+<li><code>unassign</code> leaves the domain's objects unclassified.</li>
 <li><code>fuzzy</code> classifies the domain's objects by fuzzy class descriptions. Each
   class combines membership functions with <code>and</code> (the minimum, the default),
   <code>or</code> (the maximum) or <code>mean</code>; an object takes the class with the highest
   membership if it reaches <code>minMembership</code> (0.1 by default), and is left as it
   is otherwise. A membership function reads one feature: <code>larger</code> rises from 0
   at <code>from</code> to 1 at <code>to</code>, <code>smaller</code> falls from 1 at <code>from</code> to 0 at <code>to</code>, and
-  <code>about</code> peaks at 1 at <code>center</code> and falls to 0 at <code>width</code> away.</li>
+  <code>about</code> peaks at 1 at <code>center</code> and falls to 0 at <code>width</code> away. A <code>curve</code>
+  runs through <code>values</code> (2 to 64 numbers from 0 to 1) at evenly spaced points
+  from <code>from</code> to <code>to</code>, keeping its end values beyond them, which is how
+  eCognition stores its membership functions (sigmoids included); a
+  <code>threshold</code> is 1 when its condition (<code>op</code> and <code>value</code>) holds and 0
+  otherwise. A class with no membership functions has membership 1, as an
+  empty class description does in eCognition.</li>
 <li><code>loop</code> repeats its own processes until a pass changes nothing (or
   <code>maxIterations</code>, 100 by default).</li>
 </ul>
