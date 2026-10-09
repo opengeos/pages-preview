@@ -3339,19 +3339,19 @@ seconds in the browser at these object counts.</p>
 </tr>
 <tr>
 <td>Felzenszwalb (browser), scale 200</td>
-<td>18,424</td>
-<td>0.756</td>
-<td>0.733</td>
-<td>0.294</td>
-<td>2.7 s</td>
+<td>18,305</td>
+<td>0.755</td>
+<td>0.732</td>
+<td>0.300</td>
+<td>1.9 s</td>
 </tr>
 <tr>
 <td>Felzenszwalb (browser or native), scale 30</td>
-<td>28,312</td>
+<td>28,330</td>
 <td>0.790</td>
 <td>0.776</td>
 <td>0.210</td>
-<td>0.9 s</td>
+<td>1.9 s</td>
 </tr>
 <tr>
 <td>SLIC (native), size 40</td>
@@ -3391,7 +3391,8 @@ seconds in the browser at these object counts.</p>
 Felzenszwalb runs a smoothing of 0.5 and a minimum size of 10. Every method
 gave the same objects when run again. Native runs peaked at about 580 MB,
 including the Python process. The browser and native Felzenszwalb found the
-same objects (an adjusted Rand index of 0.98 between them at scale 30).</p>
+same objects (an adjusted Rand index of 1.00 between them at scales 30 and
+100).</p>
 <p>Every method produces purer objects than a chessboard with as many objects.
 At a given object count, region growing produces the purest objects, and it
 keeps eCognition's objects whole best. Boundary agreement within one pixel
