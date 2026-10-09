@@ -3128,7 +3128,8 @@ the browser, from segmentations of up to 16.8 million pixels.</p>
 <p>Under <strong>Work on</strong>, choose the level the later steps use: samples, the
 classifier, accuracy and export belong to that level, and each level keeps its
 own. Applying to other images uses level 1. A new segmentation starts a new
-hierarchy.</p>
+hierarchy, and measuring a level again drops the levels built on it; their
+objects layers stay on the map, so remove them if you no longer need them.</p>
 <h2 id="4-label-samples">4. Label samples<a class="headerlink" href="#4-label-samples" title="Permanent link">&para;</a></h2>
 <p>Classification needs examples. Add a class for each land cover with <strong>Add
 class</strong>, then name it and pick its color. To label objects:</p>
