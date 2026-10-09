@@ -3056,7 +3056,8 @@ supervised classification, and any algorithm not in the table. The converted
 processes all run on the level you work on, whatever level the rule set
 named.</p>
 <p>How much of a rule set converts depends on how much of it is classification
-logic. Over public rule sets:</p>
+logic. Over public rule sets (a container process counts as converted when
+any of its children does):</p>
 <table>
 <thead>
 <tr>
@@ -3070,49 +3071,49 @@ logic. Over public rule sets:</p>
 <tr>
 <td><a href="https://github.com/khdelphine/eCognition_rulesets">Buildings and water, Hamden NY</a></td>
 <td>54</td>
-<td>29</td>
+<td>39</td>
 <td>merge region</td>
 </tr>
 <tr>
 <td><a href="https://figshare.com/articles/dataset/14214182">Laughing gull nests</a></td>
 <td>64</td>
-<td>25</td>
+<td>45</td>
 <td>merge region, level management</td>
 </tr>
 <tr>
 <td><a href="https://sees-rsrc.science.uq.edu.au/CRSSIS_old/OOIA/process_tree_library.htm">Water, seed growing</a></td>
 <td>27</td>
-<td>5</td>
+<td>14</td>
 <td>segmentation, merge region</td>
 </tr>
 <tr>
 <td><a href="https://github.com/mveitzel/historical-imagery">Historical imagery, NAIP</a></td>
 <td>20</td>
-<td>4</td>
+<td>7</td>
 <td>segmentation, merge region</td>
 </tr>
 <tr>
 <td><a href="https://github.com/GeologicalMethodical/eCognition_Developer_Ruleset">Seafloor geomorphology</a></td>
 <td>22</td>
-<td>6</td>
+<td>9</td>
 <td>segmentation, object resizing</td>
 </tr>
 <tr>
 <td><a href="https://figshare.com/articles/software/27297483">NSW estuarine habitats</a></td>
 <td>240</td>
-<td>13</td>
+<td>35</td>
 <td>manual classification, variables, levels</td>
 </tr>
 <tr>
 <td><a href="https://github.com/peterhofmann1/Yalova-S-2-LULC">Yalova land cover</a></td>
 <td>2,813</td>
-<td>91</td>
+<td>191</td>
 <td>supervised classification, samples, maps</td>
 </tr>
 <tr>
 <td><a href="https://github.com/fkroeber/field_boundary_delineation">Field boundaries</a></td>
 <td>292</td>
-<td>4</td>
+<td>11</td>
 <td>variables, layer arithmetic, levels</td>
 </tr>
 </tbody>
