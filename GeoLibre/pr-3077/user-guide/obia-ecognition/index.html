@@ -3106,7 +3106,7 @@ differences noted; <strong>No</strong> is not available.</p>
 <p>Under <a href="../obia/#import-from-other-software">Import from other software</a>,
 <strong>eCognition rule set</strong> reads a <code>.dcp</code> rule set or a <code>.dpr</code> project (from
 eCognition / Definiens Developer 7 onwards; encrypted rule sets cannot be
-read) and converts its process tree:</p>
+read; files up to 128 MB) and converts its process tree:</p>
 <table>
 <thead>
 <tr>
@@ -3143,8 +3143,9 @@ read) and converts its process tree:</p>
 pixels), <code>Number of pixels</code>, <code>Border length</code> (in pixels), <code>Rel. border to
 &lt;class&gt;</code> (<code>nb_border_&lt;class&gt;</code>), <code>Existence of &lt;class&gt; (0)</code> (a neighbor of the
 class: <code>nb_border_&lt;class&gt;</code> above 0), <code>Existence of super objects &lt;class&gt; (1)</code>
-(<code>parent_is_&lt;class&gt;</code>, after context features) and a customized NDVI or NDWI
-(as <code>ndvi</code> or <code>ndwi</code>, by the band roles set under Measure). Any other feature
+(<code>parent_is_&lt;class&gt;</code>, after context features) and a customized normalized
+difference of two layer means (as <code>ndvi</code> or <code>ndwi</code> when its layers are read
+from the bands Measure uses for them). Any other feature
 keeps its eCognition name: import a feature table exported from eCognition
 with that column and the ruleset can use it.</p>
 <p>Not converted, and listed with the reason: segmentation (redo it under
