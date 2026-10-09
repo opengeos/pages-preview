@@ -3303,6 +3303,10 @@ a value). There are three kinds of process:</p>
 currently of that class, recomputed before each process. The class must be one
 in the legend, one the ruleset assigns, or (when starting from the current
 classification) one that classification holds; a misspelled one is rejected.
+The suffix is the class name in lower case with accents dropped and each run of
+spaces or punctuation turned into <code>_</code> (so <code>Bare soil</code> is <code>nb_border_bare_soil</code>),
+plus <code>_2</code>, <code>_3</code> and so on when two names give the same suffix; <strong>Insert
+example</strong> writes one for your first class.
 With it a loop can grow a class outwards, ring by ring. For example, starting from unclassified
 objects:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
