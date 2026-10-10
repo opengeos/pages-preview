@@ -1,0 +1,1 @@
+var s=/(^|_)(fields?|attributes?)$/i;function l(t){return s.test(t)}function a(t,c){const r=t.replace(s,"").split("_").filter(Boolean);for(let e=r.length;e>0;e-=1){const i=r.slice(0,e).join("_"),o=c.find(n=>n===i||n===`${i}s`||n===`${i}_vector`);if(o)return o}}export{l as n,a as t};

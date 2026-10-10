@@ -1,0 +1,5113 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A lightweight, cloud-native GIS platform for visualizing, exploring, and analyzing geospatial data across desktop and web environments, with a responsive layout for mobile screens.">
+      
+      
+      
+        <link rel="canonical" href="https://geolibre.app/maintenance/">
+      
+      
+        <link rel="prev" href="../contributing/">
+      
+      
+        <link rel="next" href="../citation/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/geolibre-icon.png">
+      <meta name="generator" content="zensical-0.0.69">
+    
+    
+      
+        <title>Maintenance Notes - GeoLibre</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.e15858d4.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../assets/stylesheets/modern/palette.b27955a4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+  
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-hidden="true"></label>
+    <div data-md-component="skip">
+      <a href="#__skip" class="md-skip">
+        Skip to content
+      </a>
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="GeoLibre" class="md-header__button md-logo" aria-label="GeoLibre" data-md-component="logo">
+      
+  <img src="../assets/geolibre-icon.png" alt="GeoLibre">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            GeoLibre
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Maintenance Notes
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/opengeos/GeoLibre" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    opengeos/GeoLibre
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="GeoLibre" class="md-nav__button md-logo" aria-label="GeoLibre" data-md-component="logo">
+      
+  <img src="../assets/geolibre-icon.png" alt="GeoLibre">
+
+    </a>
+    GeoLibre
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/opengeos/GeoLibre" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    opengeos/GeoLibre
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Getting Started
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Features
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Comparison
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Demos
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gallery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Gallery
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../downloads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Downloads
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sponsor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sponsor
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://web.geolibre.app" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Launch GeoLibre Web
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  User Guide
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_10">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  User Guide
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/interface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Interface Overview
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/rendering-engines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Rendering Engines
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/projects/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Projects
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/adding-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Adding Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-formats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Supported Data Formats
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/chrome-extension/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Chrome Extension
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/layers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Managing Layers
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/styling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Styling Layers
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/attribute-table/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Attribute Table
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/map-controls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Map Controls & Tools
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/field-collection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  GPS Tracking & Field Collection
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/print-layout/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Print Layout
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Processing Tools
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/model-builder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Model Builder
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/obia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Object-Based Analysis
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/obia-ecognition/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Coming from eCognition
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/segmentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  AI Segmentation
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/point-cloud-annotation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Point Cloud Annotation
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/sql-workspace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SQL Workspace
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/python-console/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Python Console
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/ai-assistant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  AI Assistant
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/data-integrations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Data Integrations
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/cloud-storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Cloud Storage (S3)
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Plugins & Marketplace
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/web-services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Web Services
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/settings/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Settings & Preferences
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/storymaps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Story Maps
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/embedding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Embedding & Sharing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Troubleshooting
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tutorials
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_11">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Tutorials
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Overview
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/videos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Video Tutorials
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/first-map/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Your First Map
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/cloud-native-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Cloud-Native Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/vector-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Vector Analysis
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/terrain-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Terrain Analysis
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/spatial-sql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Spatial SQL
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/sharing-embedding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sharing & Embedding
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/supported-formats-en/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Format Reference
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/supported-formats-zh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Format Reference (中文)
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/source-code-deep-dive-en/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Source Code Deep Dive
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/source-code-deep-dive-zh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Source Code Deep Dive (中文)
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Reference
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_12">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Reference
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Architecture
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../maplibre-renderer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  MapLibre Renderer
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mapbox-renderer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Mapbox Renderer
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cesium-renderer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Cesium Renderer
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../arcgis-renderer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  ArcGIS Renderer
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../self-hosting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Self-Hosting
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Server API
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../android/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Android
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  iOS
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mac-app-store/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Mac App Store
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project-format/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project Format
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Plugin API
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../collaboration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Collaboration
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ui-profiles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  UI Profiles
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deployment-capabilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Deployment Capabilities
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deployment-policy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Deployment Policy
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../i18n/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Internationalization
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Python Package
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../r/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  R Package
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  MCP Server
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-skill/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Agent Skill
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Notebook Panel
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Roadmap
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Contributing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Maintenance Notes
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Maintenance Notes
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#dependency-bumps-that-need-a-manual-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Dependency bumps that need a manual check
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dependency bumps that need a manual check">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#patched-packages-patches" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Patched packages (<code>patches/</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#geolibre-wasm-packagesprocessingpackagejson" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>geolibre-wasm</code> (<code>packages/processing/package.json</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#geotiff-packagesprocessingpackagejson-private-actualizedfields" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>geotiff</code> (<code>packages/processing/package.json</code>) — private <code>actualizedFields</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maplibre-gl" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>maplibre-gl</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deckglmapbox-and-deckglmaplibre" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>@deck.gl/mapbox</code> and <code>@deck.gl/maplibre</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loadersgltiles-via-deckglgeo-layers-tile-cache-cap" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>@loaders.gl/tiles</code> (via <code>@deck.gl/geo-layers</code>) — tile cache cap
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maplibremaplibre-gl-style-spec" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>@maplibre/maplibre-gl-style-spec</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#web-services-control-packages-packagespluginspackagejson" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Web Services control packages (<code>packages/plugins/package.json</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maplibre-gl-components-packagespluginspackagejson" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>maplibre-gl-components</code> (<code>packages/plugins/package.json</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maplibre-gl-basemap-control-packagespluginspackagejson" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>maplibre-gl-basemap-control</code> (<code>packages/plugins/package.json</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maplibre-gl-vector-packagespluginspackagejson" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>maplibre-gl-vector</code> (<code>packages/plugins/package.json</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maplibre-gl-lidar-packagespluginspackagejson-half-checked-by-the-compiler" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>maplibre-gl-lidar</code> (<code>packages/plugins/package.json</code>) — half checked by the compiler
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maplibre-gl-layer-control-packagesmappackagejson-private-internals" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>maplibre-gl-layer-control</code> (<code>packages/map/package.json</code>) — private internals
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maplibre-gl-splat-packagespluginspackagejson-private-internals" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>maplibre-gl-splat</code> (<code>packages/plugins/package.json</code>) — private internals
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#geoman-iomaplibre-geoman-free-packagespluginspackagejson-change-mode-internals" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>@geoman-io/maplibre-geoman-free</code> (<code>packages/plugins/package.json</code>) — change-mode internals
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#carbonplanzarr-layer-private-minzoom" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>@carbonplan/zarr-layer</code> — private <code>minZoom</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zarr-cesium-packagesmappackagejson-private-internals" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>zarr-cesium</code> (<code>packages/map/package.json</code>) — private internals
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maplibre-gl-planetary-computer-packagespluginspackagejson-private-stac-client" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>maplibre-gl-planetary-computer</code> (<code>packages/plugins/package.json</code>) — private STAC client
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maplibre-gl-raster-stretch-and-gamma-curves" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>maplibre-gl-raster</code> — stretch and gamma curves
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maplibre-gl-raster-checked-by-the-compiler" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>maplibre-gl-raster</code> — checked by the compiler
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maplibre-gl-raster-picker-data-copied-to-keep-it-off-startup" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>maplibre-gl-raster</code> — picker data copied to keep it off startup
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#datum-shifts-geotiff-geokeys-to-proj4-cog-tiler-wasm-maplibre-gl-raster" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Datum shifts (<code>geotiff-geokeys-to-proj4</code>, <code>cog-tiler-wasm</code>, <code>maplibre-gl-raster</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tauri-plugin-persisted-scope-private-on-disk-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>tauri-plugin-persisted-scope</code> — private on-disk format
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tauri-appsplugin-http-two-upstream-behaviors-not-apis" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>@tauri-apps/plugin-http</code> — two upstream <em>behaviors</em>, not APIs
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cesium-cesiumengine-cesiumwidgets-runtime-assets-fetched-by-url" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>cesium</code> / <code>@cesium/engine</code> / <code>@cesium/widgets</code> — runtime assets fetched by URL
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arcgis-maps-sdk-for-javascript-loaded-from-esris-cdn" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ArcGIS Maps SDK for JavaScript — loaded from Esri's CDN
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#desktop-csp-script-src-allowlist" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Desktop CSP <code>script-src</code> allowlist
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#httpx-backendgeolibre_server_apipyprojecttoml-private-transport-pool" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>httpx</code> (<code>backend/geolibre_server_api/pyproject.toml</code>) — private transport pool
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shared-dependency-ranges" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Shared dependency ranges
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Shared dependency ranges">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#one-shared-three" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        One shared <code>three</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-a-blend-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Adding a blend mode
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coverage-floors" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Coverage floors
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Coverage floors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#untested-module-ratchet" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Untested module ratchet
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lint-warning-ratchet" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Lint warning ratchet
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#test-type-check-ratchet" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Test type-check ratchet
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#boot-bundle-budget" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Boot bundle budget
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Boot bundle budget">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#workers-do-not-share-chunks-with-the-main-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Workers do not share chunks with the main build
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependency-updates-and-the-audit-allowlist" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Dependency updates and the audit allowlist
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#publishing-geolibrecore-and-geolibremap" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Publishing <code>@geolibre/core</code> and <code>@geolibre/map</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-bundled-sidecar-lockfile" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The bundled sidecar lockfile
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#credentials-must-never-reach-a-redistributable-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Credentials must never reach a redistributable build
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Credentials must never reach a redistributable build">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-rules-now" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The rules now
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-scan" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The scan
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-the-scan-fires-after-a-dependency-bump" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        When the scan fires after a dependency bump
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generated-files-and-cross-file-sync" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Generated files and cross-file sync
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../citation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  How to Cite
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../acknowledgements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Acknowledgements
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../privacy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Privacy Policy
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../terms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Terms of Service
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#dependency-bumps-that-need-a-manual-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Dependency bumps that need a manual check
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dependency bumps that need a manual check">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#patched-packages-patches" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Patched packages (<code>patches/</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#geolibre-wasm-packagesprocessingpackagejson" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>geolibre-wasm</code> (<code>packages/processing/package.json</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#geotiff-packagesprocessingpackagejson-private-actualizedfields" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>geotiff</code> (<code>packages/processing/package.json</code>) — private <code>actualizedFields</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maplibre-gl" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>maplibre-gl</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deckglmapbox-and-deckglmaplibre" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>@deck.gl/mapbox</code> and <code>@deck.gl/maplibre</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loadersgltiles-via-deckglgeo-layers-tile-cache-cap" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>@loaders.gl/tiles</code> (via <code>@deck.gl/geo-layers</code>) — tile cache cap
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maplibremaplibre-gl-style-spec" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>@maplibre/maplibre-gl-style-spec</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#web-services-control-packages-packagespluginspackagejson" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Web Services control packages (<code>packages/plugins/package.json</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maplibre-gl-components-packagespluginspackagejson" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>maplibre-gl-components</code> (<code>packages/plugins/package.json</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maplibre-gl-basemap-control-packagespluginspackagejson" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>maplibre-gl-basemap-control</code> (<code>packages/plugins/package.json</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maplibre-gl-vector-packagespluginspackagejson" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>maplibre-gl-vector</code> (<code>packages/plugins/package.json</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maplibre-gl-lidar-packagespluginspackagejson-half-checked-by-the-compiler" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>maplibre-gl-lidar</code> (<code>packages/plugins/package.json</code>) — half checked by the compiler
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maplibre-gl-layer-control-packagesmappackagejson-private-internals" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>maplibre-gl-layer-control</code> (<code>packages/map/package.json</code>) — private internals
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maplibre-gl-splat-packagespluginspackagejson-private-internals" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>maplibre-gl-splat</code> (<code>packages/plugins/package.json</code>) — private internals
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#geoman-iomaplibre-geoman-free-packagespluginspackagejson-change-mode-internals" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>@geoman-io/maplibre-geoman-free</code> (<code>packages/plugins/package.json</code>) — change-mode internals
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#carbonplanzarr-layer-private-minzoom" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>@carbonplan/zarr-layer</code> — private <code>minZoom</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zarr-cesium-packagesmappackagejson-private-internals" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>zarr-cesium</code> (<code>packages/map/package.json</code>) — private internals
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maplibre-gl-planetary-computer-packagespluginspackagejson-private-stac-client" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>maplibre-gl-planetary-computer</code> (<code>packages/plugins/package.json</code>) — private STAC client
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maplibre-gl-raster-stretch-and-gamma-curves" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>maplibre-gl-raster</code> — stretch and gamma curves
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maplibre-gl-raster-checked-by-the-compiler" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>maplibre-gl-raster</code> — checked by the compiler
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maplibre-gl-raster-picker-data-copied-to-keep-it-off-startup" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>maplibre-gl-raster</code> — picker data copied to keep it off startup
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#datum-shifts-geotiff-geokeys-to-proj4-cog-tiler-wasm-maplibre-gl-raster" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Datum shifts (<code>geotiff-geokeys-to-proj4</code>, <code>cog-tiler-wasm</code>, <code>maplibre-gl-raster</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tauri-plugin-persisted-scope-private-on-disk-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>tauri-plugin-persisted-scope</code> — private on-disk format
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tauri-appsplugin-http-two-upstream-behaviors-not-apis" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>@tauri-apps/plugin-http</code> — two upstream <em>behaviors</em>, not APIs
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cesium-cesiumengine-cesiumwidgets-runtime-assets-fetched-by-url" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>cesium</code> / <code>@cesium/engine</code> / <code>@cesium/widgets</code> — runtime assets fetched by URL
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arcgis-maps-sdk-for-javascript-loaded-from-esris-cdn" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ArcGIS Maps SDK for JavaScript — loaded from Esri's CDN
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#desktop-csp-script-src-allowlist" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Desktop CSP <code>script-src</code> allowlist
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#httpx-backendgeolibre_server_apipyprojecttoml-private-transport-pool" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>httpx</code> (<code>backend/geolibre_server_api/pyproject.toml</code>) — private transport pool
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shared-dependency-ranges" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Shared dependency ranges
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Shared dependency ranges">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#one-shared-three" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        One shared <code>three</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-a-blend-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Adding a blend mode
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coverage-floors" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Coverage floors
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Coverage floors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#untested-module-ratchet" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Untested module ratchet
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lint-warning-ratchet" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Lint warning ratchet
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#test-type-check-ratchet" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Test type-check ratchet
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#boot-bundle-budget" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Boot bundle budget
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Boot bundle budget">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#workers-do-not-share-chunks-with-the-main-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Workers do not share chunks with the main build
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependency-updates-and-the-audit-allowlist" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Dependency updates and the audit allowlist
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#publishing-geolibrecore-and-geolibremap" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Publishing <code>@geolibre/core</code> and <code>@geolibre/map</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-bundled-sidecar-lockfile" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The bundled sidecar lockfile
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#credentials-must-never-reach-a-redistributable-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Credentials must never reach a redistributable build
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Credentials must never reach a redistributable build">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-rules-now" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The rules now
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-scan" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The scan
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-the-scan-fires-after-a-dependency-bump" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        When the scan fires after a dependency bump
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generated-files-and-cross-file-sync" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Generated files and cross-file sync
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                <a id="__skip" tabindex="-1"></a>
+                
+                  
+
+  
+  
+
+
+<h1 id="maintenance-notes">Maintenance Notes<a class="headerlink" href="#maintenance-notes" title="Permanent link">&para;</a></h1>
+<p>This page collects the repository rules that are easy to break <strong>silently</strong> —
+hand-written mirrors of unexported upstream constants, coverage and audit gates,
+publishing layouts, and generated files. <code>CLAUDE.md</code> links here rather than
+restating any of it.</p>
+<p>If you are just getting set up, read <a href="../contributing/">Contributing</a> first.</p>
+<h2 id="dependency-bumps-that-need-a-manual-check">Dependency bumps that need a manual check<a class="headerlink" href="#dependency-bumps-that-need-a-manual-check" title="Permanent link">&para;</a></h2>
+<p>Several features depend on values or DOM contracts that upstream packages do not
+export, so GeoLibre mirrors them by hand. Drift usually produces <strong>no build
+error</strong> — the feature just stops working. After bumping any of the packages
+below (<strong>including Dependabot PRs</strong>), do the listed check and run the frontend
+suite.</p>
+<p><code>tests/upstream-contracts.test.ts</code> checks the <strong>installed</strong> package for the
+exact shape each mirror below relies on — a class name in the published files,
+a private field on a real instance, a constant, a snippet of a method body — and
+its failure message names the section here to read. Mirrors with a dedicated
+real-package test of their own (named in their section) are not repeated there.
+Packages that touch the DOM or WebGL at import are checked against their
+published files' text rather than imported. A test there passing is not the
+whole check: semantics the shape cannot show (ordering, pixels, network
+behaviour) still need the manual steps listed. When you add a mirror, add its
+contract there too.</p>
+<h3 id="patched-packages-patches">Patched packages (<code>patches/</code>)<a class="headerlink" href="#patched-packages-patches" title="Permanent link">&para;</a></h3>
+<p><code>postinstall</code> applies the <code>patch-package</code> patches in <code>patches/</code>, and each patch
+file names the exact version it was made against. A bump that moves a patched
+package past that version fails <code>npm install</code> in CI. Regenerate the patch
+against the new version (or drop it if upstream fixed the bug), rename the patch
+file, and update <code>package-lock.json</code> in the same PR.</p>
+<p><code>@carbonplan/zarr-layer</code> is declared with an exact version (no <code>^</code>) in both
+<code>apps/geolibre-desktop</code> and <code>packages/plugins</code>. It carried a patch until 0.10.0,
+which shipped the same non-throwing uniform lookups upstream (the layer vanished
+at zoom &gt;= 12 on Mesa GPUs without them). Before bumping it, confirm
+<code>createShaderProgram</code> in its <code>dist/index.js</code> still looks up <code>shift_x</code>,
+<code>shift_y</code> and <code>u_worldXOffset</code> with <code>gl.getUniformLocation</code>, not
+<code>mustGetUniformLocation</code> (<code>tests/upstream-contracts.test.ts</code> checks this).</p>
+<h3 id="geolibre-wasm-packagesprocessingpackagejson"><code>geolibre-wasm</code> (<code>packages/processing/package.json</code>)<a class="headerlink" href="#geolibre-wasm-packagesprocessingpackagejson" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Processing menu catalog.</strong> <code>ProcessingMenu.tsx</code> renders from a checked-in,
+  auto-generated catalog, <code>apps/geolibre-desktop/src/lib/whitebox-menu-catalog.ts</code>
+  (do not hand-edit). Run <code>node scripts/gen-whitebox-menu-catalog.mjs</code> and commit
+  the result, or new/renamed WASM tools silently miss the menu. The Processing
+  <em>dialog</em> lists tools dynamically, so the gap only shows in the menu. Whitebox
+  translations are optional external packs in <code>opengeos/geolibre-language-packs</code>,
+  not entries generated into GeoLibre's bundled locale JSON.</li>
+<li><strong><code>MAX_VECTOR_PMTILES_ZOOM</code></strong> (<code>packages/processing/src/wasm-convert.ts</code>)
+  mirrors the deepest zoom <code>vector_to_pmtiles</code> accepts (18 — past it the tool
+  exits with <code>validation error: max_zoom must be &lt;= 18</code>). The cap lives inside
+  the WASM binary and is not exported. If it drifts, the browser's Vector to
+  PMTiles either refuses a zoom the tiler would now accept, or accepts one it
+  will reject after the user has waited. This is <strong>not</strong> the sidecar's cap:
+  freestiler allows 24 (<code>MAX_PMTILES_ZOOM</code> in <code>ConversionDialog.tsx</code>, mirroring
+  <code>backend/geolibre_server/geolibre_server/app/conversion.py</code>), and the dialog
+  validates against whichever engine is about to run.
+  <code>tests/wasm-convert.test.ts</code> fails if the mirror drifts.</li>
+<li><strong><code>DISTANCE_SEGMENTS</code> / <code>NON_DISTANCE_NAMES</code></strong>
+  (<code>apps/geolibre-desktop/src/lib/whitebox-distance-params.ts</code>) decide, by
+  parameter <em>name</em>, which Whitebox parameters are ground distances and so get the
+  Processing dialog's metric unit picker (GeoLibre#1540). The segments are
+  generic (<code>tolerance</code>, <code>radius</code>, <code>length</code>, <code>resolution</code>), so a tool can carry a
+  matching name that is not a length — <code>corridor_tolerance</code> is a 0–1 fraction.
+  Those are safe today only because the picker is confined to tools whose every
+  dataset input is a vector layer, and the colliding names happen to sit on
+  imagery/LiDAR tools; that is a coincidence, not a guarantee. Scan the new
+  catalog for a <code>double</code> matching the rule whose description reads as a fraction,
+  ratio, angle or weight, and add it to <code>NON_DISTANCE_NAMES</code>. If one is missed,
+  that tool's field offers metres and silently converts a dimensionless number as
+  if it were a distance.</li>
+</ul>
+<h3 id="geotiff-packagesprocessingpackagejson-private-actualizedfields"><code>geotiff</code> (<code>packages/processing/package.json</code>) — private <code>actualizedFields</code><a class="headerlink" href="#geotiff-packagesprocessingpackagejson-private-actualizedfields" title="Permanent link">&para;</a></h3>
+<p><code>readRasterData</code> (<code>packages/processing/src/raster-client.ts</code>) pads a
+<code>SampleFormat</code> tag shorter than <code>SamplesPerPixel</code> so geotiff.js can decode
+band 2+ of such files (older geolibre-wasm COGs carry one). geotiff.js reads
+the tag from several places, so the pad replaces the parsed value in the
+image's private <code>fileDirectory.actualizedFields</code> map (keyed by tag number, 339).
+If a bump renames or reshapes that map, the pad stops working and those files
+fail again with "Unsupported data format/bitsPerSample";
+<code>readRasterData</code> warns when the map is missing, and
+<code>tests/upstream-contracts.test.ts</code> checks the map and key on a real image.</p>
+<h3 id="maplibre-gl"><code>maplibre-gl</code><a class="headerlink" href="#maplibre-gl" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong><code>GLOBE_CONTROL_TOGGLE_SELECTOR</code></strong> (<code>packages/map/src/globe-control-toggle.ts</code>)
+  mirrors the class names MapLibre's own <code>GlobeControl</code> puts on its toggle button
+  — <code>maplibregl-ctrl-globe</code> and <code>maplibregl-ctrl-globe-enabled</code>, swapped on every
+  projection change. <code>MapCanvas</code> persists a projection change from a <strong>click</strong> on
+  that button rather than from the <code>projectiontransition</code> event, because style
+  initialization and project reconciliation emit that event too and a stale one
+  overwrites the projection of a project that has just loaded.
+  <code>tests/globe-control-toggle.test.ts</code> builds a real <code>GlobeControl</code> and fails if
+  the mirror stops matching.</li>
+<li><strong>Per-layer blend modes</strong> (<code>packages/map/src/layer-blend-modes.ts</code>) wrap three
+  <em>unexported</em> <code>maplibre-gl</code> internals, because MapLibre renders every layer into
+  one canvas and ships no per-layer blend API (upstream draft:
+  maplibre/maplibre-gl-js#8073). The wrappers are <code>Painter.prototype.renderLayer</code>
+  (brackets one layer's draws), <code>Painter.prototype.useProgram</code> (tells the
+  layer-opacity composite draw from the draws feeding it), and
+  <code>Context.prototype.setColorMode</code> (the single place every draw resolves GL blend
+  state). Fill and line layers additionally get <code>fill-layer-opacity</code> /
+  <code>line-layer-opacity</code> pinned just under 1 by <code>style-mapper</code>, which elects
+  MapLibre 6's render-to-texture composite so a layer blends <strong>as a whole</strong> rather
+  than once per overlapping polygon. <code>installLayerBlendModes</code> feature-detects
+  every seam and disables the feature (hiding the Style-panel control) rather than
+  breaking the map, so drift fails <em>quietly</em> — which is why
+  <code>tests/layer-blend-modes.test.ts</code> asserts the seams and
+  <code>e2e/blend-modes.spec.ts</code> asserts real pixels. Run both on a bump.</li>
+</ul>
+<p>See <a href="#adding-a-blend-mode">Adding a blend mode</a> before extending the list.</p>
+<ul>
+<li><strong><code>DEFAULT_MARKER_OFFSET_Y</code></strong>
+  (<code>apps/geolibre-desktop/src/components/storymap/storymap-engine.ts</code>) mirrors the
+  <code>-14</code> px vertical offset <code>maplibregl.Marker</code> applies to its default pin.
+  <code>createStoryMapMarker</code> (also reused by Field Collection's capture marker in
+  <code>apps/geolibre-desktop/src/lib/field-collection-map.ts</code>) positions that pin by
+  hand on every engine (Mapbox, Cesium, ArcGIS, and MapLibre alike), so if a bump changes the default pin's
+  anchor or offset, story markers drift off their coordinate with no error.
+  <code>tests/upstream-contracts.test.ts</code> reads the default offset out of the
+  published bundle and fails if it moves; still play a story on a non-MapLibre
+  renderer if the pin's anchor changed.</li>
+</ul>
+<h3 id="deckglmapbox-and-deckglmaplibre"><code>@deck.gl/mapbox</code> and <code>@deck.gl/maplibre</code><a class="headerlink" href="#deckglmapbox-and-deckglmaplibre" title="Permanent link">&para;</a></h3>
+<p><code>bridgeArcgisDeckControl</code> (<code>packages/plugins/src/plugins/arcgis-deck/control-adapter.ts</code>)
+reads each overlay's private <code>_props</code> field so ArcGIS can transfer its initial
+layers into a native <code>ArcgisDeckOverlay</code> without mounting the MapLibre control.
+The cast hides upstream changes from TypeScript. After either deck.gl package is
+bumped, run <code>tests/arcgis-control-adapters.test.ts</code> and confirm the overlay still
+exposes <code>_props</code> with the initial <code>DeckProps</code> object.</p>
+<h3 id="loadersgltiles-via-deckglgeo-layers-tile-cache-cap"><code>@loaders.gl/tiles</code> (via <code>@deck.gl/geo-layers</code>) — tile cache cap<a class="headerlink" href="#loadersgltiles-via-deckglgeo-layers-tile-cache-cap" title="Permanent link">&para;</a></h3>
+<p><code>applyThreeDTilesTilesetMemoryLimit</code> (<code>packages/plugins/src/plugins/arcgis-i3s-tiles.ts</code>)
+works around <code>Tileset3D</code> trimming its tile cache against a <code>maximumMemoryUsage</code>
+field it never copies from the load options, so the cap stays at 32 MB and
+every camera move evicts the tiles just drawn (issue #2560). The same PR turned
+<code>memoryAdjustedScreenSpaceError</code> off because it ratchets the level of detail
+down once that cache fills. After bumping deck.gl or loaders.gl, run
+<code>tests/arcgis-i3s-tiles.test.ts</code>: its real-<code>Tileset3D</code> case fails if the field
+is renamed or no longer starts at 32 MB. If upstream starts honouring the
+option, the helper can go.</p>
+<h3 id="maplibremaplibre-gl-style-spec"><code>@maplibre/maplibre-gl-style-spec</code><a class="headerlink" href="#maplibremaplibre-gl-style-spec" title="Permanent link">&para;</a></h3>
+<p><code>propertySpecFor</code> (<code>packages/core/src/expressions.ts</code>) fabricates the
+<strong>unexported</strong> <code>StylePropertySpecification</code> shape that <code>createExpression</code> uses for
+expected-result-type enforcement (the Expression Builder's filter → boolean /
+color checks). The cast hides any contract change from the compiler, so run the
+frontend suite — the "enforces an expected result type" test in
+<code>tests/expressions.test.ts</code> fails if the shape stops being honored.</p>
+<p><code>cssColor</code> (<code>packages/map/src/feature-style.ts</code>) turns the <code>Color</code>
+object a compiled colour expression evaluates to into CSS by reading its
+<code>toString()</code> and accepting an <code>rgba(</code> or <code>#</code> prefix. That format is how the
+spec's <code>Color</code> happens to print, not a documented contract: if a bump changes
+it, the globe silently paints every classified feature the flat fallback colour
+rather than failing. The "classifies by a categorical field" test in
+<code>tests/cesium-feature-style.test.ts</code> goes through a real compiled expression,
+so run the frontend suite after a bump and re-verify a categorized layer on the
+globe.</p>
+<p><code>SPEC_DEFAULT_COLOR</code> (<code>packages/map/src/mapbox-style-import.ts</code>) mirrors the
+spec's <code>default</code> for <code>fill-color</code>, <code>line-color</code> and <code>circle-color</code> — <code>#000000</code>
+for all three — which is the colour a stacked class layer naming none is
+imported as.
+It is hard-coded rather than read from the spec because <code>@geolibre/map</code> is a
+published package and does not depend on it (only <code>packages/core</code> does). The
+frontend suite guards both directions: a test in
+<code>tests/mapbox-style-import.test.ts</code> asserts the spec still says
+<code>SPEC_DEFAULT_COLOR</code>, and the behavioural tests beside it assert an imported
+colourless class renders that colour, so a change to either side fails.</p>
+<p><code>COLOR_OVERRIDING_PAINT</code> in the same file mirrors the other half of that
+lookup: the paint properties that draw the feature themselves, so that the
+colour default does not apply. The spec encodes it as <code>line-color</code>'s
+<code>requires: [{ "!": "line-pattern" }]</code>, which the same test asserts. <code>fill-pattern</code>
+and <code>line-gradient</code> are listed for the same reason but the spec does not encode
+it, so only the <code>line-pattern</code> entry is a mirror a test can guard; the other two
+rest on how MapLibre renders them. A class using any of them is not imported as
+black — it declines the stack.</p>
+<h3 id="web-services-control-packages-packagespluginspackagejson">Web Services control packages (<code>packages/plugins/package.json</code>)<a class="headerlink" href="#web-services-control-packages-packagespluginspackagejson" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Docked panel DOM bridge.</strong> <code>dockable-map-control.ts</code> adapts
+  <code>maplibre-gl-fema-wms</code>, <code>maplibre-gl-nasa-earthdata</code>,
+  <code>maplibre-gl-enviroatlas</code>, and <code>maplibre-gl-national-map</code> by calling the
+  control lifecycle directly and moving the panel element that <code>onAdd()</code>
+  appends to the map container into GeoLibre's native right-panel host. Vantor
+  returns a wrapper instead, so the bridge selects its <code>.vantor-panel</code>
+  descendant. The scoped CSS in <code>index.css</code> mirrors each package's panel,
+  header, toggle, close, and resize-handle class names;
+  <code>tests/upstream-contracts.test.ts</code> lists them per package and fails when a
+  package stops rendering one (or <code>index.css</code> stops styling it). After bumping
+  any of these packages, activate every migrated Web Services plugin and verify that
+  its catalog renders, resizing the GeoLibre dock preserves the content, and
+  no vendor panel remains under the map container.</li>
+</ul>
+<h3 id="maplibre-gl-components-packagespluginspackagejson"><code>maplibre-gl-components</code> (<code>packages/plugins/package.json</code>)<a class="headerlink" href="#maplibre-gl-components-packagespluginspackagejson" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong><code>MAP_PANEL_SELECTOR</code></strong>
+  (<code>apps/geolibre-desktop/src/components/layout/RecordVideoDialog.tsx</code>) mirrors
+  the <strong>rendered</strong> control class names — <code>maplibre-gl-html-control</code>,
+  <code>maplibre-gl-legend</code>, <code>maplibre-gl-colorbar</code> — so Record Video's "Include map
+  panels" option can rasterize those on-map overlays into the recording. These are
+  the display elements, deliberately <strong>not</strong> the <code>*-gui-control</code> authoring
+  editors. If a class drifts, the option silently stops burning that panel into
+  the video (or the checkbox never appears) with no build error;
+  <code>tests/upstream-contracts.test.ts</code> fails instead.</li>
+<li><strong>The PMTiles control's layer ids</strong> (<code>pmtilesControlLayerId</code> /
+  <code>pmtilesIdsForSourceLayers</code> / <code>pmtilesIdNamesSourceLayer</code>,
+  <code>packages/map/src/pmtiles-layer.ts</code>, read from <code>layer-sync.ts</code> and
+  <code>packages/plugins/src/plugins/components/pmtiles.ts</code>) mirror an unexported fact
+  about <code>PMTilesLayerControl</code>: it names its MapLibre layers
+  <code>${sourceId}-${name}-${kind}</code> from the <strong>raw</strong> source-layer name, where
+  <code>pmtilesVectorLayerId</code> percent-encodes it. The two agree for every name needing
+  no encoding, so a store layer carrying the control's own ids — the archive kept
+  whole, or a split part, which keeps the ids naming its own source layer — is
+  recognised under the encoded scheme alone until a name holds a <code>/</code>, a space or
+  non-ASCII. Then <code>layer-sync</code> decides the source layer has no native layer and
+  adds a <strong>second</strong> fill/line/circle trio on top of the control's: drawn twice,
+  and only the control's copy answers the panel. Both schemes are therefore
+  matched, and only ids naming a source layer the store actually holds are kept.</li>
+</ul>
+<p>What the user <strong>ticked</strong> is deliberately <em>not</em> inferred from those ids:
+  <code>selectedSourceLayers</code> is a documented field of the exported
+  <code>PMTilesLayerControlState</code> handed to every handler, so <code>pmtilesLayerOptions</code>
+  reads it and the compiler checks it — the rules for a stale selection, and for
+  the archive ids the control reuses across a panel close, are written at that
+  function and at <code>addPMTilesArchive</code>. A reused id is the one case GeoLibre cannot
+  repair: two archives then name one MapLibre source, the first to sync wins it
+  and the other draws nothing, so <code>addPMTilesArchive</code> warns rather than pretending
+  otherwise — while an archive that takes a layer over outright is drawn
+  correctly, keeping the name, folder and styling of the one it replaced.
+  <code>tests/pmtiles-control-contract.test.ts</code> drives a <strong>real</strong> control against a
+  real archive, through the real <code>layeradd</code> handler into the store, and fails if
+  the id scheme moves or the selection stops reaching the handler.</p>
+<ul>
+<li><strong>The MeasureControl's <code>_panel</code> and <code>_sourceId</code></strong>
+  (<code>packages/plugins/src/plugins/terrain-measure.ts</code>, via <code>measurePanelElement</code>
+  and <code>measureSourceId</code>) are private members that only the control knows: the
+  panel carries GeoLibre's Terrain (3D)/heading sections and the resize styling,
+  and the source id is how <code>lidar-measure-mirror.ts</code> finds the geometry it
+  redraws above a LiDAR point cloud (#2533). Both readers warn and fall back to
+  doing nothing on a rename; <code>tests/upstream-contracts.test.ts</code> builds a real
+  <code>MeasureControl</code> and fails if either field is gone. After a bump, still
+  confirm the Terrain section appears and a measured line shows inside a point
+  cloud.</li>
+<li><strong>The measure paint</strong> (<code>MEASURE_LINE_COLOR</code>/<code>MEASURE_LINE_WIDTH</code>/
+  <code>MEASURE_FILL_COLOR</code>, <code>packages/plugins/src/plugins/lidar-measure-mirror.ts</code>)
+  is passed to the control explicitly rather than left to its defaults, because
+  the deck.gl mirror has to repaint the same geometry in the same colour. Change
+  one form and change the RGBA twin beside it;
+  <code>tests/lidar-measure-mirror.test.ts</code> asserts the pair agrees.</li>
+<li><strong>Theme defaults for GUI-created overlays</strong> (<code>themeHtmlControlOutputs</code>,
+  <code>themeLegendControlOutputs</code>, <code>themeColorbarControlOutputs</code> in
+  <code>packages/plugins/src/plugins/components/{html,legend,colorbar}.ts</code>) wrap the
+  private factories <code>HtmlGuiControl._createHtmlControl</code>,
+  <code>LegendGuiControl._createLegend</code> and <code>ColorbarGuiControl._syncPositionControl</code>
+  (which keeps the per-corner outputs in the private <code>_positionControls</code> map),
+  then call each output's public <code>update({ backgroundColor, fontColor })</code> with
+  <code>var(--geolibre-bg)</code> / <code>var(--geolibre-fg)</code>. The GUI constructor's own
+  <code>backgroundColor</code>/<code>fontColor</code> options only style the editor panel and are not
+  forwarded, so this is the only way the on-map legend/colorbar/HTML surfaces
+  follow the app theme. A rename leaves the wrapper calling an undefined
+  function (the panel throws on Add) or skipping silently (the surface reverts
+  to upstream white). <code>createComponentsControl</code> (<code>maplibre-components.ts</code>)
+  applies the same wrappers, and adds the standalone <code>geolibre-*</code> theme class
+  plus <code>geolibre-grid-child</code> in each child's <code>onAdd</code>, to the ControlGrid's
+  internally created children. After a bump, toggle the app theme with a
+  legend, colorbar and HTML overlay on the map, from both the Controls menu and
+  the Components grid.</li>
+<li><strong>Theme overrides in <code>index.css</code></strong> assume the component/Layer
+  Control/Street View stylesheets may load <strong>after</strong> <code>index.css</code> (they arrive
+  with lazily imported chunks), so a same-specificity override loses. Overrides
+  of single-class vendor rules are prefixed with <code>html</code> to win regardless of
+  order; keep that when adding new ones.</li>
+</ul>
+<h3 id="maplibre-gl-basemap-control-packagespluginspackagejson"><code>maplibre-gl-basemap-control</code> (<code>packages/plugins/package.json</code>)<a class="headerlink" href="#maplibre-gl-basemap-control-packagespluginspackagejson" title="Permanent link">&para;</a></h3>
+<p><code>BASEMAP_PANEL_SELECTOR</code> / <code>BASEMAP_ROW_SELECTOR</code> / <code>BASEMAP_ROW_ID_ATTR</code>
+(<code>packages/plugins/src/plugins/basemap-thumbnails.ts</code>) mirror the DOM the control
+renders — <code>.basemap-control-panel</code>, <code>.basemap-control-result</code>, <code>data-basemap-id</code> —
+which the Basemaps panel's thumbnails hook into to find rows and join each one
+back to its catalog entry. That package exports only
+<code>BasemapControl</code>/<code>BasemapDefinition</code>, so a renamed class fails nothing at build
+time: the queries stop matching and thumbnails silently stop appearing.
+<code>tests/basemap-thumbnails.test.ts</code> builds a real control and asserts its rendered
+panel against the mirror.</p>
+<p>The same file's <code>hasUnresolvedPlaceholder</code> deliberately matches the <strong>complement</strong>
+of the tile tokens it substitutes rather than mirroring that package's credential
+placeholders (<code>{api-key}</code>, <code>{aws-region}</code>), so a new provider's placeholder is
+skipped instead of being fetched literally. Keep it that way rather than
+enumerating placeholder names.</p>
+<h3 id="maplibre-gl-vector-packagespluginspackagejson"><code>maplibre-gl-vector</code> (<code>packages/plugins/package.json</code>)<a class="headerlink" href="#maplibre-gl-vector-packagespluginspackagejson" title="Permanent link">&para;</a></h3>
+<p><code>MAX_VECTOR_BYTES</code> (<code>packages/plugins/src/plugins/remote-file-formats.ts</code>) mirrors
+<code>MAX_REMOTE_FILE_BYTES</code>, an <strong>internal, unexported</strong> constant in that package
+(2 GiB — DuckDB-WASM holds remote file sizes in 32 bits). It cannot be imported,
+so re-check <code>src/lib/utils/remote.ts</code> in that package and update the mirror if it
+moved. If it drifts, the remote-browse panels (Source Cooperative, Hugging Face)
+silently block GeoParquet the engine could now open, or offer an Add that is
+certain to fail. Updating the constant is enough: the limit the user is shown is
+rendered from it, not written into the copy. <code>tests/upstream-contracts.test.ts</code>
+reads the constant out of the published chunk and compares.</p>
+<p><code>remote-file-formats.ts</code> is the <strong>single</strong> home for this and the other
+format/reader/size rules those panels share — a per-panel copy would miss this
+check, so add new browse panels against that module rather than duplicating it
+(<code>source-coop-api.ts</code> re-exports it under its own names for compatibility).</p>
+<p>Adoption (<code>adoptVectorControlLayers</code> in <code>vector-layer-sync.ts</code>, #2715) hands the
+control's small GeoJSON-mode layers to GeoLibre, and leans on three things the
+package does not promise. <code>getLayerGeoJSON</code> must return the whole collection for
+a <code>renderMode: "geojson"</code>, <code>ingestMode: "table"</code> layer. <code>removeLayer</code> must drop
+the layer's DuckDB table as well as its map source, or adoption keeps two copies
+of the data. And <code>KML_ICON_PROPERTY</code> mirrors the feature property the control's
+KML/KMZ icon layer filters on (<code>__geolibre_kml_icon_url</code>); a layer carrying it
+stays with the control, so a rename upstream would adopt KML layers and drop
+their icons. Re-check all three on a bump (the contract test covers only
+<code>KML_ICON_PROPERTY</code>).</p>
+<h3 id="maplibre-gl-lidar-packagespluginspackagejson-half-checked-by-the-compiler"><code>maplibre-gl-lidar</code> (<code>packages/plugins/package.json</code>) — half checked by the compiler<a class="headerlink" href="#maplibre-gl-lidar-packagespluginspackagejson-half-checked-by-the-compiler" title="Permanent link">&para;</a></h3>
+<p>The space-effects engine raises the MapLibre canvas to <code>z-index: 4</code> so its
+starfield canvases can sit underneath. That package renders point clouds into an
+<strong>overlaid</strong> deck.gl canvas which it parks in the canvas container, directly
+after the map canvas, tagged <code>DECK_CANVAS_CLASS</code>
+(<code>maplibre-gl-lidar-canvas</code>). <code>effectsOverlayCss()</code>
+(<code>packages/plugins/src/plugins/maplibre-effects.ts</code>) hands that wrapper the
+canvas's own z-index. Drop the rule and the wrapper falls below the raised
+canvas, hiding the point cloud outright; drop the re-parenting upstream and the
+wrapper goes back to covering the Measure/Colorbar/Legend/HTML/Bookmark panels
+(#2530).</p>
+<p><code>lidar-measure-mirror.ts</code> draws the Measure tool's line/polygon into that same
+overlay (<code>LidarControl.getDeckOverlay()</code>) with <code>depthTest: false</code>, the trick the
+plugin's own cross-section line uses to sit above the points. It is added with
+<code>addLayer(id, layer, { overlay: true })</code> (0.21+), which draws it after every
+point cloud chunk, including chunks that stream in later; the point cloud
+annotator's highlight, box and vector layers use the same flag. One thing is not
+compiler checked: the geometry is read from the MapLibre/Mapbox <code>geojson</code>
+source's <code>_data</code> field, since neither library exposes a public reader. Losing it
+costs only the mirror — the measured line goes back to being hidden inside the
+cloud, which is what #2533 was. <code>tests/upstream-contracts.test.ts</code> checks both
+shapes against the real libraries (a real MapLibre <code>GeoJSONSource</code>, and the
+mapbox-gl bundle's <code>setData</code>).</p>
+<p>The <strong>class</strong> is a hand-kept copy of the package's <code>DECK_CANVAS_CLASS</code>, not an
+import: <code>maplibre-gl-lidar</code> builds into its own lazy chunk, and importing even
+this one string would pull that chunk onto the startup path.
+<code>tests/effects-settings.test.ts</code> builds its expected selector from the package
+export, so a rename upstream fails <code>npm run test:frontend</code>. The <strong>placement</strong>
+is not visible to the compiler, so
+<code>e2e/lidar-canvas-stacking.spec.ts</code> mounts the real control and asserts the
+resulting DOM order and z-indices — run it on a bump
+(<code>npx playwright test e2e/lidar-canvas-stacking.spec.ts --project=features</code>).</p>
+<p>The point cloud annotator's <strong>Full detail in view</strong> calls <code>loadRegion</code> /
+<code>clearPinnedRegion</code> (0.20+) and decides whether a cloud qualifies without an
+upstream flag: a streamed COPC is one whose source contains <code>.copc.</code> and whose
+<code>nodeRanges</code> carry octree keys rather than <code>"file"</code>
+(<code>canLoadFullDetail</code> in <code>point-cloud-annotation/index.ts</code>). Its saved labels
+also assume a pinned region's nodes keep their octree keys, so a bump that
+changes node keys or pinning semantics must rerun
+<code>e2e/point-cloud-annotation.spec.ts</code> ("loads the view at full detail").</p>
+<p>The annotator's label encoding (delta-varint point index, then a class byte or a
+varint instance id, raw DEFLATE, base64; <code>label-store.ts</code>) is decoded in three
+places the compiler cannot link: <code>geolibre.project</code> (Python reader),
+<code>geolibre.pointcloud</code> (pre-labels and labelled-file rewrites) and the embedded
+job script in <code>backend/geolibre_server/geolibre_server/app/pointcloud.py</code>
+(<code>/pointcloud/apply-labels</code>, which runs on the conversion runtime and cannot
+import the Python package). Their tests share app-encoded fixtures
+(<code>Y2BkWcP0ahHLfyDgBwA=</code> for instance ids), so a change to the format must update
+all three and the fixtures together. The COPC node order they rebuild from the
+hierarchy (data nodes sorted by chunk offset) must match the order
+maplibre-gl-lidar's <code>nodeRanges</code> index points within a node.</p>
+<p>The <code>?data=</code> LiDAR deep link leans on two more things the compiler cannot see.
+<code>isStreamedLidarUrl</code> (<code>apps/geolibre-desktop/src/lib/data-url.ts</code>) copies the
+routing at the top of <code>LidarControl.loadPointCloud</code> (an <code>/ept.json</code> suffix or a
+<code>.copc.</code> anywhere in the URL streams; anything else downloads whole) so that only
+whole downloads get the size check. If upstream changes that routing, update the
+copy, or a streamed file gets a needless size check and a downloaded one skips
+it. <code>addLidarLayerFromUrl</code> also relies on <code>load</code> firing, and adding the store
+layer, before <code>loadPointCloud</code> resolves; it throws if not.
+<code>tests/lidar-url-layer.test.ts</code> pins the GeoLibre side of both, and
+<code>tests/upstream-contracts.test.ts</code> fails if <code>loadPointCloud</code> stops routing on
+those strings. Re-read <code>loadPointCloud</code> on a bump.</p>
+<p>The point cloud annotator (<code>packages/plugins/src/plugins/point-cloud-annotation/</code>)
+edits the control's loaded points through the point-editing API the package
+added in 0.18 (<code>getPointCloudData</code>, <code>refreshPointColors</code>, <code>getRenderSettings</code>,
+<code>pauseStreaming</code>/<code>resumeStreaming</code>, <code>isStreamingLoading</code>,
+<code>DeckOverlay.getViewport</code>), all called from <code>lidar-access.ts</code>. Two things are not
+compiler checked. Edits write into the arrays <code>getPointCloudData</code> returns, which
+relies on them being the buffers the layers render from (for a streamed cloud,
+views of the loader's buffers). Saved labels are keyed by <code>nodeRanges</code>
+(<code>(node key, index - start)</code>), so a change in how the loaders order a node's
+points would silently re-apply labels to the wrong points. <code>ASPRS_CLASSES</code> in
+<code>classes.ts</code> hand-mirrors the package's unexported <code>CLASSIFICATION_COLORS</code>;
+<code>tests/point-cloud-annotation.test.ts</code> reads the real colours back through
+<code>ColorSchemeProcessor</code> and fails on drift. Run
+<code>npx playwright test e2e/point-cloud-annotation.spec.ts --project=features</code> on
+a bump.</p>
+<h3 id="maplibre-gl-layer-control-packagesmappackagejson-private-internals"><code>maplibre-gl-layer-control</code> (<code>packages/map/package.json</code>) — private internals<a class="headerlink" href="#maplibre-gl-layer-control-packagesmappackagejson-private-internals" title="Permanent link">&para;</a></h3>
+<p><code>packages/map/src/layer-control-host.ts</code> drives the on-map layer control
+through its public options and adapter methods (including the layer-group
+methods added in 0.18.0), but it also reaches into private members the
+compiler cannot check; <code>LayerControlInternalState</code> in that file lists them:</p>
+<ul>
+<li><code>panel</code> and the <code>.layer-control-item</code> / <code>.layer-control-checkbox</code> /
+  <code>.layer-control-opacity</code> / <code>.layer-control-name</code> DOM, to mirror store
+  visibility, opacity, and names into an already-built panel in place.</li>
+<li><code>state.layerStates</code> (same reason) and <code>state.collapsed</code>, read before a
+  rebuild so a control that was open is remounted open.</li>
+<li><code>basemapLayerIds</code>, seeded when there is no fetchable basemap style URL.</li>
+<li><code>buildLayerItems()</code>, called to add the Background row on styles with no root
+  basemap layers, and to redraw the rows after a reorder the store refused.</li>
+</ul>
+<p>If upstream renames any of these, the panel stops following the store (or a
+rebuild closes the panel) without an error. <code>tests/upstream-contracts.test.ts</code>
+builds a real <code>LayerControl</code> and checks every member above and the row class
+names; it cannot check how a rebuild uses them, so still drive the control in
+the app on a bump: toggle a grouped layer, reorder
+inside a group, and hide a group. The fix belongs upstream as public API; this
+package is ours (<code>opengeos/maplibre-gl-layer-control</code>).</p>
+<h3 id="maplibre-gl-splat-packagespluginspackagejson-private-internals"><code>maplibre-gl-splat</code> (<code>packages/plugins/package.json</code>) — private internals<a class="headerlink" href="#maplibre-gl-splat-packagespluginspackagejson-private-internals" title="Permanent link">&para;</a></h3>
+<p><code>packages/plugins/src/plugins/components/splatting.ts</code> reaches into
+<code>GaussianSplatControl</code>'s private fields, which the compiler cannot check:</p>
+<ul>
+<li><code>reserveSplattingIds</code> replaces the <code>_layerCounter</code> / <code>_modelCounter</code> instance
+  fields with accessors. Upstream names each asset <code>splat-${this._layerCounter++}</code>
+  / <code>model-${this._modelCounter++}</code>, and a new control restarts at 0, so without
+  the accessors a fresh load could take a saved layer's id and overwrite it.
+  Restoring a saved layer under its own id also goes through them.</li>
+<li><code>recordSplattingPlacements</code> wraps <code>loadSplat</code> / <code>loadModel</code> on the instance and
+  reads <code>_splatLayers</code> / <code>_modelLayers</code> (per-asset longitude/latitude/altitude),
+  <code>_state.rotation</code> / <code>_state.scale</code> and <code>_options.defaultModelRotation</code>, so the
+  store layer carries the placement a restore needs. The restore turns
+  <code>_options.flyTo</code> off while it runs.</li>
+</ul>
+<p>If upstream renames those fields or changes how it assigns ids, id reservation
+and placement restore stop working without an error.
+<code>tests/splatting-restore.test.ts</code> drives a fake with the same shape, so it will
+not catch that; <code>tests/upstream-contracts.test.ts</code> builds a real control and
+checks each field and the <code>splat-${counter}</code> / <code>model-${counter}</code> naming and
+placement recording in <code>loadSplat</code> / <code>loadModel</code>.
+Better still, upstream an id option and a per-asset placement getter and delete
+the patching.</p>
+<h3 id="geoman-iomaplibre-geoman-free-packagespluginspackagejson-change-mode-internals"><code>@geoman-io/maplibre-geoman-free</code> (<code>packages/plugins/package.json</code>) — change-mode internals<a class="headerlink" href="#geoman-iomaplibre-geoman-free-packagespluginspackagejson-change-mode-internals" title="Permanent link">&para;</a></h3>
+<p>Geoman's change mode removes a vertex on right-click, but only for LineString,
+Polygon and MultiPolygon. <code>installMultiLineVertexRemoval</code> in
+<code>packages/plugins/src/plugins/maplibre-geo-editor.ts</code> adds MultiLineString
+(discussion #2750). It hooks <code>geoman.actionInstances</code> and wraps the
+<code>edit__change</code> action's <code>cutVertex</code>, reading the <code>featureData</code> / <code>markerData</code>
+payload and calling <code>fireFeatureUpdatedEvent</code>. None of that is checked by the
+compiler. <code>patch-package</code> is no help here: the app loads the nested copies
+under <code>packages/plugins</code> and <code>apps/geolibre-desktop</code>, not the root one.</p>
+<p>If a bump renames the action key or those members, the wrapper silently stops
+applying and MultiLineString vertices go back to logging
+<code>EditChange.cutVertex: feature not updated</code>. <code>tests/upstream-contracts.test.ts</code>
+checks the hook points in both nested copies' <code>dist/maplibre-geoman.es.js</code>
+(text only: Geoman cannot be built without a live map). On a bump, still
+right-click a MultiLineString vertex in Edit mode. If upstream adds MultiLineString support, delete the
+wrapper.</p>
+<h3 id="carbonplanzarr-layer-private-minzoom"><code>@carbonplan/zarr-layer</code> — private <code>minZoom</code><a class="headerlink" href="#carbonplanzarr-layer-private-minzoom" title="Permanent link">&para;</a></h3>
+<p>The Dynamical plugin draws its regional datasets (analyses and ensembles, which
+pack long time series into each chunk) only from a minimum zoom, so a zoomed-out
+view cannot read gigabytes. MapLibre's layer zoom range covers every render, but
+zarr-layer also fetches once while it initializes, gated on its own private
+<code>minZoom</code> field (set from the constructor's <code>minzoom</code>, read by
+<code>isZoomInRange</code>). The Zarr control does not forward <code>minzoom</code>, so
+<code>applyRegionalZoomRange</code> in <code>packages/plugins/src/plugins/maplibre-dynamical.ts</code>
+writes the field on the live layer, guarded by a type check. If upstream renames
+it the write silently stops, and only that first fetch loses its gate (the panel
+also jumps the map to the minimum zoom before adding, which covers the common
+case). <code>tests/upstream-contracts.test.ts</code> checks the field and its use; on a
+bump, check whether the Zarr control now forwards <code>minzoom</code> so the write can go.</p>
+<h3 id="zarr-cesium-packagesmappackagejson-private-internals"><code>zarr-cesium</code> (<code>packages/map/package.json</code>) — private internals<a class="headerlink" href="#zarr-cesium-packagesmappackagejson-private-internals" title="Permanent link">&para;</a></h3>
+<p><code>packages/map/src/cesium-zarr-imagery.ts</code> draws Zarr layers on the globe and
+relies on two things zarr-cesium does not export as API:</p>
+<ul>
+<li><code>ZarrLayerProvider</code> only honours named matplotlib colormaps (its documented
+  <code>colorScale</code> option is not forwarded in 0.3.3), so GeoLibre writes the layer's
+  ramp to the provider's private <code>source.colorScale.colors</code> and calls
+  <code>source.updateColormapTexture()</code>. If those move, the globe draws the default
+  ramp and logs one warning.</li>
+<li><code>ZARR_DIMENSION_ALIASES</code> mirrors zarr-maps-tiling's <code>DIMENSION_ALIASES_DEFAULT</code>
+  (the names it files under <code>time</code> / <code>elevation</code>). Drift sends a selector to the
+  wrong key, so the Time Slider steps nothing.</li>
+</ul>
+<p><code>tests/cesium-zarr-imagery.test.ts</code> constructs the real provider and imports
+the real alias table, so both fail CI on a bump; run it, and check whether
+upstream now forwards <code>colorScale</code> so the private write can go. zarr-cesium also
+imports the <code>cesium</code> wrapper, which <code>apps/geolibre-desktop/vite.config.ts</code>
+aliases to <code>@cesium/engine</code>: keep that alias if a bump adds more <code>cesium</code>
+imports, or the globe loads a second engine.</p>
+<h3 id="maplibre-gl-planetary-computer-packagespluginspackagejson-private-stac-client"><code>maplibre-gl-planetary-computer</code> (<code>packages/plugins/package.json</code>) — private STAC client<a class="headerlink" href="#maplibre-gl-planetary-computer-packagespluginspackagejson-private-stac-client" title="Permanent link">&para;</a></h3>
+<p>The Planetary Computer STAC API sends no CORS headers on <code>GET /collections</code> and
+rejects the preflight a JSON <code>POST /search</code> needs, so the library's own
+<code>STACClient</code> fails with "Failed to fetch" in the browser and the Tauri webview.
+<code>packages/plugins/src/plugins/planetary-computer-stac.ts</code> subclasses it: search
+goes out as a <code>GET /search</code>, and the collection list falls back to the bundled
+<code>planetary-computer-collections.json</code> when the live one cannot be read. The
+subclass reuses the private <code>fetch</code> / <code>abortController</code> fields, and
+<code>maplibre-planetary-computer.ts</code> swaps it into the control's private
+<code>_stacClient</code> field before the control is added (collections load in <code>onAdd</code>).</p>
+<p>If upstream renames those fields, loads collections in its constructor, or adds
+new POST requests, the panel breaks again without a compiler error.
+<code>tests/upstream-contracts.test.ts</code> checks the real client and control for the
+private fields, that the constructor loads nothing, and that every non-search
+read is a GET. Run it and <code>tests/planetary-computer-stac.test.ts</code> on a bump. Regenerate the bundled list with
+<code>node scripts/gen-planetary-computer-collections.mjs</code> to pick up new
+collections. Better still, upstream a GET search and a client/fetch option and
+delete the swap.</p>
+<h3 id="maplibre-gl-raster-stretch-and-gamma-curves"><code>maplibre-gl-raster</code> — stretch and gamma curves<a class="headerlink" href="#maplibre-gl-raster-stretch-and-gamma-curves" title="Permanent link">&para;</a></h3>
+<p><code>buildContinuousColormapRgba</code>
+(<code>packages/plugins/src/plugins/raster-symbology.ts</code>) mirrors the render
+pipeline's value adjustments <strong>by hand</strong>, inverted. Value-range opacity paints
+its alpha into the injected 256-wide colormap texture, so it has to map a
+texture column back to a data value — and the renderer samples that texture
+<em>after</em> rescale, the stretch curve and gamma. The mirror therefore applies each
+curve's <strong>inverse</strong>, in the reverse of the renderer's order — gamma first, then
+the stretch:</p>
+<ul>
+<li>gamma — renderer <code>pow(x, 1 / max(gamma, 0.0001))</code>, mirror
+  <code>pow(t, max(gamma, 0.0001))</code></li>
+<li><code>sqrt</code> stretch — renderer <code>sqrt(x)</code>, mirror <code>t * t</code></li>
+<li><code>log</code> stretch — renderer <code>log(1 + 99x) / log(1 + 99)</code>, mirror
+  <code>(100^t - 1) / 99</code></li>
+</ul>
+<p>None of it is exported: the curves live in the package's <code>pushAdjustments</code> /
+shader modules, and the strength constant (99) is a hard-coded prop. If
+upstream reorders the pipeline, changes a curve, or retunes the log strength,
+nothing fails to build — opacity thresholds just drift off the values the user
+typed, and only under a non-default stretch or gamma. On a bump, re-read that
+package's <code>pushAdjustments</code> for the forward curves and their order (its own
+<code>inverseStretch</code> helper, used for the histogram ticks, is a second copy of the
+two stretch inverses above) and run <code>tests/raster-symbology.test.ts</code>.
+<code>tests/upstream-contracts.test.ts</code> reads <code>pushAdjustments</code> and the three shader
+curves out of the published chunk and fails if the order, a curve or the
+strength changes.</p>
+<h3 id="maplibre-gl-raster-checked-by-the-compiler"><code>maplibre-gl-raster</code> — checked by the compiler<a class="headerlink" href="#maplibre-gl-raster-checked-by-the-compiler" title="Permanent link">&para;</a></h3>
+<p><code>GeoLibreCogRenderEngine</code> (<code>packages/plugins/src/types.ts</code>) mirrors the
+<code>RenderEngine</code> union that package exports (<code>maplibre-gl-raster</code> |
+<code>cog-tiler-wasm</code> | <code>titiler</code>). It is hand-written rather than imported because
+<code>types.ts</code> is the public plugin-API surface and importing there would make that
+package's types a hard dependency of every external plugin. Unlike the mirrors
+above this one is checked by the <strong>compiler</strong>:
+<code>CogRenderEngineMirrorIsExact</code> in
+<code>packages/plugins/src/plugins/maplibre-raster.ts</code> asserts both directions of
+assignability against the real imported type, so a renamed or dropped engine
+identifier fails <code>npm run typecheck</code>. Nothing extra to do on a bump beyond letting
+the build run.</p>
+<h3 id="maplibre-gl-raster-picker-data-copied-to-keep-it-off-startup"><code>maplibre-gl-raster</code> — picker data copied to keep it off startup<a class="headerlink" href="#maplibre-gl-raster-picker-data-copied-to-keep-it-off-startup" title="Permanent link">&para;</a></h3>
+<p><code>apps/geolibre-desktop/src/lib/raster-picker-mirror.ts</code> is a hand-kept copy of
+the package's <code>COLORMAP_OPTIONS</code>, <code>NORMALIZED_DIFFERENCE_INDICES</code>,
+<code>CUSTOM_NORMALIZED_DIFFERENCE</code>, <code>indexById</code> and <code>guessBandForRole</code>. The Style
+panel's colormap and spectral index pickers need them as soon as they render,
+and the package ships as one shared chunk, so importing even one constant put
+the whole ~0.35 MB library on the startup path. Everything else GeoLibre takes
+from the package is async and dynamic-imports it instead; keep new value
+imports that way.
+<code>tests/raster-picker-mirror.test.ts</code> compares every value and both helpers with
+the package export, so a colormap added or renamed upstream fails
+<code>npm run test:frontend</code>. Regenerate the copy from the package when it does.</p>
+<h3 id="datum-shifts-geotiff-geokeys-to-proj4-cog-tiler-wasm-maplibre-gl-raster">Datum shifts (<code>geotiff-geokeys-to-proj4</code>, <code>cog-tiler-wasm</code>, <code>maplibre-gl-raster</code>)<a class="headerlink" href="#datum-shifts-geotiff-geokeys-to-proj4-cog-tiler-wasm-maplibre-gl-raster" title="Permanent link">&para;</a></h3>
+<p>The EPSG tables in <code>geotiff-geokeys-to-proj4</code> leave the datum shift
+(<code>+towgs84</code>) out for many national grids, and epsg.io's PROJJSON (the default
+resolver of the raster control's deck.gl engine) carries none either, so
+without help those rasters land 50 to 300 m off. <code>packages/core/src/datum-shift.ts</code>
+holds a small table of shifts and adds them wherever GeoLibre builds a
+projection from an EPSG code or GeoTIFF geokeys:</p>
+<ul>
+<li><code>cog-tiler-wasm</code> (the raster control's default engine) through its
+  <code>setSourceCrsResolver</code> hook (0.5.0 and later), installed by
+  <code>installCogTilerDatumShift</code> wherever GeoLibre imports the tiler and before
+  the raster control loads;</li>
+<li>the deck.gl engine through the control's <code>epsgResolver</code> option
+  (<code>packages/plugins/src/plugins/epsg-datum-resolver.ts</code>);</li>
+<li><code>epsg-proj4.ts</code>, the OBIA <code>toPixel</code>, <code>polygonizeLabels</code> (which traces pixels
+  on a stand-in grid and places the vertices through the same definition),
+  the spectral profile, samgeo, point clouds and ArcGIS Zarr.</li>
+</ul>
+<p><code>withDatumShift</code> leaves a definition that already names a transformation, so
+a <code>geotiff-geokeys-to-proj4</code> bump that adds shifts to its tables needs no
+change here. On a bump of any of the three packages, run
+<code>tests/datum-shift.test.ts</code>; it checks the British National Grid against a
+PROJ-computed point. Every entry in the table was checked against PROJ's best
+transformation for that code (within 2 m; 15 m for the NAD27 mean). Re-check
+any entry you add the same way.</p>
+<h3 id="tauri-plugin-persisted-scope-private-on-disk-format"><code>tauri-plugin-persisted-scope</code> — private on-disk format<a class="headerlink" href="#tauri-plugin-persisted-scope-private-on-disk-format" title="Permanent link">&para;</a></h3>
+<p><code>PersistedScopeState</code> (<code>apps/geolibre-desktop/src-tauri/src/lib.rs</code>) mirrors the
+plugin's private bincode <code>Scope</code> structure so GeoLibre can remove legacy
+per-photo grants before the plugin synchronously replays them at startup. On a
+<code>tauri-plugin-persisted-scope</code> bump, compare the upstream struct's field order
+and types against this mirror and run the Rust scope-cleanup tests. Bincode
+encodes fields positionally, so an upstream layout change is not compiler
+checked. This mirror is Rust-side, so <code>tests/upstream-contracts.test.ts</code> does
+not cover it.</p>
+<p>The <code>bincode</code> dependency itself is pinned to the <strong>1.x</strong> line and Dependabot is
+configured (<code>.github/dependabot.yml</code>) to skip its major bumps: the plugin writes
+the file with bincode 1, so GeoLibre must decode and re-encode it with the same
+wire format. Only move when <code>tauri-plugin-persisted-scope</code> moves. (bincode 3.0.0
+is additionally a deliberately unbuildable release — its whole source is
+<code>compile_error!("https://xkcd.com/2347/")</code>.)</p>
+<h3 id="tauri-appsplugin-http-two-upstream-behaviors-not-apis"><code>@tauri-apps/plugin-http</code> — two upstream <em>behaviors</em>, not APIs<a class="headerlink" href="#tauri-appsplugin-http-two-upstream-behaviors-not-apis" title="Permanent link">&para;</a></h3>
+<p><code>createNativeSidecarFetch</code>
+(<code>apps/geolibre-desktop/src/lib/sidecar-fetch.ts</code>) routes Windows sidecar traffic
+through the plugin's native <code>fetch</code> and hardens it with two options whose effect
+comes from <code>reqwest</code>'s implementation rather than from any documented contract.
+The option <em>names</em> are compiler-checked — <code>NativeFetchInit</code> is derived from
+<code>typeof import("@tauri-apps/plugin-http").fetch</code>, so a renamed or dropped option
+fails <code>npm run typecheck</code> — but the semantics are not, and both fail silently:</p>
+<ul>
+<li><code>maxRedirections: 0</code> maps to <code>reqwest::redirect::Policy::none()</code>
+  (<code>tauri-plugin-http/src/commands.rs</code>). Without it the native client follows
+  redirects, and <code>reqwest</code> only strips <code>Authorization</code>/<code>Cookie</code> across hosts, so
+  the per-launch <code>X-GeoLibre-Token</code> would be replayed to whatever a 3xx pointed
+  at.</li>
+<li><code>proxy: { all: { url, noProxy: "*" } }</code> is how the sidecar reaches the loopback
+  directly. The plugin has no "disable proxy" switch, but any <code>ClientBuilder::proxy</code>
+  call sets <code>auto_sys_proxy = false</code> (<code>reqwest/src/async_impl/client.rs</code>), and
+  <code>NoProxy::from_string("*")</code> matches every host
+  (<code>hyper-util/src/client/proxy/matcher.rs</code>), so the supplied proxy never
+  intercepts either. This matters because reqwest's <code>system-proxy</code> feature <em>is</em>
+  in the resolved graph (confirm with
+  <code>cargo tree -e features -i reqwest</code>; the plugin's default
+  <code>macos-system-configuration</code> feature pulls it in), and hyper-util's Windows
+  reader copies the registry <code>ProxyOverride</code> list verbatim — it never expands the
+  <code>&lt;local&gt;</code> token Windows writes for "bypass proxy server for local addresses".
+  Drop this and a corporate-proxied Windows machine sends the sidecar request
+  body and token to the proxy.</li>
+</ul>
+<p><code>tests/sidecar-fetch.test.ts</code> pins the options the adapter passes, which catches a
+careless edit here but cannot exercise the Rust side. On a plugin bump, re-check
+both behaviors against the sources above; the failure modes are a leaked token and
+a sidecar that is unreachable only for proxied users, neither of which shows up in
+CI or on an unproxied dev machine.</p>
+<h3 id="cesium-cesiumengine-cesiumwidgets-runtime-assets-fetched-by-url"><code>cesium</code> / <code>@cesium/engine</code> / <code>@cesium/widgets</code> — runtime assets fetched by URL<a class="headerlink" href="#cesium-cesiumengine-cesiumwidgets-runtime-assets-fetched-by-url" title="Permanent link">&para;</a></h3>
+<p>The 3D globe pane loads its code from <strong><code>@cesium/engine</code></strong> but its runtime
+assets from the <strong><code>cesium</code></strong> wrapper. Both are dependencies and both must move
+together: <code>cesium@1.x</code> pins the matching <code>@cesium/engine</code>, and the prebuilt
+Workers/Assets staged from the wrapper have to match the engine running them.
+<strong><code>@cesium/widgets</code></strong> is a third dependency on the same clock — it depends on
+<code>@cesium/engine</code> itself — and it supplies the globe's home, scene-mode and
+fullscreen buttons (<code>packages/map/src/cesium-widget-controls.ts</code>).</p>
+<p>The code imports the engine and the widgets directly rather than through the
+<code>cesium</code> barrel, which re-exports both and defeats tree-shaking — the base-layer
+picker, geocoder, info box and Knockout all shipped in the lazy chunk even when
+the pane built a bare <code>CesiumWidget</code>. Reverting to <code>import("cesium")</code> adds
+~340 KB back with no build error and no test failure.</p>
+<p>After a bump, check all five — none of these fail the build:</p>
+<ul>
+<li><strong>Asset copy.</strong> <code>vite-plugins/copy-cesium-assets.ts</code> copies <code>Assets</code>,
+  <code>ThirdParty</code>, <code>Widgets</code> and <code>Workers</code> out of <code>cesium/Build/Cesium</code> into
+  <code>public/cesium/</code>, keyed on the installed version. The copy is gitignored, so a
+  stale one is refreshed automatically. A directory <em>renamed or removed</em>
+  upstream fails loudly — <code>cpSync</code> throws <code>ENOENT</code> from <code>buildStart</code>, so the dev
+  server and the build both stop. The silent case is the opposite one: a runtime
+  directory <em>added</em> upstream is simply not in <code>RUNTIME_DIRS</code>, so it is never
+  copied and only surfaces as a 404 when the globe reaches for it.</li>
+<li><strong><code>CESIUM_BASE_URL</code>.</strong> <code>CesiumCanvas.tsx</code> derives it from the app's
+  <code>BASE_URL</code>, not a hardcoded <code>/cesium</code>, so a sub-path deploy (the <code>/demo/</code>
+  build) still resolves. Cesium reads it at import time; if the Workers 404 the
+  render loop dies with no error boundary.</li>
+<li><strong>The stylesheets.</strong> <code>CesiumCanvas.tsx</code> links four paths by hand
+  (<code>CESIUM_CSS_PATHS</code>) rather than the 32 KB <code>Widgets/widgets.css</code>:
+  <code>Widgets/CesiumWidget/CesiumWidget.css</code> for the canvas sizing, credit
+  container and error panel; <code>Widgets/shared.css</code> for the <code>.cesium-button</code>
+  chrome both toolbar widgets are built from; and
+  <code>Widgets/SceneModePicker/SceneModePicker.css</code> plus
+  <code>Widgets/FullscreenButton/FullscreenButton.css</code> for those two widgets. Check
+  every one after a bump — a <code>&lt;link&gt;</code> to a path upstream moved 404s silently, and
+  the failure is cosmetic in a way no assertion catches: the globe still mounts,
+  but its canvas stops filling the pane, or a toolbar button loses its size and
+  renders 0x0. (The home button has no stylesheet of its own; <code>shared.css</code> is
+  all it needs.)</li>
+<li><strong>The widget classes and view models.</strong> <code>cesium-widget-controls.ts</code> builds
+  <code>HomeButton</code>, <code>SceneModePicker</code> and <code>FullscreenButton</code> directly and writes
+  their tooltips through <code>viewModel.tooltip</code> / <code>tooltip2D</code> / <code>tooltip3D</code> /
+  <code>tooltipColumbusView</code>. <code>index.css</code> then restyles them through Cesium's own
+  class names (<code>.cesium-button</code>, <code>.cesium-toolbar-button</code>,
+  <code>.cesium-sceneModePicker-wrapper</code>). A renamed observable leaves the English
+  default in place; a renamed class leaves Cesium's dark-blue chrome on a
+  GeoLibre toolbar. Neither fails the build. Tooltip assertions live in
+  <code>e2e/cesium-primary-renderer.spec.ts</code>, alongside control mounting and alignment
+  checks. The fullscreen button is the fragile
+  one: its tooltip is a read-only computed, so the translated string is written
+  onto the element from a <code>fullscreenchange</code> listener and survives only because
+  DOM listeners fire in registration order. If a bump makes the widget update
+  its own title differently — batched on a microtask, or bound to another
+  target — the label reverts to English <em>after the first toggle</em>, which is why
+  the spec toggles fullscreen and re-reads the title rather than checking it
+  once at mount.</li>
+</ul>
+<p><strong>Scene-mode lifetime:</strong> the 2D/3D/Columbus picker controls the current
+  <code>CesiumWidget</code> only. Recreating the widget, including switching to MapLibre
+  and back or reopening a project, starts in 3D. The project retains its
+  rendering engine and camera, but does not serialize the Cesium scene mode.
+  Scene-mode persistence is outside the toolbar integration's scope; adding it
+  requires an explicit project/store field and restoration for each Cesium pane.</p>
+<ul>
+<li><strong>PWA globs.</strong> <code>**/cesium-*</code> / <code>**/Cesium-*</code> in <code>vite.config.ts</code> keep the
+  chunk out of the app-shell precache and CacheFirst-cache it instead. A chunk
+  renamed out of that pattern would be precached, adding megabytes to first load.</li>
+</ul>
+<p><code>e2e/cesium-globe.spec.ts</code> mounts the real engine keyless and drags the globe,
+so it catches a broken <code>CESIUM_BASE_URL</code> or a dead chunk.
+<code>e2e/cesium-primary-renderer.spec.ts</code> adds the toolbar: it asserts the three
+buttons mount, carry translated tooltips, and share a right edge, which catches a
+renamed view-model observable and the 0x0-button case of a missing stylesheet.
+<code>tests/upstream-contracts.test.ts</code> adds the static half: <code>Build/Cesium</code>'s
+directories must equal <code>RUNTIME_DIRS</code>, every <code>CESIUM_CSS_PATHS</code> file must exist
+and define each <code>.cesium-*</code> class <code>index.css</code> restyles, and the view models
+must still carry the tooltip observables. None of these catches the bundle-size
+regression — check that in the build output.</p>
+<h3 id="arcgis-maps-sdk-for-javascript-loaded-from-esris-cdn">ArcGIS Maps SDK for JavaScript — loaded from Esri's CDN<a class="headerlink" href="#arcgis-maps-sdk-for-javascript-loaded-from-esris-cdn" title="Permanent link">&para;</a></h3>
+<p>The ArcGIS renderer (<code>docs/arcgis-renderer.md</code>) has <strong>no npm dependency</strong>.
+<code>packages/map/src/arcgis-sdk.ts</code> imports the SDK's ES modules from
+<code>https://js.arcgis.com/&lt;ARCGIS_SDK_VERSION&gt;/@arcgis/core/…</code> at runtime and
+types the surface it uses by hand, so nothing here is checked by the compiler
+against Esri's declarations. Bumping <code>ARCGIS_SDK_VERSION</code> is therefore a
+manual check, not a Dependabot event:</p>
+<ul>
+<li><strong>Module paths and default exports.</strong> <code>SDK_MODULES</code> in <code>arcgis-sdk.ts</code> lists
+  every module the engine loads. <code>tests/arcgis-renderer.test.ts</code> only checks the
+  assembly against fakes; probe the real CDN (<code>curl -sI</code> each URL returns 200)
+  and mount a pane in a browser — a moved module rejects the whole load and the
+  pane shows the error banner. Also check the deck adapter's lazy imports in
+  <code>packages/plugins/src/plugins/arcgis-deck/overlay.ts</code>:
+  <code>layers/Layer</code>, <code>views/2d/layers/BaseLayerViewGL2D</code>, and
+  <code>views/3d/webgl/RenderNode</code>. Mount a deck.gl layer in both a 2D MapView and a
+  local SceneView after a version bump; those imports are outside the engine's
+  module registry.</li>
+<li><strong>The legacy widgets.</strong> <code>widgets/Zoom</code>, <code>Compass</code>, <code>ScaleBar</code>, <code>Fullscreen</code>
+  and <code>Locate</code> back the built-in controls. Esri deprecated them in 4.32 in
+  favour of web components and still ships them in 5.x with a console warning
+  each; a release that drops them breaks <code>setBuiltInControlVisible</code>. The
+  replacement is the <code>@arcgis/map-components</code> CDN build. Attribution already
+  uses the 5.x path: the view draws it while <code>view.attributionVisible</code> is on,
+  so the deprecated <code>Attribution</code> widget is not loaded.</li>
+<li><strong>The Compass widget's <code>viewModel.reset</code>.</strong> The engine overwrites it so a
+  click levels the pitch as well as the heading, as MapLibre's compass does.
+  That member is not part of the typed surface, and a missing <code>viewModel</code> is
+  skipped quietly, so a release that restructures it silently reverts the
+  compass to heading-only. After a bump, tilt a scene and click the compass:
+  both heading and tilt must return to 0.</li>
+<li><strong>The ESM CDN notice.</strong> The SDK logs "Only use ES modules from ArcGIS CDN for
+  testing" on load; Esri's documented production path is an npm build, which
+  this renderer deliberately avoids (see the size argument in issue #2421). The
+  AMD CDN (<code>&lt;script src="https://js.arcgis.com/&lt;version&gt;/"&gt;</code>) is the supported
+  alternative if the ESM CDN is ever withdrawn.</li>
+<li><strong>Hit-test attributes.</strong> <code>GeoJSONLayer</code> graphics only carry the fields the
+  renderer reads unless <code>outFields: ["*"]</code> is set; identify depends on the
+  compiler's <code>gl__id</code> field arriving. <code>e2e/arcgis-renderer.spec.ts</code> (opt-in,
+  <code>ARCGIS_API_KEY</code>) is the check.</li>
+<li><strong>CSP and caching.</strong> <code>https://js.arcgis.com/</code> is allow-listed in <code>script-src</code>
+  and <code>font-src</code> in <code>tauri.conf.json</code> and <code>docker/nginx.conf</code>, and cached by
+  the <code>geolibre-arcgis-sdk</code> service-worker rule in <code>vite.config.ts</code>. The
+  version is in every URL, so a bump mints new cache entries.</li>
+</ul>
+<h3 id="desktop-csp-script-src-allowlist">Desktop CSP <code>script-src</code> allowlist<a class="headerlink" href="#desktop-csp-script-src-allowlist" title="Permanent link">&para;</a></h3>
+<p>The desktop CSP (<code>apps/geolibre-desktop/src-tauri/tauri.conf.json</code>) does not
+allow all of <code>https://cdn.jsdelivr.net/npm/</code>. It lists one version-pinned path
+per package the app executes from jsDelivr. That blocks scripts from any other
+package or version on the CDN; it does not verify what is served at an allowed
+path, so a compromised release at a pinned path still runs, and CSP stops
+checking paths once a request is redirected. Each version is owned by
+something else, so a bump can move the URL the app requests while the CSP keeps
+the old one. The packaged app then hits a CSP block that <code>tauri dev</code> never
+shows, because <code>tauri dev</code> does not apply the CSP. <code>tests/tauri-csp.test.ts</code>
+re-derives every path from its owner and fails when they disagree:</p>
+<table>
+<thead>
+<tr>
+<th><code>script-src</code> path</th>
+<th>Owner (bump this, then update the CSP)</th>
+<th>Loaded by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>pyodide/v&lt;ver&gt;/full/</code></td>
+<td><code>PYODIDE_VERSION</code> in <code>pyodide-config.ts</code></td>
+<td>Pyodide's <code>import()</code> of <code>pyodide.asm.js</code> (Python Console)</td>
+</tr>
+<tr>
+<td><code>npm/@electric-sql/pglite@&lt;ver&gt;/</code>, <code>npm/@electric-sql/pglite-postgis@&lt;ver&gt;/</code></td>
+<td>lockfile</td>
+<td><code>pglite-loader.cdn.ts</code> (SQL Workspace → PostGIS)</td>
+</tr>
+<tr>
+<td><code>npm/onnxruntime-web@&lt;ver&gt;/dist/</code></td>
+<td><code>ORT_VERSION</code> in <code>packages/processing/src/ort.ts</code></td>
+<td>onnxruntime's <code>import()</code> of its wasm glue (object detection, SAM)</td>
+</tr>
+<tr>
+<td><code>npm/@duckdb/duckdb-wasm@&lt;ver&gt;/dist/</code></td>
+<td>lockfile (<code>apps/geolibre-desktop</code>)</td>
+<td><code>maplibre-gl-components</code>' DuckDB converter: a blob worker that calls <code>importScripts()</code> on the worker URL from <code>getJsDelivrBundles()</code></td>
+</tr>
+<tr>
+<td><code>npm/@duckdb/duckdb-wasm@1.31.0/</code>, <code>npm/sql.js@1.13.0/dist/</code>, <code>npm/geojson-vt@4.0.2/</code>, <code>npm/vt-pbf@3.1.3/</code></td>
+<td>URLs hard-coded in <code>maplibre-gl-vector</code></td>
+<td>Add Data → Vector Layer (DuckDB, the GeoPackage patch, the MVT fallback)</td>
+</tr>
+<tr>
+<td><code>npm/apache-arrow@…</code>, <code>npm/tslib@…</code>, <code>npm/flatbuffers@…</code>, <code>npm/pbf@…</code>, <code>npm/ieee754@…</code>, <code>npm/@mapbox/point-geometry@…</code>, <code>npm/@mapbox/vector-tile@…</code></td>
+<td>jsDelivr's <code>/+esm</code> builds of the <code>maplibre-gl-vector</code> URLs above</td>
+<td>the <code>import</code> statements inside those bundles</td>
+</tr>
+</tbody>
+</table>
+<p>Blob workers inherit the page's CSP, so <code>importScripts()</code> in one is checked
+against <code>script-src</code>. Workers started from the app's own files
+(<code>pyodide-worker.js</code>, the DuckDB and Whitebox workers) carry no CSP at all:
+Tauri only attaches the policy header to HTML responses. Wasm, wheels, PGlite
+data and the CereusDB/gdal3.js binaries are <code>fetch</code>ed, so <code>connect-src</code>
+covers them.</p>
+<p>When <code>maplibre-gl-vector</code> changes a CDN URL, the test's
+<code>MAPLIBRE_GL_VECTOR_URLS</code> assertion fails. Re-derive the transitive <code>/+esm</code>
+paths by listing each new bundle's imports, for example
+<code>curl -s https://cdn.jsdelivr.net/npm/vt-pbf@3.1.3/+esm | grep -o '/npm/[^"]*'</code>,
+recursing into each result, then update <code>ESM_TRANSITIVE_PATHS</code> and the CSP
+together.</p>
+<p>The web build's CSP (the app <code>location /</code> in <code>docker/nginx.conf</code>) lists exactly
+the same pinned paths, and the test fails when the two lists disagree, so update
+both files in the same change. There too the app's own worker files carry no
+CSP: nginx serves <code>.js</code> files from the static-asset location, which sends none.
+The JupyterLite location allows only <code>pyodide/</code> from jsDelivr, unpinned: the
+site's Pyodide comes from whichever <code>jupyterlite-pyodide-kernel</code> release pip
+resolves when the image is built.</p>
+<p>A self-hosted <code>VITE_PYODIDE_INDEX_URL</code> mirror needs no CSP change in either
+build: <code>pyodide-console.ts</code> fetches the mirror's entry scripts and runs them
+from <code>blob:</code> URLs, and the vector-tools worker is not under the CSP. A rebuilt
+app that loads scripts from any other host needs that host's path added to
+<code>script-src</code> in both files.</p>
+<p><strong><code>'unsafe-eval'</code> stays.</strong> <code>maplibre-gl-vector</code> builds its CDN loader with
+<code>new Function("url", "return import(url)")</code> at module scope, and that module is
+in the startup graph. Without <code>'unsafe-eval'</code> the packaged app throws an
+<code>EvalError</code> while booting and shows a blank window (verified on the Linux
+WebKitGTK build). Other features compile strings at runtime as well: the
+attribute field calculator (<code>attribute-expression.ts</code>), the raster calculator
+(<code>raster-client.ts</code>), the AI Assistant's JavaScript tool, the Earth Engine code
+editor, Emscripten embind glue (<code>maplibre-gl-lidar</code>, <code>maplibre-gl-splat</code>), and
+<code>ndarray</code>, Ajv and Mapillary's filter compiler. <code>'wasm-unsafe-eval'</code> alone is
+not enough for any of these. Dropping <code>'unsafe-eval'</code> starts with an upstream
+<code>maplibre-gl-vector</code> change, and then each of these consumers needs a
+replacement.</p>
+<p><strong><code>connect-src</code> keeps <code>https:</code> and <code>http:</code>.</strong> Users add tile, COG, vector and
+service URLs from arbitrary hosts (XYZ, WMS/WMTS, ArcGIS, STAC, PMTiles), and
+some of those hosts are plain-HTTP servers on a LAN, so no fixed host list can
+cover them. <code>img-src</code> keeps <code>https:</code> for the same reason.</p>
+<h3 id="httpx-backendgeolibre_server_apipyprojecttoml-private-transport-pool"><code>httpx</code> (<code>backend/geolibre_server_api/pyproject.toml</code>) — private transport pool<a class="headerlink" href="#httpx-backendgeolibre_server_apipyprojecttoml-private-transport-pool" title="Permanent link">&para;</a></h3>
+<p>The projects server's protection against identity-provider requests to internal
+addresses (<code>geolibre_server_api/egress.py</code>) needs an httpcore network backend,
+which <code>httpx.HTTPTransport</code> does not accept. <code>GuardedTransport</code> therefore
+replaces the private <code>HTTPTransport._pool</code> with an <code>httpcore.ConnectionPool</code>
+built on <code>GuardedBackend</code>. If <code>_pool</code> is renamed, building the transport raises
+<code>RuntimeError</code> at startup. If httpx keeps <code>_pool</code> but stops sending requests
+through it, the guard is bypassed with no error. After a bump, check that
+<code>HTTPTransport.handle_request</code> still sends requests through <code>self._pool</code>, and
+run <code>python -m pytest backend/geolibre_server_api/tests/test_egress.py</code>
+(<code>test_identity_provider_client_refuses_loopback</code> makes a real connection
+through the transport).</p>
+<h2 id="shared-dependency-ranges">Shared dependency ranges<a class="headerlink" href="#shared-dependency-ranges" title="Permanent link">&para;</a></h2>
+<p><code>apps/geolibre-desktop</code> and <code>packages/plugins</code> declare many of the same
+upstream packages. If a bump moves the range in only one of them, npm can no
+longer hoist one copy and nests a second under the workspace that disagrees:
+the app bundles two versions, and the contract tests above check one copy while
+the other runs. Dependabot opens one PR per manifest, so this is easy to merge
+by accident. <code>npm run check:shared-deps</code> (<code>scripts/check-shared-deps.mjs</code>, run
+in the CI "Lint and type check" job) fails when a package declared in both
+manifests, in any dependency section, carries different ranges. Fix it by
+giving both the same range and refreshing <code>package-lock.json</code> in the same PR.</p>
+<h3 id="one-shared-three">One shared <code>three</code><a class="headerlink" href="#one-shared-three" title="Permanent link">&para;</a></h3>
+<p>The app and its three-based plugins (<code>maplibre-gl-3d-tiles</code>, <code>maplibre-gl-splat</code>,
+<code>maplibre-gl-components</code>, deck.gl mesh layers) share one copy of three. Two things
+keep it that way:</p>
+<ul>
+<li>The upstream opengeos packages keep three out of their ES <code>dist</code> and declare it as
+  a peer (<code>maplibre-gl-splat</code> &gt;= 0.2.9, <code>maplibre-gl-3d-tiles</code> &gt;= 0.5.11,
+  <code>maplibre-gl-components</code> &gt;= 0.31.2). An older release inlines its own three again.</li>
+<li>The root <code>package.json</code> <code>overrides</code> pins <code>three</code> to the app's range, because
+  <code>@dvt3d/maplibre-three-plugin</code> declares <code>three: ^0.178.0</code> (0.178.x only) and would
+  otherwise pull in a second, older copy. <code>mapillary-js</code> also declares an old three,
+  but its <code>dist</code> bundles its own copy and never imports it, so the override is
+  harmless there. Opening the Mapillary viewer still loads that bundled 0.134 copy,
+  the only remaining "Multiple instances of Three.js" warning.</li>
+</ul>
+<p>When bumping <code>three</code>, move the override with the app's range, then run
+<code>npm ls three</code>: it should list one version. If npm keeps a stale nested copy,
+follow the lockfile clean-up in
+<a href="#dependency-updates-and-the-audit-allowlist">Dependency updates and the audit allowlist</a>.
+Spark's <code>dist</code> embeds three inside its sort worker's source string. That copy runs in
+a Web Worker and never registers as a second main-thread instance.</p>
+<h2 id="adding-a-blend-mode">Adding a blend mode<a class="headerlink" href="#adding-a-blend-mode" title="Permanent link">&para;</a></h2>
+<p><strong>Do not add a blend mode without checking it in the browser.</strong> MapLibre's blend
+state covers the alpha channel too, and it composites a blended layer as one
+viewport-filling quad, so any mode that does not reduce to "leave the destination
+alone" at zero source alpha repaints the whole map. That is what disqualified
+<code>darken</code> (a <code>MIN</code> equation erased the entire basemap to transparent black) and
+<code>subtract</code> (a reverse subtract left the canvas at <code>dstA - srcA</code>, showing the page
+through the layer). The shipped list is <code>BLEND_MODES</code> in <code>@geolibre/core</code>, and
+both the unit test's blend simulator and the e2e spec pin their exclusion.</p>
+<p>Only <code>fill</code> and <code>line</code> have a <code>*-layer-opacity</code> in the style spec, so only they
+blend as a <strong>whole layer</strong>; <code>circle</code> and <code>fill-extrusion</code> blend per symbol and
+visibly double-darken where symbols overlap on screen (measured under Multiply:
+<code>rgb(23, 77, 220)</code> in the overlap vs <code>rgb(76, 136, 222)</code> on a single symbol). That
+is upstream's limitation, documented in
+<a href="../user-guide/layers/">Managing Layers</a>; the test "has a layer-level composite for
+fill and line only" fails if a bump adds one of the missing properties, at which
+point extend <code>COMPOSITE_LAYER_TYPES</code> and <code>style-mapper</code> together and drop the
+caveat.</p>
+<p>The Style-panel control (<code>blendModeControl</code> in <code>StylePanel.tsx</code>, rendered in each
+of its terminal branches) is gated on <code>!pluginOwnsPaint &amp;&amp; !controlRendersLayer</code>:
+blending only reaches layers <strong>GeoLibre itself paints</strong>, so anything a control
+renders or paints (3D Tiles, Gaussian splats, LiDAR, the COG raster control, and
+Add Vector Layer, which sets <code>customLayerType</code> <em>and</em> <code>controlOwnsPaint</code>) is
+excluded — layer-sync never applies <code>fillPaint</code>/<code>linePaint</code> to those, so the
+<code>*-layer-opacity</code> that elects the composite never lands and a Blend menu there
+would silently do nothing. Keep <code>docs/user-guide/layers.md</code> and
+<code>tests/layer-blend-modes.test.ts</code> ("the layer kinds the Blend control is offered
+for") in step with that gate; build the test's mocks the way the real controls
+build their metadata, or they pass on shapes that never occur.</p>
+<h2 id="coverage-floors">Coverage floors<a class="headerlink" href="#coverage-floors" title="Permanent link">&para;</a></h2>
+<p>The <code>:coverage</code> test variants run the same suites and print a coverage summary;
+CI runs them so every build reports coverage. They are <strong>gated on a floor</strong>:
+<code>test:frontend:coverage</code> fails below 78% lines / 78% branches / 63% functions, and
+<code>test:backend:coverage</code> fails below 55% (<code>--cov-fail-under</code>). The floors sit a few
+points under the current numbers as a <strong>ratchet</strong> — regressions fail CI, and when
+coverage rises comfortably above a floor, raise the floor to lock in the gain.</p>
+<p>The frontend report only counts files a test actually imports, so a module with no
+test does not appear at all rather than as 0%. That is the part that bites:
+writing the <em>first</em> test for a large untested module reads as a coverage
+<strong>regression</strong>, because the module and everything it imports enter the denominator
+at once. GeoLibre#1784 added a test that imported <code>usePlugins.ts</code> and so pulled in
+the whole built-in plugin registry, 39 files, dropping function coverage 72.90% →
+60.36% and reddening <code>main</code>. The fix is to test against a leaf module rather than
+to lower the floor (GeoLibre#1888 extracted <code>lib/plugin-layer-queries.ts</code>;
+<code>geo-editor-geometry.ts</code> in <code>@geolibre/plugins</code> is the same pattern). Check what a
+new test <em>transitively</em> imports before assuming a coverage drop means the code got
+worse. The <a href="#untested-module-ratchet">untested module ratchet</a> below
+keeps the large modules that no test loads from staying out of sight.</p>
+<p><code>test:frontend:coverage</code> runs through <code>scripts/coverage-check.mjs</code> rather than
+calling <code>node --test</code> directly. Node still enforces all three floors; the wrapper
+only re-measures once when <strong>line</strong> coverage alone comes up short with every test
+passing. Line coverage is nondeterministic on CI (GeoLibre#1889: two runs over
+byte-identical sources reported 81.82% and 76.47%, 114 of 444 files differing on
+lines and <em>none</em> on branches or functions), and it is not reproducible locally on
+either Node 22 or 26. Branch and function shortfalls, and any test failure, fail on
+the spot with no retry, so a real regression still fails fast. <code>classify()</code> is
+exported and covered by <code>tests/coverage-check.test.ts</code> — change the retry policy
+there, not by loosening a floor. If the retry starts firing regularly, fix the
+measurement instead of widening the mitigation.</p>
+<p>The backend coverage run (and <code>npm run ci</code>, which calls the <code>:coverage</code> variants)
+needs <code>pytest-cov</code> from the backend <code>dev</code> extra. Install the <strong><code>test</code></strong> extra to
+run the <em>full</em> backend suite — without the optional engines
+(geopandas/rasterio/sedona/httpx) the vector/raster/SQL/ML tests skip themselves
+and CI is green but hollow: <code>pip install -e "backend/geolibre_server[test]"</code>.</p>
+<h3 id="untested-module-ratchet">Untested module ratchet<a class="headerlink" href="#untested-module-ratchet" title="Permanent link">&para;</a></h3>
+<p>Because the report only counts imported files, a large module that no test
+loads is invisible to the floors. <code>npm run check:untested-modules</code>
+(<code>scripts/check-untested-modules.mjs</code>) makes those visible. It reads the lcov
+report <code>test:frontend:coverage</code> writes to <code>coverage/frontend.lcov</code>, which lists
+every file the suite loaded directly or transitively, and compares it with every
+source file under <code>apps/*/src</code> and <code>packages/*/src</code>. Declaration files, <code>index.*</code>
+barrels, locale catalogs, and generated files (an <code>AUTO-GENERATED</code>,
+<code>@generated</code>, or <code>DO NOT EDIT</code> header, plus the Whitebox menu catalog) do not
+count. It runs right after the coverage step in <code>ci:frontend</code>, so in CI's "Build
+and test" job and in <code>npm run ci</code>; <code>ci:web</code> skips it because it does not measure
+coverage. Run it locally after <code>npm run test:frontend:coverage</code>.</p>
+<p>Every untested source file over 500 lines must be listed in
+<code>scripts/untested-modules-baseline.json</code> with its line count, and the check
+fails when:</p>
+<ul>
+<li><strong>A new file over 500 lines appears that no test loads.</strong> Add a test that
+  imports it, or a leaf module extracted from it (see above for why testing the
+  leaf keeps the coverage floors steady). A renamed baseline file shows up as
+  new: move its entry to the new path.</li>
+<li><strong>A baseline file grows more than 50 lines past its recorded count</strong> with
+  still no test loading it. Add a test, or put the new code in a tested module.</li>
+</ul>
+<p>The baseline only shrinks. When an entry gains a test, drops to 500 lines or
+fewer, or is deleted, the check prints a hint;
+<code>npm run check:untested-modules -- --prune</code> removes those entries and lowers the
+counts of entries that shrank, and never adds one. Do that in the same PR so the
+gain is kept. <code>--write-baseline</code> rewrites the file from scratch and exists only
+to bootstrap it; do not use it to absorb a new untested module.</p>
+<p>The same command also prints, without gating, the backend sidecar modules that
+have no <code>test_&lt;module&gt;.py</code> or <code>test_&lt;module&gt;_*.py</code> in
+<code>backend/geolibre_server/tests</code>. Some are exercised through other test files
+(the route tests drive <code>app/main.py</code>), so treat the list as a prompt to check,
+not a count of untested code.</p>
+<h2 id="lint-warning-ratchet">Lint warning ratchet<a class="headerlink" href="#lint-warning-ratchet" title="Permanent link">&para;</a></h2>
+<p><code>npm run lint</code> passes <code>--max-warnings</code> (in the root <code>package.json</code>) set to the
+current warning count, so lint warnings work like the coverage floors: the
+count can only go down. The warnings come from <code>react-hooks/exhaustive-deps</code>,
+<code>@typescript-eslint/no-explicit-any</code>, the type-aware
+<code>@typescript-eslint/no-floating-promises</code> (app, package and worker <code>src/</code>
+only, checked against each file's nearest <code>tsconfig.json</code>), and
+<code>local/no-physical-tailwind</code> (<code>eslint-rules/no-physical-tailwind.mjs</code>, the
+right-to-left rule from <a href="../i18n/#right-to-left-languages">Internationalization</a>),
+and two <code>eslint-plugin-jsx-a11y</code> rules (<code>control-has-associated-label</code>,
+<code>no-static-element-interactions</code>) on app and package <code>.tsx</code>.</p>
+<p><code>eslint-plugin-jsx-a11y</code> 6.10 declares ESLint up to 9 as a peer. It runs under
+ESLint 10, and the <code>overrides</code> entry for it in the root <code>package.json</code> points its
+peer at the installed ESLint. When the plugin publishes ESLint 10 support, drop
+that override. If a future ESLint breaks the plugin, <code>npm run lint</code> fails
+loudly; pin ESLint or disable the two rules rather than reaching for
+<code>--legacy-peer-deps</code>.</p>
+<ul>
+<li><strong>A PR adds a warning:</strong> fix it. For a floating promise that is a deliberate
+  fire-and-forget, prefix the call with <code>void</code> and make sure it handles its own
+  rejection. For a class that must stay physical (a map-anchored overlay, say),
+  add <code>// eslint-disable-next-line local/no-physical-tailwind -- &lt;why&gt;</code>. Do
+  not raise the limit.</li>
+<li><strong>A PR fixes warnings:</strong> lower the limit to the new total that ESLint prints,
+  in the same PR, so the gain is kept.</li>
+<li><strong>A PR turns on a new rule:</strong> the one time the limit goes up. Raise it by
+  exactly the new rule's count on the code as it is, say so in the PR, and fix
+  those warnings over time like the rest.</li>
+</ul>
+<h2 id="test-type-check-ratchet">Test type-check ratchet<a class="headerlink" href="#test-type-check-ratchet" title="Permanent link">&para;</a></h2>
+<p>The frontend tests run under <code>node --import tsx --test</code>, and tsx strips types
+without checking them, so a test fake that drifts from the interface it stands
+in for (a renamed property, a new required member, a changed argument) still
+runs and still passes. <code>npm run typecheck:tests</code> closes that gap: it runs
+<code>tsc --noEmit</code> over three projects in <code>tests/</code> and fails when the number of
+errors in test files rises above <code>--max-errors</code> (in the root <code>package.json</code>).
+It runs in CI's "Lint and type check" job and in <code>npm run ci</code> / <code>ci:web</code>.</p>
+<ul>
+<li><code>tests/tsconfig.json</code> checks every test against the DOM lib with the Node,
+  React and Vite types and the ambient <code>.d.ts</code> files the app and packages
+  compile with. <code>allowJs</code> lets tests import the <code>scripts/*.mjs</code> they cover with
+  inferred types.</li>
+<li><code>tests/tsconfig.workers.json</code> checks the tests that import <code>workers/tiles</code> or
+  <code>workers/viewer</code> against <code>@cloudflare/workers-types</code>, and
+  <code>tests/tsconfig.ai-proxy.json</code> the ones that import <code>workers/ai-proxy</code>
+  against that worker's generated <code>worker-configuration.d.ts</code>. The Workers
+  runtime types redeclare the DOM globals, so these tests cannot share the main
+  program. A new test that imports worker source goes in the main project's
+  <code>exclude</code> <strong>and</strong> one worker project's list; the script fails if an excluded
+  test is in neither worker project.</li>
+</ul>
+<p>Only errors in <code>tests/</code> count. A test's imports pull product source into the
+program, and that source is checked by its own workspace's tsconfig; an error
+it reports under the tests' settings (DOM-using <code>@geolibre/core</code> code under the
+Workers types, say) is printed for information and not counted.</p>
+<p>The limit works like the <a href="#lint-warning-ratchet">lint warning ratchet</a>:</p>
+<ul>
+<li><strong>A PR adds a type error in a test:</strong> fix it. Build fakes against the real
+  type: spread <code>DEFAULT_LAYER_STYLE</code> for a partial <code>LayerStyle</code>, use
+  <code>tests/helpers/layer-fixtures.ts</code> for a layer, and cast a deliberately partial
+  fake of a large interface (a MapLibre <code>Map</code>, a Cesium viewer) once through
+  <code>unknown</code> in a small typed helper rather than at every call. Do not raise the
+  limit.</li>
+<li><strong>A PR fixes type errors:</strong> lower the limit to the new total the script
+  prints, in the same PR.</li>
+</ul>
+<p>Run <code>node scripts/check-test-typecheck.mjs --max-errors 0 --verbose</code> to list
+every counted error, or <code>npx tsc --noEmit -p tests/tsconfig.json</code> for tsc's own
+output.</p>
+<h2 id="boot-bundle-budget">Boot bundle budget<a class="headerlink" href="#boot-bundle-budget" title="Permanent link">&para;</a></h2>
+<p><code>npm run build</code> fails when the JS the app entry imports statically (what
+<code>index.html</code> modulepreloads before the shell mounts) grows past either budget
+in <code>apps/geolibre-desktop/boot-budget.json</code>, or when it contains Cesium. The
+check is <code>bootBundleBudgetPlugin</code> in <code>apps/geolibre-desktop/vite.config.ts</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Budget</th>
+<th>Limit</th>
+<th>Measured when set</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rawBytes</code></td>
+<td>3 MiB, minified</td>
+<td>~2.2 MB</td>
+</tr>
+<tr>
+<td><code>gzipBytes</code></td>
+<td>900 KiB, gzip level 9</td>
+<td>~680 kB</td>
+</tr>
+</tbody>
+</table>
+<p>Gzip is the closer proxy for what a browser downloads; raw is what it parses.
+Most regressions trip both, because they come from a chunk-grouping change
+that drags a whole lazy package (Cesium, DuckDB, a <code>maplibre-gl-*</code> plugin) onto
+the boot path. The error lists the largest boot chunks. Fix the grouping in
+<code>CODE_SPLITTING_GROUPS</code> / <code>manualChunks</code> rather than raising a budget; raise
+one only after confirming the new eager code belongs at boot, and say so in the
+PR.</p>
+<p><code>npm run bundle:report</code> (after a build) writes <code>bundle-report/bundle-report.md</code>
+and <code>.json</code>: every JS/WASM asset in <code>dist/assets</code> with raw and gzip sizes, the
+boot set read from the built <code>index.html</code> against both budgets, and the size of
+each top-level <code>dist</code> entry. CI's build job uploads it as the <code>bundle-report</code>
+artifact and appends the Markdown to the job summary, so two runs can be
+compared without rebuilding.</p>
+<h3 id="workers-do-not-share-chunks-with-the-main-build">Workers do not share chunks with the main build<a class="headerlink" href="#workers-do-not-share-chunks-with-the-main-build" title="Permanent link">&para;</a></h3>
+<p>Vite bundles each <code>new Worker(new URL(...))</code> as a separate build, so anything a
+worker imports is emitted again even when the main thread has the same module.
+That once shipped h5wasm (libhdf5, ~4.8 MB) twice, once for the local NetCDF
+reader and once inside <code>netcdf-remote.worker.ts</code>. The main build now emits h5wasm
+as an explicit chunk and the worker imports it by URL
+(<code>apps/geolibre-desktop/vite-plugins/shared-h5wasm.ts</code>), and the build fails if
+anything but exactly one <code>hdf5_hl-*.js</code> is emitted. A new worker that
+imports a large library should do the same, or accept the duplicate knowingly;
+the bundle report makes a second copy easy to spot.</p>
+<h2 id="dependency-updates-and-the-audit-allowlist">Dependency updates and the audit allowlist<a class="headerlink" href="#dependency-updates-and-the-audit-allowlist" title="Permanent link">&para;</a></h2>
+<p>Dependencies are watched two ways: <strong>Dependabot</strong> (<code>.github/dependabot.yml</code>) opens
+grouped weekly update PRs for npm, pip (backend + <code>python/</code>), cargo, and Actions,
+and CI runs <code>npm run audit:ci</code> (blocking, in the "Lint and type check" job) plus a
+non-blocking <code>pip-audit</code> of the resolved backend environment (in the "Backend
+tests" job).</p>
+<p><code>audit:ci</code> is <code>scripts/audit-check.mjs</code>, a thin wrapper over <code>npm audit
+--omit=dev</code> that still fails on every high/critical advisory <em>except</em> the ones
+listed in its <code>ALLOWLIST</code>. The wrapper exists because plain <code>npm audit</code> cannot
+accept a single finding, so one unpatchable transitive advisory reddens every PR
+until upstream ships a fix — which for an unmaintained leaf package may be never.
+Only allowlist an advisory when there is <strong>no patched version to upgrade to</strong> and
+the vulnerable code is <strong>unreachable from a GeoLibre runtime path</strong>, and say why on
+both counts in the entry. Anything upgradeable gets upgraded instead. Stale entries
+print a warning rather than failing, since the advisory database is a live service
+and a transient omission must not redden an unrelated PR.</p>
+<p>When the fix is a scoped <code>overrides</code> entry (such as <code>@loaders.gl/compression</code> →
+<code>fflate</code>), npm 12 accepts it and <code>npm ls</code> then checks against the override's
+range. The lockfile still lists the package's own declared dependency (<code>fflate:
+0.7.4</code>), though, and npm keeps the old nested copy, so <code>npm ls</code> reports it as
+<code>invalid</code>. Delete that package's
+nested <code>node_modules/.../&lt;pkg&gt;</code> entries from <code>package-lock.json</code> (and from
+<code>node_modules</code>), then run <code>npm install</code> again so it resolves them fresh. Confirm
+with <code>npm ls &lt;pkg&gt;</code> before you commit.</p>
+<p>If no other package already installs a copy that satisfies the override, npm
+does not fetch one. It leaves the package out of the tree and <code>npm audit</code>
+reports 0 vulnerabilities, which looks like a fix but isn't. That is why the
+<code>texture-compressor</code> → <code>image-size@^2.0.4</code> override needed a hand-written lock
+entry: <code>version</code>, <code>resolved</code>, <code>integrity</code>, <code>license</code>, <code>bin</code> and <code>engines</code>, taken
+from <code>npm view &lt;pkg&gt;@&lt;version&gt; --json</code> (npm 12 wraps that output in an array).
+Check a fresh <code>npm ci</code> with <code>npm ls &lt;pkg&gt;</code> before you commit. That override
+patches GHSA-w3rx-r6r6-pgpr and GHSA-5p2g-fcmc-qvqq, but image-size 2.x takes a
+buffer rather than a path, so texture-compressor's own CLI can no longer read
+image sizes. GeoLibre never runs it: only <code>@loaders.gl/textures</code>'
+<code>encodeImageURLToCompressedTextureURL</code>, a Node-only encoder, spawns it via
+<code>npx</code>. Drop the override once loaders.gl stops depending on texture-compressor
+(4.5.x already makes it a peer).</p>
+<h2 id="publishing-geolibrecore-and-geolibremap">Publishing <code>@geolibre/core</code> and <code>@geolibre/map</code><a class="headerlink" href="#publishing-geolibrecore-and-geolibremap" title="Permanent link">&para;</a></h2>
+<p>Both are published to npm by <code>.github/workflows/publish-packages.yml</code> on each
+GitHub Release, alongside <code>@geolibre/embed</code>. Their checked-in
+<code>main</code>/<code>types</code>/<code>exports</code> point at TypeScript <strong>source</strong>, because that is how the
+monorepo consumes them: Vite, <code>tsc</code> and tsx all resolve <code>./src/index.ts</code> through
+the package's own <code>exports</code>, so <code>npm run dev</code> and
+<code>node --import tsx --test tests/&lt;name&gt;.test.ts</code> need no build step.</p>
+<p>The npm tarball ships <code>dist</code> instead, and npm cannot express that split on its
+own: unlike pnpm and Yarn it deliberately <strong>ignores entry fields nested under
+<code>publishConfig</code></strong> (npm/cli#7586), so a manifest that only states its dist entries
+there publishes <code>./src/index.ts</code> to consumers who never receive <code>src</code>. The
+published entries therefore live under <code>publishConfig</code>, and
+<code>scripts/prepare-npm-package.mjs</code> hoists them (and pins the <code>"*"</code>
+<code>@geolibre/core</code> dependency to the release version) just before <code>npm publish</code>.</p>
+<p>Point those top-level fields at <code>dist</code> and every frontend test that imports a
+<code>@geolibre/map</code> subpath fails with <code>ERR_MODULE_NOT_FOUND</code>, because <code>dist</code> is
+gitignored and nothing builds it before the suite.
+<code>tests/prepare-npm-package.test.ts</code> guards both halves, including that each
+published path is one the package's own <code>tsdown</code> entries actually emit
+(<code>--format esm --dts</code> writes <code>&lt;entry&gt;.mjs</code> and <code>&lt;entry&gt;.d.mts</code>, <strong>not</strong> <code>.d.ts</code>).
+The release workflow does build both packages, but a green build proves only that
+the bundles were written, not that every path the manifest publishes names one of
+them, so nothing else would notice that drift.</p>
+<h2 id="the-bundled-sidecar-lockfile">The bundled sidecar lockfile<a class="headerlink" href="#the-bundled-sidecar-lockfile" title="Permanent link">&para;</a></h2>
+<p><code>backend/geolibre_server/uv.lock</code> <strong>is committed</strong> (the root <code>.gitignore</code> ignores
+<code>uv.lock</code> everywhere else and negates it for this one path). That project is
+bundled into the desktop installers and launched with
+<code>uv run --frozen --project &lt;resource dir&gt;</code> from <code>src-tauri/src/lib.rs</code> — a
+directory the user cannot write (<code>C:\Program Files\…</code>,
+<code>/usr/lib/GeoLibre Desktop/…</code>). Ship it lockless and uv resolves, then tries to
+<em>write</em> <code>uv.lock</code> there, fails with "Permission denied" and exits 2 — which reaches
+the user as "Jupyter server exited before it was ready (exit code: 2)" with the
+cause invisible.</p>
+<p>So: any edit to that <code>pyproject.toml</code>'s dependencies must land with a refreshed
+lock (<code>uv lock --project backend/geolibre_server</code>). CI's "Check the bundled sidecar
+lockfile is in sync" step (<code>uv lock --check</code>) fails if they drift.</p>
+<h2 id="credentials-must-never-reach-a-redistributable-build">Credentials must never reach a redistributable build<a class="headerlink" href="#credentials-must-never-reach-a-redistributable-build" title="Permanent link">&para;</a></h2>
+<p>Anything we hand to someone else — the Jupyter wheel above all — must carry no
+credential of ours. Three properties of this build make that easy to get wrong,
+and every guard below blocks one of them.</p>
+<ol>
+<li><code>apps/geolibre-desktop/vite.config.ts</code> bridges bare shell vars into their
+   <code>VITE_</code> names — <code>GOOGLE_MAPS_API_KEY</code> → <code>VITE_GOOGLE_MAPS_API_KEY</code>, and the
+   same for <code>MAPBOX_TOKEN</code> and <code>CESIUM_TOKEN</code>. Convenient for local testing;
+   it also means the build machine's shell is build input.</li>
+<li>Something in the graph reads <code>import.meta.env</code> as a <strong>whole object</strong>. Vite
+   cannot tell which keys such a read wants, so it stops replacing per key and
+   inlines the entire env record — every <code>VITE_</code> var on the build machine — into
+   every chunk that read reaches. Ours was <code>packages/core/src/runtime-env.ts</code>;
+   the one we cannot fix is <code>@clerk/shared</code>'s <code>getEnvVariable.mjs</code>, which does
+   <code>import.meta.env[name]</code> with a computed name, so the inlined record lands in
+   the <code>ClerkGate-*.js</code> chunk.</li>
+<li><code>python/hatch_build.py</code> skips the JS build when <code>static/app</code> already exists
+   and <code>GEOLIBRE_FORCE_JS_BUILD</code> is unset. A local <code>python -m build</code> therefore
+   packages whatever an earlier <code>npm run build:embed</code> left staged, with no
+   JavaScript running at all.</li>
+</ol>
+<h3 id="the-rules-now">The rules now<a class="headerlink" href="#the-rules-now" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong><code>BUILD_ENV_KEYS</code></strong> in <code>vite.config.ts</code> is the allowlist of <code>VITE_</code> names that
+  may reach a bundle. <code>pruneBuildEnv()</code> deletes every other <code>VITE_</code> var from
+  <code>process.env</code> before Vite reads it. Adding a new build-time var means adding it
+  here — otherwise it silently resolves to undefined.</li>
+<li><strong><code>CREDENTIAL_ENV_KEYS</code></strong> is the subset that authenticates as, and bills to,
+  whoever ran the build. In a <em>redistributable</em> build these are blanked to <code>""</code>
+  (blanked, not deleted, so a <code>.env</code> file cannot reintroduce them). A build is
+  redistributable when <code>GEOLIBRE_EMBED=1</code> (the Jupyter wheel) or
+  <code>GEOLIBRE_STRIP_CREDENTIALS=1</code>.
+  The web deploy is <strong>not</strong> redistributable: it is our own site using our own
+  referrer-restricted keys, and it keeps them.</li>
+<li>Public-by-design identifiers stay in every build: the Clerk <em>publishable</em> key,
+  the Auth0 client ID and domain, the GEE OAuth client ID, the GA measurement ID.
+  <code>publish-python.yml</code> deliberately injects the GEE client ID into the wheel.</li>
+<li>Prefer <code>getBuildEnvironment()</code> from <code>@geolibre/core</code> over reading
+  <code>import.meta.env</code> yourself. A whole-object read re-opens cause (2) for every
+  chunk it reaches, and nothing in the type system will tell you.</li>
+</ul>
+<p>Each stripped credential resolves through <code>getRuntimeEnvironment()</code>, which
+overlays <code>window.__GEOLIBRE_RUNTIME_ENV__</code> from Settings → Environment variables.
+So a wheel user supplies their own token and the affected surfaces degrade as
+documented: Mapbox prompts in the basemap API-keys view, the 3D globe loses
+terrain and Ion imagery (the pane itself still works), Protomaps basemaps are
+hidden.</p>
+<h3 id="the-scan">The scan<a class="headerlink" href="#the-scan" title="Permanent link">&para;</a></h3>
+<p><code>scripts/scan-credentials.mjs</code> verifies the <strong>output</strong>. A build run by hand can
+satisfy every rule above and still be wrong, and a third-party asset dropped into
+the tree can arrive with a key already inside it — neither is visible from the
+config. It runs in two places:</p>
+<ul>
+<li><code>scripts/build-embed.mjs</code>, before staging <code>dist-embed</code> into the Python package.</li>
+<li><code>python/hatch_build.py</code>, before packaging any wheel or sdist — including the
+  stale-assets path (3) above, which no JS-side guard can cover. This one needs
+  no Node.</li>
+</ul>
+<p>Both read <code>scripts/credential-patterns.json</code>, so the JS and Python scanners
+cannot drift; the file is force-included into the sdist so an sdist → wheel build
+is gated too. <code>tests/credential-scan.test.ts</code> covers it.</p>
+<p>To scan any built directory by hand:</p>
+<div class="highlight"><pre><span></span><code>node<span class="w"> </span>scripts/scan-credentials.mjs<span class="w"> </span>apps/geolibre-desktop/dist-embed
+</code></pre></div>
+<h3 id="when-the-scan-fires-after-a-dependency-bump">When the scan fires after a dependency bump<a class="headerlink" href="#when-the-scan-fires-after-a-dependency-bump" title="Permanent link">&para;</a></h3>
+<p><code>allowedValueHashes</code> in <code>credential-patterns.json</code> holds the SHA-256 of values
+that match a pattern but are public by design — currently CesiumJS's built-in
+default Ion token, which ships inside <code>cesium</code> and appears in every build. A
+Cesium upgrade changes that token, so the guard will fire on the new one.</p>
+<p>That is intended. Decode the payload before doing anything: CesiumJS's has
+<code>sub: "CesiumJS"</code> and <code>iss: "https://api.cesium.com"</code>. Only once you have
+confirmed it is the vendor's own token, replace the hash. Never add a hash to
+silence a finding you have not decoded — the whole point of the list is that it
+is short and every entry was checked.</p>
+<p>Bundled plugin drop-ins under <code>apps/geolibre-desktop/public/plugins/&lt;id&gt;/</code> are
+scanned too. They are third-party build artifacts that are not committed here, so
+a hardcoded key inside one is fixed in that plugin's own repository, never by
+allowlisting it. Note that removing such a drop-in does not clean a <code>dist/</code> built
+while it was present: Vite copies <code>public/</code> into the output and only clears that
+output when a build actually runs. Rebuild, or delete the stale directory.</p>
+<h2 id="generated-files-and-cross-file-sync">Generated files and cross-file sync<a class="headerlink" href="#generated-files-and-cross-file-sync" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>The open data gallery.</strong> <a href="../gallery/"><code>gallery.md</code></a> and the "Open data
+  showcase" teaser on <a href="../demos/"><code>demos.md</code></a> (between the
+  <code>&lt;!-- demo-gallery-teaser --&gt;</code> markers) are generated from
+  <code>scripts/demo-gallery.json</code>: the themes, the featured demos, and one entry per
+  demo (slug, title, theme tag, caption, data credit). Edit the JSON, run
+  <code>npm run gallery</code>, and commit both files; <code>npm run gallery:check</code> (part of
+  <code>npm run ci</code>) fails on drift. Each entry's screenshot must already be at
+  <code>https://assets.geolibre.app/images/&lt;slug&gt;.webp</code> (opengeos/geolibre-assets),
+  and its <code>theme</code> should match the tag on its share.geolibre.app project.</li>
+<li><strong>The built-in plugin reference.</strong> The table on
+  <a href="../user-guide/plugins/"><code>user-guide/plugins.md</code></a> (between the
+  <code>&lt;!-- plugin-reference:start/end --&gt;</code> markers) is generated by
+  <code>scripts/gen-plugin-reference.mjs</code>. It reads the plugin list and order from
+  <code>BUILT_IN_PLUGINS</code> in <code>usePlugins.ts</code>, each plugin's <code>id</code> and <code>name</code> from its
+  definition in <code>packages/plugins/src</code>, the display name from <code>en.json</code>'s
+  <code>toolbar.plugin</code>, the menu location from <code>PluginsMenu.tsx</code> and the
+  <code>WEB_SERVICE_PLUGIN_IDS</code>/<code>DGGS_PLUGIN_IDS</code> groups, and the <code>?plugin=</code> link
+  name from the <code>plugin-deep-link.ts</code> rules. Only the one-line description (and
+  a <code>menu</code> for a plugin <code>PluginsMenu</code> hides) is hand-written, in
+  <code>scripts/plugin-reference.json</code>. After registering, renaming, or regrouping a
+  built-in plugin, add its entry, run <code>npm run plugins:docs</code>, and commit both
+  files. <code>tests/plugin-reference-docs.test.ts</code> and <code>npm run plugins:docs:check</code>
+  (part of <code>npm run ci</code>) fail on drift, and the generator itself fails on a
+  registered plugin with no description.</li>
+<li><strong>Processing tool metadata.</strong> Names, descriptions, group labels, parameter
+  labels/help and select options live in registries with no i18n access, so the
+  dialogs resolve them through
+  <code>apps/geolibre-desktop/src/lib/processing-tool-i18n.ts</code> and fall back to the
+  registry's own English string. For the four small bundled registries,
+  <code>en.json</code>'s <code>processing.toolMeta</code>/<code>processing.toolGroup</code> subtrees are the
+  <strong>generated</strong> baseline translators work from. After adding or renaming one of
+  those tools, parameters, or select options, run <code>npm run i18n:tools</code> and commit
+  the result; CI fails on drift. Whitebox's much larger metadata is deliberately
+  absent from all bundled locales and comes from optional, validated packs at
+  <code>languages.geolibre.app</code> (or local file import); do not add
+  <code>processing.toolMeta.whitebox</code>, <code>processing.whitebox.categories</code>, <code>menuTool</code>, or
+  <code>menuSubcategory</code> back to a bundled locale.</li>
+<li><strong>The agent skill.</strong> <code>skills/geolibre/</code> is a <em>user-facing</em> agent skill — a
+  <code>SKILL.md</code> plus <code>references/</code> that teaches an external AI agent to author
+  <code>.geolibre.json</code> projects through <code>geolibre-mcp</code>, the Python package, or
+  hand-written JSON. It is not for contributors working on GeoLibre itself. It
+  restates things that live elsewhere: the MCP tool surface
+  (<code>python/src/geolibre/mcp/server.py</code>), the basemap/color-ramp/legend catalogs
+  (<code>python/src/geolibre/basemaps.py</code>, <code>color_ramp.py</code>, <code>legends.py</code>), the project
+  schema (<a href="../project-format/">Project Format</a>), and the embed parameters
+  (<a href="../user-guide/embedding/">Embedding</a>). <code>python/tests/test_agent_skill.py</code>
+  guards the parts that can be checked mechanically: every registered MCP tool
+  must appear in the tool reference, every tool and <code>Map</code> method the skill names
+  must exist, and the basemap, color-ramp, legend-preset, layer-type, frontmatter,
+  and reference-file lists must match their sources. It cannot check prose, so a
+  changed size cap, limit, or behavioral caveat still has to be carried over by
+  hand — update the skill in the same PR. A stale caveat sends an agent down a
+  path that no longer works, with no failure anywhere.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/opengeos/GeoLibre" target="_blank" rel="noopener" title="GeoLibre on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/sponsors/giswqs" target="_blank" rel="noopener" title="Sponsor GeoLibre on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="m241 87.1 15 20.7 15-20.7C296 52.5 336.2 32 378.9 32 452.4 32 512 91.6 512 165.1v2.6c0 112.2-139.9 242.5-212.9 298.2-12.4 9.4-27.6 14.1-43.1 14.1s-30.8-4.6-43.1-14.1C139.9 410.2 0 279.9 0 167.7v-2.6C0 91.6 59.6 32 133.1 32 175.8 32 216 52.5 241 87.1"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://buymeacoffee.com/giswqs" target="_blank" rel="noopener" title="Buy the maintainer a coffee" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M152-16c-13.3 0-24 10.7-24 24 0 38.9 23.4 59.4 39.1 73.1l1.1 1C184.5 96.4 192 103.9 192 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C183.5 31.7 176 24.1 176 8c0-13.3-10.7-24-24-24M96 192c-17.7 0-32 14.3-32 32v192c0 53 43 96 96 96h192c41.8 0 77.4-26.7 90.5-64h5.5c70.7 0 128-57.3 128-128s-57.3-128-128-128zm352 192V256c35.3 0 64 28.7 64 64s-28.7 64-64 64M288 8c0-13.3-10.7-24-24-24S240-5.3 240 8c0 38.9 23.4 59.4 39.1 73.1l1.1 1C296.5 96.4 304 103.9 304 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C295.5 31.7 288 24.1 288 8"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","navigation.sections","navigation.top","search.highlight","search.share","search.suggest","toc.follow"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.8b1c90bd.min.js"></script>
+      
+    
+  </body>
+</html>
