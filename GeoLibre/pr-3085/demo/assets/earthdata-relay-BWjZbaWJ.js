@@ -1,0 +1,1 @@
+var a="https://tiles.geolibre.app/earthdata/download";function e(t){return`${a}?url=${encodeURIComponent(t)}`}function n(t){try{const r=new URL(t);return`${r.origin}${r.pathname}`===a}catch{return!1}}export{n,e as t};
