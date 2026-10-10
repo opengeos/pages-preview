@@ -3251,6 +3251,8 @@ output is missing. Set <code>GEOLIBRE_FORCE_JS_BUILD=1</code> to rebuild both fr
 checkout. Prebuilt sdists can produce wheels without Node or the monorepo
 sources. Both frontend build outputs and pre-staged package assets are scanned
 for credentials before packaging.</p>
+<p>The consent panel uses a named vanilla Lucide icon rendered directly into SVG
+DOM nodes, keeping React's server renderer out of the single-file preview.</p>
 <h2 id="the-workspace">The workspace<a class="headerlink" href="#the-workspace" title="Permanent link">&para;</a></h2>
 <p>Every path in every tool call is resolved against the allowed roots before the
 server touches it, mirroring <code>GEOLIBRE_CONVERSION_ROOTS</code> in the
