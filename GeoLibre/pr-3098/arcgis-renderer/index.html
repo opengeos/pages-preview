@@ -3239,6 +3239,9 @@ flat map uses it, and the globe button still switches to the globe and back.</p>
 <li>The camera, pointer coordinates, identify, selection and extent drawing
   convert between the projection and longitude/latitude, so the shared
   camera, other split panes and saved views stay in degrees.</li>
+<li>The flat map stays a <code>MapView</code> even with terrain on, since a local scene
+  cannot use the projection; terrain applies again on the globe or in Web
+  Mercator. An unknown WKID shows the SDK's error over the map.</li>
 <li>MapLibre, Mapbox and Cesium panes ignore the setting.</li>
 </ul>
 <h2 id="adding-data">Adding data<a class="headerlink" href="#adding-data" title="Permanent link">&para;</a></h2>
