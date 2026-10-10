@@ -927,6 +927,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../user-guide/obia-ecognition/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Coming from eCognition
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../user-guide/segmentation/" class="md-nav__link">
         
   
@@ -2672,6 +2699,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#datum-shifts-geotiff-geokeys-to-proj4-cog-tiler-wasm-maplibre-gl-raster" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Datum shifts (<code>geotiff-geokeys-to-proj4</code>, <code>cog-tiler-wasm</code>, <code>maplibre-gl-raster</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#tauri-plugin-persisted-scope-private-on-disk-format" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -3355,6 +3393,17 @@
     <span class="md-ellipsis">
       <span class="md-typeset">
         <code>maplibre-gl-raster</code> — picker data copied to keep it off startup
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#datum-shifts-geotiff-geokeys-to-proj4-cog-tiler-wasm-maplibre-gl-raster" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Datum shifts (<code>geotiff-geokeys-to-proj4</code>, <code>cog-tiler-wasm</code>, <code>maplibre-gl-raster</code>)
       </span>
     </span>
   </a>
@@ -4206,6 +4255,31 @@ imports that way.
 <code>tests/raster-picker-mirror.test.ts</code> compares every value and both helpers with
 the package export, so a colormap added or renamed upstream fails
 <code>npm run test:frontend</code>. Regenerate the copy from the package when it does.</p>
+<h3 id="datum-shifts-geotiff-geokeys-to-proj4-cog-tiler-wasm-maplibre-gl-raster">Datum shifts (<code>geotiff-geokeys-to-proj4</code>, <code>cog-tiler-wasm</code>, <code>maplibre-gl-raster</code>)<a class="headerlink" href="#datum-shifts-geotiff-geokeys-to-proj4-cog-tiler-wasm-maplibre-gl-raster" title="Permanent link">&para;</a></h3>
+<p>The EPSG tables in <code>geotiff-geokeys-to-proj4</code> leave the datum shift
+(<code>+towgs84</code>) out for many national grids, and epsg.io's PROJJSON (the default
+resolver of the raster control's deck.gl engine) carries none either, so
+without help those rasters land 50 to 300 m off. <code>packages/core/src/datum-shift.ts</code>
+holds a small table of shifts and adds them wherever GeoLibre builds a
+projection from an EPSG code or GeoTIFF geokeys:</p>
+<ul>
+<li><code>cog-tiler-wasm</code> (the raster control's default engine) through its
+  <code>setSourceCrsResolver</code> hook (0.5.0 and later), installed by
+  <code>installCogTilerDatumShift</code> wherever GeoLibre imports the tiler and before
+  the raster control loads;</li>
+<li>the deck.gl engine through the control's <code>epsgResolver</code> option
+  (<code>packages/plugins/src/plugins/epsg-datum-resolver.ts</code>);</li>
+<li><code>epsg-proj4.ts</code>, the OBIA <code>toPixel</code>, <code>polygonizeLabels</code> (which traces pixels
+  on a stand-in grid and places the vertices through the same definition),
+  the spectral profile, samgeo, point clouds and ArcGIS Zarr.</li>
+</ul>
+<p><code>withDatumShift</code> leaves a definition that already names a transformation, so
+a <code>geotiff-geokeys-to-proj4</code> bump that adds shifts to its tables needs no
+change here. On a bump of any of the three packages, run
+<code>tests/datum-shift.test.ts</code>; it checks the British National Grid against a
+PROJ-computed point. Every entry in the table was checked against PROJ's best
+transformation for that code (within 2 m; 15 m for the NAD27 mean). Re-check
+any entry you add the same way.</p>
 <h3 id="tauri-plugin-persisted-scope-private-on-disk-format"><code>tauri-plugin-persisted-scope</code> — private on-disk format<a class="headerlink" href="#tauri-plugin-persisted-scope-private-on-disk-format" title="Permanent link">&para;</a></h3>
 <p><code>PersistedScopeState</code> (<code>apps/geolibre-desktop/src-tauri/src/lib.rs</code>) mirrors the
 plugin's private bincode <code>Scope</code> structure so GeoLibre can remove legacy

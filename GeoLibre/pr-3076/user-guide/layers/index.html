@@ -1092,6 +1092,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../obia-ecognition/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Coming from eCognition
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../segmentation/" class="md-nav__link">
         
   
@@ -3079,7 +3106,7 @@ WMS, WMTS), PMTiles, MBTiles, and vector tiles.</p>
 <h3 id="importing-and-exporting-styles">Importing and exporting styles<a class="headerlink" href="#importing-and-exporting-styles" title="Permanent link">&para;</a></h3>
 <p>Vector layers have a <strong>Layer actions → Styles</strong> submenu for symbology interchange:</p>
 <ul>
-<li><strong>Export style for URL loading…</strong> writes a compact <code>.geolibre.style.json</code> file designed for the <a href="../embedding/#open-remote-data"><code>data</code> and <code>style</code> URL parameters</a>. It contains no feature data. Its MapLibre render layers use the original GeoJSON filename stem as <code>source</code>, allowing one style document to distinguish GeoJSON members in a ZIP.</li>
+<li><strong>Export GeoLibre URL style</strong> writes a compact <code>.geolibre.style.json</code> file designed for the <a href="../embedding/#open-remote-data"><code>data</code> and <code>style</code> URL parameters</a>. It contains no feature data. Its MapLibre render layers use the original GeoJSON filename stem as <code>source</code>, allowing one style document to distinguish GeoJSON members in a ZIP.</li>
 <li><strong>Export as Mapbox GL style</strong> writes a self-contained Mapbox/MapLibre style with the layer's GeoJSON embedded.</li>
 <li><strong>Export as OGC SLD</strong> and <strong>Export as QGIS QML</strong> produce styles for other desktop and server GIS software.</li>
 <li><strong>Import style from file (GeoLibre URL / Mapbox GL / SLD / QML)…</strong> applies a supported style file to the selected layer. When importing a GeoLibre URL style interactively, the filename-based <code>source</code> association is ignored because the selected layer is the target.</li>

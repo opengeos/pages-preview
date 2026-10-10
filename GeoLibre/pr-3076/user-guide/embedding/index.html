@@ -929,6 +929,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../obia-ecognition/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Coming from eCognition
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../segmentation/" class="md-nav__link">
         
   
@@ -3378,7 +3405,7 @@ extents. A style applies only to the <code>data</code> value at the same positio
 <div class="highlight"><pre><span></span><code>https://web.geolibre.app/?data=https://data.source.coop/giswqs/opengeos/dem.tif&amp;style=https://assets.geolibre.app/data/dem.style.json
 </code></pre></div>
 <p>For a ZIP containing files of the same geometry type, assign different styles by setting each Mapbox style layer's <code>source</code> to the corresponding filename stem. For example, <code>source: "parks"</code> targets <code>parks.geojson</code>, while <code>source: "counties"</code> targets <code>counties.geojson</code>. Style layers without a <code>source</code> are shared by every imported file. GeoLibre validates all filename/style matches before adding any ZIP layers.</p>
-<p>You do not need to author that JSON by hand. Open the vector layer's <strong>Layer actions → Styles → Export style for URL loading…</strong> menu. The downloaded <code>.geolibre.style.json</code> contains only symbology—not feature data—and its render-layer <code>source</code> is already set to the original GeoJSON filename stem. Built-in fill patterns, their colors, and custom SVG fill patterns are preserved using GeoLibre layer metadata (see <a href="../styling/#style-interchange-and-url-styles">style interchange</a>); externally hosted SVGs remain external dependencies. Host the file on a CORS-enabled server and pass its URL as <code>style</code> alongside the corresponding <code>data</code> URL. For a multi-file ZIP, export each layer's GeoLibre URL style and combine their <code>layers</code> and <code>sources</code> into one style document; layers without <code>source</code> can be used for rules shared by every ZIP member.</p>
+<p>You do not need to author that JSON by hand. Open the vector layer's <strong>Layer actions → Styles → Export GeoLibre URL style</strong> menu. The downloaded <code>.geolibre.style.json</code> contains only symbology—not feature data—and its render-layer <code>source</code> is already set to the original GeoJSON filename stem. Built-in fill patterns, their colors, and custom SVG fill patterns are preserved using GeoLibre layer metadata (see <a href="../styling/#style-interchange-and-url-styles">style interchange</a>); externally hosted SVGs remain external dependencies. Host the file on a CORS-enabled server and pass its URL as <code>style</code> alongside the corresponding <code>data</code> URL. For a multi-file ZIP, export each layer's GeoLibre URL style and combine their <code>layers</code> and <code>sources</code> into one style document; layers without <code>source</code> can be used for rules shared by every ZIP member.</p>
 <p>The same file can be applied interactively to an existing vector layer through <strong>Layer actions → Styles → Import style from file (GeoLibre URL / Mapbox GL / SLD / QML)…</strong>. Interactive import ignores the file's query-param <code>source</code> binding and applies its supported symbology to the layer you selected, so the data filename does not need to match.</p>
 <h2 id="open-a-stac-catalog">Open a STAC catalog<a class="headerlink" href="#open-a-stac-catalog" title="Permanent link">&para;</a></h2>
 <p>Use <code>stac</code> to open the <strong>STAC Catalogs</strong> browser already connected to a catalog. It accepts a static catalog, the root of a STAC API, or one collection of a STAC API:</p>

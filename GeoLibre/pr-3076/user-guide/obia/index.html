@@ -16,7 +16,7 @@
         <link rel="prev" href="../model-builder/">
       
       
-        <link rel="next" href="../segmentation/">
+        <link rel="next" href="../obia-ecognition/">
       
       
         
@@ -1005,6 +1005,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#import-from-other-software" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Import from other software
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1069,6 +1080,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="5. Classify">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rulesets" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Rulesets
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1130,6 +1158,33 @@
   
 </nav>
       
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../obia-ecognition/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Coming from eCognition
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -2804,6 +2859,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#import-from-other-software" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Import from other software
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2867,6 +2933,23 @@
       </span>
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="5. Classify">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rulesets" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Rulesets
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2958,6 +3041,8 @@ stays clear while you work. It is not on the sidebar rail until you first open
 it; after that its rail icon switches back to it, and closing it from its
 header removes it from the rail. Closing and reopening it keeps the current
 session.</p>
+<p>Coming from eCognition? <a href="../obia-ecognition/">Coming from eCognition</a> maps its
+concepts and algorithms to the workbench.</p>
 <h2 id="1-segment">1. Segment<a class="headerlink" href="#1-segment" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Add a GeoTIFF or COG raster layer to the map, then open the workbench. It
@@ -3006,6 +3091,12 @@ imagery. The Whitebox catalog's other segmentation tools (SLIC superpixels,
 Felzenszwalb graph, marker watershed) are wrappers around this same region
 growing with a remapped threshold, which is why the workbench offers it under
 its real name.</p>
+<p><strong>Felzenszwalb graph method (browser)</strong> is a second browser method: Felzenszwalb
+and Huttenlocher's graph-based segmentation, implemented the way scikit-image
+implements it, so it finds the same objects as the native Felzenszwalb below
+(on the validation pilot's scene, identical up to how exactly equal pixel
+differences are ordered) and takes the same parameters (<strong>Scale</strong>, <strong>Smoothing (sigma)</strong> and <strong>Minimum
+object size</strong>). It reads up to 4,194,304 pixels (4096 × 1024).</p>
 <h3 id="native-segmentation-in-the-desktop-app">Native segmentation in the desktop app<a class="headerlink" href="#native-segmentation-in-the-desktop-app" title="Permanent link">&para;</a></h3>
 <p>The desktop app can also segment natively, in its processing server, with
 scikit-image instead of the in-browser engine. Pick a native method under
@@ -3078,9 +3169,9 @@ features):</p>
 </table>
 <p>The browser figures are the engine run outside a browser on the whole scene,
 which the workbench itself would read from an overview. These numbers compare
-speed and memory only: comparing segmentation quality needs independent
-reference objects and validation data (the eCognition pilot workflows of
-<a href="https://github.com/opengeos/GeoLibre/issues/3053">#3053</a>).</p>
+speed and memory only; the segmentation quality of each method, against
+eCognition's objects, is in the
+<a href="../obia-ecognition/#segmentation">validation pilot</a>.</p>
 <h3 id="large-images">Large images<a class="headerlink" href="#large-images" title="Permanent link">&para;</a></h3>
 <p>A run reads at most about 16.8 million pixels (4096 × 4096). A larger image
 still works:</p>
@@ -3104,6 +3195,47 @@ exporting and a reloaded project all read exactly the same pixels, and
 a benchmark of the engine on a 4-band Sentinel-2 scene, 16.8 million pixels
 took about 2 minutes to segment and 1 minute to measure, while the whole
 47-million-pixel scene took about 10 minutes and over 7 GB of memory.</p>
+<h3 id="import-from-other-software">Import from other software<a class="headerlink" href="#import-from-other-software" title="Permanent link">&para;</a></h3>
+<p>Under <strong>Import from other software</strong> (below the Segment step) the workbench
+takes in what another OBIA tool, such as eCognition, exported. Add the vector
+files to the map first; they then appear in the layer lists.</p>
+<ul>
+<li><strong>Objects</strong>: a polygon layer becomes the objects, as if segmented. Its
+  polygons are burned onto the image chosen under <strong>Segment</strong> (a pixel belongs
+  to a polygon when its center is inside; the whole image is read, from an
+  overview when it is over the pixel limit). The object ids come from a field
+  holding distinct positive whole numbers up to 16,777,216 (for example the
+  exported object ids; renumber larger ones first), or are numbered in order. Polygons covering no pixel center are left
+  out, and the step says how many. The original attributes stay on the
+  objects. After a reload the labels are rebuilt by burning the objects again.</li>
+<li><strong>Samples</strong>: a point (or polygon, by a point inside it) layer labels the
+  objects under it, with the class in a field you choose and the role
+  (training or validation) from a field or the role you choose. When samples
+  disagree on an object, the first one wins and the step says how many
+  objects that affected. Classes it names that the workbench does not have yet
+  are added; a numeric class field gives classes named <code>1</code>, <code>2</code> and so on.</li>
+<li><strong>Class list</strong>: a JSON list of <code>{"name": ..., "color": "#rrggbb"}</code> (or
+  <code>{"classes": [...]}</code>), or a CSV with <code>name</code> and <code>color</code> columns. Classes the
+  workbench has take the file's colors; new ones are added.</li>
+<li><strong>Feature table</strong>: a CSV with a <code>segment_id</code> column and one column per
+  feature, such as exported object features. They join the measured features
+  (replacing any of the same name), so rules and the classifier can use them.
+  Rows whose <code>segment_id</code> matches no object are left out, and the step says
+  how many.</li>
+<li><strong>Level mapping</strong>: a CSV of <code>child_id,parent_id</code> rows (by those headers, or
+  child then parent in the first two columns; a file with no header row works
+  too) builds the level above the current one from the mapping instead of by
+  merging. Objects the mapping leaves out become their own parent, and the step
+  says how many; a child given two different parents is rejected.</li>
+<li><strong>eCognition rule set</strong>: a <code>.dcp</code> rule set or a <code>.dpr</code> project converts to a
+  ruleset for the Classify step. The step lists the rule set's image layers
+  with the band each is read from (change them to match your image), the
+  segmentation to redo under Segment, the features the workbench does not
+  compute, and every process it did not convert, with the reason. <strong>Use as
+  ruleset</strong> puts the converted ruleset in the Classify step and adds its
+  classes. See <a href="../obia-ecognition/#importing-a-rule-set">Coming from eCognition</a>
+  for what converts.</li>
+</ul>
 <h2 id="2-measure">2. Measure<a class="headerlink" href="#2-measure" title="Permanent link">&para;</a></h2>
 <p>Once objects exist, <strong>Measure</strong> computes per-object features on the original
 bands (not a display rendering) and writes them onto the objects layer. Open
@@ -3235,6 +3367,8 @@ predicted class in the class colors.</p>
   feature with a value, and an object takes the class of the first rule it
   matches, top to bottom. Objects matching no rule get the default class
   (shown in gray). Order the rules from most to least specific.</li>
+<li><strong>Ruleset</strong> runs a ruleset, as in eCognition: fuzzy class descriptions and a
+  process tree, written as JSON (see <a href="#rulesets">Rulesets</a>).</li>
 <li><strong>Inherit from level above</strong> gives each object its parent's class, from the
   classified level above (see <a href="#3-levels">Levels</a>). Classify a coarse level
   first, then inherit its classes down and refine them: with threshold rules on
@@ -3244,6 +3378,81 @@ predicted class in the class colors.</p>
 <p>The Whitebox catalog's "SVM" and "ensemble" object classifiers are the same
 random forest with a different number of trees, so the workbench offers only
 the random forest.</p>
+<h3 id="rulesets">Rulesets<a class="headerlink" href="#rulesets" title="Permanent link">&para;</a></h3>
+<p>A ruleset is a list of processes run in order. Each process acts on a
+<strong>domain</strong>: the objects whose current class is one of <code>classes</code> (<code>""</code> is
+unclassified; leave <code>classes</code> out for any class) and that meet every condition
+in <code>conditions</code> (a feature, an operator <code>&gt;</code>, <code>&gt;=</code>, <code>&lt;</code>, <code>&lt;=</code>, <code>==</code> or <code>!=</code>, and
+a value). There are four kinds of process:</p>
+<ul>
+<li><code>assign</code> gives the domain's objects <code>className</code>.</li>
+<li><code>unassign</code> leaves the domain's objects unclassified.</li>
+<li><code>fuzzy</code> classifies the domain's objects by fuzzy class descriptions. Each
+  class combines membership functions with <code>and</code> (the minimum, the default),
+  <code>or</code> (the maximum) or <code>mean</code>; an object takes the class with the highest
+  membership if it reaches <code>minMembership</code> (0.1 by default), and is left as it
+  is otherwise. A membership function reads one feature: <code>larger</code> rises from 0
+  at <code>from</code> to 1 at <code>to</code>, <code>smaller</code> falls from 1 at <code>from</code> to 0 at <code>to</code>, and
+  <code>about</code> peaks at 1 at <code>center</code> and falls to 0 at <code>width</code> away. A <code>curve</code>
+  runs through <code>values</code> (2 to 64 numbers from 0 to 1) at evenly spaced points
+  from <code>from</code> to <code>to</code>, keeping its end values beyond them, which is how
+  eCognition stores its membership functions (sigmoids included); a
+  <code>threshold</code> is 1 when its condition (<code>op</code> and <code>value</code>) holds and 0
+  otherwise. A class with no membership functions has membership 1, as an
+  empty class description does in eCognition.</li>
+<li><code>loop</code> repeats its own processes until a pass changes nothing (or
+  <code>maxIterations</code>, 100 by default).</li>
+</ul>
+<p>Besides the measured and context features, conditions and memberships can read
+<code>nb_border_&lt;class&gt;</code>: the share of an object's border shared with neighbors
+currently of that class, recomputed before each process. The class must be one
+in the legend, one the ruleset assigns, or (when starting from the current
+classification) one that classification holds; a misspelled one is rejected.
+The suffix is the class name in lower case with accents dropped and each run of
+spaces or punctuation turned into <code>_</code> (so <code>Bare soil</code> is <code>nb_border_bare_soil</code>),
+plus <code>_2</code>, <code>_3</code> and so on when two names give the same suffix; <strong>Insert
+example</strong> writes one for your first class.
+With it a loop can grow a class outwards, ring by ring. For example, starting from unclassified
+objects:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"processes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fuzzy"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"spectral classes"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"minMembership"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"classes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nt">"className"</span><span class="p">:</span><span class="w"> </span><span class="s2">"vegetation"</span><span class="p">,</span><span class="w"> </span><span class="nt">"memberships"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w"> </span><span class="nt">"field"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ndvi"</span><span class="p">,</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"larger"</span><span class="p">,</span><span class="w"> </span><span class="nt">"from"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w"> </span><span class="nt">"to"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.4</span><span class="w"> </span><span class="p">}]</span><span class="w"> </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nt">"className"</span><span class="p">:</span><span class="w"> </span><span class="s2">"built"</span><span class="p">,</span><span class="w"> </span><span class="nt">"memberships"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w"> </span><span class="nt">"field"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ndvi"</span><span class="p">,</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"smaller"</span><span class="p">,</span><span class="w"> </span><span class="nt">"from"</span><span class="p">:</span><span class="w"> </span><span class="mf">-0.1</span><span class="p">,</span><span class="w"> </span><span class="nt">"to"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="w"> </span><span class="p">}]</span><span class="w"> </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"loop"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"grow vegetation"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"processes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"assign"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"domain"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"classes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">""</span><span class="p">],</span>
+<span class="w">            </span><span class="nt">"conditions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">              </span><span class="p">{</span><span class="w"> </span><span class="nt">"field"</span><span class="p">:</span><span class="w"> </span><span class="s2">"nb_border_vegetation"</span><span class="p">,</span><span class="w"> </span><span class="nt">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&gt;="</span><span class="p">,</span><span class="w"> </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span><span class="w"> </span><span class="p">},</span>
+<span class="w">              </span><span class="p">{</span><span class="w"> </span><span class="nt">"field"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ndvi"</span><span class="p">,</span><span class="w"> </span><span class="nt">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&gt;"</span><span class="p">,</span><span class="w"> </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">}</span>
+<span class="w">            </span><span class="p">]</span>
+<span class="w">          </span><span class="p">},</span>
+<span class="w">          </span><span class="nt">"className"</span><span class="p">:</span><span class="w"> </span><span class="s2">"vegetation"</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>Insert example</strong> writes this ruleset for your classes and features; <strong>Open</strong>
+and <strong>Save</strong> read and write it as a file. The ruleset is checked as you type,
+and the message names the first problem. Tick <strong>Start from the current
+classification</strong> to refine an existing classification instead of starting from
+unclassified objects. Objects still unclassified at the end get the default
+class. After a run, a line per process says how many objects it changed (and,
+for a loop, in how many passes). A ruleset reads only features and the object
+graph, so <strong>Apply to other images</strong> runs it on them as it is.</p>
 <h2 id="6-assess-accuracy">6. Assess accuracy<a class="headerlink" href="#6-assess-accuracy" title="Permanent link">&para;</a></h2>
 <p>After classifying, the workbench scores the predictions against the
 validation samples, which the random forest never trained on. The score
