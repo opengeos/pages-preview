@@ -3202,14 +3202,15 @@ CSP origins, so browser CORS, mixed-content restrictions, and desktop hosts'
 wildcard-CSP normalization do not govern these resource requests. The host
 must still permit the App's server-tool calls.</p>
 <p>Consent is scoped to one preview and is not persisted. Server-side previews
-expire after 30 minutes; origin grants expire after five minutes and are
-renewed only for origins already allowed in that preview. Closing the preview
-revokes its grants. Call <code>show_map</code> again to choose differently or reopen an
-expired session.</p>
+expire after 30 minutes of inactivity; successful origin approval and resource
+authorization refresh that idle timeout. Origin grants still expire after five
+minutes and are renewed only for origins already allowed in that preview.
+Closing the preview revokes its grants. Call <code>show_map</code> again to choose
+differently or reopen an idle-expired session.</p>
 <p>The server allows at most 64 active preview sessions. It refuses new sessions
 at that limit rather than evicting a live preview and revoking its grants.
 Closing a preview frees its slot; abandoned sessions retain theirs until the
-30-minute expiry.</p>
+30-minute idle expiry.</p>
 <p>The server checks DNS addresses and connects only to the checked public IPs,
 with HTTPS certificate/hostname verification using system trust plus certifi's
 public CA bundle. Loopback, private/LAN, link-local, reserved, and multicast
@@ -3230,10 +3231,12 @@ rejected before reading the body; the streaming limit also applies when the
 length is missing or understated. The server requests identity encoding and
 rejects compressed responses. Video sources inside a fetched style are removed
 because MapLibre loads video outside the consent-controlled request path.</p>
-<p>After updating a checkout, install its updated MCP extra and rebuild the
-bundled view:</p>
-<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">"python[mcp]"</span>
+<p>After updating a checkout, run these commands from the monorepo root.
+Install JavaScript dependencies and rebuild the view before the editable Python
+install, whose build hook can build any missing frontend assets:</p>
+<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>install
 npm<span class="w"> </span>run<span class="w"> </span>build:mcp-app
+python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">"python[mcp]"</span>
 </code></pre></div>
 <p>Use the Python executable configured in your desktop client's MCP server
 command. Fully quit and reopen the client, then make a fresh <code>show_map</code> call:
