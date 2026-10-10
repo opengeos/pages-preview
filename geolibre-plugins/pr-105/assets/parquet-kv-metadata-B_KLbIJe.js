@@ -1,1 +1,0 @@
-import{Nr as n}from"./src-CORDAzbI.js";import{u as e}from"./duckdb-geometry-wOaySFqC.js";var o="geolibre:metadata";function s(a){const t=n(a.descriptiveMetadata);return t?{[o]:JSON.stringify(t)}:void 0}function u(a){const t=Object.entries(a??{});return t.length===0?"":`, KV_METADATA {${t.map(([r,i])=>`${e(r)}: ${e(i)}`).join(", ")}}`}export{u as n,s as t};
