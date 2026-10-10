@@ -4891,10 +4891,11 @@ and every guard below blocks one of them.</p>
    the one we cannot fix is <code>@clerk/shared</code>'s <code>getEnvVariable.mjs</code>, which does
    <code>import.meta.env[name]</code> with a computed name, so the inlined record lands in
    the <code>ClerkGate-*.js</code> chunk.</li>
-<li><code>python/hatch_build.py</code> skips the JS build when <code>static/app</code> already exists
-   and <code>GEOLIBRE_FORCE_JS_BUILD</code> is unset. A local <code>python -m build</code> therefore
-   packages whatever an earlier <code>npm run build:embed</code> left staged, with no
-   JavaScript running at all.</li>
+<li><code>python/hatch_build.py</code> skips each frontend build when its staged output
+   (<code>static/app/index.html</code> or <code>static/mcp/show-map.html</code>) already exists and
+   <code>GEOLIBRE_FORCE_JS_BUILD</code> is unset. A local <code>python -m build</code> can therefore
+   package assets left by earlier <code>npm run build:embed</code> / <code>npm run build:mcp-app</code>
+   runs, with no JavaScript running at all.</li>
 </ol>
 <h3 id="the-rules-now">The rules now<a class="headerlink" href="#the-rules-now" title="Permanent link">&para;</a></h3>
 <ul>

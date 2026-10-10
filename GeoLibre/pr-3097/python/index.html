@@ -3843,14 +3843,20 @@ writes opens in the widget (and in the desktop and web apps) unchanged. See
 <a href="../mcp/">MCP server</a> for the tool list and client configuration.</p>
 <h2 id="building-from-source">Building from source<a class="headerlink" href="#building-from-source" title="Permanent link">&para;</a></h2>
 <p>The package lives in <a href="https://github.com/opengeos/GeoLibre/tree/main/python"><code>python/</code></a>.
-The bundled app is produced from the monorepo with:</p>
-<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>run<span class="w"> </span>build:embed<span class="w">      </span><span class="c1"># builds the app and stages it into the wheel</span>
-python<span class="w"> </span>-m<span class="w"> </span>build<span class="w">          </span><span class="c1"># builds the wheel</span>
-python<span class="w"> </span>-m<span class="w"> </span>twine<span class="w"> </span>upload<span class="w"> </span>dist/*<span class="w">  </span><span class="c1"># upload to PyPI</span>
-pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>python<span class="w">    </span><span class="c1"># editable install for development</span>
+The two bundled frontends are built independently from the monorepo root:</p>
+<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>install
+npm<span class="w"> </span>run<span class="w"> </span>build:embed<span class="w">      </span><span class="c1"># builds and stages the Jupyter/web app</span>
+npm<span class="w"> </span>run<span class="w"> </span>build:mcp-app<span class="w">    </span><span class="c1"># builds and stages the standalone MCP App</span>
+python<span class="w"> </span>-m<span class="w"> </span>build<span class="w"> </span>python<span class="w">  </span><span class="c1"># builds the wheel and sdist</span>
+python<span class="w"> </span>-m<span class="w"> </span>twine<span class="w"> </span>upload<span class="w"> </span>python/dist/*<span class="w">  </span><span class="c1"># upload to PyPI</span>
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>python<span class="w">   </span><span class="c1"># editable install for development</span>
 </code></pre></div>
-<p>Changes to the Python code are picked up on kernel restart. Changes to the app
-(TypeScript) require re-running <code>npm run build:embed</code> and restarting the kernel.</p>
+<p>The packaging hook runs only the frontend builds whose staged outputs are
+missing. Set <code>GEOLIBRE_FORCE_JS_BUILD=1</code> to refresh both when building from a
+full checkout; a prebuilt sdist needs neither Node nor the monorepo sources.</p>
+<p>Changes to Python code are picked up on kernel restart. Changes to the Jupyter
+app require re-running <code>npm run build:embed</code> and restarting the kernel. For MCP
+preview changes, run <code>npm run build:mcp-app</code> and restart the MCP client.</p>
 <h2 id="rendering-engines-and-mixed-pane-layouts">Rendering engines and mixed pane layouts<a class="headerlink" href="#rendering-engines-and-mixed-pane-layouts" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="n">m</span> <span class="o">=</span> <span class="n">Map</span><span class="p">(</span><span class="n">renderer</span><span class="o">=</span><span class="s2">"cesium"</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="n">zoom</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 <span class="n">m</span><span class="o">.</span><span class="n">set_map_layout</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">view_kinds</span><span class="o">=</span><span class="p">[</span><span class="s2">"cesium"</span><span class="p">,</span> <span class="s2">"maplibre"</span><span class="p">],</span> <span class="n">sync_view</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>

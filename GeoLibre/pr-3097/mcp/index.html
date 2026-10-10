@@ -3233,17 +3233,21 @@ because MapLibre loads video outside the consent-controlled request path.</p>
 <p>After updating a checkout, install its updated MCP extra and rebuild the
 bundled view:</p>
 <div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">"python[mcp]"</span>
-npm<span class="w"> </span>run<span class="w"> </span>build:embed
+npm<span class="w"> </span>run<span class="w"> </span>build:mcp-app
 </code></pre></div>
 <p>Use the Python executable configured in your desktop client's MCP server
 command. Fully quit and reopen the client, then make a fresh <code>show_map</code> call:
 an already-mounted preview can retain the previous HTML and tool definitions.</p>
 <h3 id="building-from-a-checkout">Building from a checkout<a class="headerlink" href="#building-from-a-checkout" title="Permanent link">&para;</a></h3>
 <p>Published wheels include <code>geolibre/static/mcp/show-map.html</code>. From a checkout,
-run <code>npm install</code> and <code>npm run build:embed</code> to build and stage both the Jupyter
-app and the single-file MCP App. <code>npm run build:mcp-app</code> builds only the preview
-workspace and does not stage it into Python. Both build outputs and pre-staged
-wheel assets are scanned for credentials before packaging.</p>
+run <code>npm install</code> and <code>npm run build:mcp-app</code> to build, scan, and stage the
+single-file MCP App without building the Jupyter app. <code>npm run build:embed</code>
+independently builds and stages the Jupyter/web app.</p>
+<p>The Python packaging hook runs each frontend build only when its own staged
+output is missing. Set <code>GEOLIBRE_FORCE_JS_BUILD=1</code> to rebuild both from a full
+checkout. Prebuilt sdists can produce wheels without Node or the monorepo
+sources. Both frontend build outputs and pre-staged package assets are scanned
+for credentials before packaging.</p>
 <h2 id="the-workspace">The workspace<a class="headerlink" href="#the-workspace" title="Permanent link">&para;</a></h2>
 <p>Every path in every tool call is resolved against the allowed roots before the
 server touches it, mirroring <code>GEOLIBRE_CONVERSION_ROOTS</code> in the
