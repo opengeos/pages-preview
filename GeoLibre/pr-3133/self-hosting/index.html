@@ -3660,8 +3660,9 @@ along the way.</p>
   signed tile URL, or your own HMAC scheme), because MapLibre's own tile requests
   cannot carry a custom header that GeoLibre has not been told about. The GeoLens
   plugin is the exception on the header path: it sends <code>X-Api-Key</code> on its API
-  calls, and attaches it to that dataset's raster tiles through MapLibre's
-  <code>transformRequest</code> hook.</li>
+  calls, and registers it for that dataset's raster tiles with the request
+  headers GeoLibre adds to MapLibre tile requests (plugins can do the same with
+  <code>setLayerRequestHeaders</code>).</li>
 <li><strong>Tokens in URLs leak</strong> into browser history, proxy logs, referrer headers, and
   anything the user copies and pastes. Keep expiries short and scope each token
   to one dataset.</li>

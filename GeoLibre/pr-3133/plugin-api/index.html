@@ -2283,6 +2283,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#authenticated-tile-requests" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Authenticated tile requests
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3287,6 +3298,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#authenticated-tile-requests" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Authenticated tile requests
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3807,6 +3829,10 @@
 <span class="w">    </span><span class="nx">url</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span>
 <span class="w">    </span><span class="nx">options</span><span class="o">:</span><span class="w"> </span><span class="kt">GeoLibreVectorTileLayerOptions</span>
 <span class="w">  </span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">setLayerRequestHeaders</span><span class="o">?:</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="nx">layerId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">headers</span><span class="o">:</span><span class="w"> </span><span class="kt">Record</span><span class="o">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="o">&gt;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span>
+<span class="w">  </span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="kt">boolean</span><span class="p">;</span>
 <span class="w">  </span><span class="nx">addWmsLayer</span><span class="o">?:</span><span class="w"> </span><span class="p">(</span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">options</span><span class="o">:</span><span class="w"> </span><span class="kt">GeoLibreWmsLayerOptions</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
 <span class="w">  </span><span class="nx">addWfsLayer</span><span class="o">?:</span><span class="w"> </span><span class="p">(</span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">options</span><span class="o">:</span><span class="w"> </span><span class="kt">GeoLibreWfsLayerOptions</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="kt">string</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="w">  </span><span class="c1">// Native client-side COG (reads the GeoTIFF directly; band/rescale/colormap/</span>
@@ -4592,6 +4618,7 @@ Replacing one active selection gesture with another keeps
 <span class="w">  </span><span class="nx">opacity?</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span><span class="w"> </span><span class="c1">// default 1</span>
 <span class="w">  </span><span class="nx">beforeLayerId?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span><span class="w"> </span><span class="c1">// insert beneath this layer</span>
 <span class="w">  </span><span class="nx">metadata?</span><span class="o">:</span><span class="w"> </span><span class="kt">Record</span><span class="o">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">unknown</span><span class="o">&gt;</span><span class="p">;</span><span class="w"> </span><span class="c1">// provenance merged into layer.metadata</span>
+<span class="w">  </span><span class="nx">headers?</span><span class="o">:</span><span class="w"> </span><span class="kt">Record</span><span class="o">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="o">&gt;</span><span class="p">;</span><span class="w"> </span><span class="c1">// sent with tile requests; see below</span>
 <span class="p">}</span>
 
 <span class="kd">const</span><span class="w"> </span><span class="nx">layerId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">app</span><span class="p">.</span><span class="nx">addVectorTileLayer</span><span class="o">?</span><span class="p">.(</span><span class="s2">"Sites"</span><span class="p">,</span><span class="w"> </span><span class="s2">"https://tiles.example.org/sites/{z}/{x}/{y}.pbf"</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
@@ -4599,7 +4626,25 @@ Replacing one active selection gesture with another keeps
 <span class="w">  </span><span class="nx">maxzoom</span><span class="o">:</span><span class="w"> </span><span class="kt">14</span><span class="p">,</span>
 <span class="p">});</span>
 </code></pre></div>
-<p>The URL must be absolute HTTP(S), and a template needs all three of <code>{z}</code>, <code>{x}</code> and <code>{y}</code>, written in lowercase (a URL with none is read as TileJSON). Other placeholders such as <code>{s}</code> or <code>{-y}</code> aren't recognized; for a TMS tileset, serve or rewrite an XYZ template. It throws when that isn't so, <code>name</code> is blank or not a string, <code>sourceLayers</code> is missing, empty or holds a blank name, <code>bounds</code> is not four numbers, the zoom range is out of bounds or inverted, or <code>opacity</code> is outside 0–1. With a TileJSON URL, MapLibre reads the zoom range from the TileJSON, so <code>minzoom</code> and <code>maxzoom</code> throw there; <code>bounds</code> is still kept as the extent <strong>Zoom to layer</strong> uses. <code>bounds</code> must lie within ±180° and ±90° with <code>west</code> ≤ <code>east</code> and <code>south</code> ≤ <code>north</code> (an extent can't cross the antimeridian). Tiles are drawn on MapLibre, Mapbox and the ArcGIS renderer, and draped on the Cesium globe, like other vector tile layers.</p>
+<p>The URL must be absolute HTTP(S), and a template needs all three of <code>{z}</code>, <code>{x}</code> and <code>{y}</code>, written in lowercase (a URL with none is read as TileJSON). Other placeholders such as <code>{s}</code> or <code>{-y}</code> aren't recognized; for a TMS tileset, serve or rewrite an XYZ template. It throws when that isn't so, <code>name</code> is blank or not a string, <code>sourceLayers</code> is missing, empty or holds a blank name, <code>bounds</code> is not four numbers, the zoom range is out of bounds or inverted, or <code>opacity</code> is outside 0–1. The layer's <code>metadata.sourceKind</code> is <code>"plugin-vector-tiles"</code>; metadata keys GeoLibre uses to decide how a layer is drawn (<code>sourceKind</code>, <code>customLayerType</code>, <code>nativeLayerIds</code>, <code>sourceIds</code>, <code>sourceId</code>, <code>externalNativeLayer</code>, <code>externalDeckLayer</code>, <code>controlOwnsPaint</code>, <code>nativeFillExtrusion</code>) are dropped from <code>options.metadata</code>. With a TileJSON URL, MapLibre reads the zoom range from the TileJSON, so <code>minzoom</code> and <code>maxzoom</code> throw there; <code>bounds</code> is still kept as the extent <strong>Zoom to layer</strong> uses. <code>bounds</code> must lie within ±180° and ±90° with <code>west</code> ≤ <code>east</code> and <code>south</code> ≤ <code>north</code> (an extent can't cross the antimeridian). Tiles are drawn on MapLibre, Mapbox and the ArcGIS renderer, and draped on the Cesium globe, like other vector tile layers.</p>
+<h3 id="authenticated-tile-requests">Authenticated tile requests<a class="headerlink" href="#authenticated-tile-requests" title="Permanent link">&para;</a></h3>
+<p>A tile service that needs the signed-in user (an <code>Authorization</code> header, an API key header) can't take credentials in the tile URL without leaking them into the saved project. Pass <code>headers</code> to <code>addVectorTileLayer</code>, or call <code>setLayerRequestHeaders</code> for any tile layer (from <code>addVectorTileLayer</code>, <code>addTileLayer</code>, <code>addWmtsLayer</code> or Add Data), and GeoLibre adds them to the requests whose URL starts with the layer's tile template up to its first <code>{</code>, or with its TileJSON URL.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">layerId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">app</span><span class="p">.</span><span class="nx">addVectorTileLayer</span><span class="o">?</span><span class="p">.(</span><span class="s2">"Sites"</span><span class="p">,</span><span class="w"> </span><span class="nx">tilesUrl</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">sourceLayers</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"sites"</span><span class="p">],</span>
+<span class="w">  </span><span class="nx">headers</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Authorization</span><span class="o">:</span><span class="w"> </span><span class="sb">`Bearer </span><span class="si">${</span><span class="nx">accessToken</span><span class="si">}</span><span class="sb">`</span><span class="w"> </span><span class="p">},</span>
+<span class="p">});</span>
+
+<span class="c1">// After a token refresh: the next tile request carries the new token.</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">setLayerRequestHeaders</span><span class="o">?</span><span class="p">.(</span><span class="nx">layerId</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Authorization</span><span class="o">:</span><span class="w"> </span><span class="sb">`Bearer </span><span class="si">${</span><span class="nx">newAccessToken</span><span class="si">}</span><span class="sb">`</span><span class="w"> </span><span class="p">});</span>
+</code></pre></div>
+<ul>
+<li><strong>Session only, and tied to the layer.</strong> Headers are held in memory, never written to the layer, a saved project or a share. They're dropped when the layer is removed, whichever way (the Layers panel, undo, <code>removeLayer</code>), when its tile URL changes to another host or path (a token in the query string after the placeholders can change), and when another project opens. A layer that comes back (redo, or a reopened project) needs them set again; <code>setLayerRequestHeaders(layerId, null)</code> stops sending them, for example when the plugin deactivates.</li>
+<li><strong>Scoped to one host.</strong> The tile template must have a fixed host and the start of a path before its first <code>{</code>: <code>https://tiles.example.org/{z}/{x}/{y}.pbf</code> works, but <code>https://{s}.tiles.example.org/...</code> or <code>https://{z}.example.org/...</code> doesn't, since its match would be <code>https://</code> and the headers would reach every server. Those throw rather than register.</li>
+<li><strong>One transform for everyone.</strong> GeoLibre builds its MapLibre maps with a single <code>transformRequest</code> that adds the registered headers, and GeoLens's private rasters use it too, so don't call <code>getMap().setTransformRequest</code>: it would replace GeoLibre's and stop every layer's headers.</li>
+<li><strong>MapLibre only.</strong> The Mapbox, ArcGIS and Cesium renderers request tiles without them, and so does the desktop app's native WMS route, which fetches WMS tiles outside MapLibre.</li>
+<li><strong>CORS.</strong> A header turns a tile request into one the browser preflights, so the service must allow the app's origin and the header (for example <code>Access-Control-Allow-Headers: Authorization</code>).</li>
+<li><code>setLayerRequestHeaders</code> returns false when there is no such layer or it has no tile URL. It throws on a header name that isn't a valid token or that the browser sets itself (<code>Cookie</code>, <code>Host</code>, <code>Origin</code>, <code>Sec-*</code>, <code>Proxy-*</code> and the rest of the Fetch standard's forbidden names), a name given twice in different cases, a value with a line break or a character above U+00FF, or an unscoped tile URL.</li>
+</ul>
 <h2 id="zarr-layers">Zarr layers<a class="headerlink" href="#zarr-layers" title="Permanent link">&para;</a></h2>
 <p><code>addZarrLayer</code> renders a Zarr store (Zarr v2/v3 over HTTP) through <strong>GeoLibre's own</strong> <code>@carbonplan/zarr-layer</code> instance and mirrors the result into the Layers panel. It is the Zarr counterpart of <code>addCogLayer</code>. Stores that are not read from a URL — a kerchunk-backed cloud NetCDF, an Icechunk repository, a folder on disk — reach the same renderer through an internal <code>store</code> option that this API does not expose, so they are added by GeoLibre's own panels rather than by a plugin.</p>
 <p>Do not bundle <code>@carbonplan/zarr-layer</code> in a plugin: a second copy ships a duplicate numcodecs WASM payload, and adding the renderer's layer yourself with <code>getMap().addLayer()</code> produces a MapLibre <strong>custom</strong> layer, which has no paint properties for the Style panel to drive.</p>
@@ -5358,8 +5403,8 @@ only for the shared surface; a mapbox-gl map has none of MapLibre's extensions:<
   MapLibre-only (Overture Maps instead asks <code>maplibre-gl-overture-maps</code> for
   plain <code>.pmtiles</code> URLs, which mapbox-gl 3.30+ reads through its own tile
   provider). <code>setTransformRequest</code> — Mapbox takes <code>transformRequest</code>
-  only at construction, so GeoLens private rasters (whose API key is injected
-  per request) are MapLibre-only. Custom <code>CustomLayerInterface</code> layers
+  only at construction, so tile request headers (<code>setLayerRequestHeaders</code>,
+  GeoLens private rasters) are MapLibre-only. Custom <code>CustomLayerInterface</code> layers
   (<code>capabilities.customLayers</code> is false on Mapbox). The terrain camera helpers
   (<code>calculateCameraOptionsFromCameraLngLatAltRotation</code>,
   <code>getCenterClampedToGround</code>): Mapbox kept the free camera those replaced, so
