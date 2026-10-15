@@ -1,0 +1,1 @@
+var n=null,r=new Set;function o(e){n=e;for(const a of[...r])try{a()}catch(t){console.error("[GeoLibre] ICESat-2 / GEDI handoff listener failed",t)}}function l(){const e=n;return n=null,e}function u(e){return r.add(e),()=>{r.delete(e)}}export{o as n,l as r,u as t};
