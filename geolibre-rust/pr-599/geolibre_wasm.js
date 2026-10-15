@@ -58,6 +58,7 @@ export class CogBuilder {
     }
     /**
      * Set the EPSG code (1..=65535).
+     * Replaces any CRS set by `set_proj_string`.
      * @param {number} epsg
      */
     set_epsg(epsg) {
@@ -110,9 +111,9 @@ export class CogBuilder {
     }
     /**
      * Set a user-defined projected CRS from a PROJ string (as returned by
-     * `GeoTiffReader.proj_string`), for a CRS with no EPSG code. Ignored when an
-     * EPSG code is also set. Throws for a projection the GeoKey encoder does not
-     * cover.
+     * `GeoTiffReader.proj_string`), for a CRS with no EPSG code. Replaces any
+     * EPSG code set by `set_epsg`. Throws for a projection the GeoKey encoder
+     * does not cover.
      * @param {string} proj
      */
     set_proj_string(proj) {
