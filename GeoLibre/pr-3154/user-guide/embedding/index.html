@@ -3401,12 +3401,21 @@ viewer lets it through, while everything else stays read-only: no menus, no
 Style panel, no drag-and-drop import, and Annotations and GeoAgent remain
 blocked. Combine it with <code>plugin=geo-editor</code> to open the drawing toolbar on
 load:</p>
-<div class="highlight"><pre><span></span><code>https://web.geolibre.app/?url=https://share.geolibre.app/you/project.geolibre.json&amp;layout=viewer&amp;draw&amp;plugin=geo-editor
+<div class="highlight"><pre><span></span><code>https://geolibre.example.org/?url=https://share.geolibre.app/you/project.geolibre.json&amp;layout=viewer&amp;draw&amp;plugin=geo-editor
 </code></pre></div>
 <p>What the user draws lands in a Sketches layer. A host page reads it back with
 <code>getDrawnFeatures()</code> and is told about changes by the <code>featuresChanged</code> event
 (see <a href="#reading-features-back">Reading features back</a>), so the host decides what
 to do with the geometry.</p>
+<p>Drawing itself needs only the <code>project:edit</code> capability, but reading the
+drawings back goes through the embed API, so it needs two more things. Your
+page's origin must be on the deployment's embed allowlist (see
+<a href="#talking-to-the-map-at-runtime">Talking to the map at runtime</a>), and the
+deployment must grant the <code>export:data</code>
+<a href="../../deployment-capabilities/">capability</a>, which <code>getDrawnFeatures()</code> and
+<code>featuresChanged</code> require. The public <code>web.geolibre.app</code> has no allowlist, so
+the example above uses a placeholder for a deployment you host yourself; on
+the public site the toolbar draws, but a host page cannot read the result.</p>
 <p>A project saved with the geometry editor active opens its toolbar on load, with
 or without <code>plugin=geo-editor</code>, as it does in the full app. The toolbar's
 Open and Save file buttons are hidden in the viewer, and Identify offers no Edit
