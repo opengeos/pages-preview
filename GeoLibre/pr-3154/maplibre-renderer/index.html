@@ -1858,6 +1858,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#other-coordinate-reference-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Other coordinate reference systems
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#basemaps-and-plugins" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2688,6 +2699,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#other-coordinate-reference-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Other coordinate reference systems
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#basemaps-and-plugins" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2764,6 +2786,36 @@ terrain source can be GeoLibre's global source or a compatible local or remote
 COG DEM. This globe projection remains a MapLibre style map; choose the
 <a href="../cesium-renderer/">Cesium renderer</a> for a native 3D globe and Cesium-native
 scene formats.</p>
+<h2 id="other-coordinate-reference-systems">Other coordinate reference systems<a class="headerlink" href="#other-coordinate-reference-systems" title="Permanent link">&para;</a></h2>
+<p>MapLibre GL JS 6.15 can draw a flat map in any planar CRS (issue #1128).
+<strong>Settings → Map → Map coordinate reference system</strong> picks one, saved as
+<code>preferences.map.mapCrs</code>; absent means the default Web Mercator map or globe.
+The presets are polar stereographic and simple-cylindrical grids of Earth, the
+Moon and Mars, and simple-cylindrical grids of Mercury, Venus, Io, Europa,
+Ganymede, Callisto, Titan, Pluto and Charon. Each comes with a basemap the
+server renders in that grid: NASA GIBS for Earth and USGS Astrogeology for the
+other bodies, read directly rather than reprojected to Web Mercator. Picking a
+preset also sets the celestial body, so measurements use its radius.
+<strong>Custom EPSG code…</strong> takes any code the bundled EPSG tables resolve; it has no
+basemap, and its tile grid is fitted to the part of the world it maps.</p>
+<p>MapLibre places tiles on the CRS's grid without reprojecting them, so in
+another CRS:</p>
+<ul>
+<li><strong>GeoJSON layers</strong> are drawn, projected by proj4 in MapLibre's workers.</li>
+<li><strong>WMS layers and ArcGIS <code>export</code> layers</strong> ask for each tile's box in the CRS
+  (WMS 1.1.1, <code>SRS=&lt;code&gt;</code>). The server must support that CRS. Planetary
+  presets ask under the labels servers read rather than their IAU code:
+  <code>EPSG:4326</code> for a simple-cylindrical grid, and the <code>EPSG:32661</code>/<code>EPSG:32761</code>
+  labels USGS Astrogeology serves its polar grids under.</li>
+<li><strong>Image and video overlays</strong> are drawn from their corner coordinates.</li>
+<li><strong>XYZ, vector tile, MBTiles and Wayback layers</strong> are not drawn, nor is the
+  shared basemap, since their tiles are Web Mercator. Plugins that add their own
+  tiles or deck.gl overlays are not adapted either.</li>
+<li>The globe button is hidden, terrain is off, and the restricted-bounds setting
+  is set aside (MapLibre keeps the view inside the CRS).</li>
+</ul>
+<p>Switching CRS rebuilds the style and frames the new map's area; opening a
+project keeps its saved view.</p>
 <h2 id="basemaps-and-plugins">Basemaps and plugins<a class="headerlink" href="#basemaps-and-plugins" title="Permanent link">&para;</a></h2>
 <p>The shared Basemaps panel provides keyless styles as well as optional provider
 styles configured through <strong>Settings → Environment Variables</strong>. Provider keys

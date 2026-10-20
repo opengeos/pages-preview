@@ -3830,6 +3830,17 @@ fail again with "Unsupported data format/bitsPerSample";
   <code>tests/upstream-contracts.test.ts</code> reads the default offset out of the
   published bundle and fails if it moves; still play a story on a non-MapLibre
   renderer if the pin's anchor changed.</li>
+<li><strong>Map CRS</strong> (<code>packages/map/src/map-crs.ts</code>, issue #1128) uses
+  <code>addProjection</code>, <code>importScriptInWorkers</code> and the workers'
+  <code>setProjectionHandler</code>, all <code>@experimental</code> upstream, so a minor release may
+  change them. The handler script is proj4's UMD build (<code>proj4/dist/proj4.js</code>,
+  read with <code>?raw</code>) followed by one <code>setProjectionHandler</code> call: MapLibre
+  fetches it from a <code>blob:</code> URL and evaluates it with <code>eval</code>, which both CSPs
+  allow (<code>connect-src blob:</code>, <code>'unsafe-eval'</code>). If upstream starts loading
+  worker scripts as modules or by <code>importScripts</code>, or proj4 drops its UMD build,
+  GeoJSON on a custom CRS map silently draws in the wrong place (MapLibre only
+  warns). After a bump, run <code>tests/map-crs.test.ts</code> and pick a preset under
+  <strong>Settings → Map</strong> with a GeoJSON layer on the map.</li>
 </ul>
 <h3 id="deckglmapbox-and-deckglmaplibre"><code>@deck.gl/mapbox</code> and <code>@deck.gl/maplibre</code><a class="headerlink" href="#deckglmapbox-and-deckglmaplibre" title="Permanent link">&para;</a></h3>
 <p><code>bridgeArcgisDeckControl</code> (<code>packages/plugins/src/plugins/arcgis-deck/control-adapter.ts</code>)

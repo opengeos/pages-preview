@@ -3812,7 +3812,7 @@
 <p>duckdb-wasm 1.33.1-dev45 会<strong>永久破坏</strong>一个实例的远程 <code>read_parquet</code>——只要这个实例在<strong>完成第一次远程读取之前</strong>执行了 <code>LOAD spatial</code>。之后所有远程 Parquet 读取都报 <code>stoi: no conversion</code>，而且<strong>无法在原地恢复</strong>。</p>
 </blockquote>
 <p>GeoLibre 的应对是两手：</p>
-<p><strong>一是预热。</strong> <code>ensureSpatialExtension</code> 那个 <code>beforeLoad</code> 钩子就是干这个的——在 <code>LOAD spatial</code> 之前，先拿这条查询自己的远程 reader 跑一次 <code>SELECT 1 FROM read_parquet(…) LIMIT 0</code>。**<code>LIMIT 0</code> 只会取 Parquet 的 footer，几乎不产生额外流量。**如果这条查询本身没有远程 Parquet，就退回读一个公开的小样本文件兜底。</p>
+<p><strong>一是预热。</strong> <code>ensureSpatialExtension</code> 那个 <code>beforeLoad</code> 钩子就是干这个的——在 <code>LOAD spatial</code> 之前，先拿这条查询自己的远程 reader 跑一次 <code>SELECT 1 FROM read_parquet(…) LIMIT 0</code>。<strong><code>LIMIT 0</code> 只会取 Parquet 的 footer，几乎不产生额外流量。</strong>如果这条查询本身没有远程 Parquet，就退回读一个公开的小样本文件兜底。</p>
 <p><strong>二是重建。</strong> 万一还是中招了（比如上一次预热失败），<code>runSqlQuery</code> 会捕获 <code>stoi: no conversion</code>、调 <code>resetSqlDatabase(db)</code> 把那个实例整个换掉、然后<strong>重试一次</strong>。重建时会重新走一遍预热，所以第二次是干净的。</p>
 <p>这里还有两个防御细节：重试只在语句里<strong>确实有远程 reader 调用</strong>时才触发（字符串字面量里出现的 URL 不算），并且 <code>resetSqlDatabase</code> 会先确认「要换掉的实例仍是当前实例」再动手。</p>
 <div class="admonition warning">
@@ -3857,7 +3857,7 @@
 </tbody>
 </table>
 <p>2 GiB 那条有个细节很有参考价值：这个门禁是<strong>在开始摄取之前</strong>就判掉的（<code>_registerSource</code> 跑在流式分支前面，所以「流式读取」也绕不过去）。GeoLibre 的做法是在文件浏览面板上直接把话说清楚，而不是让用户点了 Add 之后等一个必然失败的结果。<strong>能提前判定的失败，就不要留到运行时。</strong></p>
-<p>还有一条关于<strong>拷贝 vs 流式</strong>的取舍：只有 GeoParquet 真正支持「原地查询不拷贝」，其他格式即使给了 stream 选项也会悄悄回落成拷贝——所以 GeoLibre 干脆只在 GeoParquet 上显示这个按钮。<strong>一个点了没区别的按钮，比没有这个按钮更糟。<strong>而拷贝模式的内存占用大致跟</strong>解压后</strong>的数据量走，是 Parquet 磁盘体积的好几倍，超过 100 MB 就会提示改用流式。</p>
+<p>还有一条关于<strong>拷贝 vs 流式</strong>的取舍：只有 GeoParquet 真正支持「原地查询不拷贝」，其他格式即使给了 stream 选项也会悄悄回落成拷贝——所以 GeoLibre 干脆只在 GeoParquet 上显示这个按钮。<strong>一个点了没区别的按钮，比没有这个按钮更糟。</strong>而拷贝模式的内存占用大致跟<strong>解压后</strong>的数据量走，是 Parquet 磁盘体积的好几倍，超过 100 MB 就会提示改用流式。</p>
 <p>最后一个有意思的对照：GeoLibre 桌面端留了个 <code>native-duckdb</code> 编译开关，可以换成原生 DuckDB。但 Rust 侧写着一条硬约束——</p>
 <div class="highlight"><pre><span></span><code><span class="fm">compile_error!</span><span class="p">(</span><span class="s">"the `mas` (Mac App Store) build must not enable `native-duckdb`: \</span>
 <span class="s">  DuckDB loads its spatial extension as unsigned native code at runtime, \</span>
@@ -4017,7 +4017,7 @@
 </tr>
 </tbody>
 </table>
-<p>**所以那个「安装包只有 30MB」的数字，是用「几乎所有重引擎都不打包」换来的。**这个思路值得借鉴：重引擎的默认位置应该是「用户第一次点它的时候才下载」，不是「装在包里以防万一」。</p>
+<p><strong>所以那个「安装包只有 30MB」的数字，是用「几乎所有重引擎都不打包」换来的。</strong>这个思路值得借鉴：重引擎的默认位置应该是「用户第一次点它的时候才下载」，不是「装在包里以防万一」。</p>
 <p>配套还有一条：<strong>所有外部资源地址都做成运行时可配置。</strong> <code>VITE_PYODIDE_INDEX_URL</code>、<code>VITE_DUCKDB_SPATIAL_EXTENSION_PATH</code>、<code>VITE_CESIUM_TOKEN</code> 都能在运行时指到内部镜像，<strong>不用重新构建</strong>。</p>
 <p>这条对国内内网/离线交付是保命设计。CDN 地址硬编码进 bundle，等着的就是现场断网时重新打包。</p>
 <p>还有一条容易忘的：<code>packages/processing/src/ort.ts</code> 里注明，onnxruntime-web 的 WASM 产物从 CDN 拉，<strong>CDN 上的版本必须和 npm 里 pin 的版本严格一致</strong>，否则是运行时崩。<strong>凡是「JS 胶水在包里、WASM 产物在 CDN」的库都有这个坑，做法是把版本号写成一个常量，两边都从它取。</strong></p>
@@ -4180,7 +4180,7 @@
 <p>瓦片服务的容量瓶颈在服务端 CPU：同时来 100 个用户就是 100 份渲染开销。<strong>静态存储 + CDN 的扩容曲线是另一回事</strong>——没有按用户计的渲染要扩，多来的量主要体现在流量费上，而且边缘缓存会把绝大部分请求截在离用户最近的节点。但容量规划并不会因此消失：缓存未命中仍会打到源站，对象存储也有自己的按前缀请求速率上限和出网流量账单。</p>
 <p>这条对做政务大屏、公共服务门户这类「平时没人、开会时全省一起看」的场景特别关键：这种流量形状用瓦片服务扛，要么长期为峰值付费，要么峰值时挂掉。</p>
 <p><strong>收益五，链路短了一整段，运维成本跟着塌下来。</strong></p>
-<p>**没有发布流程，没有服务进程，没有数据库连接池，没有要打补丁的中间件。**数据更新就是覆盖一个文件。GeoLibre 整套「浏览器里直读远程 GeoParquet / COG / PMTiles」的能力就是这条路走通的证明，它接的那些在线目录（STAC、Source Cooperative、Overture Maps、Planetary Computer）全是这个模式。</p>
+<p><strong>没有发布流程，没有服务进程，没有数据库连接池，没有要打补丁的中间件。</strong>数据更新就是覆盖一个文件。GeoLibre 整套「浏览器里直读远程 GeoParquet / COG / PMTiles」的能力就是这条路走通的证明，它接的那些在线目录（STAC、Source Cooperative、Overture Maps、Planetary Computer）全是这个模式。</p>
 <p><strong>但也得说清代价，这四条是真的：</strong></p>
 <ul>
 <li><strong>小数据反而更慢。</strong> 读头部、读索引、再取数据，是好几个网络往返；几百 KB 的 GeoJSON 一次请求就完事了，套云原生格式并不划算。<strong>阈值大概在「一次请求下不完」的量级。</strong></li>
@@ -4234,7 +4234,7 @@
 </tbody>
 </table>
 <h3 id="63-cors">6.3 真正的门槛不是格式转换，是 CORS<a class="headerlink" href="#63-cors" title="Permanent link">&para;</a></h3>
-<p><strong>格式转换是一次性的活儿，CORS 是每天都会撞的墙。<strong>源码里对 Source Cooperative 的描述很精确：数据端 <code>data.source.coop</code> 发 <code>Access-Control-Allow-Origin: *</code> <strong>并且</strong>支持字节范围请求，所以 <strong>PMTiles 协议、DuckDB-WASM、COG 读取器都能直连，不需要任何代理</strong>；但它的</strong>元数据 API 一个 CORS 头都不发</strong>。那浏览器怎么办？桌面端走 Tauri 原生 HTTP（服务端到服务端，没有 CORS 这回事），Web 端过一个自建 Cloudflare Worker 把 JSON 重发一遍、补上 CORS 头。</p>
+<p><strong>格式转换是一次性的活儿，CORS 是每天都会撞的墙。</strong>源码里对 Source Cooperative 的描述很精确：数据端 <code>data.source.coop</code> 发 <code>Access-Control-Allow-Origin: *</code> <strong>并且</strong>支持字节范围请求，所以 <strong>PMTiles 协议、DuckDB-WASM、COG 读取器都能直连，不需要任何代理</strong>；但它的<strong>元数据 API 一个 CORS 头都不发</strong>。那浏览器怎么办？桌面端走 Tauri 原生 HTTP（服务端到服务端，没有 CORS 这回事），Web 端过一个自建 Cloudflare Worker 把 JSON 重发一遍、补上 CORS 头。</p>
 <p><strong>「数据能直连、元数据要代理」这个判断，是接入任何云原生数据源时最先要下的。</strong></p>
 <p>同一个 Worker 里还有一段更有意思的注释，讲行星底图为什么必须代理：</p>
 <blockquote>
