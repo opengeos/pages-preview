@@ -1382,6 +1382,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Embedding in a page">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#drawing-in-a-viewer-embed" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Drawing in a viewer embed
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2918,6 +2935,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Embedding in a page">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#drawing-in-a-viewer-embed" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Drawing in a viewer embed
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -3151,6 +3185,11 @@
 <td><code>viewer</code> provides read-only chrome: Layers, View, Controls, basemaps, search/identify, Help, and any quick filters the project's layers carry, with authoring UI hidden. <code>compact</code> is the icon-only full-app layout; <code>embed</code> and <code>iframe</code> are aliases.</td>
 </tr>
 <tr>
+<td><code>draw</code></td>
+<td><code>layout=viewer&amp;draw</code></td>
+<td>Lets the geometry editor run in <code>layout=viewer</code>, so a host page can offer drawing without the rest of the authoring chrome. The bare flag or <code>true</code>, <code>1</code>, <code>yes</code>, <code>on</code> enable it. It has no effect in other layouts and needs the <code>project:edit</code> <a href="../../deployment-capabilities/">deployment capability</a>. See <a href="#drawing-in-a-viewer-embed">Drawing in a viewer embed</a>.</td>
+</tr>
+<tr>
 <td><code>toolbar</code></td>
 <td><code>toolbar=none</code></td>
 <td>Hides the top toolbar while keeping panels and the status bar. Use <code>icons</code> for icon-only buttons; <code>icon</code> and <code>icon-only</code> are aliases. <code>hidden</code>, <code>hide</code>, and <code>off</code> are aliases for <code>none</code>.</td>
@@ -3264,7 +3303,8 @@ distinct from project manifest URL trust, whose prompt is suppressed when
 <p>Unknown names are ignored. A plugin that does not support the current renderer
 does not activate. Directions and reverse geocoding send what you click to a
 public server, so they only open from the menu, after their one-time notice. The
-drawing and editing plugins stay off in <code>layout=viewer</code>.</p>
+drawing and editing plugins stay off in <code>layout=viewer</code>, except the
+geometry editor when the link adds <a href="#drawing-in-a-viewer-embed"><code>draw</code></a>.</p>
 <h2 id="waiting-for-a-screenshot">Waiting for a screenshot<a class="headerlink" href="#waiting-for-a-screenshot" title="Permanent link">&para;</a></h2>
 <p>Add <code>&amp;loading=true</code> to a project link to enable a machine-readable readiness
 signal without adding a visible overlay to the screenshot:</p>
@@ -3355,6 +3395,36 @@ So an embed cannot be steered into authoring by a key press, a drag, or a
 project file. Display plugins (layer control, basemaps, time slider, legend and
 colorbar components) keep working, so the project still looks as it was saved. Use <code>layout=compact</code> for the complete authoring
 toolbar in a smaller space, or <code>maponly</code> for a pure map.</p>
+<h3 id="drawing-in-a-viewer-embed">Drawing in a viewer embed<a class="headerlink" href="#drawing-in-a-viewer-embed" title="Permanent link">&para;</a></h3>
+<p>By default the geometry editor cannot run in <code>layout=viewer</code>. Add <code>draw</code> and the
+viewer lets it through, while everything else stays read-only: no menus, no
+Style panel, no drag-and-drop import, and Annotations and GeoAgent remain
+blocked. Combine it with <code>plugin=geo-editor</code> to open the drawing toolbar on
+load:</p>
+<div class="highlight"><pre><span></span><code>https://geolibre.example.org/?url=https://share.geolibre.app/you/project.geolibre.json&amp;layout=viewer&amp;draw&amp;plugin=geo-editor
+</code></pre></div>
+<p>What the user draws lands in a Sketches layer. A host page reads it back with
+<code>getDrawnFeatures()</code> and is told about changes by the <code>featuresChanged</code> event
+(see <a href="#reading-features-back">Reading features back</a>), so the host decides what
+to do with the geometry.</p>
+<p>Drawing itself needs only the <code>project:edit</code> capability, but reading the
+drawings back goes through the embed API, so it needs two more things. Your
+page's origin must be on the deployment's embed allowlist (see
+<a href="#talking-to-the-map-at-runtime">Talking to the map at runtime</a>), and the
+deployment must grant the <code>export:data</code>
+<a href="../../deployment-capabilities/">capability</a>, which <code>getDrawnFeatures()</code> and
+<code>featuresChanged</code> require. The public <code>web.geolibre.app</code> has no allowlist, so
+the example above uses a placeholder for a deployment you host yourself; on
+the public site the toolbar draws, but a host page cannot read the result.</p>
+<p>A project saved with the geometry editor active opens its toolbar on load, with
+or without <code>plugin=geo-editor</code>, as it does in the full app. The toolbar's
+Open and Save file buttons are hidden in the viewer, and Identify offers no Edit
+geometry or Edit attributes action, so the toolbar only draws and edits what
+was drawn in the session.</p>
+<p><code>draw</code> grants nothing that the same deployment would not give without
+<code>layout=viewer</code>: a deployment that withholds the <code>project:edit</code>
+<a href="../../deployment-capabilities/">capability</a> ignores it, and the viewer then
+stays fully read-only.</p>
 <h2 id="open-remote-data">Open remote data<a class="headerlink" href="#open-remote-data" title="Permanent link">&para;</a></h2>
 <p>Use <code>data</code> to open public GeoJSON, GeoParquet, PMTiles, Cloud-Optimized GeoTIFF (COG), a LiDAR point cloud (LAS, LAZ, COPC, or an EPT <code>ept.json</code>), or a ZIP archive containing one or more <code>.geojson</code>/<code>.json</code> FeatureCollections. Each GeoJSON file in a ZIP becomes a separate layer. An optional <code>style</code> URL applies Mapbox/MapLibre style JSON to vector data:</p>
 <div class="highlight"><pre><span></span><code>https://web.geolibre.app/?data=https://assets.geolibre.app/data/places.geojson&amp;style=https://assets.geolibre.app/data/sample.style.json
