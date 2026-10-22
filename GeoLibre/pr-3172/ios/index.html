@@ -2972,6 +2972,14 @@ the Martin tile server, so the database renders the vector tiles itself
 PostgreSQL connection. The database server must therefore be reachable from
 the device's network. Mobile layers are read-only: the editable mode needs the
 desktop app's Python sidecar.</p>
+<p>TLS follows libpq's <code>sslmode</code>. <code>prefer</code> (the default) tries TLS first but
+falls back to a plaintext connection when the server does not offer it; to
+make encryption mandatory, use <code>require</code>, <code>verify-ca</code> or <code>verify-full</code>.
+<code>require</code> encrypts without checking the server certificate, <code>verify-ca</code>
+checks the chain and <code>verify-full</code> also the host name, against the bundled
+public roots or the PEM file named by <code>sslrootcert</code>. Connections through PgBouncer and hosted poolers
+work: the 30-second query timeout is set after connecting, not as a startup
+parameter.</p>
 <p>The database sources have one entry point that check does not cover: the Browser
 panel keeps its <strong>Databases</strong> section on every platform for discovery, so its ＋
 still opens the connection dialog. The SQL Server dialog gates on
@@ -3128,7 +3136,7 @@ list is not evidence the signing failed — check the <code>.ipa</code> itself.<
   directory are named from the <strong>Cargo package</strong> (<code>geolibre-desktop</code> in
   <code>src-tauri/Cargo.toml</code>), not from <code>productName</code>. The user-visible app name and
   bundle id still come from <code>tauri.ios.conf.json</code> — they land as <code>PRODUCT_NAME:
-  GeoLibre</code> and <code>PRODUCT_BUNDLE_IDENTIFIER: org.geolibre.app</code> in the generated
+GeoLibre</code> and <code>PRODUCT_BUNDLE_IDENTIFIER: org.geolibre.app</code> in the generated
   <code>project.yml</code>.</p>
 <h2 id="signing">Signing<a class="headerlink" href="#signing" title="Permanent link">&para;</a></h2>
 <p>Every build that runs on a real device or reaches the App Store must be signed —
@@ -3278,20 +3286,22 @@ App Store Connect.</p>
    (<code>ITMS-90060</code>) — after the whole build has run. The verify step asserts the
    shape for that reason.</p>
 <p>Uploading by hand (no CI) means setting the build number yourself if the
-   marketing version has been uploaded before.
-4. <strong>Store listing.</strong> <em>(Done.)</em> Icon (already generated under
+   marketing version has been uploaded before.</p>
+<ol>
+<li><strong>Store listing.</strong> <em>(Done.)</em> Icon (already generated under
    <code>src-tauri/icons/ios</code>), screenshots for the required device sizes (6.7" and
    6.5" iPhone, plus 12.9" iPad — a GIS workspace is genuinely
-   iPad-appropriate), description, keywords.
-5. <strong>Privacy.</strong> <em>(Done.)</em> Fill the <strong>App Privacy</strong> questionnaire honestly —
+   iPad-appropriate), description, keywords.</li>
+<li><strong>Privacy.</strong> <em>(Done.)</em> Fill the <strong>App Privacy</strong> questionnaire honestly —
    declare each network destination (geocoding, the AI assistant, basemap/tile
    fetches, Google OAuth for Earth Engine) and that location is used <em>when in
    use</em> and not collected by a backend. Point the privacy policy URL at the
-   published <a href="../privacy/">privacy policy</a>.
-6. <strong>Age rating and category.</strong> <em>(Done.)</em> GeoLibre is listed under
-   <strong>Productivity</strong>.
-7. <strong>Export compliance.</strong> <em>(Done.)</em> Already declared in
-   <code>src-tauri/Info.ios.plist</code>:</p>
+   published <a href="../privacy/">privacy policy</a>.</li>
+<li><strong>Age rating and category.</strong> <em>(Done.)</em> GeoLibre is listed under
+   <strong>Productivity</strong>.</li>
+<li><strong>Export compliance.</strong> <em>(Done.)</em> Already declared in
+   <code>src-tauri/Info.ios.plist</code>:</li>
+</ol>
 <div class="highlight"><pre><span></span><code><span class="nt">&lt;key&gt;</span>ITSAppUsesNonExemptEncryption<span class="nt">&lt;/key&gt;</span>
 <span class="nt">&lt;false/&gt;</span>
 </code></pre></div>

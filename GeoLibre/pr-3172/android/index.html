@@ -2987,6 +2987,14 @@ the Martin tile server, so the database renders the vector tiles itself
 PostgreSQL connection. The database server must therefore be reachable from
 the device's network. Mobile layers are read-only: the editable mode needs the
 desktop app's Python sidecar.</p>
+<p>TLS follows libpq's <code>sslmode</code>. <code>prefer</code> (the default) tries TLS first but
+falls back to a plaintext connection when the server does not offer it; to
+make encryption mandatory, use <code>require</code>, <code>verify-ca</code> or <code>verify-full</code>.
+<code>require</code> encrypts without checking the server certificate, <code>verify-ca</code>
+checks the chain and <code>verify-full</code> also the host name, against the bundled
+public roots or the PEM file named by <code>sslrootcert</code>. Connections through PgBouncer and hosted poolers
+work: the 30-second query timeout is set after connecting, not as a startup
+parameter.</p>
 <p>The database sources have one entry point that check does not cover: the Browser
 panel keeps its <strong>Databases</strong> section on every platform for discovery, so its ＋
 still opens the connection dialog. The SQL Server dialog gates on
