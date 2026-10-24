@@ -24,7 +24,7 @@
       
       
       <link rel="icon" href="../assets/geolibre-icon.png">
-      <meta name="generator" content="zensical-0.0.71">
+      <meta name="generator" content="zensical-0.0.72">
     
     
       
@@ -35,7 +35,7 @@
       
         
       
-      <link rel="stylesheet" href="../assets/stylesheets/modern/main.e442bf79.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ab2de0c.min.css">
       
         
           
@@ -106,9 +106,10 @@
   <img src="../assets/geolibre-icon.png" alt="GeoLibre">
 
     </a>
-    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+    <label class="md-header__button md-icon" for="__drawer">
       
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+      <span class="md-visually-hidden">Navigation</span>
     </label>
     <div class="md-header__title" data-md-component="header-title">
       <div class="md-header__ellipsis">
@@ -160,9 +161,10 @@
     
       
       
-        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+        <label class="md-header__button md-icon" for="__search">
           
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+          <span class="md-visually-hidden">Search</span>
         </label>
         <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
   <button type="button" class="md-search__button">
@@ -3118,7 +3120,7 @@ the classification.</p>
 <p>Two consequences of Iceberg tables being large are wired into the app rather than left to the user. Every load is capped by a row limit, and the total row count — a <code>count(*)</code> over the configured source, which DuckDB can answer from the manifest metadata for an unfiltered table, though a custom statement's filters, joins, or projections have to be evaluated — is shown before anything is materialized. And the resulting layer, though refreshable on demand, is excluded from timer-driven refresh by <code>supportsAutoRefresh</code> in <code>lib/layer-refresh.ts</code> — re-scanning a table of that size on an interval is never what the user meant, so the automatic-refresh interval is unavailable for it rather than merely defaulted off.</p>
 <h2 id="advanced-add-data-workflows">Advanced Add Data workflows<a class="headerlink" href="#advanced-add-data-workflows" title="Permanent link">&para;</a></h2>
 <p>The Add Data surface includes native dialogs for XYZ, WMS, WFS, vector files (via the Add Vector dialog backed by <code>maplibre-gl-vector</code>), GeoJSON URLs, vector tile sources, delimited text, raster tile templates, COG and GeoTIFF rasters (via the Add Raster dialog backed by <code>maplibre-gl-raster</code>), MBTiles, ArcGIS FeatureServer or VectorTileServer layers, Apache Iceberg tables, and GPX waypoints, tracks, and routes. It also supports 3D Tiles layers, Cesium Ion assets by id (a tileset or imagery layer with <code>metadata.sourceKind: "cesium-ion"</code>, offered when the globe is the primary renderer and badged "3D only" on the 2D map; <code>packages/core/src/cesium-ion.ts</code>, issue #2290), WFS and GeoJSON URL refresh, text marker labels, and multiple DuckDB SQL query-result layers with identify, selection, and attribute table support. The Components plugin wraps <code>maplibre-gl-components</code> panels for FlatGeobuf, PMTiles, Zarr, LiDAR, and Gaussian splats, then mirrors added layers into the GeoLibre store so the Layer panel, project format, and layer control can reason about them. Additional data sources are available through the Planetary Computer and Earth Engine panels, the Overture Maps plugin, and the federal Web Services plugins. The Time Slider plugin, backed by <code>maplibre-gl-time-slider</code>, animates time series raster and vector data (COG, XYZ/WMTS, WMS-Time, and time-filtered GeoJSON) through a docked timeline, mirroring each source it adds into the GeoLibre store as an external native layer.</p>
-<p>Local MBTiles tiles are read through a custom MapLibre protocol backed by Tauri commands. Remote rasters are fetched through the desktop backend when needed, and the local development server includes a raster proxy for selected release assets that need CORS handling.</p>
+<p>Local MBTiles tiles are read through a custom MapLibre protocol: on desktop it is backed by Tauri commands, and in the browser the file is opened in memory with sql.js (<code>apps/geolibre-desktop/src/lib/mbtiles-sqljs.ts</code>) and tiles are served from that database. Remote rasters are fetched through the desktop backend when needed, and the local development server includes a raster proxy for selected release assets that need CORS handling.</p>
 <h2 id="python-sidecar">Python sidecar<a class="headerlink" href="#python-sidecar" title="Permanent link">&para;</a></h2>
 <p>The FastAPI app in <code>backend/geolibre_server</code> backs the format Conversion tools, the raster tools, and the optional server engine for the Whitebox toolbox through a managed local processing sidecar. The desktop app starts the sidecar on demand, communicates over <code>127.0.0.1</code>, and keeps the heavier Python processing stack outside the browser bundle.</p>
 <p>The Whitebox toolbox does <strong>not</strong> depend on it: its 1,000+ tools run in the browser on the <code>geolibre-wasm</code> WebAssembly runtime by default, and the sidecar is an opt-in alternative engine that can read native file paths for batch runs over a directory.</p>
@@ -3441,7 +3443,7 @@ WebKitGTK so the Chromium-based builds keep full fidelity.</p>
       <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","navigation.sections","navigation.top","search.highlight","search.share","search.suggest","toc.follow"],"redirect":null,"search":"../assets/javascripts/workers/search.c47bb847.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
     
     
-      <script src="../assets/javascripts/bundle.a2388154.min.js"></script>
+      <script src="../assets/javascripts/bundle.10ee5ab6.min.js"></script>
       
     
   </body>
