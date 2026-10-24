@@ -2961,7 +2961,7 @@
 </tr>
 <tr>
 <td><strong>MBTiles Layer</strong></td>
-<td>Loads a local MBTiles tile archive (desktop app).</td>
+<td>Loads a local MBTiles tile archive. The desktop app reads it from disk; the browser build opens it in memory with SQLite/WASM (sql.js), so it is not kept after a reload. Files over 1 GB are refused in the browser; use the desktop app for those.</td>
 </tr>
 <tr>
 <td><strong>OSM PBF Layer</strong></td>
@@ -3301,7 +3301,7 @@ were rendered before the choice existed and cannot honor it.</p>
 <p>Each panel shows how many of the total results you are looking at and offers <strong>Load more</strong> to page further. See <a href="../web-services/">Web Services</a> for the other browsers in that submenu.</p>
 <div class="admonition note">
 <p class="admonition-title">Browser vs desktop</p>
-<p>URL-based sources work in both the browser and the desktop app. Local file dialogs, local MBTiles, local raster reads, File Geodatabases, PostgreSQL, and SQL Server require the desktop app. See <a href="../../getting-started/">Getting Started</a>.</p>
+<p>URL-based sources work in both the browser and the desktop app. Local file dialogs, local raster reads, File Geodatabases, PostgreSQL, and SQL Server require the desktop app. See <a href="../../getting-started/">Getting Started</a>.</p>
 </div>
 
 
