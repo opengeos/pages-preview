@@ -1993,17 +1993,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#performance-benchmarks" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        Performance Benchmarks
-      </span>
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -3066,17 +3055,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#performance-benchmarks" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        Performance Benchmarks
-      </span>
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -3308,7 +3286,7 @@ the classification.</p>
 <p><strong>DuckDB-WASM goes the other way</strong>, because it is on the critical path for opening a local vector file and so is bundled by default. <code>GEOLIBRE_DUCKDB_WASM_CDN=1</code> moves it to jsDelivr instead — or <code>npm run lite:build</code>, which sets that flag and then <em>asserts</em> no emitted file exceeds the ceiling, so a regression fails the build rather than the upload. It is pinned to the installed version by duckdb-wasm's own <code>getJsDelivrBundles()</code>, so the fetched engine cannot drift from the loader compiled into the bundle. The flag exists for one reason: <code>duckdb-mvp.wasm</code> (~40 MB) and <code>duckdb-eh.wasm</code> (~35 MB) both exceed the <strong>25 MiB per-asset limit on Cloudflare Pages and Workers static assets</strong>, which rejects the upload outright, and nothing else in the build comes close (the next largest is ~22 MB). So this single flag decides whether the web build can be hosted there at all — it takes the output from ~251 MB to ~176 MB with no file over the ceiling. GitHub Pages allows 100 MB per file and needs none of this. The flag is ignored for both targets that ship no service worker: a Tauri build, which must stay offline-capable, and an embed build (<code>GEOLIBRE_EMBED=1</code>), where the engine would otherwise be refetched every notebook session with no runtime cache behind it. Neither has the size ceiling this exists for, since a binary and a wheel are not uploaded to Cloudflare. A CDN-hosted worker script cannot be passed to <code>new Worker</code> (it must be same-origin), so that variant wraps it in a same-origin blob that <code>importScripts</code> the real one; this needs <code>worker-src blob:</code> and the CDN in <code>script-src</code>, both already in <code>docker/nginx.conf</code>. The nested <code>importScripts</code> is matched against <code>script-src</code> rather than <code>worker-src</code> — verified against that policy in Chromium and Firefox, since Firefox has historically checked worker sub-resources against <code>worker-src</code>/<code>child-src</code>.</p>
 <p>Two engines have no such escape hatch. <strong>Pyodide</strong> is always fetched: <code>VITE_PYODIDE_INDEX_URL</code> re-points it at a mirror you host — worth doing when jsDelivr is unreachable or disallowed — but note that neither CacheFirst rule matches such a mirror, since one is scoped to <code>cdn.jsdelivr.net</code> and the other to same-origin <code>/assets/</code>, so unless the mirror is served from under <code>/assets/</code> it falls back to ordinary HTTP caching rather than the service worker. <strong><code>gdal3.js</code></strong> — which backs the Georeferencer's client-side GeoTIFF/COG export — is never vendored at all: its wasm (~28 MB) and data (~12 MB) only ever come from the CDN, and <code>GEOLIBRE_GDAL_CDN=0</code> opts out of that rather than bundling them, leaving the loader with no paths and that export unavailable.</p>
 <p>The <strong>desktop</strong> build ships no service worker, so none of this runtime caching applies there: it re-fetches every CDN-loaded engine on first use per install, unless PGlite/PostGIS and CereusDB are bundled with the flags above.</p>
-<p>A new deploy is picked up via <code>registerType: "autoUpdate"</code>: the new service worker installs in the background and takes control (<code>skipWaiting</code> + <code>clientsClaim</code>), so its fresh precache serves subsequent requests. Workbox's default force-reload-on-activation is deliberately suppressed via <code>onNeedReload</code> in <code>src/main.tsx</code> — on the relative-base <code>/demo/</code> subpath that reload fired spuriously and discarded in-progress map state. Page recovery is delegated to <code>installStaleChunkReload</code>, which reloads on-demand only when an orphaned lazy chunk 404s (cooldown-guarded; if <code>sessionStorage</code> is blocked it skips the reload and lets the preload error surface).</p>
+<p>A new deploy is picked up via <code>registerType: "autoUpdate"</code>: the new service worker installs in the background and takes control (<code>skipWaiting</code> + <code>clientsClaim</code>), so its fresh precache serves subsequent requests. Workbox's default force-reload-on-activation is deliberately suppressed via <code>onNeedReload</code> in <code>src/main.tsx</code> — on the relative-base <code>/demo/</code> subpath that reload fired spuriously and discarded in-progress map state. Instead, a <code>controllerchange</code> listener calls <code>offerReloadIfNewBuild()</code>, which offers the user a reload when the deployed <code>index.html</code> loads a different build than the running page (screening out the first install and those spurious activations). <code>installStaleChunkReload</code> stays the on-demand recovery path, reloading only when an orphaned lazy chunk 404s before the user acts (cooldown-guarded; if <code>sessionStorage</code> is blocked it skips the reload and lets the preload error surface). Precached chunks are served from cache and never 404, so the page is no longer reloaded out from under the user.</p>
 <h2 id="multi-threaded-webassembly-geoprocessing-simd128-pthreadssharedarraybuffer">Multi-Threaded WebAssembly Geoprocessing (SIMD128 &amp; Pthreads/SharedArrayBuffer)<a class="headerlink" href="#multi-threaded-webassembly-geoprocessing-simd128-pthreadssharedarraybuffer" title="Permanent link">&para;</a></h2>
 <p>GeoLibre executes client-side geospatial analysis and Whitebox tools via WebAssembly. The engine architecture supports three execution tiers with automatic capability detection, progressive fallback, and observable diagnostics.</p>
 <h3 id="toolchain-runtime-architecture">Toolchain &amp; Runtime Architecture<a class="headerlink" href="#toolchain-runtime-architecture" title="Permanent link">&para;</a></h3>
@@ -3356,7 +3334,7 @@ the classification.</p>
 <p><code>packages/processing/src/wasm-capabilities.ts</code> probes the host environment safely using bytecode validation without triggering runtime exceptions:</p>
 <ol>
 <li><strong>SIMD128 Probe</strong>: Validates a minimal 43-byte WebAssembly module containing <code>v128.const</code>.</li>
-<li><strong>Shared Memory Probe</strong>: Validates a minimal WebAssembly module declaring shared memory (<code>memory 1 1 shared</code>).</li>
+<li><strong>Shared Memory Probe</strong>: Validates a minimal WebAssembly module declaring shared memory (<code>memory 1 2 shared</code>).</li>
 <li><strong>Isolation &amp; Concurrency</strong>: Checks <code>globalThis.crossOriginIsolated === true</code>, <code>typeof SharedArrayBuffer !== "undefined"</code>, and clamps <code>navigator.hardwareConcurrency</code> between 1 and 16.</li>
 <li><strong>Resolution</strong>: <code>resolveExecutionMode()</code> resolves the active tier and surfaces exact fallback reasons through structured diagnostics:
    <div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">getWasmDiagnostics</span><span class="p">,</span><span class="w"> </span><span class="nx">setWasmRuntimeConfig</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">"@geolibre/processing"</span><span class="p">;</span>
@@ -3405,20 +3383,6 @@ the classification.</p>
 <li><strong>Radial Raymarch (<code>radial-raymarch</code>)</strong>:</li>
 <li><em>Tools</em>: <code>viewshed</code>.</li>
 <li><em>Strategy</em>: Can be partitioned radially or by angular quadrant across workers.</li>
-</ul>
-<h3 id="performance-benchmarks">Performance Benchmarks<a class="headerlink" href="#performance-benchmarks" title="Permanent link">&para;</a></h3>
-<p>Measured using <code>scripts/benchmark-wasm-multithread.mjs</code> on an Intel Core Ultra 5 245K (14 logical cores, Node v24):</p>
-<ul>
-<li><strong>Single-Tile Stencil (Horn's 3x3 Slope &amp; Aspect)</strong>:</li>
-<li>10k cells (100x100): ~0.16 ms (SIMD gives 1.14x speedup)</li>
-<li>250k cells (500x500): ~3.48 ms</li>
-<li>1M cells (1000x1000): ~13.29 ms</li>
-<li>Max numerical divergence vs baseline: <code>0.00e+0</code> (100% numerically exact).</li>
-<li><strong>Concurrent Geoprocessing Pool (4 Tile Operations Batch)</strong>:</li>
-<li>Sequential Baseline (1-Worker Queue): 14.24 ms</li>
-<li>Adaptive 4-Worker Pool (Threaded-SIMD): 4.67 ms</li>
-<li><strong>Speedup</strong>: <strong>3.05x</strong></li>
-<li><strong>Runtime Reduction</strong>: <strong>67.2%</strong> (exceeds the 60–80% target).</li>
 </ul>
 <h2 id="container-image">Container image<a class="headerlink" href="#container-image" title="Permanent link">&para;</a></h2>
 <p>The root Dockerfile packages the browser app: a Node build stage runs the
