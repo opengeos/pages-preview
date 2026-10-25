@@ -1927,15 +1927,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#multi-threaded-webassembly-geoprocessing-simd128-pthreadssharedarraybuffer" class="md-nav__link">
+  <a href="#webassembly-geoprocessing-worker-pool" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        Multi-Threaded WebAssembly Geoprocessing (SIMD128 &amp; Pthreads/SharedArrayBuffer)
+        WebAssembly Geoprocessing Worker Pool
       </span>
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Multi-Threaded WebAssembly Geoprocessing (SIMD128 &amp; Pthreads&#x2f;SharedArrayBuffer)">
+    <nav class="md-nav" aria-label="WebAssembly Geoprocessing Worker Pool">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -2989,15 +2989,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#multi-threaded-webassembly-geoprocessing-simd128-pthreadssharedarraybuffer" class="md-nav__link">
+  <a href="#webassembly-geoprocessing-worker-pool" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        Multi-Threaded WebAssembly Geoprocessing (SIMD128 &amp; Pthreads/SharedArrayBuffer)
+        WebAssembly Geoprocessing Worker Pool
       </span>
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Multi-Threaded WebAssembly Geoprocessing (SIMD128 &amp; Pthreads&#x2f;SharedArrayBuffer)">
+    <nav class="md-nav" aria-label="WebAssembly Geoprocessing Worker Pool">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -3287,13 +3287,13 @@ the classification.</p>
 <p>Two engines have no such escape hatch. <strong>Pyodide</strong> is always fetched: <code>VITE_PYODIDE_INDEX_URL</code> re-points it at a mirror you host — worth doing when jsDelivr is unreachable or disallowed — but note that neither CacheFirst rule matches such a mirror, since one is scoped to <code>cdn.jsdelivr.net</code> and the other to same-origin <code>/assets/</code>, so unless the mirror is served from under <code>/assets/</code> it falls back to ordinary HTTP caching rather than the service worker. <strong><code>gdal3.js</code></strong> — which backs the Georeferencer's client-side GeoTIFF/COG export — is never vendored at all: its wasm (~28 MB) and data (~12 MB) only ever come from the CDN, and <code>GEOLIBRE_GDAL_CDN=0</code> opts out of that rather than bundling them, leaving the loader with no paths and that export unavailable.</p>
 <p>The <strong>desktop</strong> build ships no service worker, so none of this runtime caching applies there: it re-fetches every CDN-loaded engine on first use per install, unless PGlite/PostGIS and CereusDB are bundled with the flags above.</p>
 <p>A new deploy is picked up via <code>registerType: "autoUpdate"</code>: the new service worker installs in the background and takes control (<code>skipWaiting</code> + <code>clientsClaim</code>), so its fresh precache serves subsequent requests. Workbox's default force-reload-on-activation is deliberately suppressed via <code>onNeedReload</code> in <code>src/main.tsx</code> — on the relative-base <code>/demo/</code> subpath that reload fired spuriously and discarded in-progress map state. Instead, a <code>controllerchange</code> listener calls <code>offerReloadIfNewBuild()</code>, which offers the user a reload when the deployed <code>index.html</code> loads a different build than the running page (screening out the first install and those spurious activations). <code>installStaleChunkReload</code> stays the on-demand recovery path, reloading only when an orphaned lazy chunk 404s before the user acts (cooldown-guarded; if <code>sessionStorage</code> is blocked it skips the reload and lets the preload error surface). Precached chunks are served from cache and never 404, so the page is no longer reloaded out from under the user.</p>
-<h2 id="multi-threaded-webassembly-geoprocessing-simd128-pthreadssharedarraybuffer">Multi-Threaded WebAssembly Geoprocessing (SIMD128 &amp; Pthreads/SharedArrayBuffer)<a class="headerlink" href="#multi-threaded-webassembly-geoprocessing-simd128-pthreadssharedarraybuffer" title="Permanent link">&para;</a></h2>
+<h2 id="webassembly-geoprocessing-worker-pool">WebAssembly Geoprocessing Worker Pool<a class="headerlink" href="#webassembly-geoprocessing-worker-pool" title="Permanent link">&para;</a></h2>
 <p>GeoLibre executes client-side geospatial analysis and Whitebox tools via WebAssembly. The engine architecture supports three execution tiers with automatic capability detection, progressive fallback, and observable diagnostics.</p>
 <h3 id="toolchain-runtime-architecture">Toolchain &amp; Runtime Architecture<a class="headerlink" href="#toolchain-runtime-architecture" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>Source &amp; Compiler Target</strong>: The geospatial processing CLI (<code>geolibre-cli.wasm</code>, ~24.1 MB) is built from Rust (<a href="https://github.com/opengeos/geolibre-rust"><code>opengeos/geolibre-rust</code></a>, forked from Whitebox Next Gen) targeted at <code>wasm32-wasip1</code>. The compiled binary incorporates 14,505 WebAssembly SIMD (<code>0xfd</code>) vectorization instructions.</li>
+<li><strong>Source &amp; Compiler Target</strong>: The geospatial processing CLI (<code>geolibre-cli.wasm</code>, ~24.1 MB) is built from Rust (<a href="https://github.com/opengeos/geolibre-rust"><code>opengeos/geolibre-rust</code></a>, forked from Whitebox Next Gen) targeted at <code>wasm32-wasip1</code>.</li>
 <li><strong>In-Browser Execution</strong>: Executed via <code>@bjorn3/browser_wasi_shim</code> inside dedicated Web Workers (<code>wasm-tool.worker.ts</code>) using an in-memory virtual <code>/work</code> filesystem for zero-disk, secure file staging and result capture.</li>
-<li><strong>Worker Pool</strong>: Managed by <code>@geolibre/processing</code> (<code>wasm-tool-runner.ts</code>), which maintains an adaptive pool of workers. Every mode runs the same <code>geolibre-cli.wasm</code> binary with private (non-shared) memory: the mode only sets how many workers may run at once. <code>threaded-simd</code> bounds concurrent runs to the resolved thread count; the other modes give each concurrent run its own worker and keep one warm. Parked workers are kept warm to avoid repeating the ~24 MB WASM compilation on subsequent jobs. A dead-worker acknowledgement protocol (<code>REUSED_WORKER_ACK_MS = 10,000 ms</code>) automatically replaces unresponsive or discarded workers.</li>
+<li><strong>Worker Pool</strong>: Managed by <code>@geolibre/processing</code> (<code>wasm-tool-runner.ts</code>), which maintains an adaptive pool of workers. Every mode runs the same <code>geolibre-cli.wasm</code> binary with private (non-shared) memory: the mode only sets how many workers may run at once. Each concurrent run gets its own worker unless the caller explicitly requests <code>executionMode: "threaded-simd"</code>, which bounds concurrent runs to the resolved thread count; in <code>threaded-simd</code> up to that many workers stay warm, otherwise one. Parked workers are kept warm to avoid repeating the ~24 MB WASM compilation on subsequent jobs. A dead-worker acknowledgement protocol (<code>REUSED_WORKER_ACK_MS = 10,000 ms</code>) automatically replaces unresponsive or discarded workers.</li>
 </ul>
 <h3 id="three-execution-modes">Three Execution Modes<a class="headerlink" href="#three-execution-modes" title="Permanent link">&para;</a></h3>
 <table>
@@ -3309,7 +3309,7 @@ the classification.</p>
 <tr>
 <td><code>threaded-simd</code></td>
 <td>Browser SIMD128 + <code>crossOriginIsolated</code> (COOP/COEP) + <code>SharedArrayBuffer</code> + WebAssembly Shared Memory</td>
-<td>Bounded pool of 1–16 workers (resolved thread count, from <code>hardwareConcurrency</code> or <code>maxThreads</code>)</td>
+<td>One worker per concurrent run; bounded to 1–16 (from <code>hardwareConcurrency</code> or <code>maxThreads</code>) only when explicitly requested</td>
 <td>Multi-tile batch processing via <code>runParallelWasmTools</code></td>
 </tr>
 <tr>
@@ -3362,23 +3362,14 @@ the classification.</p>
   <strong>Warning</strong>: with <code>VITE_CROSS_ORIGIN_ISOLATION=1</code> or these headers, COEP <code>require-corp</code> is active, so any cross-origin tile, basemap, or font resources fetched by the browser must support CORS or include <code>Cross-Origin-Resource-Policy: cross-origin</code>.</li>
 </ul>
 <h3 id="algorithm-parallelization-classification">Algorithm Parallelization Classification<a class="headerlink" href="#algorithm-parallelization-classification" title="Permanent link">&para;</a></h3>
-<p>Geospatial algorithms are classified by data dependency in <code>packages/processing/src/wasm-algorithm-audit.ts</code>:</p>
+<p><code>packages/processing/src/wasm-algorithm-audit.ts</code> classifies selected tools by data dependency. The classification is advisory: the runner does not consume it, and no tool is split across workers today.</p>
 <ul>
-<li><strong>Tileable Stencil (<code>tileable-stencil</code>)</strong>:</li>
-<li><em>Tools</em>: <code>slope</code>, <code>aspect</code>, <code>hillshade</code>, <code>gaussian_filter</code>, <code>mean_filter</code>, <code>focal_statistics</code>.</li>
-<li><em>Strategy</em>: Embarrassingly parallel across horizontal strips or tiles with a 1-pixel halo overlap. Benefited by SIMD vectorization.</li>
-<li><strong>Pixel-Independent (<code>pixel-independent</code>)</strong>:</li>
-<li><em>Tools</em>: <code>raster_calculator</code>, <code>reclass</code>, <code>is_nodata</code>.</li>
-<li><em>Strategy</em>: Fully parallel point-wise arithmetic. Highly optimized by SIMD128.</li>
-<li><strong>Topological DAG (<code>topological-dag</code>)</strong>:</li>
-<li><em>Tools</em>: <code>d8_flow_accumulation</code>, <code>d_inf_flow_accumulation</code>.</li>
-<li><em>Limitation</em>: Cannot be naively partitioned across tiles due to global drainage network topological sorting dependencies. Executed on a dedicated single worker with topologically resolved inputs.</li>
-<li><strong>Priority Queue (<code>priority-queue</code>)</strong>:</li>
-<li><em>Tools</em>: <code>fill_depressions</code>, <code>breach_depressions</code>.</li>
-<li><em>Limitation</em>: Wang &amp; Liu priority-flood algorithm relies on a global min-heap.</li>
-<li><strong>Radial Raymarch (<code>radial-raymarch</code>)</strong>:</li>
-<li><em>Tools</em>: <code>viewshed</code>.</li>
-<li><em>Strategy</em>: Can be partitioned radially or by angular quadrant across workers.</li>
+<li><strong>Tileable Stencil (<code>tileable-stencil</code>)</strong>: <code>slope</code>, <code>aspect</code>, <code>hillshade</code>, <code>gaussian_filter</code>, <code>mean_filter</code>, <code>focal_statistics</code> — could be partitioned into strips or tiles with a 1-pixel halo.</li>
+<li><strong>Pixel-Independent (<code>pixel-independent</code>)</strong>: <code>raster_calculator</code> — point-wise, fully partitionable.</li>
+<li><strong>Topological DAG (<code>topological-dag</code>)</strong>: <code>d8_flow_accumulation</code>, <code>d_inf_flow_accumulation</code> — cannot be naively partitioned because of global drainage-network ordering.</li>
+<li><strong>Priority Queue (<code>priority-queue</code>)</strong>: <code>fill_depressions</code> — the priority-flood algorithm relies on a global min-heap.</li>
+<li><strong>Radial Raymarch (<code>radial-raymarch</code>)</strong>: <code>viewshed</code> — could be partitioned by angular sector.</li>
+<li><strong>Vector Batch (<code>vector-batch</code>)</strong>: <code>buffer_vector</code> — feature chunks could be distributed across workers; not SIMD-eligible.</li>
 </ul>
 <h2 id="container-image">Container image<a class="headerlink" href="#container-image" title="Permanent link">&para;</a></h2>
 <p>The root Dockerfile packages the browser app: a Node build stage runs the
