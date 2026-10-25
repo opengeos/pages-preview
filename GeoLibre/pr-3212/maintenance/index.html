@@ -4585,9 +4585,10 @@ nonce. A hash or nonce makes the browser ignore <code>'unsafe-inline'</code>, so
 <code>&lt;style&gt;</code> elements that external plugins and several libraries inject at
 runtime are blocked, and only in the packaged app (#3210, after the startup
 placeholder style landed in <code>index.html</code>). <code>"dangerousDisableAssetCspModification":
-["style-src"]</code> keeps the policy as written; <code>'unsafe-inline'</code> already allows
-the inline style, so nothing is loosened. <code>tests/tauri-csp.test.ts</code> fails if
-the setting is dropped.</p>
+["style-src"]</code> keeps the policy as written. That deliberately lets
+<code>'unsafe-inline'</code> cover every inline style again, which is how 3.4.0 and earlier
+behaved; <code>script-src</code> still gets Tauri's nonces and hashes.
+<code>tests/tauri-csp.test.ts</code> fails if the exemption is dropped or widened.</p>
 <h3 id="httpx-backendgeolibre_server_apipyprojecttoml-private-transport-pool"><code>httpx</code> (<code>backend/geolibre_server_api/pyproject.toml</code>) — private transport pool<a class="headerlink" href="#httpx-backendgeolibre_server_apipyprojecttoml-private-transport-pool" title="Permanent link">&para;</a></h3>
 <p>The projects server's protection against identity-provider requests to internal
 addresses (<code>geolibre_server_api/egress.py</code>) needs an httpcore network backend,
