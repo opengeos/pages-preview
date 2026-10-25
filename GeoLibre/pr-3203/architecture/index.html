@@ -3293,7 +3293,7 @@ the classification.</p>
 <ul>
 <li><strong>Source &amp; Compiler Target</strong>: The geospatial processing CLI (<code>geolibre-cli.wasm</code>, ~24.1 MB) is built from Rust (<a href="https://github.com/opengeos/geolibre-rust"><code>opengeos/geolibre-rust</code></a>, forked from Whitebox Next Gen) targeted at <code>wasm32-wasip1</code>. The compiled binary incorporates 14,505 WebAssembly SIMD (<code>0xfd</code>) vectorization instructions.</li>
 <li><strong>In-Browser Execution</strong>: Executed via <code>@bjorn3/browser_wasi_shim</code> inside dedicated Web Workers (<code>wasm-tool.worker.ts</code>) using an in-memory virtual <code>/work</code> filesystem for zero-disk, secure file staging and result capture.</li>
-<li><strong>Worker Pool</strong>: Managed by <code>@geolibre/processing</code> (<code>wasm-tool-runner.ts</code>), which maintains an adaptive pool of workers. Parked workers are kept warm to avoid repeating the ~24 MB WASM compilation on subsequent jobs. A dead-worker acknowledgement protocol (<code>REUSED_WORKER_ACK_MS = 10,000 ms</code>) automatically replaces unresponsive or discarded workers.</li>
+<li><strong>Worker Pool</strong>: Managed by <code>@geolibre/processing</code> (<code>wasm-tool-runner.ts</code>), which maintains an adaptive pool of workers. Every mode runs the same <code>geolibre-cli.wasm</code> binary with private (non-shared) memory: the mode only sets how many workers may run at once. <code>threaded-simd</code> bounds concurrent runs to the resolved thread count; the other modes give each concurrent run its own worker and keep one warm. Parked workers are kept warm to avoid repeating the ~24 MB WASM compilation on subsequent jobs. A dead-worker acknowledgement protocol (<code>REUSED_WORKER_ACK_MS = 10,000 ms</code>) automatically replaces unresponsive or discarded workers.</li>
 </ul>
 <h3 id="three-execution-modes">Three Execution Modes<a class="headerlink" href="#three-execution-modes" title="Permanent link">&para;</a></h3>
 <table>
@@ -3301,8 +3301,7 @@ the classification.</p>
 <tr>
 <th>Execution Mode</th>
 <th>Requirements</th>
-<th>Concurrency</th>
-<th>Vectorization</th>
+<th>Concurrent runs</th>
 <th>Best Used For</th>
 </tr>
 </thead>
@@ -3310,22 +3309,19 @@ the classification.</p>
 <tr>
 <td><code>threaded-simd</code></td>
 <td>Browser SIMD128 + <code>crossOriginIsolated</code> (COOP/COEP) + <code>SharedArrayBuffer</code> + WebAssembly Shared Memory</td>
-<td>Multi-Worker (2–16 workers based on <code>hardwareConcurrency</code>)</td>
-<td>SIMD128 (128-bit vector loops)</td>
-<td>High-performance interactive raster analysis, multi-tile batch processing</td>
+<td>Bounded pool of 1–16 workers (resolved thread count, from <code>hardwareConcurrency</code> or <code>maxThreads</code>)</td>
+<td>Multi-tile batch processing via <code>runParallelWasmTools</code></td>
 </tr>
 <tr>
 <td><code>simd-single-thread</code></td>
 <td>Browser SIMD128 supported</td>
-<td>1 Worker</td>
-<td>SIMD128 (128-bit vector loops)</td>
+<td>One worker per concurrent run, one kept warm</td>
 <td>Standard non-isolated environments, public web deployments without COOP/COEP</td>
 </tr>
 <tr>
 <td><code>portable-single-thread</code></td>
 <td>Baseline WebAssembly support</td>
-<td>1 Worker</td>
-<td>Scalar loops</td>
+<td>One worker per concurrent run, one kept warm</td>
 <td>Universal fallback for legacy embeds, constrained WebViews, and sandbox iframes</td>
 </tr>
 </tbody>
@@ -3359,11 +3355,11 @@ the classification.</p>
 <span class="err">Cross-Origin-Embedder-Policy: require-corp</span>
 </code></pre></div></li>
 <li><strong>Production Nginx (<code>docker/nginx.conf</code>)</strong>:
-  When deploying in isolated environments:
+  The shipped config does <strong>not</strong> send these headers. To opt in, add:
   <div class="highlight"><pre><span></span><code><span class="k">add_header</span><span class="w"> </span><span class="s">Cross-Origin-Opener-Policy</span><span class="w"> </span><span class="s">"same-origin"</span><span class="w"> </span><span class="s">always</span><span class="p">;</span>
 <span class="k">add_header</span><span class="w"> </span><span class="s">Cross-Origin-Embedder-Policy</span><span class="w"> </span><span class="s">"require-corp"</span><span class="w"> </span><span class="s">always</span><span class="p">;</span>
 </code></pre></div>
-  <em>Note</em>: When COEP <code>require-corp</code> is active, any cross-origin tile, basemap, or font resources fetched by the browser must support CORS or include <code>Cross-Origin-Resource-Policy: cross-origin</code>.</li>
+  <strong>Warning</strong>: with <code>VITE_CROSS_ORIGIN_ISOLATION=1</code> or these headers, COEP <code>require-corp</code> is active, so any cross-origin tile, basemap, or font resources fetched by the browser must support CORS or include <code>Cross-Origin-Resource-Policy: cross-origin</code>.</li>
 </ul>
 <h3 id="algorithm-parallelization-classification">Algorithm Parallelization Classification<a class="headerlink" href="#algorithm-parallelization-classification" title="Permanent link">&para;</a></h3>
 <p>Geospatial algorithms are classified by data dependency in <code>packages/processing/src/wasm-algorithm-audit.ts</code>:</p>
