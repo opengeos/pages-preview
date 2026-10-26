@@ -3342,7 +3342,21 @@ a list of layer ids to identify only those, or <code>null</code> for off; ids th
 layer are skipped. <code>controls</code> maps a toolbar panel (<code>bookmark</code>, <code>search</code>,
 <code>measure</code>, <code>minimap</code>, <code>print</code>) or built-in map control (<code>navigation</code>,
 <code>fullscreen</code>, <code>compass</code>, <code>geolocate</code>, <code>globe</code>, <code>scale</code>, <code>attribution</code>, <code>logo</code>)
-to whether it starts shown; other names are ignored. The app writes the block
+to whether it starts shown; other names are ignored. <code>measure</code> and <code>minimap</code>
+also accept an object with a boolean <code>visible</code> and the control's options:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"controls"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"measure"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"visible"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nt">"collapsed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nt">"distanceUnit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"feet"</span><span class="p">,</span><span class="w"> </span><span class="nt">"areaUnit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"acres"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">"minimap"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"visible"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nt">"collapsed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><code>collapsed: true</code> opens only the control's on-map button, so a shared map does
+not start with the Measure panel over it and its tool armed. Measure's
+<code>distanceUnit</code> and <code>areaUnit</code> take the values listed in
+<a href="../plugin-api/#built-in-control-panels">Built-in control panels</a>; Minimap also
+takes <code>zoomOffset</code>, <code>width</code> and <code>height</code>. A plain <code>true</code> opens the control
+expanded, as the Controls menu does. The app writes the block
 back unchanged when it saves the project; turning Identify or a control on or
 off in the app does not edit it.</p>
 <h2 id="layer-object">Layer object<a class="headerlink" href="#layer-object" title="Permanent link">&para;</a></h2>

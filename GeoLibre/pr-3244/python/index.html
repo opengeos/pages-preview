@@ -3554,8 +3554,8 @@ e.g. <code>m.run_algorithm(..., timeout=300)</code>.</p>
 <td>Arm the Identify tool so a click opens the popup: on one layer (id, name, or handle), on a list of layers, on every visible layer (<code>"all"</code>), or off (<code>None</code>).</td>
 </tr>
 <tr>
-<td><code>show_control(name, visible=True)</code> / <code>hide_control(name)</code></td>
-<td>Show or hide a toolbar panel (<code>bookmark</code>, <code>search</code>, <code>measure</code>, <code>minimap</code>, <code>print</code>) or a built-in map control (<code>navigation</code>, <code>fullscreen</code>, <code>compass</code>, <code>geolocate</code>, <code>globe</code>, <code>scale</code>, <code>attribution</code>, <code>logo</code>).</td>
+<td><code>show_control(name, visible=True, *, collapsed=None, distance_unit=None, area_unit=None)</code> / <code>hide_control(name)</code></td>
+<td>Show or hide a toolbar panel (<code>bookmark</code>, <code>search</code>, <code>measure</code>, <code>minimap</code>, <code>print</code>) or a built-in map control (<code>navigation</code>, <code>fullscreen</code>, <code>compass</code>, <code>geolocate</code>, <code>globe</code>, <code>scale</code>, <code>attribution</code>, <code>logo</code>). <code>collapsed=True</code> opens <code>measure</code> or <code>minimap</code> as just its on-map button; <code>distance_unit</code> and <code>area_unit</code> set Measure's starting units.</td>
 </tr>
 <tr>
 <td><code>set_projection(projection)</code> / <code>projection</code></td>
@@ -3638,6 +3638,9 @@ and hover tooltips pause while it is armed:</p>
 <span class="n">m</span><span class="o">.</span><span class="n">show_control</span><span class="p">(</span><span class="s2">"search"</span><span class="p">)</span>         <span class="c1"># open the place search box</span>
 <span class="n">m</span><span class="o">.</span><span class="n">hide_control</span><span class="p">(</span><span class="s2">"globe"</span><span class="p">)</span>          <span class="c1"># hide the globe/flat toggle button</span>
 <span class="n">m</span><span class="o">.</span><span class="n">set_projection</span><span class="p">(</span><span class="s2">"mercator"</span><span class="p">)</span>     <span class="c1"># draw a flat map instead of a globe</span>
+
+<span class="c1"># Measure as just its ruler button, in US units, until a viewer clicks it.</span>
+<span class="n">m</span><span class="o">.</span><span class="n">show_control</span><span class="p">(</span><span class="s2">"measure"</span><span class="p">,</span> <span class="n">collapsed</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">distance_unit</span><span class="o">=</span><span class="s2">"feet"</span><span class="p">,</span> <span class="n">area_unit</span><span class="o">=</span><span class="s2">"acres"</span><span class="p">)</span>
 </code></pre></div>
 <p><code>save_project</code>, <code>to_project</code> and <code>to_html</code> save the Identify target and the
 controls in the project's <code>interaction</code> block, so the saved file or HTML page

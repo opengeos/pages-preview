@@ -4055,6 +4055,7 @@
 <span class="w">  </span><span class="c1">// The host's existing menu panels. See "Built-in control panels" below.</span>
 <span class="w">  </span><span class="nx">openControlPanel</span><span class="o">?:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="p">(</span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="s2">"minimap"</span><span class="p">,</span><span class="w"> </span><span class="nx">options</span><span class="o">:</span><span class="w"> </span><span class="kt">GeoLibreMinimapOptions</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
+<span class="w">    </span><span class="p">(</span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="s2">"measure"</span><span class="p">,</span><span class="w"> </span><span class="nx">options</span><span class="o">:</span><span class="w"> </span><span class="kt">GeoLibreMeasureOptions</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
 <span class="w">    </span><span class="p">(</span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">GeoLibreControlPanelId</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
 <span class="w">  </span><span class="p">};</span>
 <span class="w">  </span><span class="nx">closeControlPanel</span><span class="o">?:</span><span class="w"> </span><span class="p">(</span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">GeoLibreControlPanelId</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
@@ -4970,13 +4971,24 @@ These methods are optional on older hosts, so use optional chaining:</p>
 <span class="nx">app</span><span class="p">.</span><span class="nx">closeControlPanel</span><span class="o">?</span><span class="p">.(</span><span class="s2">"minimap"</span><span class="p">);</span>
 <span class="nx">app</span><span class="p">.</span><span class="nx">openControlPanel</span><span class="o">?</span><span class="p">.(</span><span class="s2">"bookmark"</span><span class="p">);</span>
 </code></pre></div>
-<p>Only <code>minimap</code> accepts options. <code>zoomOffset</code> is relative to the main map: a more
-negative value gives a wider overview. It defaults to <code>-4</code>; <code>width</code> and <code>height</code>
-default to <code>250</code> and <code>180</code> pixels and must be positive finite numbers. The zoom
-offset must also be finite. Calling <code>openControlPanel("minimap", options)</code> again
-updates the existing overview, retaining omitted options. The options survive
-basemap changes and reset when the Minimap is closed. Panel visibility and
-these options are session UI state and are not saved with the project.</p>
+<p>Only <code>minimap</code> and <code>measure</code> accept options. <code>zoomOffset</code> is relative to the
+main map: a more negative value gives a wider overview. It defaults to <code>-4</code>;
+<code>width</code> and <code>height</code> default to <code>250</code> and <code>180</code> pixels and must be positive
+finite numbers. The zoom offset must also be finite. Calling
+<code>openControlPanel("minimap", options)</code> again updates the existing overview,
+retaining omitted options. The options survive basemap changes and reset when
+the Minimap is closed.</p>
+<p>Both take <code>collapsed: true</code> to show only the control's on-map button. For
+Measure that also leaves the tool idle, so map clicks do not place points until
+the viewer opens it. Measure also takes <code>distanceUnit</code> (<code>meters</code>, <code>kilometers</code>,
+<code>miles</code>, <code>feet</code>, <code>yards</code>, <code>nautical-miles</code>; default <code>kilometers</code>) and <code>areaUnit</code>
+(<code>square-meters</code>, <code>square-kilometers</code>, <code>square-miles</code>, <code>hectares</code>, <code>acres</code>,
+<code>square-feet</code>; default <code>square-kilometers</code>). New units rebuild an open Measure
+control, which clears its measurements; they reset when it is closed.</p>
+<div class="highlight"><pre><span></span><code><span class="nx">app</span><span class="p">.</span><span class="nx">openControlPanel</span><span class="o">?</span><span class="p">.(</span><span class="s2">"measure"</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">collapsed</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="p">,</span><span class="w"> </span><span class="nx">distanceUnit</span><span class="o">:</span><span class="w"> </span><span class="s2">"feet"</span><span class="p">,</span><span class="w"> </span><span class="nx">areaUnit</span><span class="o">:</span><span class="w"> </span><span class="s2">"acres"</span><span class="w"> </span><span class="p">});</span>
+</code></pre></div>
+<p>Panel visibility and these options are session UI state and are not saved with
+the project.</p>
 <h2 id="right-sidebar-panels">Right sidebar panels<a class="headerlink" href="#right-sidebar-panels" title="Permanent link">&para;</a></h2>
 <p>A plugin can register a native right-sidebar panel that docks beside the built-in Style panel and behaves like a first-class part of the workspace, instead of emulating one with a fixed overlay. The host renders the panel chrome (a header with collapse and close buttons, a collapsible rail, and a resize handle); the plugin owns only the body.</p>
 <div class="highlight"><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">myPlugin</span><span class="o">:</span><span class="w"> </span><span class="kt">GeoLibrePlugin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
