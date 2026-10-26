@@ -2680,6 +2680,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#maplibre-gl-raster-pixel-inspector-click-guard" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>maplibre-gl-raster</code> — pixel inspector click guard
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#maplibre-gl-raster-checked-by-the-compiler" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -3385,6 +3396,17 @@
     <span class="md-ellipsis">
       <span class="md-typeset">
         <code>maplibre-gl-raster</code> — stretch and gamma curves
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maplibre-gl-raster-pixel-inspector-click-guard" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>maplibre-gl-raster</code> — pixel inspector click guard
       </span>
     </span>
   </a>
@@ -4267,6 +4289,17 @@ two stretch inverses above) and run <code>tests/raster-symbology.test.ts</code>.
 <code>tests/upstream-contracts.test.ts</code> reads <code>pushAdjustments</code> and the three shader
 curves out of the published chunk and fails if the order, a curve or the
 strength changes.</p>
+<h3 id="maplibre-gl-raster-pixel-inspector-click-guard"><code>maplibre-gl-raster</code> — pixel inspector click guard<a class="headerlink" href="#maplibre-gl-raster-pixel-inspector-click-guard" title="Permanent link">&para;</a></h3>
+<p><code>guardRasterInspectorClicks</code> (<code>packages/plugins/src/plugins/maplibre-raster.ts</code>)
+wraps the private <code>RasterControl._inspector._onClick</code> once after mount, so the
+pixel inspector ignores a click that a drawing map tool (Measure, the Geo
+Editor) has claimed through <code>isMapClickClaimed</code> (#3237). It works only because
+the inspector's <code>enable()</code> and <code>disable()</code> both read <code>this._onClick</code> at call
+time; if upstream binds a copy instead, the guard is skipped (the inspector
+opens on measure clicks again) or, worse, <code>disable()</code> stops unbinding it.
+<code>tests/upstream-contracts.test.ts</code> reads the published chunk and fails if the
+field, the arrow property or either binding moves. Better still, upstream a
+click-filter option and delete the wrap.</p>
 <h3 id="maplibre-gl-raster-checked-by-the-compiler"><code>maplibre-gl-raster</code> — checked by the compiler<a class="headerlink" href="#maplibre-gl-raster-checked-by-the-compiler" title="Permanent link">&para;</a></h3>
 <p><code>GeoLibreCogRenderEngine</code> (<code>packages/plugins/src/types.ts</code>) mirrors the
 <code>RenderEngine</code> union that package exports (<code>maplibre-gl-raster</code> |
