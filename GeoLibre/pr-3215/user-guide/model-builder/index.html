@@ -3261,7 +3261,7 @@ red in its settings panel:</p>
 </li>
 <li><strong>Collect Results (<code>collect-results</code>)</strong>:</li>
 <li>Closes an iteration loop by accumulating results across all iterations.</li>
-<li>Produces a unified <code>FeatureCollection</code> (for vector tools) or <code>RasterCollection</code> (for raster tools) that can connect directly to an <strong>Output</strong> node or subsequent tools.</li>
+<li>Produces a unified <code>FeatureCollection</code> (for vector tools) or <code>RasterCollection</code> (for raster tools) that can connect directly to an <strong>Output</strong> node. A vector collection can also feed subsequent tools; a raster collection cannot, because tools take one raster at a time.</li>
 </ul>
 <h4 id="bounded-execution-and-error-handling">Bounded Execution and Error Handling<a class="headerlink" href="#bounded-execution-and-error-handling" title="Permanent link">&para;</a></h4>
 <p>Iterators provide execution safeguards in their settings panel:</p>
