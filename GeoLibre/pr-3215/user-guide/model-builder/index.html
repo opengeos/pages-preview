@@ -3227,8 +3227,12 @@ red in its settings panel:</p>
 <li><strong>Add an output node to keep a result.</strong></li>
 <li><strong>Unknown tool "tool".</strong>, or a connection to a node or port that no longer
   exists.</li>
-<li><strong>Missing condition.</strong> on a Conditional Switch node.</li>
-<li><strong>Incompatible branch connections.</strong></li>
+<li><strong>Iterate Features requires an input collection connection or layer.</strong></li>
+<li><strong>Iterate Rasters requires an input collection connection or configured raster layers.</strong></li>
+<li><strong>Iterator node requires an iteration body or a downstream Collect Results node.</strong></li>
+<li><strong>Collect Results requires an incoming connection to collect.</strong></li>
+<li><strong>Conditional Switch requires an incoming data connection to route.</strong></li>
+<li><strong>Conditional Merge requires at least one branch input connection.</strong></li>
 </ul>
 <p><strong>Run</strong> stays disabled until the model has no problems.</p>
 <h2 id="control-flow-iterators-and-conditionals">Control Flow: Iterators and Conditionals<a class="headerlink" href="#control-flow-iterators-and-conditionals" title="Permanent link">&para;</a></h2>
@@ -3247,17 +3251,25 @@ red in its settings panel:</p>
 <li>Each iteration runs with an isolated context, preventing temporary data or variables from leaking between iterations.</li>
 <li>If the input collection is empty, the iteration completes cleanly without executing the body.</li>
 <li><strong>Iterate Rasters (<code>iterate-rasters</code>)</strong>:</li>
-<li>Accepts a collection of raster datasets on its <code>collection</code> port.</li>
-<li>Exposes <code>raster</code>, <code>index</code>, and <code>count</code> ports to the iteration body.</li>
+<li>Accepts a collection of raster datasets on its <code>collection</code> port (or configured raster layers in settings).</li>
+<li>The node provides four outputs for the iteration body:<ul>
+<li><code>raster</code>: The current raster dataset.</li>
+<li><code>name</code>: The current raster's layer name or identifier.</li>
+<li><code>index</code>: The 0-based iteration index.</li>
+<li><code>count</code>: Total number of rasters in the collection.</li>
+</ul>
+</li>
 <li><strong>Collect Results (<code>collect-results</code>)</strong>:</li>
 <li>Closes an iteration loop by accumulating results across all iterations.</li>
 <li>Produces a unified <code>FeatureCollection</code> (for vector tools) or <code>RasterCollection</code> (for raster tools) that can connect directly to an <strong>Output</strong> node or subsequent tools.</li>
 </ul>
 <h4 id="bounded-execution-and-error-handling">Bounded Execution and Error Handling<a class="headerlink" href="#bounded-execution-and-error-handling" title="Permanent link">&para;</a></h4>
-<p>Iterators provide execution safeguards in their settings panel:
-- <strong>Max iterations (<code>maxIterations</code>)</strong>: Upper bound on the number of items to process (default: unlimited).
-- <strong>Stop on error (<code>stopOnError</code>)</strong>: When checked (default), any error in an iteration immediately halts execution and reports the failure with the failing iteration index.
-- <strong>Cancellation</strong>: Pressing <strong>Cancel</strong> immediately stops processing between iterations, safely releasing temporary resources.</p>
+<p>Iterators provide execution safeguards in their settings panel:</p>
+<ul>
+<li><strong>Max iterations (<code>maxIterations</code>)</strong>: Upper bound on the number of items to process (defaults to 1000 when omitted).</li>
+<li><strong>Stop on error (<code>stopOnError</code>)</strong>: When checked (default), any error in an iteration immediately halts execution and reports the failure with the failing iteration index.</li>
+<li><strong>Cancellation</strong>: Pressing <strong>Cancel</strong> immediately stops processing between iterations, safely releasing temporary resources.</li>
+</ul>
 <h3 id="conditional-switch-and-merge-nodes">Conditional Switch and Merge Nodes<a class="headerlink" href="#conditional-switch-and-merge-nodes" title="Permanent link">&para;</a></h3>
 <p>Conditional branching lets models execute different processing paths depending on data values or metadata:</p>
 <ul>
@@ -3269,7 +3281,7 @@ red in its settings panel:</p>
 <li>Only the selected branch executes. The unselected branch is marked as <strong>skipped</strong> (<code>opacity-60</code> on canvas).</li>
 <li>Heavy raster or WASM processing tools on the unselected branch are completely skipped without consuming CPU or memory.</li>
 <li><strong>Branch Merge (<code>conditional-merge</code>)</strong>:</li>
-<li>Accepts incoming connections on both <code>true_in</code> and <code>false_in</code>.</li>
+<li>Accepts incoming connections on both <code>true</code> and <code>false</code> input ports.</li>
 <li>Automatically outputs whichever branch was actively executed, providing a single seamless output stream for subsequent tools.</li>
 </ul>
 <h4 id="condition-evaluation-system">Condition Evaluation System<a class="headerlink" href="#condition-evaluation-system" title="Permanent link">&para;</a></h4>
