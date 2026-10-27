@@ -3954,6 +3954,14 @@ black — it declines the stack.</p>
   any of these packages, activate every migrated Web Services plugin and verify that
   its catalog renders, resizing the GeoLibre dock preserves the content, and
   no vendor panel remains under the map container.</li>
+<li><strong>NASA Earthdata panel Add date fallback.</strong> <code>nasa-earthdata-date-fallback.ts</code>
+  replaces the control instance's <code>addLayer</code> (<code>addAtAvailableDefaultDate</code>), so a
+  panel Add of a time-enabled layer probes the zoom-0 tile at its default date
+  and adds the newest earlier date with imagery. It depends on the panel Add
+  calling <code>this.addLayer(layer.id)</code> through the instance, and on <code>addLayer</code>
+  reading <code>options.date</code> and <code>options.key</code>. <code>tests/upstream-contracts.test.ts</code>
+  checks both. The probe URL shape (<code>{z}/{y}/{x}</code> from <code>buildTileUrl</code>) is covered
+  by <code>tests/nasa-earthdata-date-fallback.test.ts</code>.</li>
 </ul>
 <h3 id="maplibre-gl-components-packagespluginspackagejson"><code>maplibre-gl-components</code> (<code>packages/plugins/package.json</code>)<a class="headerlink" href="#maplibre-gl-components-packagespluginspackagejson" title="Permanent link">&para;</a></h3>
 <ul>
