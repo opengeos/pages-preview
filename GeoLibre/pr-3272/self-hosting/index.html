@@ -3314,7 +3314,7 @@ generated final policy; build-only grants do not configure its guards.</p>
 <tr>
 <td><code>GEOLIBRE_DB_MAX_FEATURES</code></td>
 <td>unset (1,000,000)</td>
-<td>The most features an editable PostGIS or SQL Server layer may load and save back. Each such layer travels whole as one GeoJSON response and is diffed whole on save, so raise it only as far as the sidecar's and the browser's memory allow (a 1.2M-point table is about 190 MB of GeoJSON).</td>
+<td>The most features an editable PostGIS or SQL Server layer may load and save back. Each such layer travels whole as one GeoJSON response and is diffed whole on save, so raise it only as far as the sidecar's and the browser's memory allow (reading a 1.2M-point table produces about 190 MB of GeoJSON and peaks near 2 GB of sidecar memory). On a shared deployment, where several people can read at once, consider lowering it.</td>
 </tr>
 <tr>
 <td><code>GEOLIBRE_MSSQL_ALLOW_MANAGED_IDENTITY</code></td>
