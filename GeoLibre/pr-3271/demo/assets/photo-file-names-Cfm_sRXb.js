@@ -1,0 +1,1 @@
+var t=["jpg","jpeg","png","tif","tiff","webp","heic","heif"],n=new Set(["jpg","jpeg","png","webp","heic","heif"]);function i(e){return e.split(".").pop()?.toLowerCase()??""}function o(e){return t.includes(i(e))}function p(e){return n.has(i(e))}export{i,p as n,o as r,t};
