@@ -1018,7 +1018,7 @@ var GUIDANCE = [
 	"Portuguese or English; set attach_context to include the current map",
 	"extent, visible layers and selection. When an answer contains GeoJSON,",
 	"offer to put it on the map with add_epidbot_result. Both tools need an",
-	"EpidBot API key (Max or Team plan) configured in the EpidBot panel."
+	"EpidBot API key (Pro, Max or Team plan) configured in the EpidBot panel."
 ].join(" ");
 function askEpidBotSpec(deps) {
 	return {
@@ -1243,7 +1243,7 @@ var en = {
 	"plugin.epidbot.settings.save": "Save",
 	"plugin.epidbot.settings.saved": "Settings saved.",
 	"plugin.epidbot.error.auth": "Invalid or revoked API key. Check the key in Settings.",
-	"plugin.epidbot.error.plan": "Your EpidBot plan does not include API keys — Max or Team required.",
+	"plugin.epidbot.error.plan": "Your EpidBot plan does not include API keys — Pro, Max or Team required.",
 	"plugin.epidbot.error.quota": "API quota exceeded. Wait a moment and try again.",
 	"plugin.epidbot.error.network": "Could not reach EpidBot. Check the server URL and your connection.",
 	"plugin.epidbot.error.timeout": "EpidBot did not answer in time. Try again.",
@@ -1386,7 +1386,7 @@ var catalogs = {
 		"plugin.epidbot.settings.save": "Salvar",
 		"plugin.epidbot.settings.saved": "Configurações salvas.",
 		"plugin.epidbot.error.auth": "Chave de API inválida ou revogada. Verifique a chave nas Configurações.",
-		"plugin.epidbot.error.plan": "Seu plano do EpidBot não inclui chaves de API — é preciso Max ou Team.",
+		"plugin.epidbot.error.plan": "Seu plano do EpidBot não inclui chaves de API — é preciso Pro, Max ou Team.",
 		"plugin.epidbot.error.quota": "Cota da API excedida. Aguarde um momento e tente novamente.",
 		"plugin.epidbot.error.network": "Não foi possível acessar o EpidBot. Verifique a URL do servidor e sua conexão.",
 		"plugin.epidbot.error.timeout": "O EpidBot não respondeu a tempo. Tente novamente.",
@@ -1442,15 +1442,50 @@ var DEFAULT_SETTINGS = {
 	inlineBudgetKb: 64,
 	artifactUploads: false
 };
-/** Read the stored key; "" when nothing is saved or the host has no store. */
-function loadApiKey(app) {
-	return app.credentials?.get("api-key") ?? "";
+// src/settings/store.ts
+/** Settings persistence: the API key goes to the host credential store
+* (app.credentials — OS keychain on desktop, localStorage on web); non-secret
+* preferences travel in the plugin's project state so they never carry a
+* secret into a shared .geolibre project file. */
+/** Credential name; the host stores it as `plugin.epidbot.api-key`. */
+var CREDENTIAL_NAME = "api-key";
+/** Host the stored key was confirmed for (`plugin.epidbot.api-key-host`). A
+* project file must never redirect the key to another server. */
+var CREDENTIAL_HOST_NAME = "api-key-host";
+/** Origin (scheme + host + port) of a server URL, derived the same way the
+* client builds it; "" when the value is not a usable URL. */
+function hostOf(url) {
+	try {
+		return new URL(normalizeServerUrl(url)).origin.toLowerCase();
+	} catch {
+		return "";
+	}
 }
-/** Persist the key; "" deletes. "unavailable" means the host has no
-* credential store (the key then lives only in memory for this session). */
-function saveApiKey(app, key) {
+/** Read the stored key for `serverUrl`; "" when nothing is saved, the host has
+* no store, or the key was confirmed for a different server. The last case is
+* what stops a shared project file from pointing `serverUrl` at an attacker
+* host and receiving the recipient's key. */
+function loadApiKey(app, serverUrl = DEFAULT_SERVER_URL) {
+	const key = app.credentials?.get("api-key") ?? "";
+	if (!key) return "";
+	const target = hostOf(serverUrl);
+	if (!target) return "";
+	const pinned = (app.credentials?.get("api-key-host") ?? "").toLowerCase();
+	if (!pinned) return target === hostOf("https://api.epidbot.kwar-ai.com.br") ? key : "";
+	return pinned === target ? key : "";
+}
+/** Persist the key and the server it was confirmed for; "" deletes.
+* "unavailable" means the host has no credential store (the key then lives
+* only in memory for this session). */
+function saveApiKey(app, key, serverUrl = DEFAULT_SERVER_URL) {
 	if (!app.credentials) return "unavailable";
-	return app.credentials.set("api-key", key.trim()) ? "saved" : "session-only";
+	const trimmed = key.trim();
+	const persisted = app.credentials.set(CREDENTIAL_NAME, trimmed);
+	if (persisted) {
+		if (trimmed) app.credentials.set(CREDENTIAL_HOST_NAME, hostOf(serverUrl));
+		else app.credentials.set(CREDENTIAL_HOST_NAME, "");
+	}
+	return persisted ? "saved" : "session-only";
 }
 function credentialLocation(app) {
 	return app.credentials?.location() ?? "none";
@@ -3782,7 +3817,7 @@ var EpidBotPanel = class EpidBotPanel {
 		const next = this.readSettingsForm();
 		const enteredKey = this.apiKeyInput.value;
 		if (enteredKey !== this.cb.getApiKey()) {
-			if (this.saveKey(enteredKey) === "unavailable" && enteredKey) {
+			if (this.saveKey(enteredKey, next.serverUrl) === "unavailable" && enteredKey) {
 				this.savedIndicator.hidden = false;
 				this.savedIndicator.textContent = this.t("settings.storage.none");
 				this.cb.onSettingsChange(next);
@@ -3796,8 +3831,8 @@ var EpidBotPanel = class EpidBotPanel {
 			this.savedIndicator.hidden = true;
 		}, 2500);
 	}
-	saveKey(key) {
-		const result = saveApiKey(this.app, key);
+	saveKey(key, serverUrl) {
+		const result = saveApiKey(this.app, key, serverUrl);
 		if (result === "unavailable") return "unavailable";
 		return result;
 	}
@@ -3831,7 +3866,7 @@ var EpidBotPanel = class EpidBotPanel {
 * `geolibre-plugin/plugin.json` (and `package.json`); a test enforces it. */
 var PLUGIN_ID = "epidbot";
 var PLUGIN_NAME = "EpidBot";
-var VERSION = "0.2.0";
+var VERSION = "0.2.1";
 // src/geolibre.ts
 var PANEL_ID = `${PLUGIN_ID}-chat`;
 var MENU_ID = `${PLUGIN_ID}-menu`;
@@ -3848,7 +3883,7 @@ function syncAssistantTools() {
 	assistantDisposer?.();
 	assistantDisposer = null;
 	if (!rt) return;
-	if (!loadApiKey(rt.app)) return;
+	if (!loadApiKey(rt.app, rt.settings.serverUrl)) return;
 	assistantDisposer = registerAssistantTools({
 		app: rt.app,
 		client: rt.client,
@@ -3866,7 +3901,7 @@ function activateRuntime(app) {
 	const settings = { ...savedState.settings };
 	const client = new EpidBotClient({
 		serverUrl: settings.serverUrl,
-		getApiKey: () => rt ? loadApiKey(rt.app) : "",
+		getApiKey: () => rt ? loadApiKey(rt.app, rt.settings.serverUrl) : "",
 		fetchImpl: ((...args) => (rt?.app.nativeFetch ?? globalThis.fetch)(...args)),
 		passSignalToFetch: typeof app.nativeFetch !== "function"
 	});
@@ -3886,7 +3921,7 @@ function activateRuntime(app) {
 			client.setServerUrl(next.serverUrl);
 			syncAssistantTools();
 		},
-		getApiKey: () => loadApiKey(app),
+		getApiKey: () => loadApiKey(app, runtime.settings.serverUrl),
 		buildContext: () => buildMapContext(app),
 		onLayerAdded: (record) => {
 			runtime.resultLayers.push(record);
