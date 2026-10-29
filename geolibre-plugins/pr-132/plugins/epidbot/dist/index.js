@@ -2365,6 +2365,116 @@ function renderMarkdown(text, opts = {}) {
 	flushPlain();
 	return builder.fragment;
 }
+// src/panel/theme.ts
+/** Fallback surfaces when the host exposes no opaque background at all. */
+var FALLBACK = {
+	dark: false,
+	surface: "rgb(255, 255, 255)",
+	text: "rgb(23, 23, 23)"
+};
+var FALLBACK_DARK = {
+	dark: true,
+	surface: "rgb(32, 33, 36)",
+	text: "rgb(226, 227, 229)"
+};
+/** Parse `rgb()`/`rgba()` (legacy comma and modern slash syntax); null for
+* anything else (transparent keywords, gradients, color()-functions). The
+* color function must start the string, so gradients cannot smuggle a parse
+* out of their stops. */
+function parseRgb(color) {
+	const match = /^rgba?\(([^)]+)\)/i.exec((color ?? "").trim());
+	if (!match) return null;
+	const parts = match[1].split(/[\s,/]+/).filter((part) => part !== "");
+	if (parts.length < 3) return null;
+	const channels = [];
+	for (let i = 0; i < 3; i += 1) {
+		const value = Number(parts[i]);
+		if (!Number.isFinite(value)) return null;
+		channels.push(value);
+	}
+	let alpha = 1;
+	if (parts.length >= 4) {
+		const raw = parts[3];
+		alpha = raw.endsWith("%") ? Number(raw.slice(0, -1)) / 100 : Number(raw);
+		if (!Number.isFinite(alpha)) alpha = 1;
+	}
+	return [
+		channels[0],
+		channels[1],
+		channels[2],
+		Math.min(Math.max(alpha, 0), 1)
+	];
+}
+/** WCAG relative luminance of an sRGB triple, 0 (black) to 1 (white). */
+function relativeLuminance(r, g, b) {
+	const linear = (channel) => {
+		const c = channel / 255;
+		return c <= .03928 ? c / 12.92 : ((c + .055) / 1.055) ** 2.4;
+	};
+	return .2126 * linear(r) + .7152 * linear(g) + .0722 * linear(b);
+}
+/** Walk up from `el` to find the first opaque, classifiable background.
+* Returns the CSS color string ("" when nothing opaque was found). */
+function findOpaqueBackground(el, computed) {
+	for (let node = el; node; node = node.parentElement) {
+		const rgba = parseRgb(computed(node).backgroundColor);
+		if (!rgba) continue;
+		const [r, g, b, a] = rgba;
+		if (a >= .99) return `rgb(${Math.round(r)}, ${Math.round(g)}, ${Math.round(b)})`;
+	}
+	return "";
+}
+/** Classify a background color. `text` is the host's text color when known. */
+function classifyTheme(surface, text) {
+	const rgba = parseRgb(surface);
+	const fallback = FALLBACK;
+	if (!rgba) return {
+		...fallback,
+		...text ? { text } : {}
+	};
+	const [r, g, b, a] = rgba;
+	const blended = [
+		r,
+		g,
+		b
+	].map((channel) => channel * a + 255 * (1 - a));
+	const dark = relativeLuminance(blended[0], blended[1], blended[2]) < .5;
+	return {
+		dark,
+		surface,
+		text: text ?? (dark ? (dark ? FALLBACK_DARK : fallback).text : fallback.text)
+	};
+}
+/** Sample the theme behind `container`. */
+function sampleTheme(container, computed = (node) => window.getComputedStyle(node)) {
+	const surface = findOpaqueBackground(container, computed);
+	const text = container ? computed(container).color : void 0;
+	if (!surface) {
+		const textColor = parseRgb(text ?? "");
+		if (textColor) {
+			const dark = relativeLuminance(textColor[0], textColor[1], textColor[2]) > .5;
+			return {
+				dark,
+				surface: (dark ? FALLBACK_DARK : FALLBACK).surface,
+				text
+			};
+		}
+		return FALLBACK;
+	}
+	return classifyTheme(surface, text || void 0);
+}
+/** Apply the sampled theme to the panel root: theme classes, the
+* `color-scheme` (native select popups and scrollbars follow it) and the
+* surface/text variables the stylesheet consumes. */
+function applyTheme(panel, container) {
+	const theme = sampleTheme(container);
+	panel.classList.toggle("epidbot-theme-dark", theme.dark);
+	panel.classList.toggle("epidbot-theme-light", !theme.dark);
+	panel.style.colorScheme = theme.dark ? "dark" : "light";
+	panel.style.setProperty("--epidbot-surface", theme.surface);
+	panel.style.setProperty("--epidbot-text", theme.text);
+	return theme;
+}
 // src/panel/panel.ts
 /** The EpidBot chat panel: transcript, composer, session bar and settings,
 * rendered as plain DOM (the host's panel contract is a bare container).
@@ -2444,6 +2554,7 @@ var EpidBotPanel = class EpidBotPanel {
 		this.oneShotContext = false;
 		this.objectUrls = [];
 		this.sessionsRefreshed = false;
+		this.themeObserver = null;
 		this.attachments = [];
 		this.lastAttempt = null;
 		this.loadingDataset = false;
@@ -2474,6 +2585,7 @@ var EpidBotPanel = class EpidBotPanel {
 		root.appendChild(this.composerForm);
 		this.root = root;
 		container.appendChild(root);
+		this.startThemeWatcher(container);
 		this.fillSettingsForm(this.cb.getSettings());
 		if (this.sessionId !== null) this.ensureSessionOption(this.sessionId);
 		this.sessionSelect.value = this.sessionId === null ? "" : String(this.sessionId);
@@ -2483,6 +2595,33 @@ var EpidBotPanel = class EpidBotPanel {
 		if (this.busy) this.showStatus(this.t("status.submitting"));
 		this.refreshSessions();
 		return () => this.detach();
+	}
+	/** Sample the host theme now and again when the host flips it. Without
+	* this, the quick-prompts `<select>` popup renders in the browser's
+	* default (light) scheme on a dark app — unreadable. */
+	startThemeWatcher(container) {
+		const root = this.root;
+		if (!root) return;
+		applyTheme(root, container);
+		this.themeObserver?.disconnect();
+		const themeRoot = document.body?.parentElement ?? document.body ?? root.getRootNode();
+		const observer = new MutationObserver(() => {
+			if (this.root) applyTheme(this.root, container);
+		});
+		if (themeRoot instanceof HTMLElement) observer.observe(themeRoot, {
+			attributes: true,
+			attributeFilter: [
+				"class",
+				"style",
+				"data-theme",
+				"data-bs-theme"
+			]
+		});
+		this.themeObserver = observer;
+	}
+	stopThemeWatcher() {
+		this.themeObserver?.disconnect();
+		this.themeObserver = null;
 	}
 	bindText(node, key, attr) {
 		this.i18nEls.push({
@@ -3060,6 +3199,7 @@ var EpidBotPanel = class EpidBotPanel {
 	* Re-attach restores the transcript, including the answer when it
 	* arrives while detached. */
 	detach() {
+		this.stopThemeWatcher();
 		this.root?.remove();
 		this.root = null;
 		this.i18nEls.length = 0;
@@ -3866,7 +4006,7 @@ var EpidBotPanel = class EpidBotPanel {
 * `geolibre-plugin/plugin.json` (and `package.json`); a test enforces it. */
 var PLUGIN_ID = "epidbot";
 var PLUGIN_NAME = "EpidBot";
-var VERSION = "0.2.1";
+var VERSION = "0.2.2";
 // src/geolibre.ts
 var PANEL_ID = `${PLUGIN_ID}-chat`;
 var MENU_ID = `${PLUGIN_ID}-menu`;
