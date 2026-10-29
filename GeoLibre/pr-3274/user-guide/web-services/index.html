@@ -3607,8 +3607,8 @@
 </tr>
 <tr>
 <td><a href="#india-gis">India GIS</a></td>
-<td>Indian national and state agencies</td>
-<td>Public GIS data and open geospatial portals across India (Survey of India, state geoportals, and municipal corporations)</td>
+<td>DataMeet, GADM, geoBoundaries</td>
+<td>Open national, state, and city boundary datasets for India</td>
 </tr>
 <tr>
 <td><a href="#socrata">Socrata</a></td>
@@ -3855,14 +3855,12 @@ adds it to the map.</p>
 <li>Portals on other platforms (CKAN, OpenDataSoft, or custom sites such as Boston's or Pittsburgh's main portals) cannot be searched and are not listed, though their ArcGIS Hub sites are where one exists. Every listed portal was checked to return datasets in September 2026; <code>npm run check:gis-portals</code> repeats the check.</li>
 </ul>
 <h2 id="india-gis">India GIS<a class="headerlink" href="#india-gis" title="Permanent link">&para;</a></h2>
-<p>Browses public GIS and open geospatial data portals across India — including Survey of India (SOI), state geoportals, and municipal corporations (Delhi GSDL/MCD, Bengaluru BBMP, Chennai GCC, Hyderabad GHMC, Mumbai BMC, Ahmedabad AMC, Chandigarh, and others).</p>
+<p>Lists open boundary and municipal datasets for India, grouped by region: national boundaries, then state and city portals (Delhi, Bengaluru, Chennai, Hyderabad, Mumbai, Ahmedabad, Chandigarh, and others).</p>
 <ul>
-<li>Choose an Indian state or national portal from the picker; the panel lists its datasets immediately. Type a keyword to search across layer titles and descriptions.</li>
-<li><strong>Add to map</strong>: Directly adds the authoritative GeoJSON boundaries (state boundaries, 700+ districts, taluks/tehsils, and municipal wards) to the map and frames the view.</li>
-<li><strong>Zoom</strong>: Zooms the viewport directly to the boundary extent of the selected Indian region or city.</li>
-<li><strong>Download</strong>: Downloads the GeoJSON dataset.</li>
-<li><strong>Open portal</strong>: Opens the official Indian government portal (<code>.gov.in</code>).</li>
-<li><code>npm run check:gis-portals -- india</code> tests that every Indian portal answers with valid datasets.</li>
+<li>Choose a region, then a portal; the panel lists its datasets immediately. Type a keyword to filter them by title and description. <strong>Search the current map area</strong> does not apply.</li>
+<li>No Indian government portal offers a catalog the panel can search, so each portal is a fixed list of GeoJSON files, and every card names where its file comes from: <a href="https://datameet.org/">DataMeet</a> (the national outline and city wards), <a href="https://gadm.org/">GADM</a> (states, districts, and sub-districts, with older boundaries), or <a href="https://www.geoboundaries.org/">geoBoundaries</a>. <strong>Open portal</strong> opens the government agency's own site.</li>
+<li>A state's district card loads only that state's districts from the all-India GADM file; <strong>Download</strong> saves the whole file.</li>
+<li><code>npm run check:gis-portals -- india</code> downloads every file and checks that it is GeoJSON in longitude and latitude.</li>
 </ul>
 <h2 id="socrata">Socrata<a class="headerlink" href="#socrata" title="Permanent link">&para;</a></h2>
 <p>Searches public <a href="https://dev.socrata.com/">Socrata</a> open-data catalogs — the platform behind many city, county, and state data portals — and adds their GeoJSON datasets to the map. Keyword search, paged results, and <strong>Load more</strong>, the same as ArcGIS Hub.</p>
