@@ -3202,7 +3202,11 @@ calls round-trip to the running map, so the map must be displayed first (show
 <p class="admonition-title">Blocking queries</p>
 <p>Interactive queries block the kernel until the app replies (via
 <code>jupyter_ui_poll</code>, installed automatically). Pass <code>timeout=</code> for slow calls,
-e.g. <code>m.run_algorithm(..., timeout=300)</code>.</p>
+e.g. <code>m.run_algorithm(..., timeout=300)</code>. Every query method also has an
+<code>*_async()</code> variant (<code>await m.get_center_async()</code>, <code>await m.fly_to_async(...)</code>,
+...) that awaits the reply instead of blocking a thread — the right choice
+inside <code>async</code> code, such as a Shiny for Python app, where the blocking
+variants can only run on a worker thread.</p>
 </div>
 <h2 id="api-reference">API reference<a class="headerlink" href="#api-reference" title="Permanent link">&para;</a></h2>
 <h3 id="interactive-queries-events-processing">Interactive queries, events &amp; processing<a class="headerlink" href="#interactive-queries-events-processing" title="Permanent link">&para;</a></h3>
@@ -3289,6 +3293,10 @@ e.g. <code>m.run_algorithm(..., timeout=300)</code>.</p>
 <tr>
 <td><code>request(method, params=None, timeout=)</code></td>
 <td>Low-level command primitive behind the methods above.</td>
+</tr>
+<tr>
+<td><code>request_async(method, params=None, timeout=)</code></td>
+<td>Awaitable counterpart of <code>request()</code>; each query/processing method above has an <code>*_async()</code> twin.</td>
 </tr>
 </tbody>
 </table>
