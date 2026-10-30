@@ -2691,6 +2691,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#maplibre-gl-raster-rasters-stay-out-of-the-depth-buffer" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>maplibre-gl-raster</code> — rasters stay out of the depth buffer
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#maplibre-gl-raster-checked-by-the-compiler" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -3407,6 +3418,17 @@
     <span class="md-ellipsis">
       <span class="md-typeset">
         <code>maplibre-gl-raster</code> — pixel inspector click guard
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maplibre-gl-raster-rasters-stay-out-of-the-depth-buffer" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>maplibre-gl-raster</code> — rasters stay out of the depth buffer
       </span>
     </span>
   </a>
@@ -4308,6 +4330,13 @@ opens on measure clicks again) or, worse, <code>disable()</code> stops unbinding
 <code>tests/upstream-contracts.test.ts</code> reads the published chunk and fails if the
 field, the arrow property or either binding moves. Better still, upstream a
 click-filter option and delete the wrap.</p>
+<h3 id="maplibre-gl-raster-rasters-stay-out-of-the-depth-buffer"><code>maplibre-gl-raster</code> — rasters stay out of the depth buffer<a class="headerlink" href="#maplibre-gl-raster-rasters-stay-out-of-the-depth-buffer" title="Permanent link">&para;</a></h3>
+<p>The package draws deck.gl rasters with <code>depthWriteEnabled: false</code>. Each grid
+gets different mesh triangles, so with depth writes on, a raster under another
+one on a different grid punches stable holes in it (#3285). Nothing errors, so
+<code>tests/upstream-contracts.test.ts</code> checks the published bundle for the flag. If
+that test fails, confirm the new version still keeps rasters from fighting
+before changing it.</p>
 <h3 id="maplibre-gl-raster-checked-by-the-compiler"><code>maplibre-gl-raster</code> — checked by the compiler<a class="headerlink" href="#maplibre-gl-raster-checked-by-the-compiler" title="Permanent link">&para;</a></h3>
 <p><code>GeoLibreCogRenderEngine</code> (<code>packages/plugins/src/types.ts</code>) mirrors the
 <code>RenderEngine</code> union that package exports (<code>maplibre-gl-raster</code> |
