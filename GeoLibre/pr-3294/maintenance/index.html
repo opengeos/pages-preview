@@ -3966,7 +3966,11 @@ is there only for types. A bump must update <code>MAPBOX_GL_VERSION</code> and b
 <code>*_INTEGRITY</code> hashes in that file; <code>tests/mapbox-gl-loader.test.ts</code> computes the
 expected values from the installed package and fails until they match. A
 runtime import of <code>mapbox-gl</code>, direct or transitive, fails the build
-(<code>thirdPartyLicensePlugin</code> in <code>apps/geolibre-desktop/vite.config.ts</code>).</p>
+(<code>thirdPartyLicensePlugin</code> in <code>apps/geolibre-desktop/vite.config.ts</code>). The
+script runs under <code>script-src</code>, which lists the CDN path; the stylesheet is
+fetched and inlined because <code>style-src</code> lists no external host. Playwright's
+<code>vite preview</code> sends no CSP, so the e2e suite cannot catch a policy mismatch. A
+<code>GEOLIBRE_NO_EXTERNAL_CDN=1</code> build refuses to load the renderer.</p>
 <h3 id="deckglmapbox-and-deckglmaplibre"><code>@deck.gl/mapbox</code> and <code>@deck.gl/maplibre</code><a class="headerlink" href="#deckglmapbox-and-deckglmaplibre" title="Permanent link">&para;</a></h3>
 <p><code>bridgeArcgisDeckControl</code> (<code>packages/plugins/src/plugins/arcgis-deck/control-adapter.ts</code>)
 reads each overlay's private <code>_props</code> field so ArcGIS can transfer its initial
