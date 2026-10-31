@@ -17,7 +17,7 @@
         <link rel="prev" href="../contributing/">
       
       
-        <link rel="next" href="../citation/">
+        <link rel="next" href="../third-party-licenses/">
       
       
         
@@ -2515,6 +2515,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#mapbox-gl" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>mapbox-gl</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#deckglmapbox-and-deckglmaplibre" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -3043,6 +3054,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../third-party-licenses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Third-Party Licenses
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../citation/" class="md-nav__link">
         
   
@@ -3242,6 +3280,17 @@
     <span class="md-ellipsis">
       <span class="md-typeset">
         <code>maplibre-gl</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mapbox-gl" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>mapbox-gl</code>
       </span>
     </span>
   </a>
@@ -3910,6 +3959,23 @@ fail again with "Unsupported data format/bitsPerSample";
   warns). After a bump, run <code>tests/map-crs.test.ts</code> and pick a preset under
   <strong>Settings → Map</strong> with a GeoJSON layer on the map.</li>
 </ul>
+<h3 id="mapbox-gl"><code>mapbox-gl</code><a class="headerlink" href="#mapbox-gl" title="Permanent link">&para;</a></h3>
+<p>Mapbox GL JS v2+ is proprietary, so it must never enter a build: the app loads
+it from Mapbox's CDN (<code>packages/map/src/mapbox-gl-loader.ts</code>) and the npm package
+is there only for types. A bump must update <code>MAPBOX_GL_VERSION</code> and both
+<code>*_INTEGRITY</code> hashes in that file; <code>tests/mapbox-gl-loader.test.ts</code> computes the
+expected values from the installed package and fails until they match. A
+runtime import of <code>mapbox-gl</code>, direct or transitive, fails the build
+(<code>thirdPartyLicensePlugin</code> in <code>apps/geolibre-desktop/vite.config.ts</code>). The
+script runs under <code>script-src</code>, which lists the CDN path; the stylesheet is
+fetched and inlined because <code>style-src</code> lists no external host. Playwright's
+<code>vite preview</code> sends no CSP, so the e2e suite cannot catch a policy mismatch. A
+<code>GEOLIBRE_NO_EXTERNAL_CDN=1</code> build refuses to load the renderer.</p>
+<p>MapLibre and Mapbox both use a <code>_classRegistryKey</code> property, and MapLibre sets it
+permanently on the global <code>Set</code> and <code>Error</code>, which stops every Mapbox tile from
+loading. <code>apps/geolibre-desktop/vite-plugins/isolate-maplibre-registry.ts</code> renames
+MapLibre's copy at build time. A CI run can't see this failure without a real
+Mapbox token, so after a bump of either package, load a Mapbox style with one.</p>
 <h3 id="deckglmapbox-and-deckglmaplibre"><code>@deck.gl/mapbox</code> and <code>@deck.gl/maplibre</code><a class="headerlink" href="#deckglmapbox-and-deckglmaplibre" title="Permanent link">&para;</a></h3>
 <p><code>bridgeArcgisDeckControl</code> (<code>packages/plugins/src/plugins/arcgis-deck/control-adapter.ts</code>)
 reads each overlay's private <code>_props</code> field so ArcGIS can transfer its initial
