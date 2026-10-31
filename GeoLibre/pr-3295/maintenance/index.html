@@ -2493,17 +2493,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#whitebox-wasm-root-packagejson-override" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        <code>whitebox-wasm</code> (root <code>package.json</code> override)
-      </span>
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#geotiff-packagesprocessingpackagejson-private-actualizedfields" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -3276,17 +3265,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#whitebox-wasm-root-packagejson-override" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        <code>whitebox-wasm</code> (root <code>package.json</code> override)
-      </span>
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#geotiff-packagesprocessingpackagejson-private-actualizedfields" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -3920,15 +3898,6 @@ at zoom &gt;= 12 on Mesa GPUs without them). Before bumping it, confirm
   that tool's field offers metres and silently converts a dimensionless number as
   if it were a distance.</li>
 </ul>
-<h3 id="whitebox-wasm-root-packagejson-override"><code>whitebox-wasm</code> (root <code>package.json</code> override)<a class="headerlink" href="#whitebox-wasm-root-packagejson-override" title="Permanent link">&para;</a></h3>
-<p>Nothing in GeoLibre imports <code>whitebox-wasm</code> directly: its only consumer is
-<code>cog-tiler-wasm</code>, which declares it as a peer. <code>cog-tiler-wasm</code> 0.5.0 still asks
-for <code>^0.6.0</code>, so the root <code>overrides</code> entry forces every consumer onto the same
-<code>^0.7.0</code> copy. Without it, npm hoists a second copy and the tiler keeps running
-the old decoder, whatever <code>packages/plugins/package.json</code> says. <code>npm ls
-whitebox-wasm</code> reports the peer mismatch as <code>invalid</code> until <code>cog-tiler-wasm</code>
-widens its range; drop the override then. On a bump, keep the override and the
-<code>packages/plugins</code> range in step, and load a real COG in the app.</p>
 <h3 id="geotiff-packagesprocessingpackagejson-private-actualizedfields"><code>geotiff</code> (<code>packages/processing/package.json</code>) — private <code>actualizedFields</code><a class="headerlink" href="#geotiff-packagesprocessingpackagejson-private-actualizedfields" title="Permanent link">&para;</a></h3>
 <p><code>readRasterData</code> (<code>packages/processing/src/raster-client.ts</code>) pads a
 <code>SampleFormat</code> tag shorter than <code>SamplesPerPixel</code> so geotiff.js can decode
