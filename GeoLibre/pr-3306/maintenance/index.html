@@ -5082,6 +5082,16 @@ cause invisible.</p>
 <p>So: any edit to that <code>pyproject.toml</code>'s dependencies must land with a refreshed
 lock (<code>uv lock --project backend/geolibre_server</code>). CI's "Check the bundled sidecar
 lockfile is in sync" step (<code>uv lock --check</code>) fails if they drift.</p>
+<p>The launch also passes <code>--python 3.12</code> (<code>SIDECAR_PYTHON_VERSION</code>), the default
+version of the Whitebox and conversion runtimes and the one CI tests. Without it uv
+picks the newest Python available, and <code>--frozen</code> then fails outright if a locked
+package has no compatible wheel or usable source distribution for it
+(<code>psycopg-binary</code> on 3.15 did). Moving the pin rebuilds users'
+<code>sidecar-server</code> and <code>jupyter-server</code> environments, dropping anything they
+<code>%pip install</code>ed, and that first launch needs network access unless the
+interpreter and packages are already present, so mention it in the release notes
+and check the lock has wheels for the new version on every
+platform first.</p>
 <h2 id="credentials-must-never-reach-a-redistributable-build">Credentials must never reach a redistributable build<a class="headerlink" href="#credentials-must-never-reach-a-redistributable-build" title="Permanent link">&para;</a></h2>
 <p>Anything we hand to someone else — the Jupyter wheel above all — must carry no
 credential of ours. Three properties of this build make that easy to get wrong,
