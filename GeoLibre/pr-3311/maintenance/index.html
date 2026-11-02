@@ -5082,10 +5082,11 @@ cause invisible.</p>
 <p>So: any edit to that <code>pyproject.toml</code>'s dependencies must land with a refreshed
 lock (<code>uv lock --project backend/geolibre_server</code>). CI's "Check the bundled sidecar
 lockfile is in sync" step (<code>uv lock --check</code>) fails if they drift.</p>
-<p>The launch also passes <code>--python 3.12</code> (<code>SIDECAR_PYTHON_VERSION</code>), the version the
-Whitebox and conversion runtimes use and CI tests. Without it uv picks the newest
-Python available, and <code>--frozen</code> then fails outright if a locked package has no
-wheel for it (<code>psycopg-binary</code> on 3.15 did). Moving the pin rebuilds users'
+<p>The launch also passes <code>--python 3.14</code> (<code>SIDECAR_PYTHON_VERSION</code>). Without it uv
+picks the newest Python available, and <code>--frozen</code> then fails outright if a locked
+package has no wheel for it (<code>psycopg-binary</code> on 3.15 did). The Whitebox and
+conversion runtimes pin 3.12 separately, and CI runs the backend suite on 3.12, not
+on this version. Moving the pin rebuilds users'
 <code>sidecar-server</code> and <code>jupyter-server</code> environments, dropping anything they
 <code>%pip install</code>ed, so check the lock has wheels for the new version on every
 platform first.</p>
