@@ -5787,6 +5787,15 @@ in <code>deactivate</code>:</p>
 <span class="kd">const</span><span class="w"> </span><span class="nx">stop</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">app</span><span class="p">.</span><span class="nx">onMapCrsChange</span><span class="o">?</span><span class="p">.((</span><span class="nx">crs</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">(</span><span class="nx">status</span><span class="p">.</span><span class="nx">textContent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">describe</span><span class="p">(</span><span class="nx">crs</span><span class="p">)));</span>
 <span class="c1">// in deactivate: stop?.();</span>
 </code></pre></div>
+<p><code>app.setMapCrs(id)</code> switches the map, for a layer the user picked that only
+lines up in its own CRS. <code>id</code> is a preset id or <code>"EPSG:&lt;code&gt;"</code>, and <code>null</code> goes
+back to the default map. It does what choosing the CRS in Settings does,
+including marking the project unsaved, so call it on a user action rather than
+on activation. It resolves to <code>false</code>, leaving the map alone, when the value
+cannot be drawn or the renderer is not MapLibre:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">switched</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">app</span><span class="p">.</span><span class="nx">setMapCrs</span><span class="o">?</span><span class="p">.(</span><span class="s2">"EPSG:32632"</span><span class="p">);</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">switched</span><span class="p">)</span><span class="w"> </span><span class="nx">app</span><span class="p">.</span><span class="nx">addWmsLayer</span><span class="o">?</span><span class="p">.(</span><span class="cm">/* ... */</span><span class="p">);</span>
+</code></pre></div>
 <h3 id="reading-the-viewport">Reading the viewport<a class="headerlink" href="#reading-the-viewport" title="Permanent link">&para;</a></h3>
 <p>A catalog or service browser that narrows its search to what the user can see
 must read the extent through <code>app.getViewBounds()</code>, not
@@ -5980,7 +5989,9 @@ with it. A plugin whose control needs those methods should keep the default
 <h3 id="updating-the-browser-address">Updating the browser address<a class="headerlink" href="#updating-the-browser-address" title="Permanent link">&para;</a></h3>
 <p>The web host keeps <code>lat</code>, <code>lon</code>, and <code>zoom</code> synchronized with the primary map
 view, debounced with <code>history.replaceState</code> so movement does not add Back
-history entries. When a project URL also carries coordinates, that view overrides
+history entries, and <code>crs</code> with the CRS the map enters or leaves (a link's <code>crs</code>
+that does not resolve stays as written). When a project URL
+also carries coordinates, that view overrides
 the project's saved center and zoom. Plugins can publish their current search state through the
 optional, plugin-scoped API:</p>
 <div class="highlight"><pre><span></span><code><span class="nx">app</span><span class="p">.</span><span class="nx">setUrlParameters</span><span class="o">?</span><span class="p">.(</span><span class="ow">new</span><span class="w"> </span><span class="nx">URLSearchParams</span><span class="p">({</span><span class="w"> </span><span class="nx">ingvTime</span><span class="o">:</span><span class="w"> </span><span class="s2">"30d"</span><span class="p">,</span><span class="w"> </span><span class="nx">ingvMag</span><span class="o">:</span><span class="w"> </span><span class="s2">"3,8"</span><span class="w"> </span><span class="p">}));</span>
@@ -5988,7 +5999,7 @@ optional, plugin-scoped API:</p>
 <p>Declare each writable name in <code>urlParameterNames</code>. Each call replaces all of
 that plugin's declared parameters: omitted names are removed, and repeated
 values are preserved. Other query parameters, the fragment, and history state
-are retained. Host parameters such as <code>url</code>, <code>plugin</code>, <code>lat</code>, <code>lon</code>, and <code>zoom</code>
+are retained. Host parameters such as <code>url</code>, <code>plugin</code>, <code>lat</code>, <code>lon</code>, <code>zoom</code>, and <code>crs</code>
 are reserved, even if declared by a plugin. Use plugin-specific names to avoid
 collisions with other plugins. A query name belongs to the first plugin that
 registers it for writes; later plugins can still read it through URL dispatch,
