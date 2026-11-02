@@ -5989,7 +5989,8 @@ with it. A plugin whose control needs those methods should keep the default
 <h3 id="updating-the-browser-address">Updating the browser address<a class="headerlink" href="#updating-the-browser-address" title="Permanent link">&para;</a></h3>
 <p>The web host keeps <code>lat</code>, <code>lon</code>, and <code>zoom</code> synchronized with the primary map
 view, debounced with <code>history.replaceState</code> so movement does not add Back
-history entries, and <code>crs</code> with the CRS the map is drawn in. When a project URL also carries coordinates, that view overrides
+history entries, and <code>crs</code> with the CRS the map is drawn in. When a project URL
+also carries coordinates, that view overrides
 the project's saved center and zoom. Plugins can publish their current search state through the
 optional, plugin-scoped API:</p>
 <div class="highlight"><pre><span></span><code><span class="nx">app</span><span class="p">.</span><span class="nx">setUrlParameters</span><span class="o">?</span><span class="p">.(</span><span class="ow">new</span><span class="w"> </span><span class="nx">URLSearchParams</span><span class="p">({</span><span class="w"> </span><span class="nx">ingvTime</span><span class="o">:</span><span class="w"> </span><span class="s2">"30d"</span><span class="p">,</span><span class="w"> </span><span class="nx">ingvMag</span><span class="o">:</span><span class="w"> </span><span class="s2">"3,8"</span><span class="w"> </span><span class="p">}));</span>
