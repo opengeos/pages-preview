@@ -1,0 +1,1 @@
+var r="thinking-binding-controls-2026-08-01",i="bound to a different conversation";function o(n){return n instanceof Error&&n.message.includes(i)}function e(n){if(!(typeof n!="object"||n===null||Array.isArray(n)||"block_binding"in n))return{...n,block_binding:{prefix_mismatch_behavior:"drop_block"}}}export{o as n,e as r,r as t};
