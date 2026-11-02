@@ -5088,7 +5088,9 @@ package has no wheel for it (<code>psycopg-binary</code> on 3.15 did). The White
 conversion runtimes pin 3.12 separately, and CI runs the backend suite on 3.12, not
 on this version. Moving the pin rebuilds users'
 <code>sidecar-server</code> and <code>jupyter-server</code> environments, dropping anything they
-<code>%pip install</code>ed, so check the lock has wheels for the new version on every
+<code>%pip install</code>ed, and that first launch needs network access unless the
+interpreter and packages are already present, so mention it in the release notes
+and check the lock has wheels for the new version on every
 platform first.</p>
 <h2 id="credentials-must-never-reach-a-redistributable-build">Credentials must never reach a redistributable build<a class="headerlink" href="#credentials-must-never-reach-a-redistributable-build" title="Permanent link">&para;</a></h2>
 <p>Anything we hand to someone else — the Jupyter wheel above all — must carry no
