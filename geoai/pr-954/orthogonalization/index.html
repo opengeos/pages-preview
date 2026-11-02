@@ -4704,7 +4704,8 @@ overlay against that outline. Invalid source outlines are retained, not repaired
 Triangles, tiny regions and unsuitable outlines can remain unchanged. Use a suitable projected CRS for meaningful linear/area thresholds.
 Positive NoData values are excluded; holes, labels, CRS and empty masks are preserved.</p>
 <p>The public arguments and <code>value</code>/geometry output columns remain. Parameter validation
-now rejects nonfinite tolerances, nonpositive area ratios and segment counts below 4.
+now rejects nonfinite tolerances, <code>area_tolerance</code> values outside <code>(0, 1]</code> and
+segment counts below 4.
 OpenCV is no longer needed by this function. Review these behavior changes before
 adopting the replacement; it is not a reproduction of the former algorithm.</p>
 
