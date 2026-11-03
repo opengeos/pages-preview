@@ -2454,6 +2454,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Receiving dropped files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#files-loaded-by-url" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Files loaded by URL
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -3600,6 +3617,23 @@
       </span>
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Receiving dropped files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#files-loaded-by-url" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Files loaded by URL
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -5328,6 +5362,26 @@ the project.</p>
 <p>Handlers run in registration order, and a file one handler claims is not offered to the next. Everything nobody claims loads as it would without any handlers, so a shapefile zip still loads as a shapefile.</p>
 <p>Files inside a dropped folder also have a <code>path</code> relative to the drop, such as <code>TASKDATA/TLG00001.BIN</code>. The path starts with the dropped folder's own name and always uses <code>/</code>, on every platform. Hidden entries and <code>__MACOSX</code> are skipped, and very deep or very large folders are cut off, so do not rely on seeing every file of a huge tree. When a handler claims any file of a folder, the whole folder counts as handled and its other files are not loaded. When no handler claims any, the folder goes to the built-in groups as usual.</p>
 <p>Register in <code>activate</code> and call the returned function (or <code>app.unregisterFileHandler?.(id)</code>) in <code>deactivate</code>; re-registering the same <code>id</code> replaces the handler. Ids are global, so prefix them with your plugin id; <code>unregisterFileHandler</code> only removes handlers your own plugin registered. The host also drops a plugin's handlers when it is deactivated or its activation fails. Drops are still blocked before any handler runs in the read-only viewer and when a deployment does not grant <code>data:add</code>.</p>
+<h3 id="files-loaded-by-url">Files loaded by URL<a class="headerlink" href="#files-loaded-by-url" title="Permanent link">&para;</a></h3>
+<p>The same handlers also receive a file GeoLibre downloads for <code>?data=</code> or the embed <code>addData</code> command. After the download, and before the built-in loaders classify it, the file is offered to the handlers exactly as a dropped file is: the <code>extensions</code> filter, then <code>claim</code>, then <code>open</code>, with the same error handling. The file name is the <code>Content-Disposition</code> filename when the response has one, otherwise the last segment of the URL path, so a URL that ends in <code>.zip</code> reaches a handler whose <code>extensions</code> include <code>.zip</code>, and <code>claim</code> sees the archive's <code>entries</code>. A download GeoLibre recognizes as a zip (by extension, content type, filename or the zip signature) is offered as a <code>.zip</code> even when its URL has no extension, such as a signed link that returns <code>application/zip</code>. No other format is guessed. A URL the built-in loaders take by its extension (<code>.tif</code>, <code>.tiff</code>, <code>.cog</code>, <code>.pmtiles</code>, <code>.parquet</code>, <code>.geoparquet</code>, <code>.las</code>, <code>.laz</code>, and EPT <code>ept.json</code> URLs) is loaded before any download, so an <code>extensions</code> filter never sees it; a <code>dataType</code> hint still routes such a URL to its handler. A file no handler claims loads as it would without any handlers. The same 250 MB download limit applies as for any other URL.</p>
+<p>A handler only sees URL loads while its plugin is active. External plugins are never active by default, so a link that relies on one must activate it: add <code>&amp;plugin=&lt;name&gt;</code> for a built-in plugin or one from the plugin registry, or open a <code>?url=</code> project that lists the plugin as active. A plugin installed from a file cannot be activated by <code>?plugin=</code>; use the project.</p>
+<p>A URL with no extension, such as a signed link or an API endpoint, cannot be matched by <code>extensions</code>. Declare a <code>dataTypes</code> hint name for it:</p>
+<div class="highlight"><pre><span></span><code><span class="nx">app</span><span class="p">.</span><span class="nx">registerFileHandler</span><span class="o">?</span><span class="p">.({</span>
+<span class="w">  </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="s2">"my-plugin-taskdata"</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">"ISOXML TaskData"</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">extensions</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">".zip"</span><span class="p">,</span><span class="w"> </span><span class="s2">".xml"</span><span class="p">],</span>
+<span class="w">  </span><span class="nx">dataTypes</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"isoxml"</span><span class="p">],</span>
+<span class="w">  </span><span class="nx">claim</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">files</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">files</span><span class="p">.</span><span class="nx">filter</span><span class="p">((</span><span class="nx">file</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">file</span><span class="p">.</span><span class="nx">entries</span><span class="o">?</span><span class="p">.</span><span class="nx">some</span><span class="p">((</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="o">/</span><span class="nx">TASKDATA</span><span class="err">\</span><span class="p">.</span><span class="nx">XML$</span><span class="o">/</span><span class="nx">i</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">e</span><span class="p">))),</span>
+<span class="w">  </span><span class="nx">open</span><span class="o">:</span><span class="w"> </span><span class="kt">async</span><span class="w"> </span><span class="p">(</span><span class="nx">files</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">parseAndAddLayers</span><span class="p">(</span><span class="nx">files</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="nx">name</span><span class="p">,</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">files</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="nx">arrayBuffer</span><span class="p">()),</span>
+<span class="p">});</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>https://web.geolibre.app/?data=https%3A%2F%2Fapi.example.com%2Fdownload%2F42&amp;dataType=isoxml&amp;plugin=my-plugin-name
+</code></pre></div>
+<p>When a URL carries <code>dataType=isoxml</code> and a registered handler declares that name, the downloaded file goes straight to that handler's <code>open</code>, without the extension filter and without <code>claim</code>. Because <code>claim</code> never runs, <code>open</code> must check that the bytes are really what it expects and reject otherwise. Names are lower-case letters, digits and hyphens, at most 32 characters; invalid names are ignored with a warning. A hint in <code>?dataType=</code> or in <code>addData</code> is trimmed and compared case-insensitively (<code>IsoXml</code> means <code>isoxml</code>). <code>lidar</code> is built in and cannot be declared. If two handlers declare the same name, the first one to declare it keeps it; replacing a handler keeps the hints it owned and never takes one another handler owns. A hint no handler declares is ignored. <code>dataType</code> pairs with <code>data</code> by position, and the embed <code>addData(url, { dataType })</code> option takes the same names. A hint that a handler declares cannot be combined with a <code>style</code>, since the plugin opens the file itself; the load fails before downloading, and no style is requested. A hint no handler declares, and <code>lidar</code>, are not affected. A malformed hint (not lower-case letters, digits and hyphens, or longer than 32 characters) is ignored with a console warning, both in <code>?dataType=</code> and in the embed <code>addData</code> option.</p>
+<p><code>?data=</code> loads at startup, before every plugin has activated, so every download outside the read-only viewer waits for plugin activation (the project restore and the <code>?plugin=</code> link, including registry plugins that still need a trust decision) before it is offered to the handlers, even when no handler is registered yet, because a handler may be about to register. The wait has one absolute limit of 15 seconds, counted from the first load; after that, or as soon as activation has finished, later loads do not wait. A URL that needs no download, such as a <code>.tif</code> URL, never waits. <code>open</code> returns no layers: the handler adds its own, and <code>addData</code> resolves with the ids of the layers that appeared. The layers counted as the handler's are the ones that appear while its <code>open</code> runs. A layer the user adds before <code>open</code> starts or after it returns is left alone, but one the user adds while <code>open</code> runs cannot be told apart from the handler's, so it is counted as the handler's. If <code>open</code> rejects, or the load is aborted, the layers the handler added are removed and the load fails with the error under your <code>name</code>.</p>
+<p>A file loaded by URL is untrusted input, exactly like a dropped file. Anyone who can get a user to open a shared <code>?data=</code> link, or a host page that is allowed to send <code>addData</code>, can make bytes of its choosing reach <code>claim</code> and <code>open</code> of every active plugin's handler (and, with a <code>dataType</code> hint, <code>open</code> of the plugin it names, without <code>claim</code>). Treat the bytes, the file name and the zip entries as hostile: validate before parsing, bound memory and time, and never run or evaluate their content.</p>
+<p>URL loads run one at a time (the startup <code>?data=</code> load and the embed <code>addData</code> command share one queue), so a handler never runs for two URL loads at once.</p>
+<p>URL loads reach handlers only where drops are allowed: not in the read-only viewer (<code>layout=viewer</code>) and not when a deployment does not grant <code>data:add</code>. There the file loads as it would without handlers.</p>
 <h2 id="following-the-app-language">Following the app language<a class="headerlink" href="#following-the-app-language" title="Permanent link">&para;</a></h2>
 <p>The GeoLibre UI is translated with react-i18next, but a plugin renders its panels as plain DOM and cannot use the host's React hooks. Four methods bridge that gap:</p>
 <div class="highlight"><pre><span></span><code><span class="c1">// The active catalog code ("en", "zh", "pt-BR", ...).</span>
