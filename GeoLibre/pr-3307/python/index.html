@@ -3188,7 +3188,7 @@ keeps authenticated layers rendering.</p>
     <span class="n">zoom</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
     <span class="n">basemap</span><span class="o">=</span><span class="s2">"dark"</span><span class="p">,</span>      <span class="c1"># a basemap name or a MapLibre style URL</span>
     <span class="n">height</span><span class="o">=</span><span class="s2">"800px"</span><span class="p">,</span>
-    <span class="n">layout</span><span class="o">=</span><span class="s2">"embed"</span><span class="p">,</span>      <span class="c1"># "embed" (compact UI), "full" (desktop UI), or "maponly"</span>
+    <span class="n">app_layout</span><span class="o">=</span><span class="s2">"embed"</span><span class="p">,</span>  <span class="c1"># "embed" (compact UI), "full" (desktop UI), or "maponly"</span>
     <span class="n">theme</span><span class="o">=</span><span class="s2">"light"</span><span class="p">,</span>       <span class="c1"># "light" or "dark"</span>
 <span class="p">)</span>
 </code></pre></div>
@@ -3311,7 +3311,7 @@ variants can only run on a worker thread.</p>
 </tr>
 <tr>
 <td><code>to_html(path=None, title=, width=, height=, app_url=)</code></td>
-<td>Export a standalone HTML page that embeds the current project (credentials redacted) in this map's <code>layout</code> and <code>theme</code>; returns the HTML or writes to <code>path</code>.</td>
+<td>Export a standalone HTML page that embeds the current project (credentials redacted) in this map's <code>app_layout</code> and <code>theme</code>; returns the HTML or writes to <code>path</code>.</td>
 </tr>
 <tr>
 <td><code>on(event, cb)</code> / <code>on_click</code> / <code>on_selection_change</code> / <code>on_layer_change</code></td>
@@ -3337,8 +3337,8 @@ variants can only run on a worker thread.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>Map(center, zoom, basemap=, renderer=, height=, layout=, theme=, server_proxy=)</code></td>
-<td>Create a map.</td>
+<td><code>Map(center, zoom, basemap=, renderer=, height=, app_layout=, layout=, theme=, server_proxy=)</code></td>
+<td>Create a map. <code>app_layout</code> picks the app chrome; <code>layout</code> takes an <code>ipywidgets.Layout</code>, as on any widget, and its <code>height</code> also sizes the map. Passing a chrome string as <code>layout=</code> still works but is deprecated.</td>
 </tr>
 <tr>
 <td><code>add_geojson(data, name=, **style)</code></td>

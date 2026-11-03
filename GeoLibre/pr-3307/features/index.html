@@ -3106,7 +3106,7 @@ kepler.gl, and Google Earth, see the <a href="../comparison/">Comparison</a>.</p
 <li>Private Amazon S3 buckets through saved S3 connections that take access keys, named profiles, IAM Identity Center (SSO) sign-in, or IAM roles, with an S3 Browser for walking a bucket; on the desktop app the secret parts are kept in the operating system's credential store. See <a href="../user-guide/cloud-storage/">Cloud Storage</a></li>
 <li>Manual and automatic refresh for WFS, GeoJSON URL, and Add Vector Layer URL layers, with the cadence, last-synchronized time, last error, and on-failure policy persisted with the project as a <code>connection</code> record — so a reopened project keeps refreshing on schedule and the Layers panel can show each live layer's synchronization status</li>
 <li>ArcGIS Hub, Socrata, and CKAN (Humanitarian Data Exchange) open-data browsers under Plugins → Web Services: search public dataset catalogs by keyword (or restrict the ArcGIS Hub search to the current map area), page through results, and add a dataset to the map or download it</li>
-<li>OSM Downloader under Plugins → Web Services: query buildings, roads, amenities, waterways, land use, all tagged features, or a custom tag from the current view or typed bounds through Overpass, then add the result as GeoJSON or save it to disk</li>
+<li>OSM Downloader under Plugins → Web Services: query buildings, roads, amenities, waterways, land use, all tagged features, or a custom tag from the current view or typed bounds through Overpass, with fallback relays and an area limit checked before the request, then preview the result and add it as GeoJSON or export it to GeoJSON or GeoParquet</li>
 <li>Drag and drop vector and GeoTIFF/COG raster files onto the map to add them as layers</li>
 <li><strong>Open data in GeoLibre</strong>, a <a href="https://chromewebstore.google.com/detail/open-data-in-geolibre/joinecgbfoldanidcoakpjgkbaceaooj">Chrome extension</a> on the Chrome Web Store, that collects the supported dataset links and map services (WMS, WMTS, WFS, OGC API - Features, ArcGIS Feature Services, XYZ/TMS, and vector tiles) on the page you are viewing and opens the ones you pick together on one GeoLibre map; an options page points it at a self-hosted GeoLibre instead of the hosted app</li>
 </ul>
@@ -3302,6 +3302,7 @@ kepler.gl, and Google Earth, see the <a href="../comparison/">Comparison</a>.</p
 </ul>
 </li>
 <li>MCP server (<code>geolibre-mcp</code>) that lets an AI client author real <code>.geolibre.json</code> projects headlessly over stdio — no browser, no running app, and no bundled web build — composing them with the same builders the Python package uses, so anything it writes opens unchanged in the desktop app, the web app, and the Jupyter widget. Every read and write is confined to the roots given by <code>--root</code> or <code>GEOLIBRE_MCP_ROOTS</code>. See <a href="../mcp/">MCP server</a><ul>
+<li>Live <code>live_*</code> tools that drive an open desktop window: read and move the camera, add markers, query layer, selected, drawn, and rendered features, toggle identify and built-in controls, run processing algorithms, Whitebox tools, and Model Builder graphs, and capture a snapshot</li>
 <li>Read-only map previews rendered inline in MCP clients that support MCP Apps</li>
 </ul>
 </li>
@@ -3462,12 +3463,14 @@ kepler.gl, and Google Earth, see the <a href="../comparison/">Comparison</a>.</p
 <li>Install external plugins from uploaded zips and local development directories,
   subject to the client deployment plugin policy. Bundled drop-ins load
   automatically unless their ids are blocked by that policy.</li>
+<li>Plugin host APIs to claim files dropped on the map through file handlers, write files
+  into a folder the user picked, export GeoJSON and GeoParquet, and set the map CRS</li>
 </ul>
 <p>See the <a href="../plugin-api/">Plugin API</a> to build your own.</p>
 <h2 id="deployment-and-platform-builds">Deployment and platform builds<a class="headerlink" href="#deployment-and-platform-builds" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Browser deployment with Docker, with optional HTTP Basic Auth for the web container. See <a href="../user-guide/embedding/">Embedding &amp; Sharing</a><ul>
-<li>Embed-friendly URL parameters, including <code>?url=</code> project deep links that skip the welcome wizard, a <code>?welcome=0</code> param to opt out of onboarding, coordinate links (<code>?lat=40.7128&amp;lon=-74.006&amp;zoom=12</code> or compact <code>?12/40.7128/-74.006</code>), and <code>loading=true</code>, which exposes screenshot readiness on the document element for headless capture; the web address follows the map view as you pan and zoom, and plugins can publish their own declared parameters into it</li>
+<li>Embed-friendly URL parameters, including <code>?url=</code> project deep links that skip the welcome wizard, a <code>?welcome=0</code> param to opt out of onboarding, coordinate links (<code>?lat=40.7128&amp;lon=-74.006&amp;zoom=12</code> or compact <code>?12/40.7128/-74.006</code>), a <code>?crs=</code> map CRS (<code>?crs=EPSG:25832</code> or a preset id such as <code>earth-arctic</code>), and <code>loading=true</code>, which exposes screenshot readiness on the document element for headless capture; the web address follows the map view as you pan and zoom, and plugins can publish their own declared parameters into it</li>
 <li>On Android, GeoLibre handles <code>geo:</code> links, opening the map at the location without replacing layers</li>
 <li>A <code>maponly</code> chrome-free mode, a <code>panels=collapsed</code> layout that keeps the Layers and Style icon rails reachable while starting both panels collapsed, and an option to hide the top toolbar outright for a focused viewer</li>
 <li>A <code>layout=viewer</code> read-only preset that keeps Layers, View, Controls, basemaps, and search/identify while hiding every authoring path — menus, shortcuts, drag-and-drop import, and the plugins whose on-map control writes to the project — so an embed cannot be steered into editing; adding <code>draw</code> lets the geometry editor run in that preset, so a host page can offer drawing and read the result back through the embed API</li>
