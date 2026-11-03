@@ -1,1 +1,0 @@
-import{t as e}from"./preload-helper-DDTdSCVL.js";var r;(function(t){t.load=function(){return e(()=>import("./webdggrid-YDKxB-j9.js").then(o=>o.Webdggrid.load()),[],import.meta.url)}})(r||(r={}));export{r as Webdggrid};
