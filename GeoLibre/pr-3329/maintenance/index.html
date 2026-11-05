@@ -4662,9 +4662,12 @@ The module has no imports of its own, so no CSP change is needed (<code>blob:</c
 <code>script-src</code> and the fetch runs under <code>connect-src</code>). The surface it uses
 (<code>ImageCollection</code>, <code>TileGenerator</code>, <code>image.ColorMap</code>, <code>Resampling</code>) is typed
 by hand, so the compiler does not check it against JAXA's <code>jaxa.earth.esm.d.ts</code>.</p>
-<p>To move to a new release, bump the version, recompute the checksum
-(<code>curl -s &lt;module url&gt; | sha256sum</code>), diff the new <code>.d.ts</code> against the members
-above, and add a dataset from the panel in a browser. If JAXA republishes the
+<p>The checksum is the only trust boundary: once imported, the module runs with
+the app's full privileges, including the Tauri IPC bridge on desktop. To move to
+a new release, bump the version, compute the checksum from the exact bytes JAXA
+serves (<code>curl -s &lt;module url&gt; | sha256sum</code>), review the module and the
+new <code>.d.ts</code> diff against the members above before committing the hash, and add a
+dataset from the panel in a browser. If JAXA republishes the
 pinned file in place, every JAXA layer fails with a "module changed" error
 until the checksum is updated.</p>
 <h3 id="desktop-csp-script-src-allowlist">Desktop CSP <code>script-src</code> allowlist<a class="headerlink" href="#desktop-csp-script-src-allowlist" title="Permanent link">&para;</a></h3>
