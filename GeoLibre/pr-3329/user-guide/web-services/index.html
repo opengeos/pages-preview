@@ -4090,7 +4090,7 @@ adds it to the map.</p>
 <li><strong>Colormap</strong>, <strong>Min</strong>, and <strong>Max</strong> color the band's values. Opening a dataset reads a coarse sample of it at that date and sets the range to the 2nd to 98th percentile of the values; <strong>Auto</strong> reads it again for the date shown. Land cover, forest maps, and other bands that carry their own colors ignore the color map.</li>
 <li><strong>Add to map</strong> adds the band as a tile layer named after the dataset and date. Changing the date, colors, or resampling afterward updates that layer in place, so you can step through a time series; add it again to keep a date side by side. The layer is saved with the project and draws again when the project is reopened.</li>
 <li>Tiles are drawn in the browser by JAXA's own <a href="https://data.earth.jaxa.jp/api/javascript/v2.0.1/en/docs/">JavaScript API</a>, which reads only the resolution and area each map tile covers. GeoLibre loads that module from JAXA's server the first time a JAXA layer draws and checks it against a pinned checksum.</li>
-<li>The sea ice datasets on polar stereographic grids are listed but cannot be added yet. The plugin runs on the MapLibre and globe (Cesium) renderers.</li>
+<li>Datasets on projections other than latitude/longitude (EPSG:4326), such as the polar stereographic sea ice grids, are listed but cannot be added yet. The plugin runs on the MapLibre and globe (Cesium) renderers.</li>
 </ul>
 <p>Most datasets can be used commercially; a few, noted on their dataset pages, cannot. See JAXA's <a href="https://earth.jaxa.jp/en/data/policy/">terms of use</a>.</p>
 <h2 id="geolens">GeoLens<a class="headerlink" href="#geolens" title="Permanent link">&para;</a></h2>
