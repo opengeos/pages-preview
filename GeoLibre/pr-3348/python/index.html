@@ -3895,7 +3895,7 @@ variants can only run on a worker thread.</p>
 </tr>
 <tr>
 <td><code>set_floor_picker(layer, field="level", level=None, mode=None)</code></td>
-<td>Link a multi-floor layer to the app's on-map <a href="../user-guide/styling/#floor-picker">floor picker</a> and choose the floor shown (<code>"0"</code>, <code>-1</code>; <code>None</code> for every floor), with <code>mode="only"</code> (the default) or <code>"below"</code> for that floor and the ones under it. Reads OpenStreetMap <code>level</code> values such as <code>"0;1"</code>. The floor is shared by every linked layer; <code>field=None</code> unlinks.</td>
+<td>Link a multi-floor layer to the app's on-map <a href="../user-guide/styling/#floor-picker">floor picker</a> and choose the floor shown (<code>"0"</code>, <code>-1</code>), with <code>mode="only"</code> (the default) or <code>"below"</code> for that floor and the ones under it. <code>level=None</code> keeps the floor already shown, and <code>mode="all"</code> shows every floor. Reads OpenStreetMap <code>level</code> values such as <code>"0;1"</code>. The floor is shared by every linked layer; <code>field=None</code> unlinks.</td>
 </tr>
 <tr>
 <td><code>set_labels(layer, field=None, expression=None, enabled=None, **options)</code></td>
