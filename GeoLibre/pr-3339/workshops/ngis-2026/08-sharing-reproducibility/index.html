@@ -3274,8 +3274,11 @@ without you. GeoLibre projects get there by design:</p>
 <li>A <code>.geolibre.json</code> project records <strong>where</strong> every layer comes from (a URL,
   service, or query), <strong>how</strong> it is styled, the camera, and plugin state. It
   is plain JSON, so it diffs cleanly in Git.</li>
-<li>Cloud-hosted data means the project points at the <strong>same bytes</strong> for
-  everyone, not at a copy on one person's laptop.</li>
+<li>Cloud-hosted data means the project points at the <strong>same source</strong> for
+  everyone, not at a copy on one person's laptop. Static files (COG,
+  GeoParquet, PMTiles) give everyone identical bytes as long as the file is
+  not replaced; live services (WMS, WFS, OGC API, STAC searches) can return
+  different results over time, so record the date you used them.</li>
 <li>Layers computed in the browser (a hillshade, a SQL result) are either
   embedded in the project (small vector results) or flagged as not saved
   (rasters), so you know what a recipient will see.</li>
@@ -3298,7 +3301,7 @@ without you. GeoLibre projects get there by design:</p>
 <tr>
 <td>Host the file anywhere public, open with <code>?url=</code></td>
 <td>A link anyone can open</td>
-<td>Any static host (GitHub Pages, S3, a website)</td>
+<td>A static host that allows cross-origin (CORS) requests, such as GitHub Pages or a public S3 bucket with a CORS rule</td>
 </tr>
 <tr>
 <td><strong>Project → Share...</strong></td>
@@ -3312,8 +3315,8 @@ without you. GeoLibre projects get there by design:</p>
 </tr>
 <tr>
 <td><strong>Project → Export → Export as HTML...</strong></td>
-<td>One standalone HTML file that runs offline</td>
-<td>Nothing</td>
+<td>One self-contained HTML file with the project embedded</td>
+<td>Nothing to host; it still loads the GeoLibre viewer, basemap, and data from their URLs</td>
 </tr>
 <tr>
 <td><strong>Project → Story map...</strong></td>
@@ -3364,6 +3367,9 @@ deactivate it with <strong>Plugins → Time slider</strong> so all earthquakes s
   with:</p>
 <div class="highlight"><pre><span></span><code>https://web.geolibre.app/?url=https://YOUR-HOST/your-map.geolibre.json
 </code></pre></div>
+<p>The host must send CORS headers that allow <code>https://web.geolibre.app</code>
+(GitHub Pages does). If the project URL itself contains <code>?</code> or <code>&amp;</code>, encode
+it first, for example with JavaScript's <code>encodeURIComponent</code>.</p>
 </li>
 <li>
 <p><strong>share.geolibre.app.</strong> Choose <strong>Project → Share...</strong>, click <strong>Sign in</strong>,
@@ -3373,6 +3379,7 @@ deactivate it with <strong>Plugins → Time slider</strong> so all earthquakes s
 <li>
 <p><strong>Embed.</strong> Paste this into any HTML page (here using the finished project):</p>
 <div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">iframe</span>
+  <span class="na">title</span><span class="o">=</span><span class="s">"Ten Years of Nevada Earthquakes story map"</span>
   <span class="na">src</span><span class="o">=</span><span class="s">"https://web.geolibre.app/?url=https://assets.geolibre.app/projects/workshops/ngis-2026/08-story-map.geolibre.json&amp;layout=viewer"</span>
   <span class="na">width</span><span class="o">=</span><span class="s">"100%"</span> <span class="na">height</span><span class="o">=</span><span class="s">"600"</span> <span class="na">style</span><span class="o">=</span><span class="s">"border:0"</span> <span class="na">allowfullscreen</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">iframe</span><span class="p">&gt;</span>
@@ -3387,7 +3394,8 @@ deactivate it with <strong>Plugins → Time slider</strong> so all earthquakes s
 <h3 id="exercise-83-the-same-map-from-python-5-min-optional">Exercise 8.3: The same map from Python (5 min, optional)<a class="headerlink" href="#exercise-83-the-same-map-from-python-5-min-optional" title="Permanent link">&para;</a></h3>
 <p>In any Jupyter environment (a local notebook, JupyterLab, VS Code, or Google
 Colab):</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># pip install geolibre</span>
+<div class="highlight"><pre><span></span><code><span class="o">%</span><span class="n">pip</span> <span class="n">install</span> <span class="n">geolibre</span>
+
 <span class="kn">from</span><span class="w"> </span><span class="nn">geolibre</span><span class="w"> </span><span class="kn">import</span> <span class="n">Map</span>
 
 <span class="n">base</span> <span class="o">=</span> <span class="s2">"https://assets.geolibre.app/data/workshops/ngis-2026/"</span>
@@ -3399,10 +3407,13 @@ Colab):</p>
 <span class="n">m</span><span class="o">.</span><span class="n">save_project</span><span class="p">(</span><span class="s2">"my-workshop.geolibre.json"</span><span class="p">)</span>
 <span class="n">m</span>
 </code></pre></div>
-<p>The full GeoLibre app renders inside the cell. The saved
+<p>The full GeoLibre app renders inside the cell. This is a partial map (the
+layers, without the story chapters), but the saved
 <code>my-workshop.geolibre.json</code> opens in the web and desktop apps, so a notebook
-and a point-and-click session produce the same artifact. To open a project in
-a notebook, use <code>m.load_project("08-story-map.geolibre.json")</code>.</p>
+and a point-and-click session produce the same kind of artifact. To reopen a
+saved project in a notebook, including one you saved from the web app with
+its story map, use <code>m.load_project("my-workshop.geolibre.json")</code> with that
+file's path.</p>
 <h2 id="wrap-up-10-min">Wrap-up (10 min)<a class="headerlink" href="#wrap-up-10-min" title="Permanent link">&para;</a></h2>
 <p>Today you:</p>
 <ol>

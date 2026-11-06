@@ -1948,10 +1948,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#the-common-trick-an-index-up-front" class="md-nav__link">
+  <a href="#the-common-trick-a-small-index-read-first" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        The common trick: an index up front
+        The common trick: a small index, read first
       </span>
     </span>
   </a>
@@ -3157,10 +3157,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#the-common-trick-an-index-up-front" class="md-nav__link">
+  <a href="#the-common-trick-a-small-index-read-first" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        The common trick: an index up front
+        The common trick: a small index, read first
       </span>
     </span>
   </a>
@@ -3311,10 +3311,17 @@
 <li>Choose the right format for a given task.</li>
 </ul>
 <h2 id="lecture-20-min">Lecture (20 min)<a class="headerlink" href="#lecture-20-min" title="Permanent link">&para;</a></h2>
-<h3 id="the-common-trick-an-index-up-front">The common trick: an index up front<a class="headerlink" href="#the-common-trick-an-index-up-front" title="Permanent link">&para;</a></h3>
-<p>Every cloud-native format does the same two things: it puts an <strong>index</strong>
-(metadata) where a client can read it with one small request, and it
-<strong>chunks</strong> the data so each request returns a useful piece.</p>
+<h3 id="the-common-trick-a-small-index-read-first">The common trick: a small index, read first<a class="headerlink" href="#the-common-trick-a-small-index-read-first" title="Permanent link">&para;</a></h3>
+<p>Every cloud-native format does the same two things: it keeps an <strong>index</strong>
+(metadata) that a client can read with one small request, and it <strong>chunks</strong>
+the data so each request returns a useful piece. Where the index lives
+differs: at the start of a COG, at the end of a GeoParquet file (the footer),
+and in separate small files for Zarr and EPT, whose chunks are separate
+objects fetched by key rather than byte ranges within one file.</p>
+<p>All of this needs a server that answers HTTP <code>Range</code> requests and sends CORS
+headers. A server that ignores <code>Range</code> returns the whole file, so the read
+still works but loses its efficiency. Object stores such as S3, GitHub Pages,
+and Source Cooperative support both.</p>
 <table>
 <thead>
 <tr>
@@ -3383,8 +3390,9 @@ reads only the columns the query needs.</p>
 <li><strong>Slice</strong> a variable through time or depth: Zarr.</li>
 </ul>
 <h3 id="how-the-workshop-data-was-made">How the workshop data was made<a class="headerlink" href="#how-the-workshop-data-was-made" title="Permanent link">&para;</a></h3>
-<p>Every file in the workshop bucket came from the same Census counties
-shapefile, converted with standard open tools:</p>
+<p>The county files in the workshop bucket all came from one Census counties
+shapefile, and the elevation COG from four USGS 3DEP tiles, converted with
+standard open tools:</p>
 <div class="highlight"><pre><span></span><code>ogr2ogr<span class="w"> </span>-f<span class="w"> </span>FlatGeobuf<span class="w"> </span>us_counties.fgb<span class="w"> </span>cb_2023_us_county_500k.shp<span class="w"> </span>-t_srs<span class="w"> </span>EPSG:4326
 ogr2ogr<span class="w"> </span>-f<span class="w"> </span>Parquet<span class="w"> </span>us_counties.parquet<span class="w"> </span>us_counties.fgb<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-lco<span class="w"> </span><span class="nv">COMPRESSION</span><span class="o">=</span>ZSTD<span class="w"> </span>-lco<span class="w"> </span><span class="nv">SORT_BY_BBOX</span><span class="o">=</span>YES<span class="w"> </span>-lco<span class="w"> </span><span class="nv">WRITE_COVERING_BBOX</span><span class="o">=</span>YES
@@ -3493,7 +3501,8 @@ hidden. Toggle them on in the Layers panel.</p>
 <h2 id="going-further">Going further<a class="headerlink" href="#going-further" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Open your browser's developer tools (F12), go to the <strong>Network</strong> tab, and pan
-  the COG. Look for <code>206 Partial Content</code> responses with a <code>Range</code> header.</li>
+  the COG. Look for <code>206 Partial Content</code> responses: the request carries a
+  <code>Range</code> header and the response a matching <code>Content-Range</code> header.</li>
 <li>Convert a file of your own with <strong>Processing → GeoLibre toolbox →
   Conversion</strong>.</li>
 <li>Browse more cloud-native datasets with <strong>Plugins → Web services → Source

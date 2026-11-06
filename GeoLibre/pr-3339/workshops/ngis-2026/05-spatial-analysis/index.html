@@ -3468,8 +3468,9 @@ clicked point, or use <strong>Layer actions → Quick analysis</strong> on a lay
    <code>reno_tahoe_dem.tif</code>. Keep <strong>Azimuth</strong> 315, <strong>Altitude</strong> 45, <strong>Z factor</strong> 1.</li>
 <li>Click <strong>Run</strong>. The log reports the raster size (2520 × 3240, 8.2 million
    pixels), then <strong>Added "hillshade.tif" to the map.</strong></li>
-<li>Close the dialog. Set the hillshade layer's opacity to about 0.6 and move the
-   DEM above it to combine color and relief. Try <strong>Slope</strong> and <strong>Aspect</strong> too.</li>
+<li>Close the dialog. The new <code>hillshade</code> layer sits above the DEM. Set its
+   opacity to about 0.5 and give the DEM a <strong>terrain</strong> color ramp to combine
+   color and relief. Try <strong>Slope</strong> and <strong>Aspect</strong> too.</li>
 </ol>
 <p><img alt="A client-side hillshade of the Reno-Tahoe DEM with the county choropleth and 10 km buffers" src="https://assets.geolibre.app/images/workshops/ngis-2026/s05-hillshade.webp" /></p>
 <div class="admonition warning">
@@ -3487,7 +3488,10 @@ by URL. The finished project points at a hosted copy,
 <ul>
 <li>Write the per-county result to a file with <strong>Export GeoParquet</strong> in the SQL
   workspace.</li>
-<li>Switch the SQL workspace engine to <strong>PostGIS</strong> and run the same join.</li>
+<li>Switch the SQL workspace engine to <strong>PostGIS</strong> and run the same join. The
+  queries above are written for DuckDB; in PostgreSQL, quote mixed-case
+  columns (<code>c."NAME"</code>) and cast before rounding
+  (<code>round(max(q.mag)::numeric, 1)</code>).</li>
 <li>Chain tools into a reusable workflow with <strong>Processing → Model builder</strong>.</li>
 <li>Read <a href="../../../user-guide/sql-workspace/">SQL Workspace</a>,
   <a href="../../../user-guide/processing/">Processing Tools</a>, and
