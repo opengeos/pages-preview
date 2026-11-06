@@ -3283,7 +3283,10 @@
 <li><strong>Stroke</strong>: line color and width for lines and polygon outlines.</li>
 <li><strong>Points</strong>: circle radius for point layers, or <strong>Use marker icon</strong> to draw a marker instead: a built-in shape (circle, square, triangle, diamond, star, cross, or pin) with a color and size, or a <strong>Custom image</strong>. <strong>Upload image…</strong> accepts SVG, PNG, JPEG, or GIF; raster images draw as they are, so the marker color and per-class colors apply only to SVG markers.</li>
 <li><strong>Labels</strong>: text color, size, halo color, and halo width.</li>
-<li><strong>3D extrusion</strong>: turn polygons into extruded blocks, with a height field, height scale, base height, and color. Advanced expressions are available for both height and color.</li>
+<li><strong>3D extrusion</strong>: turn polygons into extruded blocks, with a height field, height scale, base height, and color. Advanced expressions are available for height, base, and color.<ul>
+<li><strong>Stacking floors</strong>: pick a <strong>Base property</strong> (such as <code>level</code>) and a <strong>Base scale</strong> (meters per floor) so each feature starts at <em>base height + property × scale</em>. One layer of floor plans then draws as a stacked building. Set a <strong>Floor height</strong> (such as 3 m) to give every feature that thickness on top of its base. With a floor height of 0 the height field is the roof's altitude instead, so it must be above the base. A negative base (a basement level) is clamped to the ground, as on the 2D map.</li>
+</ul>
+</li>
 </ul>
 <p>You can also set a per-style minimum and maximum zoom so a style only applies within a zoom range.</p>
 <h3 id="point-renderer-heatmap-and-clustering">Point renderer (heatmap and clustering)<a class="headerlink" href="#point-renderer-heatmap-and-clustering" title="Permanent link">&para;</a></h3>
