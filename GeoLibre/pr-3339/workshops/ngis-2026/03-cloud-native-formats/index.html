@@ -3321,8 +3321,10 @@ objects fetched by key rather than byte ranges within one file.</p>
 <p>Every format needs a host that sends CORS headers. The single-file formats
 (COG, GeoParquet, FlatGeobuf, PMTiles, COPC) also need HTTP <code>Range</code> support:
 if a server ignores <code>Range</code>, a reader either falls back to downloading the
-whole file or fails outright (the PMTiles reader rejects it). Zarr and EPT
-fetch each chunk as its own object, so they need no range support. Object
+whole file or fails outright (the PMTiles reader rejects it). EPT and
+unsharded Zarr fetch each chunk as its own object, so they need no range
+support; sharded Zarr v3 packs many chunks into one object and reads them
+with ranges again. Object
 stores such as S3, GitHub Pages, and Source Cooperative support both.</p>
 <table>
 <thead>
@@ -3397,7 +3399,8 @@ shapefile, and the elevation COG from four USGS 3DEP tiles, converted with
 standard open tools:</p>
 <div class="highlight"><pre><span></span><code>ogr2ogr<span class="w"> </span>-f<span class="w"> </span>FlatGeobuf<span class="w"> </span>us_counties.fgb<span class="w"> </span>cb_2023_us_county_500k.shp<span class="w"> </span>-t_srs<span class="w"> </span>EPSG:4326
 ogr2ogr<span class="w"> </span>-f<span class="w"> </span>Parquet<span class="w"> </span>us_counties.parquet<span class="w"> </span>us_counties.fgb<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-lco<span class="w"> </span><span class="nv">COMPRESSION</span><span class="o">=</span>ZSTD<span class="w"> </span>-lco<span class="w"> </span><span class="nv">SORT_BY_BBOX</span><span class="o">=</span>YES<span class="w"> </span>-lco<span class="w"> </span><span class="nv">WRITE_COVERING_BBOX</span><span class="o">=</span>YES
+<span class="w">  </span>-lco<span class="w"> </span><span class="nv">COMPRESSION</span><span class="o">=</span>ZSTD<span class="w"> </span>-lco<span class="w"> </span><span class="nv">SORT_BY_BBOX</span><span class="o">=</span>YES<span class="w"> </span>-lco<span class="w"> </span><span class="nv">WRITE_COVERING_BBOX</span><span class="o">=</span>YES<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-lco<span class="w"> </span><span class="nv">ROW_GROUP_SIZE</span><span class="o">=</span><span class="m">256</span>
 ogr2ogr<span class="w"> </span>-f<span class="w"> </span>PMTiles<span class="w"> </span>us_counties.pmtiles<span class="w"> </span>us_counties.fgb<span class="w"> </span>-dsco<span class="w"> </span><span class="nv">MAXZOOM</span><span class="o">=</span><span class="m">10</span>
 gdalwarp<span class="w"> </span>-of<span class="w"> </span>COG<span class="w"> </span>-co<span class="w"> </span><span class="nv">COMPRESS</span><span class="o">=</span>DEFLATE<span class="w"> </span>-co<span class="w"> </span><span class="nv">OVERVIEWS</span><span class="o">=</span>AUTO<span class="w"> </span>dem.vrt<span class="w"> </span>reno_tahoe_dem.tif
 </code></pre></div>
@@ -3453,7 +3456,8 @@ paint some low valleys blue as if they were water?</p>
 <div class="admonition tip">
 <p class="admonition-title">Streaming or not?</p>
 <p>Streaming suits large, spatially sorted files. This file was written with
-<code>SORT_BY_BBOX</code>, so nearby counties sit in the same row groups. For small
+<code>SORT_BY_BBOX</code> and 256-row groups (14 in all), so nearby counties sit in
+the same row groups and a reader can skip the rest. For small
 files, leave streaming off: you get the full Style panel and the attribute
 table.</p>
 </div>
@@ -3479,8 +3483,8 @@ table.</p>
 <h3 id="exercise-34-zarr-7-min">Exercise 3.4: Zarr (7 min)<a class="headerlink" href="#exercise-34-zarr-7-min" title="Permanent link">&para;</a></h3>
 <ol>
 <li>Hide the PMTiles layer.</li>
-<li><strong>Add data → Zarr layer</strong>. Open <strong>Load sample data...</strong> and pick <strong>Sea
-   surface temperature, monthly (NOAA)</strong>. The form fills in the URL, the
+<li><strong>Add data → Zarr layer</strong>. Open <strong>Load sample data...</strong> and pick the NOAA
+   monthly <strong>Sea surface temperature</strong> sample (OISST). The form fills in the URL, the
    variable <code>sst</code>, and a display range of -2 to 32 °C.</li>
 <li>Tick <strong>Pickable (click to show pixel value)</strong>, set <strong>Layer Name</strong> to
    <code>Sea surface temperature (Zarr)</code>, and click <strong>Add Layer</strong>.</li>
