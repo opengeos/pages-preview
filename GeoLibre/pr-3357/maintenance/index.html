@@ -2885,6 +2885,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#deckglgeo-layers-i3s-mesh-layer-replaced" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>@deck.gl/geo-layers</code> — I3S mesh layer replaced
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#maplibremaplibre-gl-style-spec" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -3668,6 +3679,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#deckglgeo-layers-i3s-mesh-layer-replaced" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>@deck.gl/geo-layers</code> — I3S mesh layer replaced
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#maplibremaplibre-gl-style-spec" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -4352,6 +4374,20 @@ down once that cache fills. After bumping deck.gl or loaders.gl, run
 <code>tests/arcgis-i3s-tiles.test.ts</code>: its real-<code>Tileset3D</code> case fails if the field
 is renamed or no longer starts at 32 MB. If upstream starts honouring the
 option, the helper can go.</p>
+<h3 id="deckglgeo-layers-i3s-mesh-layer-replaced"><code>@deck.gl/geo-layers</code> — I3S mesh layer replaced<a class="headerlink" href="#deckglgeo-layers-i3s-mesh-layer-replaced" title="Permanent link">&para;</a></h3>
+<p>deck.gl's <code>Tile3DLayer</code> draws ArcGIS I3S nodes with its own <code>MeshLayer</code>, which
+shades them through luma.gl's PBR material module. From deck.gl 9.4 / luma.gl
+9.4 that draws nothing on WebGL (every fragment transparent, no error), so no
+I3S scene layer rendered from the 9.3 → 9.4 bump (#2395) until GeoLibre
+replaced the layer. <code>packages/plugins/src/plugins/i3s-mesh-layer.ts</code> is deck.gl
+9.3's I3S mesh layer without the PBR module, passed to <code>Tile3DLayer</code> as
+<code>_subLayerProps.mesh.type</code> in <code>arcgis-i3s-tiles.ts</code>.</p>
+<p>After bumping deck.gl or luma.gl, load <strong>Add data → 3D Tiles layer → Load sample
+data → San Francisco Buildings (ArcGIS I3S)</strong> on the Positron background (Liberty
+draws its own 3D buildings, which look like I3S ones) and check the textured
+buildings draw. To see whether upstream fixed its layer, drop the
+<code>_subLayerProps</code> override and check again; if it draws, delete
+<code>i3s-mesh-layer.ts</code>.</p>
 <h3 id="maplibremaplibre-gl-style-spec"><code>@maplibre/maplibre-gl-style-spec</code><a class="headerlink" href="#maplibremaplibre-gl-style-spec" title="Permanent link">&para;</a></h3>
 <p><code>propertySpecFor</code> (<code>packages/core/src/expressions.ts</code>) fabricates the
 <strong>unexported</strong> <code>StylePropertySpecification</code> shape that <code>createExpression</code> uses for
