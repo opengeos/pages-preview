@@ -4384,6 +4384,14 @@ permanently on the global <code>Set</code> and <code>Error</code>, which stops e
 loading. <code>apps/geolibre-desktop/vite-plugins/isolate-maplibre-registry.ts</code> renames
 MapLibre's copy at build time. A CI run can't see this failure without a real
 Mapbox token, so after a bump of either package, load a Mapbox style with one.</p>
+<p>The Mapbox engine's plugin-layer mirror (<code>mirrorPluginLayerState</code> in
+<code>packages/map/src/mapbox-engine.ts</code>) identifies a plugin's native layer by the
+style's own layer object, <code>style.getOwnLayer(id)</code>, an internal, because
+<code>map.getLayer</code> returns a fresh <code>serialize()</code> copy on every call.
+<code>OwnedPaintResets</code> keys what GeoLibre wrote on that object, so a cleared dash
+or blur resets only GeoLibre's own value. Without <code>getOwnLayer</code> nothing is
+owned and dashes on plugin layers stop resetting to solid, silently;
+<code>tests/upstream-contracts.test.ts</code> checks both halves in the bundle.</p>
 <h3 id="deckglmapbox-and-deckglmaplibre"><code>@deck.gl/mapbox</code> and <code>@deck.gl/maplibre</code><a class="headerlink" href="#deckglmapbox-and-deckglmaplibre" title="Permanent link">&para;</a></h3>
 <p><code>bridgeArcgisDeckControl</code> (<code>packages/plugins/src/plugins/arcgis-deck/control-adapter.ts</code>)
 reads each overlay's private <code>_props</code> field so ArcGIS can transfer its initial
