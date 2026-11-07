@@ -4245,9 +4245,15 @@ desktop parser drop the whole <code>plugins</code> section, including <code>bloc
 and <code>sideload</code>, with a console warning naming the field. The container validator
 rejects the whole file instead, so validate desktop policy files against
 <code>schema/deployment.schema.json</code>.</p>
-<p><code>fileAccess</code> configures an administrator-side allowlist of file paths per plugin
-id (e.g. <code>{"my-plugin": ["/etc/geolibre/app.cfg"]}</code>). Only paths explicitly
-listed for a given plugin id are accessible to that plugin.</p>
+<p><code>fileAccess</code> configures an administrator-side allowlist of literal absolute file
+paths per plugin id (e.g. <code>{"my-plugin": ["/etc/geolibre/app.cfg"]}</code>). To prevent
+unprivileged tampering, <code>fileAccess</code> is honoured exclusively from a machine-wide
+<code>deployment.json</code> (<code>%ProgramData%/GeoLibre/</code> on Windows, <code>/etc/geolibre/</code> on Linux,
+<code>/Library/Application Support/GeoLibre/</code> on macOS); if defined in a per-user policy,
+it is ignored with a console warning. The allowlist gates the native
+<code>readAllowedFile(pluginId, path)</code> API on the desktop, where both the requested path
+and allowlist entries are canonicalised to prevent path traversal and symlink escapes.
+Reads enforce a 50 MB size limit.</p>
 <p>Plugin policy is client-side enforcement only, not a server security boundary:
 a modified client can bypass it. It does not provide signing or sandboxing.</p>
 <h2 id="precedence-between-sources">Precedence between sources<a class="headerlink" href="#precedence-between-sources" title="Permanent link">&para;</a></h2>
