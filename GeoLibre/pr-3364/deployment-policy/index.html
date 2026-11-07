@@ -4073,8 +4073,8 @@ means "not specified": the next source in the precedence chain applies.</p>
 </tr>
 <tr>
 <td><code>fileAccess</code></td>
-<td>Record<string, string[]></td>
-<td>Administrator-allowlisted file paths/patterns per plugin id.</td>
+<td>object (plugin id → string[])</td>
+<td>Literal absolute file paths each plugin may read; honoured only from a machine-wide policy file.</td>
 </tr>
 </tbody>
 </table>
@@ -4253,7 +4253,9 @@ unprivileged tampering, <code>fileAccess</code> is honoured exclusively from a m
 it is ignored with a console warning. The allowlist gates the native
 <code>readAllowedFile(pluginId, path)</code> API on the desktop, where both the requested path
 and allowlist entries are canonicalised to prevent path traversal and symlink escapes.
-Reads enforce a 50 MB size limit.</p>
+Reads enforce a 50 MB size limit. Plugins call <code>app.readAllowedFile(path)</code>; the host
+binds the calling plugin's id. Plugins still share one unsandboxed webview, so this
+scopes well-behaved plugins to their own list rather than isolating a hostile one.</p>
 <p>Plugin policy is client-side enforcement only, not a server security boundary:
 a modified client can bypass it. It does not provide signing or sandboxing.</p>
 <h2 id="precedence-between-sources">Precedence between sources<a class="headerlink" href="#precedence-between-sources" title="Permanent link">&para;</a></h2>
@@ -4283,7 +4285,13 @@ version is ignored with a console warning.</p>
 ids, service ids that collide after trimming, and numeric service field values
 beyond the safe-integer range, none of which JSON Schema alone can all express.</p>
 <h2 id="desktop">Desktop<a class="headerlink" href="#desktop" title="Permanent link">&para;</a></h2>
-<p>Place <code>deployment.json</code> in Tauri's <code>&lt;app_config_dir&gt;</code> (see
+<p>A machine-wide <code>deployment.json</code> takes precedence: when
+<code>%ProgramData%\GeoLibre\deployment.json</code> (Windows), <code>/etc/geolibre/deployment.json</code>
+(Linux) or <code>/Library/Application Support/GeoLibre/deployment.json</code> (macOS) exists,
+it is the whole desktop policy and the per-user file below is not read. Use it when
+users must not be able to edit the policy; it is the only source that can grant
+<code>plugins.fileAccess</code>.</p>
+<p>Otherwise, place <code>deployment.json</code> in Tauri's <code>&lt;app_config_dir&gt;</code> (see
 <a href="../ui-profiles/">UI Profiles</a> for the legacy profile locations). For the
 standard <code>org.geolibre.desktop</code> application identifier, the paths are:</p>
 <table>
