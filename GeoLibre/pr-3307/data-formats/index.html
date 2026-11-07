@@ -1365,6 +1365,60 @@
   
   
     <li class="md-nav__item">
+      <a href="../arcgis-editing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Editing ArcGIS Services
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/usgs-nldi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  USGS NLDI Workflows
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../user-guide/settings/" class="md-nav__link">
         
   
@@ -3694,10 +3748,10 @@ workflow and <a href="../user-guide/projects/">Projects</a> for saving and reope
 <td>Reads an extract in the browser and adds the selected features.</td>
 </tr>
 <tr>
-<td>ICESat-2 / GEDI footprints</td>
-<td><code>.h5</code> granules of ICESat-2 ATL06/ATL08 and GEDI L2A/L2B/L4A</td>
 <td>ICESat-2 / GEDI</td>
-<td>Read in the browser into a point layer. Choose beams and fields, apply the product's quality filter, limit the read to the current view, and cap the point count; each footprint carries its beam, acquisition time and along-track distance. Download granules from NASA Earthdata, or load a sample granule from Source Cooperative. Large layers are stored inline in the project, which can pause autosave.</td>
+<td><code>.h5</code> granules of ICESat-2 ATL03/ATL06/ATL08 and GEDI L2A/L2B/L4A</td>
+<td>ICESat-2 / GEDI</td>
+<td>Read in the browser into a point layer. For ATL06, ATL08 and GEDI, choose beams and fields and apply the product's quality filter; for ATL03, pick the beams, surface type and minimum signal confidence (ATL03 uses a fixed set of photon properties). Limit the read to the current view and cap the point count; each footprint or photon carries its beam, acquisition time and along-track distance (for ATL03 photons, the time and distance come from the ~20 m geolocation segments rather than per-photon measurements, and the distance counts from the first photon along track on each beam that passed the view, confidence and height filters (before the point cap thins them), so it is not comparable across beams or separate reads). Download granules from NASA Earthdata to open locally, or load a sample granule from Source Cooperative; direct ATL03 URL streaming requires HTTP byte-range support, browser CORS access, and <code>Access-Control-Expose-Headers: Content-Range</code> (NASA granules stream through the Earthaccess relay). Large footprint and photon layers are stored inline in the project, which can pause autosave.</td>
 </tr>
 <tr>
 <td>Encoded polyline</td>

@@ -819,6 +819,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#indoorgml-buildings" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        IndoorGML buildings
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#bim-models-as-i3s-building-scene-layers" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -1324,6 +1335,60 @@
     
   
   Web Services
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../arcgis-editing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Editing ArcGIS Services
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usgs-nldi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  USGS NLDI Workflows
 
     
   </span>
@@ -3461,6 +3526,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#indoorgml-buildings" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        IndoorGML buildings
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#bim-models-as-i3s-building-scene-layers" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -3536,11 +3612,19 @@
 <p>Rooms, corridors and doors from OpenStreetMap indoor mapping, a GeoPackage, a Shapefile or GeoJSON usually carry the floor each feature is on (<code>level</code>, <code>floor</code>, <code>ordinal</code>, ...).</p>
 <ol>
 <li><strong>Stack the floors.</strong> In the Style panel, turn on <strong>3D extrusion</strong>, set <strong>Base property</strong> to the level field and <strong>Base scale</strong> to the storey height (for example 3.5 m), and give every feature a <strong>Floor height</strong> (for example 3 m). See <a href="../styling/#vector-styling">Stacking floors</a>.</li>
-<li><strong>Pick a floor.</strong> In the Style panel's <strong>Floor picker</strong> section, choose the <strong>Floor field</strong>. A <strong>Floor</strong> control appears on the map: click a floor to draw only that floor, or add <strong>+ below</strong> to keep the floors under it. See <a href="../styling/#floor-picker">Floor picker</a>.</li>
+<li><strong>Pick a floor.</strong> In the Style panel's <strong>Floor picker</strong> section, choose the <strong>Floor field</strong>. A <strong>Floor</strong> control appears on the map: click a floor to draw only that floor, add <strong>+ below</strong> to keep the floors under it, or while <strong>All</strong> is selected click a room on the map to switch to its floor and center on it. See <a href="../styling/#floor-picker">Floor picker</a>.</li>
 </ol>
 <p><strong>Add Data → Vector Layer → Load sample data → Berlin Hbf indoor (OSM)</strong> is a ready-made example with three floors.</p>
 <h2 id="imdf-venues">IMDF venues<a class="headerlink" href="#imdf-venues" title="Permanent link">&para;</a></h2>
 <p>An IMDF archive (Indoor Mapping Data Format, the zip of GeoJSON files that Apple Maps and many indoor-mapping tools export) opens as a ready-made venue: one layer per feature type, the floors stacked and linked to the floor picker. Pick or drop the <code>.zip</code>, or load it by URL with <strong>Add Data → Vector Layer</strong>. <strong>Load sample data → Dinoseum indoor venue (IMDF)</strong> opens Apple's IMDF sample. See <a href="../adding-data/">Adding data</a>.</p>
+<h2 id="indoorgml-buildings">IndoorGML buildings<a class="headerlink" href="#indoorgml-buildings" title="Permanent link">&para;</a></h2>
+<p>An OGC IndoorGML 1.0 document (<code>.gml</code> or <code>.xml</code>) opens with <strong>Add Data → IndoorGML Layer</strong> as three layers linked to the floor picker:</p>
+<ul>
+<li><strong>Cells</strong> — rooms (<code>GeneralSpace</code>), corridors and stairs (<code>TransitionSpace</code>), doors (<code>ConnectionSpace</code>) and anchors (<code>AnchorSpace</code>), extruded from each cell's floor (<code>base_z</code>) to its ceiling (<code>top_z</code>) and colored by space kind.</li>
+<li><strong>Navigation network</strong> — the transitions of the dual graph, drawn in 3D at their node elevations.</li>
+<li><strong>Navigation nodes</strong> — the states of the dual graph (hidden at first).</li>
+</ul>
+<p>Floors come from a cell's <code>storey</code> when the file names one, or from grouping cell base elevations (counting floor <code>0</code> from the floor nearest elevation zero). When the file does not name an EPSG coordinate reference system (<code>srsName</code>), enter the <strong>Source CRS</strong> or check <strong>Local coordinates (place at map centre)</strong> for a model in local building metres. <strong>Load sample data → FJK-Haus (OGC IndoorGML sample)</strong> opens a two-storey house with its navigation graph. See <a href="../adding-data/#indoorgml-buildings">IndoorGML buildings</a>.</p>
 <h2 id="bim-models-as-i3s-building-scene-layers">BIM models as I3S Building Scene Layers<a class="headerlink" href="#bim-models-as-i3s-building-scene-layers" title="Permanent link">&para;</a></h2>
 <p>An ArcGIS I3S <strong>Building Scene Layer</strong> is a BIM model published as a scene service. Add its <code>.../SceneServer/layers/&lt;n&gt;</code> URL with <strong>Add Data → 3D Tiles Layer</strong>. It opens on its Overview (the building shell); the Style panel's <strong>Building</strong> section switches to the <strong>Full model</strong> and turns its disciplines (Architectural, Structural, Electrical, ...) and categories (Walls, Windows, Doors, ...) on and off. The choice is saved with the project. Scene layers have to be in WGS84 to draw on the 2D map.</p>
 <h2 id="ifc-files">IFC files<a class="headerlink" href="#ifc-files" title="Permanent link">&para;</a></h2>
