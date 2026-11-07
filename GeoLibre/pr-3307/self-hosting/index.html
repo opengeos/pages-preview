@@ -4069,6 +4069,11 @@ generated final policy; build-only grants do not configure its guards.</p>
 <td>Unset leaves <a href="../collaboration/">live collaboration</a> dark. Set it to a <code>wss://</code> relay you run if you want multiplayer editing without the hosted relay.</td>
 </tr>
 <tr>
+<td><code>GEOLIBRE_PROJECT_STORAGE</code></td>
+<td>unset (<code>local</code>), or <code>server</code></td>
+<td>When set to <code>server</code>, projects save to and open from the configured projects server (<code>GEOLIBRE_SHARE_URL</code>) by default instead of local <code>.geolibre</code> files: Save uploads a private project to the server, and the Open shortcut (Ctrl/Cmd+O) opens the Gallery on your projects instead of a local file picker. <strong>Open from › File…</strong> in the Project menu still opens a local <code>.geolibre</code> file. Requires <code>GEOLIBRE_SHARE_URL</code> to be set and not <code>off</code>.</td>
+</tr>
+<tr>
 <td><code>GEOLIBRE_GEOLENS_URL</code></td>
 <td>unset for the image default, <code>same-origin</code>, your GeoLens URL, or <code>off</code></td>
 <td>Pre-fills and automatically connects the GeoLens plugin. The stock image defaults to the browser origin, which suits a GeoLens API co-located behind the same reverse proxy. A URL must be a server root without a query or fragment. <code>off</code> keeps the panel idle until the user chooses a server. The last successful server is remembered per browser.</td>
