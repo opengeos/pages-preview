@@ -4400,7 +4400,9 @@ widget): the map shows the default basemap until the user picks <strong>Load</st
 <strong>Use default basemap</strong>. The answer holds for the rest of the session, so
 opening the same basemap again (or a host re-sending its project) does not ask
 twice, and a framing host keeps seeing its own basemap in the state the app
-reports back.</p>
+reports back. Closing the dialog without either button keeps the default
+basemap but is not remembered, so the next project naming that basemap asks
+again. Picking the basemap in the UI later counts as <strong>Load</strong>.</p>
 <p>These do not ask: a basemap the user picks in the UI, or that a plugin, script
 or the assistant sets on their behalf (code the user installed or ran); a new
 project, a template, an undo step or a duplicate; a project the iframe embed API
