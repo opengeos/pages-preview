@@ -85,6 +85,9 @@
         <loc>https://geolibre.app/mcp/</loc>
       </url>
       <url>
+        <loc>https://geolibre.app/network-endpoints/</loc>
+      </url>
+      <url>
         <loc>https://geolibre.app/notebook/</loc>
       </url>
       <url>
@@ -95,6 +98,39 @@
       </url>
       <url>
         <loc>https://geolibre.app/project-format/</loc>
+      </url>
+      <url>
+        <loc>https://geolibre.app/python-api/</loc>
+      </url>
+      <url>
+        <loc>https://geolibre.app/python-api/authoring/</loc>
+      </url>
+      <url>
+        <loc>https://geolibre.app/python-api/basemaps/</loc>
+      </url>
+      <url>
+        <loc>https://geolibre.app/python-api/color_ramp/</loc>
+      </url>
+      <url>
+        <loc>https://geolibre.app/python-api/dash_component/</loc>
+      </url>
+      <url>
+        <loc>https://geolibre.app/python-api/legends/</loc>
+      </url>
+      <url>
+        <loc>https://geolibre.app/python-api/map/</loc>
+      </url>
+      <url>
+        <loc>https://geolibre.app/python-api/pointcloud/</loc>
+      </url>
+      <url>
+        <loc>https://geolibre.app/python-api/polyline/</loc>
+      </url>
+      <url>
+        <loc>https://geolibre.app/python-api/project/</loc>
+      </url>
+      <url>
+        <loc>https://geolibre.app/python-api/spaceborne_lidar/</loc>
       </url>
       <url>
         <loc>https://geolibre.app/python/</loc>
@@ -184,6 +220,9 @@
         <loc>https://geolibre.app/user-guide/field-collection/</loc>
       </url>
       <url>
+        <loc>https://geolibre.app/user-guide/indoor-maps/</loc>
+      </url>
+      <url>
         <loc>https://geolibre.app/user-guide/interface/</loc>
       </url>
       <url>
@@ -245,5 +284,32 @@
       </url>
       <url>
         <loc>https://geolibre.app/user-guide/web-services/</loc>
+      </url>
+      <url>
+        <loc>https://geolibre.app/workshops/ngis-2026/</loc>
+      </url>
+      <url>
+        <loc>https://geolibre.app/workshops/ngis-2026/01-introduction/</loc>
+      </url>
+      <url>
+        <loc>https://geolibre.app/workshops/ngis-2026/02-vector-data/</loc>
+      </url>
+      <url>
+        <loc>https://geolibre.app/workshops/ngis-2026/03-cloud-native-formats/</loc>
+      </url>
+      <url>
+        <loc>https://geolibre.app/workshops/ngis-2026/04-stac-and-ogc-services/</loc>
+      </url>
+      <url>
+        <loc>https://geolibre.app/workshops/ngis-2026/05-spatial-analysis/</loc>
+      </url>
+      <url>
+        <loc>https://geolibre.app/workshops/ngis-2026/06-lidar-3d/</loc>
+      </url>
+      <url>
+        <loc>https://geolibre.app/workshops/ngis-2026/07-plugins-ai/</loc>
+      </url>
+      <url>
+        <loc>https://geolibre.app/workshops/ngis-2026/08-sharing-reproducibility/</loc>
       </url>
 </urlset>
