@@ -1,0 +1,1 @@
+import{di as n}from"./src-CUbkUvnG.js";import{d as e}from"./duckdb-geometry-JYMc6AYf.js";var o="geolibre:metadata";function s(a){const t=n(a.descriptiveMetadata);return t?{[o]:JSON.stringify(t)}:void 0}function d(a){const t=Object.entries(a??{});return t.length===0?"":`, KV_METADATA {${t.map(([r,i])=>`${e(r)}: ${e(i)}`).join(", ")}}`}export{d as n,s as t};
