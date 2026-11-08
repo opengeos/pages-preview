@@ -3739,7 +3739,9 @@ files or projects, but like any request they reveal your IP address to the host:
 <li><strong>Default basemap</strong>: a new map loads the OpenFreeMap basemap
   (tiles.openfreemap.org) for the current view. The tiles requested reveal the
   area you are looking at, which OpenFreeMap can associate with your IP address.</li>
-<li><strong>Plugin blocklist</strong>: each session downloads the plugin registry's blocklist;
+<li><strong>Plugin registry</strong>: each session downloads the plugin registry and its
+  blocklist from plugins.geolibre.app (the registry only when plugin
+  installation is allowed, which it is by default);
   see <a href="#plugins-from-the-plugin-registry">Plugins from the plugin registry</a>.</li>
 <li><strong>Update check (desktop only)</strong>: at startup, at most once every 6 hours, the
   desktop app asks GitHub (api.github.com) for the latest GeoLibre release. Turn
@@ -3783,10 +3785,11 @@ default, and which go through a GeoLibre relay, see
 <h2 id="plugins-from-the-plugin-registry">Plugins from the plugin registry<a class="headerlink" href="#plugins-from-the-plugin-registry" title="Permanent link">&para;</a></h2>
 <p>Settings → Manage Plugins lists plugins from the GeoLibre plugin registry at
 <a href="https://plugins.geolibre.app">https://plugins.geolibre.app</a>, operated by the OpenGeos project (currently
-hosted on GitHub Pages and Cloudflare). Opening that dialog downloads the
-registry, and each time GeoLibre starts it downloads the registry's blocklist
-(of plugins pulled for safety) and the files of the plugins you installed from
-it. Like any web server, the registry sees your IP address and which files
+hosted on GitHub Pages and Cloudflare). Each time GeoLibre starts it downloads
+the registry (unless the deployment disables plugin installation), the
+registry's blocklist (of plugins pulled for safety), and the files of the
+plugins you installed from it; opening that dialog downloads the registry
+again. Like any web server, the registry sees your IP address and which files
 you request.</p>
 <p>The registry uses those requests to show how often each plugin is used, as
 public counts on its plugin catalog. It records no more than this:</p>

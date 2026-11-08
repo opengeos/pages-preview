@@ -3735,7 +3735,7 @@ GeoLibre has no telemetry and no crash reporting in any build.</p>
 </tr>
 <tr>
 <td><code>plugins.geolibre.app</code></td>
-<td><code>blocklist.json</code> (plugins pulled from the registry for safety), fetched once per session before external plugins load. It is fetched even when no registry plugin is installed. The registry itself (<code>plugin-registry.json</code>) is fetched only when Settings → Manage Plugins is opened. See <a href="../privacy/#plugins-from-the-plugin-registry">Privacy Policy</a>.</td>
+<td><code>blocklist.json</code> (plugins pulled from the registry for safety), fetched once per session before external plugins load. It is fetched even when no registry plugin is installed. The registry itself (<code>plugin-registry.json</code>) is fetched at every start when the deployment allows plugin installation (the <code>plugins:install</code> capability, which is on by default; the registry tells saved-project redaction which plugins may keep their state), and again when Settings → Manage Plugins is opened. See <a href="../privacy/#plugins-from-the-plugin-registry">Privacy Policy</a>.</td>
 <td>All</td>
 <td>Direct</td>
 <td>Set <code>plugins.registryUrl</code> in <a href="../deployment-policy/#plugins"><code>deployment.json</code></a> to your own registry; the blocklist is then read from beside it.</td>
@@ -3756,10 +3756,10 @@ GeoLibre has no telemetry and no crash reporting in any build.</p>
 </tr>
 <tr>
 <td><code>www.googletagmanager.com</code></td>
-<td>Google Analytics, on the hosted sites only (geolibre.app, geolibre.app/demo, web.geolibre.app).</td>
+<td>Google Analytics. Loaded only by a web build that sets <code>VITE_GEOLIBRE_GA_MEASUREMENT_ID</code>, which the OpenGeos hosted deploys (geolibre.app, geolibre.app/demo, web.geolibre.app) do.</td>
 <td>Hosted web only</td>
 <td>Direct</td>
-<td>Never present in the desktop app, the Jupyter widget, or the Docker image. See <a href="../privacy/#website-analytics">Privacy Policy</a>.</td>
+<td>Never present in the desktop app or the Jupyter widget, and absent from any web build that leaves the ID unset (the default). The Docker image cannot enable it. See <a href="../privacy/#website-analytics">Privacy Policy</a>.</td>
 </tr>
 </tbody>
 </table>
@@ -4368,11 +4368,13 @@ allowing it, and use <code>plugins.allowed</code> to limit which ones load (see
 <h2 id="differences-between-builds">Differences between builds<a class="headerlink" href="#differences-between-builds" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>Desktop</strong> adds the startup update check and the Python sidecar bootstrap.
-  It reaches some upstreams directly over native HTTP (OpenAerialMap, Source
-  Cooperative, Ocean Data Platform features, Earthdata downloads) where the web
-  build needs the relay. Its native HTTP scope for the fetch plugin is limited
-  to the sidecar, the geocoders, <code>share.geolibre.app</code>, <code>datasets.geolibre.app</code>,
-  and <code>api.typesafe.ai</code> (<code>src-tauri/capabilities/default.json</code>).</li>
+  It reaches some upstreams directly (OpenAerialMap, Source Cooperative, Ocean
+  Data Platform features, Earthdata downloads) where the web build needs the
+  relay, through GeoLibre's own Rust commands (<code>fetch_url_bytes</code> and related,
+  wrapped by <code>apps/geolibre-desktop/src/lib/native-http.ts</code>), which bypass CORS.
+  Separately, the Tauri HTTP plugin that page code can call is scoped to the
+  sidecar, the geocoders, <code>share.geolibre.app</code>, <code>datasets.geolibre.app</code>, and
+  <code>api.typesafe.ai</code> (<code>src-tauri/capabilities/default.json</code>).</li>
 <li><strong>Web</strong> hosted by the OpenGeos project adds Google Analytics and the baked-in
   collaboration (and, on studio.geolibre.app, AI) URLs. A Docker or
   self-built web deployment adds neither.</li>
@@ -4421,8 +4423,8 @@ has the per-feature checklist.</p>
 contacts (a new basemap, plugin, relay route, CDN asset, or default service)
 should add it here in the same pull request, and say whether it is default or
 opt-in. Useful starting points for an audit:</p>
-<div class="highlight"><pre><span></span><code>grep<span class="w"> </span>-rhoE<span class="w"> </span><span class="s2">"https?://[a-zA-Z0-9.-]+"</span><span class="w"> </span>packages<span class="w"> </span>apps/geolibre-desktop/src<span class="w"> </span>workers<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--include<span class="o">=</span><span class="s1">'*.ts'</span><span class="w"> </span>--include<span class="o">=</span><span class="s1">'*.tsx'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-c<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-rn
+<div class="highlight"><pre><span></span><code>grep<span class="w"> </span>-rhoE<span class="w"> </span><span class="s2">"(https?|wss?)://[a-zA-Z0-9.-]+"</span><span class="w"> </span>packages<span class="w"> </span>apps/geolibre-desktop/src<span class="w"> </span>workers<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--include<span class="o">=</span><span class="s1">'*.ts'</span><span class="w"> </span>--include<span class="o">=</span><span class="s1">'*.tsx'</span><span class="w"> </span>--include<span class="o">=</span><span class="s1">'*.json'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-c<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-rn
 </code></pre></div>
 <p>plus <code>workers/tiles/src/allowlisted-fetch.ts</code> for relay upstreams and the
 <code>maplibre-gl-*</code> packages in <code>packages/plugins/package.json</code>, which carry hosts
