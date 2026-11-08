@@ -4125,8 +4125,8 @@ generated final policy; build-only grants do not configure its guards.</p>
 </tr>
 <tr>
 <td><code>GEOLIBRE_DISABLE_REGIONAL_BASEMAPS</code></td>
-<td>unset, or <code>1</code> to disable them</td>
-<td>Disables the regional basemaps (Amap and Tencent), whose tiles are served from mainland China: the basemap dialogs hide them and a project that names one opens on the default basemap with a notice instead of a prompt. Sets <code>basemaps.regional: false</code> in the generated policy; <code>0</code> sets <code>true</code>, overriding the policy file. Any other value fails the boot. <code>VITE_GEOLIBRE_DISABLE_REGIONAL_BASEMAPS</code> is the equivalent build arg. See <a href="../deployment-policy/#regional-basemaps">Deployment Policy: Regional basemaps</a>.</td>
+<td>unset, or <code>1</code>/<code>true</code> to disable them</td>
+<td>Disables the regional basemaps (Amap and Tencent), whose tiles are served from mainland China: the basemap dialogs hide them and a project that names one opens on the default basemap with a notice instead of a prompt. <code>1</code> or <code>true</code> (any case) sets <code>basemaps.regional: false</code> in the generated policy; <code>0</code> or <code>false</code> sets <code>true</code>, overriding the policy file. Any other nonblank value fails the boot. <code>VITE_GEOLIBRE_DISABLE_REGIONAL_BASEMAPS</code> is the equivalent build arg. See <a href="../deployment-policy/#regional-basemaps">Deployment Policy: Regional basemaps</a>.</td>
 </tr>
 <tr>
 <td><code>GEOLIBRE_DISABLE_SIDECAR</code></td>
