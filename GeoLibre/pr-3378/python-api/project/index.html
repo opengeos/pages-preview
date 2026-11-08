@@ -8597,8 +8597,11 @@ combined with an Ion asset (Ion requests carry the token instead).</p>
     <div class="doc doc-contents ">
 
         <p>Return whether a URL points at an ArcGIS I3S scene service.</p>
-<p>Mirrors <code>isArcgisI3sSceneLayerUrl</code> in the app
-(<code>packages/plugins/src/plugins/arcgis-i3s-tiles.ts</code>).</p>
+<p>Matches the same URLs as the project migration <code>withI3sSceneLayerKind</code>
+in <code>packages/core/src/project.ts</code>: the path of the service or one of its
+layers. That is narrower than the 3D Tiles panel's
+<code>isArcgisI3sSceneLayerUrl</code> on purpose, so a <code>tileset.json</code> stored under
+a <code>SceneServer</code> folder stays a tileset.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -8667,7 +8670,7 @@ combined with an Ion asset (Ion requests carry the token instead).</p>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>on a <code>tileset.json</code> URL does not count.</p>
+                <p>does not count.</p>
               </div>
             </td>
           </tr>
