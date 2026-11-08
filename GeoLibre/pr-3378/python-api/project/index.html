@@ -8412,9 +8412,9 @@ URL automatically, so a plain <code>https://</code> URL is accepted here.</p>
 project, so the deck.gl 3D-tiles overlay is rebuilt on load. An ArcGIS I3S
 scene layer URL (<code>.../SceneServer/layers/&lt;n&gt;</code>) is filed as a scene layer,
 the way the app's 3D Tiles panel files it, so it draws on the 2D map and the
-globe. An Ion asset
-(<code>ion_asset_id</code>) renders only on the 3D globe, which loads it with the
-app's Cesium Ion token; the token itself is never written to the project.</p>
+globe. An Ion asset (<code>ion_asset_id</code>) renders only on the 3D globe, which
+loads it with the app's Cesium Ion token; the token itself is never written
+to the project.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -8648,6 +8648,26 @@ combined with an Ion asset (Ion requests carry the token instead).</p>
             <td>
               <div class="doc-md-description">
                 <p>True for a <code>.../SceneServer</code> or <code>.../SceneServer/layers/&lt;n&gt;</code> URL.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Only the path is matched, so a query such as <code>?ref=/SceneServer/x</code></p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>on a <code>tileset.json</code> URL does not count.</p>
               </div>
             </td>
           </tr>
