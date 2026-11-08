@@ -3763,7 +3763,7 @@ GeoLibre has no telemetry and no crash reporting in any build; the only analytic
 </tr>
 </tbody>
 </table>
-<p>Some builds go further than this because the OpenGeos project configures them:
+<p>Three hosted builds go further than this because the OpenGeos project configures them:
 the hosted web builds (geolibre.app/demo, web.geolibre.app, studio.geolibre.app)
 bake in <code>wss://collab.geolibre.app</code> so the Collaborate menu works, and
 studio.geolibre.app also bakes in <code>https://ai.geolibre.app</code> for the AI
@@ -4365,8 +4365,11 @@ under <code>packages/plugins/src/plugins/</code>.</p>
 host the CSP allows, and GeoLibre does not track which. On the desktop,
 <code>app.nativeFetch</code> sends a plugin's requests through the native HTTP client,
 which the webview CSP does not govern. It can reach loopback and private LAN
-addresses; it refuses only link-local (including cloud metadata), unspecified,
-multicast, and broadcast addresses. Review a plugin before
+addresses; it refuses only link-local addresses (including the
+<code>169.254.169.254</code> cloud metadata address), unspecified, multicast, and the
+limited broadcast address <code>255.255.255.255</code>. Other metadata endpoints, such as
+AWS's IPv6 <code>fd00:ec2::254</code>, and subnet-directed broadcasts are not blocked.
+Review a plugin before
 allowing it, and use <code>plugins.allowed</code> to limit which ones load (see
 <a href="../plugin-api/">Plugin API</a>).</p>
 <h2 id="differences-between-builds">Differences between builds<a class="headerlink" href="#differences-between-builds" title="Permanent link">&para;</a></h2>
