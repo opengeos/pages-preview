@@ -1,0 +1,3 @@
+GeoLibre's Georeferencer export uses gdal3.js 2.8.1, unmodified.
+gdal3.js is licensed under the GNU Lesser General Public License, version 2.1 or later; see LICENSE in this directory.
+Source code: https://github.com/bugra9/gdal3.js/tree/v2.8.1
