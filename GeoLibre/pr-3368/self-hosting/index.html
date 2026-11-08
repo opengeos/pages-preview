@@ -4081,7 +4081,7 @@ generated final policy; build-only grants do not configure its guards.</p>
 <tr>
 <td><code>GEOLIBRE_OVERPASS_URL</code></td>
 <td>unset for the public relay, or your own Overpass API interpreter URL</td>
-<td>Points the OSM downloader (and the OSM-backed God's Eye View feeds) at an Overpass instance you run or trust, such as <code>https://overpass.example.com/api/interpreter</code>, instead of the public relay <code>https://tiles.geolibre.app/overpass</code>. Must be <code>https://</code> (plain <code>http://</code> only on loopback) without credentials, a query, or a fragment. A small area answered with 429, 502, 503, or 504 still falls back to <code>api.openstreetmap.org</code>.</td>
+<td>Points the OSM downloader (and the OSM-backed God's Eye View feeds) at an Overpass instance you run or trust, such as <code>https://overpass.example.com/api/interpreter</code>, instead of the public relay <code>https://tiles.geolibre.app/overpass</code>. Must be <code>https://</code> on a DNS name or IPv4 address without credentials, a query, or a fragment; anything else fails the boot. Browsers call it directly, so it must be reachable from every viewer and allow the GeoLibre origin via CORS (or be proxied under the GeoLibre origin). Plain <code>http://</code> on loopback passes validation but only works in the desktop app, because the web CSP allows <code>https:</code> only. A configured endpoint never falls back to <code>api.openstreetmap.org</code>.</td>
 </tr>
 <tr>
 <td><code>GEOLIBRE_AUTH_USER</code> / <code>GEOLIBRE_AUTH_PASSWORD</code></td>
