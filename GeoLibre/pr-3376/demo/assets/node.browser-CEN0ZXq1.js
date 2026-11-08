@@ -1,0 +1,1 @@
+import{a}from"./error-D3pAkl27.js";function e(r){return new Proxy({},{get(o,t){if(typeof t!="symbol")throw new a(`\`${r}.${t}\` is not available in this environment; it needs a Node.js-compatible runtime`)}})}var n=e("fs"),i=e("path");export{n as fs,i as path};
