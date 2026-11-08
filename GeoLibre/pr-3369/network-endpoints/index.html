@@ -3714,7 +3714,7 @@ so add the hosts your projects use.</p>
 <h2 id="default-requests">Default requests<a class="headerlink" href="#default-requests" title="Permanent link">&para;</a></h2>
 <p>These are the requests this page found a fresh install making without the user
 choosing a service, from a review of the source rather than an automated check.
-GeoLibre has no telemetry and no crash reporting in any build.</p>
+GeoLibre has no telemetry and no crash reporting in any build; the only analytics are page-visit counts in a web build that sets a Google Analytics measurement ID (see the last row).</p>
 <table>
 <thead>
 <tr>
@@ -3735,14 +3735,14 @@ GeoLibre has no telemetry and no crash reporting in any build.</p>
 </tr>
 <tr>
 <td><code>plugins.geolibre.app</code></td>
-<td><code>blocklist.json</code> (plugins pulled from the registry for safety), fetched once per session before external plugins load. It is fetched even when no registry plugin is installed. The registry itself (<code>plugin-registry.json</code>) is fetched at every start when the deployment allows plugin installation (the <code>plugins:install</code> capability, which is on by default; the registry tells saved-project redaction which plugins may keep their state), and again when Settings → Manage Plugins is opened. See <a href="../privacy/#plugins-from-the-plugin-registry">Privacy Policy</a>.</td>
+<td><code>blocklist.json</code> (plugins pulled from the registry for safety), fetched once per session before external plugins load. It is fetched even when no registry plugin is installed. The registry itself (<code>plugin-registry.json</code>) is fetched at every start when the deployment allows plugin installation (the <code>plugins:install</code> capability, which is on by default; the registry tells saved-project redaction which plugins may keep their state), and again when Settings → Manage Plugins is opened. It is also fetched at start when <code>plugins.sideload</code> is <code>false</code> and non-bundled plugins are installed, to check them against the registry. See <a href="../privacy/#plugins-from-the-plugin-registry">Privacy Policy</a>.</td>
 <td>All</td>
 <td>Direct</td>
 <td>Set <code>plugins.registryUrl</code> in <a href="../deployment-policy/#plugins"><code>deployment.json</code></a> to your own registry; the blocklist is then read from beside it.</td>
 </tr>
 <tr>
 <td><code>api.github.com</code></td>
-<td><code>GET /repos/opengeos/GeoLibre/releases/latest</code>, the startup update check. Throttled to once every 6 hours. Not present in the Microsoft Store build.</td>
+<td><code>GET /repos/opengeos/GeoLibre/releases/latest</code>, the startup update check. Normally at most once every 6 hours; a check that fails on the network, or a browser storage error, can let the next start check again sooner. Not present in the Microsoft Store build.</td>
 <td>Desktop</td>
 <td>Direct</td>
 <td>Settings → Updates: turn off "Check for updates on startup". Help → Check for updates makes the same request on demand.</td>
@@ -3756,8 +3756,8 @@ GeoLibre has no telemetry and no crash reporting in any build.</p>
 </tr>
 <tr>
 <td><code>www.googletagmanager.com</code></td>
-<td>Google Analytics. Loaded only by a web build that sets <code>VITE_GEOLIBRE_GA_MEASUREMENT_ID</code>, which the OpenGeos hosted deploys (geolibre.app, geolibre.app/demo, web.geolibre.app) do.</td>
-<td>Hosted web only</td>
+<td>Google Analytics. Loaded only by a web build that sets <code>VITE_GEOLIBRE_GA_MEASUREMENT_ID</code>, which the OpenGeos hosted deploys (geolibre.app, geolibre.app/demo, web.geolibre.app) do. The tag then sends page-view hits to Google's collection hosts (<code>*.google-analytics.com</code>, for example <code>www.google-analytics.com</code> and <code>region1.google-analytics.com</code>).</td>
+<td>Web, when the ID is set</td>
 <td>Direct</td>
 <td>Never present in the desktop app or the Jupyter widget, and absent from any web build that leaves the ID unset (the default). The Docker image cannot enable it. See <a href="../privacy/#website-analytics">Privacy Policy</a>.</td>
 </tr>
@@ -3775,7 +3775,7 @@ builds a visualization with it.</p>
 <h2 id="geolibre-operated-hosts">GeoLibre-operated hosts<a class="headerlink" href="#geolibre-operated-hosts" title="Permanent link">&para;</a></h2>
 <p>These hosts are run by the OpenGeos project, currently on Cloudflare (Workers,
 Durable Objects, R2) and GitHub Pages. All of them are opt-in except the
-plugin blocklist above.</p>
+plugin registry and blocklist above.</p>
 <table>
 <thead>
 <tr>
@@ -3865,7 +3865,7 @@ so and skips the relay; the table notes those cases.</p>
 </tr>
 <tr>
 <td><code>/overpass</code> (POST)</td>
-<td><code>z.overpass-api.de</code> (run by FOSSGIS e.V.), then <code>overpass.private.coffee</code> (run by Private.coffee, an Austrian non-profit association) on a 429, 5xx, network error, or timeout, then <code>maps.mail.ru</code> (<code>/osm/tools/overpass/api/interpreter</code>, run by VK) as a last fallback. Each instance that is tried sees the query and its area of interest.</td>
+<td><code>z.overpass-api.de</code> (run by FOSSGIS e.V.), then <code>overpass.private.coffee</code> (run by Private.coffee, an Austrian non-profit association) on a 429, 5xx or network error. No other instance is tried; when both fail the relay answers 502 with an "Overpass is busy" message. Each instance that is tried sees the query and its area of interest, and the <code>x-overpass-upstream</code> response header names the one that answered.</td>
 <td>OSM Downloader plugin, God's Eye View road layers</td>
 <td>Relay</td>
 </tr>
@@ -3943,12 +3943,6 @@ so and skips the relay; the table notes those cases.</p>
 </tr>
 </tbody>
 </table>
-<div class="admonition note">
-<p class="admonition-title">Pending change</p>
-<p><a href="https://github.com/opengeos/GeoLibre/pull/3367">#3367</a> removes <code>maps.mail.ru</code>
-from the <code>/overpass</code> chain and adds an <code>x-overpass-upstream</code> response header
-naming the instance that answered. Update the row above when it merges.</p>
-</div>
 <h2 id="opt-in-core-features">Opt-in: core features<a class="headerlink" href="#opt-in-core-features" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -3962,7 +3956,7 @@ naming the instance that answered. Update the row above when it merges.</p>
 <tbody>
 <tr>
 <td>Basemap picker and Basemaps plugin</td>
-<td>OpenFreeMap, CARTO (<code>basemaps.cartocdn.com</code>), Esri (<code>server.arcgisonline.com</code>, <code>services.arcgisonline.com</code>), EOX (<code>tiles.maps.eox.at</code>), USGS (<code>basemap.nationalmap.gov</code>), NASA GIBS, OpenStreetMap, Protomaps, Mapbox, MapTiler, Stadia, TomTom, HERE, Amazon Location, Tianditu, Google, swisstopo, BKG, Waymarked Trails, OpenRailwayMap. Opening the Basemaps panel loads a thumbnail per visible row, which contacts many of these hosts before the user picks one. Keyed providers receive the key the user or build supplies.</td>
+<td>CARTO (<code>basemaps.cartocdn.com</code>), Esri (<code>server.arcgisonline.com</code>, <code>services.arcgisonline.com</code>), EOX (<code>tiles.maps.eox.at</code>), USGS (<code>basemap.nationalmap.gov</code>), NASA GIBS, OpenStreetMap, Protomaps, Mapbox, MapTiler, Stadia, TomTom, HERE, Amazon Location, Tianditu, Google, swisstopo, BKG, Waymarked Trails, OpenRailwayMap. OpenFreeMap is the default basemap (see above). Opening the Basemaps panel loads a thumbnail per visible row, which contacts many of these hosts before the user picks one. Keyed providers receive the key the user or build supplies.</td>
 <td>All</td>
 <td>Direct</td>
 </tr>
@@ -4042,6 +4036,12 @@ naming the instance that answered. Update the row above when it merges.</p>
 <td>ArcGIS sign-in and portals</td>
 <td><code>www.arcgis.com</code> or the user's portal (<code>&lt;org&gt;.maps.arcgis.com</code>, ArcGIS Enterprise)</td>
 <td>All</td>
+<td>Direct</td>
+</tr>
+<tr>
+<td>Sign-in gate (Clerk or Auth0)</td>
+<td>Only when an operator configures one (<code>GEOLIBRE_CLERK_PUBLISHABLE_KEY</code>, or <code>GEOLIBRE_AUTH0_DOMAIN</code> and client ID). Clerk: the Frontend API host encoded in the publishable key, plus <code>challenges.cloudflare.com</code> and <code>*.protect.clerk.com</code> for bot protection. Auth0: the operator's tenant domain (for example <code>&lt;tenant&gt;.us.auth0.com</code>). Default builds configure neither.</td>
+<td>Web</td>
 <td>Direct</td>
 </tr>
 <tr>
@@ -4286,7 +4286,7 @@ under <code>packages/plugins/src/plugins/</code>.</p>
 </tr>
 <tr>
 <td>Raster and Time Slider panels</td>
-<td>User URLs and <code>data.source.coop</code> samples. The <code>titiler</code> engine, used for COGs on the Mapbox renderer, defaults to <code>titiler.d2s.org</code> (third party), which then fetches the COG. CRS lookups can fall back to <code>epsg.io</code>.</td>
+<td>User URLs and <code>data.source.coop</code> samples. The <code>titiler</code> engine, used for COGs on the Mapbox renderer, defaults to <code>titiler.d2s.org</code> (third party, <code>DEFAULT_TITILER_ENDPOINT</code> in the <code>maplibre-gl-raster</code> and <code>maplibre-gl-time-slider</code> packages; GeoLibre does not override it), which then fetches the COG. CRS lookups can fall back to <code>epsg.io</code>.</td>
 <td>Direct</td>
 </tr>
 <tr>
@@ -4362,7 +4362,10 @@ under <code>packages/plugins/src/plugins/</code>.</p>
 </tbody>
 </table>
 <p>External plugins (from the registry, a zip, or a manifest URL) can contact any
-host the CSP allows, and GeoLibre does not track which. Review a plugin before
+host the CSP allows, and GeoLibre does not track which. On the desktop,
+<code>app.nativeFetch</code> sends a plugin's requests through the native HTTP client,
+which the webview CSP does not govern (it does refuse loopback and private
+addresses). Review a plugin before
 allowing it, and use <code>plugins.allowed</code> to limit which ones load (see
 <a href="../plugin-api/">Plugin API</a>).</p>
 <h2 id="differences-between-builds">Differences between builds<a class="headerlink" href="#differences-between-builds" title="Permanent link">&para;</a></h2>
@@ -4376,8 +4379,9 @@ allowing it, and use <code>plugins.allowed</code> to limit which ones load (see
   sidecar, the geocoders, <code>share.geolibre.app</code>, <code>datasets.geolibre.app</code>, and
   <code>api.typesafe.ai</code> (<code>src-tauri/capabilities/default.json</code>).</li>
 <li><strong>Web</strong> hosted by the OpenGeos project adds Google Analytics and the baked-in
-  collaboration (and, on studio.geolibre.app, AI) URLs. A Docker or
-  self-built web deployment adds neither.</li>
+  collaboration (and, on studio.geolibre.app, AI) URLs. A Docker deployment
+  adds neither; a self-built web deployment adds them only if it sets the same
+  build variables.</li>
 <li><strong>Jupyter</strong> serves the bundled web build from the Jupyter server, so the app
   assets and <code>deployment.json</code> are local; map and data requests are the same as
   the web build. The Python package itself makes network requests only for
@@ -4414,7 +4418,10 @@ allowing it, and use <code>plugins.allowed</code> to limit which ones load (see
   sees the request to <code>tiles.geolibre.app</code>, not the upstream the relay then
   contacts. If an upstream listed under
   <a href="#the-tilesgeolibreapp-relay">the relay</a> is not acceptable, block
-  <code>tiles.geolibre.app</code> itself, which disables the features that use it.</li>
+  <code>tiles.geolibre.app</code> itself, which disables the features that use it. On the
+  desktop some of those features reach the upstream directly instead (see
+  <a href="#differences-between-builds">Differences between builds</a>), so block the
+  upstream host as well with an egress proxy or firewall.</li>
 </ul>
 <p><a href="../self-hosting/#reducing-outbound-requests">Self-Hosting: Reducing outbound requests</a>
 has the per-feature checklist.</p>
