@@ -4329,10 +4329,14 @@ users there whom the default providers serve poorly. A project file can name one
 of them as its basemap, so GeoLibre asks before loading it when a project is
 opened (from a file, a URL, a share link, drag and drop, or a startup restore):
 the map shows the default basemap until the user picks <strong>Load</strong> or
-<strong>Use default basemap</strong>. A basemap the user picks in the UI, a new project, a
-template, an undo step, a duplicate, and a project loaded by an embedding host
-(the Jupyter widget, the iframe embed API, or a live collaboration session) do
-not ask.</p>
+<strong>Use default basemap</strong>. A basemap the user picks in the UI (or that a plugin,
+script or the assistant sets on their behalf, since that is code the user
+installed or ran), a new project, a template, an undo step, a duplicate, and a
+project loaded by a trusted host (the Jupyter widget, the iframe embed API from
+an <code>embedOrigins</code> origin, or a live collaboration session) do not ask. Other
+framing pages, such as one embedding an <code>?embed=1</code> export or a Dash app, get the
+prompt like any opened project. Only a regional basemap the user picked or
+accepted is remembered for the next launch.</p>
 <p><code>basemaps.regional: false</code> (or <code>GEOLIBRE_DISABLE_REGIONAL_BASEMAPS=1</code> on Docker,
 or <code>VITE_GEOLIBRE_DISABLE_REGIONAL_BASEMAPS=1</code> at build time) removes them
 entirely:</p>
@@ -4345,6 +4349,10 @@ entirely:</p>
 <li>plugins, scripts and the assistant cannot set one either, and a regional
   basemap remembered from an earlier session is not restored.</li>
 </ul>
+<p>The prompt and the switch cover the basemap (the project's <code>basemapStyleUrl</code>).
+Raster basemaps stacked from the Basemaps control, and any XYZ or WMS layer, are
+ordinary project layers: a project can still point one at any tile server, in
+mainland China or elsewhere, the same way it can name any other data source.</p>
 <p>Like the rest of the policy this is client-side: it stops GeoLibre from
 requesting those tiles, not a modified client.</p>
 <h2 id="precedence-between-sources">Precedence between sources<a class="headerlink" href="#precedence-between-sources" title="Permanent link">&para;</a></h2>
