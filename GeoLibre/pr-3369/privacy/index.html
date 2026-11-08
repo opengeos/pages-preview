@@ -3386,6 +3386,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#requests-the-app-makes-on-its-own" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Requests the app makes on its own
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#data-sent-to-third-party-services-optional-features" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -3580,6 +3591,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#requests-the-app-makes-on-its-own" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Requests the app makes on its own
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#data-sent-to-third-party-services-optional-features" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -3688,7 +3710,7 @@
 
 
 <h1 id="privacy-policy">Privacy Policy<a class="headerlink" href="#privacy-policy" title="Permanent link">&para;</a></h1>
-<p><em>Last updated: October 6, 2026</em></p>
+<p><em>Last updated: November 7, 2026</em></p>
 <p>GeoLibre Desktop ("GeoLibre", "the app") is an open-source desktop GIS
 application developed by the OpenGeos community. This policy explains how the app
 handles your data, and how our websites (geolibre.app and web.geolibre.app)
@@ -3710,6 +3732,25 @@ raster datasets, project files, and similar) are processed locally on your
 computer. GeoLibre does not upload them to the developer or to any server. An
 optional helper process (a Python component running on your own machine at
 127.0.0.1) performs some geoprocessing entirely on-device.</p>
+<h2 id="requests-the-app-makes-on-its-own">Requests the app makes on its own<a class="headerlink" href="#requests-the-app-makes-on-its-own" title="Permanent link">&para;</a></h2>
+<p>A few requests happen without you choosing a service. None of them uploads your
+files or projects, but like any request they reveal your IP address to the host:</p>
+<ul>
+<li><strong>Default basemap</strong>: a new map loads the OpenFreeMap basemap
+  (tiles.openfreemap.org) for the current view. The tiles requested reveal the
+  area you are looking at, which OpenFreeMap can associate with your IP address.</li>
+<li><strong>Plugin blocklist</strong>: each session downloads the plugin registry's blocklist;
+  see <a href="#plugins-from-the-plugin-registry">Plugins from the plugin registry</a>.</li>
+<li><strong>Update check (desktop only)</strong>: at startup, at most once every 6 hours, the
+  desktop app asks GitHub (api.github.com) for the latest GeoLibre release. Turn
+  it off in Settings → Updates. The Microsoft Store build does not check.</li>
+<li><strong>DuckDB Spatial extension</strong>: the first time a local vector file needs DuckDB
+  to read it (for example a Shapefile or GeoPackage), the extension is
+  downloaded from DuckDB's extension repository (extensions.duckdb.org) and
+  then cached. The file itself is not sent.</li>
+</ul>
+<p>The full list of hosts, including which builds contact them, is on
+<a href="../network-endpoints/">Network Endpoints</a>.</p>
 <h2 id="data-sent-to-third-party-services-optional-features">Data sent to third-party services (optional features)<a class="headerlink" href="#data-sent-to-third-party-services-optional-features" title="Permanent link">&para;</a></h2>
 <p>When you use certain optional features, GeoLibre sends requests directly to the
 relevant third-party service. Those services receive your device's IP address and

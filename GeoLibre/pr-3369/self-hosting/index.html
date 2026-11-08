@@ -4539,12 +4539,15 @@ against a private, authenticated, same-origin host:</p>
 <h2 id="reducing-outbound-requests">Reducing outbound requests<a class="headerlink" href="#reducing-outbound-requests" title="Permanent link">&para;</a></h2>
 <p>A private deployment usually also wants to minimize what the browser fetches from
 the public internet. <a href="../network-endpoints/">Network Endpoints</a> lists every host
-by feature; the main ones are:</p>
+by feature and says which are contacted at startup. The main ones are below; the
+<strong>Default provider</strong> column is what each feature uses out of the box, and most
+of them (geocoding and routing, for example) are contacted only when the feature
+is used:</p>
 <table>
 <thead>
 <tr>
 <th>Feature</th>
-<th>Default</th>
+<th>Default provider</th>
 <th>How to keep it internal</th>
 </tr>
 </thead>

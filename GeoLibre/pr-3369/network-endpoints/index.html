@@ -3707,11 +3707,14 @@ Python widget, which embeds the web build). "All" means all three.</p>
 <p>Requests to the app's own origin (the web build's assets, <code>deployment.json</code>,
 <code>geolibre-runtime-config.js</code>, and the Docker image's <code>/sidecar</code> proxy to the
 local Python sidecar) are not external and are not listed. Neither are user
-supplied URLs (a WMS endpoint, a COG URL, an S3 bucket): GeoLibre fetches
-whatever the user points it at.</p>
+supplied URLs (a WMS endpoint, a COG URL, an S3 bucket) or the data hosts a
+project's layers point at: GeoLibre fetches whatever the user or project points
+it at. A network allowlist built from this page alone will block those layers,
+so add the hosts your projects use.</p>
 <h2 id="default-requests">Default requests<a class="headerlink" href="#default-requests" title="Permanent link">&para;</a></h2>
-<p>These are the only requests a fresh install makes without the user choosing a
-service. GeoLibre has no telemetry and no crash reporting in any build.</p>
+<p>These are the requests this page found a fresh install making without the user
+choosing a service, from a review of the source rather than an automated check.
+GeoLibre has no telemetry and no crash reporting in any build.</p>
 <table>
 <thead>
 <tr>
@@ -3862,7 +3865,7 @@ so and skips the relay; the table notes those cases.</p>
 </tr>
 <tr>
 <td><code>/overpass</code> (POST)</td>
-<td><code>z.overpass-api.de</code>, then <code>overpass.private.coffee</code> on a 429, 5xx, or timeout. The <code>x-overpass-upstream</code> response header names the instance that answered.</td>
+<td><code>z.overpass-api.de</code> (run by FOSSGIS e.V.), then <code>overpass.private.coffee</code> (run by Private.coffee, an Austrian non-profit association) on a 429, 5xx, network error, or timeout, then <code>maps.mail.ru</code> (<code>/osm/tools/overpass/api/interpreter</code>, run by VK) as a last fallback. Each instance that is tried sees the query and its area of interest.</td>
 <td>OSM Downloader plugin, God's Eye View road layers</td>
 <td>Relay</td>
 </tr>
@@ -3940,6 +3943,12 @@ so and skips the relay; the table notes those cases.</p>
 </tr>
 </tbody>
 </table>
+<div class="admonition note">
+<p class="admonition-title">Pending change</p>
+<p><a href="https://github.com/opengeos/GeoLibre/pull/3367">#3367</a> removes <code>maps.mail.ru</code>
+from the <code>/overpass</code> chain and adds an <code>x-overpass-upstream</code> response header
+naming the instance that answered. Update the row above when it merges.</p>
+</div>
 <h2 id="opt-in-core-features">Opt-in: core features<a class="headerlink" href="#opt-in-core-features" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -4395,7 +4404,15 @@ allowing it, and use <code>plugins.allowed</code> to limit which ones load (see
   and the Docker image (<code>docker/nginx.conf</code>), so the CSP does not limit which
   data hosts are reached. Only <code>script-src</code> is pinned to specific CDN paths. An
   operator who needs a host allowlist should enforce it with an egress proxy or
-  firewall, or narrow <code>connect-src</code> in a derived image.</li>
+  firewall and include the data hosts its projects use as well as the hosts on
+  this page. To restrict browser requests with CSP instead, narrow both
+  <code>connect-src</code> and <code>img-src</code> (and review <code>media-src</code> and <code>frame-src</code>) in a
+  derived image.</li>
+<li><strong>Relays.</strong> A browser-side control (CSP or an egress rule on the client) only
+  sees the request to <code>tiles.geolibre.app</code>, not the upstream the relay then
+  contacts. If an upstream listed under
+  <a href="#the-tilesgeolibreapp-relay">the relay</a> is not acceptable, block
+  <code>tiles.geolibre.app</code> itself, which disables the features that use it.</li>
 </ul>
 <p><a href="../self-hosting/#reducing-outbound-requests">Self-Hosting: Reducing outbound requests</a>
 has the per-feature checklist.</p>
@@ -4404,8 +4421,8 @@ has the per-feature checklist.</p>
 contacts (a new basemap, plugin, relay route, CDN asset, or default service)
 should add it here in the same pull request, and say whether it is default or
 opt-in. Useful starting points for an audit:</p>
-<div class="highlight"><pre><span></span><code>grep<span class="w"> </span>-rhoE<span class="w"> </span><span class="s2">"https://[a-zA-Z0-9.-]+"</span><span class="w"> </span>packages<span class="w"> </span>apps/geolibre-desktop/src<span class="w"> </span>workers<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--include<span class="o">=</span>*.ts<span class="w"> </span>--include<span class="o">=</span>*.tsx<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-c<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-rn
+<div class="highlight"><pre><span></span><code>grep<span class="w"> </span>-rhoE<span class="w"> </span><span class="s2">"https?://[a-zA-Z0-9.-]+"</span><span class="w"> </span>packages<span class="w"> </span>apps/geolibre-desktop/src<span class="w"> </span>workers<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--include<span class="o">=</span><span class="s1">'*.ts'</span><span class="w"> </span>--include<span class="o">=</span><span class="s1">'*.tsx'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-c<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-rn
 </code></pre></div>
 <p>plus <code>workers/tiles/src/allowlisted-fetch.ts</code> for relay upstreams and the
 <code>maplibre-gl-*</code> packages in <code>packages/plugins/package.json</code>, which carry hosts
