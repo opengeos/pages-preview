@@ -8650,7 +8650,7 @@ a <code>SceneServer</code> folder stays a tileset.</p>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>True for a <code>.../SceneServer</code> or <code>.../SceneServer/layers/&lt;n&gt;</code> URL.</p>
+                <p>True for a <code>.../SceneServer</code>, <code>.../SceneServer/layers/&lt;n&gt;</code> or</p>
               </div>
             </td>
           </tr>
@@ -8660,7 +8660,7 @@ a <code>SceneServer</code> folder stays a tileset.</p>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Only the path is matched, so a query such as <code>?ref=/SceneServer/x</code></p>
+                <p>Building Scene Layer <code>.../layers/&lt;n&gt;/sublayers/&lt;m&gt;</code> URL. Only the</p>
               </div>
             </td>
           </tr>
@@ -8670,7 +8670,17 @@ a <code>SceneServer</code> folder stays a tileset.</p>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>does not count.</p>
+                <p>path is matched, so a query such as <code>?ref=/SceneServer/x</code> does not</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>count, and a URL that does not parse is not a scene layer.</p>
               </div>
             </td>
           </tr>
