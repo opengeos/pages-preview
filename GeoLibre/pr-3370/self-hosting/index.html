@@ -17,7 +17,7 @@
         <link rel="prev" href="../arcgis-renderer/">
       
       
-        <link rel="next" href="../server-api/">
+        <link rel="next" href="../network-endpoints/">
       
       
         
@@ -2590,6 +2590,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../network-endpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Network Endpoints
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../server-api/" class="md-nav__link">
         
   
@@ -2922,10 +2949,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13_19" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13_20" >
         
           
-          <label class="md-nav__link" for="__nav_13_19" id="__nav_13_19_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_13_20" id="__nav_13_20_label" tabindex="0">
             
   
   
@@ -2943,8 +2970,8 @@
           </label>
         
         
-          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_13_19_label" aria-expanded="false">
-            <label class="md-nav__title" for="__nav_13_19">
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_13_20_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_13_20">
               <span class="md-nav__icon md-icon"></span>
               
   
@@ -4079,6 +4106,11 @@ generated final policy; build-only grants do not configure its guards.</p>
 <td>Pre-fills and automatically connects the GeoLens plugin. The stock image defaults to the browser origin, which suits a GeoLens API co-located behind the same reverse proxy. A URL must be a server root without a query or fragment. <code>off</code> keeps the panel idle until the user chooses a server. The last successful server is remembered per browser.</td>
 </tr>
 <tr>
+<td><code>GEOLIBRE_OVERPASS_URL</code></td>
+<td>unset for the public relay, or your own Overpass API interpreter URL</td>
+<td>Points the OSM downloader (and the OSM-backed God's Eye View feeds) at an Overpass instance you run or trust, such as <code>https://overpass.example.com/api/interpreter</code>, instead of the public relay <code>https://tiles.geolibre.app/overpass</code>. Must be <code>https://</code> on a DNS name or IPv4 address without credentials, a query, or a fragment; anything else fails the boot. Browsers call it directly, so it must be reachable from every viewer and allow the GeoLibre origin via CORS (or be proxied under the GeoLibre origin). Plain <code>http://</code> is rejected, even on loopback, because the web CSP allows <code>https:</code> only. A configured endpoint never falls back to <code>api.openstreetmap.org</code>.</td>
+</tr>
+<tr>
 <td><code>GEOLIBRE_AUTH_USER</code> / <code>GEOLIBRE_AUTH_PASSWORD</code></td>
 <td>set, for a quick single credential</td>
 <td>nginx Basic Auth over the app and the <code>/sidecar</code> API. One shared credential, not accounts. Use a real auth proxy for multi-user or SSO.</td>
@@ -4516,12 +4548,16 @@ against a private, authenticated, same-origin host:</p>
 </ul>
 <h2 id="reducing-outbound-requests">Reducing outbound requests<a class="headerlink" href="#reducing-outbound-requests" title="Permanent link">&para;</a></h2>
 <p>A private deployment usually also wants to minimize what the browser fetches from
-the public internet:</p>
+the public internet. <a href="../network-endpoints/">Network Endpoints</a> lists every host
+by feature and says which are contacted at startup. The main ones are below; the
+<strong>Default provider</strong> column is what each feature uses out of the box, and most
+of them (geocoding and routing, for example) are contacted only when the feature
+is used:</p>
 <table>
 <thead>
 <tr>
 <th>Feature</th>
-<th>Default</th>
+<th>Default provider</th>
 <th>How to keep it internal</th>
 </tr>
 </thead>
@@ -4600,6 +4636,7 @@ the public internet:</p>
 <li><a href="../user-guide/data-integrations/#self-hosted-catalogs">Data Integrations</a></li>
 <li><a href="../user-guide/embedding/">Embedding &amp; Sharing</a></li>
 <li><a href="../privacy/">Privacy Policy</a></li>
+<li><a href="../network-endpoints/">Network Endpoints</a> for every external host, by feature</li>
 </ul>
 
 

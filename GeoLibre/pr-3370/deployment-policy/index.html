@@ -2332,6 +2332,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../network-endpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Network Endpoints
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../server-api/" class="md-nav__link">
         
   
@@ -2756,6 +2783,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#osm" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>osm</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#ai" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2948,10 +2986,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13_19" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13_20" >
         
           
-          <label class="md-nav__link" for="__nav_13_19" id="__nav_13_19_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_13_20" id="__nav_13_20_label" tabindex="0">
             
   
   
@@ -2969,8 +3007,8 @@
           </label>
         
         
-          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_13_19_label" aria-expanded="false">
-            <label class="md-nav__title" for="__nav_13_19">
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_13_20_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_13_20">
               <span class="md-nav__icon md-icon"></span>
               
   
@@ -3780,6 +3818,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#osm" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>osm</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#ai" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -3955,7 +4004,7 @@ not specify a usable section; this documentation does not remove them.</p>
 <li><code>plugins.registryUrl</code> sets the plugin registry. <code>allowed</code>, <code>blocked</code> and
   <code>sideload</code> gate external plugin loads and installs; <code>defaultActive</code> seeds
   activation in fresh projects.</li>
-<li><code>services</code>, <code>sharing</code>, <code>geolens</code> and <code>branding.appName</code> override the
+<li><code>services</code>, <code>sharing</code>, <code>geolens</code>, <code>osm</code> and <code>branding.appName</code> override the
   matching <code>GEOLIBRE_*</code> deployment settings. <code>sharing.embedOrigins: []</code> turns
   the embed API off.</li>
 <li><code>branding.welcome: false</code> suppresses the first-launch wizard.</li>
@@ -4014,6 +4063,7 @@ before overrides can repair an invalid input file.</p>
 <span class="w">    </span><span class="nt">"embedOrigins"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"https://portal.example.com"</span><span class="p">]</span>
 <span class="w">  </span><span class="p">},</span>
 <span class="w">  </span><span class="nt">"geolens"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"same-origin"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">"osm"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"overpassUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://overpass.example.com/api/interpreter"</span><span class="w"> </span><span class="p">},</span>
 <span class="w">  </span><span class="nt">"ai"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"enabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nt">"model"</span><span class="p">:</span><span class="w"> </span><span class="s2">"gpt-5-mini"</span><span class="w"> </span><span class="p">},</span>
 <span class="w">  </span><span class="nt">"branding"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"appName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Acme Maps"</span><span class="p">,</span><span class="w"> </span><span class="nt">"welcome"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="p">}</span>
 <span class="p">}</span>
@@ -4208,6 +4258,23 @@ means "not specified": the next source in the precedence chain applies.</p>
 </tr>
 </tbody>
 </table>
+<h3 id="osm"><code>osm</code><a class="headerlink" href="#osm" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>overpassUrl</code></td>
+<td>string</td>
+<td>Overpass API interpreter URL for the OSM downloader and the OSM-backed God's Eye View feeds, such as <code>https://overpass.example.com/api/interpreter</code>: <code>https://</code> on a DNS name or IPv4 address, no credentials, query, or fragment. Unset uses the public relay <code>https://tiles.geolibre.app/overpass</code>. Set it to keep area-of-interest queries on an instance you run or trust. The viewer's browser calls it directly, so it must be reachable from every viewer and send CORS headers (<code>Access-Control-Allow-Origin</code> for the GeoLibre origin, on error responses too), or be served on the GeoLibre origin. Plain <code>http://</code> is accepted only on loopback (<code>localhost</code>, <code>127.0.0.1</code>, <code>[::1]</code>), which means the viewer's own machine. Only the desktop app can reach such an endpoint: the container is the enforcement point and rejects plain <code>http://</code> at boot, and on a web build served by any other host the client parser still accepts it, but the page's CSP (<code>connect-src</code> allows <code>https:</code> only) blocks the request. Unlike the public relay, a configured endpoint never falls back to <code>api.openstreetmap.org</code>, and an invalid value (which also drops the <code>osm</code> section) disables OSM downloads instead of using the public relay.</td>
+</tr>
+</tbody>
+</table>
 <h3 id="ai"><code>ai</code><a class="headerlink" href="#ai" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -4327,16 +4394,20 @@ a modified client can bypass it. It does not provide signing or sandboxing.</p>
 section with basemaps served from inside mainland China (Amap and Tencent), for
 users there whom the default providers serve poorly. A project file can name one
 of them as its basemap, so GeoLibre asks before loading it when a project is
-opened (from a file, a URL, a share link, drag and drop, or a startup restore):
-the map shows the default basemap until the user picks <strong>Load</strong> or
-<strong>Use default basemap</strong>. A basemap the user picks in the UI (or that a plugin,
-script or the assistant sets on their behalf, since that is code the user
-installed or ran), a new project, a template, an undo step, a duplicate, and a
-project loaded by a trusted host (the Jupyter widget, the iframe embed API from
-an <code>embedOrigins</code> origin, or a live collaboration session) do not ask. Other
-framing pages, such as one embedding an <code>?embed=1</code> export or a Dash app, get the
-prompt like any opened project. Only a regional basemap the user picked or
-accepted is remembered for the next launch.</p>
+opened (from a file, a URL, a share link, drag and drop, a startup or
+project-history restore, or a host framing the app, including the Jupyter
+widget): the map shows the default basemap until the user picks <strong>Load</strong> or
+<strong>Use default basemap</strong>. The answer holds for the rest of the session, so
+opening the same basemap again (or a host re-sending its project) does not ask
+twice, and a framing host keeps seeing its own basemap in the state the app
+reports back.</p>
+<p>These do not ask: a basemap the user picks in the UI, or that a plugin, script
+or the assistant sets on their behalf (code the user installed or ran); a new
+project, a template, an undo step or a duplicate; a project the iframe embed API
+loads for an <code>embedOrigins</code> origin the deployment allowlisted; and a live
+collaboration session, a deliberate exception, since its basemap is shared
+state of a session the user chose to join. Only a regional basemap the user
+picked or accepted is remembered and restored at the next launch.</p>
 <p><code>basemaps.regional: false</code> (or <code>GEOLIBRE_DISABLE_REGIONAL_BASEMAPS=1</code> on Docker,
 or <code>VITE_GEOLIBRE_DISABLE_REGIONAL_BASEMAPS=1</code> at build time) removes them
 entirely:</p>
@@ -4349,10 +4420,12 @@ entirely:</p>
 <li>plugins, scripts and the assistant cannot set one either, and a regional
   basemap remembered from an earlier session is not restored.</li>
 </ul>
-<p>The prompt and the switch cover the basemap (the project's <code>basemapStyleUrl</code>).
-Raster basemaps stacked from the Basemaps control, and any XYZ or WMS layer, are
-ordinary project layers: a project can still point one at any tile server, in
-mainland China or elsewhere, the same way it can name any other data source.</p>
+<p>The prompt and the switch cover the built-in regional basemaps (the
+<code>geolibre://regional-basemap/...</code> values of a project's <code>basemapStyleUrl</code>). A
+custom style URL, raster basemaps stacked from the Basemaps control, and any
+XYZ or WMS layer are ordinary project data: a project can still point one at any
+tile server, in mainland China or elsewhere, the same way it can name any other
+data source.</p>
 <p>Like the rest of the policy this is client-side: it stops GeoLibre from
 requesting those tiles, not a modified client.</p>
 <h2 id="precedence-between-sources">Precedence between sources<a class="headerlink" href="#precedence-between-sources" title="Permanent link">&para;</a></h2>
@@ -4493,6 +4566,10 @@ require rebuilding the image.</p>
 <tr>
 <td><code>GEOLIBRE_GEOLENS_URL</code></td>
 <td><code>geolens.url</code></td>
+</tr>
+<tr>
+<td><code>GEOLIBRE_OVERPASS_URL</code></td>
+<td><code>osm.overpassUrl</code></td>
 </tr>
 <tr>
 <td><code>GEOLIBRE_APP_NAME</code></td>

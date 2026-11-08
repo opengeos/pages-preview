@@ -2332,6 +2332,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../network-endpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Network Endpoints
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../server-api/" class="md-nav__link">
         
   
@@ -2664,10 +2691,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13_19" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13_20" >
         
           
-          <label class="md-nav__link" for="__nav_13_19" id="__nav_13_19_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_13_20" id="__nav_13_20_label" tabindex="0">
             
   
   
@@ -2685,8 +2712,8 @@
           </label>
         
         
-          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_13_19_label" aria-expanded="false">
-            <label class="md-nav__title" for="__nav_13_19">
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_13_20_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_13_20">
               <span class="md-nav__icon md-icon"></span>
               
   
@@ -6029,6 +6056,13 @@ while it was present: Vite copies <code>public/</code> into the output and only 
 output when a build actually runs. Rebuild, or delete the stale directory.</p>
 <h2 id="generated-files-and-cross-file-sync">Generated files and cross-file sync<a class="headerlink" href="#generated-files-and-cross-file-sync" title="Permanent link">&para;</a></h2>
 <ul>
+<li>
+<p><strong>The network endpoints page.</strong> <a href="../network-endpoints/"><code>network-endpoints.md</code></a>
+  lists every external host the app contacts, by hand. A change that adds one
+  (a basemap, plugin, relay route in <code>workers/tiles</code>, CDN asset, or default
+  service), including a <code>maplibre-gl-*</code> bump that brings a new host, updates
+  that page in the same PR and marks the host default or opt-in.</p>
+</li>
 <li>
 <p><strong>Native PostGIS tile concurrency.</strong> <code>MAX_TILES_IN_FLIGHT</code> in
   <code>apps/geolibre-desktop/src/lib/postgis-tiles-url.ts</code> caps tile requests per

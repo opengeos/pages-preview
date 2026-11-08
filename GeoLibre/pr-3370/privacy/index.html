@@ -2332,6 +2332,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../network-endpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Network Endpoints
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../server-api/" class="md-nav__link">
         
   
@@ -2664,10 +2691,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13_19" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13_20" >
         
           
-          <label class="md-nav__link" for="__nav_13_19" id="__nav_13_19_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_13_20" id="__nav_13_20_label" tabindex="0">
             
   
   
@@ -2685,8 +2712,8 @@
           </label>
         
         
-          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_13_19_label" aria-expanded="false">
-            <label class="md-nav__title" for="__nav_13_19">
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_13_20_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_13_20">
               <span class="md-nav__icon md-icon"></span>
               
   
@@ -3359,6 +3386,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#requests-the-app-makes-on-its-own" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Requests the app makes on its own
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#data-sent-to-third-party-services-optional-features" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -3553,6 +3591,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#requests-the-app-makes-on-its-own" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Requests the app makes on its own
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#data-sent-to-third-party-services-optional-features" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -3661,7 +3710,7 @@
 
 
 <h1 id="privacy-policy">Privacy Policy<a class="headerlink" href="#privacy-policy" title="Permanent link">&para;</a></h1>
-<p><em>Last updated: October 6, 2026</em></p>
+<p><em>Last updated: November 7, 2026</em></p>
 <p>GeoLibre Desktop ("GeoLibre", "the app") is an open-source desktop GIS
 application developed by the OpenGeos community. This policy explains how the app
 handles your data, and how our websites (geolibre.app and web.geolibre.app)
@@ -3683,6 +3732,29 @@ raster datasets, project files, and similar) are processed locally on your
 computer. GeoLibre does not upload them to the developer or to any server. An
 optional helper process (a Python component running on your own machine at
 127.0.0.1) performs some geoprocessing entirely on-device.</p>
+<h2 id="requests-the-app-makes-on-its-own">Requests the app makes on its own<a class="headerlink" href="#requests-the-app-makes-on-its-own" title="Permanent link">&para;</a></h2>
+<p>A few requests happen without you choosing a service. None of them uploads your
+files or projects, but like any request they reveal your IP address to the host:</p>
+<ul>
+<li><strong>Default basemap</strong>: a new map loads the OpenFreeMap basemap
+  (tiles.openfreemap.org) for the current view. The tiles requested reveal the
+  area you are looking at, which OpenFreeMap can associate with your IP address.</li>
+<li><strong>Plugin registry</strong>: each session downloads the plugin registry and its
+  blocklist from plugins.geolibre.app (the registry only when plugin
+  installation is allowed, which it is by default);
+  see <a href="#plugins-from-the-plugin-registry">Plugins from the plugin registry</a>.</li>
+<li><strong>Update check (desktop only)</strong>: at startup, normally at most once every 6 hours, the
+  desktop app asks GitHub (api.github.com) for the latest GeoLibre release. Turn
+  it off in Settings → Updates. The Microsoft Store build does not check.</li>
+<li><strong>DuckDB Spatial extension</strong>: the first time a local vector file needs DuckDB
+  to read it (for example a Shapefile or GeoPackage), the extension is
+  downloaded from DuckDB's extension repository (extensions.duckdb.org) and
+  then cached. The file itself is not sent.</li>
+</ul>
+<p>The hosts the app itself is built to contact, including which builds contact
+them, are listed on <a href="../network-endpoints/">Network Endpoints</a>. That list does
+not cover URLs you add, the data hosts a project's layers use, or hosts that
+external plugins contact.</p>
 <h2 id="data-sent-to-third-party-services-optional-features">Data sent to third-party services (optional features)<a class="headerlink" href="#data-sent-to-third-party-services-optional-features" title="Permanent link">&para;</a></h2>
 <p>When you use certain optional features, GeoLibre sends requests directly to the
 relevant third-party service. Those services receive your device's IP address and
@@ -3709,13 +3781,18 @@ the request you make, and are governed by their own privacy policies:</p>
 </ul>
 <p>GeoLibre does not control these third-party services; please review their privacy
 policies for how they handle data.</p>
+<p>For the hosts the app itself is built to contact, which of them are contacted
+by default, and which go through a GeoLibre relay, see
+<a href="../network-endpoints/">Network Endpoints</a>. It does not cover URLs you add,
+project data hosts, or external plugins.</p>
 <h2 id="plugins-from-the-plugin-registry">Plugins from the plugin registry<a class="headerlink" href="#plugins-from-the-plugin-registry" title="Permanent link">&para;</a></h2>
 <p>Settings → Manage Plugins lists plugins from the GeoLibre plugin registry at
 <a href="https://plugins.geolibre.app">https://plugins.geolibre.app</a>, operated by the OpenGeos project (currently
-hosted on GitHub Pages and Cloudflare). Opening that dialog downloads the
-registry, and each time GeoLibre starts it downloads the registry's blocklist
-(of plugins pulled for safety) and the files of the plugins you installed from
-it. Like any web server, the registry sees your IP address and which files
+hosted on GitHub Pages and Cloudflare). Each time GeoLibre starts it downloads
+the registry (unless the deployment disables plugin installation), the
+registry's blocklist (of plugins pulled for safety), and the files of the
+plugins you installed from it; opening that dialog downloads the registry
+again. Like any web server, the registry sees your IP address and which files
 you request.</p>
 <p>The registry uses those requests to show how often each plugin is used, as
 public counts on its plugin catalog. It records no more than this:</p>
