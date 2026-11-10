@@ -3999,9 +3999,9 @@ large to convert safely; convert those yourself with
 menu's file dialogs go through the desktop portal and always work, but a file
 dragged from a file manager that does not use the portal arrives as a path the
 sandbox cannot read. GeoLibre then reports that the sandbox cannot read the
-dropped file. Open the file from the Add data menu instead, or let the app read
-your files so drag and drop works from anywhere:</p>
-<div class="highlight"><pre><span></span><code>flatpak<span class="w"> </span>override<span class="w"> </span>--user<span class="w"> </span>--filesystem<span class="o">=</span>host:ro<span class="w"> </span>app.geolibre.GeoLibre
+dropped file. Open the file from the Add data menu instead, or give the app
+read-only access to the folder that holds your data, then restart GeoLibre:</p>
+<div class="highlight"><pre><span></span><code>flatpak<span class="w"> </span>override<span class="w"> </span>--user<span class="w"> </span>--filesystem<span class="o">=</span>/path/to/your/data:ro<span class="w"> </span>app.geolibre.GeoLibre
 </code></pre></div>
 <h3 id="this-project-is-too-large-to-save">"This project is too large to save"<a class="headerlink" href="#this-project-is-too-large-to-save" title="Permanent link">&para;</a></h3>
 <p>A project that embeds a lot of vector data can outgrow what can be saved.
