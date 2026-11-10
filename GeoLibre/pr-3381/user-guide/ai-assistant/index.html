@@ -1311,6 +1311,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Not the same as the agent skill">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#keyless-parallel-web-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Keyless Parallel web search
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -3777,6 +3794,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Not the same as the agent skill">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#keyless-parallel-web-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Keyless Parallel web search
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -4482,6 +4516,19 @@ the store and are <strong>not undoable</strong>. The code is shown in the transc
 have an AI agent <em>outside</em> GeoLibre — in a terminal, an editor, or a notebook —
 build a project file for you, see the <a href="../../agent-skill/">agent skill</a> and the
 <a href="../../mcp/">MCP server</a>.</p>
+<h3 id="keyless-parallel-web-search">Keyless Parallel web search<a class="headerlink" href="#keyless-parallel-web-search" title="Permanent link">&para;</a></h3>
+<p>On an instance using GeoLibre's same-origin managed AI proxy, add an enabled
+<code>GEOLIBRE_WEB_SEARCH_PROVIDER</code> variable with value <code>parallel</code> in <strong>Settings →
+Environment variables</strong>. The ordinary assistant's <strong>Web search</strong> tool then uses
+anonymous <a href="https://parallel.ai">Parallel Search</a> through the Worker's <code>/parallel</code>
+route. No search API key is needed. Queries leave the instance for Parallel;
+results include source URLs and excerpts. This does not change the chat model.</p>
+<p>Remove or disable that setting to restore the existing Tavily (when
+<code>TAVILY_API_KEY</code> is set), then DuckDuckGo Instant Answer order. Selecting Parallel
+requires the managed proxy; an unavailable proxy or failed search is reported to
+the assistant without silently switching providers. The instance's authentication
+and shared per-client rate limit still apply. A standalone browser build without
+that proxy cannot use this option.</p>
 
 
 
