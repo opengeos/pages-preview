@@ -1,7 +1,0 @@
-**
-!build-wasm/
-!build-wasm/**
-!src/
-!src/wasm/
-!src/wasm/sources/
-!src/wasm/sources/**
