@@ -1,1 +1,0 @@
-import{t as e}from"./preload-helper-CALLvQDj.js";var r;(function(t){t.load=function(){return e(()=>import("./webdggrid-cEYUe7Kg.js").then(o=>o.Webdggrid.load()),[],import.meta.url)}})(r||(r={}));export{r as Webdggrid};
