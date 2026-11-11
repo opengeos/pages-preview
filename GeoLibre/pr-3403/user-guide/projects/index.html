@@ -3966,11 +3966,11 @@
 <tbody>
 <tr>
 <td>Edit widgets</td>
-<td><strong>Value Map</strong> becomes a dropdown, <strong>Range</strong> a slider or number box with its bounds, <strong>Checkbox</strong> a checkbox, <strong>Date/Time</strong> a date picker. <strong>Hidden</strong> fields stay hidden but are still saved.</td>
+<td><strong>Value Map</strong> becomes a dropdown, <strong>Range</strong> a slider or number box with its bounds, <strong>Checkbox</strong> a checkbox (or a two-entry dropdown when it stores custom values such as <code>Y</code>/<code>N</code>), <strong>Date/Time</strong> a date picker. <strong>Hidden</strong> fields stay hidden but are still saved.</td>
 </tr>
 <tr>
 <td><strong>Value Relation</strong> and <strong>Relation Reference</strong></td>
-<td>A dropdown filled from the linked table's rows, read from the GeoPackage even when that table has no geometry. The entries are a snapshot taken at import.</td>
+<td>A dropdown filled from the linked table's rows, read from the GeoPackage even when that table has no geometry. The entries are a snapshot taken at import. A table with more than 1,000 distinct values is left as a text box.</td>
 </tr>
 <tr>
 <td>Field aliases</td>
@@ -3982,7 +3982,7 @@
 </tr>
 <tr>
 <td>Constraint expressions</td>
-<td>Converted when they use comparisons, <code>AND</code>/<code>OR</code>/<code>NOT</code>, arithmetic, <code>IS NULL</code>, <code>IN</code>, and text length or case functions.</td>
+<td>Converted when they use comparisons, <code>AND</code>/<code>OR</code>/<code>NOT</code>, arithmetic, <code>IS NULL</code>, <code>IN</code>, and text length or case functions. As in QGIS, an empty value passes.</td>
 </tr>
 <tr>
 <td>Default values</td>

@@ -3956,8 +3956,8 @@ defaults written for QGIS or QField work unchanged:</p>
 <td>The date and time (the date alone for a Date widget).</td>
 </tr>
 <tr>
-<td><code>"site" || '_' || format_date(now(), 'yyyyMMdd_HHmmss') || '.jpg'</code></td>
-<td>A name built from other fields.</td>
+<td><code>concat("site", '_', format_date(now(), 'yyyyMMdd_HHmmss'), '.jpg')</code></td>
+<td>A name built from other fields. The <code>\|\|</code> operator works too.</td>
 </tr>
 <tr>
 <td><code>@position_horizontal_accuracy</code></td>
@@ -3987,7 +3987,8 @@ they are empty, so <code>@position_coordinate is not null</code> records whether
 was measured or placed by hand. <code>$x</code> and <code>$y</code> give the captured point itself
 either way.</p>
 <p>A filled-in value is a starting point: type over it and your value is kept.
-Until you do, it follows the capture, so repositioning the point refreshes it.
+Until you do, it follows the capture, so repositioning the point refreshes it,
+and a default built from other fields updates as you fill those in.
 Text functions (<code>upper</code>, <code>lower</code>, <code>trim</code>, <code>left</code>, <code>right</code>, <code>substr</code>, <code>replace</code>,
 <code>lpad</code>, <code>rpad</code>, <code>concat</code>, <code>length</code>), number functions (<code>round</code>, <code>floor</code>,
 <code>ceil</code>, <code>abs</code>, <code>min</code>, <code>max</code>), <code>coalesce</code>, <code>if</code>, and <code>CASE WHEN</code> are available.
