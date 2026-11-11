@@ -4007,8 +4007,8 @@
 <div class="admonition note">
 <p class="admonition-title">NMEA needs a Chromium browser</p>
 <p>Reading a receiver uses the Web Serial and Web Bluetooth APIs, which Chromium browsers such as Chrome and Edge provide but Firefox and Safari do not. Most Bluetooth GPS receivers speak <em>classic</em> Bluetooth rather than Bluetooth Low Energy: pair those in your operating system's settings and they appear here as a serial port. Use <strong>Connect Bluetooth</strong> only for Bluetooth Low Energy receivers.</p>
-<p>In the Android app, pick a receiver paired in Android's Bluetooth settings from <strong>Paired receiver</strong> and press <strong>Connect receiver</strong>; the app reads it natively over classic Bluetooth.</p>
 </div>
+<p>In the Android app the receiver is read natively instead, with no Chromium requirement: pick a receiver paired in Android's Bluetooth settings from <strong>Paired receiver</strong> and press <strong>Connect receiver</strong>. It connects over classic Bluetooth, so Bluetooth Low Energy-only devices are listed but cannot be connected.</p>
 <p>Start GPS to follow your position, record a track log and save it as a layer or export it as GPX or GeoJSON, and capture points where you stand. <strong>Controls → Field Collection...</strong> is the related tool for capturing point, line, and polygon observations against a custom form. See <a href="../field-collection/">GPS Tracking &amp; Field Collection</a> for both.</p>
 <h2 id="map-navigation-basics">Map navigation basics<a class="headerlink" href="#map-navigation-basics" title="Permanent link">&para;</a></h2>
 <ul>
