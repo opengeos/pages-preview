@@ -5842,7 +5842,7 @@ Replacing one active selection gesture with another keeps
 <ul>
 <li>Every tile and TileJSON request whose URL starts with the prefix carries the headers, whichever source asks, so set them before adding the source. The prefix follows a layer's rule (a fixed host and the start of a path; a template is cut at its first <code>{</code>), and an unscoped one throws.</li>
 <li>They belong to the plugin, not to a layer or the project: held in memory, never saved, and sent until the plugin clears them with <code>null</code>, so clear them in <code>deactivate</code>. Calling it again for the same prefix replaces them, which is how a refreshed token is put in.</li>
-<li>Where a layer's own headers also match, the longer prefix wins. The <code>MapLibre only</code> and <code>CORS</code> notes above apply here too.</li>
+<li>Where a layer's own headers also match, the longer prefix wins, and on the same prefix the layer's do. The <code>MapLibre only</code> and <code>CORS</code> notes above apply here too.</li>
 </ul>
 <h2 id="zarr-layers">Zarr layers<a class="headerlink" href="#zarr-layers" title="Permanent link">&para;</a></h2>
 <p><code>addZarrLayer</code> renders a Zarr store (Zarr v2/v3 over HTTP) through <strong>GeoLibre's own</strong> <code>@carbonplan/zarr-layer</code> instance and mirrors the result into the Layers panel. It is the Zarr counterpart of <code>addCogLayer</code>. Stores that are not read from a URL — a kerchunk-backed cloud NetCDF, an Icechunk repository, a folder on disk — reach the same renderer through an internal <code>store</code> option that this API does not expose, so they are added by GeoLibre's own panels rather than by a plugin.</p>
