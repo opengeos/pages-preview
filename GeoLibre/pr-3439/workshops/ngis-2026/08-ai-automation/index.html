@@ -4030,8 +4030,10 @@ fixed set of tools</strong>, the same operations the menus use:</p>
 <li><strong>It is undoable.</strong> Tools act through the same project store as the rest
    of the app, so <strong>Edit → Undo</strong> reverses a restyle or a new layer.</li>
 <li><strong>It is scoped.</strong> The provider receives layer names, field names, and the
-   current view, <strong>not your feature data</strong>. SQL runs locally in DuckDB, and
-   only the result summary goes back to the model.</li>
+   current view, <strong>not whole layers</strong>. SQL runs locally in DuckDB, and what
+   goes back to the model is the column names, the row count, and a preview
+   of up to 10 result rows. Ask for counts and only the counts are sent; ask
+   for individual records and those attribute values reach the provider.</li>
 </ol>
 <div class="admonition warning">
 <p class="admonition-title">The code fallback is the exception</p>
@@ -4052,11 +4054,15 @@ endpoint, and <strong>Ollama</strong>, which runs a model on your own machine.</
   storage. On the desktop app, the recommended route is to export the key in
   your shell profile, so it is never typed into Settings or written to a
   project.</li>
-<li><strong>No data leaves your machine until you send a prompt.</strong> Then the prompt
-  and the schema context go to the provider you chose.</li>
-<li>With <strong>Ollama</strong>, nothing leaves your machine at all. To use it from the
-  hosted web app, start Ollama with <code>OLLAMA_ORIGINS=https://web.geolibre.app</code>
-  so the page may call it.</li>
+<li><strong>No data leaves your machine until you send a prompt.</strong> Then the prompt,
+  the schema context, and tool results such as SQL previews go to the
+  provider you chose.</li>
+<li>With <strong>Ollama</strong>, the model runs on your machine. Two optional features
+  still send data elsewhere: the fast path for simple commands, when
+  enabled, sends the request text and layer names to TypeSafe, and voice
+  input in Chrome sends audio to Google. Leave both off for sensitive work.
+  To use Ollama from the hosted web app, start it with
+  <code>OLLAMA_ORIGINS=https://web.geolibre.app</code> so the page may call it.</li>
 <li>Layer and field names are metadata, and metadata can be sensitive. A layer
   named <code>2026_layoffs_by_site</code> says something even if no rows are sent. If you
   cannot share the schema, use Ollama or leave the assistant off.</li>
@@ -4113,11 +4119,12 @@ the AI Assistant can <em>author</em> a model for you and opens it for review
 instead of running it blind.</p>
 </div>
 <h2 id="hands-on-25-min">Hands-on (25 min)<a class="headerlink" href="#hands-on-25-min" title="Permanent link">&para;</a></h2>
-<p>Start a new project: <strong>Project → New...</strong>, choose <strong>Do not save</strong> if asked
-about the current project, name it <code>NGIS 2026 - 8 AI and automation</code>, pick
-the <strong>Positron</strong> basemap, and click <strong>Create</strong>. Then use
-<strong>Add data → Vector layer</strong> to load these two URLs (paste each and click
-<strong>Load</strong>):</p>
+<p>Start a new project: <strong>Project → New...</strong>. If GeoLibre asks <strong>Save current
+project?</strong>, click <strong>Save</strong> to keep your Section 7 work (choose <strong>Do not save</strong>
+only if you mean to discard unsaved changes). Name the new project
+<code>NGIS 2026 - 8 AI and automation</code>, pick the <strong>Positron</strong> basemap, and click
+<strong>Create</strong>. Then use <strong>Add data → Vector layer</strong> to load these two URLs (paste
+each and click <strong>Load</strong>):</p>
 <div class="highlight"><pre><span></span><code>https://data.source.coop/opengeos/data/workshops/ngis-2026/nv_counties.geojson
 https://data.source.coop/opengeos/data/workshops/ngis-2026/nv_earthquakes.parquet
 </code></pre></div>
