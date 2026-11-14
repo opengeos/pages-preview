@@ -2775,6 +2775,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#plugin-assets" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Plugin assets
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#zarr-layers" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -4304,6 +4315,17 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#plugin-assets" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Plugin assets
+      </span>
+    </span>
+  </a>
   
 </li>
       
@@ -5843,6 +5865,27 @@ Replacing one active selection gesture with another keeps
 <li>Every tile and TileJSON request whose URL starts with the prefix carries the headers, whichever source asks, so set them before adding the source. The prefix follows a layer's rule (a fixed host and the start of a path; a template is cut at its first <code>{</code>), and an unscoped one throws.</li>
 <li>They belong to the plugin, not to a layer or the project: held in memory, never saved, and sent until the plugin clears them with <code>null</code>, so clear them in <code>deactivate</code>. Calling it again for the same prefix replaces them, which is how a refreshed token is put in.</li>
 <li>Where a layer's own headers also match, the longer prefix wins, and on the same prefix the layer's do. The <code>MapLibre only</code> and <code>CORS</code> notes above apply here too.</li>
+</ul>
+<h2 id="plugin-assets">Plugin assets<a class="headerlink" href="#plugin-assets" title="Permanent link">&para;</a></h2>
+<p>A plugin can ship data files (a lookup table, a model, a sample dataset) inside
+its own bundle and read them back as raw bytes:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// readPluginAsset?: (pluginId: string, relativePath: string) =&gt; Promise&lt;Uint8Array | null&gt;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">bytes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">app</span><span class="p">.</span><span class="nx">readPluginAsset</span><span class="o">?</span><span class="p">.(</span><span class="s2">"my-plugin"</span><span class="p">,</span><span class="w"> </span><span class="s2">"data/classes.json"</span><span class="p">);</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">bytes</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">classes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nx">TextDecoder</span><span class="p">().</span><span class="nx">decode</span><span class="p">(</span><span class="nx">bytes</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>For a plugin installed from the desktop filesystem (a zip archive or a
+  development directory), the host reads the file out of that bundle. For a
+  URL-installed plugin it fetches the asset URL <code>resolvePluginAssetUrl</code> would
+  resolve.</li>
+<li>It resolves <code>null</code> when the plugin is unknown or built-in, <code>relativePath</code> is
+  absolute or escapes the plugin's bundle, or the file does not exist. Plugins
+  installed from a zip in the web build keep only their entry and style
+  sources, so reads resolve <code>null</code> there.</li>
+<li>Pass your own plugin's id. All plugins share one JS context, so the host
+  cannot verify the caller; this is a convention, not a security boundary.</li>
 </ul>
 <h2 id="zarr-layers">Zarr layers<a class="headerlink" href="#zarr-layers" title="Permanent link">&para;</a></h2>
 <p><code>addZarrLayer</code> renders a Zarr store (Zarr v2/v3 over HTTP) through <strong>GeoLibre's own</strong> <code>@carbonplan/zarr-layer</code> instance and mirrors the result into the Layers panel. It is the Zarr counterpart of <code>addCogLayer</code>. Stores that are not read from a URL — a kerchunk-backed cloud NetCDF, an Icechunk repository, a folder on disk — reach the same renderer through an internal <code>store</code> option that this API does not expose, so they are added by GeoLibre's own panels rather than by a plugin.</p>
