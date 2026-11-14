@@ -5235,7 +5235,10 @@ relied on without a type to enforce them:</p>
   <code>planetary-computer-collections.json</code> is used when the live <code>/collections</code>
   request cannot be read. <code>.github/workflows/refresh-planetary-computer-collections.yml</code>
   regenerates it monthly and opens a pull request; run
-  <code>npm run gen:planetary-computer-collections</code> to refresh it by hand.</li>
+  <code>npm run gen:planetary-computer-collections</code> to refresh it by hand, then format
+  the file (<code>npx oxfmt --write packages/plugins/src/plugins/planetary-computer-collections.json</code>,
+  or let the pre-commit hook do it): the script writes it minified, and the
+  committed copy is the formatted output.</li>
 <li><strong><code>updateLayer</code> stores <code>visible</code> and <code>opacity</code> verbatim</strong> before emitting
   <code>layer:update</code>. The store-to-control and control-to-store sync both compare
   with <code>===</code>; a library that rounded or coerced the values would make toggling
