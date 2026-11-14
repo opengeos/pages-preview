@@ -4178,7 +4178,8 @@ plugin state. Three things about it matter today:</p>
   live sessions remove API keys and tokens. A local <strong>Save</strong> can keep them:
   the desktop app moves keys to the system keychain, and otherwise GeoLibre
   asks whether to keep or strip them. Choose strip before you commit a
-  project to Git or email it.</li>
+  project to Git or email it. Redaction only knows common names such as
+  <code>token</code> and <code>apiKey</code>, so check layer URLs for other keys before you share.</li>
 <li><strong>It is plain JSON.</strong> Projects save as <code>.geolibre</code> files. Earlier releases
   used <code>.geolibre.json</code>, and GeoLibre still opens those everywhere (the
   workshop's finished projects use that name).</li>
