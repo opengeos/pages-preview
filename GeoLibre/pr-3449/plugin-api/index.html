@@ -5891,7 +5891,9 @@ its own bundle and read them back as raw bytes:</p>
   returns the URL <code>readPluginAsset</code> fetches, for code that needs a URL rather
   than bytes (a worker, a WebAssembly module). <code>relativePath</code> is a file path,
   not a URL: pass the raw file name and the host percent-encodes each segment,
-  so <code>#</code>, <code>?</code>, <code>%</code> and spaces name the same file in both APIs. It returns
+  so <code>#</code>, <code>?</code>, <code>%</code> and spaces name the same file in both APIs. Do not
+  pre-encode: <code>"data/my%20file.json"</code> names a file literally called
+  <code>my%20file.json</code>, not <code>my file.json</code>. It returns
   <code>null</code> for a plugin installed from the desktop filesystem.</li>
 </ul>
 <h2 id="zarr-layers">Zarr layers<a class="headerlink" href="#zarr-layers" title="Permanent link">&para;</a></h2>
