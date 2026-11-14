@@ -4320,11 +4320,11 @@ service.</p>
 </ol>
 <div class="admonition tip">
 <p class="admonition-title">Streaming or not?</p>
-<p>Streaming queries the file where it sits instead of copying it into
-memory. It suits large, <strong>spatially sorted</strong> files: this one was written
-with <code>SORT_BY_BBOX</code> and 256-row groups (14 in all), so nearby counties
-share row groups and a reader can skip the rest. For small files, leave
-streaming off: the layer is handed to GeoLibre and gets the full Style
+<p>Streaming queries the file where it sits instead of copying it into memory.
+It suits large, <strong>spatially sorted</strong> files: this one was written with
+<code>SORT_BY_BBOX</code> in row groups of up to 256 rows (14 in all), so nearby
+counties share row groups and a reader can skip the rest. For small files,
+leave streaming off: the layer is handed to GeoLibre and gets the full Style
 panel and attribute table.</p>
 </div>
 <h3 id="exercise-24-the-same-counties-as-pmtiles-4-min">Exercise 2.4: The same counties as PMTiles (4 min)<a class="headerlink" href="#exercise-24-the-same-counties-as-pmtiles-4-min" title="Permanent link">&para;</a></h3>
@@ -4508,6 +4508,8 @@ a few hundred bytes.</p>
   <code>sst</code>, and a display range of -2 to 32 °C. Tick <strong>Pickable (click to show
   pixel value)</strong>, name the layer, and click <strong>Add Layer</strong> (<strong>Zarr layer added
   successfully.</strong>). Set <strong>View → Set view…</strong> zoom to 2 to see the globe.
+  The temperatures cover the oceans only: land cells are stored as no data,
+  so the continents show the basemap through them.
   Change <strong>Selector (JSON)</strong> to <code>{"time": 12}</code> and add a second time step.
   The <strong>Diagnostics</strong> counter in the status bar goes to 1: the reader first
   checks for a Zarr v3 <code>zarr.json</code>, gets a harmless 404 from this v2 store,
