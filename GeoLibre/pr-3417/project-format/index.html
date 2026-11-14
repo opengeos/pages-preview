@@ -4577,7 +4577,7 @@ from it when the project opens (MapLibre renderer only):</p>
 </tr>
 <tr>
 <td><code>renderParams</code></td>
-<td>Data API render parameters: <code>assets</code>, <code>expression</code>, <code>asset_as_band</code>, <code>rescale</code> (<code>"min,max"</code>), <code>colormap_name</code>, and so on. They are applied over the preset's own, so <code>presetName</code> with a lone <code>rescale</code> overrides just the stretch. With neither, the collection's default preset is used.</td>
+<td>Data API render parameters: <code>assets</code>, <code>expression</code>, <code>asset_as_band</code>, <code>rescale</code> (<code>"min,max"</code>), <code>colormap_name</code>, and so on. Parameters that select bands (<code>assets</code> or <code>expression</code>) are a complete render and are used as saved. Without them, the parameters are applied over the preset's own, so <code>presetName</code> with a lone <code>rescale</code> overrides just the stretch. With neither, the collection's default preset is used.</td>
 </tr>
 <tr>
 <td><code>assets</code></td>
