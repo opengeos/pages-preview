@@ -1,0 +1,4580 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A lightweight, cloud-native GIS platform for visualizing, exploring, and analyzing geospatial data across desktop and web environments, with a responsive layout for mobile screens.">
+      
+      
+      
+        <link rel="canonical" href="https://geolibre.app/workshops/ngis-2026/01-getting-started/">
+      
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../02-bringing-in-data/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/geolibre-icon.png">
+      <meta name="generator" content="zensical-0.0.74">
+    
+    
+      
+        <title>1. Getting Started - GeoLibre</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../../assets/stylesheets/modern/main.4ab2de0c.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/modern/palette.b60ce83d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+  
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-hidden="true"></label>
+    <div data-md-component="skip">
+      <a href="#__skip" class="md-skip">
+        Skip to content
+      </a>
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="GeoLibre" class="md-header__button md-logo" aria-label="GeoLibre" data-md-component="logo">
+      
+  <img src="../../../assets/geolibre-icon.png" alt="GeoLibre">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+      <span class="md-visually-hidden">Navigation</span>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            GeoLibre
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              1. Getting Started
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+          <span class="md-visually-hidden">Search</span>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/opengeos/GeoLibre" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    opengeos/GeoLibre
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="GeoLibre" class="md-nav__button md-logo" aria-label="GeoLibre" data-md-component="logo">
+      
+  <img src="../../../assets/geolibre-icon.png" alt="GeoLibre">
+
+    </a>
+    GeoLibre
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/opengeos/GeoLibre" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    opengeos/GeoLibre
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Getting Started
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../features/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Features
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Comparison
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../demos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Demos
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../gallery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Gallery
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../downloads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Downloads
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sponsor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sponsor
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://web.geolibre.app" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Launch GeoLibre Web
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  User Guide
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_10">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  User Guide
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/interface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Interface Overview
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/rendering-engines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Rendering Engines
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/projects/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Projects
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/adding-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Adding Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../data-formats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Supported Data Formats
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/chrome-extension/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Chrome Extension
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/layers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Managing Layers
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/styling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Styling Layers
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/indoor-maps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Indoor Maps and BIM
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/attribute-table/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Attribute Table
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/map-controls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Map Controls & Tools
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/field-collection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  GPS Tracking & Field Collection
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/print-layout/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Print Layout
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Processing Tools
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/model-builder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Model Builder
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/obia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Object-Based Analysis
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/obia-ecognition/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Coming from eCognition
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/segmentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  AI Segmentation
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/point-cloud-annotation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Point Cloud Annotation
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/sql-workspace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SQL Workspace
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/python-console/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Python Console
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/ai-assistant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  AI Assistant
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/data-integrations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Data Integrations
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/cloud-storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Cloud Storage (S3)
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Plugins & Marketplace
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/web-services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Web Services
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../arcgis-editing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Editing ArcGIS Services
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/usgs-nldi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  USGS NLDI Workflows
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/settings/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Settings & Preferences
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/storymaps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Story Maps
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/embedding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Embedding & Sharing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Troubleshooting
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tutorials
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_11">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Tutorials
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Overview
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/videos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Video Tutorials
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/first-map/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Your First Map
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/cloud-native-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Cloud-Native Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/vector-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Vector Analysis
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/terrain-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Terrain Analysis
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/spatial-sql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Spatial SQL
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/sharing-embedding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sharing & Embedding
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/supported-formats-en/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Format Reference
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/supported-formats-zh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Format Reference (中文)
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/source-code-deep-dive-en/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Source Code Deep Dive
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/source-code-deep-dive-zh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Source Code Deep Dive (中文)
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Workshops
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_12">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Workshops
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_12_1" id="__nav_12_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  NGIS 2026
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_12_1_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_12_1">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  NGIS 2026
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Overview
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  1. Getting Started
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  1. Getting Started
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-goals" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Learning goals
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lecture-15-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Lecture (15 min)
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lecture (15 min)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-cloud-native-gis" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        What is cloud-native GIS?
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cloud-native-local-first-open-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Cloud-native, local-first, open source
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-runs-in-your-browser-tab" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        What runs in your browser tab
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-it-compares" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        How it compares
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-workspace" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The workspace
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#projects-are-references-not-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Projects are references, not data
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hands-on-35-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Hands-on (35 min)
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hands-on (35 min)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-11-open-geolibre-and-look-around-3-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Exercise 1.1: Open GeoLibre and look around (3 min)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-12-the-command-palette-and-shortcuts-4-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Exercise 1.2: The command palette and shortcuts (4 min)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-13-find-a-place-three-ways-5-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Exercise 1.3: Find a place three ways (5 min)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-14-change-the-basemap-3-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Exercise 1.4: Change the basemap (3 min)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-15-add-data-by-url-and-inspect-it-8-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Exercise 1.5: Add data by URL and inspect it (8 min)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-16-name-the-project-then-recover-from-a-mistake-5-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Exercise 1.6: Name the project, then recover from a mistake (5 min)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-17-save-and-read-the-project-file-4-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Exercise 1.7: Save and read the project file (4 min)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-18-reopen-from-a-link-3-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Exercise 1.8: Reopen from a link (3 min)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#if-you-finish-early" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        If you finish early
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#check-your-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Check your work
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#going-further" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Going further
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-bringing-in-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  2. Bringing In Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-visualization-styling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  3. Visualization & Styling
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-attributes-editing-sql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  4. Attributes, Editing & SQL
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-analysis-processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  5. Analysis & Processing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-3d-and-time/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  6. Engines, 3D & Time
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-communicating-collaborating/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  7. Communicating & Collaborating
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-ai-automation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  8. AI & Automation
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Reference
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_13">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Reference
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Architecture
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../maplibre-renderer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  MapLibre Renderer
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mapbox-renderer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Mapbox Renderer
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cesium-renderer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Cesium Renderer
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../arcgis-renderer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  ArcGIS Renderer
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../self-hosting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Self-Hosting
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../network-endpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Network Endpoints
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../server-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Server API
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../android/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Android
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  iOS
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mac-app-store/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Mac App Store
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../project-format/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project Format
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../plugin-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Plugin API
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../collaboration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Collaboration
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ui-profiles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  UI Profiles
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../deployment-capabilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Deployment Capabilities
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../deployment-policy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Deployment Policy
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../i18n/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Internationalization
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Python Package
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13_20" >
+        
+          
+          <label class="md-nav__link" for="__nav_13_20" id="__nav_13_20_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Python API Reference
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_13_20_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_13_20">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Python API Reference
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Overview
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python-api/map/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Map, Layer and Feature
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python-api/authoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  authoring
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python-api/project/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  project
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python-api/color_ramp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  color_ramp
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python-api/legends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  legends
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python-api/basemaps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  basemaps
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python-api/polyline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  polyline
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python-api/pointcloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  pointcloud
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python-api/spaceborne_lidar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  spaceborne_lidar
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python-api/dash_component/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  dash_component
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../r/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  R Package
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  MCP Server
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../agent-skill/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Agent Skill
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../notebook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Notebook Panel
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Roadmap
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Contributing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../maintenance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Maintenance Notes
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../third-party-licenses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Third-Party Licenses
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../citation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  How to Cite
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../acknowledgements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Acknowledgements
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../privacy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Privacy Policy
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../terms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Terms of Service
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-goals" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Learning goals
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lecture-15-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Lecture (15 min)
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lecture (15 min)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-cloud-native-gis" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        What is cloud-native GIS?
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cloud-native-local-first-open-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Cloud-native, local-first, open source
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-runs-in-your-browser-tab" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        What runs in your browser tab
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-it-compares" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        How it compares
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-workspace" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The workspace
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#projects-are-references-not-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Projects are references, not data
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hands-on-35-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Hands-on (35 min)
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hands-on (35 min)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-11-open-geolibre-and-look-around-3-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Exercise 1.1: Open GeoLibre and look around (3 min)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-12-the-command-palette-and-shortcuts-4-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Exercise 1.2: The command palette and shortcuts (4 min)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-13-find-a-place-three-ways-5-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Exercise 1.3: Find a place three ways (5 min)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-14-change-the-basemap-3-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Exercise 1.4: Change the basemap (3 min)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-15-add-data-by-url-and-inspect-it-8-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Exercise 1.5: Add data by URL and inspect it (8 min)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-16-name-the-project-then-recover-from-a-mistake-5-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Exercise 1.6: Name the project, then recover from a mistake (5 min)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-17-save-and-read-the-project-file-4-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Exercise 1.7: Save and read the project file (4 min)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-18-reopen-from-a-link-3-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Exercise 1.8: Reopen from a link (3 min)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#if-you-finish-early" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        If you finish early
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#check-your-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Check your work
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#going-further" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Going further
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                <a id="__skip" tabindex="-1"></a>
+                
+                  
+
+  
+  
+
+
+<h1 id="1-getting-started-with-geolibre-and-cloud-native-gis">1. Getting Started with GeoLibre and Cloud-Native GIS<a class="headerlink" href="#1-getting-started-with-geolibre-and-cloud-native-gis" title="Permanent link">&para;</a></h1>
+<div class="admonition info">
+<p class="admonition-title">8:00 - 9:00 a.m.</p>
+<p>Lecture 15 min · Hands-on 35 min · Break 8:50 - 9:00</p>
+</div>
+<h2 id="learning-goals">Learning goals<a class="headerlink" href="#learning-goals" title="Permanent link">&para;</a></h2>
+<p>By the end of this section you will be able to:</p>
+<ul>
+<li>Explain what "cloud-native" and "local-first" mean for a GIS, and why the
+  combination lets a browser tab do real GIS work.</li>
+<li>Find your way around the GeoLibre workspace: the nine menus, the Layers,
+  Browser, and Style panels, the status bar, the command palette, and the
+  keyboard shortcuts.</li>
+<li>Find a place by name, by coordinates in several notations, or by an
+  attribute value in your own data.</li>
+<li>Add data to a map from a URL, change the basemap, and inspect features.</li>
+<li>Name, save, recover, and reopen a project, and open GeoLibre at a location
+  from a link.</li>
+</ul>
+<h2 id="lecture-15-min">Lecture (15 min)<a class="headerlink" href="#lecture-15-min" title="Permanent link">&para;</a></h2>
+<h3 id="what-is-cloud-native-gis">What is cloud-native GIS?<a class="headerlink" href="#what-is-cloud-native-gis" title="Permanent link">&para;</a></h3>
+<p>Traditional desktop GIS assumes that data lives on your disk: you download a
+zip, unpack it, convert it, and only then look at it. Cloud-native GIS flips
+that around. Data stays where it is published, in object storage such as
+Amazon S3 or Source Cooperative, or on a plain web server, and the client
+reads only the parts it needs over HTTP.</p>
+<p>Three ideas make that work:</p>
+<ol>
+<li><strong>HTTP range requests.</strong> A browser can ask a server for bytes 1,000 to
+   2,000 of a file instead of the whole file. Formats designed for this keep a
+   small index that a client reads first (a COG header at the start of the
+   file, a GeoParquet footer at the end, Zarr metadata in its own small file),
+   then fetch only the tiles or chunks for the current view. For GeoParquet,
+   how much can be skipped depends on the file: spatially sorted row groups
+   with bounding-box statistics, like the workshop files, let a reader skip
+   most of them.</li>
+<li><strong>Cloud-optimized formats.</strong> Cloud-Optimized GeoTIFF (COG) for rasters,
+   GeoParquet and FlatGeobuf for vectors, PMTiles for tiled maps, Zarr for
+   multidimensional arrays, and COPC or EPT for point clouds. Section 2 loads
+   each one.</li>
+<li><strong>Catalogs and standard APIs.</strong> STAC catalogs describe what data exists and
+   where its files are. OGC APIs (WMS, WFS, OGC API - Features) serve maps and
+   features on demand. Section 2 covers both.</li>
+</ol>
+<p>The result: you can explore a 400 MB elevation model, a national county layer,
+or a 20-billion-point LiDAR survey from a laptop browser in seconds, without a
+server of your own.</p>
+<h3 id="cloud-native-local-first-open-source">Cloud-native, local-first, open source<a class="headerlink" href="#cloud-native-local-first-open-source" title="Permanent link">&para;</a></h3>
+<p>GeoLibre is a free, open-source (MIT) GIS built for this model. Three
+properties define it, and they are worth keeping apart:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>What it describes</th>
+<th>In practice</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Cloud-native</strong></td>
+<td>The data GeoLibre is built to read</td>
+<td>COG, GeoParquet, PMTiles, FlatGeobuf, Zarr, COPC, and STAC are first-class. A 400 GB Zarr store on S3 is an ordinary layer, because the app never tries to hold all of it</td>
+</tr>
+<tr>
+<td><strong>Local-first</strong></td>
+<td>Where computation and state live</td>
+<td>Your project is a file on your disk, not a row in a vendor database. Files you open are parsed in your tab by DuckDB-WASM; the geoprocessing tools run on WebAssembly in the same tab. No account, no upload step, no server you must keep running</td>
+</tr>
+<tr>
+<td><strong>Open source</strong></td>
+<td>The license and the documented formats</td>
+<td>The project file is documented JSON and the plugin API is public, so you can automate, embed, extend, and self-host GeoLibre without asking anyone</td>
+</tr>
+</tbody>
+</table>
+<p>Together they describe an app that streams a petabyte-scale public archive
+without ever asking you to trust it with your own files. Your data leaves your
+machine only when you share or export it, or when you send a request to a
+remote AI provider through the AI Assistant. Searching places sends the search
+text to a geocoding service, and catalog and service searches send the map
+extent to that service.</p>
+<h3 id="what-runs-in-your-browser-tab">What runs in your browser tab<a class="headerlink" href="#what-runs-in-your-browser-tab" title="Permanent link">&para;</a></h3>
+<p>You do not need to know the stack to use GeoLibre, but it explains a lot of
+the app's behavior:</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Job</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MapLibre GL JS</strong> (default renderer)</td>
+<td>Draws the map. Mapbox GL JS, CesiumJS, and the ArcGIS Maps SDK can take its place under <strong>View → Rendering engine</strong></td>
+</tr>
+<tr>
+<td><strong>deck.gl</strong></td>
+<td>Point clouds, 3D Tiles, glTF models, and large overlays</td>
+</tr>
+<tr>
+<td><strong>DuckDB-WASM Spatial</strong></td>
+<td>Converts vector files the renderer cannot draw, reads GeoParquet, and backs the SQL workspace</td>
+</tr>
+<tr>
+<td><strong>WebAssembly geoprocessing</strong></td>
+<td>More than 1,000 Whitebox and GeoLibre tools, entirely client-side</td>
+</tr>
+<tr>
+<td><strong>Pyodide</strong></td>
+<td>Runs GeoPandas code in the browser for the Python engine of the vector tools</td>
+</tr>
+<tr>
+<td><strong>Tauri v2</strong></td>
+<td>Wraps the same web app as the desktop, Android, and iOS apps</td>
+</tr>
+</tbody>
+</table>
+<p>The same app ships in several shells: the browser at
+<a href="https://web.geolibre.app">web.geolibre.app</a> (installable as a Progressive
+Web App), desktop installers for Windows, macOS, and Linux, Android and iOS
+apps, a Jupyter widget through the <code>geolibre</code> Python package, an R
+htmlwidget, and an MCP server for AI agents. A project made in any of them
+opens in all the others. The rule for what differs is simple: <strong>anything that
+needs a local process is missing where there is no local process.</strong> The web
+build has no native file dialogs and no Python sidecar, but the WebAssembly
+toolbox works everywhere, which is why this workshop uses only the browser.</p>
+<h3 id="how-it-compares">How it compares<a class="headerlink" href="#how-it-compares" title="Permanent link">&para;</a></h3>
+<p>GeoLibre is not trying to replace QGIS or ArcGIS Pro. Think of it as the
+GIS that is one click away.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>GeoLibre</th>
+<th>QGIS</th>
+<th>ArcGIS Pro</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Runs in a browser</td>
+<td>The full app</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Desktop</td>
+<td>Windows, macOS, Linux</td>
+<td>Windows, macOS, Linux</td>
+<td>Windows only</td>
+</tr>
+<tr>
+<td>Project file</td>
+<td><code>.geolibre</code>, open documented JSON</td>
+<td><code>.qgs</code> / <code>.qgz</code></td>
+<td><code>.aprx</code>, proprietary</td>
+</tr>
+<tr>
+<td>Geoprocessing</td>
+<td>1,000+ tools on WebAssembly, plus a Model Builder</td>
+<td>1,000+ native, GDAL, GRASS, SAGA</td>
+<td>The most complete</td>
+</tr>
+<tr>
+<td>Spatial SQL</td>
+<td>DuckDB, PGlite/PostGIS, all client-side</td>
+<td>Virtual layers, DB Manager</td>
+<td>Enterprise geodatabases</td>
+</tr>
+<tr>
+<td>Cost</td>
+<td>Free, MIT</td>
+<td>Free, GPL</td>
+<td>Subscription</td>
+</tr>
+</tbody>
+</table>
+<p>Where it is <em>not</em> the right tool: multi-gigabyte local processing jobs
+(browser memory is a real ceiling), the long tail of formats only GDAL reads,
+and enterprise geodatabase administration. The tools also compose: GeoLibre
+imports QGIS <code>.qgs</code>/<code>.qgz</code> and ArcGIS Pro <code>.aprx</code>/<code>.mapx</code> projects, so you
+can author in one and publish with the other.</p>
+<h3 id="the-workspace">The workspace<a class="headerlink" href="#the-workspace" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Top toolbar</td>
+<td><strong>Project</strong>, <strong>Edit</strong>, <strong>View</strong>, <strong>Add data</strong>, <strong>Processing</strong>, <strong>Controls</strong>, <strong>Plugins</strong>, <strong>Settings</strong>, <strong>Help</strong>. The light/dark toggle and the editable project name sit on the right</td>
+</tr>
+<tr>
+<td>Layers panel (left)</td>
+<td>The layer stack, basemap included as the <strong>Background</strong> row. Visibility, opacity, reorder, zoom to layer, identify, style, layer actions (<strong>⋯</strong>), metadata, remove</td>
+</tr>
+<tr>
+<td>Browser panel (left rail)</td>
+<td>A data-source tree: saved services, recent items, favorites, databases</td>
+</tr>
+<tr>
+<td>Style and Comments panels (right rail)</td>
+<td>Symbology, labels, and popups for the selected layer; review comments</td>
+</tr>
+<tr>
+<td>Search box (bottom of the Layers panel)</td>
+<td>Places, coordinates, H3 cells, and attribute matches from your own layers</td>
+</tr>
+<tr>
+<td>Status bar (bottom)</td>
+<td>Pointer coordinates, zoom, eye altitude, bearing, pitch, bounding box, and a <strong>Diagnostics</strong> counter for network and console errors</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Edit</strong> and <strong>View</strong> are the two most easily missed menus, because their
+contents (undo, selections, Set view, split view, rendering engine) live
+nowhere else.</p>
+<div class="admonition tip">
+<p class="admonition-title">Coming from QGIS or ArcGIS Pro</p>
+<p>The Layers panel and Browser panel will feel familiar. What QGIS spreads
+across docks, a Processing Toolbox, and a Layout Manager, GeoLibre gathers
+into nine menus and one <strong>command palette</strong> (<code>Ctrl+K</code>, <code>Cmd+K</code> on macOS):
+type a tool or menu name and press Enter.</p>
+</div>
+<h3 id="projects-are-references-not-data">Projects are references, not data<a class="headerlink" href="#projects-are-references-not-data" title="Permanent link">&para;</a></h3>
+<p>A <strong>project</strong> captures the whole workspace: the map view, the basemap and
+rendering engine, every layer with its source and style, preferences, and
+plugin state. Three things about it matter today:</p>
+<ul>
+<li><strong>It stores references, not copies.</strong> A layer records <em>where</em> its data is,
+  so a project that maps a national dataset is still a few kilobytes. The flip
+  side is that a project can save perfectly and still draw nothing for a
+  colleague who cannot reach its sources.</li>
+<li><strong>It never contains credentials.</strong> API keys and tokens stay on the device,
+  so a project file is safe to commit to Git or email.</li>
+<li><strong>It is plain JSON.</strong> Projects save as <code>.geolibre</code> files. Earlier releases
+  used <code>.geolibre.json</code>, and GeoLibre still opens those everywhere (the
+  workshop's finished projects use that name).</li>
+</ul>
+<p>Behind the scenes, GeoLibre also <strong>autosaves</strong> a snapshot to your browser's
+storage about three seconds after each change settles. Autosaves never touch
+your project file, only <strong>Save</strong> does. <strong>Project → History...</strong> lists the
+snapshots, compares any of them with the current map, and restores one in a
+single undoable step.</p>
+<h2 id="hands-on-35-min">Hands-on (35 min)<a class="headerlink" href="#hands-on-35-min" title="Permanent link">&para;</a></h2>
+<h3 id="exercise-11-open-geolibre-and-look-around-3-min">Exercise 1.1: Open GeoLibre and look around (3 min)<a class="headerlink" href="#exercise-11-open-geolibre-and-look-around-3-min" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Open <a href="https://web.geolibre.app">web.geolibre.app</a> in Chrome, Edge, or
+   Firefox. If a welcome screen asks for your experience level, choose
+   <strong>Advanced</strong> (or skip it) so you see every menu used today.</li>
+<li>Open each top-level menu. Note that <strong>Add data</strong> groups its sources under
+   five headings: <strong>Files</strong>, <strong>Web services</strong>, <strong>Cloud formats</strong>,
+   <strong>3D layers</strong>, and <strong>Databases</strong>.</li>
+<li>The map starts as a globe. Scroll to zoom in; the projection flattens to
+   Web Mercator as you zoom. Watch the status bar update as you move.</li>
+<li>Open <strong>Help → About</strong>. The version reads <strong>v3.7.0</strong> (or later).</li>
+</ol>
+<h3 id="exercise-12-the-command-palette-and-shortcuts-4-min">Exercise 1.2: The command palette and shortcuts (4 min)<a class="headerlink" href="#exercise-12-the-command-palette-and-shortcuts-4-min" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Press <code>Ctrl+K</code> (<code>Cmd+K</code> on macOS) to open the command palette and type
+   <code>hillshade</code>. The list groups the matches: the GeoLibre <strong>Hillshade</strong> tool
+   under <strong>Processing</strong>, then <strong>Hillshade</strong>, <strong>Lidar Hillshade</strong>,
+   <strong>Hypsometrically Tinted Hillshade</strong>, and <strong>Multidirectional Hillshade</strong>
+   under <strong>Whitebox toolbox</strong>. Every individual tool is one search away.
+   Press <code>Esc</code>.</li>
+<li>Click on the map so it has focus, then press <code>?</code>. The <strong>Keyboard
+   shortcuts</strong> sheet lists the global set, including <code>Ctrl+S</code> to save,
+   <code>[</code> and <code>]</code> for previous and next view, and <code>N</code>, <code>U</code>, and <code>R</code> to reset
+   bearing, pitch, or both. Press <code>Esc</code>.</li>
+<li>Try navigating with the keyboard: arrow keys pan, <code>+</code> and <code>-</code> zoom,
+   <code>Shift+←</code>/<code>→</code> rotate, <code>Shift+↑</code>/<code>↓</code> tilt. Press <code>R</code> to reset the camera,
+   then <code>[</code> to step back through the views you just visited.</li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">Shortcuts and text fields</p>
+<p>Single-key shortcuts are ignored while you type in a text box, so they
+never fight with the search box or an attribute edit. If <code>?</code> does nothing,
+click the map first.</p>
+</div>
+<h3 id="exercise-13-find-a-place-three-ways-5-min">Exercise 1.3: Find a place three ways (5 min)<a class="headerlink" href="#exercise-13-find-a-place-three-ways-5-min" title="Permanent link">&para;</a></h3>
+<p>The search box at the bottom of the Layers panel decides what you typed and
+handles it accordingly.</p>
+<ol>
+<li><strong>By name.</strong> Type <code>Reno</code> and pick <strong>Reno, Washoe County, Nevada, United
+   States</strong> from the results (it may not be the first entry). The map flies
+   to Reno at about zoom 12.</li>
+<li><strong>By coordinates.</strong> Clear the box and type <code>39.5442, -119.8160</code> (latitude
+   first). The only result is <strong>Go to 39.5442, -119.816</strong>. Pick it to fly to
+   the University of Nevada, Reno campus, near this workshop's venue.</li>
+<li>
+<p><strong>Read the coordinate in other notations.</strong> The <strong>Coords</strong> readout in the
+   status bar follows the pointer and shows <code>–</code> when the pointer leaves the
+   map. Click the readout to switch to the next format, then rest the pointer
+   on the campus again to read it. Seven clicks cycle through seven formats.
+   Near the campus you will see, in order:</p>
+<table>
+<thead>
+<tr>
+<th>Format</th>
+<th>Readout</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Decimal degrees (longitude first)</td>
+<td><code>-119.81600, 39.54420</code></td>
+</tr>
+<tr>
+<td>Degrees, minutes, seconds</td>
+<td><code>39°32'38.64"N 119°48'57.6"W</code></td>
+</tr>
+<tr>
+<td>Degrees, decimal minutes</td>
+<td><code>39°32.6441'N 119°48.96'W</code></td>
+</tr>
+<tr>
+<td>UTM</td>
+<td><code>11S 258017mE 4380943mN</code></td>
+</tr>
+<tr>
+<td>MGRS</td>
+<td><code>11SKD5801780942</code></td>
+</tr>
+<tr>
+<td>USNG</td>
+<td><code>11S KD 58017 80942</code></td>
+</tr>
+<tr>
+<td>Web Mercator</td>
+<td><code>-13337856.11, 4799906.95 (EPSG:3857)</code></td>
+</tr>
+</tbody>
+</table>
+<p>Your digits will differ slightly with the pointer position.
+4. <strong>By grid reference.</strong> Type the MGRS reference <code>11SKD5801780942</code> into the
+   search box. The result reads <strong>Go to 11SKD5801780942 (39.544064,
+   -119.815999)</strong>: the same spot, parsed without a geocoder round trip.</p>
+</li>
+</ol>
+<div class="admonition question">
+<p class="admonition-title">Discussion</p>
+<p>Decimal degrees in the status bar are written longitude first, like
+GeoJSON, but you typed latitude first in the search box. Where has a
+swapped coordinate pair caught you out before, and which formats avoid the
+ambiguity entirely?</p>
+</div>
+<h3 id="exercise-14-change-the-basemap-3-min">Exercise 1.4: Change the basemap (3 min)<a class="headerlink" href="#exercise-14-change-the-basemap-3-min" title="Permanent link">&para;</a></h3>
+<ol>
+<li>In the Layers panel, double-click the <strong>Background</strong> row (or click its
+   <strong>⋯</strong> button) to open <strong>Change background</strong>.</li>
+<li>Browse the families: <strong>OpenFreeMap</strong> (Liberty, Liberty 3D, Positron,
+   Bright, Dark, Fiord), <strong>Protomaps</strong>, <strong>Regional</strong>, <strong>The Moon</strong>, <strong>Mars</strong>,
+   <strong>Other celestial bodies</strong>, and <strong>Other</strong> (Blank, Custom URL).</li>
+<li>Click <strong>Positron</strong>. The basemap switches to light gray and the dialog
+   closes. Reopen it and try <strong>Dark</strong>, then <strong>Liberty 3D</strong>.</li>
+<li>Finish on <strong>Liberty</strong>. Liberty 3D tilted the camera to 60° to show its
+   buildings, and switching back keeps that pitch, so click the map and press
+   <code>R</code> to level it.</li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">Coming from QGIS or ArcGIS Pro</p>
+<p>The basemap is a real row in the Layers panel, not a hidden setting. It
+sits at the bottom of the stack, takes an opacity slider like any other
+layer, and can be hidden with its eye icon.</p>
+</div>
+<h3 id="exercise-15-add-data-by-url-and-inspect-it-8-min">Exercise 1.5: Add data by URL and inspect it (8 min)<a class="headerlink" href="#exercise-15-add-data-by-url-and-inspect-it-8-min" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Choose <strong>Add data → Vector layer</strong>. The <strong>Add Vector Layer</strong> panel opens
+   over the map.</li>
+<li>
+<p>Paste this URL into the URL box and click <strong>Load</strong>:</p>
+<div class="highlight"><pre><span></span><code>https://data.source.coop/opengeos/data/workshops/ngis-2026/nv_counties.geojson
+</code></pre></div>
+</li>
+<li>
+<p>Paste a second URL and click <strong>Load</strong> again:</p>
+<div class="highlight"><pre><span></span><code>https://data.source.coop/opengeos/data/workshops/ngis-2026/reno_sites.geojson
+</code></pre></div>
+</li>
+<li>
+<p>Close the panel with its <strong>×</strong>. The Layers panel now lists <code>reno_sites</code>
+   above <code>nv_counties</code>, both tagged <strong>VECTOR</strong>, and the map has zoomed to the
+   Reno-Tahoe area (about zoom 10).</p>
+</li>
+<li><strong>Identify one layer.</strong> On the <code>reno_sites</code> row, click <strong>Identify
+   features</strong> (the pointer icon) and click the point west of Washoe Lake. The
+   popup shows <code>id</code> <strong>5</strong>, <code>name</code> <strong>Mount Rose summit</strong>, and <code>kind</code> <strong>peak</strong>.
+   Click the icon again to turn identify off.</li>
+<li><strong>Identify everything under the pointer.</strong> Click <strong>Identify visible
+   layers</strong> in the Layers panel header (the pointer icon next to the eye) and
+   click inside Washoe County, north of Lake Tahoe. <strong>Identified results</strong>
+   lists <code>nv_counties</code> with <code>GEOID</code> <strong>32031</strong>, <code>NAME</code> <strong>Washoe</strong>, <code>ALAND</code>
+   <strong>16358036858</strong> (land area in square meters, about 16,358 km²), and
+   <code>AWATER</code> <strong>582745905</strong>. Turn the tool off again.</li>
+<li><strong>Search your own data.</strong> Type <code>Esmeralda</code> into the search box. A group
+   labeled <strong>NV_COUNTIES</strong> appears above the place results, with the match
+   <strong>Esmeralda</strong> in the <code>NAME</code> field. Pick it: the county is selected and
+   highlighted, and the map flies to it, around Tonopah. Clear the box.</li>
+<li>Drag the opacity slider on <code>nv_counties</code> down to <strong>0.50</strong>.</li>
+</ol>
+<p><img alt="The first map: Nevada counties at half opacity and the Reno-Tahoe landmarks over the Liberty basemap" src="https://data.source.coop/opengeos/data/workshops/ngis-2026/images/s01-getting-started.webp" /></p>
+<div class="admonition tip">
+<p class="admonition-title">Typing a county name finds your county</p>
+<p>Attribute matches run locally and appear before the geocoder answers, so
+a parcel number, station ID, or county name finds the feature in your data
+rather than a similarly named place elsewhere. This is the QGIS Locator
+bar habit without configuring a locator filter.</p>
+</div>
+<h3 id="exercise-16-name-the-project-then-recover-from-a-mistake-5-min">Exercise 1.6: Name the project, then recover from a mistake (5 min)<a class="headerlink" href="#exercise-16-name-the-project-then-recover-from-a-mistake-5-min" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Double-click <code>nv_counties</code> in the Layers panel and rename it
+   <code>Nevada counties</code>; press Enter. Rename <code>reno_sites</code> to <code>Reno-Tahoe sites</code>.</li>
+<li>Click the project name at the top right (it reads <strong>Untitled Project</strong>),
+   type <code>NGIS 2026 - 1 Getting started</code>, and press Enter.</li>
+<li>Wait five seconds so an autosave lands. Then make a deliberate mistake:
+   click the <code>Reno-Tahoe sites</code> row, press <code>Delete</code>, and confirm <strong>Remove</strong>
+   in the <strong>Remove layer?</strong> dialog. The points disappear. Wait another five
+   seconds.</li>
+<li>Choose <strong>Project → History...</strong>. <strong>Project history</strong> lists the autosaved
+   snapshots, newest first, each with a layer count and the zoom at that
+   moment, for example <strong>1 layers · zoom 8.3</strong> above <strong>2 layers · zoom 8.3</strong>.</li>
+<li>Click <strong>Compare</strong> on the newest <strong>2 layers</strong> snapshot. The comparison reads
+   <strong>1 change</strong>, with <strong>Layers 1</strong> and the row <strong>Removed · Reno-Tahoe
+   sites</strong>.</li>
+<li>Click <strong>Back to snapshots</strong>, then <strong>Restore</strong> on that same <strong>2 layers</strong>
+   snapshot. The dialog closes and <code>Reno-Tahoe sites</code> is back in the Layers
+   panel. The map is still on Esmeralda County from the last exercise, so
+   click <strong>Zoom to layer</strong> (the magnifier) on the restored row to see the
+   points again.</li>
+</ol>
+<p><img alt="Project history comparing the pre-mistake snapshot with the current project" src="https://data.source.coop/opengeos/data/workshops/ngis-2026/images/s01-history-compare.webp" /></p>
+<div class="admonition tip">
+<p class="admonition-title">Undo is faster for the last step</p>
+<p><strong>Edit → Undo</strong> (<code>Ctrl+Z</code>) also brings back a removed layer. History is
+for going further back, or for seeing exactly what changed since a
+snapshot. A restore is itself undoable, so you can try one and back out.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">History lives on this device only</p>
+<p>Snapshots are stored in this browser, keyed by the project's name until
+you save it and by its file name afterwards. They are not uploaded, not
+shared, and not part of the project file. A browser profile that clears
+site data on exit loses them, so <strong>Save</strong> is still your real backup.</p>
+</div>
+<h3 id="exercise-17-save-and-read-the-project-file-4-min">Exercise 1.7: Save and read the project file (4 min)<a class="headerlink" href="#exercise-17-save-and-read-the-project-file-4-min" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Choose <strong>Project → Save</strong> (or press <code>Ctrl+S</code>, <code>Cmd+S</code> on macOS). Chrome and
+   Edge open a system save dialog. Firefox asks for a <strong>File name</strong> and
+   downloads the file to your downloads folder. The suggested name is
+   <code>NGIS 2026 - 1 Getting started.geolibre</code>.</li>
+<li>The project name in the toolbar is now followed by the file name.</li>
+<li>Open the file in a text editor. It is about 20 KB of JSON. Find the
+   <code>layers</code> array: each layer stores its <code>name</code>, its <code>opacity</code> (<code>0.5</code> for the
+   counties), and a <code>source</code> with the data <strong>URL</strong>, not the data. Find
+   <code>mapView</code>, which stores the camera's <code>center</code>, <code>zoom</code>, <code>bearing</code>, and
+   <code>pitch</code>, and <code>basemapStyleUrl</code>, the Liberty style.</li>
+</ol>
+<div class="admonition question">
+<p class="admonition-title">Discussion</p>
+<p>The counties file this project points to is on Source Cooperative. What
+happens to your map if that file is moved or deleted? What would you
+change if the project had to keep working for ten years?</p>
+</div>
+<h3 id="exercise-18-reopen-from-a-link-3-min">Exercise 1.8: Reopen from a link (3 min)<a class="headerlink" href="#exercise-18-reopen-from-a-link-3-min" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>A project file on any public web server that allows cross-origin (CORS)
+   requests opens with one link. Open the finished project for this section:</p>
+<div class="highlight"><pre><span></span><code>https://web.geolibre.app/?url=https://data.source.coop/opengeos/data/workshops/ngis-2026/projects/01-getting-started.geolibre.json
+</code></pre></div>
+<p>You can also paste the project URL into <strong>Project → Open from → URL...</strong>,
+or reopen the file you saved with <strong>Project → Open from → File...</strong>.
+2. Links can also open a place instead of a project. Open this in a new tab:</p>
+<div class="highlight"><pre><span></span><code>https://web.geolibre.app/?14/39.5442/-119.8160
+</code></pre></div>
+<p>The compact form is zoom/latitude/longitude, so the map opens on campus at
+zoom 14.00. Pan the map and watch the address bar: it gains
+<code>lat=...&amp;lon=...&amp;zoom=...</code> parameters that follow the view, so copying the
+URL is the quickest way to share where you are looking.</p>
+</li>
+</ol>
+<h3 id="if-you-finish-early">If you finish early<a class="headerlink" href="#if-you-finish-early" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Switch rendering engines.</strong> Choose <strong>View → Rendering engine → Cesium</strong>.
+  The same project redraws on a 3D globe over satellite imagery, with both
+  layers intact; a notice explains that a Cesium Ion token adds terrain and
+  Ion imagery. The <strong>Diagnostics</strong> counter picks up about nine Cesium
+  warnings (deprecation notices and "outlines are unsupported on terrain");
+  they are harmless. Switch back with <strong>View → Rendering engine → MapLibre</strong>.</li>
+<li><strong>Check a palette for color-vision deficiencies.</strong> Choose <strong>View → Color
+  vision preview → Deuteranopia (green-blind)</strong>. Only the map is filtered,
+  and a badge reminds you the preview is on. It is never saved or exported.
+  Choose <strong>Off</strong> to end it.</li>
+<li><strong>Simplify the interface.</strong> Under <strong>Settings → Interface</strong>, pick
+  <strong>Beginner</strong>. The <strong>Add data</strong> menu shrinks from more than 40 entries to 9
+  (vector, raster, delimited text, MBTiles, XYZ, WCS, WMS, administrative
+  boundaries, and GeoParquet). Nothing is removed; pick <strong>Advanced</strong> to bring
+  everything back. An instructor can hand a class the same simplified view
+  with an interface file.</li>
+<li><strong>Ask "What's here?"</strong> Right-click the map. The context menu shows the
+  clicked coordinate (click it to copy), <strong>What's here?</strong>, <strong>Copy as
+  GeoJSON</strong>, directions, <strong>Quick analysis</strong>, and Google Maps and Google Earth
+  hand-offs. <strong>What's here?</strong> first asks before sending the coordinate to
+  Wikipedia, then shows a knowledge card with nearby places.</li>
+</ul>
+<h2 id="check-your-work">Check your work<a class="headerlink" href="#check-your-work" title="Permanent link">&para;</a></h2>
+<p><a class="md-button md-button--primary" href="https://web.geolibre.app/?url=https://data.source.coop/opengeos/data/workshops/ngis-2026/projects/01-getting-started.geolibre.json">Open the finished project</a></p>
+<p>The finished project opens on the Reno-Tahoe area at zoom 9 with the Liberty
+basemap, <code>Reno-Tahoe sites</code>, and <code>Nevada counties</code> at 0.50 opacity. The raw
+file is
+<a href="https://data.source.coop/opengeos/data/workshops/ngis-2026/projects/01-getting-started.geolibre.json"><code>01-getting-started.geolibre.json</code></a>.</p>
+<h2 id="going-further">Going further<a class="headerlink" href="#going-further" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Browse the shared gallery with <strong>Project → Open from → Gallery...</strong>, or
+  start from a curated example in the <strong>Examples</strong> section of
+  <strong>Project → New...</strong>.</li>
+<li><strong>Project → Duplicate project</strong> copies the open project into an unsaved one,
+  so you can experiment without touching the original.</li>
+<li><strong>Project → Save as template...</strong> with <strong>Strip data layers</strong> keeps your
+  basemap, groups, and styles as a house-style starting point for new maps.</li>
+<li>The planet switcher (the orbit icon in the Layers panel header) moves the
+  map to the Moon, Mars, and other bodies, and sets the ellipsoid that the
+  scale bar and the Measure tool use.</li>
+<li><strong>Settings → Startup settings</strong> sets where a new, empty map opens, so a
+  personal install or a team deployment starts on Nevada instead of the whole
+  world.</li>
+<li>Install the <a href="../../../downloads/">desktop app</a> to open and save projects on
+  disk, read local rasters and MBTiles, and run the optional Python sidecar.</li>
+<li>The <a href="../../../user-guide/chrome-extension/">Open data in GeoLibre</a> browser
+  extension lists the datasets linked on any web page and opens them in
+  GeoLibre in one click.</li>
+<li>Read <a href="../../../user-guide/interface/">Interface Overview</a>,
+  <a href="../../../user-guide/projects/">Projects</a>,
+  <a href="../../../user-guide/map-controls/">Map Controls</a>,
+  <a href="../../../user-guide/rendering-engines/">Rendering Engines</a>,
+  <a href="../../../comparison/">How GeoLibre Compares</a>, and
+  <a href="../../../privacy/">Privacy</a>.</li>
+</ul>
+<hr />
+<p><strong>Break: 8:50 - 9:00.</strong> Next: <a href="../02-bringing-in-data/">2. Bringing In Cloud-Hosted Data</a></p>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/opengeos/GeoLibre" target="_blank" rel="noopener" title="GeoLibre on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/sponsors/giswqs" target="_blank" rel="noopener" title="Sponsor GeoLibre on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="m241 87.1 15 20.7 15-20.7C296 52.5 336.2 32 378.9 32 452.4 32 512 91.6 512 165.1v2.6c0 112.2-139.9 242.5-212.9 298.2-12.4 9.4-27.6 14.1-43.1 14.1s-30.8-4.6-43.1-14.1C139.9 410.2 0 279.9 0 167.7v-2.6C0 91.6 59.6 32 133.1 32 175.8 32 216 52.5 241 87.1"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://buymeacoffee.com/giswqs" target="_blank" rel="noopener" title="Buy the maintainer a coffee" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M152-16c-13.3 0-24 10.7-24 24 0 38.9 23.4 59.4 39.1 73.1l1.1 1C184.5 96.4 192 103.9 192 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C183.5 31.7 176 24.1 176 8c0-13.3-10.7-24-24-24M96 192c-17.7 0-32 14.3-32 32v192c0 53 43 96 96 96h192c41.8 0 77.4-26.7 90.5-64h5.5c70.7 0 128-57.3 128-128s-57.3-128-128-128zm352 192V256c35.3 0 64 28.7 64 64s-28.7 64-64 64M288 8c0-13.3-10.7-24-24-24S240-5.3 240 8c0 38.9 23.4 59.4 39.1 73.1l1.1 1C296.5 96.4 304 103.9 304 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C295.5 31.7 288 24.1 288 8"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"../../..","features":["navigation.instant","navigation.top","search.highlight","search.share","search.suggest","toc.follow"],"redirect":null,"search":"../../../assets/javascripts/workers/search.719e0d91.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d31f0ffa.min.js"></script>
+      
+    
+  </body>
+</html>

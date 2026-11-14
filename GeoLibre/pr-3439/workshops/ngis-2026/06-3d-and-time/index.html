@@ -1,0 +1,4535 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A lightweight, cloud-native GIS platform for visualizing, exploring, and analyzing geospatial data across desktop and web environments, with a responsive layout for mobile screens.">
+      
+      
+      
+        <link rel="canonical" href="https://geolibre.app/workshops/ngis-2026/06-3d-and-time/">
+      
+      
+      
+        <link rel="prev" href="../05-analysis-processing/">
+      
+      
+        <link rel="next" href="../07-communicating-collaborating/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/geolibre-icon.png">
+      <meta name="generator" content="zensical-0.0.74">
+    
+    
+      
+        <title>6. Engines, 3D & Time - GeoLibre</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../../assets/stylesheets/modern/main.4ab2de0c.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/modern/palette.b60ce83d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+  
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-hidden="true"></label>
+    <div data-md-component="skip">
+      <a href="#__skip" class="md-skip">
+        Skip to content
+      </a>
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="GeoLibre" class="md-header__button md-logo" aria-label="GeoLibre" data-md-component="logo">
+      
+  <img src="../../../assets/geolibre-icon.png" alt="GeoLibre">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+      <span class="md-visually-hidden">Navigation</span>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            GeoLibre
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              6. Engines, 3D & Time
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+          <span class="md-visually-hidden">Search</span>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/opengeos/GeoLibre" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    opengeos/GeoLibre
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="GeoLibre" class="md-nav__button md-logo" aria-label="GeoLibre" data-md-component="logo">
+      
+  <img src="../../../assets/geolibre-icon.png" alt="GeoLibre">
+
+    </a>
+    GeoLibre
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/opengeos/GeoLibre" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    opengeos/GeoLibre
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Getting Started
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../features/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Features
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Comparison
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../demos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Demos
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../gallery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Gallery
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../downloads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Downloads
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sponsor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sponsor
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://web.geolibre.app" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Launch GeoLibre Web
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  User Guide
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_10">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  User Guide
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/interface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Interface Overview
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/rendering-engines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Rendering Engines
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/projects/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Projects
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/adding-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Adding Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../data-formats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Supported Data Formats
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/chrome-extension/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Chrome Extension
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/layers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Managing Layers
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/styling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Styling Layers
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/indoor-maps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Indoor Maps and BIM
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/attribute-table/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Attribute Table
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/map-controls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Map Controls & Tools
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/field-collection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  GPS Tracking & Field Collection
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/print-layout/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Print Layout
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Processing Tools
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/model-builder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Model Builder
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/obia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Object-Based Analysis
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/obia-ecognition/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Coming from eCognition
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/segmentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  AI Segmentation
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/point-cloud-annotation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Point Cloud Annotation
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/sql-workspace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SQL Workspace
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/python-console/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Python Console
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/ai-assistant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  AI Assistant
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/data-integrations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Data Integrations
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/cloud-storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Cloud Storage (S3)
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Plugins & Marketplace
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/web-services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Web Services
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../arcgis-editing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Editing ArcGIS Services
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/usgs-nldi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  USGS NLDI Workflows
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/settings/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Settings & Preferences
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/storymaps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Story Maps
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/embedding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Embedding & Sharing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Troubleshooting
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tutorials
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_11">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Tutorials
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Overview
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/videos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Video Tutorials
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/first-map/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Your First Map
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/cloud-native-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Cloud-Native Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/vector-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Vector Analysis
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/terrain-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Terrain Analysis
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/spatial-sql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Spatial SQL
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/sharing-embedding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sharing & Embedding
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/supported-formats-en/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Format Reference
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/supported-formats-zh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Format Reference (中文)
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/source-code-deep-dive-en/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Source Code Deep Dive
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/source-code-deep-dive-zh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Source Code Deep Dive (中文)
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Workshops
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_12">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Workshops
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_12_1" id="__nav_12_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  NGIS 2026
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_12_1_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_12_1">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  NGIS 2026
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Overview
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  1. Getting Started
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-bringing-in-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  2. Bringing In Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-visualization-styling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  3. Visualization & Styling
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-attributes-editing-sql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  4. Attributes, Editing & SQL
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-analysis-processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  5. Analysis & Processing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  6. Engines, 3D & Time
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  6. Engines, 3D & Time
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-goals" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Learning goals
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lecture-15-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Lecture (15 min)
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lecture (15 min)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#there-is-no-separate-3d-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        There is no separate 3D view
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#point-clouds-the-cog-idea-in-3d" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Point clouds: the COG idea, in 3D
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#terrain-and-the-honesty-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Terrain, and the honesty rule
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#two-models-of-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Two models of time
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#small-tools-that-carry-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Small tools that carry context
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hands-on-35-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Hands-on (35 min)
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hands-on (35 min)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-61-stream-the-usgs-reno-carson-survey-5-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Exercise 6.1: Stream the USGS Reno-Carson survey (5 min)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-62-read-the-classification-6-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Exercise 6.2: Read the classification (6 min)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-63-tilt-the-camera-and-add-terrain-from-a-cog-6-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Exercise 6.3: Tilt the camera and add terrain from a COG (6 min)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-64-the-same-map-on-the-cesium-globe-5-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Exercise 6.4: The same map on the Cesium globe (5 min)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-65-ten-years-of-earthquakes-in-time-8-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Exercise 6.5: Ten years of earthquakes in time (8 min)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-66-bookmark-a-view-and-measure-it-5-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Exercise 6.6: Bookmark a view and measure it (5 min)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bonus-67-downtown-reno-in-3d-and-the-winter-sun-if-you-finish-early" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Bonus 6.7: Downtown Reno in 3D, and the winter sun (if you finish early)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bonus-68-full-detail-on-a-small-classified-cloud-if-you-finish-early" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Bonus 6.8: Full detail on a small classified cloud (if you finish early)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#check-your-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Check your work
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#going-further" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Going further
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-communicating-collaborating/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  7. Communicating & Collaborating
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-ai-automation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  8. AI & Automation
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Reference
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_13">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Reference
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Architecture
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../maplibre-renderer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  MapLibre Renderer
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mapbox-renderer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Mapbox Renderer
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cesium-renderer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Cesium Renderer
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../arcgis-renderer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  ArcGIS Renderer
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../self-hosting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Self-Hosting
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../network-endpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Network Endpoints
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../server-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Server API
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../android/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Android
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  iOS
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mac-app-store/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Mac App Store
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../project-format/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project Format
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../plugin-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Plugin API
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../collaboration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Collaboration
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ui-profiles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  UI Profiles
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../deployment-capabilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Deployment Capabilities
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../deployment-policy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Deployment Policy
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../i18n/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Internationalization
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Python Package
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13_20" >
+        
+          
+          <label class="md-nav__link" for="__nav_13_20" id="__nav_13_20_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Python API Reference
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_13_20_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_13_20">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Python API Reference
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Overview
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python-api/map/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Map, Layer and Feature
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python-api/authoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  authoring
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python-api/project/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  project
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python-api/color_ramp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  color_ramp
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python-api/legends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  legends
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python-api/basemaps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  basemaps
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python-api/polyline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  polyline
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python-api/pointcloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  pointcloud
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python-api/spaceborne_lidar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  spaceborne_lidar
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python-api/dash_component/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  dash_component
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../r/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  R Package
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  MCP Server
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../agent-skill/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Agent Skill
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../notebook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Notebook Panel
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Roadmap
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Contributing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../maintenance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Maintenance Notes
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../third-party-licenses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Third-Party Licenses
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../citation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  How to Cite
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../acknowledgements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Acknowledgements
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../privacy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Privacy Policy
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../terms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Terms of Service
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-goals" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Learning goals
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lecture-15-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Lecture (15 min)
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lecture (15 min)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#there-is-no-separate-3d-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        There is no separate 3D view
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#point-clouds-the-cog-idea-in-3d" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Point clouds: the COG idea, in 3D
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#terrain-and-the-honesty-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Terrain, and the honesty rule
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#two-models-of-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Two models of time
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#small-tools-that-carry-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Small tools that carry context
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hands-on-35-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Hands-on (35 min)
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hands-on (35 min)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-61-stream-the-usgs-reno-carson-survey-5-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Exercise 6.1: Stream the USGS Reno-Carson survey (5 min)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-62-read-the-classification-6-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Exercise 6.2: Read the classification (6 min)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-63-tilt-the-camera-and-add-terrain-from-a-cog-6-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Exercise 6.3: Tilt the camera and add terrain from a COG (6 min)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-64-the-same-map-on-the-cesium-globe-5-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Exercise 6.4: The same map on the Cesium globe (5 min)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-65-ten-years-of-earthquakes-in-time-8-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Exercise 6.5: Ten years of earthquakes in time (8 min)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-66-bookmark-a-view-and-measure-it-5-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Exercise 6.6: Bookmark a view and measure it (5 min)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bonus-67-downtown-reno-in-3d-and-the-winter-sun-if-you-finish-early" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Bonus 6.7: Downtown Reno in 3D, and the winter sun (if you finish early)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bonus-68-full-detail-on-a-small-classified-cloud-if-you-finish-early" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Bonus 6.8: Full detail on a small classified cloud (if you finish early)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#check-your-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Check your work
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#going-further" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Going further
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                <a id="__skip" tabindex="-1"></a>
+                
+                  
+
+  
+  
+
+
+<h1 id="6-rendering-engines-3d-and-time">6. Rendering Engines, 3D, and Time<a class="headerlink" href="#6-rendering-engines-3d-and-time" title="Permanent link">&para;</a></h1>
+<div class="admonition info">
+<p class="admonition-title">2:00 - 3:00 p.m.</p>
+<p>Lecture 15 min · Hands-on 35 min · Break 2:50 - 3:00</p>
+</div>
+<h2 id="learning-goals">Learning goals<a class="headerlink" href="#learning-goals" title="Permanent link">&para;</a></h2>
+<p>By the end of this section you will be able to:</p>
+<ul>
+<li>Explain why one GeoLibre project can be drawn by four different rendering
+  engines, and pick the right one for a task.</li>
+<li>Stream a 20-billion-point USGS 3DEP LiDAR survey of Reno in the browser and
+  read it by elevation and by ASPRS classification.</li>
+<li>Turn on 3D terrain, drive it from a Cloud-Optimized GeoTIFF, and choose an
+  honest vertical exaggeration.</li>
+<li>Open the same map on the Cesium 3D globe and come back without losing
+  anything.</li>
+<li>Animate ten years of earthquakes with the Time Slider, and tell it apart
+  from the globe's scene clock.</li>
+<li>Save views as bookmarks and measure true distance, heading, and terrain
+  profile.</li>
+</ul>
+<h2 id="lecture-15-min">Lecture (15 min)<a class="headerlink" href="#lecture-15-min" title="Permanent link">&para;</a></h2>
+<h3 id="there-is-no-separate-3d-view">There is no separate 3D view<a class="headerlink" href="#there-is-no-separate-3d-view" title="Permanent link">&para;</a></h3>
+<p>Desktop GIS usually keeps 3D in a second window: the QGIS 3D map view, an
+ArcGIS Pro scene beside a map. GeoLibre has no such split. Tilt the map and
+the 3D content already in the layer stack is there: terrain, extruded
+buildings, point clouds, 3D Tiles. The camera has five numbers (center, zoom,
+bearing, and <strong>pitch</strong>, up to 85°), and the status bar shows all of them.</p>
+<p>GeoLibre goes one step further and separates the project from the thing that
+paints it. The project store holds plain layer records, styles, and a camera,
+not MapLibre sources or Cesium primitives. Each rendering engine subscribes to
+the same store, so switching engines is not a conversion: layers, visibility,
+opacity, most styling, and the camera simply carry over.</p>
+<table>
+<thead>
+<tr>
+<th>Engine</th>
+<th>Best suited to</th>
+<th>Credentials</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MapLibre GL JS</strong> (default)</td>
+<td>The widest tool and plugin support: vector styles, rasters, terrain, lightweight 3D</td>
+<td>None</td>
+</tr>
+<tr>
+<td><strong>CesiumJS</strong></td>
+<td>A true 3D globe: curvature at every scale, terrain as a surface, 3D Tiles, CZML, streamed point clouds</td>
+<td>None required; a Cesium ion token adds Cesium World Terrain and ion assets</td>
+</tr>
+<tr>
+<td><strong>Mapbox GL JS</strong></td>
+<td>Mapbox styles and services, Mapbox Standard</td>
+<td>A Mapbox access token</td>
+</tr>
+<tr>
+<td><strong>ArcGIS Maps SDK</strong></td>
+<td>Native ArcGIS services, Esri basemaps, projections Web Mercator cannot draw</td>
+<td>None; an ArcGIS API key adds Esri basemap styles</td>
+</tr>
+</tbody>
+</table>
+<p>Switch with <strong>View → Rendering engine</strong>. Rules of thumb:</p>
+<ul>
+<li><strong>Start on MapLibre.</strong> Every exercise in this workshop runs there.</li>
+<li><strong>Use Cesium</strong> when the third dimension or time is the point: terrain-heavy
+  scenes, photogrammetry, orbits and trajectories, continental extents where
+  Mercator distortion misleads.</li>
+<li><strong>Use ArcGIS</strong> when your data lives in ArcGIS services or the projection is
+  the message (Equal Earth, Spilhaus).</li>
+<li><strong>Use Mapbox</strong> when a Mapbox style is the deliverable.</li>
+</ul>
+<p><strong>Capability gating</strong> keeps this honest. A command the active engine cannot
+run is greyed out with a reason, a layer it cannot draw stays in the project
+with a tag such as <strong>2D only</strong>, and a plugin that does not support the engine
+is suspended rather than half-mounted. If a tool is enabled, it works there.</p>
+<div class="admonition tip">
+<p class="admonition-title">Coming from QGIS or ArcGIS Pro</p>
+<p>Think of the engine as the canvas, not the project. Switching to Cesium is
+like opening the QGIS 3D view, except the globe is a full workspace with
+its own tools, and the switch is saved with the project.</p>
+</div>
+<h3 id="point-clouds-the-cog-idea-in-3d">Point clouds: the COG idea, in 3D<a class="headerlink" href="#point-clouds-the-cog-idea-in-3d" title="Permanent link">&para;</a></h3>
+<p>A LiDAR survey of a metro area holds billions of points. The formats differ
+mainly in whether they can be <strong>streamed</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Format</th>
+<th>What it is</th>
+<th>How GeoLibre reads it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>LAS</strong></td>
+<td>ASPRS interchange format, uncompressed</td>
+<td>Downloaded whole</td>
+</tr>
+<tr>
+<td><strong>LAZ</strong></td>
+<td>LASzip-compressed LAS, about a quarter of the size</td>
+<td>Downloaded whole</td>
+</tr>
+<tr>
+<td><strong>COPC</strong> (<code>.copc.laz</code>)</td>
+<td>One LAZ file with points in an octree and an index at the front</td>
+<td>Streamed by view and level of detail</td>
+</tr>
+<tr>
+<td><strong>EPT</strong> (<code>ept.json</code>)</td>
+<td>An octree of many small files described by a manifest</td>
+<td>Streamed by view and level of detail</td>
+</tr>
+</tbody>
+</table>
+<p>The distinction is the same one that separates a plain GeoTIFF from a COG. A
+COPC or EPT survey opens at full extent with a coarse sample and fetches finer
+octree nodes only where you zoom, up to a <strong>point budget</strong>. The USGS publishes
+its whole 3DEP LiDAR program as public EPT on Amazon S3. If you publish point
+clouds yourself, publish COPC (PDAL's <code>writers.copc</code> converts LAS and LAZ).</p>
+<p>Classified LiDAR assigns every point an ASPRS class code:</p>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Class</th>
+<th>Code</th>
+<th>Class</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Never classified</td>
+<td>6</td>
+<td>Building</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Unclassified</td>
+<td>7</td>
+<td>Low point (noise)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Ground</td>
+<td>9</td>
+<td>Water</td>
+</tr>
+<tr>
+<td>3, 4, 5</td>
+<td>Low, medium, high vegetation</td>
+<td>17</td>
+<td>Bridge deck</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>18</td>
+<td>High noise</td>
+</tr>
+</tbody>
+</table>
+<p>Ground points (class 2) build bare-earth DEMs like the Reno-Tahoe DEM from
+Section 3. How far a survey goes beyond ground depends on its contract, as
+Exercise 6.2 shows.</p>
+<h3 id="terrain-and-the-honesty-rule">Terrain, and the honesty rule<a class="headerlink" href="#terrain-and-the-honesty-rule" title="Permanent link">&para;</a></h3>
+<p><strong>Controls → Terrain</strong> drapes the basemap and your layers over keyless global
+elevation tiles. Double-click the terrain button to set the <strong>vertical
+exaggeration</strong> or to swap the source for a single-band COG DEM (EPSG:3857 or
+EPSG:4326) read in small HTTP range requests, so a 1 m LiDAR DEM can shape the
+scene instead of a global 30 m model.</p>
+<p>Exaggeration is a presentation decision with no correct value. At 1× most
+landscapes look flatter than they feel; at 1.5-2× subtle relief becomes
+legible; past 3× you are making a graphic, not a map. <strong>State the
+exaggeration whenever you publish a 3D image.</strong> A reader cannot infer it.</p>
+<h3 id="two-models-of-time">Two models of time<a class="headerlink" href="#two-models-of-time" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Time Slider</th>
+<th>Cesium scene clock</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Animates</td>
+<td><strong>Layers</strong>: shows features whose date falls in the current step, or a cube's time slice</td>
+<td><strong>Entities</strong>: positions and appearance are functions of time (CZML)</td>
+</tr>
+<tr>
+<td>Use it for</td>
+<td>Tables of dated observations: earthquakes, permits, survey epochs, Zarr or NetCDF time axes</td>
+<td>Moving things: satellites, flights, vehicle tracks</td>
+</tr>
+<tr>
+<td>Engines</td>
+<td>MapLibre and Mapbox (suspended when Cesium is the primary engine)</td>
+<td>Cesium</td>
+</tr>
+</tbody>
+</table>
+<p>You do not import data into a special time-aware layer: you add layers
+normally and <strong>bind</strong> them to the shared timeline. The time window is a filter
+like any other, so it combines with quick filters and expression filters.</p>
+<h3 id="small-tools-that-carry-context">Small tools that carry context<a class="headerlink" href="#small-tools-that-carry-context" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Bookmarks</strong> (<strong>Controls → Bookmark</strong>) save the camera <strong>and</strong> the visible
+  layers, in folders, inside the project, so they travel with a shared link.</li>
+<li><strong>Measure</strong> (<strong>Controls → Measure</strong>) reports distance, area, or a circle,
+  plus the true <strong>great-circle heading</strong> and, when elevation is available,
+  slope-following <strong>Terrain (3D)</strong> distance with gain and loss. It measures on
+  a sphere, which is fine for a quick look. For numbers in a report use the
+  field calculator or the processing tools, which measure on the WGS 84
+  ellipsoid: <em>Measure to look, the field calculator to record.</em></li>
+</ul>
+<h2 id="hands-on-35-min">Hands-on (35 min)<a class="headerlink" href="#hands-on-35-min" title="Permanent link">&para;</a></h2>
+<p>Start a new project: <strong>Project → New...</strong>, name it
+<code>NGIS 2026 - 6 3D and time</code>, pick the <strong>Liberty 3D</strong> basemap, and click
+<strong>Create</strong>. Liberty 3D is the Liberty style with the camera tilted into a 3D
+view; its buildings rise in 3D when you zoom in to a city.</p>
+<h3 id="exercise-61-stream-the-usgs-reno-carson-survey-5-min">Exercise 6.1: Stream the USGS Reno-Carson survey (5 min)<a class="headerlink" href="#exercise-61-stream-the-usgs-reno-carson-survey-5-min" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Choose <strong>Add data → LiDAR layer</strong>. The <strong>Add LiDAR layer</strong> panel opens on
+   the left of the map.</li>
+<li>
+<p>Under <strong>Load COPC or EPT from URL</strong>, paste the USGS 3DEP Reno-Carson 2017
+   (QL1) survey and click <strong>Load</strong>:</p>
+<div class="highlight"><pre><span></span><code>https://s3-us-west-2.amazonaws.com/usgs-lidar-public/USGS_LPC_NV_Reno_Carson_QL1_2017_LAS_2018/ept.json
+</code></pre></div>
+</li>
+<li>
+<p>The map flies to the survey (zoom about 9). It runs from north of Reno
+   past Carson City to the east shore of Lake Tahoe, plus a block east of
+   Carson City. Points are colored by <strong>Elevation</strong> with <strong>Viridis</strong>; the
+   ramp reads <strong>1260</strong> to <strong>3669</strong> (meters).</p>
+</li>
+<li>Scroll the panel to <strong>Loaded Point Clouds</strong>: the survey reports
+   <strong>20,286,530,383 points</strong>. The browser is drawing a sample of a few million
+   and refining it as you zoom.</li>
+<li>Notice that <strong>Z Offset</strong> is ticked with an offset of <strong>-1260</strong> m, the
+   survey's lowest elevation. That lowers the cloud so it sits on the flat
+   map instead of floating a kilometer above it.</li>
+</ol>
+<div class="admonition question">
+<p class="admonition-title">Discussion</p>
+<p>A 20-billion-point survey appeared in a few seconds, and the Layers panel
+has one new row tagged <strong>LIDAR</strong>. What did the browser actually download
+to draw this view, and what would a plain LAZ download of the same survey
+cost?</p>
+</div>
+<h3 id="exercise-62-read-the-classification-6-min">Exercise 6.2: Read the classification (6 min)<a class="headerlink" href="#exercise-62-read-the-classification-6-min" title="Permanent link">&para;</a></h3>
+<ol>
+<li>In the panel, under <strong>Styling</strong>, set <strong>Color By</strong> to <strong>Classification</strong>. A
+   class list appears with <strong>Show All</strong> and <strong>Hide All</strong> buttons.</li>
+<li>Read the list. This survey lists <strong>Never Classified, Unclassified, Ground,
+   Low Point (Noise), Water, Bridge Deck, High Noise</strong> and two extra codes.
+   There is no Building or Vegetation class: the QL1 contract classified
+   ground and water, and left everything above ground as <strong>Unclassified</strong>.</li>
+<li>At this regional view much of the map is magenta. Click <strong>Hide All</strong>, then
+   tick <strong>High Noise</strong> alone: those magenta points are class 18, high noise
+   (birds, haze, multipath returns) that a coarse sample over-represents.</li>
+<li>
+<p>Untick <strong>High Noise</strong> and tick <strong>Ground</strong> alone. The brown ground points
+   show holes wherever buildings and trees stood, because those returns are
+   in class 1, not class 2.</p>
+<p><img alt="Only the ground class of the Reno-Carson survey, with gaps where buildings and trees stood" src="https://data.source.coop/opengeos/data/workshops/ngis-2026/images/s06-lidar-ground-only.webp" /></p>
+</li>
+<li>
+<p>Click <strong>Show All</strong> and set <strong>Color By</strong> back to <strong>Elevation</strong>.</p>
+</li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">Click the label, not the box</p>
+<p>If a class checkbox does not respond, click the class name next to it.</p>
+</div>
+<h3 id="exercise-63-tilt-the-camera-and-add-terrain-from-a-cog-6-min">Exercise 6.3: Tilt the camera and add terrain from a COG (6 min)<a class="headerlink" href="#exercise-63-tilt-the-camera-and-add-terrain-from-a-cog-6-min" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Choose <strong>View → Set view...</strong> and enter <strong>Longitude</strong> <code>-119.80</code>,
+   <strong>Latitude</strong> <code>39.25</code>, <strong>Zoom</strong> <code>10.2</code>, <strong>Pitch</strong> <code>55</code>, <strong>Bearing</strong> <code>-15</code>.
+   Click <strong>Go</strong>. The status bar reads <strong>Pitch: 55.0°</strong> and
+   <strong>Bearing: -15.0°</strong>, and the survey now recedes toward Reno.</li>
+<li>Close the LiDAR panel (<strong>×</strong>). Choose <strong>Controls → Terrain</strong>. A mountain
+   button joins the map controls on the right, already switched on, and the
+   basemap drapes over global elevation tiles.</li>
+<li><strong>Double-click</strong> the mountain button. The <strong>Terrain exaggeration</strong> dialog
+   opens.</li>
+<li>
+<p>Set <strong>Vertical exaggeration</strong> to <code>2</code>. In <strong>Terrain source</strong>, paste the
+   workshop DEM, click <strong>Use COG DEM</strong>, then <strong>Done</strong>:</p>
+<div class="highlight"><pre><span></span><code>https://data.source.coop/opengeos/data/workshops/ngis-2026/reno_tahoe_dem.tif
+</code></pre></div>
+</li>
+<li>
+<p>The terrain is now built from the 30 m Reno-Tahoe COG, fetched tile by
+   tile in range requests, at 2×. Drag with the right mouse button (or
+   <code>Ctrl</code>+drag) to change pitch and bearing and look along the Carson Range.
+   Click the compass to reset north.</p>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Terrain travels with the project</p>
+<p>Saving the project records that terrain is on, the exaggeration, and the
+COG source URL, so the finished project reopens at 2× on the workshop
+DEM. A DEM opened from a local file has no URL to save, so it falls back
+to global terrain. If you publish a 3D screenshot, write the exaggeration
+in the caption.</p>
+</div>
+<h3 id="exercise-64-the-same-map-on-the-cesium-globe-5-min">Exercise 6.4: The same map on the Cesium globe (5 min)<a class="headerlink" href="#exercise-64-the-same-map-on-the-cesium-globe-5-min" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Choose <strong>View → Rendering engine → Cesium</strong>. The first switch loads the
+   Cesium engine, which takes a few seconds.</li>
+<li>
+<p>The camera and the LiDAR layer carry over. The satellite imagery can
+   take 20 to 30 seconds to appear on the first switch, so the cloud may
+   float over a starry background at first. The survey is streamed
+   natively by Cesium onto a satellite-imagery globe with real terrain, so
+   the Carson Range and the Lake Tahoe basin rise without any exaggeration
+   setting.</p>
+<p><img alt="The Reno-Carson point cloud streamed onto the Cesium globe" src="https://data.source.coop/opengeos/data/workshops/ngis-2026/images/s06-cesium-lidar.webp" /></p>
+</li>
+<li>
+<p>Look at the globe's own controls at the top right: <strong>Reset view</strong> (home),
+   a <strong>scene-mode picker</strong> (<strong>3D globe</strong>, <strong>2D map</strong>, <strong>Columbus view</strong>), a
+   <strong>Basemap</strong> picker, and fullscreen. Try Columbus view, then go back to
+   <strong>3D globe</strong>. Each scene-mode switch zooms out to the whole Earth; click
+   <strong>Zoom to layer</strong> on the LiDAR row to fly back to Reno rather than
+   scrolling in from space.</p>
+</li>
+<li>A note at the bottom right suggests adding a Cesium Ion token. It is
+   optional: the globe works without one.</li>
+<li>Choose <strong>View → Rendering engine → MapLibre</strong>. Everything is where you
+   left it, except that the LiDAR panel's <strong>Color By</strong> is back to
+   <strong>Elevation</strong>.</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Expected Diagnostics warnings</p>
+<p>The Diagnostics counter in the status bar climbs by about ten on the
+first Cesium switch. They are deprecation warnings from the Cesium
+library (<em>"... has been moved from cesium/engine to cesium/core"</em>) and
+are harmless.</p>
+</div>
+<h3 id="exercise-65-ten-years-of-earthquakes-in-time-8-min">Exercise 6.5: Ten years of earthquakes in time (8 min)<a class="headerlink" href="#exercise-65-ten-years-of-earthquakes-in-time-8-min" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p><strong>Add data → Vector layer</strong>, paste the GeoParquet earthquake file, and
+   click <strong>Load</strong>:</p>
+<div class="highlight"><pre><span></span><code>https://data.source.coop/opengeos/data/workshops/ngis-2026/nv_earthquakes.parquet
+</code></pre></div>
+</li>
+<li>
+<p>Close the panel and rename the layer <code>Nevada earthquakes</code> (double-click
+   its name). Hide the LiDAR layer (eye icon), and use <strong>View → Set view...</strong>
+   with <strong>Longitude</strong> <code>-117.6</code>, <strong>Latitude</strong> <code>38.9</code>, <strong>Zoom</strong> <code>6.2</code>, <strong>Pitch</strong>
+   <code>0</code>, <strong>Bearing</strong> <code>0</code> to see all of Nevada.</p>
+</li>
+<li>On the <code>Nevada earthquakes</code> row, open <strong>Layer actions (⋯) → Bind to time
+   slider...</strong>. <strong>Time property</strong> is already <code>time</code>; leave <strong>Show features</strong>
+   at <strong>In the current step</strong> and click <strong>Bind</strong>.</li>
+<li>
+<p>A timeline docks below the map, spanning <strong>2016</strong> to <strong>2025</strong> with the
+   <strong>Y</strong> (year) step selected. Click <strong>2020</strong>. Two clusters dominate: the
+   Monte Cristo Range sequence in west-central Nevada and the tail of the 2019
+   Ridgecrest sequence in California.</p>
+<p><img alt="The Time Slider bound to the earthquake layer, showing 2020" src="https://data.source.coop/opengeos/data/workshops/ngis-2026/images/s06-time-slider-2020.webp" /></p>
+</li>
+<li>
+<p>Click play (▶) and watch the decade year by year. Use these counts to
+   check what you see:</p>
+<table>
+<thead>
+<tr>
+<th>Year</th>
+<th>Events</th>
+<th>Largest</th>
+<th>Year</th>
+<th>Events</th>
+<th>Largest</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2016</td>
+<td>349</td>
+<td>M5.6</td>
+<td>2021</td>
+<td>756</td>
+<td>M6.0</td>
+</tr>
+<tr>
+<td>2017</td>
+<td>286</td>
+<td>M4.1</td>
+<td>2022</td>
+<td>381</td>
+<td>M4.8</td>
+</tr>
+<tr>
+<td>2018</td>
+<td>158</td>
+<td>M4.5</td>
+<td>2023</td>
+<td>292</td>
+<td>M4.5</td>
+</tr>
+<tr>
+<td>2019</td>
+<td>3,070</td>
+<td>M7.1</td>
+<td>2024</td>
+<td>444</td>
+<td>M5.7</td>
+</tr>
+<tr>
+<td>2020</td>
+<td>1,871</td>
+<td>M6.5</td>
+<td>2025</td>
+<td>424</td>
+<td>M4.8</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>Pause, then switch the step to <strong>M</strong> (month). The marker reads
+   <strong>Jan 2020</strong>. Click <strong>Next</strong> (⏭) four times to reach <strong>May 2020</strong> (811
+   events: the Monte Cristo Range M6.5 of May 15 and its aftershocks). Then
+   click <strong>Previous</strong> (⏮) ten times to reach <strong>Jul 2019</strong>, the busiest month
+   of the decade (2,486 events: Ridgecrest, M7.1 on July 6).</p>
+</li>
+</ol>
+<div class="admonition question">
+<p class="admonition-title">Discussion</p>
+<p>2019 has ten times the events of 2018, yet most of them are not in
+Nevada. What would you change, with what you learned in Section 4, so the
+animation shows only Nevada? And which <strong>Show features</strong> option would
+turn this into a map of where earthquakes have accumulated?</p>
+</div>
+<h3 id="exercise-66-bookmark-a-view-and-measure-it-5-min">Exercise 6.6: Bookmark a view and measure it (5 min)<a class="headerlink" href="#exercise-66-bookmark-a-view-and-measure-it-5-min" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Choose <strong>View → Set view...</strong> with <strong>Longitude</strong> <code>-119.85</code>, <strong>Latitude</strong>
+   <code>39.2</code>, <strong>Zoom</strong> <code>8.8</code>, <strong>Pitch</strong> <code>0</code>, <strong>Bearing</strong> <code>0</code>.</li>
+<li>Choose <strong>Controls → Bookmark</strong>. Type <code>Reno to Mount Rose</code> in <strong>Bookmark
+   name...</strong>, keep <strong>Include complete layer state</strong> ticked, and click <strong>+</strong>.</li>
+<li>Zoom far out, then click the bookmark name. The map returns to zoom
+   <strong>8.80</strong> with the same layers visible. Close the Bookmarks panel.</li>
+<li>Choose <strong>Controls → Measure</strong>; <strong>Distance</strong> is already selected. Click
+   the University of Nevada, Reno (the venue, just north of downtown), then
+   double-click the summit of Mount Rose to finish. The peak is not labelled
+   at this zoom: it sits about two-thirds of the way from Reno toward the
+   north shore of Lake Tahoe, northeast of Incline Village.</li>
+<li>Read the panel. You should see about <strong>24 km</strong>, a <strong>Heading</strong> of about
+   <strong>202° SSW</strong>, and a <strong>Terrain (3D)</strong> block: a surface distance slightly
+   longer than the straight one (about 24.7 km), <strong>Gain / loss</strong>, and
+   <strong>Min / max elevation</strong> of roughly <strong>1,380 m / 3,230 m</strong>. Your exact
+   numbers depend on where you clicked.</li>
+<li>Click <strong>Clear All</strong> and close the panel.</li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">Heading is not screen angle</p>
+<p>The heading is the true great-circle initial bearing, not the angle the
+line makes on screen. Draw a line from Washington, D.C. to London at low
+zoom: it looks due east, but the heading reads about 50°.</p>
+</div>
+<p>Save the project (<strong>Project → Save</strong>).</p>
+<h3 id="bonus-67-downtown-reno-in-3d-and-the-winter-sun-if-you-finish-early">Bonus 6.7: Downtown Reno in 3D, and the winter sun (if you finish early)<a class="headerlink" href="#bonus-67-downtown-reno-in-3d-and-the-winter-sun-if-you-finish-early" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>View → Set view...</strong>: <strong>Longitude</strong> <code>-119.8138</code>, <strong>Latitude</strong>
+   <code>39.5296</code>, <strong>Zoom</strong> <code>16</code>, <strong>Pitch</strong> <code>60</code>, <strong>Bearing</strong> <code>-30</code>. Hide the
+   earthquake and LiDAR layers. The Liberty basemap's buildings stand as 3D
+   blocks along Virginia Street and the Truckee River.</li>
+<li>Choose <strong>Controls → Sun</strong>. The panel opens on <strong>06/21/2024</strong>, the summer
+   solstice. Click the month in <strong>Date</strong> and type <code>12</code> to make it
+   December 21, the winter solstice (change only the month: retyping the
+   year resets the field). Click the hour in <strong>Time</strong> and type <code>0330P</code> for
+   <strong>03:30 PM</strong>. The buildings take on warm, low-angle winter light. Drag the
+   time-of-day slider under the clock, or press play, to watch the light
+   move. The sun position is computed on your machine; nothing is sent
+   anywhere.</li>
+<li>Close the Sun panel with its <strong>×</strong> button.</li>
+</ol>
+<h3 id="bonus-68-full-detail-on-a-small-classified-cloud-if-you-finish-early">Bonus 6.8: Full detail on a small classified cloud (if you finish early)<a class="headerlink" href="#bonus-68-full-detail-on-a-small-classified-cloud-if-you-finish-early" title="Permanent link">&para;</a></h3>
+<p>Regional surveys give the big picture; a small COPC shows full detail and a
+richer classification. Open this link in a new tab:</p>
+<div class="highlight"><pre><span></span><code>https://web.geolibre.app/?data=https://s3.amazonaws.com/hobu-lidar/autzen-classified.copc.laz
+</code></pre></div>
+<ol>
+<li>The Autzen Stadium cloud (Eugene, Oregon) streams in at full extent:
+   <strong>10,653,336 points</strong>.</li>
+<li>Open <strong>Add data → LiDAR layer</strong> and set <strong>Color By</strong> to
+   <strong>Classification</strong>. This time the list includes <strong>Ground, High
+   Vegetation, Building, Water, Transmission Tower, Bridge Deck</strong> and several
+   custom codes.</li>
+<li>
+<p>Use <strong>View → Set view...</strong>: <strong>Longitude</strong> <code>-123.0688</code>, <strong>Latitude</strong>
+   <code>44.0590</code>, <strong>Zoom</strong> <code>16.3</code>, <strong>Pitch</strong> <code>60</code>, <strong>Bearing</strong> <code>30</code>. Buildings are
+   orange, trees green, water blue, and the stadium seating gray: it was left
+   as <strong>Never Classified</strong>, which is exactly the kind of error the <strong>Point
+   Cloud Annotation</strong> plugin is built to fix.</p>
+<p><img alt="The Autzen COPC colored by ASPRS classification" src="https://data.source.coop/opengeos/data/workshops/ngis-2026/images/s06-autzen-classification.webp" /></p>
+</li>
+<li>
+<p>Tick <strong>Enable point picking</strong> and click a few points to read their
+   attributes.</p>
+</li>
+</ol>
+<h2 id="check-your-work">Check your work<a class="headerlink" href="#check-your-work" title="Permanent link">&para;</a></h2>
+<p><a class="md-button md-button--primary" href="https://web.geolibre.app/?url=https://data.source.coop/opengeos/data/workshops/ngis-2026/projects/06-3d-and-time.geolibre.json">Open the finished project</a></p>
+<p>The finished project (<a href="https://data.source.coop/opengeos/data/workshops/ngis-2026/projects/06-3d-and-time.geolibre.json"><code>06-3d-and-time.geolibre.json</code></a>)
+restores the Reno-Carson survey, the earthquake layer bound to the Time Slider
+at 2020, and two bookmarks. It opens on the tilted camera (pitch 55°,
+bearing -15°) with terrain on at 2× from the workshop DEM.</p>
+<h2 id="going-further">Going further<a class="headerlink" href="#going-further" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Plugins → Web services → USGS LiDAR</strong> maps where 3DEP point clouds exist,
+  streams them into the view, and clips one to an area you draw as COPC.
+  <strong>USGS 3DEP</strong> is the raster counterpart: the 1 m, 1/3 arc-second, and 1
+  arc-second DEMs derived from that LiDAR.</li>
+<li><strong>Add data → ICESat-2 / GEDI</strong> reads NASA spaceborne LiDAR granules in the
+  browser; <strong>Layer actions → Along-track profile</strong> charts ground and canopy
+  along a beam.</li>
+<li><strong>Plugins → Point cloud annotation</strong> labels points with box, lasso, and
+  brush tools, and saves the labels with the project.</li>
+<li><strong>View → Split view</strong> puts a MapLibre pane beside a Cesium pane that
+  follows it at the same ground resolution.</li>
+<li><strong>Add data → CZML dynamic 3D scene</strong> (Cesium only) loads time-dynamic
+  scenes such as satellite orbits that animate on the globe clock.</li>
+<li><strong>Controls → Record map tour...</strong> turns keyframes into a video. Hold each
+  stop for three or four seconds; slower reads better.</li>
+<li><strong>Plugins → Timelapse</strong> animates annual Sentinel-2, Landsat, and land-cover
+  basemaps with no scene search at all.</li>
+<li>Read <a href="../../../user-guide/rendering-engines/">Rendering Engines</a>,
+  <a href="../../../cesium-renderer/">Cesium Renderer</a>,
+  <a href="../../../user-guide/map-controls/">Map Controls</a>,
+  <a href="../../../user-guide/indoor-maps/">Indoor Maps</a>, and
+  <a href="../../../user-guide/point-cloud-annotation/">Point Cloud Annotation</a>.</li>
+</ul>
+<hr />
+<p><strong>Break: 2:50 - 3:00.</strong> Next: <a href="../07-communicating-collaborating/">7. Communicating and Collaborating</a></p>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/opengeos/GeoLibre" target="_blank" rel="noopener" title="GeoLibre on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/sponsors/giswqs" target="_blank" rel="noopener" title="Sponsor GeoLibre on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="m241 87.1 15 20.7 15-20.7C296 52.5 336.2 32 378.9 32 452.4 32 512 91.6 512 165.1v2.6c0 112.2-139.9 242.5-212.9 298.2-12.4 9.4-27.6 14.1-43.1 14.1s-30.8-4.6-43.1-14.1C139.9 410.2 0 279.9 0 167.7v-2.6C0 91.6 59.6 32 133.1 32 175.8 32 216 52.5 241 87.1"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://buymeacoffee.com/giswqs" target="_blank" rel="noopener" title="Buy the maintainer a coffee" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M152-16c-13.3 0-24 10.7-24 24 0 38.9 23.4 59.4 39.1 73.1l1.1 1C184.5 96.4 192 103.9 192 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C183.5 31.7 176 24.1 176 8c0-13.3-10.7-24-24-24M96 192c-17.7 0-32 14.3-32 32v192c0 53 43 96 96 96h192c41.8 0 77.4-26.7 90.5-64h5.5c70.7 0 128-57.3 128-128s-57.3-128-128-128zm352 192V256c35.3 0 64 28.7 64 64s-28.7 64-64 64M288 8c0-13.3-10.7-24-24-24S240-5.3 240 8c0 38.9 23.4 59.4 39.1 73.1l1.1 1C296.5 96.4 304 103.9 304 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C295.5 31.7 288 24.1 288 8"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"../../..","features":["navigation.instant","navigation.top","search.highlight","search.share","search.suggest","toc.follow"],"redirect":null,"search":"../../../assets/javascripts/workers/search.719e0d91.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d31f0ffa.min.js"></script>
+      
+    
+  </body>
+</html>
