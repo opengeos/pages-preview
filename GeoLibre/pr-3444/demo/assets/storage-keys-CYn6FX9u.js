@@ -1,1 +1,0 @@
-var e="geolibre.desktopSettings",a="geolibre.lastBasemap",E="geolibre.lastBasemap.chosenRegional",S="geolibre.lastRenderer",s="geolibre.updateDismissedVersion",_="geolibre.lastUpdateCheck",r="geolibre.startupProjectSnapshots";export{r as a,S as i,e as n,s as o,a as r,_ as s,E as t};
