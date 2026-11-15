@@ -2696,6 +2696,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#harvest-dialog-and-automatic-geojson-hydration" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Harvest dialog and automatic GeoJSON hydration
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3789,6 +3800,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#harvest-dialog-and-automatic-geojson-hydration" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Harvest dialog and automatic GeoJSON hydration
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -4736,6 +4758,13 @@ service.</p>
 <span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">"@geolibre/core"</span><span class="p">;</span>
 </code></pre></div>
 <h2 id="credential-redaction">Credential redaction<a class="headerlink" href="#credential-redaction" title="Permanent link">&para;</a></h2>
+<h2 id="harvest-dialog-and-automatic-geojson-hydration">Harvest dialog and automatic GeoJSON hydration<a class="headerlink" href="#harvest-dialog-and-automatic-geojson-hydration" title="Permanent link">&para;</a></h2>
+<p>The desktop shell mounts the GCS harvest dialog (<code>GcsExportDialog</code>) in every build.
+It is tied to a user-configured harvester backend. Opening a project may issue GET
+requests to GeoJSON layer URLs that have no inline data. Only public <code>http(s)</code>
+hosts are bootstrapped automatically; <code>gs://</code>, <code>s3://</code>, <code>s3a://</code> and
+private/localhost hosts require an explicit manual refresh, and signed bucket
+reads are never performed on the automatic path.</p>
 <p>A local project may contain credentials needed to restore authenticated data,
 including layer request headers, geocoding API keys, environment variables, and
 plugin settings. Any project leaving the local workspace must pass through
