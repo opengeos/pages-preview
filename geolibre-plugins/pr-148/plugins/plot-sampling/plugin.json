@@ -1,10 +1,12 @@
 {
   "id": "plot-sampling",
   "name": "Plot Sampling",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "entry": "index.js",
   "style": "style.css",
-  "description": "Turn an AOI polygon (a layer or a drawn sketch) into a grid of coded sample plots in UTM metres: rectangular or circular plots, paths between plots, nested sub-plots, standard designs (SNI 7724, Winrock, ICRAF, IHMB, CIFOR) and sample-size formulas (sampling intensity, Slovin, Cochran, CDM A/R tool).",
+  "description": "Create an indexed sample plot grid from an AOI polygon: coded plots in UTM metres with paths between plots, nested sub-plots, sample-size options and fill or hatch styling.",
   "author": "Defani Arman Alfitriansyah",
-  "engines": ["maplibre"]
+  "engines": [
+    "maplibre"
+  ]
 }
