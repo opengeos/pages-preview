@@ -4285,6 +4285,13 @@ the capabilities the client sends with a save, which keeps an in-app edit from
 contradicting the layer's own configuration, but the sidecar has no independent
 record of a table's capabilities and cannot tell one caller from another. Use
 database grants for restrictions that must hold against an untrusted client.</p>
+<p>A GeoJSON layer with <code>source.url</code> and no inline <code>geojson</code> loads a remote
+FeatureCollection when synchronized. Public <code>gs://</code> URLs are converted to
+Google Cloud Storage HTTPS URLs; private S3 URLs use the configured connection.
+The server must allow browser requests through CORS. Loaded data becomes the
+layer's inline snapshot and is included on save unless sharing capabilities
+exclude it. Failed requests are remembered for that source; replace the source
+to retry. Responses for removed layers or replaced sources are ignored.</p>
 <p>For WFS GetFeature and GeoJSON URL layers, <code>metadata.refresh</code> can persist an
 optional auto-refresh interval. <code>intervalMs</code> can be any positive interval in
 milliseconds:</p>
