@@ -1,0 +1,63 @@
+/* Plot Sampling: scoped under .pgs, built on GeoLibre's own design tokens */
+.pgs-host { overflow: hidden; display: flex; }
+.pgs {
+  flex: 1; min-height: 0; display: flex; flex-direction: column;
+  color: hsl(var(--foreground)); font-size: 12px; line-height: 1.35;
+}
+.pgs * { box-sizing: border-box; }
+.pgs-body { flex: 1; min-height: 0; overflow: auto; }
+
+.pgs details { border-bottom: 1px solid hsl(var(--border)); }
+.pgs summary {
+  list-style: none; cursor: pointer; user-select: none; display: flex; align-items: center; gap: 6px;
+  padding: 8px 12px; font-size: 10px; font-weight: 600; letter-spacing: .025em; text-transform: uppercase;
+  color: hsl(var(--muted-foreground));
+}
+.pgs summary::-webkit-details-marker { display: none; }
+.pgs summary::before { content: "›"; font-size: 13px; line-height: 1; transition: transform .15s; }
+.pgs details[open] > summary::before { transform: rotate(90deg); }
+.pgs summary:hover { color: hsl(var(--foreground)); }
+.pgs-sec { display: flex; flex-direction: column; gap: 8px; padding: 0 12px 12px; }
+
+.pgs-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.pgs-row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+.pgs-line { display: flex; gap: 6px; align-items: flex-end; }
+.pgs-line .pgs-f { flex: 1; }
+.pgs-f { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.pgs-f > span { font-size: 11px; color: hsl(var(--muted-foreground)); }
+
+.pgs input[type="number"], .pgs input[type="text"], .pgs select {
+  width: 100%; min-width: 0; height: 32px; padding: 0 8px; font: inherit; font-size: 12px;
+  color: hsl(var(--foreground)); background: transparent;
+  border: 1px solid hsl(var(--input)); border-radius: calc(var(--radius, .375rem) - 2px);
+}
+.pgs select option { background: hsl(var(--popover, var(--card))); color: hsl(var(--popover-foreground, var(--foreground))); }
+.pgs input:focus-visible, .pgs select:focus-visible, .pgs button:focus-visible, .pgs summary:focus-visible {
+  outline: none; box-shadow: 0 0 0 1px hsl(var(--ring));
+}
+.pgs input[type="checkbox"] { accent-color: hsl(var(--primary)); margin: 0; }
+.pgs-check { display: flex; gap: 7px; align-items: center; cursor: pointer; }
+
+.pgs-foot { display: flex; flex-direction: column; gap: 8px; padding: 10px 12px 12px; border-top: 1px solid hsl(var(--border)); background: hsl(var(--card)); }
+.pgs-stats { font-size: 11.5px; color: hsl(var(--muted-foreground)); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.pgs-stats b { color: hsl(var(--foreground)); font-weight: 600; }
+.pgs-dot { margin: 0 6px; opacity: .6; }
+.pgs-btns { display: flex; gap: 6px; align-items: center; }
+.pgs-grow { flex: 1; }
+.pgs-btn {
+  height: 32px; padding: 0 14px; font: inherit; font-size: 12px; font-weight: 500; cursor: pointer;
+  border: 0; border-radius: calc(var(--radius, .375rem) - 2px);
+  background: hsl(var(--primary)); color: hsl(var(--primary-foreground));
+}
+.pgs-btn:hover { opacity: .9; }
+.pgs-icon {
+  width: 32px; height: 32px; flex: none; display: inline-flex; align-items: center; justify-content: center;
+  font-size: 15px; cursor: pointer; border: 1px solid hsl(var(--input)); border-radius: calc(var(--radius, .375rem) - 2px);
+  background: transparent; color: hsl(var(--foreground));
+}
+.pgs-icon:hover { background: hsl(var(--accent)); }
+.pgs-err { color: hsl(var(--destructive, 0 72% 55%)); font-size: 11.5px; }
+.pgs-msg { font-size: 11.5px; color: hsl(var(--muted-foreground)); }
+.pgs-msg:empty { display: none; }
+.pgs [hidden] { display: none !important; }
+.pgs input[type="color"] { width: 100%; height: 32px; padding: 2px; background: transparent; border: 1px solid hsl(var(--input)); border-radius: calc(var(--radius, .375rem) - 2px); cursor: pointer; }

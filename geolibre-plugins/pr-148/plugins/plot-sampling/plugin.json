@@ -1,0 +1,10 @@
+{
+  "id": "plot-sampling",
+  "name": "Plot Sampling",
+  "version": "0.3.0",
+  "entry": "index.js",
+  "style": "style.css",
+  "description": "Turn an AOI polygon (a layer or a drawn sketch) into a grid of coded sample plots in UTM metres: rectangular or circular plots, paths between plots, nested sub-plots, standard designs (SNI 7724, Winrock, ICRAF, IHMB, CIFOR) and sample-size formulas (sampling intensity, Slovin, Cochran, CDM A/R tool).",
+  "author": "Defani Arman Alfitriansyah",
+  "engines": ["maplibre"]
+}
