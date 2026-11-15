@@ -4161,13 +4161,13 @@ kepler.gl, and Google Earth, see the <a href="../comparison/">Comparison</a>.</p
 </ul>
 </li>
 <li>Vector menu<ul>
-<li><strong>Geometry and analysis</strong>: buffer, centroids, convex hull, dissolve, bounding box, simplify, clip, intersection, difference, union, spatial join, attribute join, select by value, select by expression, select by location, random extract, movement, space-time, and cell coverage</li>
+<li><strong>Geometry and analysis</strong>: buffer, centroids, convex hull, dissolve, bounding box, simplify, clip, intersection, difference, union, spatial join, summarize within, attribute join, select by value, select by expression, select by location, random extract, movement, space-time, and cell coverage</li>
 <li>Buffer takes a side: Outside grows each feature, Inside shrinks it, and Both sides keeps only the zone within the distance on either side of its boundary. Inside shrinks polygons only: a point or line has no interior, so the inward buffer empties it and the feature is dropped from the result and reported in the run log</li>
 <li>Buffer can also dissolve its result: the buffers merge into one feature with the overlaps between them dissolved away (a multipolygon where they do not touch). The merged shape belongs to no input feature, so it carries no attributes; to dissolve by an attribute instead, run Dissolve on the result</li>
 <li><strong>Data management</strong>: merge layers, through a multi-layer parameter picker that unites attribute schemas and can record each feature's source layer</li>
 <li><strong>Vertices and sampling</strong>: extract vertices as points carrying their part and vertex index, and generate points along lines and polygon boundaries at a fixed geodesic interval</li>
 <li><strong>Data quality</strong>: check validity, fix geometries, and check topology rules</li>
-<li><strong>Engines</strong>: Turf.js in the browser, an optional GeoPandas sidecar engine for every tool, and an in-browser GeoPandas engine via Pyodide (no server, same results as the sidecar)</li>
+<li><strong>Engines</strong>: Turf.js in the browser, an optional GeoPandas sidecar engine for the tools that support one, and an in-browser GeoPandas engine via Pyodide (no server, same results as the sidecar)</li>
 </ul>
 </li>
 <li>Raster menu with hillshade, slope, aspect, reproject, resample, clip by extent, clip by mask layer, polygonize, contour, zonal statistics, raster calculator, reclassify, mosaic, and focal statistics<ul>
