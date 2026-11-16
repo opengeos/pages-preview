@@ -4041,7 +4041,7 @@ Limitations).</p>
 <tr>
 <td><code>snapshot</code></td>
 <td><code>project, origin, rev</code></td>
-<td>fan-out of a peer's snapshot</td>
+<td>fan-out of a peer's snapshot; also sent back to a sender whose snapshot was refused as <code>layer-locked</code>, with <code>origin: "relay"</code> and the stored project, so the sender drops the refused change and its next edit can sync</td>
 </tr>
 <tr>
 <td><code>presence</code></td>
