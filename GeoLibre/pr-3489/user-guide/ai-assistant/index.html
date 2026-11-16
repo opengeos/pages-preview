@@ -4200,7 +4200,11 @@ next app launch.</p>
 inserts a newline, and <strong>Ctrl/Cmd + Enter</strong> still sends. The
 assistant streams its reply, runs tools as needed, and reports what it did. While
 it is working, <strong>Send</strong> becomes <strong>Stop</strong> — click it to cancel. <strong>Clear</strong> (the
-eraser icon) starts a fresh conversation.</p>
+eraser icon) starts a fresh conversation. Switching the profile in the panel's
+dropdown keeps the conversation: the newly selected model continues with the
+earlier turns, so you can ask it about an answer the previous model gave.
+Those turns, including tool output such as query results, are sent to the newly
+selected provider; click <strong>Clear</strong> before switching if they should not be.</p>
 <div class="highlight"><pre><span></span><code>show me all parcels larger than 1 hectare within 500 m of a river
 color the counties by population using a graduated red ramp
 buffer the roads by 100 m, then clip them to the county boundary
@@ -4475,7 +4479,7 @@ operations, so its actions stay within GeoLibre's validated surface.</p>
 </tr>
 <tr>
 <td><strong>Map control</strong></td>
-<td>Moves the camera (fit a layer or a bounding box), switches the basemap, toggles layer visibility/opacity, and removes layers.</td>
+<td>Moves the camera (fit a layer or a bounding box, or go to an exact center, zoom, rotation, and tilt with <code>set_view</code>), switches the basemap, toggles layer visibility/opacity, and removes layers.</td>
 </tr>
 <tr>
 <td><strong>Web search</strong></td>
@@ -4527,6 +4531,8 @@ add this GeoJSON: https://example.com/data.geojson
 <p><strong>Map control &amp; styling</strong></p>
 <div class="highlight"><pre><span></span><code>zoom to the parcels layer
 fly to San Francisco
+center the map on 40.71, -74.01 at zoom 12
+tilt the map 60 degrees and rotate it to face east
 switch to a dark basemap
 hide the buildings layer and set the parcels opacity to 0.5
 remove the temporary buffer layer

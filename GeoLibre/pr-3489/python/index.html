@@ -4170,7 +4170,7 @@ variants can only run on a worker thread.</p>
 </tr>
 <tr>
 <td><code>add_heatmap(points, name=, radius=, intensity=, color_ramp=, weight_field=, **style)</code></td>
-<td>Add point data using the density heatmap renderer, optionally weighted by a numeric field.</td>
+<td>Add point data using the density heatmap renderer, optionally weighted by a numeric field (each weight is divided by the field's maximum, so the heaviest point counts as one unweighted point).</td>
 </tr>
 <tr>
 <td><code>add_choropleth(data, column, name=, class_count=, colormap=, scheme=, **style)</code></td>
