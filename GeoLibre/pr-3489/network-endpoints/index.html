@@ -4070,7 +4070,7 @@ so and skips the relay; the table notes those cases.</p>
 </tr>
 <tr>
 <td>SQL workspace engines</td>
-<td>PGlite and PostGIS, CereusDB (Sedona), and <code>gdal3.js</code> load from <code>cdn.jsdelivr.net</code> on first use by default; DuckDB-WASM does too in the <code>lite:build</code> variant.</td>
+<td>PGlite and PostGIS, CereusDB (Sedona), and <code>gdal3.js</code> load from <code>cdn.jsdelivr.net</code> on first use by default, except the PostGIS extension bundle (<code>postgis.tar.gz</code>), which comes from <code>unpkg.com</code> with <code>cdn.jsdelivr.net</code> as the fallback; DuckDB-WASM does too in the <code>lite:build</code> variant.</td>
 <td>All</td>
 <td>Direct</td>
 </tr>
@@ -4082,7 +4082,7 @@ so and skips the relay; the table notes those cases.</p>
 </tr>
 <tr>
 <td>Object detection, Segment Everything</td>
-<td>Model weights from <code>cdn.jsdelivr.net</code> and <code>huggingface.co</code>; ONNX Runtime from <code>cdn.jsdelivr.net</code>.</td>
+<td>Model weights from <code>raw.githubusercontent.com</code> and <code>huggingface.co</code>; ONNX Runtime from <code>cdn.jsdelivr.net</code>.</td>
 <td>All</td>
 <td>Direct</td>
 </tr>
