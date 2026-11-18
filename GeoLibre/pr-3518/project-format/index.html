@@ -4392,9 +4392,11 @@ compiled output, so a saved filter can always be reopened and changed:</p>
 <span class="p">}</span>
 </code></pre></div>
 <p><code>kind</code> picks the control and the comparison: <code>categorical</code> (checkboxes over
-<code>values</code>), <code>range</code> (inclusive numeric <code>min</code>/<code>max</code>, either side <code>null</code> for an
-open bound), <code>date</code> (inclusive <code>YYYY-MM-DD</code> <code>start</code>/<code>end</code>), and <code>text</code>
-(case-insensitive <code>contains</code> / <code>startsWith</code> / <code>equals</code> against <code>text</code>).
+<code>values</code>, plus <code>includeBlank: true</code> to keep features whose value is missing,
+<code>null</code>, or empty, the ones the Dashboard charts group as "(blank)"),
+<code>range</code> (inclusive numeric <code>min</code>/<code>max</code>, either side <code>null</code> for an open bound),
+<code>date</code> (inclusive <code>YYYY-MM-DD</code> <code>start</code>/<code>end</code>), and <code>text</code> (case-insensitive
+<code>contains</code> / <code>startsWith</code> / <code>equals</code> against <code>text</code>).
 <code>dateKind</code> says how the field stores its timestamps — <code>iso</code> (the default,
 comparing the leading <code>YYYY-MM-DD</code> of ISO text), <code>epochMs</code>, or <code>epochS</code> — and
 <code>enabled: false</code> mutes a control without discarding what it was answered with.
