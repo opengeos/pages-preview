@@ -4800,6 +4800,15 @@ fail again with "Unsupported data format/bitsPerSample";
   GeoJSON on a custom CRS map silently draws in the wrong place (MapLibre only
   warns). After a bump, run <code>tests/map-crs.test.ts</code> and pick a preset under
   <strong>Settings → Map</strong> with a GeoJSON layer on the map.</li>
+<li><strong>Map CRS fits</strong> (<code>MapController.guardMapCrsFits</code>, issue #3516) replace
+  <code>fitBounds</code> on the map instance so fits that plugin controls make directly
+  (the PMTiles panel) stay on a custom CRS's tile grid. They assume MapLibre
+  clamps the camera center to the grid, draws the grid 512 px wide at zoom 0
+  (<code>cameraForMapCrsBox</code>), and that <code>fitBounds</code> stays an own-instance-overridable
+  method that MapLibre itself does not rely on internally. After a bump, run
+  <code>tests/map-crs-fit.test.ts</code>, then on <code>?crs=earth-arctic</code> add
+  <code>https://data.geolibre.app/knoxville_buildings.pmtiles</code>: the camera must stay
+  on the Arctic view and Zoom to layer must explain why it cannot move.</li>
 </ul>
 <h3 id="mapbox-gl"><code>mapbox-gl</code><a class="headerlink" href="#mapbox-gl" title="Permanent link">&para;</a></h3>
 <p>Mapbox GL JS v2+ is proprietary, so it must never enter a build: the app loads
