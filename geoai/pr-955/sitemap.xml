@@ -34,6 +34,9 @@
         <loc>https://opengeoai.org/contributing/</loc>
       </url>
       <url>
+        <loc>https://opengeoai.org/cross_validation/</loc>
+      </url>
+      <url>
         <loc>https://opengeoai.org/detectron2/</loc>
       </url>
       <url>
@@ -200,6 +203,9 @@
       </url>
       <url>
         <loc>https://opengeoai.org/examples/instance_segmentation/</loc>
+      </url>
+      <url>
+        <loc>https://opengeoai.org/examples/kfold_cross_validation/</loc>
       </url>
       <url>
         <loc>https://opengeoai.org/examples/lightly_train_self_supervised/</loc>

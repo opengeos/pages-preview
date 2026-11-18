@@ -26,7 +26,7 @@
       
       
       <link rel="icon" href="../assets/logo.ico">
-      <meta name="generator" content="zensical-0.0.74">
+      <meta name="generator" content="zensical-0.1.2">
     
     
       
@@ -37,7 +37,7 @@
       
         
       
-      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ab2de0c.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.ebb7f775.min.css">
       
         
           
@@ -1202,6 +1202,33 @@
     
   
   Train a Semantic Segmentation Model using Segmentation-Models-PyTorch
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/kfold_cross_validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  K-fold Cross-validation for Semantic Segmentation
 
     
   </span>
@@ -3491,6 +3518,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../cross_validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  cross_validation module
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../cli/" class="md-nav__link">
         
   
@@ -5719,10 +5773,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11_42" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11_43" >
         
           
-          <label class="md-nav__link" for="__nav_11_42" id="__nav_11_42_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_11_43" id="__nav_11_43_label" tabindex="0">
             
   
   
@@ -5740,8 +5794,8 @@
           </label>
         
         
-          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_42_label" aria-expanded="false">
-            <label class="md-nav__title" for="__nav_11_42">
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_43_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_11_43">
               <span class="md-nav__icon md-icon"></span>
               
   
@@ -11678,7 +11732,7 @@ during regularization. Defaults to 1.0.</p>
                 <code>target_crs</code>
             </td>
             <td>
-                  <code><span title="typing.Optional">Optional</span>[<span title="typing.Union">Union</span>[<span title="str">str</span>, <span title="pyproj.CRS">CRS</span>]]</code>
+                  <code><span title="typing.Optional">Optional</span>[<span title="typing.Union">Union</span>[<span title="str">str</span>, CRS]]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -14322,7 +14376,7 @@ every time you need CRS, transform, bounds, shape, or nodata.</p>
                 <code>vector_path</code>
             </td>
             <td>
-                  <code><span title="str">str</span> or <span title="GeoDataFrame">GeoDataFrame</span></code>
+                  <code><span title="str">str</span> or GeoDataFrame</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -14467,7 +14521,7 @@ Can include {vector_name} and {index} placeholders.</p>
                 <code>dtype</code>
             </td>
             <td>
-                  <code><span title="numpy.dtype">dtype</span></code>
+                  <code>dtype</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -14759,7 +14813,7 @@ mean for the whole dataset for computing individual stds.</p>
                 <code>dataset</code>
             </td>
             <td>
-                  <code><span title="RasterDataset">RasterDataset</span></code>
+                  <code>RasterDataset</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -20102,7 +20156,7 @@ Defaults to None.</p>
                 <code>vector_path</code>
             </td>
             <td>
-                  <code><span title="str">str</span> or <span title="GeoDataFrame">GeoDataFrame</span></code>
+                  <code><span title="str">str</span> or GeoDataFrame</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -20184,7 +20238,7 @@ Required if reference_raster is not provided.</p>
                 <code>transform</code>
             </td>
             <td>
-                  <code><span title="affine.Affine">Affine</span></code>
+                  <code>Affine</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -20235,7 +20289,7 @@ Used to calculate transform if transform is not provided.</p>
                 <code>crs</code>
             </td>
             <td>
-                  <code><span title="str">str</span> or <span title="CRS">CRS</span></code>
+                  <code><span title="str">str</span> or CRS</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -20285,7 +20339,7 @@ If False, only pixels whose center is within the geometry will be burned in.</p>
                 <code>dtype</code>
             </td>
             <td>
-                  <code><span title="numpy.dtype">dtype</span></code>
+                  <code>dtype</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -24038,7 +24092,7 @@ Defaults to False.</p>
                 <code>augmentation_transforms</code>
             </td>
             <td>
-                  <code><span title="albumentations.Compose">Compose</span></code>
+                  <code>Compose</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -28635,7 +28689,7 @@ while eliminating redundant pixel representations.</p>
                 <code>image</code>
             </td>
             <td>
-                  <code><span title="typing.Union">Union</span>[<span title="str">str</span>, <span title="numpy.ndarray">ndarray</span>]</code>
+                  <code><span title="typing.Union">Union</span>[<span title="str">str</span>, ndarray]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -37626,7 +37680,7 @@ outlines overlaid.</p>
                 <code>vector_data</code>
             </td>
             <td>
-                  <code><span title="typing.Union">Union</span>[<span title="str">str</span>, <span title="geopandas.GeoDataFrame">GeoDataFrame</span>]</code>
+                  <code><span title="typing.Union">Union</span>[<span title="str">str</span>, GeoDataFrame]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -38513,7 +38567,7 @@ classification, and background basemaps.</p>
                 <code>vector_data</code>
             </td>
             <td>
-                  <code><span title="geopandas.GeoDataFrame">GeoDataFrame</span></code>
+                  <code>GeoDataFrame</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -39074,7 +39128,7 @@ See https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.ex
       <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["content.code.copy","navigation.footer","navigation.instant","navigation.top","navigation.tracking","search.highlight","search.share"],"redirect":null,"search":"../assets/javascripts/workers/search.719e0d91.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
     
     
-      <script src="../assets/javascripts/bundle.d31f0ffa.min.js"></script>
+      <script src="../assets/javascripts/bundle.3cb411a8.min.js"></script>
       
     
   </body>
