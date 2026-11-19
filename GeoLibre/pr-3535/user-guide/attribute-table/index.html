@@ -4189,7 +4189,12 @@ instead.</p>
 <h2 id="editing-values">Editing values<a class="headerlink" href="#editing-values" title="Permanent link">&para;</a></h2>
 <p>GeoEditor's <strong>Sketches</strong> layer supports editing attributes and adding fields
 such as <code>stroke</code>, <code>fill</code>, and <code>marker-color</code>. Create and delete sketch features
-with GeoEditor.</p>
+with GeoEditor. Geoman's internal <code>__gm_*</code> shape metadata is hidden in
+the Sketches table and retained for geometry editing.</p>
+<p>In <strong>Settings → GeoEditor</strong>, configure the feature-properties fields by name,
+type, label, and geometry. These settings are saved with the project and apply
+to the active editor. Turn off <strong>Open feature properties after drawing</strong> to
+stop the automatic popup; existing attributes remain available in the table.</p>
 <p>Click <strong>Edit</strong> to turn the cells into inputs. Changed cells are highlighted;
 <strong>Save</strong> commits them and the reset button discards every unsaved edit.</p>
 <p>Pending edits are kept separately for each layer during the current project

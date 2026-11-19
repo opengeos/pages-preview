@@ -4005,6 +4005,11 @@ again. <code>terrainFillOutside</code> says whether that DEM is surrounded by th
 terrain instead of a flat 0 m plain; omitted, it is on for a URL DEM and off for
 a local file. <code>terrainIonAssetId</code>
 picks a Cesium Ion terrain asset for the globe.</p>
+<p>GeoEditor form settings are stored in optional <code>preferences.map.geoEditor</code>.
+<code>showAfterDraw</code> controls automatic opening of feature properties, and <code>fields</code>
+lists each property's <code>name</code>, optional <code>label</code>, input <code>type</code> (<code>string</code>, <code>number</code>,
+<code>boolean</code>, <code>color</code>, <code>date</code>, or <code>textarea</code>), and <code>geometry</code> (<code>all</code>, <code>polygon</code>,
+<code>line</code>, or <code>point</code>). Missing settings retain the default polygon height form.</p>
 <h2 id="plugin-state">Plugin state<a class="headerlink" href="#plugin-state" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"manifestUrls"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"https://example.com/plugins/example-plugin/plugin.json"</span><span class="p">],</span>
