@@ -1026,6 +1026,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#geopdf" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        GeoPDF
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3691,6 +3702,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#geopdf" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        GeoPDF
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3753,7 +3775,12 @@ switches between <strong>Portrait</strong> and <strong>Landscape</strong> (not f
 <strong>Margin</strong> is <strong>Normal</strong>, <strong>Narrow</strong>, or <strong>None (borderless)</strong>. <strong>Page
 background</strong> colours the page around the map: the title block, the footer row
 and the margins. On a dark colour the title and the footer switch to light text,
-so a dark map can sit on a dark page.</p>
+so a dark map can sit on a dark page. <strong>Export resolution</strong> sets the DPI that
+PNG and PDF exports render a paper page at: <strong>72 DPI</strong>, <strong>150 DPI</strong> (the
+default), or <strong>300 DPI</strong>. Screen sizes always export at their exact pixel size.
+On the largest papers 300 DPI is lowered slightly (A3 to about 294, Tabloid
+to about 299), so the page stays within the largest canvas every browser
+engine can draw.</p>
 <h2 id="map-frame-scale-and-extent">Map frame, scale, and extent<a class="headerlink" href="#map-frame-scale-and-extent" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>Map frame</strong>: the <strong>Map background</strong> color shows where the map has no data;
@@ -3943,7 +3970,7 @@ live map to each page's feature.</p>
 </tr>
 <tr>
 <td><strong>Export PDF</strong></td>
-<td>A PDF page of the chosen size. In an atlas it becomes <strong>Export PDF (N pages)</strong>: one multi-page PDF.</td>
+<td>A georeferenced PDF (GeoPDF) page of the chosen size. In an atlas it becomes <strong>Export PDF (N pages)</strong>: one multi-page PDF, each page georeferenced to its own map.</td>
 </tr>
 <tr>
 <td><strong>Export SVG</strong></td>
@@ -3955,8 +3982,9 @@ live map to each page's feature.</p>
 </tr>
 </tbody>
 </table>
-<p>The file is named after the title. Paper pages render at 150 DPI; screen
-presets and pixel custom sizes render at their exact pixel size. An atlas export
+<p>The file is named after the title. Paper pages render at the <strong>Export
+resolution</strong> (150 DPI by default); screen presets and pixel custom sizes render
+at their exact pixel size. An atlas export
 reports its progress page by page, and the dialog stays open until it finishes.</p>
 <div class="admonition note">
 <p class="admonition-title">What is vector and what is raster</p>
@@ -3964,9 +3992,27 @@ reports its progress page by page, and the dialog stays open until it finishes.<
 editor such as Inkscape or Illustrator: the title, legend, scale bar, north
 arrow, tables, charts, and borders are written as editable text and paths.
 The map itself, and any image-based marker icons, stay embedded as images.
-The <strong>PDF</strong> is a 150 DPI image of the whole page placed on a PDF page, not
-vector content.</p>
+The <strong>PDF</strong> is an image of the whole page, at the export resolution, placed
+on a PDF page, not vector content.</p>
 </div>
+<h2 id="geopdf">GeoPDF<a class="headerlink" href="#geopdf" title="Permanent link">&para;</a></h2>
+<p>A PDF export carries the map frame's coordinates in the ISO 32000 geospatial
+format, so GIS and mobile mapping apps (QGIS and other GDAL-based tools, or
+Avenza Maps) open it in the right place, and a GPS-enabled app can show your
+position on the printed map in the field. The georeference covers the map frame
+only, not the title, legend, or margins, and it is written in the map's CRS:
+Web Mercator on the default map, or the map's own CRS when it uses one with an
+EPSG code.</p>
+<p>The georeference is exact only while the screen is a flat view of that CRS, so
+some views export as a plain PDF instead. Hover <strong>Export PDF</strong> to see which you
+will get. To get a GeoPDF:</p>
+<ul>
+<li>Remove any tilt (pitch); a rotated (bearing) map is fine.</li>
+<li>On a globe, zoom in until the globe flattens to Mercator (around zoom 12), or
+  switch the map projection to Mercator.</li>
+<li>Use a custom CRS that has an EPSG code.</li>
+<li>Use an Earth map. Moon and Mars projects export plain PDFs.</li>
+</ul>
 <div class="admonition tip">
 <p class="admonition-title">Getting a sharper map</p>
 <p>The map is captured from the on-screen map, so its detail is limited by the

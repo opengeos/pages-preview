@@ -762,6 +762,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#geopdf" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        GeoPDF
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#the-browser-panel" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -3698,6 +3709,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#geopdf" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        GeoPDF
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#the-browser-panel" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -3808,6 +3830,10 @@
 <tr>
 <td><strong>GPX Layer</strong></td>
 <td>Loads a GPX file or URL and splits it into separate waypoint, track, and route layers.</td>
+</tr>
+<tr>
+<td><strong>GeoPDF Layer</strong></td>
+<td>Adds the map frame of a georeferenced PDF (a GeoPDF from Avenza Maps, USGS, QGIS, ArcGIS, or a GeoLibre Print Layout export) as an image layer. See <a href="#geopdf">GeoPDF</a>.</td>
 </tr>
 <tr>
 <td><strong>IndoorGML Layer</strong></td>
@@ -4101,6 +4127,16 @@ were rendered before the choice existed and cannot honor it.</p>
 <li><strong>LAS, LAZ, and COPC</strong> point clouds load into the LiDAR control; a LAS 1.4 file the viewer cannot read whole is converted to COPC first.</li>
 <li><strong>Geotagged photos</strong> (JPEG, PNG, WebP, HEIC) become a point layer placed from their EXIF GPS tags.</li>
 <li>A single <strong><code>.geolibre.json</code></strong> project file opens as the current project.</li>
+<li>A <strong>PDF</strong> opens the GeoPDF form with the file already chosen, so you can pick its page and layers. See <a href="#geopdf">GeoPDF</a>.</li>
+</ul>
+<h2 id="geopdf">GeoPDF<a class="headerlink" href="#geopdf" title="Permanent link">&para;</a></h2>
+<p><strong>Add Data → GeoPDF Layer</strong> (or dropping a <code>.pdf</code> on the map, or loading one with <code>?data=</code>) reads a georeferenced PDF and adds its map frame as an image layer, placed by the coordinates the PDF carries. The image is cut to the frame (its neatline), so a title, legend, or margin outside the frame stays off the map; anything the sheet draws inside the frame, such as an inset legend, comes along. The page renders with a transparent background, so a PDF layer you keep on its own overlays the map instead of hiding it. Drop one PDF at a time: when several are dropped together, the form opens the first and lists the others.</p>
+<ul>
+<li><strong>PDF layers to include</strong> lists the PDF's layers (its optional content groups) when it has any, ticked the way the PDF opens. Untick a layer to leave it out of the image. The choice is made when the layer is added; to change it, add the PDF again.</li>
+<li><strong>Page</strong> appears when more than one page is georeferenced.</li>
+<li>The georeference must be in the ISO 32000 geospatial format, which GDAL, QGIS, ArcGIS, Avenza Maps, and GeoLibre's own <a href="../print-layout/">Print Layout</a> PDF exports write. The older OGC "LGIDict" encoding and encrypted PDFs are not supported.</li>
+<li>The PDF's coordinate system is read from its EPSG code (with the datum shift GeoLibre's EPSG tables carry), or from its WKT when there is no code. A frame that the map's Web Mercator would bend between its corners (a large latitude/longitude sheet, say) is reprojected into Web Mercator first, so its interior lands in place too.</li>
+<li>The frame is rendered at up to 4096 pixels on its longest side and saved in the project.</li>
 </ul>
 <h2 id="the-browser-panel">The Browser panel<a class="headerlink" href="#the-browser-panel" title="Permanent link">&para;</a></h2>
 <p>The <strong>Browser</strong> tab on the left edge of the window opens a QGIS-style Data Source Manager: a tree of everything you can add without going through a menu. Use it when you add the same sources repeatedly, or when you want to explore a service or a database before committing to a layer.</p>

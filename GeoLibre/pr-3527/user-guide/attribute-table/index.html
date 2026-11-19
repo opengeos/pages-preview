@@ -4195,6 +4195,15 @@ to a layer to resume editing, then use <strong>Save</strong> or the reset button
 not written to the project file until you press <strong>Save</strong>, so save them before
 reloading or opening another project. A cell that holds an object must contain
 valid JSON before you can save.</p>
+<p>If the source changes while drafts are pending, saving and exporting are blocked
+when an edited row is missing or a row without an ID has changed at its original
+position. The drafts are retained. Restore the original rows to save them, or
+cancel the drafts and re-enter the values against the current data.</p>
+<p>Layer-menu exports and source writes also stop when pending drafts cannot be
+applied, including when the table is unmounted. Open this layer's attribute
+table to save, correct, or cancel its drafts, then retry the export or write.</p>
+<p>While geometry editing is active, attribute drafts are paused. Finish or cancel
+the geometry edit to resume editing and saving the attribute values.</p>
 <ul>
 <li>Joined, virtual, and editor-tracking fields are read-only.</li>
 <li><strong>Edit</strong> is unavailable while you are editing geometry, and for Add Vector
