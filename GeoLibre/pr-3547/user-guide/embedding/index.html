@@ -4649,8 +4649,9 @@ or a non-empty <code>tiles</code>, or — for the two layer types drawn from inl
 <code>ack</code> rather than reporting success and rendering nothing. A <code>geojson</code> layer
 whose source names its data by URL (<code>source.data</code> or <code>source.url</code>, an http(s)
 URL or a root-relative path) instead of carrying an inline <code>geojson</code> is
-fetched before the layer is added, so an unreachable URL or a document that is
-not a GeoJSON FeatureCollection rejects the call. <code>addLayer</code> also
+fetched before the layer is added, so an unreachable URL, a reference in
+neither form, or a document that is not a GeoJSON FeatureCollection rejects
+the call. <code>addLayer</code> also
 refuses <code>javascript:</code>, <code>vbscript:</code>, <code>data:</code>, <code>file:</code>, and <code>blob:</code> URLs on a
 source; a custom map protocol such as <code>pmtiles://</code> is fine. The spec has no
 <code>groupId</code>; a layer added this way lands outside any layer group.</p>

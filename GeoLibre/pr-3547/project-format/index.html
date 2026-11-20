@@ -4286,11 +4286,17 @@ may instead reference its data by URL and leave <code>geojson</code> out:</p>
 <p>When the project opens, GeoLibre fetches <code>source.data</code> (or, failing that,
 <code>source.url</code>) and draws the result. The reference must be an absolute
 http(s) URL or a root-relative path (<code>/data/fields.geojson</code>, resolved against
-the page the app is served from), and the server must allow CORS for a
-cross-origin URL. A layer whose data cannot be fetched stays in the project,
-empty, with a warning. Saving the project keeps the URL reference rather than
+the page the app is served from; the desktop app accepts absolute URLs only,
+since a leading <code>/</code> is a filesystem path there), and the server must allow
+CORS for a cross-origin URL. Opening such a project contacts every host it
+names, as tile and service layers already do. A layer whose data cannot be
+fetched, or whose reference is in neither form, stays in the project, empty,
+with a warning. Saving the project keeps the URL reference rather than
 embedding the downloaded features, unless they were edited in the app, in
-which case the edited features are embedded. When a layer has both an inline
+which case the edited features are embedded. Undo history, autosave and
+collaboration snapshots carry the downloaded features, so a layer restored
+from one of them (crash recovery, Project History) is embedded on its next
+save, like an edited one. When a layer has both an inline
 <code>geojson</code> and a URL, the inline copy is drawn and the URL is not fetched.</p>
 <p>A layer can define an optional <code>capabilities</code> set (<code>query</code>, <code>create</code>, <code>update</code>,
 <code>delete</code>, <code>export</code>) to explicitly declare allowed user and session actions. Each
