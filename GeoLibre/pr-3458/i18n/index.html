@@ -3795,6 +3795,9 @@ touching component code.</p>
 └── locales/
     ├── en.json       # the baseline English catalog (source of truth)
     ├── zh.json       # Simplified Chinese
+    ├── zh-TW.json    # Traditional Chinese (Taiwan)
+    ├── zh-HK.json    # Traditional Chinese (Hong Kong)
+    ├── zh-MO.json    # Traditional Chinese (Macau)
     ├── es.json       # Spanish
     ├── fr.json       # French
     ├── de.json       # German
@@ -3851,7 +3854,10 @@ open to native-speaker review and correction (PRs welcome).</p>
 <li>the default, <code>en</code>.</li>
 </ol>
 <p>Only languages that ship a catalog are honored; anything else falls through to
-the next rule. The in-app selector (the Settings menu → Language, or the
+the next rule. Chinese tags pick a script: <code>zh-TW</code>, <code>zh-HK</code> and <code>zh-MO</code> (with or
+without <code>Hant</code>) resolve to their own Traditional catalogs, and a bare <code>zh-Hant</code>
+resolves to <code>zh-TW</code>, while <code>zh</code>, <code>zh-CN</code>, <code>zh-SG</code> and any <code>zh-Hans…</code> tag resolve
+to Simplified (<code>zh</code>). The in-app selector (the Settings menu → Language, or the
 Language section of the Settings dialog) changes the
 language live and records the choice so it survives reloads.</p>
 <p>The <code>?locale</code> parameter makes embeds language-aware, e.g.:</p>
@@ -3924,7 +3930,7 @@ bundled catalog against <code>en.json</code>:</p>
   <code>{{placeholders}}</code> and <code>&lt;tag&gt;</code> markup.</li>
 <li><strong>Missing keys are reported, not enforced.</strong> The test logs each locale's
   missing keys. Plural keys are compared by their base, so a locale carries the
-  plural forms its language needs (<code>_other</code> only for zh/ja/ko/id/th/vi;
+  plural forms its language needs (<code>_other</code> only for zh/zh-TW/zh-HK/zh-MO/ja/ko/id/th/vi;
   <code>_two</code> for he; <code>_few</code>/<code>_many</code> for ru; all six for ar) rather than en's
   <code>_one</code>/<code>_other</code> pair.</li>
 </ul>

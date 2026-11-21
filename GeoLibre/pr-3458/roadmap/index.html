@@ -3620,10 +3620,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#v38-qgis-and-qfield-projects-with-their-forms-and-symbology-rtk-gnss-on-android-richer-stac-and-planetary-computer-search-and-model-builder-samples-current" class="md-nav__link">
+  <a href="#v38-qgis-and-qfield-projects-with-their-forms-and-symbology-rtk-gnss-on-android-richer-stac-and-planetary-computer-search-and-model-builder-samples" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        v3.8: QGIS and QField projects with their forms and symbology, RTK GNSS on Android, richer STAC and Planetary Computer search, and Model Builder samples (current)
+        v3.8: QGIS and QField projects with their forms and symbology, RTK GNSS on Android, richer STAC and Planetary Computer search, and Model Builder samples
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v39-sign-in-with-chatgpt-an-ai-assistant-that-keeps-the-conversation-gallery-collections-summarize-within-and-traditional-chinese-current" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        v3.9: Sign in with ChatGPT, an AI Assistant that keeps the conversation, Gallery collections, Summarize within, and Traditional Chinese (current)
       </span>
     </span>
   </a>
@@ -4400,10 +4411,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#v38-qgis-and-qfield-projects-with-their-forms-and-symbology-rtk-gnss-on-android-richer-stac-and-planetary-computer-search-and-model-builder-samples-current" class="md-nav__link">
+  <a href="#v38-qgis-and-qfield-projects-with-their-forms-and-symbology-rtk-gnss-on-android-richer-stac-and-planetary-computer-search-and-model-builder-samples" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        v3.8: QGIS and QField projects with their forms and symbology, RTK GNSS on Android, richer STAC and Planetary Computer search, and Model Builder samples (current)
+        v3.8: QGIS and QField projects with their forms and symbology, RTK GNSS on Android, richer STAC and Planetary Computer search, and Model Builder samples
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v39-sign-in-with-chatgpt-an-ai-assistant-that-keeps-the-conversation-gallery-collections-summarize-within-and-traditional-chinese-current" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        v3.9: Sign in with ChatGPT, an AI Assistant that keeps the conversation, Gallery collections, Summarize within, and Traditional Chinese (current)
       </span>
     </span>
   </a>
@@ -4933,7 +4955,7 @@
 <h2 id="v25-qgis-and-arcgis-pro-project-import-discrete-global-grids-hyperspectral-cubes-and-a-self-hostable-server">v2.5: QGIS and ArcGIS Pro project import, discrete global grids, hyperspectral cubes, and a self-hostable server<a class="headerlink" href="#v25-qgis-and-arcgis-pro-project-import-discrete-global-grids-hyperspectral-cubes-and-a-self-hostable-server" title="Permanent link">&para;</a></h2>
 <ul>
 <li>[x] <strong>QGIS project import</strong>: open a <code>.qgs</code> or <code>.qgz</code> and get its layers, nested groups, group visibility, layer order, styling, and saved map view rebuilt in GeoLibre, with a per-layer report of anything that had to be skipped rather than an all-or-nothing failure. See <a href="../user-guide/projects/#importing-a-qgis-project">Projects</a></li>
-<li>[x] <strong>ArcGIS Pro project import</strong>: <code>.aprx</code> and <code>.mapx</code> files are read straight from their CIM JSON without ArcPy, restoring the first 2D map's extent, local vector and GeoTIFF layers, nested groups, visibility, simple symbols, field labels, vector-tile portal items, and cached map services. See <a href="../user-guide/projects/#importing-an-arcgis-pro-project">Projects</a></li>
+<li>[x] <strong>ArcGIS Pro project import</strong>: <code>.aprx</code> and <code>.mapx</code> files are read straight from their CIM JSON without ArcPy, restoring the chosen 2D map's extent, local vector and GeoTIFF layers, nested groups, visibility, simple symbols, field labels, vector-tile portal items, cached map services, and hosted FeatureServer sublayers. See <a href="../user-guide/projects/#importing-an-arcgis-pro-project">Projects</a></li>
 <li>[x] <strong>Discrete global grid systems</strong> arrive as three new plugins under Plugins &gt; DGGS — <strong>A5</strong>, <strong>DGGRID</strong>, and <strong>DGGAL</strong> — that render the grid over the current view at a chosen or automatic resolution, identify a cell to read its id, parents, children, neighbors, and center, and add the grid or the selection to the map as a layer or export it</li>
 <li>[x] <strong>DGGS processing tools</strong> to match: a DGGS Generator that fills an extent with cells, DGGS Binning that aggregates a point layer into them, and DGGS Compact that collapses a full set of children into their parent</li>
 <li>[x] <strong>Hyperspectral NetCDF and HDF grids become readable data rather than a single grey band</strong>: local grids are colormapped in the browser from the same catalog the Style panel uses, the camera fits to the layer on add, and a cube gains an RGB band combination picked by wavelength</li>
@@ -5153,7 +5175,7 @@
 <li>[x] <strong>Deployment controls</strong>: administrators can turn off the Regional basemaps served from mainland China (an opened project that selects one now asks first), point the OSM Downloader at their own Overpass endpoint, save projects straight to the project server, open a plugin panel on startup, and give plugins a file-read allowlist. See <a href="../deployment-policy/">Deployment Policy</a></li>
 <li>[x] <strong>For plugins</strong>: data opened by URL with <code>?data=</code> or the embed <code>addData</code> command is offered to plugin file handlers, which can claim zips without an extension or declare their own <code>dataType</code>. See <a href="../plugin-api/">Plugin API</a></li>
 </ul>
-<h2 id="v38-qgis-and-qfield-projects-with-their-forms-and-symbology-rtk-gnss-on-android-richer-stac-and-planetary-computer-search-and-model-builder-samples-current">v3.8: QGIS and QField projects with their forms and symbology, RTK GNSS on Android, richer STAC and Planetary Computer search, and Model Builder samples (current)<a class="headerlink" href="#v38-qgis-and-qfield-projects-with-their-forms-and-symbology-rtk-gnss-on-android-richer-stac-and-planetary-computer-search-and-model-builder-samples-current" title="Permanent link">&para;</a></h2>
+<h2 id="v38-qgis-and-qfield-projects-with-their-forms-and-symbology-rtk-gnss-on-android-richer-stac-and-planetary-computer-search-and-model-builder-samples">v3.8: QGIS and QField projects with their forms and symbology, RTK GNSS on Android, richer STAC and Planetary Computer search, and Model Builder samples<a class="headerlink" href="#v38-qgis-and-qfield-projects-with-their-forms-and-symbology-rtk-gnss-on-android-richer-stac-and-planetary-computer-search-and-model-builder-samples" title="Permanent link">&para;</a></h2>
 <ul>
 <li>[x] <strong>QGIS and QField projects, complete</strong>: importing a QGIS project now brings each layer's attribute form (Value Map, Range, Checkbox, Date/Time, Hidden, and UUID widgets, Value Relation and Relation Reference dropdowns, aliases, required fields, defaults, form sections, and photo fields), its categorized, graduated, and rule-based symbology, and GeoPackage tables without geometry as table layers whose linked records fill relation dropdowns live, so a project prepared for QField collects data the same way in GeoLibre. See <a href="../user-guide/projects/#importing-a-qgis-project">Projects</a></li>
 <li>[x] <strong>Bluetooth GNSS and RTK on Android</strong>: the Android app connects to a paired Bluetooth GNSS receiver directly and feeds it RTK corrections from an NTRIP caster (NTRIP 1.0 and 2.0, optionally over TLS), so a survey-grade rover needs no second app. See <a href="../user-guide/field-collection/#rtk-corrections-ntrip">GPS Tracking</a></li>
@@ -5163,6 +5185,17 @@
 <li>[x] <strong>Model Builder samples</strong>: a Samples menu opens six ready-to-run workflows, from DEM stream networks and Strahler order to terrain derivatives and route stations near cities, with their sample data. See <a href="../user-guide/model-builder/#sample-workflows">Model Builder</a></li>
 <li>[x] <strong>AI Assistant</strong>: TrustedRouter joins the providers, and a managed deployment can switch on keyless Parallel web search. See <a href="../user-guide/ai-assistant/">AI Assistant</a></li>
 <li>[x] <strong>For plugins</strong>: <code>app.readPluginAsset()</code> reads files shipped in a plugin's own bundle, and <code>app.setUrlRequestHeaders()</code> sends headers such as <code>Authorization</code> for tiles a plugin draws itself. See <a href="../plugin-api/">Plugin API</a></li>
+</ul>
+<h2 id="v39-sign-in-with-chatgpt-an-ai-assistant-that-keeps-the-conversation-gallery-collections-summarize-within-and-traditional-chinese-current">v3.9: Sign in with ChatGPT, an AI Assistant that keeps the conversation, Gallery collections, Summarize within, and Traditional Chinese (current)<a class="headerlink" href="#v39-sign-in-with-chatgpt-an-ai-assistant-that-keeps-the-conversation-gallery-collections-summarize-within-and-traditional-chinese-current" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[x] <strong>Sign in with ChatGPT</strong>: the desktop AI Assistant can use your ChatGPT plan instead of an API key. Sign-in runs in the system browser, the tokens stay in the system keychain, and Settings shows the signed-in account, a link to usage, and sign-out. See <a href="../user-guide/ai-assistant/#signing-in-with-chatgpt-desktop">AI Assistant</a></li>
+<li>[x] <strong>An AI Assistant that keeps the thread</strong>: switching profiles or models mid-conversation carries the conversation over to the new provider instead of starting empty, a <code>set_view</code> tool moves the camera to an exact center, zoom, rotation, and tilt, and the panel shows which profile is the default. See <a href="../user-guide/ai-assistant/">AI Assistant</a></li>
+<li>[x] <strong>Gallery collections</strong>: Open from Gallery has a Collections tab that browses public collections from share.geolibre.app and opens their projects in place. See <a href="../gallery/">Gallery</a></li>
+<li>[x] <strong>Summarize within</strong>: a client-side Vector tool counts the features of another layer inside each polygon, summarizes a numeric field (sum, mean, min, max), and measures how much of each polygon other polygons cover, without double-counting overlaps. See <a href="../user-guide/processing/">Processing</a></li>
+<li>[x] <strong>Number columns that read like QGIS</strong>: the attribute table right-aligns number columns, rounds floating-point noise for display only (the raw value stays in the tooltip, sorting, editing, and export), and shows missing values as NULL. See <a href="../user-guide/attribute-table/">Attribute Table</a></li>
+<li>[x] <strong>Terrain beyond your DEM</strong>: a custom COG DEM can be surrounded, and its no-data gaps filled, by the global terrain instead of a flat plain</li>
+<li>[x] <strong>More from QGIS projects</strong>: WMS and XYZ layers and remote GeoParquet now import from a QGIS project, which also reads its default view. See <a href="../user-guide/projects/#importing-a-qgis-project">Projects</a></li>
+<li>[x] <strong>Traditional Chinese</strong>: the interface ships in Traditional Chinese for Taiwan, Hong Kong, and Macau, bringing it to 23 translations beyond English. See <a href="../i18n/">Internationalization</a></li>
 </ul>
 <h2 id="plugin-marketplace-and-registry-design">Plugin marketplace and registry (design)<a class="headerlink" href="#plugin-marketplace-and-registry-design" title="Permanent link">&para;</a></h2>
 <p>This captures the design for the <code>v1.0</code> "Plugin marketplace / registry" item. It

@@ -3858,9 +3858,9 @@ so and skips the relay; the table notes those cases.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>/opm/...</code>, <code>/wms/...</code></td>
-<td><code>s3-eu-west-1.amazonaws.com/whereonmars.cartodb.net</code>, <code>s3.us-east-2.amazonaws.com/opmmarstiles</code>, <code>s3.amazonaws.com/opmbuilder</code>, <code>planetarymaps.usgs.gov</code></td>
-<td>Mars, Moon, and other planetary basemaps (<code>packages/core/src/ellipsoids.ts</code>)</td>
+<td><code>/opm/...</code></td>
+<td><code>s3-eu-west-1.amazonaws.com/whereonmars.cartodb.net</code>, <code>s3.us-east-2.amazonaws.com/opmmarstiles</code>, <code>s3.amazonaws.com/opmbuilder</code></td>
+<td>Mars and Moon planetary basemaps (<code>packages/core/src/ellipsoids.ts</code>)</td>
 <td>Relay</td>
 </tr>
 <tr>
@@ -3957,6 +3957,12 @@ so and skips the relay; the table notes those cases.</p>
 <tr>
 <td>Basemap picker and Basemaps plugin</td>
 <td>CARTO (<code>basemaps.cartocdn.com</code>), Esri (<code>server.arcgisonline.com</code>, <code>services.arcgisonline.com</code>), EOX (<code>tiles.maps.eox.at</code>), USGS (<code>basemap.nationalmap.gov</code>), NASA GIBS, OpenStreetMap, Protomaps, Mapbox, MapTiler, Stadia, TomTom, HERE, Amazon Location, Tianditu, Google, swisstopo, BKG, Waymarked Trails, OpenRailwayMap. OpenFreeMap is the default basemap (see above). Opening the Basemaps panel loads a thumbnail per visible row, which contacts many of these hosts before the user picks one. Keyed providers receive the key the user or build supplies.</td>
+<td>All</td>
+<td>Direct</td>
+</tr>
+<tr>
+<td>Other planetary basemaps</td>
+<td>USGS Astrogeology WMS (<code>planetarymaps.usgs.gov</code>) for Mercury, Venus, the Galilean moons, Titan, Pluto, and Charon, reprojected to Web Mercator in the app. Only when the user selects one of those bodies.</td>
 <td>All</td>
 <td>Direct</td>
 </tr>
@@ -4064,7 +4070,7 @@ so and skips the relay; the table notes those cases.</p>
 </tr>
 <tr>
 <td>SQL workspace engines</td>
-<td>PGlite and PostGIS, CereusDB (Sedona), and <code>gdal3.js</code> load from <code>cdn.jsdelivr.net</code> on first use by default; DuckDB-WASM does too in the <code>lite:build</code> variant.</td>
+<td>PGlite and PostGIS, CereusDB (Sedona), and <code>gdal3.js</code> load from <code>cdn.jsdelivr.net</code> on first use by default, except the PostGIS extension bundle (<code>postgis.tar.gz</code>), which comes from <code>unpkg.com</code> with <code>cdn.jsdelivr.net</code> as the fallback; DuckDB-WASM does too in the <code>lite:build</code> variant.</td>
 <td>All</td>
 <td>Direct</td>
 </tr>
@@ -4076,7 +4082,7 @@ so and skips the relay; the table notes those cases.</p>
 </tr>
 <tr>
 <td>Object detection, Segment Everything</td>
-<td>Model weights from <code>cdn.jsdelivr.net</code> and <code>huggingface.co</code>; ONNX Runtime from <code>cdn.jsdelivr.net</code>.</td>
+<td>Model weights from <code>raw.githubusercontent.com</code> and <code>huggingface.co</code>; ONNX Runtime from <code>cdn.jsdelivr.net</code>.</td>
 <td>All</td>
 <td>Direct</td>
 </tr>

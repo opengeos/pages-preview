@@ -2953,6 +2953,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#geolibre.color_ramp.graduated_class_breaks" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;graduated_class_breaks
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#geolibre.color_ramp.graduated_stops" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -3571,6 +3582,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#geolibre.color_ramp.graduated_class_breaks" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;graduated_class_breaks
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#geolibre.color_ramp.graduated_stops" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -3970,6 +3992,120 @@ match <code>VECTOR_COLOR_RAMPS</code> exactly, so a ramp chosen here renders ide
 <div class="doc doc-object doc-function">
 
 
+<h2 id="geolibre.color_ramp.graduated_class_breaks" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <span class="doc doc-object-name doc-function-name">graduated_class_breaks</span>
+
+
+<a href="#geolibre.color_ramp.graduated_class_breaks" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">graduated_class_breaks</span><span class="p">(</span><span class="n">values</span><span class="p">:</span> <span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><span title="float">float</span></span><span class="p">],</span> <span class="n">count</span><span class="p">:</span> <span class="n"><span title="int">int</span></span><span class="p">,</span> <span class="n">scheme</span><span class="p">:</span> <span class="n"><span title="str">str</span></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><span title="float">float</span></span><span class="p">]</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Build the class <em>lower bounds</em> for a graduated vector renderer.</p>
+<p>Mirror of <code>createGraduatedClassBreaks</code> in <code>packages/core/src/color-ramp.ts</code>
+for the equal-interval and quantile schemes. The app renders graduated stops
+as a MapLibre <code>step</code> expression, so with N stops class <code>i</code> covers
+<code>[stops[i], stops[i + 1])</code> and the last class is open-ended above: <code>count</code>
+classes yield <code>count</code> breaks starting at the sample minimum, not ramp edges
+ending at the maximum (which would leave the top class holding only the
+largest feature). Duplicate breaks are collapsed so the result is strictly
+ascending, which <code>step</code> requires; it may hold fewer than <code>count</code> breaks.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>values</code>
+            </td>
+            <td>
+                  <code><span title="list">list</span>[<span title="float">float</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Finite numeric values of the classified property.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>count</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Number of classes requested.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>scheme</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p><code>"equal-interval"</code> or <code>"quantile"</code>.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="list">list</span>[<span title="float">float</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Up to <code>count</code> strictly ascending class lower bounds.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
 <h2 id="geolibre.color_ramp.graduated_stops" class="doc doc-heading">
 <code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <span class="doc doc-object-name doc-function-name">graduated_stops</span>
 
@@ -3984,7 +4120,9 @@ match <code>VECTOR_COLOR_RAMPS</code> exactly, so a ramp chosen here renders ide
 <p>Mirrors <code>createGraduatedStops</code> in <code>StylePanel.tsx</code>: non-numeric values
 are dropped, breaks come from the chosen scheme, and colors are sampled from
 the ramp. The result is a list of <code>{"value", "color"}</code> stop dicts the app
-renders as an <code>interpolate</code> expression.</p>
+renders as a <code>step</code> expression, so each value is a class <em>lower bound</em>
+(see <code>graduated_class_breaks</code>); a skewed sample can yield fewer stops
+than <code>class_count</code>.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>

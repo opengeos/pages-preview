@@ -1160,6 +1160,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#signing-in-with-chatgpt-desktop" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Signing in with ChatGPT (desktop)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#using-local-ollama-from-webgeolibreapp" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -3643,6 +3654,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#signing-in-with-chatgpt-desktop" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Signing in with ChatGPT (desktop)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#using-local-ollama-from-webgeolibreapp" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -3877,6 +3899,11 @@ providers in <strong>Settings → AI Providers</strong>:</p>
 <td><code>gpt-5.6</code></td>
 </tr>
 <tr>
+<td><strong>ChatGPT (sign in)</strong>, desktop</td>
+<td>none: sign in with your ChatGPT account</td>
+<td>the plan's first model</td>
+</tr>
+<tr>
 <td><strong>OpenRouter</strong></td>
 <td><code>OPENROUTER_API_KEY</code> (+ optional <code>OPENROUTER_MODEL</code>)</td>
 <td><code>openai/gpt-5.6-luna</code></td>
@@ -3936,10 +3963,45 @@ providers in <strong>Settings → AI Providers</strong>:</p>
   without sending your key and keeps models that accept tools and return text.
   Set <code>TRUSTEDROUTER_MODEL</code> to choose a different default.</li>
 <li><strong>Custom</strong> covers any OpenAI-compatible endpoint — LiteLLM, vLLM, Groq, Together, a local server, etc. — via its chat-completions API.</li>
+<li><strong>ChatGPT (sign in)</strong> uses your ChatGPT plan instead of an API key, through
+  OpenAI's <a href="https://developers.openai.com/siwc/token-sharing-open-source">Sign in with ChatGPT for open-source apps</a>.
+  See <a href="#signing-in-with-chatgpt-desktop">Signing in with ChatGPT</a>.</li>
 </ul>
 <p>Hosted keys (and AWS credentials) are used <strong>directly from your browser</strong> to call
 the provider; they are never sent to GeoLibre's servers. Saving the setting
 enables the panel immediately — no reload needed.</p>
+<h3 id="signing-in-with-chatgpt-desktop">Signing in with ChatGPT (desktop)<a class="headerlink" href="#signing-in-with-chatgpt-desktop" title="Permanent link">&para;</a></h3>
+<p>With a ChatGPT plan you can use the assistant without an API key. In the
+desktop app, add a profile in <strong>Settings → AI Providers</strong>, choose <strong>ChatGPT
+(sign in)</strong> and click <strong>Continue with ChatGPT</strong>. Your browser opens OpenAI's
+sign-in page, where you allow GeoLibre to use your plan (the first time, OpenAI
+registers GeoLibre as an app of your account; you can rename it there). The
+browser then returns to GeoLibre on <code>127.0.0.1</code>, and the profile shows the
+account's email and <strong>Using your ChatGPT plan</strong>. The <strong>Model</strong> list loads the
+models your plan offers; when the profile's model isn't one of them, the first
+is chosen.</p>
+<ul>
+<li><strong>Tokens never reach the page.</strong> The sign-in, its tokens and every request
+  stay in the desktop app's native side: the refresh token is kept in the
+  system keychain (macOS Keychain, Windows Credential Manager, Linux Secret
+  Service), and the access token only in memory. Plugins cannot read either,
+  and the token is only ever sent to OpenAI's Responses API and model list.
+  Without a usable keychain the sign-in lasts until GeoLibre closes.</li>
+<li><strong>Plugins can still use the plan.</strong> External plugins run in the same page
+  as the app, so while you are signed in an installed plugin could send
+  requests to OpenAI on your plan and see the account's email, even though it
+  never sees a token. Install only plugins you trust, and watch your usage
+  under <strong>Usage and connected apps</strong>.</li>
+<li><strong>Sign out</strong> forgets the tokens and asks OpenAI to end the session. If
+  OpenAI doesn't confirm, GeoLibre says so; disconnect GeoLibre under
+  <strong>Usage and connected apps</strong> (your ChatGPT settings) to be sure. The
+  registration is kept for the next sign-in; <strong>Use another account</strong> forgets
+  it so a different ChatGPT account can sign in.</li>
+<li>A signed-in plan is never picked automatically: a profile (or
+  <code>GEOLIBRE_ASSISTANT_PROVIDER=chatgpt</code>) must choose it.</li>
+<li>Desktop only. The web build and the Mac App Store build cannot accept the
+  browser's return to <code>127.0.0.1</code>, so they don't offer it.</li>
+</ul>
 <h3 id="using-local-ollama-from-webgeolibreapp">Using local Ollama from web.geolibre.app<a class="headerlink" href="#using-local-ollama-from-webgeolibreapp" title="Permanent link">&para;</a></h3>
 <p>The hosted web app connects directly from your browser to Ollama on your
 computer. Prompts and responses do not pass through a GeoLibre server. Because
@@ -4138,7 +4200,11 @@ next app launch.</p>
 inserts a newline, and <strong>Ctrl/Cmd + Enter</strong> still sends. The
 assistant streams its reply, runs tools as needed, and reports what it did. While
 it is working, <strong>Send</strong> becomes <strong>Stop</strong> — click it to cancel. <strong>Clear</strong> (the
-eraser icon) starts a fresh conversation.</p>
+eraser icon) starts a fresh conversation. Switching the profile in the panel's
+dropdown keeps the conversation: the newly selected model continues with the
+earlier turns, so you can ask it about an answer the previous model gave.
+Those turns, including tool output such as query results, are sent to the newly
+selected provider; click <strong>Clear</strong> before switching if they should not be.</p>
 <div class="highlight"><pre><span></span><code>show me all parcels larger than 1 hectare within 500 m of a river
 color the counties by population using a graduated red ramp
 buffer the roads by 100 m, then clip them to the county boundary
@@ -4413,7 +4479,7 @@ operations, so its actions stay within GeoLibre's validated surface.</p>
 </tr>
 <tr>
 <td><strong>Map control</strong></td>
-<td>Moves the camera (fit a layer or a bounding box), switches the basemap, toggles layer visibility/opacity, and removes layers.</td>
+<td>Moves the camera (fit a layer or a bounding box, or go to an exact center, zoom, rotation, and tilt with <code>set_view</code>), switches the basemap, toggles layer visibility/opacity, and removes layers.</td>
 </tr>
 <tr>
 <td><strong>Web search</strong></td>
@@ -4465,6 +4531,8 @@ add this GeoJSON: https://example.com/data.geojson
 <p><strong>Map control &amp; styling</strong></p>
 <div class="highlight"><pre><span></span><code>zoom to the parcels layer
 fly to San Francisco
+center the map on 40.71, -74.01 at zoom 12
+tilt the map 60 degrees and rotate it to face east
 switch to a dark basemap
 hide the buildings layer and set the parcels opacity to 0.5
 remove the temporary buffer layer
@@ -4485,7 +4553,8 @@ load a CSV from a URL with pandas and summarize its columns
 <li><strong>Scoped context.</strong> Only layer/table <strong>names</strong>, attribute <strong>field names</strong>, and
   the current view are sent to the model — not your feature data.</li>
 <li><strong>What leaves your browser.</strong> When you send a prompt, it (plus that scoped
-  context) is sent to your chosen LLM provider using your own key. Don't enable
+  context) is sent to your chosen LLM provider using your own key (or, with a
+  ChatGPT sign-in, to OpenAI on your plan). Don't enable
   the assistant on sensitive data you can't share with that provider. A TypeSafe
   credential adds a second destination for two things: the
   <a href="#fast-path-for-simple-commands-optional">fast path</a> sends the prompt and your

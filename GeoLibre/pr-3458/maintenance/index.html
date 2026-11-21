@@ -4765,7 +4765,8 @@ fail again with "Unsupported data format/bitsPerSample";
   one canvas and ships no per-layer blend API (upstream draft:
   maplibre/maplibre-gl-js#8073). The wrappers are <code>Painter.prototype.renderLayer</code>
   (brackets one layer's draws), <code>Painter.prototype.useProgram</code> (tells the
-  layer-opacity composite draw from the draws feeding it), and
+  layer-opacity composite draw, program <code>layerComposite</code> since maplibre-gl 6.18
+  and <code>layerOpacity</code> before, from the draws feeding it), and
   <code>Context.prototype.setColorMode</code> (the single place every draw resolves GL blend
   state). Fill and line layers additionally get <code>fill-layer-opacity</code> /
   <code>line-layer-opacity</code> pinned just under 1 by <code>style-mapper</code>, which elects
@@ -4799,6 +4800,18 @@ fail again with "Unsupported data format/bitsPerSample";
   GeoJSON on a custom CRS map silently draws in the wrong place (MapLibre only
   warns). After a bump, run <code>tests/map-crs.test.ts</code> and pick a preset under
   <strong>Settings → Map</strong> with a GeoJSON layer on the map.</li>
+<li><strong>Map CRS fits</strong> (<code>MapController.guardMapCrsFits</code>, issue #3516) replace
+  <code>fitBounds</code> on the map instance so fits that plugin controls make directly
+  (the PMTiles panel) stay on a custom CRS's tile grid. They assume MapLibre
+  clamps the camera center to the grid, draws the grid 512 px wide at zoom 0
+  (<code>cameraForMapCrsBox</code>), and that <code>fitBounds</code> stays an own-instance-overridable
+  method that MapLibre itself does not rely on internally. The guard also covers the
+  frame applied when a CRS is entered (<code>applyMapCrs</code> fits the preset's
+  <code>bounds</code>), so a new preset whose box straddles its grid edge is framed on
+  the clipped part. After a bump, run
+  <code>tests/map-crs-fit.test.ts</code>, then on <code>?crs=earth-arctic</code> add
+  <code>https://data.geolibre.app/knoxville_buildings.pmtiles</code>: the camera must stay
+  on the Arctic view and Zoom to layer must explain why it cannot move.</li>
 </ul>
 <h3 id="mapbox-gl"><code>mapbox-gl</code><a class="headerlink" href="#mapbox-gl" title="Permanent link">&para;</a></h3>
 <p>Mapbox GL JS v2+ is proprietary, so it must never enter a build: the app loads
@@ -4975,6 +4988,13 @@ black — it declines the stack.</p>
   <code>MeasureControl</code> and fails if either field is gone. After a bump, still
   confirm the Terrain section appears and a measured line shows inside a point
   cloud.</li>
+<li><strong>The MeasureControl's <code>_setupMapSources</code> and <code>_updateMapGeometry</code></strong>
+  (<code>healMeasureLayersOnStyleSwap</code>, <code>packages/plugins/src/plugins/components/measure.ts</code>)
+  re-add the measured line and polygon after a basemap swap: the control adds
+  its source once in <code>onAdd</code>, so a <code>setStyle</code> (the celestial body switch, any
+  basemap change) left the line undrawn (#3471). The heal is skipped when
+  either method is gone, and <code>tests/upstream-contracts.test.ts</code> checks both.
+  Drop it once the control re-adds its own layers on <code>style.load</code>.</li>
 <li><strong>The measure paint</strong> (<code>MEASURE_LINE_COLOR</code>/<code>MEASURE_LINE_WIDTH</code>/
   <code>MEASURE_FILL_COLOR</code>, <code>packages/plugins/src/plugins/lidar-measure-mirror.ts</code>)
   is passed to the control explicitly rather than left to its defaults, because

@@ -4023,8 +4023,15 @@ of a Cloud Optimized GeoTIFF DEM; omitted for the built-in global terrain). A DE
 opened from a local file has no URL, so it is not saved. Like other URLs in a project,
 <code>terrainSource</code> passes through <a href="#credential-redaction">credential redaction</a>, so
 a presigned or keyed DEM URL loses its signature and needs re-signing to load
-again. <code>terrainIonAssetId</code>
+again. <code>terrainFillOutside</code> says whether that DEM is surrounded by the global
+terrain instead of a flat 0 m plain; omitted, it is on for a URL DEM and off for
+a local file. <code>terrainIonAssetId</code>
 picks a Cesium Ion terrain asset for the globe.</p>
+<p>GeoEditor form settings are stored in optional <code>preferences.map.geoEditor</code>.
+<code>showAfterDraw</code> controls automatic opening of feature properties, and <code>fields</code>
+lists each property's <code>name</code>, optional <code>label</code>, input <code>type</code> (<code>string</code>, <code>number</code>,
+<code>boolean</code>, <code>color</code>, <code>date</code>, or <code>textarea</code>), and <code>geometry</code> (<code>all</code>, <code>polygon</code>,
+<code>line</code>, or <code>point</code>). Missing settings retain the default polygon height form.</p>
 <h2 id="plugin-state">Plugin state<a class="headerlink" href="#plugin-state" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"manifestUrls"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"https://example.com/plugins/example-plugin/plugin.json"</span><span class="p">],</span>
@@ -4099,7 +4106,8 @@ carries no <code>printLayout</code> key.</p>
 <li>Page: <code>paperSize</code> (<code>a4</code>, <code>a3</code>, <code>letter</code>, <code>legal</code>, <code>tabloid</code>, <code>fullhd</code>, <code>hd</code>,
   <code>uhd4k</code>, <code>square</code>, <code>custom</code>), <code>orientation</code>, <code>customWidth</code> / <code>customHeight</code> /
   <code>customUnit</code> for <code>custom</code>, <code>pageMargin</code>, <code>pageBackground</code>, <code>panelTheme</code>
-  (<code>light</code> or <code>dark</code>), and the page/map frame colours.</li>
+  (<code>light</code> or <code>dark</code>), <code>exportDpi</code> (<code>72</code>, <code>150</code> or <code>300</code>; the resolution PNG
+  and PDF exports render a paper page at), and the page/map frame colours.</li>
 <li>Elements: the <code>show*</code> toggles for legend, scale bar, north arrow, footer,
   date, attribution, colorbar, custom legend and info block, with their
   per-element settings.</li>
@@ -4285,6 +4293,33 @@ off in the app does not edit it.</p>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
+<p>A <code>geojson</code> layer renders from its inline <code>geojson</code> FeatureCollection. A layer
+may instead reference its data by URL and leave <code>geojson</code> out:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fields"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Field boundaries"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"geojson"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"source"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"geojson"</span><span class="p">,</span><span class="w"> </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com/fields.geojson"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">"visible"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"opacity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"style"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"fillColor"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#3b82f6"</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>When the project opens, GeoLibre fetches <code>source.data</code> (or, failing that,
+<code>source.url</code>) and draws the result. The reference must be an absolute
+http(s) URL or a root-relative path (<code>/data/fields.geojson</code>, resolved against
+the page the app is served from; the desktop app accepts absolute URLs only,
+since a leading <code>/</code> is a filesystem path there), and the server must allow
+CORS for a cross-origin URL. Opening such a project contacts every host it
+names, as tile and service layers already do. A layer whose data cannot be
+fetched, or whose reference is in neither form, stays in the project, empty,
+with a warning. Saving the project keeps the URL reference rather than
+embedding the downloaded features, unless they were edited in the app, in
+which case the edited features are embedded. Autosave, Project History and
+collaboration snapshots keep the reference the same way, and fetch the data
+again when they are restored. Share and the standalone HTML export, which must work on
+their own, embed the downloaded features. When a layer has both an inline
+<code>geojson</code> and a URL, the inline copy is drawn and the URL is not fetched.</p>
 <p>A layer can define an optional <code>capabilities</code> set (<code>query</code>, <code>create</code>, <code>update</code>,
 <code>delete</code>, <code>export</code>) to explicitly declare allowed user and session actions. Each
 flag gates only the actions it names: <code>query</code> the identify/attribute-table and
@@ -4434,9 +4469,11 @@ compiled output, so a saved filter can always be reopened and changed:</p>
 <span class="p">}</span>
 </code></pre></div>
 <p><code>kind</code> picks the control and the comparison: <code>categorical</code> (checkboxes over
-<code>values</code>), <code>range</code> (inclusive numeric <code>min</code>/<code>max</code>, either side <code>null</code> for an
-open bound), <code>date</code> (inclusive <code>YYYY-MM-DD</code> <code>start</code>/<code>end</code>), and <code>text</code>
-(case-insensitive <code>contains</code> / <code>startsWith</code> / <code>equals</code> against <code>text</code>).
+<code>values</code>, plus <code>includeBlank: true</code> to keep features whose value is missing,
+<code>null</code>, or empty, the ones the Dashboard charts group as "(blank)"),
+<code>range</code> (inclusive numeric <code>min</code>/<code>max</code>, either side <code>null</code> for an open bound),
+<code>date</code> (inclusive <code>YYYY-MM-DD</code> <code>start</code>/<code>end</code>), and <code>text</code> (case-insensitive
+<code>contains</code> / <code>startsWith</code> / <code>equals</code> against <code>text</code>).
 <code>dateKind</code> says how the field stores its timestamps — <code>iso</code> (the default,
 comparing the leading <code>YYYY-MM-DD</code> of ISO text), <code>epochMs</code>, or <code>epochS</code> — and
 <code>enabled: false</code> mutes a control without discarding what it was answered with.
@@ -4822,6 +4859,13 @@ and shared-address literals, but does not resolve DNS. Internal DNS names and
 public names resolving to private addresses can still be requested. This
 heuristic is not a complete network isolation boundary; open only trusted
 projects and data sources.</p>
+<p>Export Layers reports inline GeoJSON layers that cannot bootstrap automatically
+as skipped, including S3 and private-host non-WFS layers. It does not strip their
+features to write a reference that would reload empty. Editing an observed public URL
+on an already hydrated GeoJSON layer fetches its replacement data automatically.
+That replacement is recorded in undo history; initial hydration is not.
+Local saves, autosave snapshots, and undo history may retain signed URLs until
+they are redacted for sharing or export.</p>
 <p>The dialog defaults to dry-run + skip-Wherobots; both are togglable. Closing the
 dialog stops local polling only -- the backend harvest job keeps running, and the
 last execution ID stays visible.</p>
