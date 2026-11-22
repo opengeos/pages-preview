@@ -5236,6 +5236,13 @@ layer record back to a caller rather than writing a whole project out.</p>
     <div class="doc doc-contents ">
 
         <p>Return a detached project safe to publish, export, or hand to others.</p>
+<p>Redacts credentials across layers, basemap/map style URLs (including
+<code>mapboxStyleUrl</code> and <code>terrainSource</code>), geocoder settings, plugin
+manifest URLs, and secret environment variables. When
+<code>strip_non_exportable</code> is <code>True</code> (the default), inline GeoJSON data on
+layers with <code>capabilities.export == False</code> is also removed; pass
+<code>strip_non_exportable=False</code> for read-only in-session previews that still
+need inline geometry.</p>
 
 
     </div>

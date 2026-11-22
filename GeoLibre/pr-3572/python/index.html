@@ -3972,12 +3972,14 @@ then read the live state back from Python:</p>
 <span class="n">m2</span><span class="o">.</span><span class="n">load_project</span><span class="p">(</span><span class="s2">"my-map.geolibre.json"</span><span class="p">)</span>
 <span class="n">m2</span>
 </code></pre></div>
-<p><code>to_project()</code>, <code>save_project()</code>, and <code>to_html()</code> redact credentials — API keys,
-tokens, authenticated request headers, secret environment variables (every row
-not marked <code>"secret": false</code>), geocoder keys, and
-credential URL parameters — so anything you serialize, commit, or share is safe
-by default. Pass <code>keep_credentials=True</code> to <code>to_project()</code> or <code>save_project()</code>
-for a trusted local file that must keep working without re-entering them:</p>
+<p><code>to_project()</code>, <code>save_project()</code>, and <code>to_html()</code> redact credentials (API keys,
+tokens, authenticated request headers, secret environment variables not marked
+<code>"secret": false</code>, geocoder keys, and credential URL parameters across layers,
+basemaps, <code>mapboxStyleUrl</code>, and <code>terrainSource</code>) and strip inline GeoJSON from
+layers marked <code>capabilities.export: false</code>, so anything you serialize, commit,
+or share is safe by default. Pass <code>keep_credentials=True</code> to <code>to_project()</code> or
+<code>save_project()</code> for a trusted local file that must keep working without
+re-entering them:</p>
 <div class="highlight"><pre><span></span><code><span class="n">m</span><span class="o">.</span><span class="n">save_project</span><span class="p">(</span><span class="s2">"private.geolibre.json"</span><span class="p">,</span> <span class="n">keep_credentials</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </code></pre></div>
 <p>The <code>project</code> trait itself is unredacted, so live two-way sync with the widget
