@@ -4352,7 +4352,7 @@ geoparquet, duckdb-query, deckgl-viz, video, image
 <tr>
 <td><strong>ArcGIS Pro 图层文件</strong></td>
 <td><code>.lyrx</code></td>
-<td><strong>只能导入</strong>，支持单一符号、唯一值和分级色彩渲染器；其他渲染器会按名称拒绝</td>
+<td><strong>只能导入</strong>，支持单一符号、单字段唯一值，以及未归一化且无排除条件的分级色彩渲染器；其他渲染器以及使用 Arcade 表达式的上述渲染器会按名称拒绝</td>
 </tr>
 </tbody>
 </table>
