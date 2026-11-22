@@ -4563,8 +4563,10 @@ implementation or storage engine. The reference implementation lives in
   <code>GEOLIBRE_DB_MAX_OVERFLOW=20</code> (up to 30 connections per worker process), and
   <code>GEOLIBRE_DB_POOL_RECYCLE=1800</code>; tune these to stay within PostgreSQL's
   <code>max_connections</code> across all workers. In multi-worker deployments, run
-  <code>alembic upgrade head</code> before startup and set <code>GEOLIBRE_SKIP_DDL_CREATE_ALL=1</code>
-  so workers skip startup DDL.</p>
+  <code>alembic upgrade head</code> (from <code>/app</code> inside the container image or from
+  <code>backend/geolibre_server_api/</code> in a source checkout with the <code>migrations</code>
+  extra installed) before startup and set <code>GEOLIBRE_SKIP_DDL_CREATE_ALL=1</code> so
+  workers skip startup DDL.</p>
 <p>The reference implementation is a correctness baseline, not a hardened
 deployment.</p>
 <h2 id="limits">Limits<a class="headerlink" href="#limits" title="Permanent link">&para;</a></h2>
