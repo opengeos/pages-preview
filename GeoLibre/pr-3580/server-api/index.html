@@ -4557,7 +4557,14 @@ implementation or storage engine. The reference implementation lives in
 - <strong>A request-size limit.</strong> The server rejects an oversized <em>declared</em>
   <code>Content-Length</code> before reading the body, but a chunked or HTTP/2 request
   declares no length and is parsed in full before the per-route limit applies.
-  Cap request size at the proxy as well.</p>
+  Cap request size at the proxy as well.
+- <strong>Database pooling and schema migrations.</strong> For PostgreSQL and other
+  non-SQLite databases, the SQLAlchemy pool defaults to <code>GEOLIBRE_DB_POOL_SIZE=10</code>,
+  <code>GEOLIBRE_DB_MAX_OVERFLOW=20</code> (up to 30 connections per worker process), and
+  <code>GEOLIBRE_DB_POOL_RECYCLE=1800</code>; tune these to stay within PostgreSQL's
+  <code>max_connections</code> across all workers. In multi-worker deployments, run
+  <code>alembic upgrade head</code> before startup and set <code>GEOLIBRE_SKIP_DDL_CREATE_ALL=1</code>
+  so workers skip startup DDL.</p>
 <p>The reference implementation is a correctness baseline, not a hardened
 deployment.</p>
 <h2 id="limits">Limits<a class="headerlink" href="#limits" title="Permanent link">&para;</a></h2>
