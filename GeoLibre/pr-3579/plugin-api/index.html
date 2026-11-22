@@ -5032,6 +5032,14 @@
 <span class="w">    </span><span class="nx">content</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span>
 <span class="w">    </span><span class="nx">options?</span><span class="o">:</span><span class="w"> </span><span class="kt">GeoLibreFileDialogOptions</span>
 <span class="w">  </span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
+<span class="w">  </span><span class="c1">// Save binary plugin output (`Blob` or `Uint8Array`) through the host's</span>
+<span class="w">  </span><span class="c1">// native or browser file dialog. Resolves to the saved path/name, or null</span>
+<span class="w">  </span><span class="c1">// when the user cancels.</span>
+<span class="w">  </span><span class="nx">saveBinaryFile</span><span class="o">?:</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="nx">filename</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="kt">Blob</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nb">Uint8Array</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">options?</span><span class="o">:</span><span class="w"> </span><span class="kt">GeoLibreFileDialogOptions</span>
+<span class="w">  </span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="kt">string</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="w">  </span><span class="c1">// Convert WGS84 GeoJSON to GeoParquet with the host's established writer.</span>
 <span class="w">  </span><span class="c1">// The filename is a base name without an extension.</span>
 <span class="w">  </span><span class="nx">exportGeoParquetFile</span><span class="o">?:</span><span class="w"> </span><span class="p">(</span>
