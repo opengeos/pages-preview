@@ -4225,14 +4225,19 @@ are in place for a deployment that fronts the relay with its own issuer.</p>
 <h3 id="moderation">Moderation<a class="headerlink" href="#moderation" title="Permanent link">&para;</a></h3>
 <p><code>kick-participant</code> disconnects a participant. <code>block-participant</code> also records
 their <strong>participant key</strong> so the relay refuses the next join. That key is
-<code>user:&lt;userId&gt;</code> for a verified identity, <code>invite:&lt;token&gt;</code> for an invite-based
-join, and otherwise <code>anon:&lt;clientId&gt;</code> — where <code>clientId</code> is minted fresh on
-every join.</p>
+<code>user:&lt;userId&gt;</code> for a verified identity, <code>invite:&lt;token&gt;</code> for a single-use
+invite join (<code>maxUses: 1</code>), and otherwise <code>anon:&lt;clientId&gt;</code> (including anonymous
+guests who join via a shared multi-use invite link), where <code>clientId</code> is minted
+fresh on every join.</p>
 <p>The same key backs a persisted per-participant override, so both carry the same
-caveat: a block is durable only for identity- and invite-based joins. <strong>An anonymous
-guest can rejoin simply by reconnecting</strong>, since they arrive with a new
-<code>clientId</code> and therefore a new key. Blocking is a moderation convenience, not a
-security boundary; a session that needs an enforceable ban has to require an
+caveat: a block or override is durable only for signed-in identities and
+single-use invites. For a shared multi-use invite link, keying on <code>anon:&lt;clientId&gt;</code>
+keeps a host's override or kick/block on one guest from affecting every other
+guest sharing the link; to disable a shared link for future joiners, revoke the
+invite with <code>revoke-invite</code>. <strong>An anonymous guest (including one on an unrevoked
+multi-use link) can rejoin by reconnecting</strong>, since they receive a fresh
+<code>clientId</code>. Blocking is a moderation convenience, not a security boundary; a
+session that needs an enforceable per-user ban should require a single-use
 invite or a signed-in identity.</p>
 <h2 id="chat-754">Chat (#754)<a class="headerlink" href="#chat-754" title="Permanent link">&para;</a></h2>
 <p>A lightweight, in-session text channel. A <code>chat { text, coordinate? }</code> frame is
