@@ -4231,14 +4231,17 @@ guests who join via a shared multi-use invite link), where <code>clientId</code>
 fresh on every join.</p>
 <p>The same key backs a persisted per-participant override, so both carry the same
 caveat: a block or override is durable only for signed-in identities and
-single-use invites. For a shared multi-use invite link, keying on <code>anon:&lt;clientId&gt;</code>
+single-use invites (and a single-use invite only scopes that invite's key; when
+<code>requireIdentity</code> is off, a blocked guest can still rejoin anonymously without
+an invite). For a shared multi-use invite link, keying on <code>anon:&lt;clientId&gt;</code>
 keeps a host's override or kick/block on one guest from affecting every other
 guest sharing the link; to disable a shared link for future joiners, revoke the
 invite with <code>revoke-invite</code>. <strong>An anonymous guest (including one on an unrevoked
 multi-use link) can rejoin by reconnecting</strong>, since they receive a fresh
-<code>clientId</code>. Blocking is a moderation convenience, not a security boundary; a
-session that needs an enforceable per-user ban should require a single-use
-invite or a signed-in identity.</p>
+<code>clientId</code>. Blocking is a moderation convenience, not a security boundary; for
+an enforceable per-user ban, enable <code>requireIdentity</code> with a configured identity
+provider so anonymous joins are rejected and <code>user:&lt;userId&gt;</code> blocks apply to
+every rejoin.</p>
 <h2 id="chat-754">Chat (#754)<a class="headerlink" href="#chat-754" title="Permanent link">&para;</a></h2>
 <p>A lightweight, in-session text channel. A <code>chat { text, coordinate? }</code> frame is
 validated server-side (non-empty, trimmed, capped at 2000 chars; the coordinate
