@@ -1,0 +1,1 @@
+import{o as f}from"./rolldown-runtime-DpEnGzO4.js";import{t as d}from"./react-CuRERQWl.js";var m=f(d(),1);function u(a,c,n,o,i,s){const[l,t]=(0,m.useState)(!1);return{cancellingJob:l,cancelSidecarJob:async()=>{if(!(!a||!c)){t(!0);try{const e=await n(a.id);o(r=>r?.id===e.id?e:r)}catch(e){i(e instanceof Error?e.message:s)}finally{t(!1)}}}}}export{u as t};
