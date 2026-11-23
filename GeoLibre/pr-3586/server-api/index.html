@@ -4557,7 +4557,16 @@ implementation or storage engine. The reference implementation lives in
 - <strong>A request-size limit.</strong> The server rejects an oversized <em>declared</em>
   <code>Content-Length</code> before reading the body, but a chunked or HTTP/2 request
   declares no length and is parsed in full before the per-route limit applies.
-  Cap request size at the proxy as well.</p>
+  Cap request size at the proxy as well.
+- <strong>Database pooling and schema migrations.</strong> For PostgreSQL and other
+  non-SQLite databases, the SQLAlchemy pool defaults to <code>GEOLIBRE_DB_POOL_SIZE=10</code>,
+  <code>GEOLIBRE_DB_MAX_OVERFLOW=20</code> (up to 30 connections per worker process), and
+  <code>GEOLIBRE_DB_POOL_RECYCLE=1800</code>; tune these to stay within PostgreSQL's
+  <code>max_connections</code> across all workers. In multi-worker deployments, run
+  <code>alembic upgrade head</code> (from <code>/app</code> inside the container image or from
+  <code>backend/geolibre_server_api/</code> in a source checkout with the <code>migrations</code>
+  extra installed) before startup and set <code>GEOLIBRE_SKIP_DDL_CREATE_ALL=1</code> so
+  workers skip startup DDL.</p>
 <p>The reference implementation is a correctness baseline, not a hardened
 deployment.</p>
 <h2 id="limits">Limits<a class="headerlink" href="#limits" title="Permanent link">&para;</a></h2>
@@ -5584,11 +5593,13 @@ on it to explain the refusal. Turning the switch off with
 <code>PATCH /api/projects/{id}</code> <code>{"deleteProtected": false}</code> unblocks the delete.</p>
 <p>Deleting a project also removes its pending transfers and its redirect rows.</p>
 <h3 id="get-apishares"><code>GET /api/shares</code><a class="headerlink" href="#get-apishares" title="Permanent link">&para;</a></h3>
-<p>Requires <code>read:projects</code>. Returns <code>{"shares": [&lt;project&gt;, ...]}</code>, newest-updated
-first: the projects the caller manages whose <code>visibility</code> is <code>public</code> or <code>unlisted</code>
-(organization-visible projects are not link shares). Each
-entry is a project representation plus <code>projectSlug</code>. A share's <code>id</code> is its
-project id. Expired links stay listed so they can be revoked.</p>
+<p>Requires <code>read:projects</code>. Accepts optional pagination query parameters
+<code>limit</code> (1 to 100, default 100) and <code>offset</code> (default 0). Returns
+<code>{"shares": [&lt;project&gt;, ...], "limit": 100, "offset": 0, "total": N}</code>,
+newest-created first: the projects the caller manages whose <code>visibility</code> is
+<code>public</code> or <code>unlisted</code> (organization-visible projects are not link shares).
+Each entry is a project representation plus <code>projectSlug</code>. A share's <code>id</code> is
+its project id. Expired links stay listed so they can be revoked.</p>
 <h3 id="delete-apisharesid"><code>DELETE /api/shares/{id}</code><a class="headerlink" href="#delete-apisharesid" title="Permanent link">&para;</a></h3>
 <p>Requires <code>write:projects</code> and management of the project. Revokes the share: the
 project becomes <code>private</code> and its <code>role</code>, expiry, and password are reset. The
@@ -5714,9 +5725,11 @@ optional <code>slug</code>:</p>
 <p>Receiving and managing:</p>
 <ul>
 <li><code>GET /api/transfers/incoming</code> lists the caller's pending offers, newest
-  first: <code>{"transfers": [...]}</code>.</li>
-<li><code>GET /api/transfers/outgoing</code> lists the pending transfers the caller started:
-  <code>{"transfers": [...]}</code>.</li>
+  first, with optional <code>limit</code> (1 to 100, default 100) and <code>offset</code> (default 0):
+  <code>{"transfers": [...], "limit": 100, "offset": 0, "total": N}</code>.</li>
+<li><code>GET /api/transfers/outgoing</code> lists the pending transfers the caller started,
+  with optional <code>limit</code> (1 to 100, default 100) and <code>offset</code> (default 0):
+  <code>{"transfers": [...], "limit": 100, "offset": 0, "total": N}</code>.</li>
 <li><code>POST /api/transfers/{id}/accept</code> (recipient only) moves the project. Its body
   is optional: <code>{"slug": "..."}</code> overrides the destination slug, which is how a
   recipient resolves a slug conflict (<code>409 slug already exists for the new
