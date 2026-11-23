@@ -1,0 +1,57 @@
+{
+  "content": [
+    {
+      "content": null,
+      "created": "2026-11-23T15:34:26.173352Z",
+      "format": null,
+      "hash": null,
+      "hash_algorithm": null,
+      "last_modified": "2026-11-23T15:34:23.265699Z",
+      "mimetype": "text/x-python",
+      "name": "geolibre.py",
+      "path": "geolibre.py",
+      "size": 32928,
+      "type": "file",
+      "writable": true
+    },
+    {
+      "content": null,
+      "created": "2026-11-23T15:34:26.173115Z",
+      "format": null,
+      "hash": null,
+      "hash_algorithm": null,
+      "last_modified": "2026-11-23T15:34:23.265933Z",
+      "mimetype": null,
+      "name": "Welcome.ipynb",
+      "path": "Welcome.ipynb",
+      "size": 3591,
+      "type": "notebook",
+      "writable": true
+    },
+    {
+      "content": null,
+      "created": "2026-11-23T15:34:26.172714Z",
+      "format": null,
+      "hash": null,
+      "hash_algorithm": null,
+      "last_modified": "2026-11-23T15:34:23.265975Z",
+      "mimetype": null,
+      "name": "Explore_GeoLibre.ipynb",
+      "path": "Explore_GeoLibre.ipynb",
+      "size": 27602,
+      "type": "notebook",
+      "writable": true
+    }
+  ],
+  "created": "2026-11-23T15:34:26.173115Z",
+  "format": "json",
+  "hash": null,
+  "hash_algorithm": null,
+  "last_modified": "2026-11-23T15:34:26.173115Z",
+  "mimetype": null,
+  "name": "",
+  "path": "",
+  "size": null,
+  "type": "directory",
+  "writable": true
+}
