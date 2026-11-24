@@ -1,0 +1,1 @@
+import{F as e}from"./builtin-plugin-metadata-BDWSFAAy.js";import{a as r,i as s,n as i,o as l,r as a,t as g}from"./maplibre-huggingface-BEHVr5K4.js";export{g as DEFAULT_HUGGINGFACE_LABELS,e as HUGGINGFACE_PLUGIN_ID,a as default,a as maplibreHuggingFacePlugin,i as layerFileName,s as rasterFileName,r as repaintPreservingScroll,l as setHuggingFaceLabels};
