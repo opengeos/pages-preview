@@ -3697,6 +3697,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#cdn-cache-browser-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        CDN cache browser tests
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#coverage-floors" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -4495,6 +4506,17 @@
     <span class="md-ellipsis">
       <span class="md-typeset">
         Adding a blend mode
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cdn-cache-browser-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        CDN cache browser tests
       </span>
     </span>
   </a>
@@ -5808,6 +5830,14 @@ would silently do nothing. Keep <code>docs/user-guide/layers.md</code> and
 <code>tests/layer-blend-modes.test.ts</code> ("the layer kinds the Blend control is offered
 for") in step with that gate; build the test's mocks the way the real controls
 build their metadata, or they pass on shapes that never occur.</p>
+<h2 id="cdn-cache-browser-tests">CDN cache browser tests<a class="headerlink" href="#cdn-cache-browser-tests" title="Permanent link">&para;</a></h2>
+<p><code>e2e/pyodide-cache.spec.ts</code> runs against the production service worker and
+requires HTTPS access to <code>cdn.jsdelivr.net</code>. It loads the pinned Pyodide
+runtime script and an npm README used to create a real opaque response.
+Run it with <code>npm exec playwright -- test e2e/pyodide-cache.spec.ts --project=features</code>.
+The dev server has no service worker, and offline-only runners cannot execute
+this network-bound regression. Keep real browser CORS and Cache Storage
+semantics in the test rather than replacing responses with route mocks.</p>
 <h2 id="coverage-floors">Coverage floors<a class="headerlink" href="#coverage-floors" title="Permanent link">&para;</a></h2>
 <p>The <code>:coverage</code> test variants run the same suites and print a coverage summary;
 CI runs them so every build reports coverage. They are <strong>gated on a floor</strong>:
