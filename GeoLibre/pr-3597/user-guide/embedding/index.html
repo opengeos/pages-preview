@@ -3988,7 +3988,7 @@
 <tr>
 <td><code>data</code></td>
 <td><code>data=https://assets.geolibre.app/data/places.geojson</code></td>
-<td>Loads public GeoJSON, GeoParquet, PMTiles, a COG, or a ZIP/REST response containing multiple GeoJSON files.</td>
+<td>Loads public GeoJSON, GeoParquet, FlatGeobuf, GPX, KML/KMZ, PMTiles, a COG, a 3D Tiles <code>tileset.json</code>, or a ZIP/REST response containing multiple GeoJSON files.</td>
 </tr>
 <tr>
 <td><code>style</code></td>
@@ -3998,7 +3998,7 @@
 <tr>
 <td><code>dataType</code></td>
 <td><code>dataType=lidar</code></td>
-<td>Names the format of a <code>data</code> URL whose path has no file extension: <code>lidar</code> for a point cloud, or a name an installed plugin declares; pairs with <code>data</code> by position. See <a href="#open-remote-data">Open remote data</a>.</td>
+<td>Names the format of a <code>data</code> URL whose path has no file extension: <code>lidar</code> for a point cloud, <code>3d-tiles</code> for a 3D Tiles tileset, or a name an installed plugin declares; pairs with <code>data</code> by position. See <a href="#open-remote-data">Open remote data</a>.</td>
 </tr>
 <tr>
 <td><code>stac</code></td>
@@ -4257,7 +4257,7 @@ was drawn in the session.</p>
 <a href="../../deployment-capabilities/">capability</a> ignores it, and the viewer then
 stays fully read-only.</p>
 <h2 id="open-remote-data">Open remote data<a class="headerlink" href="#open-remote-data" title="Permanent link">&para;</a></h2>
-<p>Use <code>data</code> to open public GeoJSON, GeoParquet, PMTiles, Cloud-Optimized GeoTIFF (COG), a LiDAR point cloud (LAS, LAZ, COPC, or an EPT <code>ept.json</code>), or a ZIP archive containing one or more <code>.geojson</code>/<code>.json</code> FeatureCollections. Each GeoJSON file in a ZIP becomes a separate layer. An optional <code>style</code> URL applies Mapbox/MapLibre style JSON to vector data:</p>
+<p>Use <code>data</code> to open public GeoJSON, GeoParquet, FlatGeobuf, GPX, KML/KMZ, PMTiles, Cloud-Optimized GeoTIFF (COG), a 3D Tiles tileset (a <code>tileset.json</code> URL, or <code>dataType=3d-tiles</code> for an endpoint named otherwise), a LiDAR point cloud (LAS, LAZ, COPC, or an EPT <code>ept.json</code>), or a ZIP archive containing one or more <code>.geojson</code>/<code>.json</code> FeatureCollections. Each GeoJSON file in a ZIP becomes a separate layer. An optional <code>style</code> URL applies Mapbox/MapLibre style JSON to vector data:</p>
 <div class="highlight"><pre><span></span><code>https://web.geolibre.app/?data=https://assets.geolibre.app/data/places.geojson&amp;style=https://assets.geolibre.app/data/sample.style.json
 </code></pre></div>
 <p>Repeat <code>data</code> to load multiple independent datasets on the same map. Repeat
