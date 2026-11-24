@@ -2251,6 +2251,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#plugin-host-boundaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Plugin host boundaries
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#state-flow" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -3719,6 +3730,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#plugin-host-boundaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Plugin host boundaries
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#state-flow" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -4024,6 +4046,27 @@
 </tr>
 </tbody>
 </table>
+<h2 id="plugin-host-boundaries">Plugin host boundaries<a class="headerlink" href="#plugin-host-boundaries" title="Permanent link">&para;</a></h2>
+<p><code>@geolibre/plugins/builtin-plugin-metadata</code> supplies built-in names, versions,
+capabilities, menu groups, and lifecycle flags without evaluating implementations.
+Stable plugin IDs live in <code>plugin-ids.ts</code>. Implementations use the same metadata
+through <code>builtInPluginProperties</code> or <code>defineBuiltInPlugin</code>.</p>
+<p><code>@geolibre/plugins/builtin-plugins</code> owns the dynamic imports and shared module
+cache. Configure translated labels and host I/O with separate named channels via
+<code>configureBuiltInPluginModule</code>; updating a label channel preserves file savers and
+other setup on the same module. Failed imports or setup can be retried.
+<code>@geolibre/plugins/runtime</code> exposes registries and plugin contracts. App imports
+use that entry point or a specific helper entry point; the root SDK barrel
+retains its existing exports for consumers.</p>
+<p><code>PluginManager.registerLazy</code> registers metadata immediately. Its adapter retains
+pending project settings and control positions for synchronous snapshots until
+the implementation can apply them. Restore generations and registration identity
+reject stale completions. Host panel actions use <code>runPluginHelper</code> to prepare
+saved settings and receive an app scope owned by the current project before
+calling implementation helpers. Host helpers use the engine's control adapter
+capabilities; plugin activation still follows the metadata engine list. The import guard in
+<code>tests/builtin-plugin-loader.test.ts</code> checks that registries, metadata, and label
+hooks remain importable without implementations.</p>
 <h2 id="state-flow">State flow<a class="headerlink" href="#state-flow" title="Permanent link">&para;</a></h2>
 <ol>
 <li>User adds data through the Add Data menu, the Tauri dialog, browser file picker, drag and drop, or a built-in plugin control.</li>
