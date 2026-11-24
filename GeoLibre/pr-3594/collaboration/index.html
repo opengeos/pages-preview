@@ -4268,7 +4268,9 @@ and <code>127.0.0.1</code>), and <code>tauri://localhost</code>). Nested or cust
 and look-alike domains are rejected; the shared <code>opengeos.org</code> GitHub Pages
 preview origin is deliberately not trusted) as browser-origin filtering
 and defense-in-depth (not authentication or a general server-side access gate)
-and enforces a per-IP <code>checkRateLimit</code> (10 requests / 60 s). <code>Access-Control-Allow-Origin: *</code> is
+and enforces a per-IP creation limit (10 requests / 60 s), using the
+required <code>COLLAB_RATE_LIMITER</code> binding on the Worker and <code>checkRateLimit</code>
+on the Node relay. <code>Access-Control-Allow-Origin: *</code> is
 still sent on responses so non-browser clients (e.g. Tauri) are not blocked by
 CORS; non-browser clients may omit these headers and remain supported, unless a
 verifiable credential requirement is added. Configure <code>ALLOWED_ORIGINS</code>
@@ -4304,7 +4306,18 @@ inherits the page's CSP instead, so it only needs the env var.</p>
 <p>Two hosts implement the same protocol and import the same permission/validation
 core:</p>
 <ul>
-<li><code>workers/collab</code> is the Cloudflare Durable Object used by the hosted service.</li>
+<li><code>workers/collab</code> is the Cloudflare Durable Object used by the hosted service.
+  New session creation requires the <code>COLLAB_RATE_LIMITER</code> binding configured
+  in <code>workers/collab/wrangler.toml</code>. A missing or failed binding returns <code>503</code>;
+  there is no isolate-local fallback that can reset the budget. A platform
+  limiter outage therefore pauses new session creation until it recovers.
+  Structured warnings distinguish <code>binding_missing</code> from <code>binding_error</code>;
+  raw exception messages are omitted to avoid logging credentials or keys.
+  Health checks
+  and existing session routes remain available. The <a href="https://developers.cloudflare.com/workers/runtime-apis/bindings/rate-limit/">Cloudflare Rate Limiting
+  API</a>
+  applies approximate limits per Cloudflare location, rather than a strict
+  global quota.</li>
 <li><code>workers/collab-node</code> is the self-hostable Node/SQLite relay. It is included
   as <code>geolibre-collab</code> in the root <code>docker-compose.yml</code>; its persistent database
   is mounted at <code>/data/collab.sqlite</code>. It serves the same HTTP endpoints as
