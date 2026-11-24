@@ -5081,6 +5081,11 @@ black — it declines the stack.</p>
   <code>#eee</code> row rules for a white popup, which is near-invisible on the dark
   popover. <code>tests/upstream-contracts.test.ts</code> checks the class still ships;
   after a bump, click a Zarr layer in dark mode and confirm the popup reads.</li>
+<li><strong>The PMTiles feature-picking popup classes</strong> (<code>maplibre-gl-pmtiles-popup*</code>)
+  are re-themed in <code>index.css</code> the same way: upstream hardcodes a white table
+  with a <code>#f0f0f0</code> header. <code>tests/upstream-contracts.test.ts</code> checks the
+  classes still ship; after a bump, enable feature picking on a PMTiles layer,
+  click a feature in dark mode and confirm the table follows the theme.</li>
 </ul>
 <h3 id="maplibre-gl-basemap-control-packagespluginspackagejson"><code>maplibre-gl-basemap-control</code> (<code>packages/plugins/package.json</code>)<a class="headerlink" href="#maplibre-gl-basemap-control-packagespluginspackagejson" title="Permanent link">&para;</a></h3>
 <p><code>BASEMAP_PANEL_SELECTOR</code> / <code>BASEMAP_ROW_SELECTOR</code> / <code>BASEMAP_ROW_ID_ATTR</code>
