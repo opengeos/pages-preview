@@ -12512,7 +12512,10 @@ id is taken.</p>
 
         <p>Change the project's Print Layout composer settings.</p>
 <p>Only the settings passed are changed; the app fills every other one from
-its defaults when the project opens. Layer settings (<code>table_layer_id</code>,
+its defaults when the project opens. <code>element_offsets</code> merges by element
+name; each supplied element replaces that element's offset record. Use
+<code>reset=True</code> to discard all previously stored settings.
+Layer settings (<code>table_layer_id</code>,
 <code>chart_layer_id</code>, <code>atlas_layer_id</code>) take a layer id or name.</p>
 
 

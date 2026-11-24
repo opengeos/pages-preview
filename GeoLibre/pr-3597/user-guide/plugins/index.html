@@ -1252,6 +1252,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#geoeditor-snapping-cogo-and-trace" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        GeoEditor snapping, COGO and trace
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#gods-eye-view" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -3565,6 +3576,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#geoeditor-snapping-cogo-and-trace" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        GeoEditor snapping, COGO and trace
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#gods-eye-view" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -4124,6 +4146,16 @@ plugins a link cannot open.</p>
 </table>
 <!-- plugin-reference:end -->
 
+<h3 id="geoeditor-snapping-cogo-and-trace">GeoEditor snapping, COGO and trace<a class="headerlink" href="#geoeditor-snapping-cogo-and-trace" title="Permanent link">&para;</a></h3>
+<p><strong>Snapping tolerance.</strong> <strong>Settings → Geo editor → Snapping tolerance (px)</strong> sets how close, in screen pixels, the pointer must be to a vertex or a segment before it snaps (default 18). A vertex in range always wins over a segment. The value is saved with the project and applies immediately to the GeoEditor's drawing tools and to COGO and trace picking.</p>
+<p><strong>COGO and trace</strong> builds a line or polygon from survey-style input. Open it from the command palette (<strong>COGO and trace digitizing</strong>) or right-click the map → <strong>Quick analysis → Start a COGO traverse here</strong>.</p>
+<ul>
+<li><strong>Pick start</strong> places the first vertex; <strong>Add points</strong> adds vertices by clicking. Clicks snap to vertices and edges of visible vector layers within the snapping tolerance.</li>
+<li><strong>Bearing</strong> and <strong>Distance</strong> add a leg from the last vertex. A bearing is an azimuth in degrees (<code>135.5</code>, <code>135°30'</code>, <code>135 30 00</code>) or a quadrant bearing (<code>S44°30'E</code>, <code>N 12 30 W</code>). Distances can be entered in metres, kilometres, feet, US survey feet, or miles, and legs follow the great circle.</li>
+<li><strong>Trace</strong> follows an existing feature: click its edge where the trace should start, then click the same edge where it should end. On a ring the shorter way round is traced; tick <strong>Trace the long way round a ring</strong> for the other way.</li>
+<li>The panel shows the vertex count, the total length, the last leg as a quadrant bearing, and for a polygon the length of the closing edge (a quick misclosure check). <strong>Undo last step</strong> removes a whole leg or trace.</li>
+<li><strong>Add to editor</strong> hands the shape to the GeoEditor as a new sketch, where it stays editable; <strong>Save as layer</strong> adds it as a new layer.</li>
+</ul>
 <h3 id="gods-eye-view">God's Eye View<a class="headerlink" href="#gods-eye-view" title="Permanent link">&para;</a></h3>
 <p>God's Eye View is inspired by the MIT-licensed
 <a href="https://github.com/bilawalsidhu/gods-eye-view">bilawalsidhu/gods-eye-view</a>,

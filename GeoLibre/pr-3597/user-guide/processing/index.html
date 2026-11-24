@@ -4277,6 +4277,30 @@
 </tr>
 </tbody>
 </table>
+<p><strong>Linear referencing</strong></p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Create routes</strong></td>
+<td>Add M (measure) values to lines, either their cumulative geodesic length (in metres, kilometres, feet, or miles) or a range read from start and end measure fields. Each route gets <code>route_id</code>, <code>m_from</code>, and <code>m_to</code> fields.</td>
+</tr>
+<tr>
+<td><strong>Locate features along routes</strong></td>
+<td>For each point, find the nearest route within a search radius (or every route within it) and record <code>route_id</code>, <code>measure</code>, and <code>distance_m</code>.</td>
+</tr>
+<tr>
+<td><strong>Dynamic segmentation</strong></td>
+<td>Place an event table on routes: selecting a To measure field applies to the whole table and creates segments; rows without a numeric To value are skipped. Leaving To empty creates point events, and equal From/To values also create points. Event attributes are kept.</td>
+</tr>
+</tbody>
+</table>
+<p>M values are stored as the fourth ordinate of each position, <code>[lng, lat, z, m]</code>, with <code>z</code> set to 0 when the line had no elevation, so a measure is never read as a height. They survive saving the project and exporting GeoJSON. Other export formats may mark zero-Z placeholder routes as 3D and do not guarantee M preservation, and a 2D route's zero Z placeholder is not a measured elevation. Keep a project or GeoJSON copy when measures must be preserved. Tools that rebuild geometry (other vector tools, the GeoEditor) drop them, so run <strong>Create routes</strong> again after reshaping a route. Locating and segmenting on a line without M values measures it by length in metres.</p>
 <p><strong>Data quality</strong></p>
 <table>
 <thead>
@@ -4301,6 +4325,14 @@
 <tr>
 <td><strong>Fix topology</strong></td>
 <td>Snap nearly-connected line endpoints, fix dangles, and project points onto lines. Free ends with nothing nearby are left alone.</td>
+</tr>
+<tr>
+<td><strong>Fix polygon overlaps</strong></td>
+<td>Give every area covered by more than one polygon to exactly one of them (the largest, the smallest, the first in the layer, or the highest or lowest value of a priority field) and cut it out of the rest. A polygon covered completely is removed.</td>
+</tr>
+<tr>
+<td><strong>Fill polygon gaps</strong></td>
+<td>Merge each gap enclosed by the layer's polygons (up to a maximum area) into the neighbour sharing the longest boundary with it. Holes inside a single polygon are left alone.</td>
 </tr>
 </tbody>
 </table>
@@ -4534,6 +4566,11 @@ candidate budget. Reduce the snap tolerance or extract a smaller network if it i
 exceeded. Point placement has a 50-million edge/point comparison budget, including
 far or antimeridian selections that use a full edge scan. Searches yield between
 legs or incidents; graph construction itself is synchronous.</p>
+<p>Service-area polygon buffering accepts at most 1,000 reachable line pieces per
+area and 5,000 per run. Disable polygons to retain line-only output for larger
+areas. Input points farther than 1 km or ten times the endpoint snap tolerance
+(whichever is larger) produce a warning; snap-distance attributes remain in the
+result.</p>
 <p>Local multi-stop and closest-facility runs are limited to 50 million node-search
 entries, counted after snapping. This bounds repeated graph-state allocations;
 use fewer stops/incidents or a smaller network extract for larger selections.</p>
@@ -4626,7 +4663,9 @@ attribute, the original value is preserved under a unique <code>_source</code> s
 matches GWR4 on its Georgia example data, and the clustering matches
 scikit-learn's <code>DBSCAN</code> and <code>HDBSCAN</code> (its defaults: excess-of-mass selection,
 no single root cluster). GWR handles up to 1,500 features, HDBSCAN 5,000, and
-the kriging cross-validation 1,000 distinct locations. DBSCAN accepts at most
+the kriging cross-validation 300 distinct locations. Dense kriging inversion
+scales cubically with the number of samples; reduce the sample size for faster
+runs. Cancel terminates the processing worker without waiting for a model fit. DBSCAN accepts at most
 200,000 features and stops after 20 million candidate comparisons across its
 core-point and expansion passes. Dense data can reach this work limit below the
 feature cap; reduce the search radius or process a smaller area.</p>

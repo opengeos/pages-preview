@@ -4093,7 +4093,30 @@ carries no <code>printLayout</code> key.</p>
   whose layer is missing from the project opens cleared rather than blank.</li>
 <li>Atlas: <code>atlasEnabled</code> plus the coverage layer, extent mode, sorting, filter
   and filename pattern for the map series.</li>
+<li>Overview map: <code>showInset</code>, <code>insetBasemap</code> (<code>positron</code>, <code>liberty</code>, <code>bright</code>,
+  <code>dark</code>, <code>fiord</code> or <code>osm</code>), <code>insetZoomOffset</code> (zoom levels out from the main
+  frame's extent, <code>-12</code> to <code>0</code>), <code>insetExtentColor</code>, and <code>insetBox</code> (see
+  below; <code>null</code> keeps the automatic lower-left corner).</li>
+<li>Coordinate grid: <code>showGrid</code>, <code>gridType</code> (<code>dms</code>, <code>decimal</code>, <code>utm</code> or <code>mgrs</code>),
+  <code>gridInterval</code> (degrees, or meters for UTM/MGRS; <code>0</code> is automatic),
+  <code>gridFontSize</code> (points) and <code>gridLines</code>.</li>
+<li>Arrangement: <code>mapFrameBox</code> and <code>insetBox</code> place the map frames as
+  <code>{ "x", "y", "w", "h" }</code> fractions of the page width and height;
+  <code>elementOffsets</code> moves the <code>title</code>, <code>legend</code>, <code>scaleBar</code>, <code>northArrow</code> and
+  <code>footer</code> from their automatic positions as <code>{ "dx", "dy", "scale" }</code> (page
+  fractions plus a uniform scale). A missing or <code>null</code> value keeps the
+  automatic layout, so a project saved before these fields opens unchanged.</li>
 </ul>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"showGrid"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"gridType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"utm"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"gridInterval"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"showInset"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"insetBox"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"x"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.72</span><span class="p">,</span><span class="w"> </span><span class="nt">"y"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.62</span><span class="p">,</span><span class="w"> </span><span class="nt">"w"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.22</span><span class="p">,</span><span class="w"> </span><span class="nt">"h"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.25</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">"mapFrameBox"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"x"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.05</span><span class="p">,</span><span class="w"> </span><span class="nt">"y"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.12</span><span class="p">,</span><span class="w"> </span><span class="nt">"w"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.9</span><span class="p">,</span><span class="w"> </span><span class="nt">"h"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.8</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">"elementOffsets"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"legend"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"dx"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.02</span><span class="p">,</span><span class="w"> </span><span class="nt">"dy"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.04</span><span class="p">,</span><span class="w"> </span><span class="nt">"scale"</span><span class="p">:</span><span class="w"> </span><span class="mf">1.2</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 <p>Unknown or malformed values fall back to the default for that field, so a
 hand-edited file never leaves the composer in an unusable state. Per-session
 state (the captured map image, the current atlas page, the dialog's panel
