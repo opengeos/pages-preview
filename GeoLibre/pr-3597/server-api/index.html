@@ -2612,6 +2612,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#recovering-an-ambiguous-legacy-secret" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Recovering an ambiguous legacy secret
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#single-sign-on-on-the-consent-page" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -4150,6 +4161,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#recovering-an-ambiguous-legacy-secret" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Recovering an ambiguous legacy secret
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#single-sign-on-on-the-consent-page" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -4521,11 +4543,30 @@ implementation or storage engine. The reference implementation lives in
   1–365 day lifetime where bounded credentials are needed, and revoke or rotate
   delete-only and legacy tokens operationally.</li>
 <li><strong>Rate limiting.</strong> The OAuth consent flow caps pending interactions per
-  browser binding, but a fresh cookie bypasses that cap; the reference server
-  has no general request limiter. Before enabling OAuth publicly, enforce
-  per-client-IP limits at the ingress on <strong>GET and POST</strong> <code>/oauth/authorize</code>,
+  browser binding, but a fresh cookie bypasses that cap. The reference server
+  has a built-in per-client-IP limiter (<code>GEOLIBRE_RATE_LIMIT_AUTH</code>, default
+  30 requests per 60 seconds on the credential routes below, and
+  <code>GEOLIBRE_RATE_LIMIT_API</code>, default 600 per 60 seconds elsewhere; over budget
+  answers <code>429</code> with <code>Retry-After</code>), but its counters live in each worker
+  process, so they multiply with workers and replicas and reset on restart.
+  IPv6 clients in the same /64 share a budget, so rotating host addresses
+  within that subnet does not reset the limit. IPv4 budgets remain per address.
+  Configure <code>GEOLIBRE_TRUSTED_PROXIES</code> with the actual reverse proxy's source
+  IP or network. Without it, proxied users all share the proxy's IP and one
+  deployment-wide budget: by default 30 credential requests and 600 other
+  requests per minute. Public deployments log a startup reminder when rate
+  limiting is enabled without trusted proxies. Requests whose ASGI scope has
+  no peer address share an unknown-client budget and log one configuration
+  warning; the ASGI server must supply the original peer address for per-client
+  limits. Forwarding headers are ignored without a trusted peer. The proxy must replace incoming forwarding headers;
+  trusting arbitrary client-supplied <code>X-Forwarded-For</code> would bypass the limits.
+  Before enabling OAuth publicly, also enforce per-client-IP limits at the
+  ingress on <strong>GET and POST</strong> <code>/oauth/authorize</code>,
   <code>GET /oauth/sso/callback</code>, <code>POST /oauth/token</code>, <code>POST /api/auth/token</code>,
-  <code>POST /api/accounts</code>, and <code>POST /api/account/password</code>. The last four POSTs
+  <code>POST /api/accounts</code>, <code>POST /api/account/password</code>,
+  <code>POST /api/auth/password-reset/request</code>, <code>POST /api/auth/password-reset/confirm</code>,
+  <code>POST /api/auth/verify-email/request</code>, <code>POST /api/auth/verify-email/confirm</code>,
+  and <code>/api/account/mfa/totp</code> (including its <code>/enroll</code> and <code>/confirm</code> paths). These
   include password or token operations; consent login and the PAT/account
   routes run scrypt, and the single sign-on callback calls the organization's
   identity provider. Add per-username limits where the
@@ -4538,13 +4579,14 @@ implementation or storage engine. The reference implementation lives in
 <span class="k">limit_req_zone</span><span class="w"> </span><span class="nv">$binary_remote_addr</span><span class="w"> </span><span class="s">zone=geolibre_auth:10m</span><span class="w"> </span><span class="s">rate=12r/m</span><span class="p">;</span>
 
 <span class="c1"># TLS issuer server context; proxy other API routes separately.</span>
-<span class="k">location</span><span class="w"> </span><span class="p">~</span><span class="w"> </span><span class="sr">^/(oauth/(authorize|token|sso/callback)|api/(auth/token|accounts|account/password))$</span><span class="w"> </span><span class="p">{</span>
+<span class="k">location</span><span class="w"> </span><span class="p">~</span><span class="w"> </span><span class="sr">^/(oauth/(authorize|token|sso/callback)|api/(auth/(token|password-reset/(request|confirm)|verify-email/(request|confirm))|accounts|account/(password|mfa/totp(/(enroll|confirm))?)))$</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kn">limit_req</span><span class="w"> </span><span class="s">zone=geolibre_auth</span><span class="w"> </span><span class="s">burst=6</span><span class="w"> </span><span class="s">nodelay</span><span class="p">;</span>
 <span class="w">    </span><span class="kn">limit_req_status</span><span class="w"> </span><span class="mi">429</span><span class="p">;</span>
 <span class="w">    </span><span class="kn">client_max_body_size</span><span class="w"> </span><span class="mi">16k</span><span class="p">;</span>
 <span class="w">    </span><span class="kn">access_log</span><span class="w"> </span><span class="no">off</span><span class="p">;</span>
 <span class="w">    </span><span class="kn">proxy_pass</span><span class="w"> </span><span class="s">http://127.0.0.1:8000</span><span class="p">;</span>
 <span class="w">    </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">Host</span><span class="w"> </span><span class="nv">$http_host</span><span class="p">;</span>
+<span class="w">    </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Forwarded-For</span><span class="w"> </span><span class="nv">$remote_addr</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>Preserve the original Host authority, including any port, or OAuth host
@@ -4554,10 +4596,19 @@ implementation or storage engine. The reference implementation lives in
   Suppress authorization request query strings, callback <code>Location</code> headers,
   and callback request query strings at the web ingress in proxy, WAF, and
   load-balancer logs.
-- <strong>A request-size limit.</strong> The server rejects an oversized <em>declared</em>
-  <code>Content-Length</code> before reading the body, but a chunked or HTTP/2 request
-  declares no length and is parsed in full before the per-route limit applies.
-  Cap request size at the proxy as well.
+- <strong>A request-size limit.</strong> The server rejects a body over
+  <code>GEOLIBRE_MAX_REQUEST_BYTES</code> (default six times the project limit plus
+  1 KiB): an oversized declared <code>Content-Length</code> before reading the body, and a
+  chunked or HTTP/2 body as soon as the streamed bytes cross the ceiling.
+  Capping request size at the proxy as well keeps oversized uploads off the
+  application workers entirely.
+- <strong>The secret encryption key.</strong> Set <code>GEOLIBRE_SECRET_KEYS</code> (comma-separated
+  Fernet keys; see <code>backend/geolibre_server_api/README.md</code>) before configuring
+  organization single sign-on, including with the default localhost public URL.
+  Store it apart from the database and its backups; losing it means re-entering every
+  identity provider's client secret. An explicit
+  <code>GEOLIBRE_ALLOW_PLAINTEXT_SECRETS=1</code> opt-out is available only for loopback
+  development servers that are not publicly reachable.
 - <strong>Database pooling and schema migrations.</strong> For PostgreSQL and other
   non-SQLite databases, the SQLAlchemy pool defaults to <code>GEOLIBRE_DB_POOL_SIZE=10</code>,
   <code>GEOLIBRE_DB_MAX_OVERFLOW=20</code> (up to 30 connections per worker process), and
@@ -5240,9 +5291,52 @@ and <code>identity provider discovery failed</code>. Out-of-range values are a g
   single sign-on have no way to sign in. A provider configured later links
   subjects afresh, so their next sign-in creates new accounts; remove the old
   ones.</li>
-<li><strong>Secret storage:</strong> <code>clientSecret</code> is stored unencrypted in the database, at
-  the same trust level as the rest of its contents.</li>
+<li><strong>Secret storage:</strong> <code>clientSecret</code> is encrypted at rest with Fernet under the
+  first key in <code>GEOLIBRE_SECRET_KEYS</code> and decrypted only when calling the
+  provider's token endpoint. By default a server without the key refuses to
+  store a secret (<code>503</code>), even with the default localhost public URL, and
+  fails startup while secrets are stored; startup and <code>alembic upgrade head</code>
+  encrypt secrets left in plaintext by earlier releases. Development servers
+  with a loopback public URL can explicitly opt out using
+  <code>GEOLIBRE_ALLOW_PLAINTEXT_SECRETS=1</code>. In that mode, plaintext secrets beginning
+  with <code>enc:v1:</code> are rejected (<code>422</code>) to keep stored values unambiguous.</li>
 </ul>
+<h3 id="recovering-an-ambiguous-legacy-secret">Recovering an ambiguous legacy secret<a class="headerlink" href="#recovering-an-ambiguous-legacy-secret" title="Permanent link">&para;</a></h3>
+<p>An older build could save plaintext beginning with <code>enc:v1:</code>, the prefix now
+reserved for encrypted values. This is indistinguishable from damaged
+ciphertext. Startup and migration refuse to guess and identify the affected
+identity-provider row in the error, without logging its secret. For actual
+ciphertext, restore the key used to write it. For a confirmed legacy plaintext
+credential, re-enter its known value encrypted under the configured key.
+Back up the database first. Run this in the installed server API environment,
+with <code>GEOLIBRE_DATABASE_URL</code> and <code>GEOLIBRE_SECRET_KEYS</code> configured and
+<code>GEOLIBRE_REPAIR_PROVIDER_ID</code> set to the row id reported by the error:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">getpass</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">sqlalchemy</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_engine</span><span class="p">,</span> <span class="n">text</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">geolibre_server_api.secret_crypto</span><span class="w"> </span><span class="kn">import</span> <span class="n">encrypt_secret</span><span class="p">,</span> <span class="n">secret_ciphers</span>
+
+<span class="k">if</span> <span class="n">secret_ciphers</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">"Configure GEOLIBRE_SECRET_KEYS before repairing the secret"</span><span class="p">)</span>
+<span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"GEOLIBRE_DATABASE_URL"</span><span class="p">])</span>
+<span class="k">with</span> <span class="n">engine</span><span class="o">.</span><span class="n">begin</span><span class="p">()</span> <span class="k">as</span> <span class="n">connection</span><span class="p">:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+        <span class="n">text</span><span class="p">(</span><span class="s2">"UPDATE organization_identity_providers SET client_secret=:secret WHERE id=:id"</span><span class="p">),</span>
+        <span class="p">{</span>
+            <span class="s2">"id"</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"GEOLIBRE_REPAIR_PROVIDER_ID"</span><span class="p">],</span>
+            <span class="s2">"secret"</span><span class="p">:</span> <span class="n">encrypt_secret</span><span class="p">(</span><span class="n">getpass</span><span class="o">.</span><span class="n">getpass</span><span class="p">(</span><span class="s2">"Identity provider client secret: "</span><span class="p">)),</span>
+        <span class="p">},</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">rowcount</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">"Expected exactly one identity provider row; transaction rolled back"</span><span class="p">)</span>
+<span class="n">engine</span><span class="o">.</span><span class="n">dispose</span><span class="p">()</span>
+</code></pre></div>
+<p>Retry the migration or startup afterward. Repair only the secret column;
+deleting and recreating the provider would also remove its linked identities.
+Alembic reads <code>GEOLIBRE_PUBLIC_URL</code> to restrict the development opt-out. Set it
+to the actual deployment URL even when your application passes <code>public_url</code>
+directly to <code>create_app</code>.</p>
 <h3 id="single-sign-on-on-the-consent-page">Single sign-on on the consent page<a class="headerlink" href="#single-sign-on-on-the-consent-page" title="Permanent link">&para;</a></h3>
 <p>When any organization has an enabled identity provider, the consent page adds
 a second form: an <code>Organization</code> field (the organization slug) and a
