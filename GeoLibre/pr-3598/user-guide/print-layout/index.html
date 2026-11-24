@@ -3964,7 +3964,8 @@ loaded; a failed load shows a retry button.</p>
   values inside the 100 km square, with the grid zone and square, such as
   <code>33U VP</code>, below the frame). UTM and MGRS use the zone of the frame's centre.</li>
 <li><strong>Interval</strong>: degrees for latitude/longitude, meters for UTM and MGRS. <code>0</code>
-  picks a readable interval for the map's extent.</li>
+  picks a readable interval for the map's extent. Positive MGRS intervals round
+  up to whole kilometers, matching the labels' precision.</li>
 <li><strong>Label size (pt)</strong>: the label size in points on the printed page.</li>
 <li><strong>Draw grid lines across the map</strong>: adds lines across the map as well as the
   border ticks.</li>
@@ -3973,9 +3974,10 @@ loaded; a failed load shows a retry button.</p>
 neighbour is skipped. The grid is drawn from the captured map's georeference,
 so like the overview rectangle it needs a 2D, untilted view. It is drawn by the
 layout itself, so it is as sharp in PNG, PDF and SVG exports as in the preview.
-The automatic map frame leaves a band around itself for the labels; a frame you
-place by hand (see <a href="#arranging-elements">Arranging elements</a>) needs room left
-around it.</p>
+MGRS is limited to one 100 km square; a frame crossing square boundaries shows
+a notice instead of an ambiguous grid. The automatic frame reserves a label
+band. When a frame placed by hand leaves too little outside space, ticks and
+labels move inside that edge.</p>
 <h3 id="arranging-elements">Arranging elements<a class="headerlink" href="#arranging-elements" title="Permanent link">&para;</a></h3>
 <p>Click <strong>Arrange</strong> above the preview to show a dashed handle around every
 movable element: the map frame, the overview map, the title, the legend, the
