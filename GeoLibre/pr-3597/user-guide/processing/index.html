@@ -4526,6 +4526,8 @@
 </tr>
 </tbody>
 </table>
+<p>Coincident stops or incident/facility matches are recorded as point features
+with zero cost, preserving the match without a degenerate route line.</p>
 <p>Local graph construction runs on the main thread and accepts at most 250,000
 vertices. Point placement has a 50-million edge/point comparison budget, including
 far or antimeridian selections that use a full edge scan. Searches yield between
