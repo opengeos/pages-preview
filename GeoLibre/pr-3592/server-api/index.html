@@ -4527,6 +4527,11 @@ implementation or storage engine. The reference implementation lives in
   <code>GEOLIBRE_RATE_LIMIT_API</code>, default 600 per 60 seconds elsewhere; over budget
   answers <code>429</code> with <code>Retry-After</code>), but its counters live in each worker
   process, so they multiply with workers and replicas and reset on restart.
+  Configure <code>GEOLIBRE_TRUSTED_PROXIES</code> with the actual reverse proxy's source
+  IP or network. Without it, proxied users all share the proxy's IP and one
+  deployment-wide budget: by default 30 credential requests and 600 other
+  requests per minute. The proxy must replace incoming forwarding headers;
+  trusting arbitrary client-supplied <code>X-Forwarded-For</code> would bypass the limits.
   Before enabling OAuth publicly, also enforce per-client-IP limits at the
   ingress on <strong>GET and POST</strong> <code>/oauth/authorize</code>,
   <code>GET /oauth/sso/callback</code>, <code>POST /oauth/token</code>, <code>POST /api/auth/token</code>,
@@ -4550,6 +4555,7 @@ implementation or storage engine. The reference implementation lives in
 <span class="w">    </span><span class="kn">access_log</span><span class="w"> </span><span class="no">off</span><span class="p">;</span>
 <span class="w">    </span><span class="kn">proxy_pass</span><span class="w"> </span><span class="s">http://127.0.0.1:8000</span><span class="p">;</span>
 <span class="w">    </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">Host</span><span class="w"> </span><span class="nv">$http_host</span><span class="p">;</span>
+<span class="w">    </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Forwarded-For</span><span class="w"> </span><span class="nv">$remote_addr</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>Preserve the original Host authority, including any port, or OAuth host
@@ -4567,9 +4573,11 @@ implementation or storage engine. The reference implementation lives in
   application workers entirely.
 - <strong>The secret encryption key.</strong> Set <code>GEOLIBRE_SECRET_KEYS</code> (comma-separated
   Fernet keys; see <code>backend/geolibre_server_api/README.md</code>) before configuring
-  organization single sign-on on a non-loopback <code>GEOLIBRE_PUBLIC_URL</code>. Store it
-  apart from the database and its backups; losing it means re-entering every
-  identity provider's client secret.
+  organization single sign-on, including with the default localhost public URL.
+  Store it apart from the database and its backups; losing it means re-entering every
+  identity provider's client secret. An explicit
+  <code>GEOLIBRE_ALLOW_PLAINTEXT_SECRETS=1</code> opt-out is available only for loopback
+  development servers that are not publicly reachable.
 - <strong>Database pooling and schema migrations.</strong> For PostgreSQL and other
   non-SQLite databases, the SQLAlchemy pool defaults to <code>GEOLIBRE_DB_POOL_SIZE=10</code>,
   <code>GEOLIBRE_DB_MAX_OVERFLOW=20</code> (up to 30 connections per worker process), and
@@ -5254,10 +5262,13 @@ and <code>identity provider discovery failed</code>. Out-of-range values are a g
   ones.</li>
 <li><strong>Secret storage:</strong> <code>clientSecret</code> is encrypted at rest with Fernet under the
   first key in <code>GEOLIBRE_SECRET_KEYS</code> and decrypted only when calling the
-  provider's token endpoint. A production server (non-loopback
-  <code>GEOLIBRE_PUBLIC_URL</code>) without the key refuses to store a secret (<code>503</code>) and
+  provider's token endpoint. By default a server without the key refuses to
+  store a secret (<code>503</code>), even with the default localhost public URL, and
   fails startup while secrets are stored; startup and <code>alembic upgrade head</code>
-  encrypt secrets left in plaintext by earlier releases.</li>
+  encrypt secrets left in plaintext by earlier releases. Development servers
+  with a loopback public URL can explicitly opt out using
+  <code>GEOLIBRE_ALLOW_PLAINTEXT_SECRETS=1</code>. In that mode, plaintext secrets beginning
+  with <code>enc:v1:</code> are rejected (<code>422</code>) to keep stored values unambiguous.</li>
 </ul>
 <h3 id="single-sign-on-on-the-consent-page">Single sign-on on the consent page<a class="headerlink" href="#single-sign-on-on-the-consent-page" title="Permanent link">&para;</a></h3>
 <p>When any organization has an enabled identity provider, the consent page adds
