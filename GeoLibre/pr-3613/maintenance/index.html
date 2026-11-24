@@ -5029,7 +5029,15 @@ black — it declines the stack.</p>
   MapLibre refuses to remove a source a style layer still reads (an error event,
   not a throw), so without the wrap the decoration strands the source and logs a
   Diagnostics error. If the method is renamed the guard wraps nothing;
-  <code>tests/pmtiles-control-contract.test.ts</code> drives the real control and fails.</p>
+  <code>tests/pmtiles-control-contract.test.ts</code> drives the real control and fails.
+  The guard removes those layers from the map directly, not through
+  store-driven sync, because the control drops the source before sync runs
+  (synchronously from the store subscription, or with no store write at all
+  from the panel's remove button). The same file also asserts that the
+  unguarded control strands the source: if an upstream bump makes that case
+  fail (the control drops its source safely on its own), the guard is no
+  longer needed, so delete it and that test rather than inverting the
+  assertion.</p>
 </li>
 <li>
 <p><strong>The AddVectorControl's layer id rule</strong> (<code>upstreamUrlLayerId</code> /
