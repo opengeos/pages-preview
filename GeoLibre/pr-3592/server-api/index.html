@@ -4554,12 +4554,19 @@ implementation or storage engine. The reference implementation lives in
   Configure <code>GEOLIBRE_TRUSTED_PROXIES</code> with the actual reverse proxy's source
   IP or network. Without it, proxied users all share the proxy's IP and one
   deployment-wide budget: by default 30 credential requests and 600 other
-  requests per minute. The proxy must replace incoming forwarding headers;
+  requests per minute. Public deployments log a startup reminder when rate
+  limiting is enabled without trusted proxies. Requests whose ASGI scope has
+  no peer address share an unknown-client budget and log one configuration
+  warning; the ASGI server must supply the original peer address for per-client
+  limits. Forwarding headers are ignored without a trusted peer. The proxy must replace incoming forwarding headers;
   trusting arbitrary client-supplied <code>X-Forwarded-For</code> would bypass the limits.
   Before enabling OAuth publicly, also enforce per-client-IP limits at the
   ingress on <strong>GET and POST</strong> <code>/oauth/authorize</code>,
   <code>GET /oauth/sso/callback</code>, <code>POST /oauth/token</code>, <code>POST /api/auth/token</code>,
-  <code>POST /api/accounts</code>, and <code>POST /api/account/password</code>. The last four POSTs
+  <code>POST /api/accounts</code>, <code>POST /api/account/password</code>,
+  <code>POST /api/auth/password-reset/request</code>, <code>POST /api/auth/password-reset/confirm</code>,
+  <code>POST /api/auth/verify-email/request</code>, <code>POST /api/auth/verify-email/confirm</code>,
+  and <code>/api/account/mfa/totp</code> (including its <code>/enroll</code> and <code>/confirm</code> paths). These
   include password or token operations; consent login and the PAT/account
   routes run scrypt, and the single sign-on callback calls the organization's
   identity provider. Add per-username limits where the
@@ -4572,7 +4579,7 @@ implementation or storage engine. The reference implementation lives in
 <span class="k">limit_req_zone</span><span class="w"> </span><span class="nv">$binary_remote_addr</span><span class="w"> </span><span class="s">zone=geolibre_auth:10m</span><span class="w"> </span><span class="s">rate=12r/m</span><span class="p">;</span>
 
 <span class="c1"># TLS issuer server context; proxy other API routes separately.</span>
-<span class="k">location</span><span class="w"> </span><span class="p">~</span><span class="w"> </span><span class="sr">^/(oauth/(authorize|token|sso/callback)|api/(auth/token|accounts|account/password))$</span><span class="w"> </span><span class="p">{</span>
+<span class="k">location</span><span class="w"> </span><span class="p">~</span><span class="w"> </span><span class="sr">^/(oauth/(authorize|token|sso/callback)|api/(auth/(token|password-reset/(request|confirm)|verify-email/(request|confirm))|accounts|account/(password|mfa/totp(/(enroll|confirm))?)))$</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kn">limit_req</span><span class="w"> </span><span class="s">zone=geolibre_auth</span><span class="w"> </span><span class="s">burst=6</span><span class="w"> </span><span class="s">nodelay</span><span class="p">;</span>
 <span class="w">    </span><span class="kn">limit_req_status</span><span class="w"> </span><span class="mi">429</span><span class="p">;</span>
 <span class="w">    </span><span class="kn">client_max_body_size</span><span class="w"> </span><span class="mi">16k</span><span class="p">;</span>
