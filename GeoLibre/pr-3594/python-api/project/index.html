@@ -10303,7 +10303,7 @@ bottom-right, bottom-left order.</p>
               <div class="doc-md-description">
                 <p>If <code>urls</code> is empty, any URL is not <code>https://</code> (the
 browser's <code>media-src</code> CSP blocks <code>http://</code>), or <code>coordinates</code>
-is not four <code>[lng, lat]</code> pairs.</p>
+is not four <code>[lng, lat]</code> pairs. Embedded URL credentials are refused.</p>
               </div>
             </td>
           </tr>
@@ -12678,7 +12678,8 @@ fetched.</p>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>If <code>endpoint</code> or <code>type_name</code> is blank.</p>
+                <p>If <code>endpoint</code> or <code>type_name</code> is blank, or the endpoint
+embeds username/password credentials.</p>
               </div>
             </td>
           </tr>
@@ -12917,7 +12918,7 @@ fetched.</p>
             <td>
               <div class="doc-md-description">
                 <p>If <code>service</code> is unknown, <code>url</code> is not an http(s) URL,
-carries a <code>token</code>, or an option does not apply to <code>service</code>.</p>
+carries credentials or a <code>token</code>, or an option does not apply to <code>service</code>.</p>
               </div>
             </td>
           </tr>
@@ -13165,7 +13166,7 @@ discoverable, e.g. <code>{"lat": "y", "lon": "x"}</code>.</p>
             <td>
               <div class="doc-md-description">
                 <p>If <code>url</code> or <code>variable</code> is blank, the URL is an Icechunk
-or local store, or an option is malformed.</p>
+or local store, embeds credentials, or an option is malformed.</p>
               </div>
             </td>
           </tr>

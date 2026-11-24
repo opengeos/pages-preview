@@ -4442,6 +4442,13 @@ variants can only run on a worker thread.</p>
 </table>
 <p>Style keyword arguments (for example <code>fillColor</code>, <code>strokeColor</code>, <code>strokeWidth</code>,
 <code>circleRadius</code>) map to the GeoLibre <a href="../project-format/">layer style fields</a>.</p>
+<p>WFS, Zarr, video, and ArcGIS builders reject URLs containing embedded
+usernames or passwords, which browser fetch cannot use. Signed query URLs for
+WFS, Zarr, and video remain supported in trusted local projects. <code>Map.save_project</code>
+and <code>Map.to_project</code> redact credentials by default; <code>keep_credentials=True</code>
+preserves them for private use. Low-level <code>authoring.save_project</code> and MCP file
+edits preserve the existing project's contents, so use a redacted Map export
+when sharing a project.</p>
 <h3 id="marker-symbology">Marker symbology<a class="headerlink" href="#marker-symbology" title="Permanent link">&para;</a></h3>
 <p><code>add_marker</code> and <code>add_markers</code> take the common point-symbology settings as named
 arguments, so you do not have to know the underlying style keys:</p>
