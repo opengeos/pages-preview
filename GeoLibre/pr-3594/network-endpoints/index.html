@@ -4100,7 +4100,7 @@ so and skips the relay; the table notes those cases.</p>
 </tr>
 <tr>
 <td>Python sidecar and Notebook panel</td>
-<td>First use downloads <code>uv</code> from <code>astral.sh</code> (unless <code>uv</code> is installed), a Python build through <code>uv</code> (from GitHub), and packages from PyPI (<code>pypi.org</code>, <code>files.pythonhosted.org</code>). Applies to the sidecar itself and to the Whitebox, conversion, point cloud, and OBIA runtimes.</td>
+<td>First use downloads <code>uv</code> (unless <code>uv</code> is installed): the desktop app (to start the sidecar) and the sidecar's managed runtimes download a pinned uv release archive from <code>github.com</code> (the sidecar honors <code>GEOLIBRE_UV_DOWNLOAD_BASE_URL</code> for a mirror) and verify its SHA-256 before extracting it. <code>uv</code> then downloads a Python build (from GitHub) and packages from PyPI (<code>pypi.org</code>, <code>files.pythonhosted.org</code>). Applies to the sidecar itself and to the Whitebox, conversion, point cloud, and OBIA runtimes.</td>
 <td>Desktop (and a self-run sidecar)</td>
 <td>Direct, from the native process</td>
 </tr>

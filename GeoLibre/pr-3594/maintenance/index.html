@@ -3630,6 +3630,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#managed-uv-pin-sidecar-runtimes-and-desktop-sidecar-bootstrap" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Managed <code>uv</code> pin (sidecar runtimes and desktop sidecar bootstrap)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -4418,6 +4429,17 @@
     <span class="md-ellipsis">
       <span class="md-typeset">
         <code>httpx</code> (<code>backend/geolibre_server_api/pyproject.toml</code>) — private transport pool
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#managed-uv-pin-sidecar-runtimes-and-desktop-sidecar-bootstrap" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Managed <code>uv</code> pin (sidecar runtimes and desktop sidecar bootstrap)
       </span>
     </span>
   </a>
@@ -5694,6 +5716,20 @@ through it, the guard is bypassed with no error. After a bump, check that
 run <code>python -m pytest backend/geolibre_server_api/tests/test_egress.py</code>
 (<code>test_identity_provider_client_refuses_loopback</code> makes a real connection
 through the transport).</p>
+<h3 id="managed-uv-pin-sidecar-runtimes-and-desktop-sidecar-bootstrap">Managed <code>uv</code> pin (sidecar runtimes and desktop sidecar bootstrap)<a class="headerlink" href="#managed-uv-pin-sidecar-runtimes-and-desktop-sidecar-bootstrap" title="Permanent link">&para;</a></h3>
+<p>When uv is neither configured (<code>GEOLIBRE_UV</code>) nor on <code>PATH</code>, both the sidecar
+(<code>backend/geolibre_server/geolibre_server/app/runtime.py</code>) and the desktop app
+(<code>apps/geolibre-desktop/src-tauri/src/uv_bootstrap.rs</code>) download a pinned uv
+release archive and verify its SHA-256 before extracting it. <code>UV_VERSION</code> and
+<code>UV_RELEASE_SHA256</code> in <code>runtime.py</code> are the source of truth; the Rust constants
+mirror them and <code>backend/geolibre_server/tests/test_runtime_uv_bootstrap.py</code>
+fails when they differ. To bump uv, take each digest from the release's official
+<code>&lt;archive&gt;.sha256</code> asset
+(<code>https://github.com/astral-sh/uv/releases/download/&lt;version&gt;/&lt;archive&gt;.sha256</code>),
+never from a local download, and update both files in the same PR.</p>
+<p>For a sidecar archive mirror, set <code>GEOLIBRE_UV_DOWNLOAD_BASE_URL</code> with the layout
+<code>&lt;base&gt;/&lt;version&gt;/&lt;archive&gt;</code>. The former <code>GEOLIBRE_UV_INSTALL_BASE_URL</code> setting
+is ignored with a warning because remote installer scripts are no longer used.</p>
 <h2 id="shared-dependency-ranges">Shared dependency ranges<a class="headerlink" href="#shared-dependency-ranges" title="Permanent link">&para;</a></h2>
 <p><code>apps/geolibre-desktop</code> and <code>packages/plugins</code> declare many of the same
 upstream packages. If a bump moves the range in only one of them, npm can no
@@ -5775,10 +5811,57 @@ build their metadata, or they pass on shapes that never occur.</p>
 <h2 id="coverage-floors">Coverage floors<a class="headerlink" href="#coverage-floors" title="Permanent link">&para;</a></h2>
 <p>The <code>:coverage</code> test variants run the same suites and print a coverage summary;
 CI runs them so every build reports coverage. They are <strong>gated on a floor</strong>:
-<code>test:frontend:coverage</code> fails below 78% lines / 78% branches / 63% functions, and
-<code>test:backend:coverage</code> fails below 55% (<code>--cov-fail-under</code>). The floors sit a few
-points under the current numbers as a <strong>ratchet</strong> — regressions fail CI, and when
-coverage rises comfortably above a floor, raise the floor to lock in the gain.</p>
+<code>test:frontend:coverage</code> fails below 78% lines / 78% branches / 63% functions.
+The three Python suites are gated with pytest-cov:</p>
+<table>
+<thead>
+<tr>
+<th>Suite</th>
+<th>Command</th>
+<th>Floor</th>
+<th>Where the floor lives</th>
+<th>CI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sidecar (<code>backend/geolibre_server</code>)</td>
+<td><code>npm run test:backend:coverage</code></td>
+<td>76%</td>
+<td><code>--cov-fail-under</code> in the root <code>package.json</code></td>
+<td><code>ci.yml</code> "Backend tests" (<code>ci:backend</code>)</td>
+</tr>
+<tr>
+<td>Projects and identity server (<code>backend/geolibre_server_api</code>)</td>
+<td><code>npm run test:server-api:coverage</code></td>
+<td>87%</td>
+<td><code>--cov-fail-under</code> in the root <code>package.json</code></td>
+<td><code>ci.yml</code> "Backend tests" (<code>ci:backend</code>)</td>
+</tr>
+<tr>
+<td>Python package (<code>python/</code>)</td>
+<td><code>npm run test:python:coverage</code></td>
+<td>88%</td>
+<td><code>fail_under</code> in <code>python/pyproject.toml</code></td>
+<td><code>publish-python.yml</code> "Test Python package"</td>
+</tr>
+</tbody>
+</table>
+<p>The Python package's floor sits in its own <code>pyproject.toml</code> rather than in
+<code>package.json</code> because <code>publish-python.yml</code> only runs for changes under
+<code>python/</code> (and the app sources it bundles), so a floor kept in <code>package.json</code>
+could change without that workflow running.</p>
+<p>The floors sit a few points under the current numbers as a <strong>ratchet</strong>:
+regressions fail CI, and when coverage rises comfortably above a floor, raise
+the floor to lock in the gain. Measure in the environment CI installs (the
+backend <code>test</code> extras, or the package list in <code>publish-python.yml</code>), since a
+suite whose optional dependencies are missing skips tests and reports less.</p>
+<p>Most of the sidecar's raster, conversion, OBIA and point cloud workers run as
+subprocesses in production, where coverage cannot see them. Their tests call
+each worker's <code>main()</code> in-process instead (<code>_run_worker</code> in
+<code>tests/test_workers_and_job_manager.py</code>, and <code>test_raster_workers_in_process.py</code>
+/ <code>test_workers_in_process.py</code>), which is what lets the floor count them; test a
+new worker the same way.</p>
 <p>The frontend report only counts files a test actually imports, so a module with no
 test does not appear at all rather than as 0%. That is the part that bites:
 writing the <em>first</em> test for a large untested module reads as a coverage
@@ -5802,8 +5885,9 @@ the spot with no retry, so a real regression still fails fast. <code>classify()<
 exported and covered by <code>tests/coverage-check.test.ts</code> — change the retry policy
 there, not by loosening a floor. If the retry starts firing regularly, fix the
 measurement instead of widening the mitigation.</p>
-<p>The backend coverage run (and <code>npm run ci</code>, which calls the <code>:coverage</code> variants)
-needs <code>pytest-cov</code> from the backend <code>dev</code> extra. Install the <strong><code>test</code></strong> extra to
+<p>The backend coverage runs (and <code>npm run ci</code>, which calls the <code>:coverage</code> variants)
+need <code>pytest-cov</code>, from the sidecar's <code>dev</code> extra and the identity server's
+<code>test</code> extra. Install the <strong><code>test</code></strong> extra to
 run the <em>full</em> backend suite — without the optional engines
 (geopandas/rasterio/sedona/httpx) the vector/raster/SQL/ML tests skip themselves
 and CI is green but hollow: <code>pip install -e "backend/geolibre_server[test]"</code>.</p>
@@ -5866,6 +5950,13 @@ loudly; pin ESLint or disable the two rules rather than reaching for
   not raise the limit.</li>
 <li><strong>A PR fixes warnings:</strong> lower the limit to the new total that ESLint prints,
   in the same PR, so the gain is kept.</li>
+<li><strong>A disable directive goes stale:</strong> ESLint reports an <code>eslint-disable</code>
+  comment that no longer suppresses anything as an <strong>error</strong>
+  (<code>reportUnusedDisableDirectives</code>), so the ratchet cannot be dodged by a
+  leftover directive hiding a future warning on that line. Delete it
+  (<code>eslint --fix</code> removes it, but leaves a blank line and any <code>--</code> reason that
+  wrapped onto the next line, so tidy those up). In JSX children a directive
+  has to be a <code>{/* eslint-disable-next-line ... */}</code> expression comment.</li>
 <li><strong>A PR turns on a new rule:</strong> the one time the limit goes up. Raise it by
   exactly the new rule's count on the code as it is, say so in the PR, and fix
   those warnings over time like the rest.</li>
