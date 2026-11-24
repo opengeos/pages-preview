@@ -4359,8 +4359,8 @@ NoData, preserving valid finite values such as <code>-9999</code>. Clip by mask 
 NaN when the source has no declared NoData. Browser masks support polygon and
 point geometries; use the sidecar for line masks or line zones. Mosaic requires
 matching known EPSG codes and aligned pixel sizes.</p>
-<p>Warp and mosaic output buffers have a 256 MiB allocation budget that includes
-all bands (and mosaic validity flags). Contouring accepts at most 8 million
+<p>Warp and mosaic buffers have a 256 MiB allocation budget that includes
+all bands, warp scanline scratch, and mosaic validity flags. Contouring accepts at most 8 million
 pixels, 10,000 levels, 50 million level/pixel visits, and 250,000 output segments.
 Increase the interval or crop the raster when these limits are reached.
 Warp, polygonization, and contour computation currently run synchronously in
@@ -4375,7 +4375,10 @@ budgets before copying the raster. The shared input preflight also reserves
 all output bands, including the three channels of SAR RGB.</p>
 <p>Polygon and contour downloads from a custom projected CRS are transformed to
 WGS84. An image without a CRS can produce an unreferenced vector download with
-an explicit null CRS; it is not added to the geographic map.</p>
+an explicit null CRS; it is not added to the geographic map.
+Explicit unsupported GeoJSON CRS declarations are rejected with sidecar guidance.
+PixelIsPoint input tie points are normalized to pixel corners internally and
+restored on export, preserving sample centers through reprojection.</p>
 <p>In deployments with restricted capabilities, classic raster command entry
 points retain their existing <code>processing:run</code> and <code>processing:sidecar</code>
 requirements. The dialog checks current permissions before probing, starting,
@@ -4642,6 +4645,51 @@ on mobile; the sidecar engine requires the desktop app and its permission.</p>
 </tr>
 </tbody>
 </table>
+<p>Coincident stops or incident/facility matches are recorded as point features
+with zero cost, preserving the match without a degenerate route line.</p>
+<p>Local graph construction runs on the main thread and accepts at most 250,000
+vertices. Endpoint-to-node and endpoint-to-segment snapping share a 50-million
+budget for index visits and candidate checks. Reduce the snap tolerance or
+extract a smaller network if it is exceeded. Point placement also caps index
+storage, cell visits, overflow candidates, and fallback scans at 50 million
+visits per run. Seam-adjacent queries and networks wider than 180 degrees
+currently use a full edge scan for correct wrapped placement, so they can reach
+this work limit with fewer points. Use a smaller local extract for those runs.
+It has a separate 50-million edge/point comparison budget,
+including far or antimeridian selections that use a full edge scan. Searches yield between
+legs or incidents; graph construction itself is synchronous.</p>
+<p>Service-area polygon buffering accepts at most 1,000 reachable line pieces per
+area and 5,000 per run. An excessive selection returns an error; rerun with
+polygons disabled for line-only output. Input points farther than 1 km or ten
+times the endpoint snap tolerance (whichever is larger) produce a warning;
+snap-distance attributes remain in the
+result.</p>
+<p>Local multi-stop and closest-facility runs are limited to 50 million node-search
+entries, counted after snapping. This bounds repeated graph-state allocations;
+use fewer stops/incidents or a smaller network extract for larger selections.</p>
+<p>The same menu also routes over <strong>your own line layer</strong>, entirely in the browser and with no server: trails, pipes, rivers, a road extract, or any other line network. The tool builds a graph from the lines (lines that share a vertex are connected, and line ends within the snap tolerance of another line are joined to it; lines that only cross stay apart, like a bridge over a road). Each edge costs its length in metres, a cost field (the cost of traversing the whole feature, spread over it by length), or the travel time in minutes from a speed field in km/h. An optional one-way field accepts the OSM (<code>yes</code>, <code>-1</code>, <code>no</code>) and Esri (<code>FT</code>, <code>TF</code>, <code>B</code>, <code>N</code>) conventions. Points are attached at the closest spot on the nearest line, and each result records how far it was moved (<code>*_snap_m</code>).</p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Shortest path (local network)</strong></td>
+<td>Route through stops in order (or sorted by a field) with A* or Dijkstra. Each leg records its cost and length.</td>
+</tr>
+<tr>
+<td><strong>Closest facility (local network)</strong></td>
+<td>For each incident, the k nearest facilities by network cost, with an optional cost limit and travel direction, drawn as ranked routes.</td>
+</tr>
+<tr>
+<td><strong>Service area (local network)</strong></td>
+<td>The parts of the network reachable from facilities within each cost break, clipped partway along edges, as lines and optionally as polygons buffered by a trim width. Facilities can share one area per break or get their own.</td>
+</tr>
+</tbody>
+</table>
 <h3 id="spatial-statistics">Spatial Statistics<a class="headerlink" href="#spatial-statistics" title="Permanent link">&para;</a></h3>
 <p><strong>Processing → GeoLibre Toolbox → Spatial Statistics</strong> runs pattern analysis on a point or polygon layer and adds the result to the map.</p>
 <table>
@@ -4680,8 +4728,40 @@ on mobile; the sidecar engine requires the desktop app and its permission.</p>
 <td><strong>Composite score (suitability index)</strong></td>
 <td>Normalize, weight, and combine several numeric fields into one index (0-100 by default, or 0-1), styled on the map by the score.</td>
 </tr>
+<tr>
+<td><strong>Ordinary least squares (OLS)</strong></td>
+<td>Global linear regression of a field on comma-separated explanatory fields: coefficients with standard errors, t and p values, R², F, AIC and AICc in the log, and fitted values and (standardized) residuals on each feature.</td>
+</tr>
+<tr>
+<td><strong>Geographically weighted regression (GWR)</strong></td>
+<td>Local regression with a bisquare or Gaussian kernel and an adaptive (nearest neighbors) or fixed (metres) bandwidth. Leave the bandwidth at 0 to choose it by AICc golden-section search. Each feature gets its local coefficients, t values, fitted value, residuals, and local R².</td>
+</tr>
+<tr>
+<td><strong>DBSCAN clustering</strong></td>
+<td>Density clusters from a search distance in metres and a minimum point count; each feature gets a cluster id (-1 for noise) and whether it is a core, border, or noise point.</td>
+</tr>
+<tr>
+<td><strong>HDBSCAN clustering</strong></td>
+<td>Hierarchical density clusters that adapt to varying density. Set the minimum cluster size and optionally minimum samples (defaults to the cluster size); each feature gets a cluster id and a membership probability.</td>
+</tr>
+<tr>
+<td><strong>Kriging variogram and cross-validation</strong></td>
+<td>The empirical semivariogram of a point field, a spherical, exponential, Gaussian or linear model fitted as the Interpolation (IDW / Kriging) raster tool fits it, and leave-one-out cross-validation of ordinary kriging (mean error, RMSE, RMSSE) per model, with per-point predictions and standardized errors.</td>
+</tr>
 </tbody>
 </table>
+<p>Generated model fields keep their documented names. If one matches a source
+attribute, the original value is preserved under a unique <code>_source</code> suffix.</p>
+<p>Distances in these tools are great-circle metres. The OLS and GWR output
+matches GWR4 on its Georgia example data, and the clustering matches
+scikit-learn's <code>DBSCAN</code> and <code>HDBSCAN</code> (its defaults: excess-of-mass selection,
+no single root cluster). GWR handles up to 1,500 features, HDBSCAN 5,000, and
+the kriging cross-validation 300 distinct locations. Dense kriging inversion
+scales cubically with the number of samples; reduce the sample size for faster
+runs. Cancel terminates the processing worker without waiting for a model fit. DBSCAN accepts at most
+200,000 features and stops after 20 million candidate comparisons across its
+core-point and expansion passes. Dense data can reach this work limit below the
+feature cap; reduce the search radius or process a smaller area.</p>
 <p>The <strong>Composite score</strong> builder is the suitability and index workflow: pick two
 or more numeric fields, give each a normalization (min-max, z-score, rank, or
 quantile), a relative weight, and the end of its range that scores well, then
