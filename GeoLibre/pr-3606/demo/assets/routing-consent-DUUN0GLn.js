@@ -1,0 +1,1 @@
+var t="geolibre:network-routing-valhalla-notice",e=!1;function r(){if(e)return!0;try{return localStorage.getItem(t)==="1"}catch{return!1}}function n(){e=!0;try{localStorage.setItem(t,"1")}catch{}}export{n,r as t};
