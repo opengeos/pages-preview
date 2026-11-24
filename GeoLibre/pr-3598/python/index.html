@@ -4412,7 +4412,7 @@ variants can only run on a worker thread.</p>
 </tr>
 <tr>
 <td><code>set_print_layout(reset=False, **settings)</code></td>
-<td>Set Print Layout composer settings (<code>title</code>, <code>paper_size</code>, <code>show_inset</code>, <code>grid_type</code>, <code>map_frame_box</code>, <code>element_offsets</code>, ...). With <code>reset=False</code>, unspecified settings are preserved. With <code>reset=True</code>, all settings, including the title, return to defaults before the supplied settings apply.</td>
+<td>Set Print Layout composer settings (<code>title</code>, <code>paper_size</code>, <code>show_inset</code>, <code>grid_type</code>, <code>map_frame_box</code>, <code>element_offsets</code>, ...). With <code>reset=False</code>, unspecified settings are preserved and <code>element_offsets</code> merges by element name. With <code>reset=True</code>, all settings, including the title, return to defaults before the supplied settings apply.</td>
 </tr>
 <tr>
 <td><code>set_identify(layer="all")</code></td>
