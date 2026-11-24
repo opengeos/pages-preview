@@ -5311,14 +5311,22 @@
 built in — see <a href="#external-plugins">External plugins</a> to ship one without forking
 GeoLibre. To add one to this repository:</p>
 <ol>
-<li>Create a plugin file in <code>packages/plugins/src/plugins/</code>.</li>
+<li>
+<p>Add its metadata to <code>packages/plugins/src/builtin-plugin-metadata.ts</code> with
+   an id, name, version, menu category, supported engines, and declared hooks.
+   Include a default control position if the plugin exposes position hooks.
+   This catalog is available before implementations are loaded.</p>
+</li>
+<li>
+<p>Create a plugin file in <code>packages/plugins/src/plugins/</code>. Reuse the catalog
+   metadata so the implementation and lazy registration share one definition.</p>
+</li>
 </ol>
 <div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="kr">type</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">GeoLibreAppAPI</span><span class="p">,</span><span class="w"> </span><span class="nx">GeoLibrePlugin</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">"../types"</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">builtInPluginProperties</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">"../builtin-plugin-metadata"</span><span class="p">;</span>
 
 <span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">myPlugin</span><span class="o">:</span><span class="w"> </span><span class="kt">GeoLibrePlugin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="s2">"my-plugin"</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">"My Plugin"</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">version</span><span class="o">:</span><span class="w"> </span><span class="s2">"0.1.0"</span><span class="p">,</span>
+<span class="w">  </span><span class="p">...</span><span class="nx">builtInPluginProperties</span><span class="p">(</span><span class="s2">"my-plugin"</span><span class="p">),</span>
 <span class="w">  </span><span class="nx">activate</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">app</span><span class="o">:</span><span class="w"> </span><span class="kt">GeoLibreAppAPI</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nx">app</span><span class="p">.</span><span class="nx">setBasemap</span><span class="p">(</span><span class="s2">"https://example.com/style.json"</span><span class="p">);</span>
 <span class="w">  </span><span class="p">},</span>
@@ -5333,24 +5341,27 @@ GeoLibre. To add one to this repository:</p>
    keeping what they last selected. Plugins that add controls, listeners, or
    layers must undo them in <code>deactivate()</code>.</p>
 <ol>
-<li>Export it from <code>packages/plugins/src/index.ts</code>.</li>
+<li>Export it from <code>packages/plugins/src/index.ts</code> for SDK consumers.</li>
 </ol>
 <div class="highlight"><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">myPlugin</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">"./plugins/my-plugin"</span><span class="p">;</span>
 </code></pre></div>
 <ol>
-<li>Register it in <code>apps/geolibre-desktop/src/hooks/usePlugins.ts</code> by adding it
-   to the <code>BUILT_IN_PLUGINS</code> array, which is passed to <code>manager.registerAll</code>.</li>
+<li>
+<p>Add a dynamic import to the module registry in
+   <code>packages/plugins/src/builtin-plugins.ts</code>, following its existing entries.
+   Add the plugin's export to both the load and peek selector tables. Plugins
+   exported from the same implementation file share one module loader.
+   <code>BUILT_IN_PLUGINS</code> derives registration descriptors from the catalog;
+   <code>usePlugins.ts</code> registers them through <code>manager.registerLazy</code>.</p>
+</li>
+<li>
+<p>Run <code>npm run plugins:docs</code> and the built-in contract tests. The contract
+   suite imports each implementation and checks its metadata, actual hooks,
+   and initial control position against the catalog. Host helpers that need
+   runtime state prepare the plugin through <code>manager.runPluginHelper</code> before
+   creating controls. Use specific package entrypoints for host imports.</p>
+</li>
 </ol>
-<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">myPlugin</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">"@geolibre/plugins"</span><span class="p">;</span>
-
-<span class="kd">const</span><span class="w"> </span><span class="nx">BUILT_IN_PLUGINS</span><span class="o">:</span><span class="w"> </span><span class="kt">GeoLibrePlugin</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
-<span class="w">  </span><span class="nx">maplibreLayerControlPlugin</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">maplibreGeoEditorPlugin</span><span class="p">,</span>
-<span class="w">  </span><span class="c1">// ...</span>
-<span class="w">  </span><span class="nx">myPlugin</span><span class="p">,</span>
-<span class="p">];</span>
-<span class="nx">manager</span><span class="p">.</span><span class="nx">registerAll</span><span class="p">(</span><span class="nx">BUILT_IN_PLUGINS</span><span class="p">);</span>
-</code></pre></div>
 <p>For a MapLibre control plugin, add the package dependency, then call
 <code>app.addMapControl(control, "top-left")</code> in <code>activate()</code> and
 <code>app.removeMapControl(control)</code> in <code>deactivate()</code>. If the control's npm package
