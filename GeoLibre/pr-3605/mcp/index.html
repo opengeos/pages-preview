@@ -3121,6 +3121,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#how-the-live-relay-is-found" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        How the live relay is found
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#install" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -3675,6 +3686,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#how-the-live-relay-is-found" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        How the live relay is found
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#install" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -3932,11 +3954,37 @@ GeoLibre instance, and no bundled web build. They build project files with the
 same <a href="../python/">project builders</a> the Python package uses, so a project they
 write is byte-for-byte the kind the app already loads. The optional <code>show_map</code>
 in-chat preview uses a bundled MCP App view.</p>
-<p>The <code>live_*</code> tools are the other half. They speak the desktop Notebook relay
-(<a href="../notebook/">Notebook panel</a>), so a command from an MCP client moves the map
-already open in GeoLibre Desktop. Open <strong>Processing → Jupyter Notebook</strong> once
-per app launch; the panel can be closed after that. Web and JupyterLite have
-no relay, so those tools have nothing to attach to there.</p>
+<p>The <code>live_*</code> tools are the other half. They speak a loopback command relay
+in GeoLibre Desktop, so a command from an MCP client moves the map already open
+there. Turn on <strong>Settings → Startup → Allow AI agents to drive the map</strong> and
+the app starts its processing server at launch, which hosts the relay; no
+Jupyter notebook is needed. The older path still works: opening
+<strong>Processing → Jupyter Notebook</strong> once per launch also provides a relay (the
+<a href="../notebook/">Notebook panel</a>'s). Web, JupyterLite, and the Mac App Store
+build have no relay, so those tools have nothing to attach to there.</p>
+<h3 id="how-the-live-relay-is-found">How the live relay is found<a class="headerlink" href="#how-the-live-relay-is-found" title="Permanent link">&para;</a></h3>
+<p>The MCP server never takes the relay's address from the model. It looks, in
+order, for:</p>
+<ol>
+<li><code>GEOLIBRE_RELAY_URL</code> (and <code>GEOLIBRE_RELAY_TOKEN</code>), when set;</li>
+<li>the processing sidecar's discovery file,
+   <code>~/.geolibre/runtime/live-relay.json</code> (override with
+   <code>GEOLIBRE_LIVE_RELAY_FILE</code>), which the sidecar writes with owner-only
+   permissions while it runs and deletes when it stops;</li>
+<li>the desktop Jupyter server's connection file (port 8766).</li>
+</ol>
+<p>The sidecar relay has its own per-launch token, separate from the sidecar's
+API token, so a Live MCP client can send map commands and nothing else. The
+relay requires the desktop's explicit <strong>Allow AI agents to drive the map</strong>
+opt-in. Starting the sidecar for processing leaves relay access disabled.
+Turning the setting off immediately disconnects this window and requests
+server-side revocation, including removal of discovery. Failed requests retry
+automatically with a persistent notice until the server confirms the change;
+processing jobs keep running. The app authenticates its sidecar WebSocket in
+the handshake protocol header, keeping its credential out of access-logged
+URL paths. A Docker or multi-tenant sidecar never
+serves it. Only a loopback URL is accepted and
+redirects are refused, so the token stays on the machine.</p>
 <h2 id="install">Install<a class="headerlink" href="#install" title="Permanent link">&para;</a></h2>
 <p>The MCP SDK is an optional extra:</p>
 <div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">"geolibre[mcp]"</span>
@@ -3983,10 +4031,17 @@ styling, pan/zoom, and click-to-identify. Other clients receive a text/structure
 summary without inlined feature data. Neither preview tool writes the project.</p>
 <p>The App uses the workspace <code>@geolibre/core</code> and <code>@geolibre/map/headless</code>
 renderer, not a hosted-viewer iframe. It draws MapLibre-native layers (inline
-GeoJSON, raster/WMS/WMTS/XYZ tiles, vector tiles, and image overlays). Everything
+GeoJSON, raster/WMS/WMTS/XYZ tiles, vector tiles, and image overlays), remote
+PMTiles archives (vector or raster), and Cloud Optimized GeoTIFFs. Both archive
+types are read by HTTP byte range through the same approval gate as tiles, so
+their server must support <code>Range</code> requests. A COG is shown as one downsampled
+image (at most 1024 pixels on its longest side, read from the nearest overview)
+colored from its saved bands, rescale, and colormap; only EPSG:4326 and
+EPSG:3857 COGs are placed, and Identify does not apply to them. Everything
 else in the project is named in a status notice instead of silently missing:
-plugin-rendered layers (point clouds, 3D Tiles, COG, ArcGIS, PMTiles, DuckDB,
-deck.gl), desktop-local sources (MBTiles, <code>file:</code> paths), video overlays,
+plugin-rendered layers (point clouds, 3D Tiles, COGs in other CRSs, ArcGIS,
+DuckDB, deck.gl), desktop-local sources (MBTiles, in-memory PMTiles extracts,
+<code>file:</code> paths), video overlays,
 Z-elevated GeoJSON, active plugins, legends, map controls, additional map views,
 and a non-MapLibre primary renderer. Mapbox basemaps are blank because
 credentials are stripped. Configured popup image fields show their URL as text,
@@ -4058,6 +4113,10 @@ rejected before reading the body; the streaming limit also applies when the
 length is missing or understated. The server requests identity encoding and
 rejects compressed responses. Video sources inside a fetched style are removed
 because MapLibre loads video outside the consent-controlled request path.</p>
+<p>The COG preview’s 64 MiB budget counts requested range bytes, rather than total
+network transfer. If a server ignores Range and returns a complete resource within
+the 4 MiB response limit, later reads can download that body again. For predictable
+transfer sizes, serve COG and PMTiles resources with HTTP Range support.</p>
 <p>After updating a checkout, run these commands from the monorepo root.
 Install JavaScript dependencies and rebuild the view before the editable Python
 install, whose build hook can build any missing frontend assets:</p>
@@ -4168,6 +4227,22 @@ an unrelated <code>package.json</code> sitting inside a root cannot be rewritten
 <tr>
 <td><code>add_ogc_layer</code></td>
 <td>WMS and WMTS endpoints.</td>
+</tr>
+<tr>
+<td><code>add_wfs_layer</code></td>
+<td>A WFS feature type, fetched by the app when the project opens.</td>
+</tr>
+<tr>
+<td><code>add_arcgis_layer</code></td>
+<td>ArcGIS REST MapServer and ImageServer (raster tiles from the export endpoint, with sublayers or a rendering rule) and FeatureServer layers (features in view loaded on open).</td>
+</tr>
+<tr>
+<td><code>add_zarr_layer</code></td>
+<td>One variable of a Zarr data cube, sliced with a dimension selector, drawn by the app's Zarr control.</td>
+</tr>
+<tr>
+<td><code>add_video_layer</code></td>
+<td>A georeferenced video overlay from <code>https://</code> URLs and four corners.</td>
 </tr>
 <tr>
 <td><code>add_lidar_layer</code></td>
@@ -4316,6 +4391,18 @@ what <code>describe_project</code> showed it without tracking UUIDs.</p>
 <td><code>remove_bookmark</code></td>
 <td>Drop a bookmark by id, name, or index.</td>
 </tr>
+<tr>
+<td><code>add_layer_group</code> / <code>set_layer_group</code> / <code>remove_layer_group</code></td>
+<td>Group layers into (nested) Layers panel folders whose visibility and opacity apply on top of each member's; move layers in or out; remove a group but keep its layers.</td>
+</tr>
+<tr>
+<td><code>add_dashboard_widget</code> / <code>remove_dashboard_widget</code> / <code>set_dashboard_columns</code></td>
+<td>Build the Dashboard panel: histogram, scatter, bar, line, box, pie, indicator, selector, and list widgets bound to a layer, and the grid width.</td>
+</tr>
+<tr>
+<td><code>set_print_layout</code></td>
+<td>Set the Print Layout composer's title, page size and orientation, map furniture, data blocks, and atlas. Only the settings given change.</td>
+</tr>
 </tbody>
 </table>
 <p>The shapes match what the app reads (<code>parseProject</code> in <code>@geolibre/core</code>); a
@@ -4382,9 +4469,13 @@ is dropped or rewritten.</p>
 </table>
 <p>Processing is live-only. The algorithm catalog and the engines that run it
 (Turf.js, DuckDB-WASM) live in the app, so there is nothing a file tool could
-run. The relay waits about five seconds for a result: a longer run keeps going
-in the app, and the tool reports that it did not finish in time instead of its
-result layer ids, so check <code>live_list_layers</code> before running it again.</p>
+run. Each command waits for its result for a time that fits the work: about
+five seconds for view and layer commands, 30 minutes for <code>live_run_algorithm</code>
+and <code>live_run_whitebox_tool</code>, and an hour for <code>live_run_model_builder</code>. The
+three run tools take <code>timeout_seconds</code> (0.5 seconds to 4 hours) to change that.
+A run that outlasts the wait keeps going in the app, and the tool reports that
+it did not finish in time instead of its result layer ids, so check
+<code>live_list_layers</code> before running it again.</p>
 <h3 id="export">Export<a class="headerlink" href="#export" title="Permanent link">&para;</a></h3>
 <p><code>export_html</code> writes a standalone page that embeds the hosted GeoLibre viewer
 and injects the project into it, so the recipient needs no install. Credentials
@@ -4419,8 +4510,7 @@ intended.</p>
   the first request, so a crafted URL cannot reach a cloud metadata endpoint.</li>
 <li><strong>File tools write a project. <code>live_*</code> tools move the open desktop map.</strong>
   A live edit is in the session until you save it from the app. The relay is
-  loopback-only and refuses redirects, so the Jupyter token stays on the
-  machine. The same scripting surface backs the <a href="../python/">Python widget</a>
+  loopback-only and refuses redirects, so its token stays on the machine. The same scripting surface backs the <a href="../python/">Python widget</a>
   and the <a href="../user-guide/embedding/">embed API</a>; those remain how a host page
   or a notebook drives a map without MCP.</li>
 </ul>

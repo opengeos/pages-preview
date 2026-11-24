@@ -4295,6 +4295,14 @@ variants can only run on a worker thread.</p>
 <td>Add a georeferenced video (four <code>[lng, lat]</code> corners).</td>
 </tr>
 <tr>
+<td><code>add_arcgis_layer(url, name=, service=, sublayers=, rendering_rule=, max_features=, bounds=, attribution=, **style)</code></td>
+<td>Add an ArcGIS REST MapServer or ImageServer (<code>service="map"</code>/<code>"image"</code>, raster tiles from the export endpoint) or a FeatureServer layer (<code>service="feature"</code>, features in view loaded when the project opens with the MapLibre renderer).</td>
+</tr>
+<tr>
+<td><code>add_zarr(url, variable, name=, selector=, clim=, colormap=, bounds=, crs=, spatial_dimensions=, **style)</code></td>
+<td>Add one variable of a Zarr data cube, drawn by the app's Zarr control. Icechunk and local stores cannot be saved in a project.</td>
+</tr>
+<tr>
 <td><code>add_basemap(basemap)</code> / <code>set_basemap(basemap)</code></td>
 <td>Set the background basemap.</td>
 </tr>
@@ -4395,6 +4403,18 @@ variants can only run on a worker thread.</p>
 <td>Drop a bookmark by id, name, or 0-based index.</td>
 </tr>
 <tr>
+<td><code>add_layer_group(name, layers=, parent=, collapsed=, visible=, opacity=)</code> / <code>set_layer_group(layers, group)</code> / <code>remove_layer_group(group)</code></td>
+<td>Group layers into (nested) Layers panel folders. A group's visibility and opacity apply on top of each member's; removing a group keeps its layers.</td>
+</tr>
+<tr>
+<td><code>add_dashboard_widget(layer, widget_type, **options)</code> / <code>remove_dashboard_widget(widget)</code> / <code>set_dashboard_columns(columns)</code></td>
+<td>Build the Dashboard panel (<code>histogram</code>, <code>scatter</code>, <code>bar</code>, <code>line</code>, <code>box</code>, <code>pie</code>, <code>indicator</code>, <code>selector</code>, <code>list</code>). Options such as <code>field</code>, <code>category</code>, <code>aggregation</code> are validated the way the app reads them.</td>
+</tr>
+<tr>
+<td><code>set_print_layout(reset=False, **settings)</code></td>
+<td>Set Print Layout composer settings (<code>title</code>, <code>paper_size</code>, <code>show_inset</code>, <code>grid_type</code>, <code>map_frame_box</code>, <code>element_offsets</code>, ...). With <code>reset=False</code>, unspecified settings are preserved and <code>element_offsets</code> merges by element name. With <code>reset=True</code>, all settings, including the title, return to defaults before the supplied settings apply.</td>
+</tr>
+<tr>
 <td><code>set_identify(layer="all")</code></td>
 <td>Arm the Identify tool so a click opens the popup: on one layer (id, name, or handle), on a list of layers, on every visible layer (<code>"all"</code>), or off (<code>None</code>).</td>
 </tr>
@@ -4422,6 +4442,13 @@ variants can only run on a worker thread.</p>
 </table>
 <p>Style keyword arguments (for example <code>fillColor</code>, <code>strokeColor</code>, <code>strokeWidth</code>,
 <code>circleRadius</code>) map to the GeoLibre <a href="../project-format/">layer style fields</a>.</p>
+<p>WFS, Zarr, video, and ArcGIS builders reject URLs containing embedded
+usernames or passwords, which browser fetch cannot use. Signed query URLs for
+WFS, Zarr, and video remain supported in trusted local projects. <code>Map.save_project</code>
+and <code>Map.to_project</code> redact credentials by default; <code>keep_credentials=True</code>
+preserves them for private use. Low-level <code>authoring.save_project</code> and MCP file
+edits preserve the existing project's contents, so use a redacted Map export
+when sharing a project.</p>
 <h3 id="marker-symbology">Marker symbology<a class="headerlink" href="#marker-symbology" title="Permanent link">&para;</a></h3>
 <p><code>add_marker</code> and <code>add_markers</code> take the common point-symbology settings as named
 arguments, so you do not have to know the underlying style keys:</p>
@@ -4692,6 +4719,13 @@ geolibre-mcp<span class="w"> </span>--root<span class="w"> </span>~/maps
 <p>It builds projects through the same builders this package uses, so anything it
 writes opens in the widget (and in the desktop and web apps) unchanged. See
 <a href="../mcp/">MCP server</a> for the tool list and client configuration.</p>
+<p>The built-in Notebook panel's kernel client uses the same method budgets as Live MCP:
+60 seconds for GeoJSON layer additions, feature reads, and image exports;
+120 seconds for raster-byte additions; 30 minutes for algorithms and Whitebox
+tools; and one hour for model graphs. Other requests keep the five-second
+default. The kernel socket waits one second longer than the command budget so
+the relay can report a result timeout. An accepted layer addition that times
+out is not sent again; use <code>list_layers()</code> to find the layer when it completes.</p>
 <h2 id="building-from-source">Building from source<a class="headerlink" href="#building-from-source" title="Permanent link">&para;</a></h2>
 <p>The package lives in <a href="https://github.com/opengeos/GeoLibre/tree/main/python"><code>python/</code></a>.
 The two bundled frontends are built independently from the monorepo root:</p>
