@@ -1,0 +1,746 @@
+/**
+ * MapLibre GL Overture Maps Control Styles
+ *
+ * Colors are driven by CSS custom properties so the control adapts to
+ * light and dark color schemes. The scheme follows `prefers-color-scheme`
+ * by default and can be forced with the `.ovt-theme-light` /
+ * `.ovt-theme-dark` classes (set via the `theme` option).
+ */
+
+.overture-control,
+.overture-control-panel,
+.overture-popup-content {
+  --ovt-bg: #ffffff;
+  --ovt-fg: #1f2a37;
+  --ovt-text: #333333;
+  --ovt-muted: #888888;
+  --ovt-border: #e0e0e0;
+  --ovt-input-border: #dddddd;
+  --ovt-input-bg: #ffffff;
+  --ovt-hover: rgba(0, 0, 0, 0.05);
+  --ovt-accent: #4a90d9;
+  --ovt-scrollbar: #cccccc;
+  --ovt-scrollbar-hover: #aaaaaa;
+  --ovt-error-bg: #fdecea;
+  --ovt-error-fg: #b3261e;
+  --ovt-success-fg: #1a7f37;
+}
+
+/* Dark scheme via system preference (unless a scheme is forced) */
+@media (prefers-color-scheme: dark) {
+  .overture-control:not(.ovt-theme-light),
+  .overture-control-panel:not(.ovt-theme-light),
+  .overture-popup-content:not(.ovt-theme-light) {
+    --ovt-bg: #1f2733;
+    --ovt-fg: #e8edf3;
+    --ovt-text: #dde3ea;
+    --ovt-muted: #9aa5b1;
+    --ovt-border: #38424e;
+    --ovt-input-border: #46515e;
+    --ovt-input-bg: #2a3441;
+    --ovt-hover: rgba(255, 255, 255, 0.08);
+    --ovt-accent: #6aaae4;
+    --ovt-scrollbar: #4a5663;
+    --ovt-scrollbar-hover: #5d6b7a;
+    --ovt-error-bg: #43292b;
+    --ovt-error-fg: #f2b8b5;
+    --ovt-success-fg: #5fd28b;
+  }
+}
+
+/* Forced dark scheme */
+.overture-control.ovt-theme-dark,
+.overture-control-panel.ovt-theme-dark,
+.overture-popup-content.ovt-theme-dark {
+  --ovt-bg: #1f2733;
+  --ovt-fg: #e8edf3;
+  --ovt-text: #dde3ea;
+  --ovt-muted: #9aa5b1;
+  --ovt-border: #38424e;
+  --ovt-input-border: #46515e;
+  --ovt-input-bg: #2a3441;
+  --ovt-hover: rgba(255, 255, 255, 0.08);
+  --ovt-accent: #6aaae4;
+  --ovt-scrollbar: #4a5663;
+  --ovt-scrollbar-hover: #5d6b7a;
+  --ovt-error-bg: #43292b;
+  --ovt-error-fg: #f2b8b5;
+  --ovt-success-fg: #5fd28b;
+}
+
+/* Container - matches maplibregl-ctrl styling.
+   The compound selector raises specificity above maplibre's default
+   .maplibregl-ctrl-group white background so the icon (currentColor)
+   keeps good contrast in dark mode regardless of stylesheet order. */
+.maplibregl-ctrl-group.overture-control {
+  background: var(--ovt-bg);
+}
+
+.overture-control {
+  background: var(--ovt-bg);
+  border-radius: 4px;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Toggle button - 29x29 to match navigation control */
+.overture-control-toggle {
+  background: none;
+  border: none;
+  padding: 0;
+  width: 29px;
+  height: 29px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--ovt-fg);
+}
+
+.overture-control-toggle:hover {
+  background-color: var(--ovt-hover);
+}
+
+.overture-control-toggle:focus-visible,
+.overture-control-close:focus-visible {
+  outline: 2px solid var(--ovt-accent);
+  outline-offset: 2px;
+}
+
+.overture-control-toggle .overture-control-icon {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+
+.overture-control-toggle .overture-control-icon svg {
+  width: 22px;
+  height: 22px;
+  display: block;
+  stroke: currentcolor;
+  fill: none;
+}
+
+/* Panel - positioned dynamically by JavaScript for floating behavior */
+.overture-control-panel {
+  position: absolute;
+  box-sizing: border-box;
+  /* Position is set dynamically by _updatePanelPosition() */
+  background: var(--ovt-bg);
+  color: var(--ovt-text);
+  border-radius: 4px;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+  min-width: 240px;
+  max-width: min(600px, calc(100vw - 20px));
+  max-height: min(500px, calc(100vh - 80px));
+  overflow-y: auto;
+  z-index: 1000;
+  padding: 8px;
+  font-size: 12px;
+  line-height: 1.4;
+  display: none;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.overture-control-panel.expanded {
+  /* Flex column so the content area absorbs overflow and scrolls */
+  display: flex;
+  flex-direction: column;
+}
+
+.overture-control-panel.resizing {
+  user-select: none;
+}
+
+/* Panel resize handle - sits on the edge away from the anchored side */
+.overture-resize-handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 8px;
+  cursor: ew-resize;
+  touch-action: none;
+  z-index: 2;
+}
+
+.overture-control-panel.ovt-anchor-left .overture-resize-handle {
+  right: 0;
+}
+
+.overture-control-panel.ovt-anchor-right .overture-resize-handle {
+  left: 0;
+}
+
+.overture-resize-handle::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 2px;
+  height: 28px;
+  border-radius: 2px;
+  background: var(--ovt-border);
+  transform: translateY(-50%);
+}
+
+.overture-control-panel.ovt-anchor-left .overture-resize-handle::before {
+  right: 2px;
+}
+
+.overture-control-panel.ovt-anchor-right .overture-resize-handle::before {
+  left: 2px;
+}
+
+.overture-resize-handle:hover::before {
+  background: var(--ovt-accent);
+}
+
+/* Panel header */
+.overture-control-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-weight: 600;
+  color: var(--ovt-text);
+  padding: 4px 0 8px 0;
+  border-bottom: 1px solid var(--ovt-border);
+  margin-bottom: 8px;
+}
+
+.overture-control-title {
+  flex: 1 1 auto;
+  font-size: 13px;
+}
+
+.overture-control-close {
+  width: 20px;
+  height: 20px;
+  border: none;
+  background: transparent;
+  color: var(--ovt-muted);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overture-control-close:hover {
+  color: var(--ovt-text);
+}
+
+/* Content */
+.overture-control-content {
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: min(400px, calc(100vh - 160px));
+  overflow-y: auto;
+}
+
+/* Scrollbar styling */
+.overture-control-content::-webkit-scrollbar,
+.overture-control-panel::-webkit-scrollbar,
+.overture-popup-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.overture-control-content::-webkit-scrollbar-track,
+.overture-control-panel::-webkit-scrollbar-track,
+.overture-popup-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.overture-control-content::-webkit-scrollbar-thumb,
+.overture-control-panel::-webkit-scrollbar-thumb,
+.overture-popup-content::-webkit-scrollbar-thumb {
+  background: var(--ovt-scrollbar);
+  border-radius: 3px;
+}
+
+.overture-control-content::-webkit-scrollbar-thumb:hover,
+.overture-control-panel::-webkit-scrollbar-thumb:hover,
+.overture-popup-content::-webkit-scrollbar-thumb:hover {
+  background: var(--ovt-scrollbar-hover);
+}
+
+/* Release selector */
+.overture-release-row {
+  margin-bottom: 10px;
+}
+
+.overture-control-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ovt-text);
+}
+
+.overture-release-select {
+  display: block;
+  width: 100%;
+  margin-top: 4px;
+  padding: 5px 8px;
+  font-size: 12px;
+  color: var(--ovt-text);
+  background: var(--ovt-input-bg);
+  border: 1px solid var(--ovt-input-border);
+  border-radius: 4px;
+  outline: none;
+}
+
+.overture-release-select:focus {
+  border-color: var(--ovt-accent);
+}
+
+/* Error message */
+.overture-control-error {
+  margin: 0 0 10px 0;
+  padding: 6px 8px;
+  border-radius: 4px;
+  background: var(--ovt-error-bg);
+  color: var(--ovt-error-fg);
+  font-size: 11px;
+}
+
+/* Transient notice (e.g. export feedback). Kept as an aria-live region in
+   the DOM; collapses when empty so screen readers still announce updates. */
+.overture-control-notice {
+  margin: 0 0 10px 0;
+  padding: 6px 8px;
+  border-radius: 4px;
+  background: var(--ovt-hover);
+  color: var(--ovt-text);
+  font-size: 11px;
+  border-left: 3px solid var(--ovt-accent);
+}
+
+.overture-control-notice:empty {
+  display: none;
+}
+
+/* Feature inspection toggle */
+.overture-inspect-row {
+  margin: 0 0 10px 0;
+}
+
+.overture-inspect-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  color: var(--ovt-text);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.overture-inspect-checkbox {
+  margin: 0;
+  accent-color: var(--ovt-accent);
+  cursor: pointer;
+}
+
+/* Theme groups */
+.overture-control-themes {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.overture-theme-group {
+  border-radius: 4px;
+}
+
+.overture-theme-header {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.overture-theme-header:hover {
+  background: var(--ovt-hover);
+}
+
+.overture-theme-caret {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--ovt-muted);
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease;
+}
+
+.overture-theme-group.expanded .overture-theme-caret {
+  transform: rotate(90deg);
+}
+
+.overture-theme-caret:focus-visible {
+  outline: 2px solid var(--ovt-accent);
+  outline-offset: 1px;
+}
+
+.overture-theme-toggle {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  color: var(--ovt-text);
+}
+
+.overture-theme-checkbox {
+  margin: 0;
+  accent-color: var(--ovt-accent);
+  cursor: pointer;
+}
+
+.overture-theme-name {
+  flex: 1 1 auto;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Layer rows (shown when the theme group is expanded) */
+.overture-theme-layers {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  padding: 2px 4px 6px 22px;
+}
+
+.overture-theme-group.expanded .overture-theme-layers {
+  display: flex;
+}
+
+.overture-layer-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 3px 4px;
+  border-radius: 4px;
+}
+
+.overture-layer-row:hover {
+  background: var(--ovt-hover);
+}
+
+.overture-layer-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.overture-layer-toggle {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  color: var(--ovt-text);
+  min-width: 0;
+}
+
+.overture-layer-checkbox {
+  margin: 0;
+  accent-color: var(--ovt-accent);
+  cursor: pointer;
+}
+
+.overture-layer-swatch {
+  flex: 0 0 auto;
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.25);
+}
+
+.overture-layer-name {
+  flex: 1 1 auto;
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.overture-layer-style-btn,
+.overture-layer-export-btn {
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--ovt-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overture-layer-style-btn svg,
+.overture-layer-export-btn svg {
+  stroke: currentcolor;
+  fill: none;
+}
+
+.overture-layer-style-btn:hover,
+.overture-layer-export-btn:hover:not(:disabled) {
+  background: var(--ovt-hover);
+  color: var(--ovt-text);
+}
+
+.overture-layer-row.editing .overture-layer-style-btn {
+  color: var(--ovt-accent);
+}
+
+.overture-layer-export-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.overture-layer-style-btn:focus-visible,
+.overture-layer-export-btn:focus-visible {
+  outline: 2px solid var(--ovt-accent);
+  outline-offset: 1px;
+}
+
+/* Inline per-layer style editor (shown when the row is editing) */
+.overture-layer-editor {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  padding: 4px 4px 6px 24px;
+}
+
+.overture-layer-row.editing .overture-layer-editor {
+  display: flex;
+}
+
+.overture-style-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ovt-muted);
+  font-size: 11px;
+}
+
+.overture-style-field > span {
+  flex: 0 0 48px;
+}
+
+.overture-style-field input[type='range'] {
+  flex: 1 1 auto;
+  margin: 0;
+  accent-color: var(--ovt-accent);
+  cursor: pointer;
+}
+
+.overture-style-field input[type='range']:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.overture-layer-color {
+  flex: 0 0 auto;
+  width: 28px;
+  height: 18px;
+  padding: 0;
+  border: none;
+  border-radius: 3px;
+  background: none;
+  cursor: pointer;
+}
+
+.overture-layer-color::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.overture-layer-color::-webkit-color-swatch {
+  border: 1px solid var(--ovt-border);
+  border-radius: 3px;
+}
+
+.overture-layer-color::-moz-color-swatch {
+  border: 1px solid var(--ovt-border);
+  border-radius: 3px;
+}
+
+.overture-layer-color:focus-visible {
+  outline: 2px solid var(--ovt-accent);
+  outline-offset: 1px;
+}
+
+/* Hint text */
+.overture-control-hint {
+  margin: 10px 0 0 0;
+  color: var(--ovt-muted);
+  font-size: 11px;
+}
+
+/* Positive confirmation once the detail-theme zoom threshold is met */
+.overture-control-hint--active {
+  color: var(--ovt-success-fg);
+}
+
+.overture-control-hint--active::before {
+  content: '\2713\00a0';
+}
+
+/* Inspect popup */
+.overture-popup .maplibregl-popup-content {
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.overture-popup-content {
+  background: var(--ovt-bg);
+  color: var(--ovt-text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 12px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  padding: 8px 10px;
+  max-height: 240px;
+  overflow-y: auto;
+  min-width: 180px;
+}
+
+.overture-popup-heading {
+  font-weight: 600;
+  font-size: 12px;
+  margin-bottom: 6px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--ovt-border);
+}
+
+.overture-popup-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.overture-popup-table td {
+  padding: 2px 4px;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+.overture-popup-key {
+  color: var(--ovt-muted);
+  white-space: nowrap;
+}
+
+.overture-popup-value {
+  color: var(--ovt-text);
+}
+
+.overture-popup-empty {
+  color: var(--ovt-muted);
+}
+
+/* Form elements (generic, kept for custom panel content) */
+.overture-control-group {
+  margin-bottom: 12px;
+}
+
+.overture-control-group:last-child {
+  margin-bottom: 0;
+}
+
+.overture-control-input {
+  width: 100%;
+  padding: 8px 10px;
+  font-size: 14px;
+  color: var(--ovt-text);
+  background: var(--ovt-input-bg);
+  border: 1px solid var(--ovt-input-border);
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.overture-control-input:focus {
+  border-color: var(--ovt-accent);
+  box-shadow: 0 0 0 3px rgba(74, 144, 217, 0.15);
+}
+
+.overture-control-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+  background: var(--ovt-accent);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.overture-control-button:hover {
+  filter: brightness(0.92);
+}
+
+.overture-control-button:focus {
+  outline: 2px solid var(--ovt-accent);
+  outline-offset: 2px;
+}
+
+.overture-control-button:disabled {
+  background: var(--ovt-scrollbar);
+  cursor: not-allowed;
+}
+
+/* Utility classes */
+.overture-control-flex {
+  display: flex;
+  gap: 8px;
+}
+
+.overture-control-flex-col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.overture-control-divider {
+  height: 1px;
+  background: var(--ovt-border);
+  margin: 12px 0;
+}
+
+/* Small screens: keep the panel inside the viewport with vertical scrolling */
+@media (max-width: 480px) {
+  .overture-control-panel {
+    min-width: 200px;
+    max-width: calc(100vw - 20px);
+    max-height: calc(100vh - 100px);
+  }
+
+  .overture-control-content {
+    max-height: calc(100vh - 150px);
+  }
+}
+/*$vite$:1*/
