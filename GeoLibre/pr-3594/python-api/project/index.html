@@ -12986,7 +12986,9 @@ reopened from a project, so they are refused.</p>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>An <code>http(s)://</code>, <code>s3://</code>, or <code>gs://</code> Zarr store URL.</p>
+                <p>An <code>http(s)://</code>, <code>s3://</code>, or <code>gs://</code> Zarr store URL.
+Google Storage URLs are saved as public HTTPS endpoints, preserving
+their query parameters so the app can reopen them.</p>
               </div>
             </td>
             <td>
