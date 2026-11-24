@@ -2612,6 +2612,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#recovering-an-ambiguous-legacy-secret" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Recovering an ambiguous legacy secret
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#single-sign-on-on-the-consent-page" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -4150,6 +4161,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#recovering-an-ambiguous-legacy-secret" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Recovering an ambiguous legacy secret
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#single-sign-on-on-the-consent-page" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -4527,6 +4549,8 @@ implementation or storage engine. The reference implementation lives in
   <code>GEOLIBRE_RATE_LIMIT_API</code>, default 600 per 60 seconds elsewhere; over budget
   answers <code>429</code> with <code>Retry-After</code>), but its counters live in each worker
   process, so they multiply with workers and replicas and reset on restart.
+  IPv6 clients in the same /64 share a budget, so rotating host addresses
+  within that subnet does not reset the limit. IPv4 budgets remain per address.
   Configure <code>GEOLIBRE_TRUSTED_PROXIES</code> with the actual reverse proxy's source
   IP or network. Without it, proxied users all share the proxy's IP and one
   deployment-wide budget: by default 30 credential requests and 600 other
@@ -5270,6 +5294,42 @@ and <code>identity provider discovery failed</code>. Out-of-range values are a g
   <code>GEOLIBRE_ALLOW_PLAINTEXT_SECRETS=1</code>. In that mode, plaintext secrets beginning
   with <code>enc:v1:</code> are rejected (<code>422</code>) to keep stored values unambiguous.</li>
 </ul>
+<h3 id="recovering-an-ambiguous-legacy-secret">Recovering an ambiguous legacy secret<a class="headerlink" href="#recovering-an-ambiguous-legacy-secret" title="Permanent link">&para;</a></h3>
+<p>An older build could save plaintext beginning with <code>enc:v1:</code>, the prefix now
+reserved for encrypted values. This is indistinguishable from damaged
+ciphertext. Startup and migration refuse to guess and identify the affected
+identity-provider row in the error, without logging its secret. For actual
+ciphertext, restore the key used to write it. For a confirmed legacy plaintext
+credential, re-enter its known value encrypted under the configured key.
+Back up the database first. Run this in the installed server API environment,
+with <code>GEOLIBRE_DATABASE_URL</code> and <code>GEOLIBRE_SECRET_KEYS</code> configured and
+<code>GEOLIBRE_REPAIR_PROVIDER_ID</code> set to the row id reported by the error:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">getpass</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">sqlalchemy</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_engine</span><span class="p">,</span> <span class="n">text</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">geolibre_server_api.secret_crypto</span><span class="w"> </span><span class="kn">import</span> <span class="n">encrypt_secret</span><span class="p">,</span> <span class="n">secret_ciphers</span>
+
+<span class="k">if</span> <span class="n">secret_ciphers</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">"Configure GEOLIBRE_SECRET_KEYS before repairing the secret"</span><span class="p">)</span>
+<span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"GEOLIBRE_DATABASE_URL"</span><span class="p">])</span>
+<span class="k">with</span> <span class="n">engine</span><span class="o">.</span><span class="n">begin</span><span class="p">()</span> <span class="k">as</span> <span class="n">connection</span><span class="p">:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+        <span class="n">text</span><span class="p">(</span><span class="s2">"UPDATE organization_identity_providers SET client_secret=:secret WHERE id=:id"</span><span class="p">),</span>
+        <span class="p">{</span>
+            <span class="s2">"id"</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"GEOLIBRE_REPAIR_PROVIDER_ID"</span><span class="p">],</span>
+            <span class="s2">"secret"</span><span class="p">:</span> <span class="n">encrypt_secret</span><span class="p">(</span><span class="n">getpass</span><span class="o">.</span><span class="n">getpass</span><span class="p">(</span><span class="s2">"Identity provider client secret: "</span><span class="p">)),</span>
+        <span class="p">},</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">rowcount</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">"Expected exactly one identity provider row; transaction rolled back"</span><span class="p">)</span>
+<span class="n">engine</span><span class="o">.</span><span class="n">dispose</span><span class="p">()</span>
+</code></pre></div>
+<p>Retry the migration or startup afterward. Repair only the secret column;
+deleting and recreating the provider would also remove its linked identities.
+Alembic reads <code>GEOLIBRE_PUBLIC_URL</code> to restrict the development opt-out. Set it
+to the actual deployment URL even when your application passes <code>public_url</code>
+directly to <code>create_app</code>.</p>
 <h3 id="single-sign-on-on-the-consent-page">Single sign-on on the consent page<a class="headerlink" href="#single-sign-on-on-the-consent-page" title="Permanent link">&para;</a></h3>
 <p>When any organization has an enabled identity provider, the consent page adds
 a second form: an <code>Organization</code> field (the organization slug) and a
