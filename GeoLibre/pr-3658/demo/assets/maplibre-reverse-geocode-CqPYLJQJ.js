@@ -1,1 +1,0 @@
-import{X as e}from"./builtin-plugin-metadata-BDWSFAAy.js";import{n as o,r,t as s}from"./maplibre-reverse-geocode-CAD7rnUU.js";export{e as REVERSE_GEOCODE_PLUGIN_ID,s as maplibreReverseGeocodePlugin,o as restoreReverseGeocode,r as setReverseGeocodeLabels};
