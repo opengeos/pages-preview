@@ -4196,9 +4196,9 @@ App Store Connect.</p>
 <li>Local-file sources (MBTiles, local rasters, project files) assume real
   filesystem paths; iOS hands apps sandboxed URLs via the document picker, so
   those flows need adapting before they work natively.</li>
-<li><strong>Offline basemap</strong> uses the shared native PMTiles package store rather than
+<li><strong>Offline basemap</strong> includes shared native PMTiles and MBTiles extraction and package storage rather than
   the PWA's service-worker cache. See <a href="../native-offline-packages/">Native offline basemap packages</a>.
-  Real iOS device verification, managed MBTiles extraction, and conflict-aware sync remain future
+  Real iOS device verification and conflict-aware sync remain future
   work.</li>
 <li>Earth Engine is hidden in the App Store build because its OAuth uses a
   desktop loopback flow; a mobile deep-link redirect (an iOS URL scheme /

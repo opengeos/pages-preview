@@ -4082,11 +4082,11 @@ review, so gate them on mobile the way the sidecar tools already are via
 <li>Keep the locked Wry dependency at 0.57.1 or later. Earlier versions apply
   nonzero byte-range offsets twice on Android, breaking local raster reads even
   when their headers load. See <a href="https://github.com/tauri-apps/wry/pull/1865">upstream Wry fix #1865</a>.</li>
-<li><strong>Offline basemap</strong> saves PMTiles extracts in native app storage, with a
+<li><strong>Offline basemap</strong> saves remote PMTiles and local MBTiles extracts in native app storage, with a
   device-local catalog, restart-safe project references, and explicit export
   and deletion. See <a href="../native-offline-packages/">Native offline basemap packages</a>.
-  The old service-worker cache remains specific to the PWA. Managed MBTiles
-  extraction and conflict-aware edit synchronization remain follow-up work.</li>
+  The old service-worker cache remains specific to the PWA. Conflict-aware edit
+  synchronization remains follow-up work.</li>
 <li>Earth Engine OAuth uses a desktop loopback/multi-window flow; a mobile
   deep-link redirect is future work.</li>
 </ul>
