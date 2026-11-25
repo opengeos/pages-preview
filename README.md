@@ -11,6 +11,10 @@ pull request, and deleted when it closes. Everything here is machine-generated
 and disposable: nothing is served from this repository in production, and
 `gh-pages` may be reset at any time to reclaim space.
 
+A daily [prune job](.github/workflows/prune-previews.yml) also deletes any
+`<repo-name>/pr-<number>/` whose pull request in `opengeos/<repo-name>` is no
+longer open, in case a repository's own cleanup was cancelled or failed.
+
 > [!WARNING]
 > A preview can run unreviewed third-party code in your browser. Open previews
 > only for pull requests you are reviewing, and prefer a throwaway browser
