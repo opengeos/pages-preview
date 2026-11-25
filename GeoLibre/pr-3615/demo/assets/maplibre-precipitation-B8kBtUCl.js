@@ -1,1 +1,0 @@
-import{Y as i}from"./builtin-plugin-metadata-BDWSFAAy.js";import{a,i as t,n as r,o as e,r as o,t as s}from"./maplibre-precipitation-CrZHtiH9.js";export{i as PRECIPITATION_PLUGIN_ID,s as getPrecipitationAnimationState,r as maplibrePrecipitationPlugin,o as radarFramesFromResponse,t as setPrecipitationFrame,a as subscribePrecipitation,e as togglePrecipitationPlaying};
