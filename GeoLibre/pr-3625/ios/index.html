@@ -3766,8 +3766,10 @@ Distribution</em>, <code>get-task-allow=false</code>, an embedded App Store prov
 profile, the merged location usage string, and the web assets embedded in the
 binary:</p>
 <ul>
-<li><strong>Locally</strong> on a Mac (Xcode 26.6 / iOS SDK 26.5): <code>tauri ios init</code> → unsigned
-  archive → <code>xcodebuild -exportArchive</code>.</li>
+<li><strong>Locally</strong> on a Mac with Xcode 27+ (iOS 27 SDK) and rustup's <code>llvm-tools</code>
+  component: <code>tauri ios init</code> → unsigned archive → <code>xcodebuild -exportArchive</code>.
+  From April 2027 App Store Connect rejects uploads built with an older Xcode,
+  so an Xcode 26 archive is no longer submittable.</li>
 <li><strong>In CI</strong>, on the <code>xcode-27</code> runner (Xcode 27): it imports the certificate and
   profile from the <code>APPLE_IOS_*</code> secrets, archives, exports under manual
   signing, verifies the signature, and publishes the <code>geolibre-ios-ipa</code>
@@ -4047,9 +4049,10 @@ project in <strong>object format 77</strong>, which only <strong>Xcode 16+</stro
   Reason: The project 'geolibre-desktop' cannot be opened because it is in a
   future Xcode project file format (77).
 </code></pre></div>
-<p>The job therefore runs on a recent image and explicitly selects the newest Xcode on
-the image rather than trusting its default, failing early with a clear message
-if that is older than 16. Note this floor comes from the <strong>Tauri CLI's</strong>
+<p>The job therefore runs on the <code>xcode-27</code> image and explicitly selects the newest
+Xcode on it rather than trusting its default, failing early with a clear message
+if that is older than 16 (project format) or 27 (App Store SDK floor, below).
+Note the Xcode 16 floor comes from the <strong>Tauri CLI's</strong>
 generated project, not from anything in this repo — re-check it whenever the
 Tauri CLI is bumped.</p>
 <p>Separately, App Store Connect rejects uploads built against an SDK below its
@@ -4069,7 +4072,11 @@ llvm-tools</code>, locally too). Its SwiftPM hides the <code>@_cdecl</code> expo
 plugin packages, and swift-rs uses rustup's <code>llvm-objcopy</code> to make them global
 again. Without it the build only prints a cargo warning (<code>swift-rs:
 llvm-objcopy not found</code>) and then fails to link with <code>Undefined symbols:
-_init_plugin_geolocation</code>.</p>
+_init_plugin_geolocation</code>. The logic is <code>globalize_cdecl_symbols</code> in swift-rs's
+<code>src-rs/build.rs</code> (1.0.8+). If a build already failed this way, run
+<code>cargo clean</code> (or <code>cargo clean -p &lt;crate&gt;</code> for the failing plugin crate) after
+installing the component: Cargo can reuse the cached build-script output and
+skip the step, failing the link again.</p>
 </blockquote>
 <p>The <code>workflow_dispatch</code> <code>export_method</code> input picks the export path
 (<code>app-store-connect</code> for TestFlight/App Store, <code>release-testing</code> for ad-hoc
