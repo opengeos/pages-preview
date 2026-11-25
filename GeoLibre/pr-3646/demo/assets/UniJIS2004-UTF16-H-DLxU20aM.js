@@ -1,0 +1,1 @@
+var a=new URL("UniJIS2004-UTF16-H-KXixH-HI.bcmap",import.meta.url).href;export{a as default};
