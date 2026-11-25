@@ -1,1 +1,0 @@
-import{n as o}from"./plugin-i18n-CgaB8Q8N.js";var n=null;function i(r){n=r}function a(r,t,s){const e=o(t,s);if(!n)return e;try{return n(r,t,s)||e}catch{return e}}var c=class extends Error{key;englishMessage;params;constructor(r,t,s,e){super(a(r,t,s),e),this.name="LocalizedError",this.key=r,this.englishMessage=o(t,s),this.params=s}};export{a as n,i as r,c as t};

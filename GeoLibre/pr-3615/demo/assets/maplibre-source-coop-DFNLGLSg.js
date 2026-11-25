@@ -1,1 +1,0 @@
-import{V as r,it as o}from"./builtin-plugin-metadata-BDWSFAAy.js";import{i as s,n as t,r as a,t as _}from"./maplibre-source-coop-CucLWHf6.js";export{_ as DEFAULT_SOURCE_COOP_LABELS,r as NATURAL_EARTH_PLUGIN_ID,o as SOURCE_COOP_PLUGIN_ID,a as default,a as maplibreSourceCoopPlugin,t as maplibreNaturalEarthPlugin,s as setSourceCoopLabels};
