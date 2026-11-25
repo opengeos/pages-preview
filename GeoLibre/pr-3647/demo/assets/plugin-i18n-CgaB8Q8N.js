@@ -1,0 +1,1 @@
+function u(t,n){return n?t.replace(/\{\{\s*(\w+)\s*\}\}/g,(r,i)=>n[i]===void 0?"":String(n[i])):t}function c(t,n,r){return()=>t.translate?.(`toolbar.plugin.${n}`,r)??r}function g(t,n){return(r,i,e)=>{const s=typeof t=="function"?t():t,l=r.startsWith("@")?r.slice(1):`plugin.${n}.${r}`,o=s?.translate?.(l,i,e);return typeof o=="string"?o:u(i,e)}}export{u as n,c as r,g as t};
