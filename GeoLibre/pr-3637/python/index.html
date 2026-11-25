@@ -4326,8 +4326,8 @@ variants can only run on a worker thread.</p>
 <td>Add an ArcGIS REST MapServer or ImageServer (<code>service="map"</code>/<code>"image"</code>, raster tiles from the export endpoint) or a FeatureServer layer (<code>service="feature"</code>, features in view loaded when the project opens with the MapLibre renderer).</td>
 </tr>
 <tr>
-<td><code>add_zarr(url, variable, name=, selector=, clim=, colormap=, bounds=, crs=, spatial_dimensions=, **style)</code></td>
-<td>Add one variable of a Zarr data cube, drawn by the app's Zarr control. Icechunk and local stores cannot be saved in a project.</td>
+<td><code>add_zarr(url, variable, name=, selector=, clim=, colormap=, bounds=, crs=, spatial_dimensions=, icechunk_branch=None, **style)</code></td>
+<td>Add one variable of a Zarr data cube. Public HTTP(S) Icechunk repositories reopen on the saved branch: pass <code>icechunk_branch="main"</code> or an encoded <code>#icechunk=...</code> URL. Local session stores and private repository credentials are not persisted.</td>
 </tr>
 <tr>
 <td><code>add_basemap(basemap)</code> / <code>set_basemap(basemap)</code></td>
