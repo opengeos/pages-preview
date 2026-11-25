@@ -1,1 +1,0 @@
-import{ht as L}from"./builtin-plugin-metadata-BDWSFAAy.js";import{n as s,r as a,t as _}from"./maplibre-us-local-gis-dR_RFQV2.js";export{_ as DEFAULT_US_LOCAL_GIS_LABELS,L as US_LOCAL_GIS_PLUGIN_ID,s as default,s as maplibreUsLocalGisPlugin,a as setUsLocalGisLabels};
