@@ -4143,10 +4143,13 @@ hooks remain importable without implementations.</p>
 <h3 id="gps-session-ownership">GPS session ownership<a class="headerlink" href="#gps-session-ownership" title="Permanent link">&para;</a></h3>
 <p><code>useGpsPositionSource</code> owns the device location watch, external NMEA receiver,
 connection generations, receiver statistics, and NTRIP correction session. The
-always-mounted GPS dialog uses its state and actions; closing the dialog body
-does not stop tracking. A source change, stop, or unmount invalidates pending
+GPS dialog uses its state and actions once mounted on first open; closing the
+dialog body does not stop tracking. Viewer mode unmounts the owner. A source
+change, stop, or unmount invalidates pending
 receiver connections and releases late arrivals. Device callbacks from a stopped
-watch are ignored before they can recreate a position overlay or change errors.</p>
+watch are ignored before they can recreate a position overlay or change errors.
+Connection choices are hidden while a receiver is connected. Disconnecting
+pauses an active recording; reconnecting leaves it paused until the user resumes.</p>
 <p><code>GpsTrackingDialog</code> owns track recording, capture, and transient map overlays.
 Fixes enter the recording before map availability is checked, so recording works
 while a renderer is absent. Pause/resume creates separate segments; only saved
