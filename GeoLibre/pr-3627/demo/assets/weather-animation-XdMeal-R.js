@@ -1,1 +1,0 @@
-function r(){let t,i;const n=new Set,a=()=>{for(const e of n)e()};return{provide:e=>{t!==e&&(i?.(),t=e,i=e.subscribe(a),a())},getState:()=>t?.getState()??{labels:[],index:0,playing:!1,active:!1},setFrame:e=>t?.setFrame(e),togglePlaying:()=>t?.togglePlaying(),subscribe:e=>(n.add(e),()=>n.delete(e))}}var o=r(),s=r();export{s as n,o as t};
