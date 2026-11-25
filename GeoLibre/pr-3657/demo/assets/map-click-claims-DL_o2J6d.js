@@ -1,0 +1,1 @@
+var t=new Set;function a(r){const e=()=>r();return t.add(e),()=>{t.delete(e)}}function i(){for(const r of t)try{if(r())return!0}catch(e){console.warn("[GeoLibre] A map click claim could not be read",e)}return!1}export{a as n,i as t};
