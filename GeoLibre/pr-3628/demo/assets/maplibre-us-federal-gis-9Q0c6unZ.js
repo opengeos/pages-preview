@@ -1,0 +1,1 @@
+import{mt as a}from"./builtin-plugin-metadata-BDWSFAAy.js";import{n as s,r as e,t as r}from"./maplibre-us-federal-gis-gy0gxCKX.js";export{r as DEFAULT_US_FEDERAL_GIS_LABELS,a as US_FEDERAL_GIS_PLUGIN_ID,s as default,s as maplibreUsFederalGisPlugin,e as setUsFederalGisLabels};
