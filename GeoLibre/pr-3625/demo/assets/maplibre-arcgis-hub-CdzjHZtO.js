@@ -1,1 +1,0 @@
-import{l as s}from"./builtin-plugin-metadata-BDWSFAAy.js";import{i as a,n as i,r,t as e}from"./maplibre-arcgis-hub-CfS3vMNz.js";export{s as ARCGIS_HUB_PLUGIN_ID,e as DEFAULT_ARCGIS_HUB_LABELS,i as createArcGisHubPlugin,r as default,r as maplibreArcGisHubPlugin,a as setArcGisHubLabels};
