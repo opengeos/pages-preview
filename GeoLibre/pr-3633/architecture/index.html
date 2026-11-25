@@ -2301,6 +2301,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#field-collection-session-ownership" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Field Collection session ownership
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#gps-session-ownership" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -3797,6 +3808,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#field-collection-session-ownership" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Field Collection session ownership
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#gps-session-ownership" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -4140,6 +4162,17 @@ hooks remain importable without implementations.</p>
 </ol>
 <p>Every layer action replaces the <code>layers</code> array, so <code>useAppStore((s) =&gt; s.layers)</code> re-renders a component on any edit of any layer. Only subscribers that genuinely need every field of every layer (the map canvases' sync, the Layers panel) should do that. Everything else uses the narrow hooks in <code>packages/core/src/layer-selectors.ts</code>: <code>useLayer(id)</code> for one record, <code>useLayerIds()</code> for the id list, <code>useLayerSummaries()</code> for <code>{ id, name, type, visible, groupId }</code> rows, <code>useLayersWhen(open)</code> for always-mounted dialogs and panels that need the full array only while open, and <code>useLayerSlices(selector)</code> with a <code>createLayerSliceSelector(pick)</code> memoized per component mount for a list that needs a few more fields than a summary (a layer's features, its refresh cadence): each slice keeps its identity until one of its own picked fields changes. A handler that needs full layer records only when it runs reads <code>useAppStore.getState().layers</code> instead of subscribing.</p>
 <p><code>useAppStore</code> is one Zustand store, but its code is split into slices under <code>packages/core/src/store/</code> (project, map view, layers, layer groups, project content, processing, libraries, session, collaboration, capabilities, and the <code>ui</code> dialog flags), composed in <code>packages/core/src/store.ts</code>. Add a new field or action to the slice that owns its data; an action that must also update another slice's fields (as <code>removeLayer</code> scrubs references everywhere) reads and writes the whole state through <code>set</code>/<code>get</code>. Undo history (<code>store/undo-history.ts</code>) tracks only the fields <code>partializeHistory</code> lists (layers, layer groups, basemap, story map, comments, dashboard widgets, legend). Everything else, including the whole <code>ui</code> sub-state, the selection and the camera, never records an undo step and is never reverted by undo or redo. Secondary panes and the Print Layout also reference layers but stay untracked (panes carry their own camera and must match the untracked grid layout; the composer writes back a local copy), so each undo/redo step scrubs their references to layers the step removed.</p>
+<h3 id="field-collection-session-ownership">Field Collection session ownership<a class="headerlink" href="#field-collection-session-ownership" title="Permanent link">&para;</a></h3>
+<p><code>useFieldCollectionController</code> owns capture targets, placement, GPS requests,
+photo reads, form values, validation, and saving. The dialog renders its grouped
+view props and on-map controls. Placement and capture-context generations stay
+inside the controller: changing a target or project invalidates its pending
+work, while dismissing a captured draft preserves it for reopening. Photo reads
+belong to the capture context rather than one GPS placement, and an old read
+cannot release the next capture's busy state. Unmount invalidates pending work
+before removing previews, preventing late GPS replies from moving the map or
+recreating a marker. Saved observations enter the core
+store, independent of whether a map is available.</p>
 <h3 id="gps-session-ownership">GPS session ownership<a class="headerlink" href="#gps-session-ownership" title="Permanent link">&para;</a></h3>
 <p><code>useGpsPositionSource</code> owns the device location watch, external NMEA receiver,
 connection generations, receiver statistics, and NTRIP correction session. The
