@@ -1,1 +1,0 @@
-import{o as e}from"./core-C25TPJda.js";import{dt as i}from"./src-CatbJ14L.js";async function n(){const{root:t,problems:o}=await e("initialize_native_document_copies");return i.getState().setNativeDocumentCopyRoot(t),o}export{n as initializeNativeDocumentCopies};
