@@ -3184,6 +3184,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#geolibre.project.sql_query_layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;sql_query_layer
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#geolibre.project.tile_layer" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -4526,6 +4537,17 @@
     <span class="md-ellipsis">
       <span class="md-typeset">
         <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;geojson_layer
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#geolibre.project.sql_query_layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;sql_query_layer
       </span>
     </span>
   </a>
@@ -7142,6 +7164,155 @@ source for restore/refresh).</p>
             <td>
               <div class="doc-md-description">
                 <p>A layer dict for the project's <code>layers</code> array.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="geolibre.project.sql_query_layer" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <span class="doc doc-object-name doc-function-name">sql_query_layer</span>
+
+
+<a href="#geolibre.project.sql_query_layer" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">sql_query_layer</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="n"><span title="str">str</span></span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n"><span title="typing.Any">Any</span></span><span class="p">,</span> <span class="n">sql</span><span class="p">:</span> <span class="n"><span title="str">str</span></span><span class="p">,</span> <span class="o">**</span><span class="n">style</span><span class="p">:</span> <span class="n"><span title="typing.Any">Any</span></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="dict">dict</span></span><span class="p">[</span><span class="n"><span title="str">str</span></span><span class="p">,</span> <span class="n"><span title="typing.Any">Any</span></span><span class="p">]</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Build a DuckDB SQL query layer with an embedded result snapshot.</p>
+<p>The snapshot renders immediately when the project opens. Refresh in the app
+re-executes SQL against the other project layers, using their table names.
+This builder stores the supplied result; it does not execute SQL in Python.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>name</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Layer display name.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>data</code>
+            </td>
+            <td>
+                  <code><span title="typing.Any">Any</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>GeoJSON result, using the inputs accepted by load_featurecollection.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>sql</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>DuckDB SQL that produced the result. Source layers must be present
+in the project to refresh; table names follow the SQL Workspace.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>**style</code>
+            </td>
+            <td>
+                  <code><span title="typing.Any">Any</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Style overrides merged into the default layer style.</p>
+              </div>
+            </td>
+            <td>
+                  <code>{}</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="dict">dict</span>[<span title="str">str</span>, <span title="typing.Any">Any</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A GeoJSON layer carrying the snapshot and a refreshable query definition.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="ValueError">ValueError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If SQL is blank or is not a string, or GeoJSON is invalid.</p>
               </div>
             </td>
           </tr>
