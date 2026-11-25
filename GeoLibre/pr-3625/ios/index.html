@@ -4064,6 +4064,12 @@ warning. No <code>macos-*</code> image ships Xcode 27 yet, so the job runs on Gi
 <code>xcode-27</code> image, and the Xcode step fails before archiving if the selected
 Xcode is older than 27. Raise that check and the runner label when Apple
 announces the next floor.</p>
+<p>Xcode 27 also needs rustup's <strong><code>llvm-tools</code></strong> component (<code>rustup component add
+llvm-tools</code>, locally too). Its SwiftPM hides the <code>@_cdecl</code> exports of the Swift
+plugin packages, and swift-rs uses rustup's <code>llvm-objcopy</code> to make them global
+again. Without it the build only prints a cargo warning (<code>swift-rs:
+llvm-objcopy not found</code>) and then fails to link with <code>Undefined symbols:
+_init_plugin_geolocation</code>.</p>
 </blockquote>
 <p>The <code>workflow_dispatch</code> <code>export_method</code> input picks the export path
 (<code>app-store-connect</code> for TestFlight/App Store, <code>release-testing</code> for ad-hoc
