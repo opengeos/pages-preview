@@ -1,0 +1,1 @@
+var a="",e,n;function u(t){n=t}function r(t){t!==void 0&&t!==e||(a="",e=void 0)}function s(t){c(t)}function c(t){const o=Symbol("STAC catalog request");return n?.(t)||(a=t,e=o),o}function i(){const t=a;return r(),t}export{s as a,u as i,r as n,i as r,c as t};
