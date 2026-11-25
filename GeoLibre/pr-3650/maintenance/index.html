@@ -6262,7 +6262,8 @@ them, so nothing else would notice that drift.</p>
 <p><code>backend/geolibre_server/uv.lock</code> <strong>is committed</strong> (the root <code>.gitignore</code> ignores
 <code>uv.lock</code> everywhere else and negates it for this one path). That project is
 bundled into the desktop installers and launched with
-<code>uv run --frozen --project &lt;resource dir&gt;</code> from <code>src-tauri/src/lib.rs</code> — a
+<code>uv run --frozen --project &lt;resource dir&gt;</code> from <code>src-tauri/src/sidecar.rs</code> and
+<code>jupyter.rs</code> — a
 directory the user cannot write (<code>C:\Program Files\…</code>,
 <code>/usr/lib/GeoLibre Desktop/…</code>). Ship it lockless and uv resolves, then tries to
 <em>write</em> <code>uv.lock</code> there, fails with "Permission denied" and exits 2 — which reaches

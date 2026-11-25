@@ -4471,7 +4471,7 @@ writes them without an explicit choice.</p>
 <h3 id="native-http-trust-store-and-mutual-tls">Native HTTP trust store and mutual TLS<a class="headerlink" href="#native-http-trust-store-and-mutual-tls" title="Permanent link">&para;</a></h3>
 <p>The desktop app issues some remote fetches (tile/URL resolution, OGC
 GetCapabilities, and similar) from the native Rust process rather than the
-WebView. That path (<code>guarded_http_client</code> in <code>src-tauri/src/lib.rs</code>) trusts the
+WebView. That path (<code>guarded_http_client</code> in <code>src-tauri/src/guarded_http.rs</code>) trusts the
 <strong>OS/system certificate store</strong> in addition to the bundled Mozilla roots, so a
 server signed by an enterprise CA installed on the machine is accepted without
 extra configuration.</p>
