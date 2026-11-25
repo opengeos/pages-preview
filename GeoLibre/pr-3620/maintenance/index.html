@@ -4827,7 +4827,17 @@ that replaces <code>_camera.transform</code> in 6.19, and verify blend composite
 the renderer as well as the style spec. The 26.9 spec adds a fill-extrusion
 composite that the current renderer integration does not elect.</p>
 <ul>
-<li><strong><code>GLOBE_CONTROL_TOGGLE_SELECTOR</code></strong> (<code>packages/map/src/globe-control-toggle.ts</code>)
+<li>
+<p><strong>Print-capture pole visibility</strong> uses public projection/unprojection in
+  production. <code>tests/print-visible-poles.test.ts</code> also exercises the installed
+  package's private <code>createGlobeTransform</code> with a pitched southern camera that
+  sees only the North Pole. Keep this test aligned with the installed engine
+  on upgrades. A pole projected inside the viewport can still be occluded;
+  capture metadata requires an unprojection round trip and records image pixels
+  so layout crops can exclude the pole correctly.</p>
+</li>
+<li>
+<p><strong><code>GLOBE_CONTROL_TOGGLE_SELECTOR</code></strong> (<code>packages/map/src/globe-control-toggle.ts</code>)
   mirrors the class names MapLibre's own <code>GlobeControl</code> puts on its toggle button
   — <code>maplibregl-ctrl-globe</code> and <code>maplibregl-ctrl-globe-enabled</code>, swapped on every
   projection change. <code>MapCanvas</code> persists a projection change from a <strong>click</strong> on
@@ -4835,7 +4845,8 @@ composite that the current renderer integration does not elect.</p>
   initialization and project reconciliation emit that event too and a stale one
   overwrites the projection of a project that has just loaded.
   <code>tests/globe-control-toggle.test.ts</code> builds a real <code>GlobeControl</code> and fails if
-  the mirror stops matching.</li>
+  the mirror stops matching.</p>
+</li>
 <li><strong>Per-layer blend modes</strong> (<code>packages/map/src/layer-blend-modes.ts</code>) wrap three
   <em>unexported</em> <code>maplibre-gl</code> internals, because MapLibre renders every layer into
   one canvas and ships no per-layer blend API (upstream draft:
