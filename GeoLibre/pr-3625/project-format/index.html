@@ -655,6 +655,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../native-offline-packages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Native Offline Packages
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../user-guide/chrome-extension/" class="md-nav__link">
         
   
@@ -3993,6 +4020,11 @@ file contents do not change.</p>
 </tr>
 </tbody>
 </table>
+<p>Native offline basemaps can use <code>geolibre://offline-basemap/pkg-&lt;id&gt;/&lt;flavor&gt;</code>
+instead of a remote style URL. The native package catalog restores these
+addresses before rendering the project. They identify a package on this device;
+exporting a project does not bundle the archive or make that identity portable.
+See <a href="../native-offline-packages/">Native offline basemap packages</a>.</p>
 <p>The map's 3D look is part of the project. <code>mapView.pitch</code> and <code>mapView.bearing</code>
 hold the camera tilt and rotation, and <code>preferences.map</code> holds the terrain:
 <code>terrainEnabled</code> (3D terrain on or off), <code>terrainExaggeration</code> (vertical
