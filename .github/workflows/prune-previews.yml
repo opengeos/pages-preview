@@ -1,0 +1,94 @@
+name: Prune stale previews
+
+# Safety net for the per-repository cleanup jobs. Deletes every
+# <repo>/pr-<number>/ preview on gh-pages whose pull request in opengeos/<repo>
+# is no longer open.
+#
+# Publishing repositories remove their own previews when a PR closes, but such
+# a removal can be cancelled or fail and is never retried. Each preview can be
+# hundreds of MB, and once the site passes the 1 GB GitHub Pages limit every
+# deploy from every repository fails. This job keeps that from building up.
+#
+# A directory is skipped, never deleted, when its repository's open PRs cannot
+# be listed (a missing repository, an API error), so a bad lookup cannot wipe
+# live previews.
+
+on:
+  schedule:
+    - cron: "17 6 * * *"
+  workflow_dispatch:
+    inputs:
+      dry-run:
+        description: List what would be removed without pushing
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: prune-previews
+  cancel-in-progress: false
+
+jobs:
+  prune:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Remove previews of closed pull requests
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          OWNER: ${{ github.repository_owner }}
+          DRY_RUN: ${{ inputs.dry-run || 'false' }}
+        run: |
+          set -euo pipefail
+          # Blobless and without a checkout: gh-pages holds GBs of previews,
+          # and removing paths from the index needs only the trees.
+          git clone -q --filter=blob:none --no-checkout --depth 1 -b gh-pages \
+            "https://x-access-token:${GH_TOKEN}@github.com/${REPO}.git" site
+          cd site
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          prune() {
+            git read-tree HEAD
+            : > ../stale.txt
+            for umbrella in $(git ls-tree -d --name-only HEAD); do
+              previews=$(git ls-tree -d --name-only HEAD "${umbrella}/" | grep -E '/pr-[0-9]+$' || true)
+              [ -n "$previews" ] || continue
+              if ! open=$(gh pr list -R "${OWNER}/${umbrella}" --state open --limit 1000 \
+                  --json number --jq '.[].number'); then
+                echo "::warning::Could not list open PRs of ${OWNER}/${umbrella}; leaving its previews alone."
+                continue
+              fi
+              for dir in $previews; do
+                n=${dir##*/pr-}
+                if ! grep -qx "$n" <<<"$open"; then
+                  echo "$dir" >> ../stale.txt
+                fi
+              done
+            done
+          }
+
+          for attempt in 1 2 3 4 5; do
+            prune
+            count=$(wc -l < ../stale.txt)
+            echo "Stale previews: $count"
+            sed 's/^/  /' ../stale.txt
+            if [ "$count" -eq 0 ] || [ "$DRY_RUN" = "true" ]; then
+              exit 0
+            fi
+            xargs -a ../stale.txt git rm -r -q --cached --
+            git commit -q -m "Prune ${count} previews of closed pull requests"
+            if git push -q origin HEAD:gh-pages; then
+              exit 0
+            fi
+            # A preview deploy landed in between; start over from the new tip.
+            echo "Push rejected (attempt $attempt); refetching gh-pages."
+            git fetch -q --depth 1 origin gh-pages
+            git reset -q --soft FETCH_HEAD
+            sleep $((attempt * 10))
+          done
+          echo "::error::Could not push the prune after 5 attempts."
+          exit 1
