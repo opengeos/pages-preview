@@ -1,1 +1,0 @@
-import{f as a,rt as r}from"./builtin-plugin-metadata-BDWSFAAy.js";import{n as t,r as o,t as s}from"./maplibre-open-data-catalogs-C7z75m_C.js";export{a as CKAN_PLUGIN_ID,r as SOCRATA_PLUGIN_ID,s as maplibreCkanPlugin,t as maplibreSocrataPlugin,o as setOpenDataCatalogLabels};
