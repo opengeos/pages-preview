@@ -1,1 +1,0 @@
-import{t as c}from"./lzw-tiff-decoder-BVrZiC-c.js";async function u(e,t){const{width:r,height:n,samplesPerPixel:f,bitsPerSample:o}=t,s=r*n*f*(o/8);return y(c(new Uint8Array(e),s))}function y(e){if(e.byteOffset===0&&e.byteLength===e.buffer.byteLength)return e.buffer;const t=new Uint8Array(e.byteLength);return t.set(e),t.buffer}export{u as decode};
