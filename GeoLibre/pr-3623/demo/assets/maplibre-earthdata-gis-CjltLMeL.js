@@ -1,1 +1,0 @@
-import{S as t}from"./builtin-plugin-metadata-BDWSFAAy.js";import{a as s,i as r,n as a,r as o,t as A}from"./maplibre-earthdata-gis-b5yr-xeR.js";export{A as DEFAULT_EARTHDATA_GIS_LABELS,t as EARTHDATA_GIS_PLUGIN_ID,a as default,a as maplibreEarthdataGisPlugin,o as setEarthdataCogSaver,r as setEarthdataGisLabels,s as shouldAutoLoad};
