@@ -3837,15 +3837,15 @@ signed <code>.pkg</code>, and uploads it as the <code>geolibre-mas-pkg</code> ar
 run it also attaches that <code>.pkg</code> to the release, so the exact submitted bytes for
 a tag remain available after the CI artifact's retention window. It never uploads
 to App Store Connect — that step stays manual (see <em>Submitting</em> below).</p>
-<p>The job runs on GitHub's <code>xcode-27</code> runner, the same as <code>ios.yml</code>, and selects the
-newest Xcode on it. It fails before building if that Xcode is older than 27, and
-again before packaging if any slice of the app binary was linked against a
+<p>The job runs on GitHub's <code>xcode-27</code> runner, the same as <code>ios.yml</code>, and selects
+the newest Xcode on it. It fails before building if that Xcode is older than 27,
+and again before packaging if any slice of the app binary was linked against a
 macOS SDK below 27 (read with <code>vtool -show-build</code>; the Tauri bundler writes no
-<code>DTSDKName</code>). That keeps
-the store build on the current SDK: App Store Connect requires the iOS 27 SDK for
-iOS uploads from April 2027 (ITMS-90725), and the macOS floor tends to move with
-it. Xcode 27 also needs rustup's <code>llvm-tools</code> component, locally too; see the
-Xcode 27 notes in <a href="../ios/#continuous-integration"><code>ios.md</code></a>.</p>
+<code>DTSDKName</code>). App Store Connect requires the iOS 27 SDK for iOS uploads from
+April 2027 (ITMS-90725). No macOS floor has been announced, but this keeps the
+store build on the current SDK in case one follows. Xcode 27 also needs rustup's
+<code>llvm-tools</code> component, locally too; see the Xcode 27 notes in
+<a href="../ios/#continuous-integration"><code>ios.md</code></a>.</p>
 <blockquote>
 <p>A MAS-signed <code>.pkg</code> can only be installed through the App Store; downloading it
 from the releases page gets you a package that will not install. It is attached
