@@ -4241,6 +4241,10 @@ an unrelated <code>package.json</code> sitting inside a root cannot be rewritten
 <td>Vector data inlined into the project, from a URL, a workspace file, or literal GeoJSON. Self-contained, and the only kind <code>classify_layer</code> can style.</td>
 </tr>
 <tr>
+<td><code>add_sql_query_layer</code></td>
+<td>A supplied GeoJSON result snapshot plus its DuckDB SQL definition. Renders on open; Refresh re-executes SQL against the other project layers using SQL Workspace table names. This tool stores results without executing SQL.</td>
+</tr>
+<tr>
 <td><code>add_vector_layer</code></td>
 <td>A large remote FlatGeobuf / GeoParquet / GeoJSON read in place.</td>
 </tr>

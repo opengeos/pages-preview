@@ -3994,8 +3994,9 @@ its packages: lint, the shared dependency, i18n catalog, gallery and plugin docs
 checks, <code>typecheck:fast</code>, the
 <a href="../maintenance/#test-type-check-ratchet">test type check</a>, and the frontend
 unit tests. It needs only Node.</p>
-<p><code>npm run ci</code> runs the complete gate that mirrors continuous integration, in this
-order:</p>
+<p><code>npm run ci</code> runs the main local checks in this order. The additional Rust
+library tests and desktop launch checks run in CI; commands to run them locally
+are listed below.</p>
 <table>
 <thead>
 <tr>
@@ -4082,6 +4083,17 @@ to run the script, but no <code>npm install</code>). CI runs lint, <code>ci:fron
 type check" job, so if
 you add a step to <code>npm run ci</code>, add it to one of those groups and CI picks it
 up.</p>
+<p>The Rust CI job additionally runs <code>cargo test --lib</code>, builds the desktop binary
+with <code>tauri/custom-protocol</code>, and checks that it stays alive at launch. After
+<code>npm run build</code>, reproduce these checks locally with:</p>
+<div class="highlight"><pre><span></span><code>cargo<span class="w"> </span><span class="nb">test</span><span class="w"> </span>--manifest-path<span class="w"> </span>apps/geolibre-desktop/src-tauri/Cargo.toml<span class="w"> </span>--lib
+cargo<span class="w"> </span>build<span class="w"> </span>--manifest-path<span class="w"> </span>apps/geolibre-desktop/src-tauri/Cargo.toml<span class="w"> </span>--features<span class="w"> </span>tauri/custom-protocol
+scripts/desktop-launch-smoke.sh<span class="w"> </span>apps/geolibre-desktop/src-tauri/target/debug/geolibre-desktop
+</code></pre></div>
+<p>On Linux without a display, prefix the smoke command with <code>xvfb-run -a</code>.
+The smoke check uses a temporary profile and stops its child on completion or
+interruption. Its debug build checks startup; release-only updater configuration
+checks still run in the guard compiled into the shipped build.</p>
 <p>On a pull request, lint and "Build and test" always run. The other jobs (E2E
 core, backend, Rust, containers, and the database and OIDC integration jobs)
 run only when the PR changes a path that feeds them; the <code>changes</code> job at the
