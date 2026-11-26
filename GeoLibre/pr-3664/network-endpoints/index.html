@@ -3982,6 +3982,12 @@ so and skips the relay; the table notes those cases.</p>
 </thead>
 <tbody>
 <tr>
+<td>OGC API Processes</td>
+<td><code>demo.pygeoapi.io</code> is the prefilled demo endpoint, contacted only after Retrieve processes or Run. Users can enter another server; advertised execution/result links may name other hosts. Inputs are sent only by the explicit Run action.</td>
+<td>All</td>
+<td>Direct (same-origin development proxy during local development)</td>
+</tr>
+<tr>
 <td>Basemap picker and Basemaps plugin</td>
 <td>CARTO (<code>basemaps.cartocdn.com</code>), Esri (<code>server.arcgisonline.com</code>, <code>services.arcgisonline.com</code>), EOX (<code>tiles.maps.eox.at</code>), USGS (<code>basemap.nationalmap.gov</code>), NASA GIBS, OpenStreetMap, Protomaps, Mapbox, MapTiler, Stadia, TomTom, HERE, Amazon Location, Tianditu, Google, swisstopo, BKG, Waymarked Trails, OpenRailwayMap. OpenFreeMap is the default basemap (see above). Opening the Basemaps panel loads a thumbnail per visible row, which contacts many of these hosts before the user picks one. Keyed providers receive the key the user or build supplies.</td>
 <td>All</td>
