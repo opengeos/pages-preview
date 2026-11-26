@@ -4821,18 +4821,41 @@ fail again with "Unsupported data format/bitsPerSample";
 <code>readRasterData</code> warns when the map is missing, and
 <code>tests/upstream-contracts.test.ts</code> checks the map and key on a real image.</p>
 <h3 id="maplibre-gl"><code>maplibre-gl</code><a class="headerlink" href="#maplibre-gl" title="Permanent link">&para;</a></h3>
-<p>MapLibre is pinned to 6.18.0 and its style spec to 26.7.0. Before upgrading,
-adapt <code>map-transform-compat.ts</code> and the deck.gl integrations to the camera API
-that replaces <code>_camera.transform</code> in 6.19, and verify blend composites against
-the renderer as well as the style spec. The 26.9 spec adds a fill-extrusion
-composite that the current renderer integration does not elect.</p>
+<p>MapLibre is pinned to an exact version (6.19.0, style spec 26.9.0, both also
+in the root <code>overrides</code>). Dependabot does not move the overrides, so a bump PR
+that leaves them behind nests a second <code>maplibre-gl</code> and fails the build with
+<code>... is not assignable to parameter of type 'IControl'</code>; move all of them
+together.</p>
 <ul>
+<li><strong>The camera has no transform from 6.19.</strong> MapLibre 6.19 removed its
+  <code>Transform</code> classes: <code>map._camera</code> keeps its state in a store and derives a
+  read-only <code>projectedCamera</code>, and the per-projection camera math
+  (<code>getCameraAltitude</code>, <code>isLocationOccluded</code>, ...) is no longer reachable from
+  the map. Three places stand in for it, each with a test against the installed
+  engine:</li>
+<li><code>map-transform-compat.ts</code> gives <code>@deck.gl/mapbox</code> a <code>map.transform</code> that
+    reads <code>height</code>, <code>elevation</code> and <code>_nearZ</code>/<code>_farZ</code> from the live
+    <code>projectedCamera</code> (<code>tests/map-transform-compat.test.ts</code>). Without it deck.gl
+    overlays throw every frame once terrain is on.</li>
+<li><code>cameraAltitudeFromProjectedCamera</code> (same file) mirrors MapLibre's
+    <code>getCameraAltitude</code> for the Eye alt readout; its test compares it with the
+    installed engine's own camera math on Mercator and globe cameras.</li>
+<li><code>globe-popup-occlusion.ts</code> reads the opacity MapLibre's own
+    <code>Popup._updateOpacity</code> writes, since there is no transform left to ask
+    (<code>tests/globe-popup-occlusion.test.ts</code>).</li>
+<li><strong>Blend composites</strong> follow the renderer, not just the spec. Style spec 26.9
+  lists <code>fill-extrusion-layer-opacity</code>, but GL JS does not implement it yet
+  (its <code>sdk-support</code> is maplibre-gl-js#4492), so <code>COMPOSITE_LAYER_TYPES</code> stays
+  fill and line. <code>tests/layer-blend-modes.test.ts</code> counts only the
+  <code>*-layer-opacity</code> properties the reference JSON marks as supported in js, so
+  it fails once extrusions can composite and the caveat can be lifted.</li>
 <li>
 <p><strong>Print-capture pole visibility</strong> uses public projection/unprojection in
   production. <code>tests/print-visible-poles.test.ts</code> also exercises the installed
-  package's private <code>createGlobeTransform</code> with a pitched southern camera that
-  sees only the North Pole. Keep this test aligned with the installed engine
-  on upgrades. A pole projected inside the viewport can still be occluded;
+  package's private camera modules (<code>src/camera/*</code>: a globe camera view state,
+  <code>projectCamera</code>, <code>getCameraMath</code>) with a pitched southern camera that sees
+  only the North Pole. Keep this test aligned with the installed engine on
+  upgrades. A pole projected inside the viewport can still be occluded;
   capture metadata requires an unprojection round trip and records image pixels
   so layout crops can exclude the pole correctly.</p>
 </li>

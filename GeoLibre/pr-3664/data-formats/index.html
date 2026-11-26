@@ -783,6 +783,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#ogc-api-coverages-numerical-snapshots" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        OGC API Coverages numerical snapshots
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#ogc-api-processes" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -3674,6 +3685,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#ogc-api-coverages-numerical-snapshots" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        OGC API Coverages numerical snapshots
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#ogc-api-processes" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -3926,6 +3948,11 @@ see <a href="../user-guide/adding-data/#files">vector import details</a>.</p>
 <td>Map tiles from a Web Map Tile Service.</td>
 </tr>
 <tr>
+<td><a href="#ogc-api-coverages-numerical-snapshots">OGC API - Coverages</a></td>
+<td>OGC API - Coverages</td>
+<td>Discover collections and import bounded numerical GeoTIFF or regular CoverageJSON snapshots.</td>
+</tr>
+<tr>
 <td>OGC API - Features</td>
 <td>OGC API - Features</td>
 <td>Browse collections and load their features.</td>
@@ -4172,6 +4199,12 @@ service proxy, so a successful development test alone does not establish CORS
 support on the hosted site.</p>
 <p>References: <a href="https://cite.opengeospatial.org/teamengine/about/wcs/1.0.0/site/testreq.html">OGC WCS 1.0.0 conformance tests</a>
 and <a href="https://docs.geoserver.org/main/en/user/services/wcs/reference/">GeoServer WCS documentation</a>.</p>
+<h2 id="ogc-api-coverages-numerical-snapshots">OGC API Coverages numerical snapshots<a class="headerlink" href="#ogc-api-coverages-numerical-snapshots" title="Permanent link">&para;</a></h2>
+<p>Use <strong>Add data &gt; OGC API - Coverages</strong> to discover collections from a service landing page, a collections catalog or a collection URL. Select a coverage, enter a longitude/latitude bounding box and add the layer. <strong>Use map view</strong> and <strong>Full extent</strong> can fill the box. Optional date/time and axis subsets are passed to the service. Use axis subsets such as <code>height(10)</code> to select one slice from a multidimensional coverage. The service must support the requested subset parameters.</p>
+<p>GeoLibre follows advertised coverage links and negotiates GeoTIFF or CoverageJSON. Regular CoverageJSON grids in CRS84, EPSG:4326 or EPSG:3857 become numerical GeoTIFFs with the original values preserved as Float64 and missing values represented as NoData. Latitude-first CRS axis order, reversed grid axes and row-major range dimension order are respected. EPSG:4979 horizontal coordinates are supported when the height axis is a single selected slice. Spatial axes with one cell require explicit cell bounds. Irregular grids, unsliced extra dimensions, other CRSes and nonnumeric range types are rejected. The optional CoverageJSON fields entry selects a comma-separated list of range names after download; it does not reduce the server response size.</p>
+<p>Metadata is limited to 2 MiB per response. A coverage and all linked domain/range components share a 128 MiB download limit. The decoded raster is limited to 8 million samples across all bands. Importing requires working memory beyond the download size, including additional copies during desktop transfer and raster decoding. Striped TIFFs are converted to COGs before loading. Non-byte samples from both CoverageJSON and striped server GeoTIFFs are encoded as Float64 to preserve numerical precision; this uses more memory and uncompressed storage than Float32 or integer samples. Already tiled server GeoTIFFs retain their sample types. This is a fixed numerical snapshot: panning does not request more data. Export the GeoTIFF before ending the session to retain its bytes; saving only the project does not preserve imported raster files.</p>
+<p>The sample preset uses the public pygeoapi GDPS temperature collection and a small bounding box near Toronto. It is sample weather data, not a current forecast. Desktop uses guarded native HTTP; the hosted web app requires CORS support from the service. A successful development-proxy request does not establish hosted-site CORS support.</p>
+<p>This import path implements coverage discovery and supported representations. Remote execution is available separately through <a href="#ogc-api-processes">OGC API Processes</a>.</p>
 <h2 id="ogc-api-processes">OGC API Processes<a class="headerlink" href="#ogc-api-processes" title="Permanent link">&para;</a></h2>
 <p>Open <strong>Processing &gt; GeoLibre &gt; OGC API - Processes</strong>, or search for
 <strong>OGC API - Processes</strong> in the command palette.</p>
@@ -4182,7 +4215,11 @@ and <a href="https://docs.geoserver.org/main/en/user/services/wcs/reference/">Ge
    Boolean, enumeration, and JSON inputs. Expand <strong>Input schema</strong> for details,
    or choose <strong>Edit all inputs as JSON</strong> for compound or referenced schemas.
    An eligible vector layer can be inserted into a JSON input as a GeoJSON
-   FeatureCollection, feature array, or geometry array. Inputs and selected
+   FeatureCollection, feature array, or geometry array. FeatureCollections use
+   the qualified <code>{ "value": …, "mediaType": "application/geo+json" }</code> input
+   representation required for object values by OGC API Processes. Other JSON
+   fields and raw input editing accept the service's inline or referenced input
+   representation. Inputs and selected
    layer data are sent to the chosen service when you click <strong>Run process</strong>.</li>
 <li>Choose synchronous or asynchronous execution when the service advertises
    it. Asynchronous execution displays job status and progress when available.
@@ -4197,14 +4234,19 @@ and <a href="https://docs.geoserver.org/main/en/user/services/wcs/reference/">Ge
    separately before ending the session. A saved project alone does not retain
    downloaded raster bytes.</li>
 </ol>
-<p>Execution submits once and does not retry automatically. Input documents are
+<p>Execution submits once and does not retry automatically. Individual HTTP
+requests time out after 120 seconds; choose asynchronous execution for longer
+work when the service supports it. Input documents are
 limited to 1 MiB, process descriptions and status documents to 2 MiB, and result
 downloads to 128 MiB each. Decoding JSON and rasters requires additional working
-memory. Monitoring honors bounded <code>Retry-After</code> values and stops after 30
+memory. Native result transport uses base64 rather than JSON number arrays.
+Monitoring honors bounded <code>Retry-After</code> values and stops after 30
 minutes; the job URL can be used to resume. Closing and reopening retains
 dialog state in the current session. Changing projects clears inputs, job
 status, and results and aborts pending requests. Job history and input
 credentials are not saved in projects.</p>
+<p>Clearing an optional text input omits it from the request. Use raw JSON input
+editing when an explicit empty string is needed.</p>
 <p>Desktop uses guarded native HTTP. Development uses a guarded same-origin
 proxy. The hosted web app requires the remote service to permit cross-origin
 GET, POST, and DELETE requests, the <code>Content-Type</code> and <code>Prefer</code> request headers,
