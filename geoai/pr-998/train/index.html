@@ -9237,14 +9237,7 @@ training.</p>
 
               <details class="mkdocstrings-source">
                 <summary>Source code in <code>geoai/train.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">3739</span>
-<span class="normal">3740</span>
-<span class="normal">3741</span>
-<span class="normal">3742</span>
-<span class="normal">3743</span>
-<span class="normal">3744</span>
-<span class="normal">3745</span>
-<span class="normal">3746</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">3746</span>
 <span class="normal">3747</span>
 <span class="normal">3748</span>
 <span class="normal">3749</span>
@@ -9262,7 +9255,14 @@ training.</p>
 <span class="normal">3761</span>
 <span class="normal">3762</span>
 <span class="normal">3763</span>
-<span class="normal">3764</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">SemanticBrightnessAdjustment</span><span class="p">:</span>
+<span class="normal">3764</span>
+<span class="normal">3765</span>
+<span class="normal">3766</span>
+<span class="normal">3767</span>
+<span class="normal">3768</span>
+<span class="normal">3769</span>
+<span class="normal">3770</span>
+<span class="normal">3771</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">SemanticBrightnessAdjustment</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">"""Random brightness adjustment transform for semantic segmentation."""</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
@@ -9367,18 +9367,18 @@ training.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>geoai/train.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">3742</span>
-<span class="normal">3743</span>
-<span class="normal">3744</span>
-<span class="normal">3745</span>
-<span class="normal">3746</span>
-<span class="normal">3747</span>
-<span class="normal">3748</span>
-<span class="normal">3749</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">3749</span>
 <span class="normal">3750</span>
 <span class="normal">3751</span>
 <span class="normal">3752</span>
-<span class="normal">3753</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+<span class="normal">3753</span>
+<span class="normal">3754</span>
+<span class="normal">3755</span>
+<span class="normal">3756</span>
+<span class="normal">3757</span>
+<span class="normal">3758</span>
+<span class="normal">3759</span>
+<span class="normal">3760</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">brightness_range</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">),</span> <span class="n">prob</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">"""</span>
@@ -9430,14 +9430,7 @@ training.</p>
 
               <details class="mkdocstrings-source">
                 <summary>Source code in <code>geoai/train.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">3767</span>
-<span class="normal">3768</span>
-<span class="normal">3769</span>
-<span class="normal">3770</span>
-<span class="normal">3771</span>
-<span class="normal">3772</span>
-<span class="normal">3773</span>
-<span class="normal">3774</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">3774</span>
 <span class="normal">3775</span>
 <span class="normal">3776</span>
 <span class="normal">3777</span>
@@ -9456,7 +9449,14 @@ training.</p>
 <span class="normal">3790</span>
 <span class="normal">3791</span>
 <span class="normal">3792</span>
-<span class="normal">3793</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">SemanticContrastAdjustment</span><span class="p">:</span>
+<span class="normal">3793</span>
+<span class="normal">3794</span>
+<span class="normal">3795</span>
+<span class="normal">3796</span>
+<span class="normal">3797</span>
+<span class="normal">3798</span>
+<span class="normal">3799</span>
+<span class="normal">3800</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">SemanticContrastAdjustment</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">"""Random contrast adjustment transform for semantic segmentation."""</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
@@ -9562,18 +9562,18 @@ training.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>geoai/train.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">3770</span>
-<span class="normal">3771</span>
-<span class="normal">3772</span>
-<span class="normal">3773</span>
-<span class="normal">3774</span>
-<span class="normal">3775</span>
-<span class="normal">3776</span>
-<span class="normal">3777</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">3777</span>
 <span class="normal">3778</span>
 <span class="normal">3779</span>
 <span class="normal">3780</span>
-<span class="normal">3781</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+<span class="normal">3781</span>
+<span class="normal">3782</span>
+<span class="normal">3783</span>
+<span class="normal">3784</span>
+<span class="normal">3785</span>
+<span class="normal">3786</span>
+<span class="normal">3787</span>
+<span class="normal">3788</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">contrast_range</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">),</span> <span class="n">prob</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">"""</span>
@@ -9625,20 +9625,20 @@ training.</p>
 
               <details class="mkdocstrings-source">
                 <summary>Source code in <code>geoai/train.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">3690</span>
-<span class="normal">3691</span>
-<span class="normal">3692</span>
-<span class="normal">3693</span>
-<span class="normal">3694</span>
-<span class="normal">3695</span>
-<span class="normal">3696</span>
-<span class="normal">3697</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">3697</span>
 <span class="normal">3698</span>
 <span class="normal">3699</span>
 <span class="normal">3700</span>
 <span class="normal">3701</span>
 <span class="normal">3702</span>
-<span class="normal">3703</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">SemanticRandomHorizontalFlip</span><span class="p">:</span>
+<span class="normal">3703</span>
+<span class="normal">3704</span>
+<span class="normal">3705</span>
+<span class="normal">3706</span>
+<span class="normal">3707</span>
+<span class="normal">3708</span>
+<span class="normal">3709</span>
+<span class="normal">3710</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">SemanticRandomHorizontalFlip</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">"""Random horizontal flip transform for semantic segmentation."""</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prob</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -9702,21 +9702,21 @@ training.</p>
 
               <details class="mkdocstrings-source">
                 <summary>Source code in <code>geoai/train.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">3722</span>
-<span class="normal">3723</span>
-<span class="normal">3724</span>
-<span class="normal">3725</span>
-<span class="normal">3726</span>
-<span class="normal">3727</span>
-<span class="normal">3728</span>
-<span class="normal">3729</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">3729</span>
 <span class="normal">3730</span>
 <span class="normal">3731</span>
 <span class="normal">3732</span>
 <span class="normal">3733</span>
 <span class="normal">3734</span>
 <span class="normal">3735</span>
-<span class="normal">3736</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">SemanticRandomRotation90</span><span class="p">:</span>
+<span class="normal">3736</span>
+<span class="normal">3737</span>
+<span class="normal">3738</span>
+<span class="normal">3739</span>
+<span class="normal">3740</span>
+<span class="normal">3741</span>
+<span class="normal">3742</span>
+<span class="normal">3743</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">SemanticRandomRotation90</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">"""Random 90-degree rotation transform for semantic segmentation."""</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prob</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -9781,20 +9781,20 @@ training.</p>
 
               <details class="mkdocstrings-source">
                 <summary>Source code in <code>geoai/train.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">3706</span>
-<span class="normal">3707</span>
-<span class="normal">3708</span>
-<span class="normal">3709</span>
-<span class="normal">3710</span>
-<span class="normal">3711</span>
-<span class="normal">3712</span>
-<span class="normal">3713</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">3713</span>
 <span class="normal">3714</span>
 <span class="normal">3715</span>
 <span class="normal">3716</span>
 <span class="normal">3717</span>
 <span class="normal">3718</span>
-<span class="normal">3719</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">SemanticRandomVerticalFlip</span><span class="p">:</span>
+<span class="normal">3719</span>
+<span class="normal">3720</span>
+<span class="normal">3721</span>
+<span class="normal">3722</span>
+<span class="normal">3723</span>
+<span class="normal">3724</span>
+<span class="normal">3725</span>
+<span class="normal">3726</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">SemanticRandomVerticalFlip</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">"""Random vertical flip transform for semantic segmentation."""</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prob</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -9860,14 +9860,7 @@ training.</p>
 
               <details class="mkdocstrings-source">
                 <summary>Source code in <code>geoai/train.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">3398</span>
-<span class="normal">3399</span>
-<span class="normal">3400</span>
-<span class="normal">3401</span>
-<span class="normal">3402</span>
-<span class="normal">3403</span>
-<span class="normal">3404</span>
-<span class="normal">3405</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">3405</span>
 <span class="normal">3406</span>
 <span class="normal">3407</span>
 <span class="normal">3408</span>
@@ -10126,7 +10119,14 @@ training.</p>
 <span class="normal">3661</span>
 <span class="normal">3662</span>
 <span class="normal">3663</span>
-<span class="normal">3664</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">SemanticSegmentationDataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>
+<span class="normal">3664</span>
+<span class="normal">3665</span>
+<span class="normal">3666</span>
+<span class="normal">3667</span>
+<span class="normal">3668</span>
+<span class="normal">3669</span>
+<span class="normal">3670</span>
+<span class="normal">3671</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">SemanticSegmentationDataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">"""Dataset for semantic segmentation from GeoTIFF, PNG, JPG, and other image formats."""</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
@@ -10641,14 +10641,7 @@ scaling into <code>[0, 1]</code>. Mutually exclusive with <code>channel_means</c
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>geoai/train.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">3401</span>
-<span class="normal">3402</span>
-<span class="normal">3403</span>
-<span class="normal">3404</span>
-<span class="normal">3405</span>
-<span class="normal">3406</span>
-<span class="normal">3407</span>
-<span class="normal">3408</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">3408</span>
 <span class="normal">3409</span>
 <span class="normal">3410</span>
 <span class="normal">3411</span>
@@ -10702,7 +10695,14 @@ scaling into <code>[0, 1]</code>. Mutually exclusive with <code>channel_means</c
 <span class="normal">3459</span>
 <span class="normal">3460</span>
 <span class="normal">3461</span>
-<span class="normal">3462</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+<span class="normal">3462</span>
+<span class="normal">3463</span>
+<span class="normal">3464</span>
+<span class="normal">3465</span>
+<span class="normal">3466</span>
+<span class="normal">3467</span>
+<span class="normal">3468</span>
+<span class="normal">3469</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">image_paths</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
     <span class="n">label_paths</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
@@ -10804,13 +10804,13 @@ scaling into <code>[0, 1]</code>. Mutually exclusive with <code>channel_means</c
 
               <details class="mkdocstrings-source">
                 <summary>Source code in <code>geoai/train.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">3681</span>
-<span class="normal">3682</span>
-<span class="normal">3683</span>
-<span class="normal">3684</span>
-<span class="normal">3685</span>
-<span class="normal">3686</span>
-<span class="normal">3687</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">SemanticToTensor</span><span class="p">:</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">3688</span>
+<span class="normal">3689</span>
+<span class="normal">3690</span>
+<span class="normal">3691</span>
+<span class="normal">3692</span>
+<span class="normal">3693</span>
+<span class="normal">3694</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">SemanticToTensor</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">"""Convert numpy.ndarray to tensor for semantic segmentation."""</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span>
@@ -10867,18 +10867,18 @@ scaling into <code>[0, 1]</code>. Mutually exclusive with <code>channel_means</c
 
               <details class="mkdocstrings-source">
                 <summary>Source code in <code>geoai/train.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">3667</span>
-<span class="normal">3668</span>
-<span class="normal">3669</span>
-<span class="normal">3670</span>
-<span class="normal">3671</span>
-<span class="normal">3672</span>
-<span class="normal">3673</span>
-<span class="normal">3674</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">3674</span>
 <span class="normal">3675</span>
 <span class="normal">3676</span>
 <span class="normal">3677</span>
-<span class="normal">3678</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">SemanticTransforms</span><span class="p">:</span>
+<span class="normal">3678</span>
+<span class="normal">3679</span>
+<span class="normal">3680</span>
+<span class="normal">3681</span>
+<span class="normal">3682</span>
+<span class="normal">3683</span>
+<span class="normal">3684</span>
+<span class="normal">3685</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">SemanticTransforms</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">"""Custom transforms for semantic segmentation."""</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transforms</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Callable</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -11323,11 +11323,7 @@ Useful for deriving <code>channel_means</code> / <code>channel_stds</code> or <c
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>geoai/train.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">3289</span>
-<span class="normal">3290</span>
-<span class="normal">3291</span>
-<span class="normal">3292</span>
-<span class="normal">3293</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">3293</span>
 <span class="normal">3294</span>
 <span class="normal">3295</span>
 <span class="normal">3296</span>
@@ -11429,7 +11425,14 @@ Useful for deriving <code>channel_means</code> / <code>channel_stds</code> or <c
 <span class="normal">3392</span>
 <span class="normal">3393</span>
 <span class="normal">3394</span>
-<span class="normal">3395</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">compute_channel_stats</span><span class="p">(</span>
+<span class="normal">3395</span>
+<span class="normal">3396</span>
+<span class="normal">3397</span>
+<span class="normal">3398</span>
+<span class="normal">3399</span>
+<span class="normal">3400</span>
+<span class="normal">3401</span>
+<span class="normal">3402</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">compute_channel_stats</span><span class="p">(</span>
     <span class="n">images_source</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">]]],</span>
     <span class="n">num_channels</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">nodata</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -11470,6 +11473,7 @@ Useful for deriving <code>channel_means</code> / <code>channel_stds</code> or <c
     <span class="n">counts</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">mins</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">maxs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">target_channels</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">num_channels</span>
 
     <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">image_paths</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">((</span><span class="s2">".tif"</span><span class="p">,</span> <span class="s2">".tiff"</span><span class="p">)):</span>
@@ -11483,7 +11487,9 @@ Useful for deriving <code>channel_means</code> / <code>channel_stds</code> or <c
                 <span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
                 <span class="n">file_nodata</span> <span class="o">=</span> <span class="kc">None</span>
 
-        <span class="n">c_count</span> <span class="o">=</span> <span class="n">arr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">num_channels</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">num_channels</span>
+        <span class="k">if</span> <span class="n">target_channels</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">target_channels</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">arr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">c_count</span> <span class="o">=</span> <span class="n">target_channels</span>
         <span class="k">if</span> <span class="n">sum_x</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">sum_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">c_count</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
             <span class="n">sum_x2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">c_count</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
@@ -12598,18 +12604,7 @@ Defaults to [0.5, 0.55, ..., 0.95].</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>geoai/train.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">4253</span>
-<span class="normal">4254</span>
-<span class="normal">4255</span>
-<span class="normal">4256</span>
-<span class="normal">4257</span>
-<span class="normal">4258</span>
-<span class="normal">4259</span>
-<span class="normal">4260</span>
-<span class="normal">4261</span>
-<span class="normal">4262</span>
-<span class="normal">4263</span>
-<span class="normal">4264</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">4264</span>
 <span class="normal">4265</span>
 <span class="normal">4266</span>
 <span class="normal">4267</span>
@@ -12686,7 +12681,18 @@ Defaults to [0.5, 0.55, ..., 0.95].</p>
 <span class="normal">4338</span>
 <span class="normal">4339</span>
 <span class="normal">4340</span>
-<span class="normal">4341</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">evaluate_semantic</span><span class="p">(</span>
+<span class="normal">4341</span>
+<span class="normal">4342</span>
+<span class="normal">4343</span>
+<span class="normal">4344</span>
+<span class="normal">4345</span>
+<span class="normal">4346</span>
+<span class="normal">4347</span>
+<span class="normal">4348</span>
+<span class="normal">4349</span>
+<span class="normal">4350</span>
+<span class="normal">4351</span>
+<span class="normal">4352</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">evaluate_semantic</span><span class="p">(</span>
     <span class="n">model</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
     <span class="n">data_loader</span><span class="p">:</span> <span class="n">DataLoader</span><span class="p">,</span>
     <span class="n">device</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">,</span>
@@ -12915,18 +12921,7 @@ Defaults to [0.5, 0.55, ..., 0.95].</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>geoai/train.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">3934</span>
-<span class="normal">3935</span>
-<span class="normal">3936</span>
-<span class="normal">3937</span>
-<span class="normal">3938</span>
-<span class="normal">3939</span>
-<span class="normal">3940</span>
-<span class="normal">3941</span>
-<span class="normal">3942</span>
-<span class="normal">3943</span>
-<span class="normal">3944</span>
-<span class="normal">3945</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">3945</span>
 <span class="normal">3946</span>
 <span class="normal">3947</span>
 <span class="normal">3948</span>
@@ -12974,7 +12969,18 @@ Defaults to [0.5, 0.55, ..., 0.95].</p>
 <span class="normal">3990</span>
 <span class="normal">3991</span>
 <span class="normal">3992</span>
-<span class="normal">3993</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">f1_score</span><span class="p">(</span>
+<span class="normal">3993</span>
+<span class="normal">3994</span>
+<span class="normal">3995</span>
+<span class="normal">3996</span>
+<span class="normal">3997</span>
+<span class="normal">3998</span>
+<span class="normal">3999</span>
+<span class="normal">4000</span>
+<span class="normal">4001</span>
+<span class="normal">4002</span>
+<span class="normal">4003</span>
+<span class="normal">4004</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">f1_score</span><span class="p">(</span>
     <span class="n">pred</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
     <span class="n">target</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
     <span class="n">smooth</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-6</span><span class="p">,</span>
@@ -13674,7 +13680,7 @@ Defaults to <code>"fasterrcnn_resnet50_fpn_v2"</code>.</p>
 
 
 <h2 id="geoai.train.get_semantic_transform" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">get_semantic_transform</span><span class="p">(</span><span class="n">train</span><span class="p">)</span></code>
+            <code class="highlight language-python"><span class="n">get_semantic_transform</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">include_photometric</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
 
 <a href="#geoai.train.get_semantic_transform" class="headerlink" title="Permanent link">&para;</a></h2>
 
@@ -13709,12 +13715,30 @@ contrast) that are commonly used in remote sensing tasks.</p>
             <td>
               <div class="doc-md-description">
                 <p>Whether to include training-specific transforms.
-If True, applies augmentations (flips, rotations, brightness/contrast adjustments).
+If True, applies augmentations (flips, rotations, and optionally brightness/contrast adjustments).
 If False, only converts to tensor (for validation).</p>
               </div>
             </td>
             <td>
                 <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>include_photometric</code>
+            </td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Whether to include <code>[0, 1]</code>-clamping brightness and
+contrast augmentations during training. Set to <code>False</code> when using unbounded
+z-score normalization so negative or <code>&gt; 1</code> values are preserved.</p>
+              </div>
+            </td>
+            <td>
+                  <code>True</code>
             </td>
           </tr>
       </tbody>
@@ -13758,14 +13782,7 @@ val_transform = get_semantic_transform(train=False)</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>geoai/train.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">3796</span>
-<span class="normal">3797</span>
-<span class="normal">3798</span>
-<span class="normal">3799</span>
-<span class="normal">3800</span>
-<span class="normal">3801</span>
-<span class="normal">3802</span>
-<span class="normal">3803</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">3803</span>
 <span class="normal">3804</span>
 <span class="normal">3805</span>
 <span class="normal">3806</span>
@@ -13796,7 +13813,18 @@ val_transform = get_semantic_transform(train=False)</p>
 <span class="normal">3831</span>
 <span class="normal">3832</span>
 <span class="normal">3833</span>
-<span class="normal">3834</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_semantic_transform</span><span class="p">(</span><span class="n">train</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="normal">3834</span>
+<span class="normal">3835</span>
+<span class="normal">3836</span>
+<span class="normal">3837</span>
+<span class="normal">3838</span>
+<span class="normal">3839</span>
+<span class="normal">3840</span>
+<span class="normal">3841</span>
+<span class="normal">3842</span>
+<span class="normal">3843</span>
+<span class="normal">3844</span>
+<span class="normal">3845</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_semantic_transform</span><span class="p">(</span><span class="n">train</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">include_photometric</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Get transforms for semantic segmentation data augmentation.</span>
 
@@ -13807,8 +13835,11 @@ val_transform = get_semantic_transform(train=False)</p>
 
 <span class="sd">    Args:</span>
 <span class="sd">        train (bool): Whether to include training-specific transforms.</span>
-<span class="sd">            If True, applies augmentations (flips, rotations, brightness/contrast adjustments).</span>
+<span class="sd">            If True, applies augmentations (flips, rotations, and optionally brightness/contrast adjustments).</span>
 <span class="sd">            If False, only converts to tensor (for validation).</span>
+<span class="sd">        include_photometric (bool): Whether to include ``[0, 1]``-clamping brightness and</span>
+<span class="sd">            contrast augmentations during training. Set to ``False`` when using unbounded</span>
+<span class="sd">            z-score normalization so negative or ``&gt; 1`` values are preserved.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        SemanticTransforms: Composed transforms.</span>
@@ -13826,13 +13857,14 @@ val_transform = get_semantic_transform(train=False)</p>
         <span class="n">transforms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">SemanticRandomVerticalFlip</span><span class="p">(</span><span class="mf">0.5</span><span class="p">))</span>
         <span class="n">transforms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">SemanticRandomRotation90</span><span class="p">(</span><span class="mf">0.5</span><span class="p">))</span>
 
-        <span class="c1"># Photometric transforms - improve model robustness</span>
-        <span class="n">transforms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-            <span class="n">SemanticBrightnessAdjustment</span><span class="p">(</span><span class="n">brightness_range</span><span class="o">=</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">),</span> <span class="n">prob</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-        <span class="p">)</span>
-        <span class="n">transforms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-            <span class="n">SemanticContrastAdjustment</span><span class="p">(</span><span class="n">contrast_range</span><span class="o">=</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">),</span> <span class="n">prob</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">include_photometric</span><span class="p">:</span>
+            <span class="c1"># Photometric transforms - improve model robustness for [0, 1] inputs</span>
+            <span class="n">transforms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">SemanticBrightnessAdjustment</span><span class="p">(</span><span class="n">brightness_range</span><span class="o">=</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">),</span> <span class="n">prob</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">transforms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">SemanticContrastAdjustment</span><span class="p">(</span><span class="n">contrast_range</span><span class="o">=</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">),</span> <span class="n">prob</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+            <span class="p">)</span>
 
     <span class="k">return</span> <span class="n">SemanticTransforms</span><span class="p">(</span><span class="n">transforms</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
@@ -14014,18 +14046,7 @@ segmentation-models-pytorch, making it future-proof for new model additions.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>geoai/train.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">3837</span>
-<span class="normal">3838</span>
-<span class="normal">3839</span>
-<span class="normal">3840</span>
-<span class="normal">3841</span>
-<span class="normal">3842</span>
-<span class="normal">3843</span>
-<span class="normal">3844</span>
-<span class="normal">3845</span>
-<span class="normal">3846</span>
-<span class="normal">3847</span>
-<span class="normal">3848</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">3848</span>
 <span class="normal">3849</span>
 <span class="normal">3850</span>
 <span class="normal">3851</span>
@@ -14108,7 +14129,18 @@ segmentation-models-pytorch, making it future-proof for new model additions.</p>
 <span class="normal">3928</span>
 <span class="normal">3929</span>
 <span class="normal">3930</span>
-<span class="normal">3931</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_smp_model</span><span class="p">(</span>
+<span class="normal">3931</span>
+<span class="normal">3932</span>
+<span class="normal">3933</span>
+<span class="normal">3934</span>
+<span class="normal">3935</span>
+<span class="normal">3936</span>
+<span class="normal">3937</span>
+<span class="normal">3938</span>
+<span class="normal">3939</span>
+<span class="normal">3940</span>
+<span class="normal">3941</span>
+<span class="normal">3942</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_smp_model</span><span class="p">(</span>
     <span class="n">architecture</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"unet"</span><span class="p">,</span>
     <span class="n">encoder_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"resnet34"</span><span class="p">,</span>
     <span class="n">encoder_weights</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"imagenet"</span><span class="p">,</span>
@@ -15328,21 +15360,7 @@ instance_segmentation_inference_on_geotiff.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>geoai/train.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">6724</span>
-<span class="normal">6725</span>
-<span class="normal">6726</span>
-<span class="normal">6727</span>
-<span class="normal">6728</span>
-<span class="normal">6729</span>
-<span class="normal">6730</span>
-<span class="normal">6731</span>
-<span class="normal">6732</span>
-<span class="normal">6733</span>
-<span class="normal">6734</span>
-<span class="normal">6735</span>
-<span class="normal">6736</span>
-<span class="normal">6737</span>
-<span class="normal">6738</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">6738</span>
 <span class="normal">6739</span>
 <span class="normal">6740</span>
 <span class="normal">6741</span>
@@ -15470,7 +15488,21 @@ instance_segmentation_inference_on_geotiff.</p>
 <span class="normal">6863</span>
 <span class="normal">6864</span>
 <span class="normal">6865</span>
-<span class="normal">6866</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">instance_segmentation</span><span class="p">(</span>
+<span class="normal">6866</span>
+<span class="normal">6867</span>
+<span class="normal">6868</span>
+<span class="normal">6869</span>
+<span class="normal">6870</span>
+<span class="normal">6871</span>
+<span class="normal">6872</span>
+<span class="normal">6873</span>
+<span class="normal">6874</span>
+<span class="normal">6875</span>
+<span class="normal">6876</span>
+<span class="normal">6877</span>
+<span class="normal">6878</span>
+<span class="normal">6879</span>
+<span class="normal">6880</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">instance_segmentation</span><span class="p">(</span>
     <span class="n">input_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">output_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">model_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -15872,21 +15904,7 @@ instance_segmentation_inference_on_geotiff.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>geoai/train.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">6869</span>
-<span class="normal">6870</span>
-<span class="normal">6871</span>
-<span class="normal">6872</span>
-<span class="normal">6873</span>
-<span class="normal">6874</span>
-<span class="normal">6875</span>
-<span class="normal">6876</span>
-<span class="normal">6877</span>
-<span class="normal">6878</span>
-<span class="normal">6879</span>
-<span class="normal">6880</span>
-<span class="normal">6881</span>
-<span class="normal">6882</span>
-<span class="normal">6883</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">6883</span>
 <span class="normal">6884</span>
 <span class="normal">6885</span>
 <span class="normal">6886</span>
@@ -15979,7 +15997,21 @@ instance_segmentation_inference_on_geotiff.</p>
 <span class="normal">6973</span>
 <span class="normal">6974</span>
 <span class="normal">6975</span>
-<span class="normal">6976</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">instance_segmentation_batch</span><span class="p">(</span>
+<span class="normal">6976</span>
+<span class="normal">6977</span>
+<span class="normal">6978</span>
+<span class="normal">6979</span>
+<span class="normal">6980</span>
+<span class="normal">6981</span>
+<span class="normal">6982</span>
+<span class="normal">6983</span>
+<span class="normal">6984</span>
+<span class="normal">6985</span>
+<span class="normal">6986</span>
+<span class="normal">6987</span>
+<span class="normal">6988</span>
+<span class="normal">6989</span>
+<span class="normal">6990</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">instance_segmentation_batch</span><span class="p">(</span>
     <span class="n">input_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">output_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">model_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -17105,18 +17137,7 @@ pixel coords), <code>label</code> (int), <code>instance_id</code> (int).</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>geoai/train.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">3996</span>
-<span class="normal">3997</span>
-<span class="normal">3998</span>
-<span class="normal">3999</span>
-<span class="normal">4000</span>
-<span class="normal">4001</span>
-<span class="normal">4002</span>
-<span class="normal">4003</span>
-<span class="normal">4004</span>
-<span class="normal">4005</span>
-<span class="normal">4006</span>
-<span class="normal">4007</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">4007</span>
 <span class="normal">4008</span>
 <span class="normal">4009</span>
 <span class="normal">4010</span>
@@ -17164,7 +17185,18 @@ pixel coords), <code>label</code> (int), <code>instance_id</code> (int).</p>
 <span class="normal">4052</span>
 <span class="normal">4053</span>
 <span class="normal">4054</span>
-<span class="normal">4055</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">iou_coefficient</span><span class="p">(</span>
+<span class="normal">4055</span>
+<span class="normal">4056</span>
+<span class="normal">4057</span>
+<span class="normal">4058</span>
+<span class="normal">4059</span>
+<span class="normal">4060</span>
+<span class="normal">4061</span>
+<span class="normal">4062</span>
+<span class="normal">4063</span>
+<span class="normal">4064</span>
+<span class="normal">4065</span>
+<span class="normal">4066</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">iou_coefficient</span><span class="p">(</span>
     <span class="n">pred</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
     <span class="n">target</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
     <span class="n">smooth</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-6</span><span class="p">,</span>
@@ -17439,21 +17471,7 @@ print(f"Embeddings saved to: {embeddings_path}")</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>geoai/train.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">7210</span>
-<span class="normal">7211</span>
-<span class="normal">7212</span>
-<span class="normal">7213</span>
-<span class="normal">7214</span>
-<span class="normal">7215</span>
-<span class="normal">7216</span>
-<span class="normal">7217</span>
-<span class="normal">7218</span>
-<span class="normal">7219</span>
-<span class="normal">7220</span>
-<span class="normal">7221</span>
-<span class="normal">7222</span>
-<span class="normal">7223</span>
-<span class="normal">7224</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">7224</span>
 <span class="normal">7225</span>
 <span class="normal">7226</span>
 <span class="normal">7227</span>
@@ -17511,7 +17529,21 @@ print(f"Embeddings saved to: {embeddings_path}")</p>
 <span class="normal">7279</span>
 <span class="normal">7280</span>
 <span class="normal">7281</span>
-<span class="normal">7282</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">lightly_embed_images</span><span class="p">(</span>
+<span class="normal">7282</span>
+<span class="normal">7283</span>
+<span class="normal">7284</span>
+<span class="normal">7285</span>
+<span class="normal">7286</span>
+<span class="normal">7287</span>
+<span class="normal">7288</span>
+<span class="normal">7289</span>
+<span class="normal">7290</span>
+<span class="normal">7291</span>
+<span class="normal">7292</span>
+<span class="normal">7293</span>
+<span class="normal">7294</span>
+<span class="normal">7295</span>
+<span class="normal">7296</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">lightly_embed_images</span><span class="p">(</span>
     <span class="n">data_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">model_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">output_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -17844,21 +17876,7 @@ Default is "dinov2_distillation".</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>geoai/train.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">6979</span>
-<span class="normal">6980</span>
-<span class="normal">6981</span>
-<span class="normal">6982</span>
-<span class="normal">6983</span>
-<span class="normal">6984</span>
-<span class="normal">6985</span>
-<span class="normal">6986</span>
-<span class="normal">6987</span>
-<span class="normal">6988</span>
-<span class="normal">6989</span>
-<span class="normal">6990</span>
-<span class="normal">6991</span>
-<span class="normal">6992</span>
-<span class="normal">6993</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">6993</span>
 <span class="normal">6994</span>
 <span class="normal">6995</span>
 <span class="normal">6996</span>
@@ -17998,7 +18016,21 @@ Default is "dinov2_distillation".</p>
 <span class="normal">7130</span>
 <span class="normal">7131</span>
 <span class="normal">7132</span>
-<span class="normal">7133</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">lightly_train_model</span><span class="p">(</span>
+<span class="normal">7133</span>
+<span class="normal">7134</span>
+<span class="normal">7135</span>
+<span class="normal">7136</span>
+<span class="normal">7137</span>
+<span class="normal">7138</span>
+<span class="normal">7139</span>
+<span class="normal">7140</span>
+<span class="normal">7141</span>
+<span class="normal">7142</span>
+<span class="normal">7143</span>
+<span class="normal">7144</span>
+<span class="normal">7145</span>
+<span class="normal">7146</span>
+<span class="normal">7147</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">lightly_train_model</span><span class="p">(</span>
     <span class="n">data_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">output_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"torchvision/resnet50"</span><span class="p">,</span>
@@ -18311,21 +18343,7 @@ Default is "torchvision/resnet50".</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>geoai/train.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">7136</span>
-<span class="normal">7137</span>
-<span class="normal">7138</span>
-<span class="normal">7139</span>
-<span class="normal">7140</span>
-<span class="normal">7141</span>
-<span class="normal">7142</span>
-<span class="normal">7143</span>
-<span class="normal">7144</span>
-<span class="normal">7145</span>
-<span class="normal">7146</span>
-<span class="normal">7147</span>
-<span class="normal">7148</span>
-<span class="normal">7149</span>
-<span class="normal">7150</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">7150</span>
 <span class="normal">7151</span>
 <span class="normal">7152</span>
 <span class="normal">7153</span>
@@ -18382,7 +18400,21 @@ Default is "torchvision/resnet50".</p>
 <span class="normal">7204</span>
 <span class="normal">7205</span>
 <span class="normal">7206</span>
-<span class="normal">7207</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">load_lightly_pretrained_model</span><span class="p">(</span>
+<span class="normal">7207</span>
+<span class="normal">7208</span>
+<span class="normal">7209</span>
+<span class="normal">7210</span>
+<span class="normal">7211</span>
+<span class="normal">7212</span>
+<span class="normal">7213</span>
+<span class="normal">7214</span>
+<span class="normal">7215</span>
+<span class="normal">7216</span>
+<span class="normal">7217</span>
+<span class="normal">7218</span>
+<span class="normal">7219</span>
+<span class="normal">7220</span>
+<span class="normal">7221</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">load_lightly_pretrained_model</span><span class="p">(</span>
     <span class="n">model_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">model_architecture</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"torchvision/resnet50"</span><span class="p">,</span>
     <span class="n">device</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -20716,18 +20748,7 @@ If provided, must match the number of input files.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>geoai/train.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">4058</span>
-<span class="normal">4059</span>
-<span class="normal">4060</span>
-<span class="normal">4061</span>
-<span class="normal">4062</span>
-<span class="normal">4063</span>
-<span class="normal">4064</span>
-<span class="normal">4065</span>
-<span class="normal">4066</span>
-<span class="normal">4067</span>
-<span class="normal">4068</span>
-<span class="normal">4069</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">4069</span>
 <span class="normal">4070</span>
 <span class="normal">4071</span>
 <span class="normal">4072</span>
@@ -20779,7 +20800,18 @@ If provided, must match the number of input files.</p>
 <span class="normal">4118</span>
 <span class="normal">4119</span>
 <span class="normal">4120</span>
-<span class="normal">4121</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">precision_score</span><span class="p">(</span>
+<span class="normal">4121</span>
+<span class="normal">4122</span>
+<span class="normal">4123</span>
+<span class="normal">4124</span>
+<span class="normal">4125</span>
+<span class="normal">4126</span>
+<span class="normal">4127</span>
+<span class="normal">4128</span>
+<span class="normal">4129</span>
+<span class="normal">4130</span>
+<span class="normal">4131</span>
+<span class="normal">4132</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">precision_score</span><span class="p">(</span>
     <span class="n">pred</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
     <span class="n">target</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
     <span class="n">smooth</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-6</span><span class="p">,</span>
@@ -20986,18 +21018,7 @@ If provided, must match the number of input files.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>geoai/train.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">4124</span>
-<span class="normal">4125</span>
-<span class="normal">4126</span>
-<span class="normal">4127</span>
-<span class="normal">4128</span>
-<span class="normal">4129</span>
-<span class="normal">4130</span>
-<span class="normal">4131</span>
-<span class="normal">4132</span>
-<span class="normal">4133</span>
-<span class="normal">4134</span>
-<span class="normal">4135</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">4135</span>
 <span class="normal">4136</span>
 <span class="normal">4137</span>
 <span class="normal">4138</span>
@@ -21049,7 +21070,18 @@ If provided, must match the number of input files.</p>
 <span class="normal">4184</span>
 <span class="normal">4185</span>
 <span class="normal">4186</span>
-<span class="normal">4187</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">recall_score</span><span class="p">(</span>
+<span class="normal">4187</span>
+<span class="normal">4188</span>
+<span class="normal">4189</span>
+<span class="normal">4190</span>
+<span class="normal">4191</span>
+<span class="normal">4192</span>
+<span class="normal">4193</span>
+<span class="normal">4194</span>
+<span class="normal">4195</span>
+<span class="normal">4196</span>
+<span class="normal">4197</span>
+<span class="normal">4198</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">recall_score</span><span class="p">(</span>
     <span class="n">pred</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
     <span class="n">target</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
     <span class="n">smooth</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-6</span><span class="p">,</span>
@@ -21401,21 +21433,7 @@ class probability as a separate single-band file. Defaults to False.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>geoai/train.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">5514</span>
-<span class="normal">5515</span>
-<span class="normal">5516</span>
-<span class="normal">5517</span>
-<span class="normal">5518</span>
-<span class="normal">5519</span>
-<span class="normal">5520</span>
-<span class="normal">5521</span>
-<span class="normal">5522</span>
-<span class="normal">5523</span>
-<span class="normal">5524</span>
-<span class="normal">5525</span>
-<span class="normal">5526</span>
-<span class="normal">5527</span>
-<span class="normal">5528</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">5528</span>
 <span class="normal">5529</span>
 <span class="normal">5530</span>
 <span class="normal">5531</span>
@@ -21698,7 +21716,21 @@ class probability as a separate single-band file. Defaults to False.</p>
 <span class="normal">5808</span>
 <span class="normal">5809</span>
 <span class="normal">5810</span>
-<span class="normal">5811</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">semantic_inference_on_geotiff</span><span class="p">(</span>
+<span class="normal">5811</span>
+<span class="normal">5812</span>
+<span class="normal">5813</span>
+<span class="normal">5814</span>
+<span class="normal">5815</span>
+<span class="normal">5816</span>
+<span class="normal">5817</span>
+<span class="normal">5818</span>
+<span class="normal">5819</span>
+<span class="normal">5820</span>
+<span class="normal">5821</span>
+<span class="normal">5822</span>
+<span class="normal">5823</span>
+<span class="normal">5824</span>
+<span class="normal">5825</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">semantic_inference_on_geotiff</span><span class="p">(</span>
     <span class="n">model</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
     <span class="n">geotiff_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">output_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -22300,21 +22332,7 @@ class probability as a separate single-band file. Defaults to False.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>geoai/train.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">5814</span>
-<span class="normal">5815</span>
-<span class="normal">5816</span>
-<span class="normal">5817</span>
-<span class="normal">5818</span>
-<span class="normal">5819</span>
-<span class="normal">5820</span>
-<span class="normal">5821</span>
-<span class="normal">5822</span>
-<span class="normal">5823</span>
-<span class="normal">5824</span>
-<span class="normal">5825</span>
-<span class="normal">5826</span>
-<span class="normal">5827</span>
-<span class="normal">5828</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">5828</span>
 <span class="normal">5829</span>
 <span class="normal">5830</span>
 <span class="normal">5831</span>
@@ -22657,7 +22675,21 @@ class probability as a separate single-band file. Defaults to False.</p>
 <span class="normal">6168</span>
 <span class="normal">6169</span>
 <span class="normal">6170</span>
-<span class="normal">6171</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">semantic_inference_on_image</span><span class="p">(</span>
+<span class="normal">6171</span>
+<span class="normal">6172</span>
+<span class="normal">6173</span>
+<span class="normal">6174</span>
+<span class="normal">6175</span>
+<span class="normal">6176</span>
+<span class="normal">6177</span>
+<span class="normal">6178</span>
+<span class="normal">6179</span>
+<span class="normal">6180</span>
+<span class="normal">6181</span>
+<span class="normal">6182</span>
+<span class="normal">6183</span>
+<span class="normal">6184</span>
+<span class="normal">6185</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">semantic_inference_on_image</span><span class="p">(</span>
     <span class="n">model</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
     <span class="n">image_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">output_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -23411,21 +23443,7 @@ falls back to legacy <code>/ 255.0</code>.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>geoai/train.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">6246</span>
-<span class="normal">6247</span>
-<span class="normal">6248</span>
-<span class="normal">6249</span>
-<span class="normal">6250</span>
-<span class="normal">6251</span>
-<span class="normal">6252</span>
-<span class="normal">6253</span>
-<span class="normal">6254</span>
-<span class="normal">6255</span>
-<span class="normal">6256</span>
-<span class="normal">6257</span>
-<span class="normal">6258</span>
-<span class="normal">6259</span>
-<span class="normal">6260</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">6260</span>
 <span class="normal">6261</span>
 <span class="normal">6262</span>
 <span class="normal">6263</span>
@@ -23566,7 +23584,21 @@ falls back to legacy <code>/ 255.0</code>.</p>
 <span class="normal">6398</span>
 <span class="normal">6399</span>
 <span class="normal">6400</span>
-<span class="normal">6401</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">semantic_segmentation</span><span class="p">(</span>
+<span class="normal">6401</span>
+<span class="normal">6402</span>
+<span class="normal">6403</span>
+<span class="normal">6404</span>
+<span class="normal">6405</span>
+<span class="normal">6406</span>
+<span class="normal">6407</span>
+<span class="normal">6408</span>
+<span class="normal">6409</span>
+<span class="normal">6410</span>
+<span class="normal">6411</span>
+<span class="normal">6412</span>
+<span class="normal">6413</span>
+<span class="normal">6414</span>
+<span class="normal">6415</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">semantic_segmentation</span><span class="p">(</span>
     <span class="n">input_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">output_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">model_path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span>
@@ -24119,21 +24151,7 @@ Defaults to False, preserving batch processing's log-and-continue behavior.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>geoai/train.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">6404</span>
-<span class="normal">6405</span>
-<span class="normal">6406</span>
-<span class="normal">6407</span>
-<span class="normal">6408</span>
-<span class="normal">6409</span>
-<span class="normal">6410</span>
-<span class="normal">6411</span>
-<span class="normal">6412</span>
-<span class="normal">6413</span>
-<span class="normal">6414</span>
-<span class="normal">6415</span>
-<span class="normal">6416</span>
-<span class="normal">6417</span>
-<span class="normal">6418</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">6418</span>
 <span class="normal">6419</span>
 <span class="normal">6420</span>
 <span class="normal">6421</span>
@@ -24333,7 +24351,21 @@ Defaults to False, preserving batch processing's log-and-continue behavior.</p>
 <span class="normal">6615</span>
 <span class="normal">6616</span>
 <span class="normal">6617</span>
-<span class="normal">6618</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">semantic_segmentation_batch</span><span class="p">(</span>
+<span class="normal">6618</span>
+<span class="normal">6619</span>
+<span class="normal">6620</span>
+<span class="normal">6621</span>
+<span class="normal">6622</span>
+<span class="normal">6623</span>
+<span class="normal">6624</span>
+<span class="normal">6625</span>
+<span class="normal">6626</span>
+<span class="normal">6627</span>
+<span class="normal">6628</span>
+<span class="normal">6629</span>
+<span class="normal">6630</span>
+<span class="normal">6631</span>
+<span class="normal">6632</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">semantic_segmentation_batch</span><span class="p">(</span>
     <span class="n">input_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">output_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">model_path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span>
@@ -26416,21 +26448,7 @@ improvement before stopping training. Defaults to None.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>geoai/train.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">6621</span>
-<span class="normal">6622</span>
-<span class="normal">6623</span>
-<span class="normal">6624</span>
-<span class="normal">6625</span>
-<span class="normal">6626</span>
-<span class="normal">6627</span>
-<span class="normal">6628</span>
-<span class="normal">6629</span>
-<span class="normal">6630</span>
-<span class="normal">6631</span>
-<span class="normal">6632</span>
-<span class="normal">6633</span>
-<span class="normal">6634</span>
-<span class="normal">6635</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">6635</span>
 <span class="normal">6636</span>
 <span class="normal">6637</span>
 <span class="normal">6638</span>
@@ -26516,7 +26534,21 @@ improvement before stopping training. Defaults to None.</p>
 <span class="normal">6718</span>
 <span class="normal">6719</span>
 <span class="normal">6720</span>
-<span class="normal">6721</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">train_instance_segmentation_model</span><span class="p">(</span>
+<span class="normal">6721</span>
+<span class="normal">6722</span>
+<span class="normal">6723</span>
+<span class="normal">6724</span>
+<span class="normal">6725</span>
+<span class="normal">6726</span>
+<span class="normal">6727</span>
+<span class="normal">6728</span>
+<span class="normal">6729</span>
+<span class="normal">6730</span>
+<span class="normal">6731</span>
+<span class="normal">6732</span>
+<span class="normal">6733</span>
+<span class="normal">6734</span>
+<span class="normal">6735</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">train_instance_segmentation_model</span><span class="p">(</span>
     <span class="n">images_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">labels_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">output_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -27693,18 +27725,7 @@ k-fold training requests fewer than one epoch.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>geoai/train.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">4344</span>
-<span class="normal">4345</span>
-<span class="normal">4346</span>
-<span class="normal">4347</span>
-<span class="normal">4348</span>
-<span class="normal">4349</span>
-<span class="normal">4350</span>
-<span class="normal">4351</span>
-<span class="normal">4352</span>
-<span class="normal">4353</span>
-<span class="normal">4354</span>
-<span class="normal">4355</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">4355</span>
 <span class="normal">4356</span>
 <span class="normal">4357</span>
 <span class="normal">4358</span>
@@ -28521,7 +28542,21 @@ k-fold training requests fewer than one epoch.</p>
 <span class="normal">5169</span>
 <span class="normal">5170</span>
 <span class="normal">5171</span>
-<span class="normal">5172</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">train_segmentation_model</span><span class="p">(</span>
+<span class="normal">5172</span>
+<span class="normal">5173</span>
+<span class="normal">5174</span>
+<span class="normal">5175</span>
+<span class="normal">5176</span>
+<span class="normal">5177</span>
+<span class="normal">5178</span>
+<span class="normal">5179</span>
+<span class="normal">5180</span>
+<span class="normal">5181</span>
+<span class="normal">5182</span>
+<span class="normal">5183</span>
+<span class="normal">5184</span>
+<span class="normal">5185</span>
+<span class="normal">5186</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">train_segmentation_model</span><span class="p">(</span>
     <span class="n">images_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">labels_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">output_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -28887,19 +28922,6 @@ k-fold training requests fewer than one epoch.</p>
                 <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"All sampled images have the same size: </span><span class="si">{</span><span class="n">image_sizes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
                 <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"No resizing needed."</span><span class="p">)</span>
 
-    <span class="c1"># Create datasets</span>
-    <span class="c1"># Use custom transforms if provided, otherwise use default transforms</span>
-    <span class="n">train_transform</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">train_transforms</span>
-        <span class="k">if</span> <span class="n">train_transforms</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-        <span class="k">else</span> <span class="n">get_semantic_transform</span><span class="p">(</span><span class="n">train</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="p">)</span>
-    <span class="n">val_transform</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">val_transforms</span>
-        <span class="k">if</span> <span class="n">val_transforms</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-        <span class="k">else</span> <span class="n">get_semantic_transform</span><span class="p">(</span><span class="n">train</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="p">)</span>
-
     <span class="n">norm_config</span> <span class="o">=</span> <span class="n">_validate_channel_normalization</span><span class="p">(</span>
         <span class="n">num_channels</span><span class="o">=</span><span class="n">num_channels</span><span class="p">,</span>
         <span class="n">channel_means</span><span class="o">=</span><span class="n">channel_means</span><span class="p">,</span>
@@ -28907,7 +28929,21 @@ k-fold training requests fewer than one epoch.</p>
         <span class="n">channel_mins</span><span class="o">=</span><span class="n">channel_mins</span><span class="p">,</span>
         <span class="n">channel_maxs</span><span class="o">=</span><span class="n">channel_maxs</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="n">_save_normalization_sidecar</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">norm_config</span><span class="p">)</span>
+
+    <span class="c1"># Create datasets</span>
+    <span class="c1"># Use custom transforms if provided, otherwise use default transforms</span>
+    <span class="c1"># Omit [0, 1]-clamping photometric augmentations for unbounded z-score normalization</span>
+    <span class="n">include_photometric</span> <span class="o">=</span> <span class="n">norm_config</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">norm_config</span><span class="p">[</span><span class="s2">"mode"</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">"zscore"</span>
+    <span class="n">train_transform</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">train_transforms</span>
+        <span class="k">if</span> <span class="n">train_transforms</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="k">else</span> <span class="n">get_semantic_transform</span><span class="p">(</span><span class="n">train</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">include_photometric</span><span class="o">=</span><span class="n">include_photometric</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">val_transform</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">val_transforms</span>
+        <span class="k">if</span> <span class="n">val_transforms</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="k">else</span> <span class="n">get_semantic_transform</span><span class="p">(</span><span class="n">train</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="p">)</span>
 
     <span class="n">train_dataset</span> <span class="o">=</span> <span class="n">SemanticSegmentationDataset</span><span class="p">(</span>
         <span class="n">train_imgs</span><span class="p">,</span>
@@ -29215,6 +29251,7 @@ k-fold training requests fewer than one epoch.</p>
             <span class="n">epochs_without_improvement</span> <span class="o">=</span> <span class="mi">0</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Saving best model with </span><span class="si">%s</span><span class="s2">: </span><span class="si">%.4f</span><span class="s2">"</span><span class="p">,</span> <span class="n">monitor</span><span class="p">,</span> <span class="n">best_score</span><span class="p">)</span>
             <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(),</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="s2">"best_model.pth"</span><span class="p">))</span>
+            <span class="n">_save_normalization_sidecar</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">norm_config</span><span class="p">)</span>
             <span class="n">_write_json</span><span class="p">(</span>
                 <span class="n">Path</span><span class="p">(</span><span class="n">output_dir</span><span class="p">)</span> <span class="o">/</span> <span class="s2">"model_selection.json"</span><span class="p">,</span>
                 <span class="p">{</span>
@@ -29267,6 +29304,7 @@ k-fold training requests fewer than one epoch.</p>
 
     <span class="c1"># Save final model</span>
     <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(),</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="s2">"final_model.pth"</span><span class="p">))</span>
+    <span class="n">_save_normalization_sidecar</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">norm_config</span><span class="p">)</span>
 
     <span class="c1"># Save training history</span>
     <span class="n">history</span> <span class="o">=</span> <span class="p">{</span>
@@ -29538,18 +29576,7 @@ k-fold training requests fewer than one epoch.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>geoai/train.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">4190</span>
-<span class="normal">4191</span>
-<span class="normal">4192</span>
-<span class="normal">4193</span>
-<span class="normal">4194</span>
-<span class="normal">4195</span>
-<span class="normal">4196</span>
-<span class="normal">4197</span>
-<span class="normal">4198</span>
-<span class="normal">4199</span>
-<span class="normal">4200</span>
-<span class="normal">4201</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">4201</span>
 <span class="normal">4202</span>
 <span class="normal">4203</span>
 <span class="normal">4204</span>
@@ -29598,7 +29625,18 @@ k-fold training requests fewer than one epoch.</p>
 <span class="normal">4247</span>
 <span class="normal">4248</span>
 <span class="normal">4249</span>
-<span class="normal">4250</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">train_semantic_one_epoch</span><span class="p">(</span>
+<span class="normal">4250</span>
+<span class="normal">4251</span>
+<span class="normal">4252</span>
+<span class="normal">4253</span>
+<span class="normal">4254</span>
+<span class="normal">4255</span>
+<span class="normal">4256</span>
+<span class="normal">4257</span>
+<span class="normal">4258</span>
+<span class="normal">4259</span>
+<span class="normal">4260</span>
+<span class="normal">4261</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">train_semantic_one_epoch</span><span class="p">(</span>
     <span class="n">model</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
     <span class="n">optimizer</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Optimizer</span><span class="p">,</span>
     <span class="n">data_loader</span><span class="p">:</span> <span class="n">DataLoader</span><span class="p">,</span>
