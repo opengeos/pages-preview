@@ -871,6 +871,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../user-guide/offline-edit-sync/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Offline Edit Sync
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../user-guide/print-layout/" class="md-nav__link">
         
   
@@ -4098,7 +4125,8 @@ participant who cannot edit is refused with <code>error: forbidden</code>. An up
 a guest that touches a layer the host locked is applied and immediately undone
 on the relay; both the update and its inverse are fanned out (the sender gets
 the inverse plus <code>error: layer-locked</code>), so every client converges on the
-unchanged layer. A chunk out of order or an unreadable update answers
+unchanged layer. As with a refused snapshot, the whole update is undone, so
+an edit to an unlocked layer made in the same update is undone with it. A chunk out of order or an unreadable update answers
 <code>error: resync</code>, after which the client runs <code>doc-sync</code> again.</p>
 <p><strong>Persistence.</strong> Every accepted update is appended to a log; once the log
 passes 4 MiB or 256 entries it is folded into a fresh base state
