@@ -17,7 +17,7 @@
         <link rel="prev" href="../map-controls/">
       
       
-        <link rel="next" href="../print-layout/">
+        <link rel="next" href="../offline-edit-sync/">
       
       
         
@@ -1074,6 +1074,33 @@
   
 </nav>
       
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../offline-edit-sync/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Offline Edit Sync
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -4082,6 +4109,10 @@ stored on the feature. If you need per-point accuracy and satellite counts, use
 is loaded. Cache the basemap for the area before you go with
 <a href="../projects/#offline-basemap">Project → Offline Basemap...</a>, and save the
 project before closing the app.</p>
+<p>Edits saved to a remote source, such as a PostGIS table, while you are out of
+coverage are queued and sync when the connection returns, with a review step
+for features someone else changed in the meantime. See
+<a href="../offline-edit-sync/">Offline Edit Sync</a>.</p>
 
 
 

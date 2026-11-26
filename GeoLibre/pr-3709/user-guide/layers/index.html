@@ -1036,6 +1036,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../offline-edit-sync/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Offline Edit Sync
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../print-layout/" class="md-nav__link">
         
   
@@ -3944,7 +3971,7 @@ WMS, WMTS), PMTiles, MBTiles, and vector tiles.</p>
 </tr>
 <tr>
 <td><strong>Save edits to source file</strong></td>
-<td>Desktop app: write attribute and geometry edits back to the layer's GeoJSON or GeoPackage file. On an ArcGIS feature layer, a PostGIS table, or a SQL Server table it reads <strong>Save edits to ArcGIS service</strong>, <strong>Save edits to PostGIS table</strong>, or <strong>Save edits to SQL Server table</strong>.</td>
+<td>Desktop app: write attribute and geometry edits back to the layer's GeoJSON or GeoPackage file. On an ArcGIS feature layer, a PostGIS table, or a SQL Server table it reads <strong>Save edits to ArcGIS service</strong>, <strong>Save edits to PostGIS table</strong>, or <strong>Save edits to SQL Server table</strong>. PostGIS saves go through the <a href="../offline-edit-sync/">offline edit outbox</a>, which queues them while the database is unreachable and checks for conflicting changes.</td>
 </tr>
 <tr>
 <td><strong>Materialize to editable layer</strong></td>
