@@ -1,0 +1,1 @@
+import{gt as t}from"./builtin-plugin-metadata-BDWSFAAy.js";import{n as s,r as a,t as S}from"./maplibre-us-state-gis-DJa1DBGi.js";export{S as DEFAULT_US_STATE_GIS_LABELS,t as US_STATE_GIS_PLUGIN_ID,s as default,s as maplibreUsStateGisPlugin,a as setUsStateGisLabels};
