@@ -871,6 +871,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../user-guide/offline-edit-sync/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Offline Edit Sync
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../user-guide/print-layout/" class="md-nav__link">
         
   
@@ -3997,7 +4024,8 @@ order, for:</p>
 <li>the desktop's discovery file, <code>~/.geolibre/runtime/live-relay.json</code>
    (override with <code>GEOLIBRE_LIVE_RELAY_FILE</code>), which the app writes with
    owner-only permissions while access is on and deletes when it is turned off
-   or the app quits;</li>
+   or the app quits normally (a file left by a crash names a dead process and
+   is ignored);</li>
 <li>on macOS, the same file inside the Mac App Store build's sandbox container,
    <code>~/Library/Containers/org.geolibre.desktop/Data/.geolibre/runtime/live-relay.json</code>;</li>
 <li>the desktop Jupyter server's connection file (port 8766).</li>

@@ -873,6 +873,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../offline-edit-sync/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Offline Edit Sync
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../print-layout/" class="md-nav__link">
         
   
@@ -4559,9 +4586,14 @@ on mobile; the sidecar engine requires the desktop app and its permission.</p>
 <td><strong>Cut and fill volume</strong></td>
 <td>Compare an existing surface with a reference: a plane at a fixed elevation, or a second surface on the same pixel grid (a design surface or a later survey). An optional boundary polygon (GeoJSON) limits the comparison to cells whose centres fall inside it and crops the output to it. The log reports the cut, fill, and net volume in cubic metres, the cut, fill, and analysed areas in square metres and hectares, and the deepest cut and fill. The output raster is <code>existing - reference</code>: positive cells are cut, negative cells are fill.</td>
 </tr>
+<tr>
+<td><strong>Building shadows and sun hours</strong></td>
+<td>Extrude building footprints (a GeoJSON polygon layer) by a height attribute, or by a storey count times a storey height, and simulate the sun. <strong>Shadows at a date and time</strong> writes 0 for lit ground, 1 for shaded ground, 2 for a lit roof and 3 for a shaded roof. <strong>Hours of direct sun over the day</strong> and <strong>Clear-sky direct insolation over the day</strong> sample the sun every few minutes from midnight to midnight and write hours of sun, or kWh/m² of direct beam on a horizontal surface, per cell. The log reports the sun's azimuth and elevation, the share of shaded ground, the mean on the ground and on roofs, and the best-lit ground cell.</td>
+</tr>
 </tbody>
 </table>
 <p>Cell areas are ground areas. A projected raster's cell size is converted from its linear unit to metres (from the GeoTIFF's unit key or its CRS definition) and then corrected for the projection's own area distortion, measured through its inverse projection on the WGS84 ellipsoid, so UTM's 0.1%, Web Mercator's growth away from the equator, and any false origin or scale factor are all accounted for. A geographic (degree) raster gets a per-row spherical area. A raster with no usable CRS is taken as metres with a warning; if its cells are under 0.1 units, its extent fits longitude and latitude ranges and its origin is away from (0, 0) (an untagged arc-second or arc-minute DEM), the tool stops instead. Choose <strong>Elevation units</strong> when the heights are in feet. On a real Web Mercator DEM the totals agree with a pyproj geodesic area computation over the same cells to within one part in a million.</p>
+<p>The sun position follows the NOAA solar calculator (within about 0.05° of NREL's SPA), so enter the local <strong>Date</strong>, <strong>Local time</strong>, and <strong>UTC offset</strong> of the place (for example -4 for US Eastern daylight time). Ground shadows are exact on flat ground: each building's shadow is its footprint plus every wall swept <code>height / tan(elevation)</code> away from the sun, which agrees with a Shapely polygon union of the same shadows to within 0.05% of the shaded area. Roofs check their line to the sun across the height grid, so a tall tower shades the lower roofs behind it. The ground is treated as flat, and the insolation counts only clear-sky direct sun (the Meinel model); diffuse sky light and terrain are not modelled. The output is an EPSG:4326 raster at the requested <strong>Cell size</strong> in metres, extended by the <strong>Ground margin</strong> so shadows have room to fall; a run is capped at four million cells, and a day simulation at 100 million cell-by-sun-position evaluations (use a longer <strong>Time step</strong> or a larger cell size beyond that).</p>
 <p><strong>Change detection</strong> (browser only; the two dates must share a pixel grid)</p>
 <table>
 <thead>
