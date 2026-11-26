@@ -1,1 +1,0 @@
-import{a as l}from"./builtin-plugin-metadata-BDWSFAAy.js";var r="top-right",e={...l("maplibre-layer-control"),activate:t=>t.setBuiltInMapControlVisible("layer-control",!0),deactivate:t=>{t.setBuiltInMapControlVisible("layer-control",!1)},getMapControlPosition:()=>r,setMapControlPosition:(t,o)=>(r=o,t.setBuiltInMapControlPosition("layer-control",o))};export{e as t};
