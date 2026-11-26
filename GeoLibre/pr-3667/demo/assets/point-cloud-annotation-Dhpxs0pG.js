@@ -1,0 +1,1 @@
+import{q as t}from"./builtin-plugin-metadata-BDWSFAAy.js";import{i as n,n as a,r as e,t as o}from"./point-cloud-annotation-DdC_XNpV.js";export{t as POINT_CLOUD_ANNOTATION_PLUGIN_ID,o as default,o as pointCloudAnnotationPlugin,a as setPointCloudAnnotationFileSaver,e as setPointCloudLabelWriter,n as setPointCloudPrelabelRunner};
