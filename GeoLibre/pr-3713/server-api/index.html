@@ -2583,6 +2583,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#post-apicollabidentity-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>POST /api/collab/identity-token</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#session-and-personal-token-management" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -4132,6 +4143,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#post-apicollabidentity-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>POST /api/collab/identity-token</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#session-and-personal-token-management" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -4823,6 +4845,21 @@ is <code>null</code> for personal tokens. A management grant reports only
 for such an account must return <code>400</code> with an error containing the stable,
 case-insensitive sentinel text <code>username required</code>. Existing clients recognize
 that phrase and direct the user to account settings.</p>
+<h3 id="post-apicollabidentity-token"><code>POST /api/collab/identity-token</code><a class="headerlink" href="#post-apicollabidentity-token" title="Permanent link">&para;</a></h3>
+<p>Mints a short-lived credential that a GeoLibre live-collaboration relay
+accepts as the joiner's <code>identityToken</code> (see
+<a href="../collaboration/#signed-in-identity-optional">Signed-in identity</a>). Requires a
+credential with <code>write:projects</code>; answers <code>404</code> with
+<code>{"error": "collaboration identity is not configured"}</code> unless the server has
+<code>GEOLIBRE_COLLAB_IDENTITY_SECRET</code> (at least 32 characters), which must equal the relay's
+<code>COLLAB_IDENTITY_SECRET</code>. Responses are <code>Cache-Control: no-store</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;payload&gt;.&lt;signature&gt;"</span><span class="p">,</span><span class="w"> </span><span class="nt">"provider"</span><span class="p">:</span><span class="w"> </span><span class="s2">"geolibre"</span><span class="p">,</span><span class="w"> </span><span class="nt">"expiresAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2026-08-03T12:05:00Z"</span><span class="p">}</span>
+</code></pre></div>
+<p>The token is <code>base64url(payload).base64url(HMAC-SHA256(secret, base64url(payload)))</code>
+with claims <code>{provider: "geolibre", userId, username, exp}</code>. It lives
+<code>GEOLIBRE_COLLAB_IDENTITY_TTL_SECONDS</code> (default 300, at most 3600), so the
+relay never holds the account's access token and needs no call back to this
+server to check it.</p>
 <h3 id="session-and-personal-token-management">Session and personal-token management<a class="headerlink" href="#session-and-personal-token-management" title="Permanent link">&para;</a></h3>
 <p>These routes require a separate OAuth Bearer grant whose <strong>only</strong> scope is
 <code>manage:sessions</code>. A project OAuth grant, even for the same account, and every
