@@ -3685,7 +3685,8 @@ APIs described in the <a href="../plugin-api/">Plugin API</a>.</p>
 <h2 id="architecture-and-license">Architecture and license<a class="headerlink" href="#architecture-and-license" title="Permanent link">&para;</a></h2>
 <p><code>MapController</code> is the MapLibre implementation of <code>MapEngine</code>.
 <code>packages/map/src/layer-sync.ts</code> reconciles project layer records with native
-sources and style layers, while specialized controls register protocols or
+sources and style layers (the per-kind work lives in the <code>layer-sync-*.ts</code>
+modules beside it), while specialized controls register protocols or
 shared overlays for formats that MapLibre does not draw directly. The reusable
 headless surface is published as <code>@geolibre/map</code>.</p>
 <p>MapLibre GL JS and GeoLibre are open source under permissive licenses. See the

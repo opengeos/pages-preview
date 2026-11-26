@@ -4836,7 +4836,7 @@
 <p>属性表用 <code>@tanstack/react-virtual</code> 虚拟化，但<strong>排序、筛选、选择跑在完整数据模型上</strong>。</p>
 <p>这句话平淡，却是个高频错误：很多虚拟列表实现是「只对已渲染的行排序」，结果排序结果随滚动位置变化、全选只选中可见行。<strong>而且这类 bug 在小数据量测试时根本复现不出来。</strong></p>
 <h3 id="35">3.5 体积：懒加载做到什么程度<a class="headerlink" href="#35" title="Permanent link">&para;</a></h3>
-<p><code>apps/geolibre-desktop/vite.config.ts</code> 里的分包配置（<code>manualChunks</code> 加上 Rolldown 的 <code>CODE_SPLITTING_GROUPS</code>）是这套东西的核心。举个最有代表性的例子——Cesium。源码注释记录过一次教训：Cesium 的 chunk 曾经吞进了共享的辅助模块，结果「the whole ~4.7 MB Cesium chunk was modulepreloaded on every boot」；现在它单独成组，因为 <strong>「Cesium only loads when a pane switches to the 3D globe.」</strong></p>
+<p><code>apps/geolibre-desktop/vite-chunking.ts</code> 里的分包配置（<code>manualChunks</code> 加上 Rolldown 的 <code>CODE_SPLITTING_GROUPS</code>）是这套东西的核心。举个最有代表性的例子——Cesium。源码注释记录过一次教训：Cesium 的 chunk 曾经吞进了共享的辅助模块，结果「the whole ~4.7 MB Cesium chunk was modulepreloaded on every boot」；现在它单独成组，因为 <strong>「Cesium only loads when a pane switches to the 3D globe.」</strong></p>
 <p><strong>让它不进启动路径，是关键。</strong> 对 Web 端 GIS 来说，最容易获得的性能提升就是这个：真正需要三维的用户可能只有 20%，没理由让 100% 的人为它承担首屏加载开销。</p>
 <p>源码注释中有一份详细的体积分析，整理如下：</p>
 <table>

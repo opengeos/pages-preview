@@ -944,6 +944,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#line-of-sight-between-two-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Line of sight between two points
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3668,6 +3679,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#line-of-sight-between-two-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Line of sight between two points
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3947,12 +3969,20 @@
 <li><strong>No DEM to prepare.</strong> The elevation comes from the same public terrain tiles the map's 3D terrain control uses, fetched on demand for the square around your point. You do not have to find, download, or load a DEM first, and 3D terrain does not have to be switched on.</li>
 <li><strong>Observer height</strong> is 1.8 m — a standing person — above the ground elevation at the clicked point.</li>
 <li><strong>Radius</strong> is one of the three presets, from 2 km to 15 km. The underlying tool accepts anything from 100 m up to a 50 km ceiling.</li>
-<li><strong>The result is an image overlay layer</strong> named <code>Viewshed (5 km)</code> or similar, so it gets opacity, reordering, zoom-to, and removal like any other layer, and it is saved with the project.</li>
+<li>
+<p><strong>The result is an image overlay layer</strong> named <code>Viewshed (5 km)</code> or similar, so it gets opacity, reordering, zoom-to, and removal like any other layer, and it is saved with the project.</p>
+</li>
+<li>
+<p><strong>Earth curvature and refraction</strong> are modelled by default. Each elevation is lowered by the apparent drop <code>d²(1 - k) / 2R</code> before its slope from the observer is compared, where <code>d</code> is the distance, <code>k</code> the refraction coefficient (default 0.13) and <code>R</code> the Earth radius (default 6,371 km). From a 1.8 m eye over flat ground that puts the horizon about 5.1 km away; at the 50 km ceiling the drop reaches roughly 170 m. Untick <strong>Viewshed: Earth curvature and refraction</strong> in the Quick analysis menu for the flat-Earth answer.</p>
+</li>
+<li><strong>The curvature settings are shared with Line of sight.</strong> The <a href="#line-of-sight-between-two-points">Line of sight</a> panel edits the same switch plus the <strong>Refraction coefficient</strong> and <strong>Earth radius (km)</strong>, so both tools always agree on what is over the horizon. The settings are remembered on this device and are not saved with a project; each viewshed layer records the values it was computed with in its metadata.</li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">What the quick viewshed does not model</p>
-<p>Earth curvature and atmospheric refraction are ignored. Over a few kilometres that is immaterial, but at the 50 km ceiling the curvature drop alone reaches roughly 180 m — enough to matter for a radio line-of-sight study, if not for "what can I see from this overlook". The public terrain tiles are also a global, generalized elevation model rather than a survey-grade DEM. For a rigorous analysis against your own DEM and your own station points, use the <strong>Viewshed</strong> tool under <a href="../processing/#whitebox-toolbox">Processing → Whitebox Toolbox</a>, which this quick action deliberately does not replace.</p>
+<p>The public terrain tiles are a global, generalized elevation model rather than a survey-grade DEM, and they know nothing about buildings or trees. For a rigorous analysis against your own DEM and your own station points, use the <strong>Viewshed</strong> tool under <a href="../processing/#whitebox-toolbox">Processing → Whitebox Toolbox</a>, which this quick action deliberately does not replace.</p>
 </div>
+<h3 id="line-of-sight-between-two-points">Line of sight between two points<a class="headerlink" href="#line-of-sight-between-two-points" title="Permanent link">&para;</a></h3>
+<p><strong>Quick analysis → Line of sight from here</strong> opens a panel that draws the sight line from the clicked observer to a second clicked target, split into visible and obstructed stretches, with the first obstruction, the highest point, and an elevation profile. <strong>Observer height (m)</strong> and <strong>Target height (m)</strong> set the eye and the target top above the ground. With <strong>Earth curvature and refraction</strong> ticked, the panel also shows the <strong>Refraction coefficient</strong> (default 0.13; 0 is no refraction, around 0.25 is common for microwave radio) and the <strong>Earth radius (km)</strong>. These are the same settings the viewshed uses.</p>
 <h2 id="camera-overlay-and-recording-tools">Camera, overlay, and recording tools<a class="headerlink" href="#camera-overlay-and-recording-tools" title="Permanent link">&para;</a></h2>
 <p>The Controls menu also carries tools that move the camera, drape live data over the map, or capture what you see:</p>
 <table>
