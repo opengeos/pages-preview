@@ -4349,9 +4349,34 @@ secret configured:</p>
   how the Collaborate dialog decides to hide the "require a signed-in account"
   option entirely.</li>
 </ul>
-<p>GeoLibre itself ships no sign-in flow yet, so the stock deployment leaves the
-secret unset and the whole identity path dormant. The protocol and relay support
-are in place for a deployment that fronts the relay with its own issuer.</p>
+<p><strong>The GeoLibre server API as issuer (#3530).</strong> <code>backend/geolibre_server_api</code>
+mints these tokens for its accounts at <code>POST /api/collab/identity-token</code> (see
+<a href="../server-api/#post-apicollabidentity-token">the server API reference</a>). To
+enable it, give the server <code>GEOLIBRE_COLLAB_IDENTITY_SECRET</code> and the relay the
+same value as <code>COLLAB_IDENTITY_SECRET</code> (the root <code>docker-compose.yml</code> passes
+one <code>COLLAB_IDENTITY_SECRET</code> to both). When the user is signed in to that server
+(the share server's OAuth sign-in), <code>useCollaboration</code> presents a token on
+every (re)connect's <code>join</code>, reusing one while it has more than a minute left
+and otherwise requesting a new one
+(<code>lib/collab-identity.ts</code>), so the roster shows the account, the session log
+attributes joins to it, blocks and permission overrides key on <code>user:&lt;id&gt;</code>,
+and the host can turn on "require a signed-in account". Only this five-minute,
+single-purpose token reaches the relay, never the OAuth access token; the relay
+checks it offline with the shared secret. A user who is not signed in, or a
+server without the secret, joins anonymously as before.</p>
+<p>The token carries the account's id and username, so a signed-in user's
+identity goes to whichever relay the deployment configures
+(<code>VITE_GEOLIBRE_COLLAB_URL</code> / <code>GEOLIBRE_COLLAB_URL</code>). The secret is symmetric:
+whoever holds it can also mint tokens for any account (<code>signIdentityToken</code>),
+so every holder, the server and each relay, must be trusted to issue
+identities, not just to see users' names. The server only issues tokens when
+an operator configures that shared secret, which makes the pairing an
+explicit operator decision.
+Tokens carry no audience: any relay holding the same secret accepts one until
+it expires (five minutes by default), so share a secret only among relays of
+one deployment.</p>
+<p>The stock hosted relay leaves the secret unset, so the identity path stays
+dormant there until a deployment pairs a relay with its server API.</p>
 <h3 id="moderation">Moderation<a class="headerlink" href="#moderation" title="Permanent link">&para;</a></h3>
 <p><code>kick-participant</code> disconnects a participant. <code>block-participant</code> also records
 their <strong>participant key</strong> so the relay refuses the next join. That key is
