@@ -1,1 +1,0 @@
-function o(t){if(!t)return null;const n=t.getMap?.();if(n)return n;const e=t.getMapboxMap?.();return e||null}function r(t){return o(t)??t?.getArcgisControlMap?.()??t?.getCesiumControlMap?.()??null}export{o as n,r as t};
