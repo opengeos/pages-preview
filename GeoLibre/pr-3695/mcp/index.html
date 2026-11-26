@@ -3983,35 +3983,46 @@ write is byte-for-byte the kind the app already loads. The optional <code>show_m
 in-chat preview uses a bundled MCP App view.</p>
 <p>The <code>live_*</code> tools are the other half. They speak a loopback command relay
 in GeoLibre Desktop, so a command from an MCP client moves the map already open
-there. Turn on <strong>Settings → Startup → Allow AI agents to drive the map</strong> and
-the app starts its processing server at launch, which hosts the relay; no
-Jupyter notebook is needed. The older path still works: opening
-<strong>Processing → Jupyter Notebook</strong> once per launch also provides a relay (the
-<a href="../notebook/">Notebook panel</a>'s). Web, JupyterLite, and the Mac App Store
-build have no relay, so those tools have nothing to attach to there.</p>
+there. Turn on <strong>Settings → Startup → Allow AI agents to drive the map</strong> and the
+desktop app serves the relay itself: no Jupyter notebook, Python runtime, or
+processing server is involved, and it works in every desktop build, the Mac App
+Store one included. Opening <strong>Processing → Jupyter Notebook</strong> also provides a
+relay (the <a href="../notebook/">Notebook panel</a>'s). Web and JupyterLite have no relay,
+so those tools have nothing to attach to there.</p>
 <h3 id="how-the-live-relay-is-found">How the live relay is found<a class="headerlink" href="#how-the-live-relay-is-found" title="Permanent link">&para;</a></h3>
 <p>The MCP server never takes the relay's address from the model. It looks, in
 order, for:</p>
 <ol>
 <li><code>GEOLIBRE_RELAY_URL</code> (and <code>GEOLIBRE_RELAY_TOKEN</code>), when set;</li>
-<li>the processing sidecar's discovery file,
-   <code>~/.geolibre/runtime/live-relay.json</code> (override with
-   <code>GEOLIBRE_LIVE_RELAY_FILE</code>), which the sidecar writes with owner-only
-   permissions while it runs and deletes when it stops;</li>
+<li>the desktop's discovery file, <code>~/.geolibre/runtime/live-relay.json</code>
+   (override with <code>GEOLIBRE_LIVE_RELAY_FILE</code>), which the app writes with
+   owner-only permissions while access is on and deletes when it is turned off
+   or the app quits;</li>
+<li>on macOS, the same file inside the Mac App Store build's sandbox container,
+   <code>~/Library/Containers/org.geolibre.desktop/Data/.geolibre/runtime/live-relay.json</code>;</li>
 <li>the desktop Jupyter server's connection file (port 8766).</li>
 </ol>
-<p>The sidecar relay has its own per-launch token, separate from the sidecar's
-API token, so a Live MCP client can send map commands and nothing else. The
-relay requires the desktop's explicit <strong>Allow AI agents to drive the map</strong>
-opt-in. Starting the sidecar for processing leaves relay access disabled.
-Turning the setting off immediately disconnects this window and requests
-server-side revocation, including removal of discovery. Failed requests retry
-automatically with a persistent notice until the server confirms the change;
-processing jobs keep running. The app authenticates its sidecar WebSocket in
-the handshake protocol header, keeping its credential out of access-logged
-URL paths. A Docker or multi-tenant sidecar never
-serves it. Only a loopback URL is accepted and
-redirects are refused, so the token stays on the machine.</p>
+<p>The relay listens on an ephemeral <code>127.0.0.1</code> port. The Mac App Store build is
+the exception: the App Sandbox refuses to bind even a loopback TCP port without
+the network-server entitlement, so it listens on a Unix socket,
+<code>live-relay.sock</code>, next to the discovery file in its container, and the MCP
+server connects to that socket. The first time a terminal or MCP client reads
+the container, recent macOS versions ask whether it may access another app's
+data; allow it. The MCP server only looks in that container when the Mac App
+Store build is installed.</p>
+<p>Each time access is turned on the relay generates a new token, and only a
+client holding it (read from the owner-only discovery file) can send map
+commands. Turning the setting off immediately closes the listener, fails
+commands still waiting for a result, disconnects the window, and removes the
+discovery file; a failed change retries automatically with a persistent notice
+until the app confirms it. Requests that carry a browser <code>Origin</code> header are
+refused, and over TCP so is a <code>Host</code> other than the loopback address. Only a loopback URL is
+accepted and redirects are refused, so the token stays on the machine.</p>
+<p>Commands wait for the app's result for a per-method budget: 60 seconds for
+GeoJSON layer additions, feature reads, and image exports; 120 seconds for raster
+bytes; 30 minutes for processing algorithms and Whitebox tools; one hour for
+Model Builder graphs; five seconds for everything else. The <code>live_run_*</code> tools
+take a <code>timeout_seconds</code> override.</p>
 <h2 id="install">Install<a class="headerlink" href="#install" title="Permanent link">&para;</a></h2>
 <p>The MCP SDK is an optional extra:</p>
 <div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">"geolibre[mcp]"</span>
@@ -4275,6 +4286,10 @@ an unrelated <code>package.json</code> sitting inside a root cannot be rewritten
 <tr>
 <td><code>add_arcgis_layer</code></td>
 <td>ArcGIS REST MapServer and ImageServer (dynamic export, or a validated public image cache with <code>tiled=true</code>) and FeatureServer layers (features in view loaded on open). Cached mode refuses sublayers, rendering rules, incompatible grids and raw LERC caches before changing the project.</td>
+</tr>
+<tr>
+<td><code>add_arcgis_vector_tile_layer</code></td>
+<td>An ArcGIS VectorTileServer drawn with the service's own default style, read now and stored on the layer the way the app saves it. Metadata reads are bounded (2 MiB description, 8 MiB style, 30-second deadline each); styles the app cannot draw are refused before the project changes. No tokens or portal items.</td>
 </tr>
 <tr>
 <td><code>add_zarr_layer</code></td>

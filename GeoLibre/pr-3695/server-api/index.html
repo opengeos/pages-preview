@@ -4822,7 +4822,7 @@ that phrase and direct the user to account settings.</p>
 <p>Mints a short-lived credential that a GeoLibre live-collaboration relay
 accepts as the joiner's <code>identityToken</code> (see
 <a href="../collaboration/#signed-in-identity-optional">Signed-in identity</a>). Requires a
-credential with <code>read:projects</code> or <code>write:projects</code>; answers <code>404</code> with
+credential with <code>write:projects</code>; answers <code>404</code> with
 <code>{"error": "collaboration identity is not configured"}</code> unless the server has
 <code>GEOLIBRE_COLLAB_IDENTITY_SECRET</code>, which must equal the relay's
 <code>COLLAB_IDENTITY_SECRET</code>. Responses are <code>Cache-Control: no-store</code>.</p>

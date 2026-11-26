@@ -4374,7 +4374,7 @@
 <h3 id="raster">Raster<a class="headerlink" href="#raster" title="Permanent link">&para;</a></h3>
 <p><strong>Processing → GeoLibre Toolbox → Raster</strong> opens the Raster tools dialog. The classic tools run on the rasterio Python sidecar: they take a file path in and write a file path out, then add the result to the map.</p>
 <p><img alt="The Raster tools dialog, with the tool list at the top and the engine picker above the parameters" src="https://assets.geolibre.app/images/geolibre-raster-tools.webp" /></p>
-<p>Every raster tool also offers a <strong>Client (browser)</strong> engine that computes on the loaded raster with no sidecar at all. These computations are supported by the web and mobile runtimes. The engine picker in the dialog shows which engines a tool accepts, and the line beneath it says what the selected one will do. The browser engine follows the sidecar's algorithms (GDAL's warp kernels and output grid for Reproject and Resample, GDAL's rasterization rules for Clip by mask layer and Zonal statistics, ContourPy's marching squares for Contour, the same IDW and kriging pipeline for Interpolation), and a parity test replays sidecar outputs against it. A few inputs stay sidecar-only, and the browser engine says so when it meets them: a Reproject target that is not an EPSG code, Mosaic inputs on different pixel grids, zonal statistics over line zones, and a kriging system that is singular (for example, duplicate sample locations). The Change detection and SAR tools run in the browser only.</p>
+<p>Every raster tool also offers a <strong>Client (browser)</strong> engine that computes on the loaded raster with no sidecar at all. These computations are supported by the web and mobile runtimes. The engine picker in the dialog shows which engines a tool accepts, and the line beneath it says what the selected one will do. The browser engine follows the sidecar's algorithms (GDAL's warp kernels and output grid for Reproject and Resample, GDAL's rasterization rules for Clip by mask layer and Zonal statistics, ContourPy's marching squares for Contour, the same IDW and kriging pipeline for Interpolation), and a parity test replays sidecar outputs against it. A few inputs stay sidecar-only, and the browser engine says so when it meets them: a Reproject target that is not an EPSG code, Mosaic inputs on different pixel grids, zonal statistics over line zones, and a kriging system that is singular (for example, duplicate sample locations). The 3D terrain analysis, Change detection and SAR tools run in the browser only.</p>
 <p>Browser interpolation also enforces a 200-million-operation work estimate,
 including point/grid comparisons and the kriging dense solve. This can limit a
 request below the separate point or cell caps. Thin the points, use a coarser
@@ -4546,6 +4546,22 @@ on mobile; the sidecar engine requires the desktop app and its permission.</p>
 </tr>
 </tbody>
 </table>
+<p><strong>3D terrain analysis</strong> (browser only)</p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Cut and fill volume</strong></td>
+<td>Compare an existing surface with a reference: a plane at a fixed elevation, or a second surface on the same pixel grid (a design surface or a later survey). An optional boundary polygon (GeoJSON) limits the comparison to cells whose centres fall inside it and crops the output to it. The log reports the cut, fill, and net volume in cubic metres, the cut, fill, and analysed areas in square metres and hectares, and the deepest cut and fill. The output raster is <code>existing - reference</code>: positive cells are cut, negative cells are fill.</td>
+</tr>
+</tbody>
+</table>
+<p>Cell areas are ground areas. A projected raster's cell size is converted from its linear unit to metres (from the GeoTIFF's unit key or its CRS definition) and then corrected for the projection's own area distortion, measured through its inverse projection on the WGS84 ellipsoid, so UTM's 0.1%, Web Mercator's growth away from the equator, and any false origin or scale factor are all accounted for. A geographic (degree) raster gets a per-row spherical area. A raster with no usable CRS is taken as metres with a warning; if its cells are under 0.1 units, its extent fits longitude and latitude ranges and its origin is away from (0, 0) (an untagged arc-second or arc-minute DEM), the tool stops instead. Choose <strong>Elevation units</strong> when the heights are in feet. On a real Web Mercator DEM the totals agree with a pyproj geodesic area computation over the same cells to within one part in a million.</p>
 <p><strong>Change detection</strong> (browser only; the two dates must share a pixel grid)</p>
 <table>
 <thead>

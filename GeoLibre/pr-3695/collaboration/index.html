@@ -2646,6 +2646,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#op-level-document-model-3530" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Op-level document model (#3530)
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#sync-protocol" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -3725,6 +3736,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#op-level-document-model-3530" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Op-level document model (#3530)
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#sync-protocol" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -3966,6 +3988,60 @@ immediately, and fans every message out to the other connected sockets.</p>
 </ul>
 <p>CRDT / per-action mutation transport is the documented <strong>v2</strong> path (see
 Limitations).</p>
+<h2 id="op-level-document-model-3530">Op-level document model (#3530)<a class="headerlink" href="#op-level-document-model-3530" title="Permanent link">&para;</a></h2>
+<p>The whole-snapshot protocol below is being replaced by op-level sync over a
+<a href="https://docs.yjs.dev/">Yjs</a> document, so simultaneous edits merge instead of
+overwriting each other. The shared model is <code>ProjectDoc</code> in
+<code>packages/collab-core/src/crdt.ts</code> (<code>@geolibre/collab-core/crdt</code>). It is not
+wired up yet: the relays and the app still run the snapshot protocol and its
+limits below, and adopt the model in follow-up changes. The model:</p>
+<table>
+<thead>
+<tr>
+<th>Root</th>
+<th>Type</th>
+<th>Holds</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fields</code></td>
+<td><code>Y.Map</code></td>
+<td>every top-level project key except <code>layers</code></td>
+</tr>
+<tr>
+<td><code>layers</code></td>
+<td><code>Y.Map</code></td>
+<td>layer id to a <code>Y.Map</code> of that layer's properties</td>
+</tr>
+<tr>
+<td><code>layerOrder</code></td>
+<td><code>Y.Array</code></td>
+<td>layer ids, bottom to top as in <code>project.layers</code></td>
+</tr>
+</tbody>
+</table>
+<p>Plain objects are nested <code>Y.Map</code>s at any depth, so two people changing
+different properties of one layer (its fill colour and its line width, say)
+both keep their change. Arrays and scalars are single values, where the last
+writer wins on that one value. A layer's <code>geojson</code> FeatureCollection is stored
+feature by feature (<code>meta</code>, <code>features</code> keyed by a generated key, and an <code>order</code>
+array), so concurrent edits to different features of one layer merge too, and
+editing one feature of a large layer sends a few hundred bytes rather than the
+layer. Each feature is one value, though: two people editing the same feature
+at once (even different attributes of it) resolve to one of the two edits. A
+delete wins over a concurrent edit of the deleted layer or feature.</p>
+<p><code>ProjectDoc.write(project, origin)</code> diffs a whole project against the document
+and records only the differences in one transaction tagged with <code>origin</code>;
+<code>read()</code> rebuilds the project and reuses the previous object for every layer no
+update touched. <code>createLocalUndoManager</code> gives each participant a
+<code>Y.UndoManager</code> that records only that participant's own transactions, so
+undoing never reverts a collaborator's edit.</p>
+<p>Updates travel as base64 in JSON frames. <code>splitUpdate</code> cuts an update larger
+than <code>MAX_UPDATE_CHUNK_BYTES</code> (512 KiB) into numbered chunks and
+<code>UpdateAssembler</code> rebuilds it on the far side, so a project well beyond the
+snapshot cap syncs without any single WebSocket message nearing a platform
+limit.</p>
 <h2 id="sync-protocol">Sync protocol<a class="headerlink" href="#sync-protocol" title="Permanent link">&para;</a></h2>
 <p>All frames are JSON, and each direction is a discriminated union on <code>type</code>
 (<code>ClientMessage</code> and <code>ServerMessage</code>). The relays' types live in
@@ -4252,8 +4328,9 @@ mints these tokens for its accounts at <code>POST /api/collab/identity-token</co
 enable it, give the server <code>GEOLIBRE_COLLAB_IDENTITY_SECRET</code> and the relay the
 same value as <code>COLLAB_IDENTITY_SECRET</code> (the root <code>docker-compose.yml</code> passes
 one <code>COLLAB_IDENTITY_SECRET</code> to both). When the user is signed in to that server
-(the share server's OAuth sign-in), <code>useCollaboration</code> requests a fresh token
-on every (re)connect and presents it on <code>join</code>
+(the share server's OAuth sign-in), <code>useCollaboration</code> presents a token on
+every (re)connect's <code>join</code>, reusing one while it has more than a minute left
+and otherwise requesting a new one
 (<code>lib/collab-identity.ts</code>), so the roster shows the account, the session log
 attributes joins to it, blocks and permission overrides key on <code>user:&lt;id&gt;</code>,
 and the host can turn on "require a signed-in account". Only this five-minute,
@@ -4265,7 +4342,10 @@ identity goes to whichever relay the deployment configures
 (<code>VITE_GEOLIBRE_COLLAB_URL</code> / <code>GEOLIBRE_COLLAB_URL</code>). That relay can only
 verify (not mint) tokens, and the server only issues them when it shares a
 secret with a relay, so this pairing is an operator decision; a deployment
-should not point the app at a relay it does not trust with its users' names.</p>
+should not point the app at a relay it does not trust with its users' names.
+Tokens carry no audience: any relay holding the same secret accepts one until
+it expires (five minutes by default), so share a secret only among relays of
+one deployment.</p>
 <p>The stock hosted relay leaves the secret unset, so the identity path stays
 dormant there until a deployment pairs a relay with its server API.</p>
 <h3 id="moderation">Moderation<a class="headerlink" href="#moderation" title="Permanent link">&para;</a></h3>

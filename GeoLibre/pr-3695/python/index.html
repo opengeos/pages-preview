@@ -4326,6 +4326,10 @@ variants can only run on a worker thread.</p>
 <td>Add an ArcGIS REST MapServer or ImageServer (<code>service="map"</code>/<code>"image"</code>, dynamic export or a validated public image cache with <code>tiled=True</code>) or a FeatureServer layer (<code>service="feature"</code>, features in view loaded when the project opens with the MapLibre renderer). Cached mode reads at most 2 MiB of metadata with a 30-second socket inactivity timeout and an elapsed-time check between reads and refuses dynamic-only options, incompatible grids and raw LERC.</td>
 </tr>
 <tr>
+<td><code>add_arcgis_vector_tile_layer(url, name=, bounds=, attribution=)</code></td>
+<td>Add an ArcGIS VectorTileServer drawn with the service's own default style. The description (2 MiB cap) and style (8 MiB cap) are read now, each with a 30-second deadline, and stored on an <code>arcgis</code> layer exactly as the app saves one, so the project opens with the same cartography. Styles the app cannot draw are refused. No tokens or portal items.</td>
+</tr>
+<tr>
 <td><code>add_zarr(url, variable, name=, selector=, clim=, colormap=, bounds=, crs=, spatial_dimensions=, icechunk_branch=None, **style)</code></td>
 <td>Add one variable of a Zarr data cube. Public HTTP(S) Icechunk repositories reopen on the saved branch: pass <code>icechunk_branch="main"</code> or an encoded <code>#icechunk=...</code> URL. Local session stores cannot be saved. Default <code>Map</code> exports redact credential query parameters from the URL, but <code>save_project(..., keep_credentials=True)</code> and the low-level <code>authoring.save_project</code> keep them, and <code>icechunk_branch</code> does not remove them.</td>
 </tr>

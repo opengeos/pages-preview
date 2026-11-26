@@ -4239,7 +4239,8 @@ the active <code>MapEngine</code>; layers report engine compatibility; and plugi
 an <code>engines</code> list. This lets a project retain an unsupported layer or suspended
 plugin across a switch without asking every SDK to emulate every feature.</p>
 <p>Inside <code>packages/map/src</code>, a file named for an engine (<code>arcgis-*</code>, <code>cesium-*</code>,
-<code>mapbox-*</code>, and MapLibre's <code>layer-sync</code>, <code>map-controller</code>, and <code>MapCanvas</code>)
+<code>mapbox-*</code>, and MapLibre's <code>layer-sync</code>, <code>map-controller</code>, the <code>layer-sync-*</code> and
+<code>map-controller-*</code> modules split from them, and <code>MapCanvas</code>)
 never imports another engine's file. Code two engines share lives in a neutral
 module named for what it does (<code>pmtiles-archive.ts</code>, <code>protocol-tiles.ts</code>,
 <code>gl-style-compiler.ts</code>, <code>feature-style.ts</code>, and so on). The
