@@ -1,1 +1,0 @@
-import{i}from"./esm-WbcZPJfS.js";import{d as s,i as a,p as l}from"./esm-BEr-QP4N.js";function u(t,r={}){const e=[];if(a(t,n=>{e.push(n.coordinates)}),e.length<2)throw new Error("Must have at least 2 geometries");const o=i(e[0],...e.slice(1));return o.length===0?null:o.length===1?l(o[0],r.properties):s(o,r.properties)}var p=u;export{p as t};
