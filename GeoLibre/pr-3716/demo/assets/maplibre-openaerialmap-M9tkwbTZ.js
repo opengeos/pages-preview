@@ -1,0 +1,1 @@
+import{W as A}from"./builtin-plugin-metadata-BDWSFAAy.js";import{n as a,r as e,t as r}from"./maplibre-openaerialmap-soOxg8uv.js";export{r as DEFAULT_OPENAERIALMAP_LABELS,A as OPENAERIALMAP_PLUGIN_ID,a as default,a as maplibreOpenAerialMapPlugin,e as setOpenAerialMapLabels};
