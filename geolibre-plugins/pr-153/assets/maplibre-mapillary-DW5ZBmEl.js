@@ -1,0 +1,1 @@
+import{B as a}from"./builtin-plugin-metadata-BDWSFAAy.js";import{n as r,t as l}from"./maplibre-mapillary-D0usikOr.js";export{a as MAPILLARY_PLUGIN_ID,l as maplibreMapillaryPlugin,r as setMapillaryLabels};

@@ -1,0 +1,1 @@
+import{$ as s}from"./builtin-plugin-metadata-BDWSFAAy.js";import{n as r,r as a,t as e}from"./maplibre-s3-browser-BC9sV8Yt.js";export{e as DEFAULT_S3_BROWSER_LABELS,s as S3_BROWSER_PLUGIN_ID,r as default,r as maplibreS3BrowserPlugin,a as setS3BrowserLabels};
