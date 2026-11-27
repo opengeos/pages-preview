@@ -1,4 +1,6 @@
 
+
+
 <!doctype html>
 <html lang="en" class="no-js">
   <head>
@@ -16,6 +18,7 @@
       
       
       
+      
         <link rel="prev" href="../auto/">
       
       
@@ -26,7 +29,7 @@
       
       
       <link rel="icon" href="../assets/logo.ico">
-      <meta name="generator" content="zensical-0.1.2">
+      <meta name="generator" content="zensical-0.1.3">
     
     
       
@@ -37,12 +40,13 @@
       
         
       
-      <link rel="stylesheet" href="../assets/stylesheets/modern/main.ebb7f775.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.e2cf241e.min.css">
       
         
           
         
         <link rel="stylesheet" href="../assets/stylesheets/modern/palette.b60ce83d.min.css">
+      
       
       
 
@@ -1553,6 +1557,33 @@
     
   
   Wetland Mapping with GeoAI
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/wetland_dynamics_lidar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Prairie Pothole Wetland Dynamics with GeoAI and lidar-rs
 
     
   </span>
@@ -5500,7 +5531,39 @@ estimator.predict("input.tif", output_path="canopy_height.tif")</p>
 <span class="normal">1363</span>
 <span class="normal">1364</span>
 <span class="normal">1365</span>
-<span class="normal">1366</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">CanopyHeightEstimation</span><span class="p">:</span>
+<span class="normal">1366</span>
+<span class="normal">1367</span>
+<span class="normal">1368</span>
+<span class="normal">1369</span>
+<span class="normal">1370</span>
+<span class="normal">1371</span>
+<span class="normal">1372</span>
+<span class="normal">1373</span>
+<span class="normal">1374</span>
+<span class="normal">1375</span>
+<span class="normal">1376</span>
+<span class="normal">1377</span>
+<span class="normal">1378</span>
+<span class="normal">1379</span>
+<span class="normal">1380</span>
+<span class="normal">1381</span>
+<span class="normal">1382</span>
+<span class="normal">1383</span>
+<span class="normal">1384</span>
+<span class="normal">1385</span>
+<span class="normal">1386</span>
+<span class="normal">1387</span>
+<span class="normal">1388</span>
+<span class="normal">1389</span>
+<span class="normal">1390</span>
+<span class="normal">1391</span>
+<span class="normal">1392</span>
+<span class="normal">1393</span>
+<span class="normal">1394</span>
+<span class="normal">1395</span>
+<span class="normal">1396</span>
+<span class="normal">1397</span>
+<span class="normal">1398</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">CanopyHeightEstimation</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">"""Estimate canopy height from RGB imagery using Meta's HighResCanopyHeight model.</span>
 
 <span class="sd">    This class provides canopy height estimation from RGB aerial or satellite</span>
@@ -5596,7 +5659,14 @@ estimator.predict("input.tif", output_path="canopy_height.tif")</p>
         <span class="k">return</span> <span class="p">(</span><span class="n">img_tensor</span> <span class="o">-</span> <span class="n">mean</span><span class="p">)</span> <span class="o">/</span> <span class="n">std</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">_make_weight_map</span><span class="p">(</span><span class="n">tile_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">overlap</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_make_weight_map</span><span class="p">(</span>
+        <span class="n">tile_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">overlap</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">top</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">bottom</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">left</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">right</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">"""Create a 2D raised-cosine weight map for smooth tile blending.</span>
 
 <span class="sd">        Produces a weight map that is 1.0 in the non-overlapping centre and</span>
@@ -5604,9 +5674,17 @@ estimator.predict("input.tif", output_path="canopy_height.tif")</p>
 <span class="sd">        overlap region.  When multiple overlapping tiles are accumulated</span>
 <span class="sd">        with these weights the result is seamless.</span>
 
+<span class="sd">        Only the sides that face another tile are tapered. A side on the</span>
+<span class="sd">        border of the image keeps full weight up to the edge, since tapering</span>
+<span class="sd">        it would give the image's edge pixels a weight of zero.</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            tile_size: Size of each square tile.</span>
 <span class="sd">            overlap: Number of pixels that overlap between adjacent tiles.</span>
+<span class="sd">            top: Whether to taper the top side (another tile lies above).</span>
+<span class="sd">            bottom: Whether to taper the bottom side (another tile lies below).</span>
+<span class="sd">            left: Whether to taper the left side (another tile lies left).</span>
+<span class="sd">            right: Whether to taper the right side (another tile lies right).</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            2D float32 array of shape (tile_size, tile_size).</span>
@@ -5617,11 +5695,15 @@ estimator.predict("input.tif", output_path="canopy_height.tif")</p>
         <span class="n">ramp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">overlap</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
         <span class="n">ramp</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">ramp</span><span class="p">))</span>  <span class="c1"># raised cosine</span>
 
-        <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">tile_size</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
-        <span class="n">w</span><span class="p">[:</span><span class="n">overlap</span><span class="p">]</span> <span class="o">=</span> <span class="n">ramp</span>
-        <span class="n">w</span><span class="p">[</span><span class="o">-</span><span class="n">overlap</span><span class="p">:]</span> <span class="o">=</span> <span class="n">ramp</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">taper</span><span class="p">(</span><span class="n">start</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">end</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+            <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">tile_size</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">start</span><span class="p">:</span>
+                <span class="n">w</span><span class="p">[:</span><span class="n">overlap</span><span class="p">]</span> <span class="o">=</span> <span class="n">ramp</span>
+            <span class="k">if</span> <span class="n">end</span><span class="p">:</span>
+                <span class="n">w</span><span class="p">[</span><span class="o">-</span><span class="n">overlap</span><span class="p">:]</span> <span class="o">=</span> <span class="n">ramp</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">w</span>
 
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">taper</span><span class="p">(</span><span class="n">top</span><span class="p">,</span> <span class="n">bottom</span><span class="p">),</span> <span class="n">taper</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">))</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">predict</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -5719,8 +5801,9 @@ estimator.predict("input.tif", output_path="canopy_height.tif")</p>
         <span class="n">padded_img</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="n">padded_h</span><span class="p">,</span> <span class="n">padded_w</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
         <span class="n">padded_img</span><span class="p">[:,</span> <span class="p">:</span><span class="n">height</span><span class="p">,</span> <span class="p">:</span><span class="n">width</span><span class="p">]</span> <span class="o">=</span> <span class="n">img</span>
 
-        <span class="c1"># Blending weight map (raised-cosine taper in overlap regions)</span>
-        <span class="n">weight_map</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_weight_map</span><span class="p">(</span><span class="n">tile_size</span><span class="p">,</span> <span class="n">overlap</span><span class="p">)</span>
+        <span class="c1"># Blending weight maps (raised-cosine taper in overlap regions),</span>
+        <span class="c1"># keyed by which sides of a tile face another tile</span>
+        <span class="n">weight_maps</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="c1"># Output arrays</span>
         <span class="n">output</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">padded_h</span><span class="p">,</span> <span class="n">padded_w</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
@@ -5729,6 +5812,7 @@ estimator.predict("input.tif", output_path="canopy_height.tif")</p>
         <span class="c1"># Process tiles in batches</span>
         <span class="n">tiles</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">positions</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">tile_weights</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_rows</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_cols</span><span class="p">):</span>
                 <span class="n">y</span> <span class="o">=</span> <span class="n">row</span> <span class="o">*</span> <span class="n">step</span>
@@ -5737,17 +5821,26 @@ estimator.predict("input.tif", output_path="canopy_height.tif")</p>
                 <span class="n">tiles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tile</span><span class="p">)</span>
                 <span class="n">positions</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
 
+                <span class="c1"># Taper only the sides that face another tile</span>
+                <span class="n">sides</span> <span class="o">=</span> <span class="p">(</span><span class="n">row</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">row</span> <span class="o">&lt;</span> <span class="n">n_rows</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">col</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">col</span> <span class="o">&lt;</span> <span class="n">n_cols</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">sides</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">weight_maps</span><span class="p">:</span>
+                    <span class="n">weight_maps</span><span class="p">[</span><span class="n">sides</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_weight_map</span><span class="p">(</span>
+                        <span class="n">tile_size</span><span class="p">,</span> <span class="n">overlap</span><span class="p">,</span> <span class="o">*</span><span class="n">sides</span>
+                    <span class="p">)</span>
+                <span class="n">tile_weights</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">weight_maps</span><span class="p">[</span><span class="n">sides</span><span class="p">])</span>
+
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">tiles</span><span class="p">)</span> <span class="o">==</span> <span class="n">batch_size</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_process_batch</span><span class="p">(</span>
-                        <span class="n">tiles</span><span class="p">,</span> <span class="n">positions</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">scale_factor</span><span class="p">,</span> <span class="n">weight_map</span>
+                        <span class="n">tiles</span><span class="p">,</span> <span class="n">positions</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">scale_factor</span><span class="p">,</span> <span class="n">tile_weights</span>
                     <span class="p">)</span>
                     <span class="n">tiles</span> <span class="o">=</span> <span class="p">[]</span>
                     <span class="n">positions</span> <span class="o">=</span> <span class="p">[]</span>
+                    <span class="n">tile_weights</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="c1"># Process remaining tiles</span>
         <span class="k">if</span> <span class="n">tiles</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_process_batch</span><span class="p">(</span>
-                <span class="n">tiles</span><span class="p">,</span> <span class="n">positions</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">scale_factor</span><span class="p">,</span> <span class="n">weight_map</span>
+                <span class="n">tiles</span><span class="p">,</span> <span class="n">positions</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">scale_factor</span><span class="p">,</span> <span class="n">tile_weights</span>
             <span class="p">)</span>
 
         <span class="c1"># Average overlapping regions</span>
@@ -5783,7 +5876,7 @@ estimator.predict("input.tif", output_path="canopy_height.tif")</p>
         <span class="n">output</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
         <span class="n">count</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
         <span class="n">scale_factor</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-        <span class="n">weight_map</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">weight_map</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">"""Process a batch of tiles through the model.</span>
 
@@ -5794,7 +5887,8 @@ estimator.predict("input.tif", output_path="canopy_height.tif")</p>
 <span class="sd">            count: Count array for averaging overlapping tiles.</span>
 <span class="sd">            scale_factor: Scale factor for model output.</span>
 <span class="sd">            weight_map: Optional 2D weight array for blending overlapping</span>
-<span class="sd">                tiles.  If None, uniform weights (1.0) are used.</span>
+<span class="sd">                tiles, or a list with one such array per tile.  If None,</span>
+<span class="sd">                uniform weights (1.0) are used.</span>
 <span class="sd">        """</span>
         <span class="n">tile_size</span> <span class="o">=</span> <span class="n">tiles</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
         <span class="n">batch</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">tiles</span><span class="p">))</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
@@ -5811,8 +5905,9 @@ estimator.predict("input.tif", output_path="canopy_height.tif")</p>
             <span class="n">weight_map</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">tile_size</span><span class="p">,</span> <span class="n">tile_size</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">positions</span><span class="p">):</span>
-            <span class="n">output</span><span class="p">[</span><span class="n">y</span> <span class="p">:</span> <span class="n">y</span> <span class="o">+</span> <span class="n">tile_size</span><span class="p">,</span> <span class="n">x</span> <span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="n">tile_size</span><span class="p">]</span> <span class="o">+=</span> <span class="n">pred</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">weight_map</span>
-            <span class="n">count</span><span class="p">[</span><span class="n">y</span> <span class="p">:</span> <span class="n">y</span> <span class="o">+</span> <span class="n">tile_size</span><span class="p">,</span> <span class="n">x</span> <span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="n">tile_size</span><span class="p">]</span> <span class="o">+=</span> <span class="n">weight_map</span>
+            <span class="n">w</span> <span class="o">=</span> <span class="n">weight_map</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">weight_map</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="n">weight_map</span>
+            <span class="n">output</span><span class="p">[</span><span class="n">y</span> <span class="p">:</span> <span class="n">y</span> <span class="o">+</span> <span class="n">tile_size</span><span class="p">,</span> <span class="n">x</span> <span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="n">tile_size</span><span class="p">]</span> <span class="o">+=</span> <span class="n">pred</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">w</span>
+            <span class="n">count</span><span class="p">[</span><span class="n">y</span> <span class="p">:</span> <span class="n">y</span> <span class="o">+</span> <span class="n">tile_size</span><span class="p">,</span> <span class="n">x</span> <span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="n">tile_size</span><span class="p">]</span> <span class="o">+=</span> <span class="n">w</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">visualize</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -6388,26 +6483,7 @@ heights = estimator.predict("aerial_image.tif",
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>geoai/canopy.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1073</span>
-<span class="normal">1074</span>
-<span class="normal">1075</span>
-<span class="normal">1076</span>
-<span class="normal">1077</span>
-<span class="normal">1078</span>
-<span class="normal">1079</span>
-<span class="normal">1080</span>
-<span class="normal">1081</span>
-<span class="normal">1082</span>
-<span class="normal">1083</span>
-<span class="normal">1084</span>
-<span class="normal">1085</span>
-<span class="normal">1086</span>
-<span class="normal">1087</span>
-<span class="normal">1088</span>
-<span class="normal">1089</span>
-<span class="normal">1090</span>
-<span class="normal">1091</span>
-<span class="normal">1092</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1092</span>
 <span class="normal">1093</span>
 <span class="normal">1094</span>
 <span class="normal">1095</span>
@@ -6539,7 +6615,37 @@ heights = estimator.predict("aerial_image.tif",
 <span class="normal">1221</span>
 <span class="normal">1222</span>
 <span class="normal">1223</span>
-<span class="normal">1224</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">predict</span><span class="p">(</span>
+<span class="normal">1224</span>
+<span class="normal">1225</span>
+<span class="normal">1226</span>
+<span class="normal">1227</span>
+<span class="normal">1228</span>
+<span class="normal">1229</span>
+<span class="normal">1230</span>
+<span class="normal">1231</span>
+<span class="normal">1232</span>
+<span class="normal">1233</span>
+<span class="normal">1234</span>
+<span class="normal">1235</span>
+<span class="normal">1236</span>
+<span class="normal">1237</span>
+<span class="normal">1238</span>
+<span class="normal">1239</span>
+<span class="normal">1240</span>
+<span class="normal">1241</span>
+<span class="normal">1242</span>
+<span class="normal">1243</span>
+<span class="normal">1244</span>
+<span class="normal">1245</span>
+<span class="normal">1246</span>
+<span class="normal">1247</span>
+<span class="normal">1248</span>
+<span class="normal">1249</span>
+<span class="normal">1250</span>
+<span class="normal">1251</span>
+<span class="normal">1252</span>
+<span class="normal">1253</span>
+<span class="normal">1254</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">predict</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">input_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">output_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -6635,8 +6741,9 @@ heights = estimator.predict("aerial_image.tif",
     <span class="n">padded_img</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="n">padded_h</span><span class="p">,</span> <span class="n">padded_w</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
     <span class="n">padded_img</span><span class="p">[:,</span> <span class="p">:</span><span class="n">height</span><span class="p">,</span> <span class="p">:</span><span class="n">width</span><span class="p">]</span> <span class="o">=</span> <span class="n">img</span>
 
-    <span class="c1"># Blending weight map (raised-cosine taper in overlap regions)</span>
-    <span class="n">weight_map</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_weight_map</span><span class="p">(</span><span class="n">tile_size</span><span class="p">,</span> <span class="n">overlap</span><span class="p">)</span>
+    <span class="c1"># Blending weight maps (raised-cosine taper in overlap regions),</span>
+    <span class="c1"># keyed by which sides of a tile face another tile</span>
+    <span class="n">weight_maps</span> <span class="o">=</span> <span class="p">{}</span>
 
     <span class="c1"># Output arrays</span>
     <span class="n">output</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">padded_h</span><span class="p">,</span> <span class="n">padded_w</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
@@ -6645,6 +6752,7 @@ heights = estimator.predict("aerial_image.tif",
     <span class="c1"># Process tiles in batches</span>
     <span class="n">tiles</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">positions</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">tile_weights</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_rows</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_cols</span><span class="p">):</span>
             <span class="n">y</span> <span class="o">=</span> <span class="n">row</span> <span class="o">*</span> <span class="n">step</span>
@@ -6653,17 +6761,26 @@ heights = estimator.predict("aerial_image.tif",
             <span class="n">tiles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tile</span><span class="p">)</span>
             <span class="n">positions</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
 
+            <span class="c1"># Taper only the sides that face another tile</span>
+            <span class="n">sides</span> <span class="o">=</span> <span class="p">(</span><span class="n">row</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">row</span> <span class="o">&lt;</span> <span class="n">n_rows</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">col</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">col</span> <span class="o">&lt;</span> <span class="n">n_cols</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">sides</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">weight_maps</span><span class="p">:</span>
+                <span class="n">weight_maps</span><span class="p">[</span><span class="n">sides</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_weight_map</span><span class="p">(</span>
+                    <span class="n">tile_size</span><span class="p">,</span> <span class="n">overlap</span><span class="p">,</span> <span class="o">*</span><span class="n">sides</span>
+                <span class="p">)</span>
+            <span class="n">tile_weights</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">weight_maps</span><span class="p">[</span><span class="n">sides</span><span class="p">])</span>
+
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">tiles</span><span class="p">)</span> <span class="o">==</span> <span class="n">batch_size</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_process_batch</span><span class="p">(</span>
-                    <span class="n">tiles</span><span class="p">,</span> <span class="n">positions</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">scale_factor</span><span class="p">,</span> <span class="n">weight_map</span>
+                    <span class="n">tiles</span><span class="p">,</span> <span class="n">positions</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">scale_factor</span><span class="p">,</span> <span class="n">tile_weights</span>
                 <span class="p">)</span>
                 <span class="n">tiles</span> <span class="o">=</span> <span class="p">[]</span>
                 <span class="n">positions</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">tile_weights</span> <span class="o">=</span> <span class="p">[]</span>
 
     <span class="c1"># Process remaining tiles</span>
     <span class="k">if</span> <span class="n">tiles</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_process_batch</span><span class="p">(</span>
-            <span class="n">tiles</span><span class="p">,</span> <span class="n">positions</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">scale_factor</span><span class="p">,</span> <span class="n">weight_map</span>
+            <span class="n">tiles</span><span class="p">,</span> <span class="n">positions</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">scale_factor</span><span class="p">,</span> <span class="n">tile_weights</span>
         <span class="p">)</span>
 
     <span class="c1"># Average overlapping regions</span>
@@ -6910,39 +7027,7 @@ fig = estimator.visualize("input.tif", heights)</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>geoai/canopy.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1264</span>
-<span class="normal">1265</span>
-<span class="normal">1266</span>
-<span class="normal">1267</span>
-<span class="normal">1268</span>
-<span class="normal">1269</span>
-<span class="normal">1270</span>
-<span class="normal">1271</span>
-<span class="normal">1272</span>
-<span class="normal">1273</span>
-<span class="normal">1274</span>
-<span class="normal">1275</span>
-<span class="normal">1276</span>
-<span class="normal">1277</span>
-<span class="normal">1278</span>
-<span class="normal">1279</span>
-<span class="normal">1280</span>
-<span class="normal">1281</span>
-<span class="normal">1282</span>
-<span class="normal">1283</span>
-<span class="normal">1284</span>
-<span class="normal">1285</span>
-<span class="normal">1286</span>
-<span class="normal">1287</span>
-<span class="normal">1288</span>
-<span class="normal">1289</span>
-<span class="normal">1290</span>
-<span class="normal">1291</span>
-<span class="normal">1292</span>
-<span class="normal">1293</span>
-<span class="normal">1294</span>
-<span class="normal">1295</span>
-<span class="normal">1296</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1296</span>
 <span class="normal">1297</span>
 <span class="normal">1298</span>
 <span class="normal">1299</span>
@@ -7012,7 +7097,39 @@ fig = estimator.visualize("input.tif", heights)</p>
 <span class="normal">1363</span>
 <span class="normal">1364</span>
 <span class="normal">1365</span>
-<span class="normal">1366</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">visualize</span><span class="p">(</span>
+<span class="normal">1366</span>
+<span class="normal">1367</span>
+<span class="normal">1368</span>
+<span class="normal">1369</span>
+<span class="normal">1370</span>
+<span class="normal">1371</span>
+<span class="normal">1372</span>
+<span class="normal">1373</span>
+<span class="normal">1374</span>
+<span class="normal">1375</span>
+<span class="normal">1376</span>
+<span class="normal">1377</span>
+<span class="normal">1378</span>
+<span class="normal">1379</span>
+<span class="normal">1380</span>
+<span class="normal">1381</span>
+<span class="normal">1382</span>
+<span class="normal">1383</span>
+<span class="normal">1384</span>
+<span class="normal">1385</span>
+<span class="normal">1386</span>
+<span class="normal">1387</span>
+<span class="normal">1388</span>
+<span class="normal">1389</span>
+<span class="normal">1390</span>
+<span class="normal">1391</span>
+<span class="normal">1392</span>
+<span class="normal">1393</span>
+<span class="normal">1394</span>
+<span class="normal">1395</span>
+<span class="normal">1396</span>
+<span class="normal">1397</span>
+<span class="normal">1398</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">visualize</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">input_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">height_map</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -7361,39 +7478,7 @@ Higher values give smoother results.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>geoai/canopy.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1369</span>
-<span class="normal">1370</span>
-<span class="normal">1371</span>
-<span class="normal">1372</span>
-<span class="normal">1373</span>
-<span class="normal">1374</span>
-<span class="normal">1375</span>
-<span class="normal">1376</span>
-<span class="normal">1377</span>
-<span class="normal">1378</span>
-<span class="normal">1379</span>
-<span class="normal">1380</span>
-<span class="normal">1381</span>
-<span class="normal">1382</span>
-<span class="normal">1383</span>
-<span class="normal">1384</span>
-<span class="normal">1385</span>
-<span class="normal">1386</span>
-<span class="normal">1387</span>
-<span class="normal">1388</span>
-<span class="normal">1389</span>
-<span class="normal">1390</span>
-<span class="normal">1391</span>
-<span class="normal">1392</span>
-<span class="normal">1393</span>
-<span class="normal">1394</span>
-<span class="normal">1395</span>
-<span class="normal">1396</span>
-<span class="normal">1397</span>
-<span class="normal">1398</span>
-<span class="normal">1399</span>
-<span class="normal">1400</span>
-<span class="normal">1401</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1401</span>
 <span class="normal">1402</span>
 <span class="normal">1403</span>
 <span class="normal">1404</span>
@@ -7414,7 +7499,39 @@ Higher values give smoother results.</p>
 <span class="normal">1419</span>
 <span class="normal">1420</span>
 <span class="normal">1421</span>
-<span class="normal">1422</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">canopy_height_estimation</span><span class="p">(</span>
+<span class="normal">1422</span>
+<span class="normal">1423</span>
+<span class="normal">1424</span>
+<span class="normal">1425</span>
+<span class="normal">1426</span>
+<span class="normal">1427</span>
+<span class="normal">1428</span>
+<span class="normal">1429</span>
+<span class="normal">1430</span>
+<span class="normal">1431</span>
+<span class="normal">1432</span>
+<span class="normal">1433</span>
+<span class="normal">1434</span>
+<span class="normal">1435</span>
+<span class="normal">1436</span>
+<span class="normal">1437</span>
+<span class="normal">1438</span>
+<span class="normal">1439</span>
+<span class="normal">1440</span>
+<span class="normal">1441</span>
+<span class="normal">1442</span>
+<span class="normal">1443</span>
+<span class="normal">1444</span>
+<span class="normal">1445</span>
+<span class="normal">1446</span>
+<span class="normal">1447</span>
+<span class="normal">1448</span>
+<span class="normal">1449</span>
+<span class="normal">1450</span>
+<span class="normal">1451</span>
+<span class="normal">1452</span>
+<span class="normal">1453</span>
+<span class="normal">1454</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">canopy_height_estimation</span><span class="p">(</span>
     <span class="n">input_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">output_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">model_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"compressed_SSLhuge"</span><span class="p">,</span>
@@ -7526,18 +7643,18 @@ for name, desc in models.items():
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>geoai/canopy.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1425</span>
-<span class="normal">1426</span>
-<span class="normal">1427</span>
-<span class="normal">1428</span>
-<span class="normal">1429</span>
-<span class="normal">1430</span>
-<span class="normal">1431</span>
-<span class="normal">1432</span>
-<span class="normal">1433</span>
-<span class="normal">1434</span>
-<span class="normal">1435</span>
-<span class="normal">1436</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">list_canopy_models</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1457</span>
+<span class="normal">1458</span>
+<span class="normal">1459</span>
+<span class="normal">1460</span>
+<span class="normal">1461</span>
+<span class="normal">1462</span>
+<span class="normal">1463</span>
+<span class="normal">1464</span>
+<span class="normal">1465</span>
+<span class="normal">1466</span>
+<span class="normal">1467</span>
+<span class="normal">1468</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">list_canopy_models</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">"""List available canopy height estimation model variants.</span>
 
 <span class="sd">    Returns:</span>
@@ -7670,7 +7787,8 @@ for name, desc in models.items():
       <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["content.code.copy","navigation.footer","navigation.instant","navigation.top","navigation.tracking","search.highlight","search.share"],"redirect":null,"search":"../assets/javascripts/workers/search.719e0d91.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
     
     
-      <script src="../assets/javascripts/bundle.3cb411a8.min.js"></script>
+      <script src="../assets/javascripts/bundle.9e76c64c.min.js"></script>
+      
       
     
   </body>

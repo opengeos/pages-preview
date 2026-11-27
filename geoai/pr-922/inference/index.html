@@ -1,4 +1,6 @@
 
+
+
 <!doctype html>
 <html lang="en" class="no-js">
   <head>
@@ -16,6 +18,7 @@
       
       
       
+      
         <link rel="prev" href="../hf/">
       
       
@@ -26,7 +29,7 @@
       
       
       <link rel="icon" href="../assets/logo.ico">
-      <meta name="generator" content="zensical-0.1.2">
+      <meta name="generator" content="zensical-0.1.3">
     
     
       
@@ -37,12 +40,13 @@
       
         
       
-      <link rel="stylesheet" href="../assets/stylesheets/modern/main.ebb7f775.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.e2cf241e.min.css">
       
         
           
         
         <link rel="stylesheet" href="../assets/stylesheets/modern/palette.b60ce83d.min.css">
+      
       
       
 
@@ -1553,6 +1557,33 @@
     
   
   Wetland Mapping with GeoAI
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/wetland_dynamics_lidar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Prairie Pothole Wetland Dynamics with GeoAI and lidar-rs
 
     
   </span>
@@ -5320,73 +5351,52 @@ mask.shape
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>geoai/inference.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 90</span>
-<span class="normal"> 91</span>
-<span class="normal"> 92</span>
-<span class="normal"> 93</span>
-<span class="normal"> 94</span>
-<span class="normal"> 95</span>
-<span class="normal"> 96</span>
-<span class="normal"> 97</span>
-<span class="normal"> 98</span>
-<span class="normal"> 99</span>
-<span class="normal">100</span>
-<span class="normal">101</span>
-<span class="normal">102</span>
-<span class="normal">103</span>
-<span class="normal">104</span>
-<span class="normal">105</span>
-<span class="normal">106</span>
-<span class="normal">107</span>
-<span class="normal">108</span>
-<span class="normal">109</span>
-<span class="normal">110</span>
-<span class="normal">111</span>
-<span class="normal">112</span>
-<span class="normal">113</span>
-<span class="normal">114</span>
-<span class="normal">115</span>
-<span class="normal">116</span>
-<span class="normal">117</span>
-<span class="normal">118</span>
-<span class="normal">119</span>
-<span class="normal">120</span>
-<span class="normal">121</span>
-<span class="normal">122</span>
-<span class="normal">123</span>
-<span class="normal">124</span>
-<span class="normal">125</span>
-<span class="normal">126</span>
-<span class="normal">127</span>
-<span class="normal">128</span>
-<span class="normal">129</span>
-<span class="normal">130</span>
-<span class="normal">131</span>
-<span class="normal">132</span>
-<span class="normal">133</span>
-<span class="normal">134</span>
-<span class="normal">135</span>
-<span class="normal">136</span>
-<span class="normal">137</span>
-<span class="normal">138</span>
-<span class="normal">139</span>
-<span class="normal">140</span>
-<span class="normal">141</span>
-<span class="normal">142</span>
-<span class="normal">143</span>
-<span class="normal">144</span>
-<span class="normal">145</span>
-<span class="normal">146</span>
-<span class="normal">147</span>
-<span class="normal">148</span>
-<span class="normal">149</span>
-<span class="normal">150</span>
-<span class="normal">151</span>
-<span class="normal">152</span>
-<span class="normal">153</span>
-<span class="normal">154</span>
-<span class="normal">155</span>
-<span class="normal">156</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_weight_mask</span><span class="p">(</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_weight_mask</span><span class="p">(</span>
     <span class="n">tile_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="n">overlap</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="n">mode</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">BlendMode</span><span class="p">]</span> <span class="o">=</span> <span class="n">BlendMode</span><span class="o">.</span><span class="n">SPLINE</span><span class="p">,</span>
@@ -5423,36 +5433,15 @@ mask.shape
 
     <span class="n">mode</span> <span class="o">=</span> <span class="n">BlendMode</span><span class="p">(</span><span class="n">mode</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">overlap</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">BlendMode</span><span class="o">.</span><span class="n">NONE</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">tile_size</span><span class="p">,</span> <span class="n">tile_size</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">BlendMode</span><span class="o">.</span><span class="n">SPLINE</span> <span class="ow">and</span> <span class="n">overlap</span> <span class="o">&gt;</span> <span class="n">tile_size</span> <span class="o">//</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"For spline blending, overlap must be &lt;= tile_size // 2 "</span>
+            <span class="sa">f</span><span class="s2">"(</span><span class="si">{</span><span class="n">tile_size</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="mi">2</span><span class="si">}</span><span class="s2">), got </span><span class="si">{</span><span class="n">overlap</span><span class="si">}</span><span class="s2">. Use 'linear' or "</span>
+            <span class="sa">f</span><span class="s2">"'cosine' blending for larger overlaps."</span>
+        <span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">BlendMode</span><span class="o">.</span><span class="n">LINEAR</span><span class="p">:</span>
-        <span class="c1"># Compute per-pixel distance from nearest edge, capped at overlap.</span>
-        <span class="c1"># np.minimum avoids write-order corruption when overlap &gt; tile_size // 2.</span>
-        <span class="n">left</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">tile_size</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
-        <span class="n">right</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">tile_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
-        <span class="n">ramp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">),</span> <span class="n">overlap</span><span class="p">)</span> <span class="o">/</span> <span class="n">overlap</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">ramp</span><span class="p">,</span> <span class="n">ramp</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">BlendMode</span><span class="o">.</span><span class="n">COSINE</span><span class="p">:</span>
-        <span class="c1"># Same edge-distance approach, then apply raised-cosine taper.</span>
-        <span class="n">left</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">tile_size</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
-        <span class="n">right</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">tile_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
-        <span class="n">dist</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">),</span> <span class="n">overlap</span><span class="p">)</span> <span class="o">/</span> <span class="n">overlap</span>
-        <span class="n">w</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">dist</span><span class="p">)))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">BlendMode</span><span class="o">.</span><span class="n">SPLINE</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">overlap</span> <span class="o">&gt;</span> <span class="n">tile_size</span> <span class="o">//</span> <span class="mi">2</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">"For spline blending, overlap must be &lt;= tile_size // 2 "</span>
-                <span class="sa">f</span><span class="s2">"(</span><span class="si">{</span><span class="n">tile_size</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="mi">2</span><span class="si">}</span><span class="s2">), got </span><span class="si">{</span><span class="n">overlap</span><span class="si">}</span><span class="s2">. Use 'linear' or "</span>
-                <span class="sa">f</span><span class="s2">"'cosine' blending for larger overlaps."</span>
-            <span class="p">)</span>
-        <span class="n">w1d</span> <span class="o">=</span> <span class="n">_spline_window_1d</span><span class="p">(</span><span class="n">tile_size</span><span class="p">,</span> <span class="n">overlap</span><span class="p">,</span> <span class="n">power</span><span class="o">=</span><span class="n">power</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">w1d</span><span class="p">,</span> <span class="n">w1d</span><span class="p">)</span>
-
-    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Unknown blend mode: </span><span class="si">{</span><span class="n">mode</span><span class="si">!r}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="n">w1d</span> <span class="o">=</span> <span class="n">_blend_weight_1d</span><span class="p">(</span><span class="n">tile_size</span><span class="p">,</span> <span class="n">overlap</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">power</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">w1d</span><span class="p">,</span> <span class="n">w1d</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -5531,30 +5520,30 @@ horizontal flip, vertical flip, and two diagonal flips.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>geoai/inference.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">164</span>
-<span class="normal">165</span>
-<span class="normal">166</span>
-<span class="normal">167</span>
-<span class="normal">168</span>
-<span class="normal">169</span>
-<span class="normal">170</span>
-<span class="normal">171</span>
-<span class="normal">172</span>
-<span class="normal">173</span>
-<span class="normal">174</span>
-<span class="normal">175</span>
-<span class="normal">176</span>
-<span class="normal">177</span>
-<span class="normal">178</span>
-<span class="normal">179</span>
-<span class="normal">180</span>
-<span class="normal">181</span>
-<span class="normal">182</span>
-<span class="normal">183</span>
-<span class="normal">184</span>
-<span class="normal">185</span>
-<span class="normal">186</span>
-<span class="normal">187</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">d4_forward</span><span class="p">(</span><span class="n">tensor</span><span class="p">:</span> <span class="s2">"torch.Tensor"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="s2">"torch.Tensor"</span><span class="p">]:</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span>
+<span class="normal">249</span>
+<span class="normal">250</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span>
+<span class="normal">255</span>
+<span class="normal">256</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">d4_forward</span><span class="p">(</span><span class="n">tensor</span><span class="p">:</span> <span class="s2">"torch.Tensor"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="s2">"torch.Tensor"</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">"""Apply all 8 D4 dihedral group transforms to a batch of images.</span>
 
 <span class="sd">    The D4 group consists of the identity, three 90-degree rotations,</span>
@@ -5656,29 +5645,29 @@ orientation.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>geoai/inference.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">190</span>
-<span class="normal">191</span>
-<span class="normal">192</span>
-<span class="normal">193</span>
-<span class="normal">194</span>
-<span class="normal">195</span>
-<span class="normal">196</span>
-<span class="normal">197</span>
-<span class="normal">198</span>
-<span class="normal">199</span>
-<span class="normal">200</span>
-<span class="normal">201</span>
-<span class="normal">202</span>
-<span class="normal">203</span>
-<span class="normal">204</span>
-<span class="normal">205</span>
-<span class="normal">206</span>
-<span class="normal">207</span>
-<span class="normal">208</span>
-<span class="normal">209</span>
-<span class="normal">210</span>
-<span class="normal">211</span>
-<span class="normal">212</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">d4_inverse</span><span class="p">(</span><span class="n">tensors</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="s2">"torch.Tensor"</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="s2">"torch.Tensor"</span><span class="p">]:</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span>
+<span class="normal">276</span>
+<span class="normal">277</span>
+<span class="normal">278</span>
+<span class="normal">279</span>
+<span class="normal">280</span>
+<span class="normal">281</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">d4_inverse</span><span class="p">(</span><span class="n">tensors</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="s2">"torch.Tensor"</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="s2">"torch.Tensor"</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">"""Apply the inverse D4 transforms to undo :func:`d4_forward`.</span>
 
 <span class="sd">    Args:</span>
@@ -5798,31 +5787,31 @@ returns <code>(B, num_classes, H, W)</code> output.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>geoai/inference.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">215</span>
-<span class="normal">216</span>
-<span class="normal">217</span>
-<span class="normal">218</span>
-<span class="normal">219</span>
-<span class="normal">220</span>
-<span class="normal">221</span>
-<span class="normal">222</span>
-<span class="normal">223</span>
-<span class="normal">224</span>
-<span class="normal">225</span>
-<span class="normal">226</span>
-<span class="normal">227</span>
-<span class="normal">228</span>
-<span class="normal">229</span>
-<span class="normal">230</span>
-<span class="normal">231</span>
-<span class="normal">232</span>
-<span class="normal">233</span>
-<span class="normal">234</span>
-<span class="normal">235</span>
-<span class="normal">236</span>
-<span class="normal">237</span>
-<span class="normal">238</span>
-<span class="normal">239</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">d4_tta_forward</span><span class="p">(</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">284</span>
+<span class="normal">285</span>
+<span class="normal">286</span>
+<span class="normal">287</span>
+<span class="normal">288</span>
+<span class="normal">289</span>
+<span class="normal">290</span>
+<span class="normal">291</span>
+<span class="normal">292</span>
+<span class="normal">293</span>
+<span class="normal">294</span>
+<span class="normal">295</span>
+<span class="normal">296</span>
+<span class="normal">297</span>
+<span class="normal">298</span>
+<span class="normal">299</span>
+<span class="normal">300</span>
+<span class="normal">301</span>
+<span class="normal">302</span>
+<span class="normal">303</span>
+<span class="normal">304</span>
+<span class="normal">305</span>
+<span class="normal">306</span>
+<span class="normal">307</span>
+<span class="normal">308</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">d4_tta_forward</span><span class="p">(</span>
     <span class="n">model</span><span class="p">:</span> <span class="s2">"torch.nn.Module"</span><span class="p">,</span>
     <span class="n">batch</span><span class="p">:</span> <span class="s2">"torch.Tensor"</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"torch.Tensor"</span><span class="p">:</span>
@@ -6271,76 +6260,7 @@ predict_geotiff(
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>geoai/inference.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">267</span>
-<span class="normal">268</span>
-<span class="normal">269</span>
-<span class="normal">270</span>
-<span class="normal">271</span>
-<span class="normal">272</span>
-<span class="normal">273</span>
-<span class="normal">274</span>
-<span class="normal">275</span>
-<span class="normal">276</span>
-<span class="normal">277</span>
-<span class="normal">278</span>
-<span class="normal">279</span>
-<span class="normal">280</span>
-<span class="normal">281</span>
-<span class="normal">282</span>
-<span class="normal">283</span>
-<span class="normal">284</span>
-<span class="normal">285</span>
-<span class="normal">286</span>
-<span class="normal">287</span>
-<span class="normal">288</span>
-<span class="normal">289</span>
-<span class="normal">290</span>
-<span class="normal">291</span>
-<span class="normal">292</span>
-<span class="normal">293</span>
-<span class="normal">294</span>
-<span class="normal">295</span>
-<span class="normal">296</span>
-<span class="normal">297</span>
-<span class="normal">298</span>
-<span class="normal">299</span>
-<span class="normal">300</span>
-<span class="normal">301</span>
-<span class="normal">302</span>
-<span class="normal">303</span>
-<span class="normal">304</span>
-<span class="normal">305</span>
-<span class="normal">306</span>
-<span class="normal">307</span>
-<span class="normal">308</span>
-<span class="normal">309</span>
-<span class="normal">310</span>
-<span class="normal">311</span>
-<span class="normal">312</span>
-<span class="normal">313</span>
-<span class="normal">314</span>
-<span class="normal">315</span>
-<span class="normal">316</span>
-<span class="normal">317</span>
-<span class="normal">318</span>
-<span class="normal">319</span>
-<span class="normal">320</span>
-<span class="normal">321</span>
-<span class="normal">322</span>
-<span class="normal">323</span>
-<span class="normal">324</span>
-<span class="normal">325</span>
-<span class="normal">326</span>
-<span class="normal">327</span>
-<span class="normal">328</span>
-<span class="normal">329</span>
-<span class="normal">330</span>
-<span class="normal">331</span>
-<span class="normal">332</span>
-<span class="normal">333</span>
-<span class="normal">334</span>
-<span class="normal">335</span>
-<span class="normal">336</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">336</span>
 <span class="normal">337</span>
 <span class="normal">338</span>
 <span class="normal">339</span>
@@ -6549,7 +6469,90 @@ predict_geotiff(
 <span class="normal">542</span>
 <span class="normal">543</span>
 <span class="normal">544</span>
-<span class="normal">545</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">predict_geotiff</span><span class="p">(</span>
+<span class="normal">545</span>
+<span class="normal">546</span>
+<span class="normal">547</span>
+<span class="normal">548</span>
+<span class="normal">549</span>
+<span class="normal">550</span>
+<span class="normal">551</span>
+<span class="normal">552</span>
+<span class="normal">553</span>
+<span class="normal">554</span>
+<span class="normal">555</span>
+<span class="normal">556</span>
+<span class="normal">557</span>
+<span class="normal">558</span>
+<span class="normal">559</span>
+<span class="normal">560</span>
+<span class="normal">561</span>
+<span class="normal">562</span>
+<span class="normal">563</span>
+<span class="normal">564</span>
+<span class="normal">565</span>
+<span class="normal">566</span>
+<span class="normal">567</span>
+<span class="normal">568</span>
+<span class="normal">569</span>
+<span class="normal">570</span>
+<span class="normal">571</span>
+<span class="normal">572</span>
+<span class="normal">573</span>
+<span class="normal">574</span>
+<span class="normal">575</span>
+<span class="normal">576</span>
+<span class="normal">577</span>
+<span class="normal">578</span>
+<span class="normal">579</span>
+<span class="normal">580</span>
+<span class="normal">581</span>
+<span class="normal">582</span>
+<span class="normal">583</span>
+<span class="normal">584</span>
+<span class="normal">585</span>
+<span class="normal">586</span>
+<span class="normal">587</span>
+<span class="normal">588</span>
+<span class="normal">589</span>
+<span class="normal">590</span>
+<span class="normal">591</span>
+<span class="normal">592</span>
+<span class="normal">593</span>
+<span class="normal">594</span>
+<span class="normal">595</span>
+<span class="normal">596</span>
+<span class="normal">597</span>
+<span class="normal">598</span>
+<span class="normal">599</span>
+<span class="normal">600</span>
+<span class="normal">601</span>
+<span class="normal">602</span>
+<span class="normal">603</span>
+<span class="normal">604</span>
+<span class="normal">605</span>
+<span class="normal">606</span>
+<span class="normal">607</span>
+<span class="normal">608</span>
+<span class="normal">609</span>
+<span class="normal">610</span>
+<span class="normal">611</span>
+<span class="normal">612</span>
+<span class="normal">613</span>
+<span class="normal">614</span>
+<span class="normal">615</span>
+<span class="normal">616</span>
+<span class="normal">617</span>
+<span class="normal">618</span>
+<span class="normal">619</span>
+<span class="normal">620</span>
+<span class="normal">621</span>
+<span class="normal">622</span>
+<span class="normal">623</span>
+<span class="normal">624</span>
+<span class="normal">625</span>
+<span class="normal">626</span>
+<span class="normal">627</span>
+<span class="normal">628</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">predict_geotiff</span><span class="p">(</span>
     <span class="n">model</span><span class="p">:</span> <span class="s2">"torch.nn.Module"</span><span class="p">,</span>
     <span class="n">input_raster</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">output_raster</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -6670,10 +6673,10 @@ predict_geotiff(
     <span class="n">preprocess</span> <span class="o">=</span> <span class="n">preprocess_fn</span> <span class="k">if</span> <span class="n">preprocess_fn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">_default_preprocess</span>
     <span class="n">stride</span> <span class="o">=</span> <span class="n">tile_size</span> <span class="o">-</span> <span class="n">overlap</span>
 
-    <span class="c1"># ---- compute weight mask once ----</span>
-    <span class="n">weight_mask</span> <span class="o">=</span> <span class="n">create_weight_mask</span><span class="p">(</span>
-        <span class="n">tile_size</span><span class="p">,</span> <span class="n">overlap</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">blend_mode</span><span class="p">,</span> <span class="n">power</span><span class="o">=</span><span class="n">blend_power</span>
-    <span class="p">)</span>
+    <span class="c1"># ---- validate the blending settings ----</span>
+    <span class="n">create_weight_mask</span><span class="p">(</span><span class="n">tile_size</span><span class="p">,</span> <span class="n">overlap</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">blend_mode</span><span class="p">,</span> <span class="n">power</span><span class="o">=</span><span class="n">blend_power</span><span class="p">)</span>
+    <span class="c1"># Weight masks keyed by which sides of a tile face another tile.</span>
+    <span class="n">weight_masks</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="nb">bool</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 
     <span class="n">model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
     <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
@@ -6778,9 +6781,21 @@ predict_geotiff(
                 <span class="n">actual_h</span><span class="p">,</span> <span class="n">actual_w</span> <span class="o">=</span> <span class="n">batch_actual_sizes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
                 <span class="n">pred</span> <span class="o">=</span> <span class="n">preds</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>  <span class="c1"># (num_classes, tile_size, tile_size)</span>
 
+                <span class="c1"># Taper only the sides that face another tile</span>
+                <span class="n">sides</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">row_start</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="n">row_end</span> <span class="o">&lt;</span> <span class="n">height</span><span class="p">,</span>
+                    <span class="n">col_start</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="n">col_end</span> <span class="o">&lt;</span> <span class="n">width</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="k">if</span> <span class="n">sides</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">weight_masks</span><span class="p">:</span>
+                    <span class="n">weight_masks</span><span class="p">[</span><span class="n">sides</span><span class="p">]</span> <span class="o">=</span> <span class="n">_tile_weight_mask</span><span class="p">(</span>
+                        <span class="n">tile_size</span><span class="p">,</span> <span class="n">overlap</span><span class="p">,</span> <span class="n">blend_mode</span><span class="p">,</span> <span class="n">blend_power</span><span class="p">,</span> <span class="o">*</span><span class="n">sides</span>
+                    <span class="p">)</span>
+
                 <span class="c1"># Crop to actual tile dimensions</span>
                 <span class="n">pred_crop</span> <span class="o">=</span> <span class="n">pred</span><span class="p">[:,</span> <span class="p">:</span><span class="n">actual_h</span><span class="p">,</span> <span class="p">:</span><span class="n">actual_w</span><span class="p">]</span>
-                <span class="n">weight_crop</span> <span class="o">=</span> <span class="n">weight_mask</span><span class="p">[:</span><span class="n">actual_h</span><span class="p">,</span> <span class="p">:</span><span class="n">actual_w</span><span class="p">]</span>
+                <span class="n">weight_crop</span> <span class="o">=</span> <span class="n">weight_masks</span><span class="p">[</span><span class="n">sides</span><span class="p">][:</span><span class="n">actual_h</span><span class="p">,</span> <span class="p">:</span><span class="n">actual_w</span><span class="p">]</span>
 
                 <span class="c1"># Accumulate weighted prediction and weights</span>
                 <span class="n">output_sum</span><span class="p">[:,</span> <span class="n">row_start</span><span class="p">:</span><span class="n">row_end</span><span class="p">,</span> <span class="n">col_start</span><span class="p">:</span><span class="n">col_end</span><span class="p">]</span> <span class="o">+=</span> <span class="p">(</span>
@@ -6791,11 +6806,13 @@ predict_geotiff(
                 <span class="p">]</span>
 
     <span class="c1"># ---- normalize by weights ----</span>
+    <span class="c1"># No epsilon: it would pull pixels whose weights sum to a small value</span>
+    <span class="c1"># toward 0. Pixels without any weight get output_nodata.</span>
     <span class="c1"># valid mask is (1, H, W); NumPy broadcasts it against (num_classes, H, W)</span>
     <span class="n">valid</span> <span class="o">=</span> <span class="n">weight_sum</span> <span class="o">&gt;</span> <span class="mi">0</span>  <span class="c1"># (1, H, W)</span>
     <span class="n">output_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
         <span class="n">valid</span><span class="p">,</span>
-        <span class="n">output_sum</span> <span class="o">/</span> <span class="p">(</span><span class="n">weight_sum</span> <span class="o">+</span> <span class="mf">1e-8</span><span class="p">),</span>
+        <span class="n">output_sum</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">valid</span><span class="p">,</span> <span class="n">weight_sum</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
         <span class="n">output_nodata</span><span class="p">,</span>
     <span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 
@@ -7199,90 +7216,7 @@ with a correspondingly updated affine transform (pixel sizes divided by
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>geoai/inference.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">548</span>
-<span class="normal">549</span>
-<span class="normal">550</span>
-<span class="normal">551</span>
-<span class="normal">552</span>
-<span class="normal">553</span>
-<span class="normal">554</span>
-<span class="normal">555</span>
-<span class="normal">556</span>
-<span class="normal">557</span>
-<span class="normal">558</span>
-<span class="normal">559</span>
-<span class="normal">560</span>
-<span class="normal">561</span>
-<span class="normal">562</span>
-<span class="normal">563</span>
-<span class="normal">564</span>
-<span class="normal">565</span>
-<span class="normal">566</span>
-<span class="normal">567</span>
-<span class="normal">568</span>
-<span class="normal">569</span>
-<span class="normal">570</span>
-<span class="normal">571</span>
-<span class="normal">572</span>
-<span class="normal">573</span>
-<span class="normal">574</span>
-<span class="normal">575</span>
-<span class="normal">576</span>
-<span class="normal">577</span>
-<span class="normal">578</span>
-<span class="normal">579</span>
-<span class="normal">580</span>
-<span class="normal">581</span>
-<span class="normal">582</span>
-<span class="normal">583</span>
-<span class="normal">584</span>
-<span class="normal">585</span>
-<span class="normal">586</span>
-<span class="normal">587</span>
-<span class="normal">588</span>
-<span class="normal">589</span>
-<span class="normal">590</span>
-<span class="normal">591</span>
-<span class="normal">592</span>
-<span class="normal">593</span>
-<span class="normal">594</span>
-<span class="normal">595</span>
-<span class="normal">596</span>
-<span class="normal">597</span>
-<span class="normal">598</span>
-<span class="normal">599</span>
-<span class="normal">600</span>
-<span class="normal">601</span>
-<span class="normal">602</span>
-<span class="normal">603</span>
-<span class="normal">604</span>
-<span class="normal">605</span>
-<span class="normal">606</span>
-<span class="normal">607</span>
-<span class="normal">608</span>
-<span class="normal">609</span>
-<span class="normal">610</span>
-<span class="normal">611</span>
-<span class="normal">612</span>
-<span class="normal">613</span>
-<span class="normal">614</span>
-<span class="normal">615</span>
-<span class="normal">616</span>
-<span class="normal">617</span>
-<span class="normal">618</span>
-<span class="normal">619</span>
-<span class="normal">620</span>
-<span class="normal">621</span>
-<span class="normal">622</span>
-<span class="normal">623</span>
-<span class="normal">624</span>
-<span class="normal">625</span>
-<span class="normal">626</span>
-<span class="normal">627</span>
-<span class="normal">628</span>
-<span class="normal">629</span>
-<span class="normal">630</span>
-<span class="normal">631</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">631</span>
 <span class="normal">632</span>
 <span class="normal">633</span>
 <span class="normal">634</span>
@@ -7468,7 +7402,107 @@ with a correspondingly updated affine transform (pixel sizes divided by
 <span class="normal">814</span>
 <span class="normal">815</span>
 <span class="normal">816</span>
-<span class="normal">817</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">predict_geotiff_superres</span><span class="p">(</span>
+<span class="normal">817</span>
+<span class="normal">818</span>
+<span class="normal">819</span>
+<span class="normal">820</span>
+<span class="normal">821</span>
+<span class="normal">822</span>
+<span class="normal">823</span>
+<span class="normal">824</span>
+<span class="normal">825</span>
+<span class="normal">826</span>
+<span class="normal">827</span>
+<span class="normal">828</span>
+<span class="normal">829</span>
+<span class="normal">830</span>
+<span class="normal">831</span>
+<span class="normal">832</span>
+<span class="normal">833</span>
+<span class="normal">834</span>
+<span class="normal">835</span>
+<span class="normal">836</span>
+<span class="normal">837</span>
+<span class="normal">838</span>
+<span class="normal">839</span>
+<span class="normal">840</span>
+<span class="normal">841</span>
+<span class="normal">842</span>
+<span class="normal">843</span>
+<span class="normal">844</span>
+<span class="normal">845</span>
+<span class="normal">846</span>
+<span class="normal">847</span>
+<span class="normal">848</span>
+<span class="normal">849</span>
+<span class="normal">850</span>
+<span class="normal">851</span>
+<span class="normal">852</span>
+<span class="normal">853</span>
+<span class="normal">854</span>
+<span class="normal">855</span>
+<span class="normal">856</span>
+<span class="normal">857</span>
+<span class="normal">858</span>
+<span class="normal">859</span>
+<span class="normal">860</span>
+<span class="normal">861</span>
+<span class="normal">862</span>
+<span class="normal">863</span>
+<span class="normal">864</span>
+<span class="normal">865</span>
+<span class="normal">866</span>
+<span class="normal">867</span>
+<span class="normal">868</span>
+<span class="normal">869</span>
+<span class="normal">870</span>
+<span class="normal">871</span>
+<span class="normal">872</span>
+<span class="normal">873</span>
+<span class="normal">874</span>
+<span class="normal">875</span>
+<span class="normal">876</span>
+<span class="normal">877</span>
+<span class="normal">878</span>
+<span class="normal">879</span>
+<span class="normal">880</span>
+<span class="normal">881</span>
+<span class="normal">882</span>
+<span class="normal">883</span>
+<span class="normal">884</span>
+<span class="normal">885</span>
+<span class="normal">886</span>
+<span class="normal">887</span>
+<span class="normal">888</span>
+<span class="normal">889</span>
+<span class="normal">890</span>
+<span class="normal">891</span>
+<span class="normal">892</span>
+<span class="normal">893</span>
+<span class="normal">894</span>
+<span class="normal">895</span>
+<span class="normal">896</span>
+<span class="normal">897</span>
+<span class="normal">898</span>
+<span class="normal">899</span>
+<span class="normal">900</span>
+<span class="normal">901</span>
+<span class="normal">902</span>
+<span class="normal">903</span>
+<span class="normal">904</span>
+<span class="normal">905</span>
+<span class="normal">906</span>
+<span class="normal">907</span>
+<span class="normal">908</span>
+<span class="normal">909</span>
+<span class="normal">910</span>
+<span class="normal">911</span>
+<span class="normal">912</span>
+<span class="normal">913</span>
+<span class="normal">914</span>
+<span class="normal">915</span>
+<span class="normal">916</span>
+<span class="normal">917</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">predict_geotiff_superres</span><span class="p">(</span>
     <span class="n">model</span><span class="p">:</span> <span class="s2">"torch.nn.Module"</span><span class="p">,</span>
     <span class="n">input_raster</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">output_raster</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -7563,9 +7597,10 @@ with a correspondingly updated affine transform (pixel sizes divided by
     <span class="n">hr_overlap</span> <span class="o">=</span> <span class="n">overlap</span> <span class="o">*</span> <span class="n">scale</span>
     <span class="n">hr_stride</span> <span class="o">=</span> <span class="n">stride</span> <span class="o">*</span> <span class="n">scale</span>
 
-    <span class="n">weight_mask_hr</span> <span class="o">=</span> <span class="n">create_weight_mask</span><span class="p">(</span>
-        <span class="n">hr_tile_size</span><span class="p">,</span> <span class="n">hr_overlap</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">blend_mode</span><span class="p">,</span> <span class="n">power</span><span class="o">=</span><span class="n">blend_power</span>
-    <span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="c1"># Validate the blending settings on the HR grid.</span>
+    <span class="n">create_weight_mask</span><span class="p">(</span><span class="n">hr_tile_size</span><span class="p">,</span> <span class="n">hr_overlap</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">blend_mode</span><span class="p">,</span> <span class="n">power</span><span class="o">=</span><span class="n">blend_power</span><span class="p">)</span>
+    <span class="c1"># HR weight masks keyed by which sides of a tile face another tile.</span>
+    <span class="n">weight_masks_hr</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="nb">bool</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 
     <span class="n">model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
     <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
@@ -7682,9 +7717,23 @@ with a correspondingly updated affine transform (pixel sizes divided by
 
                 <span class="n">pred_tile</span> <span class="o">=</span> <span class="n">preds</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
 
+                <span class="c1"># Taper only the sides that face another tile</span>
+                <span class="n">sides</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">row_start</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="n">row_start</span> <span class="o">+</span> <span class="n">actual_h</span> <span class="o">&lt;</span> <span class="n">height</span><span class="p">,</span>
+                    <span class="n">col_start</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="n">col_start</span> <span class="o">+</span> <span class="n">actual_w</span> <span class="o">&lt;</span> <span class="n">width</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="k">if</span> <span class="n">sides</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">weight_masks_hr</span><span class="p">:</span>
+                    <span class="n">weight_masks_hr</span><span class="p">[</span><span class="n">sides</span><span class="p">]</span> <span class="o">=</span> <span class="n">_tile_weight_mask</span><span class="p">(</span>
+                        <span class="n">hr_tile_size</span><span class="p">,</span> <span class="n">hr_overlap</span><span class="p">,</span> <span class="n">blend_mode</span><span class="p">,</span> <span class="n">blend_power</span><span class="p">,</span> <span class="o">*</span><span class="n">sides</span>
+                    <span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+
                 <span class="c1"># Crop to the actual edge-tile size on HR grid</span>
                 <span class="n">pred_crop</span> <span class="o">=</span> <span class="n">pred_tile</span><span class="p">[:,</span> <span class="p">:</span> <span class="n">actual_h</span> <span class="o">*</span> <span class="n">scale</span><span class="p">,</span> <span class="p">:</span> <span class="n">actual_w</span> <span class="o">*</span> <span class="n">scale</span><span class="p">]</span>
-                <span class="n">weight_crop</span> <span class="o">=</span> <span class="n">weight_mask_hr</span><span class="p">[:</span> <span class="n">actual_h</span> <span class="o">*</span> <span class="n">scale</span><span class="p">,</span> <span class="p">:</span> <span class="n">actual_w</span> <span class="o">*</span> <span class="n">scale</span><span class="p">]</span>
+                <span class="n">weight_crop</span> <span class="o">=</span> <span class="n">weight_masks_hr</span><span class="p">[</span><span class="n">sides</span><span class="p">][</span>
+                    <span class="p">:</span> <span class="n">actual_h</span> <span class="o">*</span> <span class="n">scale</span><span class="p">,</span> <span class="p">:</span> <span class="n">actual_w</span> <span class="o">*</span> <span class="n">scale</span>
+                <span class="p">]</span>
 
                 <span class="n">output_sum</span><span class="p">[:,</span> <span class="n">hr_row_start</span><span class="p">:</span><span class="n">hr_row_end</span><span class="p">,</span> <span class="n">hr_col_start</span><span class="p">:</span><span class="n">hr_col_end</span><span class="p">]</span> <span class="o">+=</span> <span class="p">(</span>
                     <span class="n">pred_crop</span> <span class="o">*</span> <span class="n">weight_crop</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span>
@@ -7693,10 +7742,12 @@ with a correspondingly updated affine transform (pixel sizes divided by
                     <span class="p">:,</span> <span class="n">hr_row_start</span><span class="p">:</span><span class="n">hr_row_end</span><span class="p">,</span> <span class="n">hr_col_start</span><span class="p">:</span><span class="n">hr_col_end</span>
                 <span class="p">]</span> <span class="o">+=</span> <span class="n">weight_crop</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span>
 
+    <span class="c1"># No epsilon: it would pull pixels whose weights sum to a small value</span>
+    <span class="c1"># toward 0. Pixels without any weight get output_nodata.</span>
     <span class="n">valid</span> <span class="o">=</span> <span class="n">weight_sum</span> <span class="o">&gt;</span> <span class="mi">0</span>
     <span class="n">output_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
         <span class="n">valid</span><span class="p">,</span>
-        <span class="n">output_sum</span> <span class="o">/</span> <span class="p">(</span><span class="n">weight_sum</span> <span class="o">+</span> <span class="mf">1e-8</span><span class="p">),</span>
+        <span class="n">output_sum</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">valid</span><span class="p">,</span> <span class="n">weight_sum</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
         <span class="n">output_nodata</span><span class="p">,</span>
     <span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 
@@ -7859,7 +7910,8 @@ with a correspondingly updated affine transform (pixel sizes divided by
       <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["content.code.copy","navigation.footer","navigation.instant","navigation.top","navigation.tracking","search.highlight","search.share"],"redirect":null,"search":"../assets/javascripts/workers/search.719e0d91.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
     
     
-      <script src="../assets/javascripts/bundle.3cb411a8.min.js"></script>
+      <script src="../assets/javascripts/bundle.9e76c64c.min.js"></script>
+      
       
     
   </body>
