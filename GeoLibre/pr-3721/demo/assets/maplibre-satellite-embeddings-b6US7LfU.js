@@ -1,1 +1,0 @@
-import{tt as t}from"./builtin-plugin-metadata-BDWSFAAy.js";import{n as a,t as e}from"./maplibre-satellite-embeddings-CKOuSj-m.js";export{t as SATELLITE_EMBEDDINGS_PLUGIN_ID,e as default,e as maplibreSatelliteEmbeddingsPlugin,a as setSatelliteEmbeddingsFileSaver};
