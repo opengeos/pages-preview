@@ -1,4 +1,6 @@
 
+
+
 <!doctype html>
 <html lang="en" class="no-js">
   <head>
@@ -16,6 +18,7 @@
       
       
       
+      
         <link rel="prev" href="../cloud_detection/">
       
       
@@ -26,7 +29,7 @@
       
       
       <link rel="icon" href="../../assets/logo.ico">
-      <meta name="generator" content="zensical-0.1.2">
+      <meta name="generator" content="zensical-0.1.3">
     
     
       
@@ -37,12 +40,13 @@
       
         
       
-      <link rel="stylesheet" href="../../assets/stylesheets/modern/main.ebb7f775.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/modern/main.e2cf241e.min.css">
       
         
           
         
         <link rel="stylesheet" href="../../assets/stylesheets/modern/palette.b60ce83d.min.css">
+      
       
       
 
@@ -1555,6 +1559,33 @@
     
   
   Wetland Mapping with GeoAI
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../wetland_dynamics_lidar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Prairie Pothole Wetland Dynamics with GeoAI and lidar-rs
 
     
   </span>
@@ -5160,12 +5191,8 @@
 </code></pre></div></td></tr></table></div>
 <h2 id="initialize-the-moondream-processor">Initialize the Moondream processor<a class="headerlink" href="#initialize-the-moondream-processor" title="Permanent link">&para;</a></h2>
 <p>Load the Moondream2 model. The first time you run this, the model will be downloaded from HuggingFace (~3.7GB).</p>
-<p><strong>Note</strong>: For reproducibility, we specify a specific model revision date.</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">processor</span> <span class="o">=</span> <span class="n">MoondreamGeo</span><span class="p">(</span>
-    <span class="n">model_name</span><span class="o">=</span><span class="s2">"vikhyatk/moondream2"</span><span class="p">,</span> <span class="n">revision</span><span class="o">=</span><span class="s2">"2025-06-21"</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">"cuda"</span>
-<span class="p">)</span>
+<p><strong>Note</strong>: GeoAI pins a known-good model revision by default, so results stay reproducible. Pass <code>revision="main"</code> to track the latest upstream checkpoint.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">processor</span> <span class="o">=</span> <span class="n">MoondreamGeo</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="s2">"vikhyatk/moondream2"</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">"cuda"</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
 <h2 id="image-captioning">Image Captioning<a class="headerlink" href="#image-captioning" title="Permanent link">&para;</a></h2>
 <p>Generate a description of the satellite image. The <code>length</code> parameter controls the detail level: "short", "normal", or "long".</p>
@@ -5338,7 +5365,8 @@
       <script id="__config" type="application/json">{"annotate":null,"base":"../..","features":["content.code.copy","navigation.footer","navigation.instant","navigation.top","navigation.tracking","search.highlight","search.share"],"redirect":null,"search":"../../assets/javascripts/workers/search.719e0d91.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.3cb411a8.min.js"></script>
+      <script src="../../assets/javascripts/bundle.9e76c64c.min.js"></script>
+      
       
     
   </body>
