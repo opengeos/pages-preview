@@ -2681,6 +2681,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Op-level document model (#3530)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#op-level-sync-over-the-relays" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Op-level sync over the relays
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -3771,6 +3788,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Op-level document model (#3530)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#op-level-sync-over-the-relays" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Op-level sync over the relays
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -4016,12 +4050,12 @@ immediately, and fans every message out to the other connected sockets.</p>
 <p>CRDT / per-action mutation transport is the documented <strong>v2</strong> path (see
 Limitations).</p>
 <h2 id="op-level-document-model-3530">Op-level document model (#3530)<a class="headerlink" href="#op-level-document-model-3530" title="Permanent link">&para;</a></h2>
-<p>The whole-snapshot protocol below is being replaced by op-level sync over a
-<a href="https://docs.yjs.dev/">Yjs</a> document, so simultaneous edits merge instead of
-overwriting each other. The shared model is <code>ProjectDoc</code> in
-<code>packages/collab-core/src/crdt.ts</code> (<code>@geolibre/collab-core/crdt</code>). It is not
-wired up yet: the relays and the app still run the snapshot protocol and its
-limits below, and adopt the model in follow-up changes. The model:</p>
+<p>Project state is synced op by op over a <a href="https://docs.yjs.dev/">Yjs</a>
+document, so simultaneous edits merge instead of overwriting each other. The
+shared model is <code>ProjectDoc</code> in <code>packages/collab-core/src/crdt.ts</code>
+(<code>@geolibre/collab-core/crdt</code>). Both relays keep each session in it (see
+<em>Op-level sync over the relays</em>); the app adopts it in a follow-up and until
+then sends snapshots, which the relays write into the document. The model:</p>
 <table>
 <thead>
 <tr>
@@ -4069,6 +4103,52 @@ than <code>MAX_UPDATE_CHUNK_BYTES</code> (512 KiB) into numbered chunks and
 <code>UpdateAssembler</code> rebuilds it on the far side, so a project well beyond the
 snapshot cap syncs without any single WebSocket message nearing a platform
 limit.</p>
+<h3 id="op-level-sync-over-the-relays">Op-level sync over the relays<a class="headerlink" href="#op-level-sync-over-the-relays" title="Permanent link">&para;</a></h3>
+<p>Both relays keep each session's authoritative document in a <code>RelayDoc</code>
+(<code>packages/collab-core/src/crdt-relay.ts</code>, <code>@geolibre/collab-core/crdt-relay</code>):</p>
+<ol>
+<li>A client that speaks the protocol joins with <code>features: ["crdt-v1"]</code>. The
+   relay answers every join with <code>features: ["crdt-v1"]</code> in <code>welcome</code>, and for
+   such a client leaves <code>welcome.snapshot</code> null.</li>
+<li>The client sends <code>doc-sync { stateVector }</code> (its Yjs state vector, base64,
+   <code>""</code> when empty). The relay replies with the updates the client lacks as
+   <code>doc-update</code> frames, then <code>doc-synced { stateVector, rev }</code> with its own
+   vector, from which the client computes and sends whatever the relay lacks.
+   A reconnecting client keeps its document, so edits made while offline
+   reach the session on the next sync.</li>
+<li>Each local change is one <code>doc-update { update, chunk? }</code>. The relay applies
+   it to its document, stores it, and fans it out to the other op-level
+   clients as <code>doc-update { update, chunk?, origin, rev }</code>.</li>
+</ol>
+<p>The relay enforces the same rules as for snapshots. An update from a
+participant who cannot edit is refused with <code>error: forbidden</code>. An update from
+a guest that touches a layer the host locked is applied and immediately undone
+on the relay; both the update and its inverse are fanned out (the sender gets
+the inverse plus <code>error: layer-locked</code>), so every client converges on the
+unchanged layer. As with a refused snapshot, the whole update is undone, so
+an edit to an unlocked layer made in the same update is undone with it. A
+chunk out of order or an unreadable update answers <code>error: resync</code>, after
+which the client runs <code>doc-sync</code> again.</p>
+<p><strong>Persistence.</strong> Every accepted update is appended to a log; once the log
+passes 4 MiB or 256 entries it is folded into a fresh base state
+(<code>Y.encodeStateAsUpdate</code>). Both are split into 1 MiB rows, under the Durable
+Object's 2 MB SQLite value cap: <code>collab_doc_base</code> / <code>collab_doc_log</code> in the
+Durable Object, <code>collab_doc_chunks</code> in the Node relay's database. The Durable
+Object reloads the document from these rows after a hibernation wake.</p>
+<p><strong>Size.</strong> The document is bounded by <code>COLLAB_MAX_DOC_BYTES</code> (default 32 MiB,
+<code>MAX_DOC_BYTES</code>), not by the 10 MB frame cap, because no frame carries more
+than one 512 KiB chunk. An update that would grow the document past it is
+refused with <code>error: too-large</code>. A Durable Object has 128 MB of memory and a
+live document takes a few times its encoded size, which is why the shared
+default stays there; a self-hosted Node relay can raise it.</p>
+<p><strong>Migration and older clients.</strong> A session that has only a stored
+whole-project snapshot (created before op-level sync) is migrated into a
+document the first time the relay opens it, and the snapshot copy is then
+deleted. Clients that join without <code>crdt-v1</code> keep working: their <code>snapshot</code>
+frames pass the same checks as before and are written into the document as the
+differences from it, and every document change reaches them as a whole
+<code>snapshot</code>. The comment list the relay maintains from <code>comment-mutation</code>
+frames lives in the document's <code>comments</code> field.</p>
 <h2 id="sync-protocol">Sync protocol<a class="headerlink" href="#sync-protocol" title="Permanent link">&para;</a></h2>
 <p>All frames are JSON, and each direction is a discriminated union on <code>type</code>
 (<code>ClientMessage</code> and <code>ServerMessage</code>). The relays' types live in
@@ -4088,8 +4168,18 @@ limit.</p>
 <tbody>
 <tr>
 <td><code>join</code></td>
-<td><code>displayName, color, hostToken?, inviteToken?, identityToken?</code></td>
-<td>first frame after connect; the relay assigns the <code>clientId</code> (returned in <code>welcome</code>)</td>
+<td><code>displayName, color, hostToken?, inviteToken?, identityToken?, features?</code></td>
+<td>first frame after connect; the relay assigns the <code>clientId</code> (returned in <code>welcome</code>); <code>features: ["crdt-v1"]</code> opts into op-level sync</td>
+</tr>
+<tr>
+<td><code>doc-sync</code></td>
+<td><code>stateVector</code></td>
+<td>op-level clients: ask for the document updates this client lacks</td>
+</tr>
+<tr>
+<td><code>doc-update</code></td>
+<td><code>update, chunk?</code></td>
+<td>op-level clients: one Yjs update (or one chunk of it); co-editors only</td>
 </tr>
 <tr>
 <td><code>snapshot</code></td>
@@ -4165,8 +4255,18 @@ limit.</p>
 <tbody>
 <tr>
 <td><code>welcome</code></td>
-<td><code>clientId, role, mode, participants[], snapshot \| null, presence, chat[], rev, requireIdentity, identitySupported, lockedLayerIds, invites[]</code></td>
-<td>sent once on join; the late-joiner bootstrap</td>
+<td><code>clientId, role, mode, participants[], snapshot \| null, presence, chat[], rev, requireIdentity, identitySupported, lockedLayerIds, invites[], features</code></td>
+<td>sent once on join; the late-joiner bootstrap; <code>snapshot</code> is null for an op-level client</td>
+</tr>
+<tr>
+<td><code>doc-update</code></td>
+<td><code>update, chunk?, origin, rev</code></td>
+<td>a document update the client lacks, or a peer's change</td>
+</tr>
+<tr>
+<td><code>doc-synced</code></td>
+<td><code>stateVector, rev</code></td>
+<td>ends the reply to <code>doc-sync</code></td>
 </tr>
 <tr>
 <td><code>snapshot</code></td>
@@ -4226,7 +4326,7 @@ limit.</p>
 <tr>
 <td><code>error</code></td>
 <td><code>code, message</code></td>
-<td><code>forbidden</code>, <code>too-large</code>, <code>bad-message</code>, <code>not-found</code>, <code>identity-required</code>, <code>identity-unavailable</code>, or <code>layer-locked</code></td>
+<td><code>forbidden</code>, <code>too-large</code>, <code>bad-message</code>, <code>not-found</code>, <code>identity-required</code>, <code>identity-unavailable</code>, <code>layer-locked</code>, or <code>resync</code></td>
 </tr>
 </tbody>
 </table>
@@ -4259,16 +4359,16 @@ accepted MVP limitation; a coalesced-history option is a v2 item.</p>
 <p><code>CollabSession</code> uses the <strong>WebSocket Hibernation API</strong> so idle sessions evict
 from memory while keeping sockets open. Per-socket participant metadata is kept
 via <code>ws.serializeAttachment()</code> (survives hibernation). Durable storage holds the
-<code>latestSnapshot</code>, a monotonic <code>rev</code>, the <code>mode</code>, the <code>hostToken</code>, and a bounded
-<code>chat</code> log; presence and per-participant permission overrides are kept on the
+session document (see <em>Op-level sync over the relays</em>), a monotonic <code>rev</code>, the
+<code>mode</code>, the <code>hostToken</code>, and a bounded <code>chat</code> log; presence and per-participant permission overrides are kept on the
 in-memory / per-socket attachment. Server-side enforcement: a <code>snapshot</code> from a
 guest who cannot edit (session <code>view-only</code>, or a host-set per-participant
 view-only override) is dropped with an <code>error: forbidden</code>; <code>set-mode</code> and
 <code>set-participant-mode</code> require the host token. Oversized snapshots (&gt; 10 MB by
 default) are rejected with <code>error: too-large</code>; the cap sits under Cloudflare's
-32 MiB ceiling on a received WebSocket message. Hosted snapshots are stored in
-chunks across rows of a SQLite table, because a Durable Object caps both a
-key/value entry and a single SQLite string at 2 MB — well under what portable
+32 MiB ceiling on a received WebSocket message. The document is stored in
+chunks across rows of SQLite tables, because a Durable Object caps both a
+key/value entry and a single SQLite value at 2 MB — well under what portable
 GeoJSON from local files and external plugins needs. An empty session is
 reclaimed after a TTL via a storage alarm, which drops the chunks with the rest
 of the database.</p>

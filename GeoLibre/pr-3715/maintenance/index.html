@@ -3674,6 +3674,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#yjs-packagescollab-corepackagejson-private-document-internals" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>yjs</code> (<code>packages/collab-core/package.json</code>) — private document internals
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#httpx-backendgeolibre_server_apipyprojecttoml-private-transport-pool" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -4483,6 +4494,17 @@
     <span class="md-ellipsis">
       <span class="md-typeset">
         Desktop CSP <code>script-src</code> allowlist
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#yjs-packagescollab-corepackagejson-private-document-internals" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>yjs</code> (<code>packages/collab-core/package.json</code>) — private document internals
       </span>
     </span>
   </a>
@@ -5813,6 +5835,25 @@ placeholder style landed in <code>index.html</code>). <code>"dangerousDisableAss
 <code>'unsafe-inline'</code> cover every inline style again, which is how 3.4.0 and earlier
 behaved; <code>script-src</code> still gets Tauri's nonces and hashes.
 <code>tests/tauri-csp.test.ts</code> fails if the exemption is dropped or widened.</p>
+<h3 id="yjs-packagescollab-corepackagejson-private-document-internals"><code>yjs</code> (<code>packages/collab-core/package.json</code>) — private document internals<a class="headerlink" href="#yjs-packagescollab-corepackagejson-private-document-internals" title="Permanent link">&para;</a></h3>
+<p>The collaboration relay core (<code>packages/collab-core/src/crdt-relay.ts</code>) and
+document model (<code>crdt.ts</code>) read a few Yjs internals that are not public API,
+checked against yjs 13.6.33:</p>
+<ul>
+<li><code>doc.store.pendingStructs</code> / <code>doc.store.pendingDs</code>: <code>RelayDoc.receive</code>
+  drops updates whose dependencies never arrived. Covered by "drops updates
+  whose dependencies never arrived" in <code>tests/collab-crdt-relay.test.ts</code>.</li>
+<li><code>type._item.parent</code> / <code>_item.parentSub</code>: <code>touchedLayers</code> finds which layer a
+  change landed under for the layer-lock check. Covered by the lock tests in
+  <code>tests/collab-crdt-relay.test.ts</code> and <code>workers/collab-node/test/crdt.test.ts</code>.</li>
+<li><code>doc._transaction</code>: <code>ProjectDoc.write</code> detects a caller's open transaction.
+  Covered by "writes correctly inside a caller's transaction" in
+  <code>tests/collab-crdt.test.ts</code>.</li>
+<li>lib0 decodes an object key <code>__proto__</code> by assignment; <code>safeJson</code> in
+  <code>crdt.ts</code> rebuilds such values. Covered by the <code>__proto__</code> tests there.</li>
+</ul>
+<p>After a Yjs bump, run those suites (<code>npm run test:frontend</code> and
+<code>npm test -w geolibre-collab-node</code>).</p>
 <h3 id="httpx-backendgeolibre_server_apipyprojecttoml-private-transport-pool"><code>httpx</code> (<code>backend/geolibre_server_api/pyproject.toml</code>) — private transport pool<a class="headerlink" href="#httpx-backendgeolibre_server_apipyprojecttoml-private-transport-pool" title="Permanent link">&para;</a></h3>
 <p>The projects server's protection against identity-provider requests to internal
 addresses (<code>geolibre_server_api/egress.py</code>) needs an httpcore network backend,
