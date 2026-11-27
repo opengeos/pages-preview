@@ -38046,8 +38046,7 @@ print(f"Sparse IoU: {results['mean_sparse_iou']:.4f}")</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>geoai/landcover_train.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1903</span>
-<span class="normal">1904</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1904</span>
 <span class="normal">1905</span>
 <span class="normal">1906</span>
 <span class="normal">1907</span>
@@ -38249,7 +38248,8 @@ print(f"Sparse IoU: {results['mean_sparse_iou']:.4f}")</p>
 <span class="normal">2103</span>
 <span class="normal">2104</span>
 <span class="normal">2105</span>
-<span class="normal">2106</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">evaluate_sparse_iou</span><span class="p">(</span>
+<span class="normal">2106</span>
+<span class="normal">2107</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">evaluate_sparse_iou</span><span class="p">(</span>
     <span class="n">model</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
     <span class="n">images_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">labels_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -43417,8 +43417,8 @@ dictionary mapping label names to confidence scores)</p>
             <span class="n">target_filtered</span> <span class="o">=</span> <span class="n">target</span><span class="p">[</span><span class="n">valid_mask</span><span class="p">]</span>
             <span class="n">pred_filtered</span> <span class="o">=</span> <span class="n">pred</span><span class="p">[</span><span class="n">valid_mask</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">target_filtered</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-            <span class="n">pred_filtered</span> <span class="o">=</span> <span class="n">pred</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">target_filtered</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">pred_filtered</span> <span class="o">=</span> <span class="n">pred</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 
         <span class="n">total_valid_pixels</span> <span class="o">=</span> <span class="n">target_filtered</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span>
 

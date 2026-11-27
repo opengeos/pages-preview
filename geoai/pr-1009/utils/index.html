@@ -24798,7 +24798,12 @@ export_geotiff_tiles('image.tif', 'output/', 'labels.tif',
 <span class="normal">2000</span>
 <span class="normal">2001</span>
 <span class="normal">2002</span>
-<span class="normal">2003</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">export_geotiff_tiles</span><span class="p">(</span>
+<span class="normal">2003</span>
+<span class="normal">2004</span>
+<span class="normal">2005</span>
+<span class="normal">2006</span>
+<span class="normal">2007</span>
+<span class="normal">2008</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">export_geotiff_tiles</span><span class="p">(</span>
     <span class="n">in_raster</span><span class="p">,</span>
     <span class="n">out_folder</span><span class="p">,</span>
     <span class="n">in_class_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -24877,6 +24882,11 @@ export_geotiff_tiles('image.tif', 'output/', 'labels.tif',
 <span class="sd">    """</span>
 
     <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">"rasterio"</span><span class="p">)</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">apply_augmentation</span> <span class="ow">and</span> <span class="n">augmentation_count</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"augmentation_count must be &gt;= 0 when apply_augmentation is True, got </span><span class="si">{</span><span class="n">augmentation_count</span><span class="si">}</span><span class="s2">"</span>
+        <span class="p">)</span>
 
     <span class="c1"># Handle FlipnSlide tiling strategy</span>
     <span class="k">if</span> <span class="n">tiling_strategy</span> <span class="o">==</span> <span class="s2">"flipnslide"</span><span class="p">:</span>
@@ -25788,12 +25798,7 @@ or if counts don't match when using masks_folder with match_by_name=False.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>geoai/utils/training.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">2006</span>
-<span class="normal">2007</span>
-<span class="normal">2008</span>
-<span class="normal">2009</span>
-<span class="normal">2010</span>
-<span class="normal">2011</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">2011</span>
 <span class="normal">2012</span>
 <span class="normal">2013</span>
 <span class="normal">2014</span>
@@ -26310,7 +26315,12 @@ or if counts don't match when using masks_folder with match_by_name=False.</p>
 <span class="normal">2525</span>
 <span class="normal">2526</span>
 <span class="normal">2527</span>
-<span class="normal">2528</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">export_geotiff_tiles_batch</span><span class="p">(</span>
+<span class="normal">2528</span>
+<span class="normal">2529</span>
+<span class="normal">2530</span>
+<span class="normal">2531</span>
+<span class="normal">2532</span>
+<span class="normal">2533</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">export_geotiff_tiles_batch</span><span class="p">(</span>
     <span class="n">images_folder</span><span class="p">,</span>
     <span class="n">masks_folder</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">masks_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -27270,12 +27280,7 @@ or if counts don't match when using masks_folder with match_by_name=False.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>geoai/utils/training.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">2988</span>
-<span class="normal">2989</span>
-<span class="normal">2990</span>
-<span class="normal">2991</span>
-<span class="normal">2992</span>
-<span class="normal">2993</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">2993</span>
 <span class="normal">2994</span>
 <span class="normal">2995</span>
 <span class="normal">2996</span>
@@ -27979,7 +27984,12 @@ or if counts don't match when using masks_folder with match_by_name=False.</p>
 <span class="normal">3694</span>
 <span class="normal">3695</span>
 <span class="normal">3696</span>
-<span class="normal">3697</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">export_training_data</span><span class="p">(</span>
+<span class="normal">3697</span>
+<span class="normal">3698</span>
+<span class="normal">3699</span>
+<span class="normal">3700</span>
+<span class="normal">3701</span>
+<span class="normal">3702</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">export_training_data</span><span class="p">(</span>
     <span class="n">in_raster</span><span class="p">,</span>
     <span class="n">out_folder</span><span class="p">,</span>
     <span class="n">in_class_data</span><span class="p">,</span>
