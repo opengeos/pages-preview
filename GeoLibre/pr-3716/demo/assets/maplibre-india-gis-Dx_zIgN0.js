@@ -1,1 +1,0 @@
-import{L as I}from"./builtin-plugin-metadata-BDWSFAAy.js";import{n as a,r as s,t as i}from"./maplibre-india-gis-Do6N7PH3.js";export{i as DEFAULT_INDIA_GIS_LABELS,I as INDIA_GIS_PLUGIN_ID,a as default,a as maplibreIndiaGisPlugin,s as setIndiaGisLabels};
