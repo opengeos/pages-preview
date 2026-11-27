@@ -1,1 +1,0 @@
-import{nt as t}from"./builtin-plugin-metadata-BDWSFAAy.js";import{t as r}from"./maplibre-sentinel2-explorer-BlQzaaSW.js";export{t as SENTINEL2_EXPLORER_PLUGIN_ID,r as default,r as maplibreSentinel2ExplorerPlugin};
