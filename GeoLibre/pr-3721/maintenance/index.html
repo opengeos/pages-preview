@@ -3597,6 +3597,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#cog-tiler-wasm-read-ceiling-for-overview-less-rasters" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>cog-tiler-wasm</code> — read ceiling for overview-less rasters
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#datum-shifts-geotiff-geokeys-to-proj4-cog-tiler-wasm-maplibre-gl-raster" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -4417,6 +4428,17 @@
     <span class="md-ellipsis">
       <span class="md-typeset">
         <code>maplibre-gl-raster</code> — picker data copied to keep it off startup
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cog-tiler-wasm-read-ceiling-for-overview-less-rasters" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>cog-tiler-wasm</code> — read ceiling for overview-less rasters
       </span>
     </span>
   </a>
@@ -5512,6 +5534,16 @@ imports that way.
 <code>tests/raster-picker-mirror.test.ts</code> compares every value and both helpers with
 the package export, so a colormap added or renamed upstream fails
 <code>npm run test:frontend</code>. Regenerate the copy from the package when it does.</p>
+<h3 id="cog-tiler-wasm-read-ceiling-for-overview-less-rasters"><code>cog-tiler-wasm</code> — read ceiling for overview-less rasters<a class="headerlink" href="#cog-tiler-wasm-read-ceiling-for-overview-less-rasters" title="Permanent link">&para;</a></h3>
+<p><code>TILER_WINDOW_SAMPLES</code> in <code>packages/plugins/src/plugins/overviewless-raster.ts</code>
+copies the tiler's unexported <code>MAX_WINDOW_SAMPLES</code> (<code>1 &lt;&lt; 24</code>), the largest
+source read it will make for one tile. A tiled GeoTIFF with no overviews that
+needs more than that at its full extent draws nothing zoomed out, and the
+raster plugin uses the copy to decide when to tell the user so (and offer a COG
+conversion). If upstream raises or lowers the ceiling, the notice fires for the
+wrong rasters; nothing errors. <code>tests/upstream-contracts.test.ts</code> checks the
+installed <code>cog-tiler.js</code> for the constant. When it fails, update the copy and
+re-check that a raster just over the new ceiling still stays blank zoomed out.</p>
 <h3 id="datum-shifts-geotiff-geokeys-to-proj4-cog-tiler-wasm-maplibre-gl-raster">Datum shifts (<code>geotiff-geokeys-to-proj4</code>, <code>cog-tiler-wasm</code>, <code>maplibre-gl-raster</code>)<a class="headerlink" href="#datum-shifts-geotiff-geokeys-to-proj4-cog-tiler-wasm-maplibre-gl-raster" title="Permanent link">&para;</a></h3>
 <p>The EPSG tables in <code>geotiff-geokeys-to-proj4</code> leave the datum shift
 (<code>+towgs84</code>) out for many national grids, and epsg.io's PROJJSON (the default
