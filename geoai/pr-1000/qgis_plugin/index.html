@@ -757,10 +757,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#easiest-log-in-from-the-segment-anything-panel" class="md-nav__link">
+  <a href="#easiest-log-in-from-the-segment-anything-panel-built-in-installer-only" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        Easiest: log in from the Segment Anything panel
+        Easiest: log in from the Segment Anything panel (built-in installer only)
       </span>
     </span>
   </a>
@@ -5835,10 +5835,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#easiest-log-in-from-the-segment-anything-panel" class="md-nav__link">
+  <a href="#easiest-log-in-from-the-segment-anything-panel-built-in-installer-only" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        Easiest: log in from the Segment Anything panel
+        Easiest: log in from the Segment Anything panel (built-in installer only)
       </span>
     </span>
   </a>
@@ -6430,7 +6430,7 @@ XML and never touches the zip path, so it is unaffected.</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>pixi<span class="w"> </span>run<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>numpy<span class="w"> </span>transformers
 </code></pre></div></td></tr></table></div>
 <h4 id="request-access-to-sam-3">Request access to SAM 3<a class="headerlink" href="#request-access-to-sam-3" title="Permanent link">&para;</a></h4>
-<p>SAM 3 is hosted in a gated Hugging Face repository. Request access at <a href="https://huggingface.co/facebook/sam3">https://huggingface.co/facebook/sam3</a>, then either log in from the Segment Anything panel (Model tab → <strong>Hugging Face</strong> → <strong>Log in</strong>) or authenticate from the Pixi project folder:</p>
+<p>SAM 3 is hosted in a gated Hugging Face repository. Request access at <a href="https://huggingface.co/facebook/sam3">https://huggingface.co/facebook/sam3</a>, then authenticate from the Pixi project folder (the panel's <strong>Log in</strong> button needs the plugin-managed environment from Option A, so Pixi-only installs use the command line):</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>pixi<span class="w"> </span>run<span class="w"> </span>hf<span class="w"> </span>auth<span class="w"> </span>login
 </code></pre></div></td></tr></table></div>
 <p>After authentication, you can download the SAM 3 model from Hugging Face:</p>
@@ -6484,8 +6484,10 @@ python<span class="w"> </span>install.py
 <li>If you create a <strong>Fine-grained</strong> token instead, you must check <strong>Read access to contents of all public gated repos you can access</strong>. Without that permission, the download fails with the same gated-repo error even after your access request is approved.</li>
 </ul>
 <h3 id="authenticate">Authenticate<a class="headerlink" href="#authenticate" title="Permanent link">&para;</a></h3>
-<h4 id="easiest-log-in-from-the-segment-anything-panel">Easiest: log in from the Segment Anything panel<a class="headerlink" href="#easiest-log-in-from-the-segment-anything-panel" title="Permanent link">&para;</a></h4>
-<p>Open the <strong>Segment Anything</strong> panel, go to the <strong>Model</strong> tab and find the <strong>Hugging Face</strong> group. Paste your token in the token field (it is masked) and click <strong>Log in</strong>. The plugin saves the token for its own Python environment, exactly like <code>hf auth login</code> would, and shows the account name once it works. The token is not stored in the QGIS project or written to the QGIS log. Then click <strong>Load Model</strong> again; no restart is needed. This works on every platform and with either installation method, and is the simplest option on Windows.</p>
+<h4 id="easiest-log-in-from-the-segment-anything-panel-built-in-installer-only">Easiest: log in from the Segment Anything panel (built-in installer only)<a class="headerlink" href="#easiest-log-in-from-the-segment-anything-panel-built-in-installer-only" title="Permanent link">&para;</a></h4>
+<p>If you installed the dependencies with the built-in installer (Option A), open the <strong>Segment Anything</strong> panel, go to the <strong>Model</strong> tab and find the <strong>Hugging Face</strong> group. Paste your token in the token field (it is masked) and click <strong>Log in</strong>. The plugin saves the token with the plugin-managed Python environment, exactly like <code>hf auth login</code> would, and shows the account name once it works. The token is not stored in the QGIS project or written to the QGIS log. Then click <strong>Load Model</strong> again; no restart is needed. This works on every platform and is the simplest option on Windows.</p>
+<p>The panel login needs the plugin-managed environment. If you installed only through Pixi (Option B), the panel reports that the dependencies are missing; log in from the command line instead, as described <a href="#if-you-used-the-pixi-environment-option-b">below</a>.</p>
+<p>If <code>HF_TOKEN</code> is set in the environment QGIS was started from, it normally takes priority over a saved token. After a successful panel login the plugin ignores <code>HF_TOKEN</code> for the rest of that QGIS session, so the next model load uses the token you just saved.</p>
 <p>If loading SAM 3 fails because access is denied, the panel tells you so and points you back to this field. If login succeeds but loading still fails, check that your access request on <a href="https://huggingface.co/facebook/sam3">https://huggingface.co/facebook/sam3</a> has been approved and, for fine-grained tokens, that the gated-repo permission above is enabled.</p>
 <h4 id="from-the-command-line">From the command line<a class="headerlink" href="#from-the-command-line" title="Permanent link">&para;</a></h4>
 <p>The <code>hf</code> command is installed inside the plugin's Python environment, not on your system <code>PATH</code>. Running a bare <code>hf auth login</code> in a terminal fails with <code>'hf' is not recognized...</code> (Windows) or <code>command not found</code> (Linux/macOS) no matter which directory you are in. Use the method that matches how you installed the dependencies.</p>
@@ -6529,7 +6531,7 @@ python<span class="w"> </span>install.py
 <li>On Windows, launch QGIS <em>after</em> running <code>setx</code>; an already-running QGIS will not pick it up.</li>
 <li>On Linux/macOS, exporting in <code>~/.bashrc</code> or <code>~/.zshrc</code> only covers QGIS started from a terminal in that shell. Desktop shortcuts and application launchers do not read shell startup files, so either start QGIS from that terminal or set the variable somewhere your desktop session reads it (for example <code>~/.profile</code> or <code>~/.config/environment.d/</code> on Linux, or <code>launchctl setenv HF_TOKEN &lt;token&gt;</code> on macOS).</li>
 </ul>
-<p>If that is awkward, prefer the panel's <strong>Log in</strong> button or <code>hf auth login</code> above: it writes the token to <code>~/.cache/huggingface/token</code>, which is read no matter how QGIS was started.</p>
+<p>If that is awkward, prefer the panel's <strong>Log in</strong> button or <code>hf auth login</code> above. By default they write the token to <code>~/.cache/huggingface/token</code>, which is read no matter how QGIS was started. If <code>HF_HOME</code> or <code>HF_TOKEN_PATH</code> is set, the token is stored in that location instead, so the panel, the <code>hf</code> command and every later QGIS launch must use the same Hugging Face cache settings to find it.</p>
 <p><strong>Important Note</strong>: SAM 3 currently requires an NVIDIA GPU with CUDA support. You won't be able to use SAM 3 if you have a CPU-only system (<a href="https://github.com/facebookresearch/sam3/issues/164">source</a>). You will get an error message like this: <code>Failed to load model: Torch not compiled with CUDA enabled</code>. Use SAM 1 or SAM 2 on CPU-only systems.</p>
 <h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
 <h3 id="tree-segmentation-panel-deepforest_1">Tree Segmentation Panel (DeepForest)<a class="headerlink" href="#tree-segmentation-panel-deepforest_1" title="Permanent link">&para;</a></h3>
@@ -6748,7 +6750,7 @@ python<span class="w"> </span>install.py
 </li>
 <li>Leave the output path empty to save next to the source image as <code>&lt;image&gt;_sam_masks.&lt;ext&gt;</code> (<code>_1</code>, <code>_2</code>, ... are added instead of overwriting; a temporary file is used if that folder is not writable)</li>
 <li>Click "Save Masks" to export results</li>
-<li>Vector outputs include a <code>score</code> field (SAM's predicted confidence for the mask each polygon came from, available when "Unique values for each object" is checked), a <code>source</code> field (the image file name) and a <code>prompt</code> field (for example <code>text: tree</code>, <code>point</code>, <code>box</code> or <code>batch points</code>)</li>
+<li>Vector outputs include a <code>score</code> field (SAM's predicted confidence for the mask each polygon came from). It is added only when all three hold: the run was not tiled, "Unique values for each object" is checked, and the model reports per-mask scores (SAM 3 with samgeo 1.4.2 or newer). Outputs also get a <code>source</code> field (the image file name) and a <code>prompt</code> field (for example <code>text: tree</code>, <code>point</code>, <code>box</code> or <code>batch points</code>)</li>
 </ul>
 <p><img alt="" src="https://github.com/user-attachments/assets/5c80cc57-3870-4a20-bb74-73e394ef22a6" /></p>
 </li>
