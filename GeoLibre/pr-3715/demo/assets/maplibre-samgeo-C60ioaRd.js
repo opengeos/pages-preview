@@ -1,1 +1,0 @@
-import{et as e}from"./builtin-plugin-metadata-BDWSFAAy.js";import{a as t,i as s,n as a,r as o,t as m}from"./maplibre-samgeo-Dp-AalF_.js";export{m as SAMGEO_API_DOCS_URL,e as SAMGEO_PLUGIN_ID,a as default,a as maplibreSamGeoPlugin,o as reprojectSamGeoResult,s as sanitizeSamGeoState,t as setSamGeoLabels};
