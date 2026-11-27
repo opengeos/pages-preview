@@ -3640,7 +3640,7 @@ never silently overwritten.</p>
 </tr>
 <tr>
 <td>GeoPackage files (desktop app)</td>
-<td>Each row, matched by its row id, is compared with the row as you loaded it. The file is written only if it is still byte for byte the file that was just checked, so a save from another program (QGIS, a sync client) in between is caught and checked again</td>
+<td>Each row, matched by its row id, is compared with the row as you loaded it. The file is written only if it is still byte for byte the file that was just checked, so a save from another program (QGIS, a sync client) in between is caught and checked again. The table is rewritten as a whole from the rows as read, so for a layer in a projected CRS untouched rows also go through reprojection, as with a direct save</td>
 </tr>
 </tbody>
 </table>
