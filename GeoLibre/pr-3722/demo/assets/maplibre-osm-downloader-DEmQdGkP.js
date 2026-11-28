@@ -1,1 +1,0 @@
-import{G as r}from"./builtin-plugin-metadata-BDWSFAAy.js";import{t as o}from"./maplibre-osm-downloader-CV-y5lXh.js";export{r as OSM_DOWNLOADER_PLUGIN_ID,o as default,o as maplibreOsmDownloaderPlugin};
