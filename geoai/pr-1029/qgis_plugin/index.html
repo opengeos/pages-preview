@@ -6870,7 +6870,7 @@ XML and never touches the zip path, so it is unaffected.</p>
 <span class="nb">cd</span><span class="w"> </span>geoai/qgis_plugin
 python<span class="w"> </span>install.py
 </code></pre></div></td></tr></table></div>
-<p>This copies the plugin into the <code>default</code> profile of every QGIS major version whose settings directory exists (<code>QGIS4</code> and <code>QGIS3</code>; use <code>--profile NAME</code> for another profile). If QGIS 4 has not been launched yet so its settings directory does not exist, launch QGIS 4 once first or pass <code>--plugin-dir /path/to/plugins</code> explicitly (if neither settings directory exists, the script falls back to the QGIS 3 path). Re-run after pulling updates. Remove with:</p>
+<p>This copies the plugin into the <code>default</code> profile of every QGIS major version whose settings directory exists (<code>QGIS4</code> and <code>QGIS3</code>; use <code>--profile NAME</code> for another profile). If QGIS 4 has not been launched yet so its settings directory does not exist, launch QGIS 4 once first or pass <code>--plugin-dir /path/to/plugins</code> explicitly (if neither settings directory exists, the script falls back to the QGIS 3 path). Re-run after pulling updates. Remove with (passing the same <code>--profile NAME</code> or <code>--plugin-dir DIR</code> flag if you used one during installation):</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>python<span class="w"> </span>install.py<span class="w"> </span>--remove
 </code></pre></div></td></tr></table></div>
 <p>Option C: manual copy:</p>
