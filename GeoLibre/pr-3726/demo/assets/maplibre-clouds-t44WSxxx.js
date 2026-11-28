@@ -1,1 +1,0 @@
-import{p as s}from"./builtin-plugin-metadata-BDWSFAAy.js";import{a,i as o,n as l,o as i,r as t,s as e,t as r}from"./maplibre-clouds-BvFKggsp.js";export{s as CLOUDS_PLUGIN_ID,r as buildDates,l as getCloudsAnimationState,t as maplibreCloudsPlugin,o as nasaTileUrl,a as setCloudsFrame,i as subscribeClouds,e as toggleCloudsPlaying};

@@ -1,1 +1,0 @@
-import{ft as s}from"./builtin-plugin-metadata-BDWSFAAy.js";import{n as m,r,t as a}from"./maplibre-usgs-dem-DuqJvJyL.js";export{a as DEFAULT_USGS_DEM_LABELS,s as USGS_DEM_PLUGIN_ID,m as maplibreUsgsDemPlugin,r as setUsgsDemLabels};
