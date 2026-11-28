@@ -4019,6 +4019,10 @@ layer's actions menu):</p>
 <td>Label each side of the selected polygons with its length, in the units of the <strong>Scale bar units</strong> setting. A side runs from corner to corner, so a densified straight side or a curved frontage gets one label. Lengths are measured on the ellipsoid, like the measure tool. Labels too long for their side on screen appear as you zoom in. A selection with more than 2,000 sides or 50,000 polygon ring positions gets no labels at all, and zooming in does not bring them back: select fewer polygons or simplify dense geometry to see them. Available on the MapLibre and Mapbox maps.</td>
 </tr>
 <tr>
+<td><strong>Pin feature to compare</strong></td>
+<td>With one feature selected, pin it, then hover other features on its layer: the tooltip lists the fields where the hovered feature differs, with the difference for numbers (<code>+42,000</code>) and the pinned value for text. It uses the fields, labels and number formats of the layer's popup, and never shows a hidden field. The pin is a snapshot of the feature's attributes when you pinned it. <strong>Stop comparing</strong> removes it. Available on the MapLibre, Mapbox and ArcGIS maps.</td>
+</tr>
+<tr>
 <td><strong>Export Selected Features as Layer</strong></td>
 <td>Copy the selection into a new layer.</td>
 </tr>

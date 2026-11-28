@@ -1,1 +1,0 @@
-import{T as r}from"./builtin-plugin-metadata-BDWSFAAy.js";import{n as l,t as e}from"./maplibre-fields-of-the-world--nKle3ob.js";export{r as FIELDS_OF_THE_WORLD_PLUGIN_ID,e as default,e as maplibreFieldsOfTheWorldPlugin,l as setFieldsOfTheWorldFileSaver};
