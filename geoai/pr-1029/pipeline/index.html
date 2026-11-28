@@ -6877,7 +6877,7 @@
 <span class="c1"># Pipelines made of registered steps can be exported to YAML/JSON and reloaded later</span>
 <span class="n">pipe</span><span class="o">.</span><span class="n">to_yaml</span><span class="p">(</span><span class="s2">"building_segmentation.yaml"</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-<p>Reload an exported configuration with <code>load_pipeline()</code> (note that <code>to_yaml()</code> and <code>to_json()</code> omit <code>checkpoint_dir</code>, so pass <code>checkpoint_dir</code> explicitly when reloading if you want resume support):</p>
+<p>Reload an exported configuration with <code>load_pipeline()</code> (note that <code>to_yaml()</code> and <code>to_json()</code> omit <code>checkpoint_dir</code> and any custom <code>item_key_fn</code>, so pass them explicitly as keyword arguments to <code>load_pipeline()</code> if you want resume support with those settings):</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
