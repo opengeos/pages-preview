@@ -2810,6 +2810,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Map options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#show-or-hide-parts-of-the-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Show or hide parts of the UI
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -3725,6 +3742,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Map options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#show-or-hide-parts-of-the-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Show or hide parts of the UI
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -4046,8 +4080,84 @@ keeps authenticated layers rendering.</p>
     <span class="n">height</span><span class="o">=</span><span class="s2">"800px"</span><span class="p">,</span>
     <span class="n">app_layout</span><span class="o">=</span><span class="s2">"embed"</span><span class="p">,</span>  <span class="c1"># "embed" (compact UI), "full" (desktop UI), or "maponly"</span>
     <span class="n">theme</span><span class="o">=</span><span class="s2">"light"</span><span class="p">,</span>       <span class="c1"># "light" or "dark"</span>
+    <span class="n">toolbar</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>        <span class="c1"># top toolbar and its menus</span>
+    <span class="n">layer_panel</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>    <span class="c1"># Layers panel</span>
+    <span class="n">style_panel</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>    <span class="c1"># Style (symbology) panel</span>
+    <span class="n">status_bar</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>     <span class="c1"># bottom status bar</span>
 <span class="p">)</span>
 </code></pre></div>
+<h3 id="show-or-hide-parts-of-the-ui">Show or hide parts of the UI<a class="headerlink" href="#show-or-hide-parts-of-the-ui" title="Permanent link">&para;</a></h3>
+<p><code>toolbar</code>, <code>layer_panel</code>, <code>style_panel</code>, and <code>status_bar</code> each take <code>True</code> (show),
+<code>False</code> (hide), or <code>None</code> (the default: keep the layout's default and the
+viewer's saved settings). For example, a map with menus but no side panels:</p>
+<div class="highlight"><pre><span></span><code><span class="n">m</span> <span class="o">=</span> <span class="n">Map</span><span class="p">(</span><span class="n">layer_panel</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">style_panel</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
+<p>They are also traits, so changing one on a displayed map reloads the app with
+the new chrome and replays the project into it:</p>
+<div class="highlight"><pre><span></span><code><span class="n">m</span><span class="o">.</span><span class="n">toolbar</span> <span class="o">=</span> <span class="kc">False</span>
+</code></pre></div>
+<p>A reload starts the app fresh, so change these between interactions rather than
+mid-edit: a UI edit from the last moment before the change may not have synced
+back to Python yet, and a <code>get_*</code> query still waiting on the old app times out.</p>
+<p><code>app_layout="maponly"</code> hides all chrome no matter what these say. Exports from
+<code>to_html()</code> carry the same settings.</p>
+<p>Each option, plus <code>app_layout</code>, <code>theme</code>, and <code>renderer</code>, falls back to an environment
+variable when it is not passed, so a deployment can set the look of every map
+without changing notebook code. An explicit argument always wins.</p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Environment variable</th>
+<th>Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>toolbar</code></td>
+<td><code>GEOLIBRE_TOOLBAR</code></td>
+<td><code>true</code>/<code>false</code>, <code>1</code>/<code>0</code>, <code>on</code>/<code>off</code>, <code>yes</code>/<code>no</code>, <code>show</code>/<code>hide</code></td>
+</tr>
+<tr>
+<td><code>layer_panel</code></td>
+<td><code>GEOLIBRE_LAYER_PANEL</code></td>
+<td>as above</td>
+</tr>
+<tr>
+<td><code>style_panel</code></td>
+<td><code>GEOLIBRE_STYLE_PANEL</code></td>
+<td>as above</td>
+</tr>
+<tr>
+<td><code>status_bar</code></td>
+<td><code>GEOLIBRE_STATUS_BAR</code></td>
+<td>as above</td>
+</tr>
+<tr>
+<td><code>app_layout</code></td>
+<td><code>GEOLIBRE_APP_LAYOUT</code></td>
+<td><code>embed</code>, <code>full</code>, or <code>maponly</code></td>
+</tr>
+<tr>
+<td><code>theme</code></td>
+<td><code>GEOLIBRE_THEME</code></td>
+<td><code>light</code> or <code>dark</code></td>
+</tr>
+<tr>
+<td><code>renderer</code></td>
+<td><code>GEOLIBRE_RENDERER</code></td>
+<td><code>maplibre</code>, <code>cesium</code>, <code>mapbox</code>, or <code>arcgis</code></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">GEOLIBRE_LAYER_PANEL</span><span class="o">=</span>hide
+<span class="nb">export</span><span class="w"> </span><span class="nv">GEOLIBRE_STYLE_PANEL</span><span class="o">=</span>hide
+jupyter<span class="w"> </span>lab
+</code></pre></div>
+<p>An unrecognized value for one of the four toggles is ignored with a warning; an
+invalid <code>GEOLIBRE_APP_LAYOUT</code>, <code>GEOLIBRE_THEME</code>, or <code>GEOLIBRE_RENDERER</code> raises
+<code>ValueError</code>. To switch the rendering engine of a displayed map, call
+<code>m.set_renderer("cesium")</code>.</p>
 <h2 id="interactive-scripting">Interactive scripting<a class="headerlink" href="#interactive-scripting" title="Permanent link">&para;</a></h2>
 <p>Beyond adding data, the widget can <strong>query the live app and react to it</strong> — the
 same surface as the in-app <a href="../user-guide/python-console/">Python Console</a>. These
@@ -4193,8 +4303,8 @@ variants can only run on a worker thread.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>Map(center, zoom, basemap=, renderer=, height=, app_layout=, layout=, theme=, server_proxy=)</code></td>
-<td>Create a map. <code>app_layout</code> picks the app chrome; <code>layout</code> takes an <code>ipywidgets.Layout</code>, as on any widget, and its <code>height</code> also sizes the map. Passing a chrome string as <code>layout=</code> still works but is deprecated.</td>
+<td><code>Map(center, zoom, basemap=, renderer=, height=, app_layout=, layout=, theme=, server_proxy=, toolbar=, layer_panel=, style_panel=, status_bar=)</code></td>
+<td>Create a map. <code>app_layout</code> picks the app chrome, and <code>toolbar</code>/<code>layer_panel</code>/<code>style_panel</code>/<code>status_bar</code> show or hide single parts of it (see <a href="#show-or-hide-parts-of-the-ui">Show or hide parts of the UI</a>); <code>layout</code> takes an <code>ipywidgets.Layout</code>, as on any widget, and its <code>height</code> also sizes the map. Passing a chrome string as <code>layout=</code> still works but is deprecated.</td>
 </tr>
 <tr>
 <td><code>add_geojson(data, name=, **style)</code></td>

@@ -1,1 +1,0 @@
-import{H as t}from"./builtin-plugin-metadata-BDWSFAAy.js";import{n as r,t as a}from"./maplibre-ocean-data-platform-11ofKd9N.js";export{t as OCEAN_DATA_PLATFORM_PLUGIN_ID,a as default,a as maplibreOceanDataPlatformPlugin,r as setOceanDataPlatformFileSaver};
