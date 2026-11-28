@@ -5409,14 +5409,12 @@
                 <a id="__skip" tabindex="-1"></a>
                 
                   
-
+  
+  
   
     <a href="https://github.com/opengeos/geoai/edit/main/docs/mcp_server.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
-      <span aria-hidden="true">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-file-pen" viewBox="0 0 24 24"><path d="M12.659 22H18a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v9.34"/><path d="M14 2v5a1 1 0 0 0 1 1h5M10.378 12.622a1 1 0 0 1 3 3.003L8.36 20.637a2 2 0 0 1-.854.506l-2.867.837a.5.5 0 0 1-.62-.62l.836-2.869a2 2 0 0 1 .506-.853z"/></svg>
-      </span>
-      <span class="md-visually-hidden">Edit this page</span>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-file-pen" viewBox="0 0 24 24"><path d="M12.659 22H18a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v9.34"/><path d="M14 2v5a1 1 0 0 0 1 1h5M10.378 12.622a1 1 0 0 1 3 3.003L8.36 20.637a2 2 0 0 1-.854.506l-2.867.837a.5.5 0 0 1-.62-.62l.836-2.869a2 2 0 0 1 .506-.853z"/></svg>
     </a>
   
   
@@ -5469,7 +5467,7 @@ cp<span class="w"> </span>.env.example<span class="w"> </span>.env
 <span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"mcpServers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">"geoai"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"python"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/path/to/geoai/geoai-mcp-server/.venv/bin/python"</span><span class="p">,</span>
 <span class="w">      </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"-m"</span><span class="p">,</span><span class="w"> </span><span class="s2">"geoai_mcp_server.server"</span><span class="p">],</span>
 <span class="w">      </span><span class="nt">"cwd"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/path/to/geoai/geoai-mcp-server"</span><span class="p">,</span>
 <span class="w">      </span><span class="nt">"env"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -5481,7 +5479,7 @@ cp<span class="w"> </span>.env.example<span class="w"> </span>.env
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
-<p>Restart Claude Desktop after saving the configuration to load the GeoAI tools.</p>
+<p>Use the absolute path to the virtual environment's Python interpreter (on Windows, <code>C:\\path\\to\\geoai\\geoai-mcp-server\\.venv\\Scripts\\python.exe</code>), because Claude Desktop launches MCP servers outside your activated shell environment. Restart Claude Desktop after saving the configuration to load the GeoAI tools.</p>
 <h3 id="available-mcp-tools">Available MCP Tools<a class="headerlink" href="#available-mcp-tools" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -5653,26 +5651,32 @@ cli-anything-geoai<span class="w"> </span>data<span class="w"> </span>search<spa
 cli-anything-geoai<span class="w"> </span>data<span class="w"> </span>download<span class="w"> </span>naip<span class="w"> </span>--bbox<span class="w"> </span><span class="s2">"-84.0,35.9,-83.9,36.0"</span><span class="w"> </span>-o<span class="w"> </span>naip.tif
 </code></pre></div></td></tr></table></div>
 <h3 id="structured-json-output-and-project-state">Structured JSON Output and Project State<a class="headerlink" href="#structured-json-output-and-project-state" title="Permanent link">&para;</a></h3>
-<p>Pass <code>--json</code> before any subcommand for machine-readable output suited to AI agents, and use <code>--project</code> to track files, results, and undo/redo history across commands:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Create a workspace project and register files</span>
-cli-anything-geoai<span class="w"> </span>project<span class="w"> </span>new<span class="w"> </span>-n<span class="w"> </span><span class="s2">"my_analysis"</span><span class="w"> </span>-o<span class="w"> </span>project.json
-cli-anything-geoai<span class="w"> </span>--project<span class="w"> </span>project.json<span class="w"> </span>project<span class="w"> </span>add-file<span class="w"> </span>image.tif
-cli-anything-geoai<span class="w"> </span>--project<span class="w"> </span>project.json<span class="w"> </span>project<span class="w"> </span>save
-
-<span class="c1"># Chain structured JSON commands</span>
+<p>Pass <code>--json</code> before any subcommand for machine-readable output suited to AI agents:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Chain structured JSON commands</span>
 cli-anything-geoai<span class="w"> </span>--json<span class="w"> </span>raster<span class="w"> </span>info<span class="w"> </span>satellite.tif
 cli-anything-geoai<span class="w"> </span>--json<span class="w"> </span>segment<span class="w"> </span>grounded-sam<span class="w"> </span>satellite.tif<span class="w"> </span>-o<span class="w"> </span>buildings_mask.tif<span class="w"> </span>-p<span class="w"> </span><span class="s2">"buildings"</span>
 cli-anything-geoai<span class="w"> </span>--json<span class="w"> </span>raster<span class="w"> </span>vectorize<span class="w"> </span>buildings_mask.tif<span class="w"> </span>-o<span class="w"> </span>buildings.geojson
 cli-anything-geoai<span class="w"> </span>--json<span class="w"> </span>vector<span class="w"> </span>info<span class="w"> </span>buildings.geojson
+</code></pre></div></td></tr></table></div>
+<p>To track files, results, and undo/redo history in a workspace project, run project mutations and <code>project save</code> within the same interactive REPL session (project modifications and undo/redo history are session-local until saved):</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Create a project file, then open an interactive REPL session bound to it</span>
+cli-anything-geoai<span class="w"> </span>project<span class="w"> </span>new<span class="w"> </span>-n<span class="w"> </span><span class="s2">"my_analysis"</span><span class="w"> </span>-o<span class="w"> </span>project.json
+cli-anything-geoai<span class="w"> </span>--project<span class="w"> </span>project.json
+</code></pre></div></td></tr></table></div>
+<p>Inside the REPL session:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code>project add-file image.tif
+project list-files
+project save
+session history
 </code></pre></div></td></tr></table></div>
 <h3 id="command-groups">Command Groups<a class="headerlink" href="#command-groups" title="Permanent link">&para;</a></h3>
 <table>

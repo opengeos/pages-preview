@@ -6798,14 +6798,12 @@
                 <a id="__skip" tabindex="-1"></a>
                 
                   
-
+  
+  
   
     <a href="https://github.com/opengeos/geoai/edit/main/docs/pipeline.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
-      <span aria-hidden="true">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-file-pen" viewBox="0 0 24 24"><path d="M12.659 22H18a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v9.34"/><path d="M14 2v5a1 1 0 0 0 1 1h5M10.378 12.622a1 1 0 0 1 3 3.003L8.36 20.637a2 2 0 0 1-.854.506l-2.867.837a.5.5 0 0 1-.62-.62l.836-2.869a2 2 0 0 1 .506-.853z"/></svg>
-      </span>
-      <span class="md-visually-hidden">Edit this page</span>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-file-pen" viewBox="0 0 24 24"><path d="M12.659 22H18a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v9.34"/><path d="M14 2v5a1 1 0 0 0 1 1h5M10.378 12.622a1 1 0 0 1 3 3.003L8.36 20.637a2 2 0 0 1-.854.506l-2.867.837a.5.5 0 0 1-.62-.62l.836-2.869a2 2 0 0 1 .506-.853z"/></svg>
     </a>
   
   
@@ -6843,7 +6841,10 @@
 <span class="normal">26</span>
 <span class="normal">27</span>
 <span class="normal">28</span>
-<span class="normal">29</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">geoai.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">geoai.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">GlobStep</span><span class="p">,</span>
     <span class="n">Pipeline</span><span class="p">,</span>
     <span class="n">RasterToVectorStep</span><span class="p">,</span>
@@ -6872,8 +6873,20 @@
 
 <span class="n">result</span> <span class="o">=</span> <span class="n">pipe</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">input_dir</span><span class="o">=</span><span class="s2">"./data/images"</span><span class="p">,</span> <span class="n">output_dir</span><span class="o">=</span><span class="s2">"./data/results"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">summary</span><span class="p">)</span>
+
+<span class="c1"># Pipelines made of registered steps can be exported to YAML/JSON and reloaded later</span>
+<span class="n">pipe</span><span class="o">.</span><span class="n">to_yaml</span><span class="p">(</span><span class="s2">"building_segmentation.yaml"</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-<p>For quick ad-hoc transformations, wrap any callable taking and returning an item <code>dict</code> with <code>FunctionStep</code>:</p>
+<p>Reload an exported configuration with <code>load_pipeline()</code>:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">geoai.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_pipeline</span>
+
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">load_pipeline</span><span class="p">(</span><span class="s2">"building_segmentation.yaml"</span><span class="p">,</span> <span class="n">max_workers</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">pipe</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">input_dir</span><span class="o">=</span><span class="s2">"./data/images"</span><span class="p">,</span> <span class="n">output_dir</span><span class="o">=</span><span class="s2">"./data/results"</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<p>For quick ad-hoc Python transformations, wrap any callable taking and returning an item <code>dict</code> with <code>FunctionStep</code> (note that <code>FunctionStep</code> callables cannot round-trip through YAML or JSON configs because <code>FunctionStep</code> is not registered for config deserialization):</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -6891,17 +6904,8 @@
     <span class="k">return</span> <span class="n">item</span>
 
 
-<span class="n">pipe</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="p">[</span><span class="n">FunctionStep</span><span class="p">(</span><span class="s2">"tag"</span><span class="p">,</span> <span class="n">tag_item</span><span class="p">)])</span>
-<span class="n">result</span> <span class="o">=</span> <span class="n">pipe</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="p">[{</span><span class="s2">"input_path"</span><span class="p">:</span> <span class="s2">"scene_01.tif"</span><span class="p">}])</span>
-</code></pre></div></td></tr></table></div>
-<p>You can also export a pipeline to YAML or JSON (<code>pipe.to_yaml("pipeline.yaml")</code>, <code>pipe.to_json("pipeline.json")</code>) and reload it later with <code>load_pipeline()</code>:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">geoai.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_pipeline</span>
-
-<span class="n">pipe</span> <span class="o">=</span> <span class="n">load_pipeline</span><span class="p">(</span><span class="s2">"semantic_segmentation.yaml"</span><span class="p">,</span> <span class="n">max_workers</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-<span class="n">result</span> <span class="o">=</span> <span class="n">pipe</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">input_dir</span><span class="o">=</span><span class="s2">"./data/images"</span><span class="p">,</span> <span class="n">output_dir</span><span class="o">=</span><span class="s2">"./data/results"</span><span class="p">)</span>
+<span class="n">custom_pipe</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="p">[</span><span class="n">FunctionStep</span><span class="p">(</span><span class="s2">"tag"</span><span class="p">,</span> <span class="n">tag_item</span><span class="p">)])</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">custom_pipe</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="p">[{</span><span class="s2">"input_path"</span><span class="p">:</span> <span class="s2">"scene_01.tif"</span><span class="p">}])</span>
 </code></pre></div></td></tr></table></div>
 <h3 id="yaml-and-json-configuration-files">YAML and JSON Configuration Files<a class="headerlink" href="#yaml-and-json-configuration-files" title="Permanent link">&para;</a></h3>
 <p>Pipelines composed of registered step types can be declared in YAML (requires PyYAML, <code>pip install pyyaml</code>) or JSON and executed from Python or the <a href="../cli/">CLI</a>.</p>
@@ -7060,13 +7064,13 @@ geoai<span class="w"> </span>pipeline<span class="w"> </span>run<span class="w">
 <li>Progress is persisted atomically to <code>&lt;checkpoint_dir&gt;/&lt;name&gt;_checkpoint.json</code> every 10 processed items and when the run finishes or aborts.</li>
 <li>Each item is keyed by <code>item["input_path"]</code> by default (customizable via <code>item_key_fn</code>).</li>
 <li>On subsequent runs, items marked <code>completed</code> are skipped automatically and recorded in <code>result.skipped</code>.</li>
-<li>A hash of the pipeline name, step types, and step parameters is stored in the checkpoint. If the pipeline configuration changes, existing checkpoint progress is reset automatically so stale outputs are not reused.</li>
+<li>A hash of the pipeline name, step types, and public step attributes is stored in the checkpoint. If a registered step's public configuration changes, existing checkpoint progress is reset automatically so stale outputs are not reused. Note that private attributes (such as a <code>FunctionStep</code>'s underlying <code>_fn</code> callable) are not included in <code>_config_hash()</code>, so clear the checkpoint file or choose a new checkpoint directory/pipeline name whenever you modify callable behavior.</li>
 </ul>
 <h2 id="error-handling-and-execution">Error Handling and Execution<a class="headerlink" href="#error-handling-and-execution" title="Permanent link">&para;</a></h2>
 <p><code>Pipeline</code> executes items using a thread pool (<code>executor_type="thread"</code>, controlled by <code>max_workers</code>) so GPU models loaded in <code>setup()</code> can be shared safely without cross-process pickling. Two error policies are supported via <code>on_error</code> (or <code>--on-error</code>):</p>
 <ul>
 <li><strong><code>"skip"</code> (<code>ErrorPolicy.SKIP</code>, default)</strong>: Logs the error, records <code>(item, error_message)</code> in <code>result.failed</code>, marks the item as failed in the checkpoint, and continues processing the remaining items.</li>
-<li><strong><code>"fail"</code> (<code>ErrorPolicy.FAIL</code>)</strong>: Saves the checkpoint immediately and raises a <code>RuntimeError</code> on the first failed item.</li>
+<li><strong><code>"fail"</code> (<code>ErrorPolicy.FAIL</code>)</strong>: Saves the checkpoint and raises a <code>RuntimeError</code> on the first failed item. When running with multiple workers (<code>max_workers &gt; 1</code>), pending tasks are cancelled while already-running worker threads finish (and may still write outputs) before the exception propagates.</li>
 </ul>
 <h2 id="example-pipeline-configurations">Example Pipeline Configurations<a class="headerlink" href="#example-pipeline-configurations" title="Permanent link">&para;</a></h2>
 <p>Ready-to-use sample configurations are available in the repository under <a href="https://github.com/opengeos/geoai/tree/main/docs/examples/pipelines"><code>docs/examples/pipelines/</code></a>:</p>

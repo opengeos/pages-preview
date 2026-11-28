@@ -5519,14 +5519,12 @@
                 <a id="__skip" tabindex="-1"></a>
                 
                   
-
+  
+  
   
     <a href="https://github.com/opengeos/geoai/edit/main/docs/installation.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
-      <span aria-hidden="true">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-file-pen" viewBox="0 0 24 24"><path d="M12.659 22H18a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v9.34"/><path d="M14 2v5a1 1 0 0 0 1 1h5M10.378 12.622a1 1 0 0 1 3 3.003L8.36 20.637a2 2 0 0 1-.854.506l-2.867.837a.5.5 0 0 1-.62-.62l.836-2.869a2 2 0 0 1 .506-.853z"/></svg>
-      </span>
-      <span class="md-visually-hidden">Edit this page</span>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-file-pen" viewBox="0 0 24 24"><path d="M12.659 22H18a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v9.34"/><path d="M14 2v5a1 1 0 0 0 1 1h5M10.378 12.622a1 1 0 0 1 3 3.003L8.36 20.637a2 2 0 0 1-.854.506l-2.867.837a.5.5 0 0 1-.62-.62l.836-2.869a2 2 0 0 1 .506-.853z"/></svg>
     </a>
   
   
@@ -5548,7 +5546,7 @@
 <p>To install GeoAI with optional dependencies for additional features:</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">"geoai-py[extra]"</span>
 </code></pre></div></td></tr></table></div>
-<p>You can also install one or more task-specific extras (for example, <code>pip install "geoai-py[agents,onnx]"</code>). See <a href="#optional-dependencies-extras">Optional Dependencies</a> below for the full list.</p>
+<p>You can also install one or more task-specific extras (for example, <code>pip install "geoai-py[agents,onnx]"</code>). See <a href="#optional-dependencies">Optional Dependencies</a> below for the full list.</p>
 <h3 id="using-uv">🐍 Using uv<a class="headerlink" href="#using-uv" title="Permanent link">&para;</a></h3>
 <p>To install the latest stable release of GeoAI with <a href="https://docs.astral.sh/uv">uv</a>, a faster alternative to pip:</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>geoai-py
@@ -5570,6 +5568,7 @@ conda<span class="w"> </span>activate<span class="w"> </span>geo
 conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>mamba
 mamba<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>geoai
 </code></pre></div></td></tr></table></div>
+<p><a id="optional-dependencies"></a></p>
 <h2 id="optional-dependencies-extras">📦 Optional Dependencies (Extras)<a class="headerlink" href="#optional-dependencies-extras" title="Permanent link">&para;</a></h2>
 <p>GeoAI defines 10 optional dependency groups in <code>pyproject.toml</code> so you only install heavy or specialized packages when you need them:</p>
 <table>

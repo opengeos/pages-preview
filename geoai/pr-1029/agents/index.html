@@ -6286,14 +6286,12 @@
                 <a id="__skip" tabindex="-1"></a>
                 
                   
-
+  
+  
   
     <a href="https://github.com/opengeos/geoai/edit/main/docs/agents.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
-      <span aria-hidden="true">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-file-pen" viewBox="0 0 24 24"><path d="M12.659 22H18a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v9.34"/><path d="M14 2v5a1 1 0 0 0 1 1h5M10.378 12.622a1 1 0 0 1 3 3.003L8.36 20.637a2 2 0 0 1-.854.506l-2.867.837a.5.5 0 0 1-.62-.62l.836-2.869a2 2 0 0 1 .506-.853z"/></svg>
-      </span>
-      <span class="md-visually-hidden">Edit this page</span>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-file-pen" viewBox="0 0 24 24"><path d="M12.659 22H18a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v9.34"/><path d="M14 2v5a1 1 0 0 0 1 1h5M10.378 12.622a1 1 0 0 1 3 3.003L8.36 20.637a2 2 0 0 1-.854.506l-2.867.837a.5.5 0 0 1-.62-.62l.836-2.869a2 2 0 0 1 .506-.853z"/></svg>
     </a>
   
   
@@ -6315,7 +6313,7 @@
 <p>See the <a href="../geo_agents/">geo_agents module</a> and <a href="../map_tools/">map_tools module</a> pages for full details on agent classes, UI callbacks, and interactive map controls.</p>
 <h3 id="tool-suites">Tool Suites<a class="headerlink" href="#tool-suites" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong><code>DataTools</code></strong> (<code>geoai.agents.data_tools</code>): Agent-callable tools for <code>inspect_raster</code>, <code>inspect_vector</code>, <code>clip_raster</code>, <code>raster_to_vector</code>, and <code>list_files</code>. Supports directory sandboxing via <code>workspace_dir</code> and <code>allowed_roots</code>: relative paths resolve inside <code>workspace_dir</code>, symlinks are normalized with <code>os.path.realpath</code>, and any read, listing, or write outside approved roots is denied with a <code>ValueError</code>.</li>
+<li><strong><code>DataTools</code></strong> (<code>geoai.agents.data_tools</code>): Agent-callable tools for <code>inspect_raster</code>, <code>inspect_vector</code>, <code>clip_raster</code>, <code>raster_to_vector</code>, and <code>list_files</code>. Supports directory sandboxing via <code>workspace_dir</code> and <code>allowed_roots</code>: relative paths resolve inside <code>workspace_dir</code>, symlinks are normalized with <code>os.path.realpath</code>, and any read, listing, or write made through <code>DataTools</code> outside approved roots is denied with a <code>ValueError</code>. Note that this restriction applies only to <code>DataTools</code> calls and does not sandbox other tool suites such as <code>MapTools</code>.</li>
 <li><strong><code>STACTools</code></strong> (<code>geoai.agents.stac_tools</code>): Search STAC collections and items, resolve locations, and return structured <code>STACSearchResult</code> metadata (<code>geoai.agents.stac_models</code>).</li>
 <li><strong><code>CatalogTools</code></strong> (<code>geoai.agents.catalog_tools</code>): Query geospatial dataset catalogs and return structured <code>CatalogSearchResult</code> metadata (<code>geoai.agents.catalog_models</code>).</li>
 <li><strong><code>MapTools</code></strong> (<code>geoai.agents.map_tools</code>): Control Leafmap/MapLibre interactive maps (basemaps, layers, zoom, pan, and bounds).</li>
@@ -6331,10 +6329,16 @@
 <span class="normal"> 8</span>
 <span class="normal"> 9</span>
 <span class="normal">10</span>
-<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">geoai.agents</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataTools</span><span class="p">,</span> <span class="n">GeoAgent</span><span class="p">,</span> <span class="n">STACAgent</span><span class="p">,</span> <span class="n">create_ollama_model</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">geoai.agents</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataTools</span><span class="p">,</span> <span class="n">GeoAgent</span><span class="p">,</span> <span class="n">STACAgent</span><span class="p">,</span> <span class="n">create_ollama_model</span>
 
-<span class="c1"># Sandbox DataTools to a workspace directory so agents cannot access files outside it</span>
+<span class="c1"># Restrict DataTools file operations (inspect, clip, vectorize, list) to a workspace directory.</span>
+<span class="c1"># Note: this sandboxes calls through `data_tools` only; `GeoAgent` registers its own `MapTools`</span>
+<span class="c1"># separately without DataTools path restrictions.</span>
 <span class="n">data_tools</span> <span class="o">=</span> <span class="n">DataTools</span><span class="p">(</span><span class="n">workspace_dir</span><span class="o">=</span><span class="s2">"./geospatial_workspace"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data_tools</span><span class="o">.</span><span class="n">list_files</span><span class="p">(</span><span class="s2">"."</span><span class="p">))</span>
 
 <span class="c1"># Create an agent backed by a local Ollama model (or OpenAI, Anthropic, Gemini, Bedrock)</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">create_ollama_model</span><span class="p">(</span><span class="n">model_id</span><span class="o">=</span><span class="s2">"llama3.1"</span><span class="p">)</span>
