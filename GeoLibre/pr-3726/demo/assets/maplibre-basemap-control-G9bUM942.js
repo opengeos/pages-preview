@@ -1,0 +1,1 @@
+import{d as a}from"./builtin-plugin-metadata-BDWSFAAy.js";import{a as s,i as o,n as t,r as e,t as r}from"./maplibre-basemap-control-7vJdvtF9.js";export{a as BASEMAP_CONTROL_PLUGIN_ID,r as PANEL_CREDENTIAL_FIELDS,t as getActiveBasemapControl,e as maplibreBasemapControlPlugin,o as setBasemapControlLabels,s as withoutMainlandChinaBasemaps};
